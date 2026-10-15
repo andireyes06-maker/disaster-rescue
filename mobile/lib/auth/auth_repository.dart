@@ -27,7 +27,13 @@ class AuthUser {
   final String? role;
   final String? team;
   final bool active;
-  const AuthUser({required this.uid, this.email, this.role, this.team, required this.active});
+  const AuthUser({
+    required this.uid,
+    this.email,
+    this.role,
+    this.team,
+    required this.active,
+  });
 }
 
 abstract class AuthRepository {
@@ -46,13 +52,17 @@ abstract class AuthRepository {
 }
 
 class FirebaseAuthRepository implements AuthRepository {
-  FirebaseAuthRepository(this._backend, this._api) {
+  FirebaseAuthRepository(this._backend, this._api, {this.beforeSignOut}) {
     _sub = _backend.authStateChanges().listen(_onBackendUser);
   }
 
   final AuthBackend _backend;
   final ApiClient Function() _api;
-  final StreamController<AuthUser?> _out = StreamController<AuthUser?>.broadcast();
+
+  /// Runs while the user is still signed in, so the API call can authenticate.
+  final Future<void> Function()? beforeSignOut;
+  final StreamController<AuthUser?> _out =
+      StreamController<AuthUser?>.broadcast();
   StreamSubscription<BackendUser?>? _sub;
   bool _registering = false;
   int _seq = 0;
@@ -124,13 +134,15 @@ class FirebaseAuthRepository implements AuthRepository {
         c = await user.claims(refresh: true);
         if (_stale(seq, user)) return;
       }
-      _publish(AuthUser(
-        uid: user.uid,
-        email: user.email,
-        role: c['role'] as String?,
-        team: c['team'] as String?,
-        active: c['active'] == true,
-      ));
+      _publish(
+        AuthUser(
+          uid: user.uid,
+          email: user.email,
+          role: c['role'] as String?,
+          team: c['team'] as String?,
+          active: c['active'] == true,
+        ),
+      );
     } catch (e) {
       if (_stale(seq, user)) return;
       _publishError(e);
@@ -154,10 +166,14 @@ class FirebaseAuthRepository implements AuthRepository {
     try {
       created = await _backend.createUser(email, password);
       try {
-        await _api().send('POST', '/users/self', body: {
-          'name': name.trim(),
-          if (phone != null && phone.trim().isNotEmpty) 'phone': phone.trim(),
-        });
+        await _api().send(
+          'POST',
+          '/users/self',
+          body: {
+            'name': name.trim(),
+            if (phone != null && phone.trim().isNotEmpty) 'phone': phone.trim(),
+          },
+        );
       } on ApiException catch (e) {
         if (e.status == 0) {
           // Unknown outcome: the server may have created the profile.
@@ -203,9 +219,12 @@ class FirebaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> logout() {
+  Future<void> logout() async {
     _seq++;
-    return _backend.signOut();
+    try {
+      await beforeSignOut?.call();
+    } catch (_) {}
+    await _backend.signOut();
   }
 
   Future<void> dispose() async {

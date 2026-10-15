@@ -2,9 +2,13 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:disaster_rescue/auth/auth_controller.dart';
+import 'package:disaster_rescue/data/api_client.dart';
 import 'package:disaster_rescue/data/report_models.dart';
 import 'package:disaster_rescue/data/services.dart';
+import 'package:disaster_rescue/features/notifications/push_registration.dart';
 import 'package:disaster_rescue/features/report/report_draft_store.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:disaster_rescue/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,13 +20,18 @@ class FakeReportsRepository implements ReportsRepository {
   final List<NewReport> created = [];
   final List<String> cancelled = [];
   Object? cancelError;
-  final StreamController<List<ReportSummary>> controller = StreamController.broadcast();
+  final StreamController<List<ReportSummary>> controller =
+      StreamController.broadcast();
 
   @override
   Future<SubmitResult> create(NewReport report) async {
     if (createError != null) throw createError!;
     created.add(report);
-    return const SubmitResult(id: 'r1', status: 'Submitted', reference: 'DR-AB12CD');
+    return const SubmitResult(
+      id: 'r1',
+      status: 'Submitted',
+      reference: 'DR-AB12CD',
+    );
   }
 
   @override
@@ -36,7 +45,11 @@ class FakeReportsRepository implements ReportsRepository {
 }
 
 class FakeLocationService implements LocationService {
-  LocationResult result = const LocationResult(LocationStatus.ok, lat: 14.5995, lng: 120.9842);
+  LocationResult result = const LocationResult(
+    LocationStatus.ok,
+    lat: 14.5995,
+    lng: 120.9842,
+  );
   @override
   Future<LocationResult> current() async => result;
 }
@@ -61,7 +74,10 @@ class FakeDialer implements PhoneDialer {
 }
 
 class FakeHotlines implements HotlineRepository {
-  List<Hotline> list = const [Hotline('National emergency', '911'), Hotline('Local office', '+63 2 8123 4567')];
+  List<Hotline> list = const [
+    Hotline('National emergency', '911'),
+    Hotline('Local office', '+63 2 8123 4567'),
+  ];
   @override
   Future<List<Hotline>> load() async => list;
 }
@@ -85,10 +101,95 @@ class MemoryDraftStore implements DraftStore {
 Uint8List jpegBytes([int extra = 20]) =>
     Uint8List.fromList([0xFF, 0xD8, 0xFF, 0xE0, ...List.filled(extra, 1)]);
 
-Uint8List pngBytes() =>
-    Uint8List.fromList([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0, 0, 0]);
+Uint8List pngBytes() => Uint8List.fromList([
+  0x89,
+  0x50,
+  0x4E,
+  0x47,
+  0x0D,
+  0x0A,
+  0x1A,
+  0x0A,
+  0,
+  0,
+  0,
+]);
 
-PickedPhoto photo(String name) => PickedPhoto(name: name, bytes: jpegBytes(), mime: 'image/jpeg');
+PickedPhoto photo(String name) =>
+    PickedPhoto(name: name, bytes: jpegBytes(), mime: 'image/jpeg');
+
+class FakeResponderRepository implements ResponderRepository {
+  final StreamController<List<AssignedReport>> assigned =
+      StreamController.broadcast();
+  final List<String> acknowledged = [];
+  final List<(String, OperationUpdate)> updates = [];
+  Object? updateError;
+
+  @override
+  Stream<List<AssignedReport>> watchAssigned(String teamId) => assigned.stream;
+
+  @override
+  Future<void> acknowledge(String id) async => acknowledged.add(id);
+
+  @override
+  Future<void> postUpdate(String id, OperationUpdate update) async {
+    if (updateError != null) throw updateError!;
+    updates.add((id, update));
+  }
+}
+
+class FakeNotificationsRepository implements NotificationsRepository {
+  final StreamController<List<AppNotification>> controller =
+      StreamController.broadcast();
+  final List<String> marked = [];
+
+  @override
+  Stream<List<AppNotification>> watch(String uid) => controller.stream;
+
+  @override
+  Future<void> markRead(String id) async => marked.add(id);
+}
+
+class FakePushMessaging implements PushMessaging {
+  String? token = 'tok-1';
+  bool grant = true;
+  int permissionRequests = 0;
+  final StreamController<String> refresh = StreamController.broadcast();
+
+  @override
+  Future<bool> requestPermission() async {
+    permissionRequests++;
+    return grant;
+  }
+
+  @override
+  Future<String?> getToken() async => token;
+
+  @override
+  Stream<String> get onTokenRefresh => refresh.stream;
+}
+
+/// Records calls instead of sending them. The client is never used for real I/O.
+class FakeApi extends ApiClient {
+  FakeApi()
+    : super(
+        baseUrl: 'http://fake.invalid/api',
+        tokenProvider: () async => 'tok',
+        client: MockClient((_) async => http.Response('', 204)),
+      );
+
+  final List<(String, String, Map<String, dynamic>?)> calls = [];
+
+  @override
+  Future<Map<String, dynamic>?> send(
+    String method,
+    String path, {
+    Map<String, dynamic>? body,
+  }) async {
+    calls.add((method, path, body));
+    return null;
+  }
+}
 
 class Env {
   final reports = FakeReportsRepository();
@@ -98,32 +199,43 @@ class Env {
   final hotlines = FakeHotlines();
   final profiles = FakeProfiles();
   final drafts = MemoryDraftStore();
+  final responder = FakeResponderRepository();
+  final notifications = FakeNotificationsRepository();
+  final messaging = FakePushMessaging();
+  late final PushRegistration push = PushRegistration(FakeApi(), messaging);
   late final FakeAuthRepository authRepo = FakeAuthRepository();
   late final AuthController auth = AuthController(authRepo);
 
   Widget host(Widget child, {double textScale = 1.0}) => MultiProvider(
-        providers: [
-          Provider<ReportsRepository>.value(value: reports),
-          Provider<LocationService>.value(value: location),
-          Provider<PhotoService>.value(value: photos),
-          Provider<PhoneDialer>.value(value: dialer),
-          Provider<HotlineRepository>.value(value: hotlines),
-          Provider<ProfileRepository>.value(value: profiles),
-          Provider<DraftStore>.value(value: drafts),
-          ChangeNotifierProvider<AuthController>.value(value: auth),
-        ],
-        child: MaterialApp(
-          theme: AppTheme.light,
-          builder: (context, c) => MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(textScale)),
-            child: c!,
-          ),
-          home: child,
-        ),
-      );
+    providers: [
+      Provider<ReportsRepository>.value(value: reports),
+      Provider<LocationService>.value(value: location),
+      Provider<PhotoService>.value(value: photos),
+      Provider<PhoneDialer>.value(value: dialer),
+      Provider<HotlineRepository>.value(value: hotlines),
+      Provider<ProfileRepository>.value(value: profiles),
+      Provider<DraftStore>.value(value: drafts),
+      Provider<ResponderRepository>.value(value: responder),
+      Provider<NotificationsRepository>.value(value: notifications),
+      Provider<PushRegistration>.value(value: push),
+      ChangeNotifierProvider<AuthController>.value(value: auth),
+    ],
+    child: MaterialApp(
+      theme: AppTheme.light,
+      builder: (context, c) => MediaQuery(
+        data: MediaQuery.of(
+          context,
+        ).copyWith(textScaler: TextScaler.linear(textScale)),
+        child: c!,
+      ),
+      home: child,
+    ),
+  );
 
   void dispose() {
     auth.dispose();
     reports.controller.close();
+    responder.assigned.close();
+    notifications.controller.close();
   }
 }

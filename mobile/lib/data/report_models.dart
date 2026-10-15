@@ -16,7 +16,13 @@ const workflowStatuses = [
 const terminalSideStatuses = ['Rejected', 'Duplicate', 'Cancelled'];
 
 /// Statuses shown under the History tab. Everything else is Active.
-const historyStatuses = ['Resolved', 'Closed', 'Rejected', 'Duplicate', 'Cancelled'];
+const historyStatuses = [
+  'Resolved',
+  'Closed',
+  'Rejected',
+  'Duplicate',
+  'Cancelled',
+];
 
 bool isHistoryStatus(String status) => historyStatuses.contains(status);
 
@@ -33,7 +39,11 @@ class PickedPhoto {
   final String name;
   final Uint8List bytes;
   final String mime;
-  const PickedPhoto({required this.name, required this.bytes, required this.mime});
+  const PickedPhoto({
+    required this.name,
+    required this.bytes,
+    required this.mime,
+  });
 }
 
 class Profile {
@@ -63,26 +73,26 @@ class ReportDraft {
   });
 
   Map<String, dynamic> toJson() => {
-        'type': type,
-        'description': description,
-        'lat': lat,
-        'lng': lng,
-        'source': source,
-        'addressText': addressText,
-        'contactName': contactName,
-        'contactPhone': contactPhone,
-      };
+    'type': type,
+    'description': description,
+    'lat': lat,
+    'lng': lng,
+    'source': source,
+    'addressText': addressText,
+    'contactName': contactName,
+    'contactPhone': contactPhone,
+  };
 
   factory ReportDraft.fromJson(Map<String, dynamic> j) => ReportDraft(
-        type: j['type'] as String?,
-        description: (j['description'] as String?) ?? '',
-        lat: (j['lat'] as num?)?.toDouble(),
-        lng: (j['lng'] as num?)?.toDouble(),
-        source: j['source'] as String?,
-        addressText: (j['addressText'] as String?) ?? '',
-        contactName: (j['contactName'] as String?) ?? '',
-        contactPhone: (j['contactPhone'] as String?) ?? '',
-      );
+    type: j['type'] as String?,
+    description: (j['description'] as String?) ?? '',
+    lat: (j['lat'] as num?)?.toDouble(),
+    lng: (j['lng'] as num?)?.toDouble(),
+    source: j['source'] as String?,
+    addressText: (j['addressText'] as String?) ?? '',
+    contactName: (j['contactName'] as String?) ?? '',
+    contactPhone: (j['contactPhone'] as String?) ?? '',
+  );
 }
 
 class NewReport {
@@ -112,7 +122,11 @@ class SubmitResult {
   final String id;
   final String status;
   final String reference;
-  const SubmitResult({required this.id, required this.status, required this.reference});
+  const SubmitResult({
+    required this.id,
+    required this.status,
+    required this.reference,
+  });
 }
 
 class ReportSummary {
@@ -160,7 +174,9 @@ String? validatePhone(String? v) {
 
 String? validateDescription(String? v) {
   final t = (v ?? '').trim();
-  if (t.length < 3) return 'Describe what is happening (at least 3 characters).';
+  if (t.length < 3) {
+    return 'Describe what is happening (at least 3 characters).';
+  }
   if (t.length > 1000) return 'Please keep it under 1000 characters.';
   return null;
 }
@@ -171,12 +187,94 @@ String? validatePhoto(PickedPhoto p) {
   if (p.bytes.length > maxPhotoBytes) return '${p.name} is larger than 5 MB.';
   final b = p.bytes;
   final jpeg = b.length >= 3 && b[0] == 0xFF && b[1] == 0xD8 && b[2] == 0xFF;
-  final png = b.length >= 8 &&
-      b[0] == 0x89 && b[1] == 0x50 && b[2] == 0x4E && b[3] == 0x47 &&
-      b[4] == 0x0D && b[5] == 0x0A && b[6] == 0x1A && b[7] == 0x0A;
-  final webp = b.length >= 12 &&
-      b[0] == 0x52 && b[1] == 0x49 && b[2] == 0x46 && b[3] == 0x46 &&
-      b[8] == 0x57 && b[9] == 0x45 && b[10] == 0x42 && b[11] == 0x50;
-  if (!(jpeg || png || webp)) return '${p.name} is not a JPEG, PNG or WebP image.';
+  final png =
+      b.length >= 8 &&
+      b[0] == 0x89 &&
+      b[1] == 0x50 &&
+      b[2] == 0x4E &&
+      b[3] == 0x47 &&
+      b[4] == 0x0D &&
+      b[5] == 0x0A &&
+      b[6] == 0x1A &&
+      b[7] == 0x0A;
+  final webp =
+      b.length >= 12 &&
+      b[0] == 0x52 &&
+      b[1] == 0x49 &&
+      b[2] == 0x46 &&
+      b[3] == 0x46 &&
+      b[8] == 0x57 &&
+      b[9] == 0x45 &&
+      b[10] == 0x42 &&
+      b[11] == 0x50;
+  if (!(jpeg || png || webp)) {
+    return ' is not a JPEG, PNG or WebP image.';
+  }
   return null;
+}
+
+// ---------- Responder ----------
+
+class AssignedReport {
+  final String id;
+  final String type;
+  final String description;
+  final String status;
+  final String? reference;
+  final String? addressText;
+  final double? lat;
+  final double? lng;
+  final DateTime? createdAt;
+  const AssignedReport({
+    required this.id,
+    required this.type,
+    required this.description,
+    required this.status,
+    this.reference,
+    this.addressText,
+    this.lat,
+    this.lng,
+    this.createdAt,
+  });
+}
+
+class OperationUpdate {
+  final String status;
+  final int peopleRescued;
+  final String note;
+  const OperationUpdate({
+    required this.status,
+    required this.peopleRescued,
+    required this.note,
+  });
+}
+
+const peopleRescuedError = 'Enter a whole number from 0 to 10000.';
+
+/// Client-side convenience only. The API checks the same rule and stays the authority.
+String? validatePeopleRescued(String? v) {
+  final t = (v ?? '').trim();
+  if (!RegExp(r'^\d+$').hasMatch(t)) return peopleRescuedError;
+  final n = int.parse(t);
+  if (n > 10000) return peopleRescuedError;
+  return null;
+}
+
+// ---------- Notifications ----------
+
+class AppNotification {
+  final String id;
+  final String title;
+  final String body;
+  final String? reportId;
+  final bool read;
+  final DateTime? createdAt;
+  const AppNotification({
+    required this.id,
+    required this.title,
+    required this.body,
+    this.reportId,
+    required this.read,
+    this.createdAt,
+  });
 }

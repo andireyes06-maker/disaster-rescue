@@ -42,12 +42,17 @@ class ApiReportsRepository implements ReportsRepository {
         'contactPhone': r.contactPhone,
       },
       files: [
-        for (final p in r.photos) http.MultipartFile.fromBytes('photos', p.bytes, filename: p.name),
+        for (final p in r.photos)
+          http.MultipartFile.fromBytes('photos', p.bytes, filename: p.name),
       ],
     );
     final id = res?['id'];
     if (id is! String) {
-      throw const ApiException(0, 'bad_response', 'The server sent an unexpected reply.');
+      throw const ApiException(
+        0,
+        'bad_response',
+        'The server sent an unexpected reply.',
+      );
     }
     return SubmitResult(
       id: id,
@@ -62,7 +67,9 @@ class ApiReportsRepository implements ReportsRepository {
         .collection('reports')
         .where('reporterId', isEqualTo: uid)
         .snapshots()
-        .map((snap) => sortNewestFirst(snap.docs.map((d) {
+        .map(
+          (snap) => sortNewestFirst(
+            snap.docs.map((d) {
               final m = d.data();
               final created = m['createdAt'];
               return ReportSummary(
@@ -74,7 +81,9 @@ class ApiReportsRepository implements ReportsRepository {
                 createdAt: created is Timestamp ? created.toDate() : null,
                 reference: m['reference'] as String?,
               );
-            })))
+            }),
+          ),
+        )
         .asBroadcastStream();
   }
 
@@ -110,7 +119,9 @@ class GeolocatorLocationService implements LocationService {
       if (perm == LocationPermission.denied) {
         perm = await Geolocator.requestPermission();
       }
-      if (perm == LocationPermission.denied) return const LocationResult(LocationStatus.denied);
+      if (perm == LocationPermission.denied) {
+        return const LocationResult(LocationStatus.denied);
+      }
       if (perm == LocationPermission.deniedForever) {
         return const LocationResult(LocationStatus.deniedForever);
       }
@@ -120,7 +131,11 @@ class GeolocatorLocationService implements LocationService {
           timeLimit: Duration(seconds: 20),
         ),
       );
-      return LocationResult(LocationStatus.ok, lat: pos.latitude, lng: pos.longitude);
+      return LocationResult(
+        LocationStatus.ok,
+        lat: pos.latitude,
+        lng: pos.longitude,
+      );
     } catch (_) {
       return const LocationResult(LocationStatus.error);
     }
@@ -151,7 +166,13 @@ class ImagePickerPhotoService implements PhotoService {
     final files = await _picker.pickMultiImage(limit: limit < 2 ? null : limit);
     final out = <PickedPhoto>[];
     for (final f in files.take(limit)) {
-      out.add(PickedPhoto(name: f.name, bytes: await f.readAsBytes(), mime: _mimeFor(f.name, f.mimeType)));
+      out.add(
+        PickedPhoto(
+          name: f.name,
+          bytes: await f.readAsBytes(),
+          mime: _mimeFor(f.name, f.mimeType),
+        ),
+      );
     }
     return out;
   }
@@ -167,7 +188,9 @@ class UrlLauncherDialer implements PhoneDialer {
   @override
   Future<bool> dial(String number) async {
     try {
-      return await launchUrl(Uri(scheme: 'tel', path: number.replaceAll(RegExp(r'\s'), '')));
+      return await launchUrl(
+        Uri(scheme: 'tel', path: number.replaceAll(RegExp(r'\s'), '')),
+      );
     } catch (_) {
       return false;
     }
@@ -190,7 +213,10 @@ class FirestoreHotlineRepository implements HotlineRepository {
   @override
   Future<List<Hotline>> load() async {
     try {
-      final snap = await _db.doc('config/hotlines').get().timeout(const Duration(seconds: 6));
+      final snap = await _db
+          .doc('config/hotlines')
+          .get()
+          .timeout(const Duration(seconds: 6));
       final list = _parse(snap.data()?['numbers']);
       if (list.isNotEmpty) {
         await _save(list);
@@ -204,8 +230,15 @@ class FirestoreHotlineRepository implements HotlineRepository {
     if (raw is! List) return const [];
     final out = <Hotline>[];
     for (final e in raw) {
-      if (e is Map && e['number'] is String && (e['number'] as String).trim().isNotEmpty) {
-        out.add(Hotline((e['label'] as String?) ?? (e['number'] as String), (e['number'] as String).trim()));
+      if (e is Map &&
+          e['number'] is String &&
+          (e['number'] as String).trim().isNotEmpty) {
+        out.add(
+          Hotline(
+            (e['label'] as String?) ?? (e['number'] as String),
+            (e['number'] as String).trim(),
+          ),
+        );
       }
     }
     return out;
@@ -215,7 +248,11 @@ class FirestoreHotlineRepository implements HotlineRepository {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(
-          _cacheKey, jsonEncode([for (final h in list) {'label': h.label, 'number': h.number}]));
+        _cacheKey,
+        jsonEncode([
+          for (final h in list) {'label': h.label, 'number': h.number},
+        ]),
+      );
     } catch (_) {}
   }
 
@@ -228,6 +265,117 @@ class FirestoreHotlineRepository implements HotlineRepository {
     } catch (_) {
       return const [];
     }
+  }
+}
+
+// ---------- Responder ----------
+
+abstract class ResponderRepository {
+  /// Live list of reports assigned to [teamId]. The query has one equality
+  /// filter; anything else is filtered in memory by the caller.
+  Stream<List<AssignedReport>> watchAssigned(String teamId);
+  Future<void> acknowledge(String id);
+  Future<void> postUpdate(String id, OperationUpdate update);
+}
+
+class ApiResponderRepository implements ResponderRepository {
+  ApiResponderRepository(this._api, this._db);
+  final ApiClient _api;
+  final FirebaseFirestore _db;
+
+  @override
+  Stream<List<AssignedReport>> watchAssigned(String teamId) {
+    return _db
+        .collection('reports')
+        .where('assignedTeamId', isEqualTo: teamId)
+        .snapshots()
+        .map(
+          (snap) => snap.docs.map((d) {
+            final m = d.data();
+            final created = m['createdAt'];
+            final loc = m['location'];
+            final lat = loc is Map ? (loc['lat'] as num?)?.toDouble() : null;
+            final lng = loc is Map ? (loc['lng'] as num?)?.toDouble() : null;
+            return AssignedReport(
+              id: d.id,
+              type: (m['type'] as String?) ?? 'other',
+              description: (m['description'] as String?) ?? '',
+              status: (m['status'] as String?) ?? 'Team Assigned',
+              reference: m['reference'] as String?,
+              addressText: m['addressText'] as String?,
+              lat: lat,
+              lng: lng,
+              createdAt: created is Timestamp ? created.toDate() : null,
+            );
+          }).toList(),
+        );
+  }
+
+  @override
+  Future<void> acknowledge(String id) async {
+    await _api.send('POST', '/reports/$id/acknowledge');
+  }
+
+  @override
+  Future<void> postUpdate(String id, OperationUpdate update) async {
+    await _api.send(
+      'POST',
+      '/reports/$id/updates',
+      body: {
+        'status': update.status,
+        'peopleRescued': update.peopleRescued,
+        'note': update.note,
+      },
+    );
+  }
+}
+
+// ---------- Notifications ----------
+
+abstract class NotificationsRepository {
+  /// Live list of notifications addressed to [uid], newest first.
+  Stream<List<AppNotification>> watch(String uid);
+  Future<void> markRead(String id);
+}
+
+class ApiNotificationsRepository implements NotificationsRepository {
+  ApiNotificationsRepository(this._api, this._db);
+  final ApiClient _api;
+  final FirebaseFirestore _db;
+
+  @override
+  Stream<List<AppNotification>> watch(String uid) {
+    return _db
+        .collection('notifications')
+        .where('recipientUid', isEqualTo: uid)
+        .snapshots()
+        .map((snap) {
+          final list = snap.docs.map((d) {
+            final m = d.data();
+            final created = m['createdAt'];
+            return AppNotification(
+              id: d.id,
+              title: (m['title'] as String?) ?? 'Notification',
+              body: (m['body'] as String?) ?? '',
+              reportId: m['reportId'] as String?,
+              read: m['read'] == true,
+              createdAt: created is Timestamp ? created.toDate() : null,
+            );
+          }).toList();
+          list.sort((a, b) {
+            final x = a.createdAt, y = b.createdAt;
+            if (x == null && y == null) return 0;
+            if (x == null) return 1;
+            if (y == null) return -1;
+            return y.compareTo(x);
+          });
+          return list;
+        });
+  }
+
+  @override
+  Future<void> markRead(String id) async {
+    await _api.send('PATCH', '/notifications/$id/read');
   }
 }
 
@@ -244,7 +392,10 @@ class FirestoreProfileRepository implements ProfileRepository {
   @override
   Future<Profile?> load(String uid) async {
     try {
-      final snap = await _db.doc('users/$uid').get().timeout(const Duration(seconds: 6));
+      final snap = await _db
+          .doc('users/$uid')
+          .get()
+          .timeout(const Duration(seconds: 6));
       final m = snap.data();
       if (m == null) return null;
       return Profile(name: m['name'] as String?, phone: m['phone'] as String?);

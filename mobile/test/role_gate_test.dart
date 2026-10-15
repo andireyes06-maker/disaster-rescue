@@ -2,6 +2,7 @@ import 'package:disaster_rescue/auth/auth_controller.dart';
 import 'package:disaster_rescue/auth/auth_repository.dart';
 import 'package:disaster_rescue/auth/role_gate.dart';
 import 'package:disaster_rescue/features/auth/login_page.dart';
+import 'package:disaster_rescue/features/responder/assigned_list_page.dart';
 import 'package:disaster_rescue/features/auth/register_page.dart';
 import 'package:disaster_rescue/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,14 @@ import 'report_fakes.dart';
 const disclaimer =
     'Submitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.';
 
-Widget host(AuthController c, Widget child) => ChangeNotifierProvider<AuthController>.value(
+Widget host(AuthController c, Widget child) =>
+    ChangeNotifierProvider<AuthController>.value(
       value: c,
       child: MaterialApp(theme: AppTheme.light, home: child),
     );
 
-AuthUser withRole(String role) => AuthUser(uid: 'u', email: 'e@e.e', role: role, team: null, active: true);
+AuthUser withRole(String role) =>
+    AuthUser(uid: 'u', email: 'e@e.e', role: role, team: null, active: true);
 
 void main() {
   late FakeAuthRepository repo;
@@ -43,7 +46,9 @@ void main() {
     expect(find.byType(LoginPage), findsOneWidget);
   });
 
-  testWidgets('resident gets the report, my reports, profile navigation', (t) async {
+  testWidgets('resident gets the report, my reports, profile navigation', (
+    t,
+  ) async {
     final env = Env();
     addTearDown(env.dispose);
     await t.pumpWidget(env.host(const RoleGate()));
@@ -54,18 +59,37 @@ void main() {
     expect(find.byType(ResidentHome), findsOneWidget);
     expect(find.text('Step 1 of 4'), findsOneWidget);
     for (final label in ['Report', 'My Reports', 'Profile']) {
-      expect(find.descendant(of: find.byType(NavigationBar), matching: find.text(label)), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(NavigationBar),
+          matching: find.text(label),
+        ),
+        findsOneWidget,
+      );
     }
     expect(find.byType(NavigationDestination), findsNWidgets(3));
   });
 
-  testWidgets('responder gets its home', (t) async {
-    await t.pumpWidget(host(c, const RoleGate()));
-    repo.events.add(withRole('responder'));
+  testWidgets('responder lands on the assigned list', (t) async {
+    final env = Env();
+    addTearDown(env.dispose);
+    await t.pumpWidget(env.host(const RoleGate()));
+    env.authRepo.events.add(
+      const AuthUser(
+        uid: 'u',
+        email: 'e@e.e',
+        role: 'responder',
+        team: 'team-1',
+        active: true,
+      ),
+    );
     await t.pump();
-    await t.pump();
+    env.responder.assigned.add(const []);
+    env.notifications.controller.add(const []);
+    await t.pumpAndSettle();
     expect(find.byType(ResponderHome), findsOneWidget);
-    expect(find.text('Nothing to show yet'), findsOneWidget);
+    expect(find.byType(AssignedListPage), findsOneWidget);
+    expect(find.text('No assigned reports right now.'), findsOneWidget);
   });
 
   for (final role in ['dispatcher', 'dmo']) {
@@ -86,7 +110,10 @@ void main() {
     expect(find.text(disclaimer), findsOneWidget);
     repo.loginError = const AuthException(AuthFailure.invalidCredentials);
     await t.enterText(find.widgetWithText(TextFormField, 'Email'), 'a@b.c');
-    await t.enterText(find.widgetWithText(TextFormField, 'Password'), 'wrongpass');
+    await t.enterText(
+      find.widgetWithText(TextFormField, 'Password'),
+      'wrongpass',
+    );
     await t.tap(find.widgetWithText(FilledButton, 'Log in'));
     await t.pump();
     await t.pump();
@@ -106,13 +133,20 @@ void main() {
     await t.pumpWidget(host(c, const RegisterPage()));
     expect(find.text(disclaimer), findsOneWidget);
     expect(
-        find.text(
-            'We use your name, phone number and location only to coordinate rescue. See the privacy notice.'),
-        findsOneWidget);
-    FilledButton button() => t.widget<FilledButton>(find.widgetWithText(FilledButton, 'Create account'));
+      find.text(
+        'We use your name, phone number and location only to coordinate rescue. See the privacy notice.',
+      ),
+      findsOneWidget,
+    );
+    FilledButton button() => t.widget<FilledButton>(
+      find.widgetWithText(FilledButton, 'Create account'),
+    );
     await t.enterText(find.widgetWithText(TextFormField, 'Full name'), 'Ana');
     await t.enterText(find.widgetWithText(TextFormField, 'Email'), 'a@b.c');
-    await t.enterText(find.widgetWithText(TextFormField, 'Password'), 'longenough1');
+    await t.enterText(
+      find.widgetWithText(TextFormField, 'Password'),
+      'longenough1',
+    );
     await t.pump();
     expect(button().onPressed, isNull);
     await t.ensureVisible(find.byType(Checkbox));

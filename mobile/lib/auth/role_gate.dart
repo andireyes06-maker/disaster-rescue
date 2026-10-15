@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../features/auth/login_page.dart';
 import '../features/home/resident_home.dart';
+import '../features/notifications/notifications_page.dart';
+import '../features/notifications/push_registration.dart';
+import '../features/responder/assigned_list_page.dart';
 
 export '../features/home/resident_home.dart';
 import 'auth_controller.dart';
@@ -29,27 +32,56 @@ class RoleGate extends StatelessWidget {
   }
 }
 
-class _Placeholder extends StatelessWidget {
-  const _Placeholder(this.title);
-  final String title;
+class ResponderHome extends StatefulWidget {
+  const ResponderHome({super.key});
+
+  @override
+  State<ResponderHome> createState() => _ResponderHomeState();
+}
+
+class _ResponderHomeState extends State<ResponderHome> {
+  int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Push is best effort: a failed registration must not block the home screen.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<PushRegistration>().init().catchError((_) {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final auth = context.read<AuthController>();
+    final user = context.watch<AuthController>().user;
+    if (user == null) return const SizedBox.shrink();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        actions: [TextButton(onPressed: auth.logout, child: const Text('Log out'))],
+      body: IndexedStack(
+        index: _index,
+        children: [
+          const AssignedListPage(),
+          NotificationsPage(uid: user.uid),
+        ],
       ),
-      body: const Center(child: Text('Nothing to show yet')),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _index,
+        onDestinationSelected: (i) => setState(() => _index = i),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.assignment_outlined),
+            selectedIcon: Icon(Icons.assignment),
+            label: 'Assigned',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.notifications_outlined),
+            selectedIcon: Icon(Icons.notifications),
+            label: 'Notifications',
+          ),
+        ],
+      ),
     );
   }
-}
-
-class ResponderHome extends StatelessWidget {
-  const ResponderHome({super.key});
-  @override
-  Widget build(BuildContext context) => const _Placeholder('Responder home');
 }
 
 class WebDashboardNotice extends StatelessWidget {
@@ -68,15 +100,21 @@ class WebDashboardNotice extends StatelessWidget {
             children: [
               const Icon(Icons.desktop_windows_outlined, size: 48),
               const SizedBox(height: 16),
-              Text('Use the web dashboard',
-                  textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+              Text(
+                'Use the web dashboard',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
               const SizedBox(height: 12),
               const Text(
                 'Your account is for the web dashboard. Please open it in a browser on a computer.',
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
-              FilledButton(onPressed: auth.logout, child: const Text('Log out')),
+              FilledButton(
+                onPressed: auth.logout,
+                child: const Text('Log out'),
+              ),
             ],
           ),
         ),
