@@ -17,6 +17,7 @@ export function findPossibleDuplicates(report, openReports, { radiusM = 200, win
   return openReports
     .filter((o) => o.id !== report.id && o.type === report.type && isOpen(o.status))
     .filter((o) => Math.abs(t0 - ms(o.createdAt)) <= windowMs)
+    .filter((o) => Number.isFinite(o.location?.lat) && Number.isFinite(o.location?.lng))
     .filter((o) => haversineMeters(report.location, o.location) <= radiusM)
     .map((o) => o.id);
 }

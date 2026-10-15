@@ -19,7 +19,7 @@ describe('validatePhotos', () => {
   it('rejects zero-byte file', () => { expect(() => validatePhotos([f(Buffer.alloc(0))])).toThrow(); });
   it('rejects fake .jpg', () => { expect(() => validatePhotos([f(Buffer.from('MZ\x90\x00'))])).toThrow(); });
   it('rejects over 5 MB', () => {
-    const big = { buffer: JPEG, size: 5 * 1024 * 1024 + 1, originalname: 'a.jpg' };
+    const big = f(Buffer.concat([JPEG, Buffer.alloc(5 * 1024 * 1024)]));
     expect(() => validatePhotos([big])).toThrow();
   });
 });
@@ -34,4 +34,31 @@ describe('parseReportInput', () => {
     expect(() => parseReportInput({ ...ok, lat, lng })).toThrow(expect.objectContaining({ status: 400 }));
   });
   it('rejects unknown type', () => { expect(() => parseReportInput({ ...ok, type: 'zombie' })).toThrow(); });
+});
+
+describe('carried-forward hardening', () => {
+  const ok = { type: 'flood', description: 'Water rising', lat: '14.85', lng: '120.81', source: 'gps' };
+  it.each(['0x10', '1e1', '+5', ' 1 2'])('rejects non-decimal lat %s', (lat) => {
+    expect(() => parseReportInput({ ...ok, lat })).toThrow(expect.objectContaining({ status: 400 }));
+  });
+  it('rejects non-decimal lng', () => { expect(() => parseReportInput({ ...ok, lng: '1e1' })).toThrow(expect.objectContaining({ status: 400 })); });
+  it('accepts trimmed negative decimals', () => { expect(parseReportInput({ ...ok, lat: ' -14.5 ' }).lat).toBe(-14.5); });
+  it('rejects object description', () => { expect(() => parseReportInput({ ...ok, description: {} })).toThrow(expect.objectContaining({ status: 400 })); });
+  it('rejects empty contact name', () => {
+    expect(() => parseReportInput({ ...ok, contact: { name: '  ', phone: '09171234567' } })).toThrow(expect.objectContaining({ status: 400 }));
+  });
+  it('contact stays optional', () => { expect(parseReportInput(ok).contact).toBeUndefined(); });
+  it.each([[null], ['x'], [{}], [{ length: 1 }]])('validatePhotos rejects non-array %j with 400', (v) => {
+    if (v === null) return expect(() => validatePhotos(v)).not.toThrow();
+    expect(() => validatePhotos(v)).toThrow(expect.objectContaining({ status: 400 }));
+  });
+  it('rejects a file without a Buffer', () => {
+    expect(() => validatePhotos([{ buffer: 'abc', size: 3 }])).toThrow(expect.objectContaining({ status: 400 }));
+    expect(() => validatePhotos([{ size: 3 }])).toThrow(expect.objectContaining({ status: 400 }));
+  });
+  it('uses buffer length, not a spoofed size', () => {
+    expect(() => validatePhotos([{ buffer: Buffer.alloc(0), size: 99 }])).toThrow(expect.objectContaining({ status: 400 }));
+    const big = Buffer.concat([JPEG, Buffer.alloc(5 * 1024 * 1024)]);
+    expect(() => validatePhotos([{ buffer: big, size: 10 }])).toThrow(expect.objectContaining({ status: 400 }));
+  });
 });

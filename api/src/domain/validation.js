@@ -13,11 +13,13 @@ export function sniffImageType(buf) {
 }
 
 export function validatePhotos(files) {
-  const list = files ?? [];
-  if (list.length > MAX_PHOTOS) throw new HttpError(400, 'too_many_photos', `At most ${MAX_PHOTOS} photos allowed`);
-  for (const f of list) {
-    const size = f?.size ?? f?.buffer?.length ?? 0;
-    if (!f?.buffer || size === 0) throw new HttpError(400, 'invalid_photo', 'Photo is empty');
+  if (files == null) return;
+  if (!Array.isArray(files)) throw new HttpError(400, 'invalid_photo', 'Photos must be a list of files');
+  if (files.length > MAX_PHOTOS) throw new HttpError(400, 'too_many_photos', `At most ${MAX_PHOTOS} photos allowed`);
+  for (const f of files) {
+    if (!f || !Buffer.isBuffer(f.buffer)) throw new HttpError(400, 'invalid_photo', 'Photo is missing or unreadable');
+    const size = f.buffer.length;
+    if (size === 0) throw new HttpError(400, 'invalid_photo', 'Photo is empty');
     if (size > MAX_BYTES) throw new HttpError(400, 'photo_too_large', 'Photo exceeds 5 MB');
     if (!sniffImageType(f.buffer)) throw new HttpError(400, 'invalid_photo', 'Photo must be JPEG, PNG or WebP');
   }
@@ -32,19 +34,23 @@ export function sanitizeText(s, max) {
 }
 
 const coord = (min, max) => z.preprocess(
-  (v) => (typeof v === 'string' ? (v.trim() === '' ? undefined : Number(v)) : v),
+  (v) => {
+    if (typeof v !== 'string') return v;
+    const t = v.trim();
+    return /^-?\d+(\.\d+)?$/.test(t) ? Number(t) : undefined;
+  },
   z.number().finite().min(min).max(max),
 );
 
 const schema = z.object({
   type: z.enum(['flood', 'fire', 'earthquake', 'landslide', 'other']),
-  description: z.preprocess((v) => sanitizeText(v, 1000), z.string().min(3)),
+  description: z.preprocess((v) => (typeof v === 'string' ? sanitizeText(v, 1000) : undefined), z.string().min(3)),
   lat: coord(-90, 90),
   lng: coord(-180, 180),
   source: z.enum(['gps', 'manual']),
   addressText: z.preprocess((v) => (v == null ? undefined : sanitizeText(v, 300)), z.string().optional()),
   contact: z.object({
-    name: z.string().trim().max(100),
+    name: z.string().trim().min(1).max(100),
     phone: z.string().trim().regex(/^[0-9+()\-\s]{7,20}$/),
   }).optional(),
 });

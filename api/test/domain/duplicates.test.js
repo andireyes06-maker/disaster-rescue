@@ -16,4 +16,8 @@ describe('duplicates', () => {
       mk('old', { createdAt: new Date('2026-10-19T00:00:00Z') }), mk('c', { status: 'Closed' }), mk('new')];
     expect(findPossibleDuplicates(n, others)).toEqual([]);
   });
+  it('skips candidates with missing or non-numeric location', () => {
+    const bad = [mk('n', { location: undefined }), mk('m', { location: { lat: 'x', lng: null } }), mk('z', { location: {} })];
+    expect(findPossibleDuplicates(mk('new', { createdAt: now }), [...bad, mk('a')])).toEqual(['a']);
+  });
 });
