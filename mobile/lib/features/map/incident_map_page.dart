@@ -1,0 +1,249 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+
+import '../../data/report_models.dart';
+import '../../theme/app_theme.dart';
+import '../report/report_flow_page.dart' show reportTypeInfo;
+import '../responder/incident_detail_page.dart';
+import 'map_markers.dart';
+
+const _defaultCenter = LatLng(14.5995, 120.9842);
+
+class IncidentMapPage extends StatefulWidget {
+  const IncidentMapPage({
+    super.key,
+    required this.reports,
+    required this.viewerUid,
+    this.viewerTeam,
+    this.showTiles = true,
+  });
+
+  final Stream<List<AssignedReport>> reports;
+  final String viewerUid;
+  final String? viewerTeam;
+
+  /// Tests pass false so no tile request is made.
+  final bool showTiles;
+
+  @override
+  State<IncidentMapPage> createState() => _IncidentMapPageState();
+}
+
+class _IncidentMapPageState extends State<IncidentMapPage> {
+  String? _type;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Incident map')),
+      body: StreamBuilder<List<AssignedReport>>(
+        stream: widget.reports,
+        builder: (context, snap) {
+          if (snap.hasError) {
+            return const Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Could not load the map. Check your connection and try again.',
+              ),
+            );
+          }
+          if (!snap.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final all = snap.data!;
+          final shown = _type == null
+              ? all
+              : all.where((r) => r.type == _type).toList();
+          final points = <_Pin>[];
+          for (final r in shown) {
+            final p = visibleLocation(
+              r,
+              viewerUid: widget.viewerUid,
+              viewerTeam: widget.viewerTeam,
+            );
+            if (p != null) points.add(_Pin(r, p));
+          }
+          return Column(
+            children: [
+              _FilterBar(
+                selected: _type,
+                onSelected: (t) => setState(() => _type = t),
+              ),
+              SizedBox(height: 260, child: _buildMap(points)),
+              Expanded(child: _buildList(shown)),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildMap(List<_Pin> points) {
+    final center = points.isEmpty
+        ? _defaultCenter
+        : LatLng(points.first.point.lat, points.first.point.lng);
+    return FlutterMap(
+      options: MapOptions(initialCenter: center, initialZoom: 12),
+      children: [
+        if (widget.showTiles)
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            userAgentPackageName: 'disaster_rescue',
+          ),
+        MarkerLayer(
+          markers: [
+            for (final p in points)
+              Marker(
+                point: LatLng(p.point.lat, p.point.lng),
+                width: 110,
+                height: 60,
+                child: _MapMarker(report: p.report),
+              ),
+          ],
+        ),
+        RichAttributionWidget(
+          attributions: const [
+            TextSourceAttribution('OpenStreetMap contributors'),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildList(List<AssignedReport> shown) {
+    if (shown.isEmpty) {
+      return const Center(child: Text('No incidents match this filter.'));
+    }
+    return ListView.separated(
+      padding: const EdgeInsets.all(16),
+      itemCount: shown.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 12),
+      itemBuilder: (context, i) => _IncidentRow(report: shown[i]),
+    );
+  }
+}
+
+class _Pin {
+  const _Pin(this.report, this.point);
+  final AssignedReport report;
+  final MapPoint point;
+}
+
+class _FilterBar extends StatelessWidget {
+  const _FilterBar({required this.selected, required this.onSelected});
+  final String? selected;
+  final ValueChanged<String?> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          FilterChip(
+            label: const Text('All'),
+            selected: selected == null,
+            onSelected: (_) => onSelected(null),
+          ),
+          for (final e in reportTypeInfo.entries)
+            FilterChip(
+              label: Text(e.value.label),
+              selected: selected == e.key,
+              onSelected: (_) => onSelected(e.key),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MapMarker extends StatelessWidget {
+  const _MapMarker({required this.report});
+  final AssignedReport report;
+
+  @override
+  Widget build(BuildContext context) {
+    final m = priorityMarker(report.priority);
+    return Semantics(
+      label:
+          '${m.label} priority, ${reportTypeInfo[report.type]?.label ?? report.type}',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MarkerGlyph(marker: m),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(AppRadius.md),
+            ),
+            child: Text(
+              m.label,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: AppColors.text,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _IncidentRow extends StatelessWidget {
+  const _IncidentRow({required this.report});
+  final AssignedReport report;
+
+  @override
+  Widget build(BuildContext context) {
+    final m = priorityMarker(report.priority);
+    final typeLabel = reportTypeInfo[report.type]?.label ?? report.type;
+    return Card(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => IncidentDetailPage(report: report)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              MarkerGlyph(marker: m, size: 24),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${report.reference ?? report.id} · $typeLabel',
+                      style: const TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      report.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${m.label} priority · ${report.status}',
+                      style: const TextStyle(
+                        color: AppColors.muted,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

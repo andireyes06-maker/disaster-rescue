@@ -296,6 +296,13 @@ class ApiResponderRepository implements ResponderRepository {
             final loc = m['location'];
             final lat = loc is Map ? (loc['lat'] as num?)?.toDouble() : null;
             final lng = loc is Map ? (loc['lng'] as num?)?.toDouble() : null;
+            final coarse = m['coarseLocation'];
+            final cLat = coarse is Map
+                ? (coarse['lat'] as num?)?.toDouble()
+                : null;
+            final cLng = coarse is Map
+                ? (coarse['lng'] as num?)?.toDouble()
+                : null;
             return AssignedReport(
               id: d.id,
               type: (m['type'] as String?) ?? 'other',
@@ -306,6 +313,12 @@ class ApiResponderRepository implements ResponderRepository {
               lat: lat,
               lng: lng,
               createdAt: created is Timestamp ? created.toDate() : null,
+              priority: m['priority'] as String?,
+              reporterId: m['reporterId'] as String?,
+              assignedTeamId: m['assignedTeamId'] as String?,
+              coarseLocation: cLat != null && cLng != null
+                  ? MapPoint(cLat, cLng)
+                  : null,
             );
           }).toList(),
         );

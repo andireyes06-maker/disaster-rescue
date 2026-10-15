@@ -6,6 +6,7 @@ import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
 import '../auth/auth_widgets.dart';
+import '../map/incident_map_page.dart';
 import '../my_reports/my_reports_page.dart' show StatusChip, formatWhen;
 import 'incident_detail_page.dart';
 
@@ -35,10 +36,27 @@ class _AssignedListPageState extends State<AssignedListPage> {
   @override
   Widget build(BuildContext context) {
     final auth = context.read<AuthController>();
+    final team = _teamId;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Assigned'),
         actions: [
+          if (team != null)
+            IconButton(
+              tooltip: 'Incident map',
+              icon: const Icon(Icons.map_outlined),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => IncidentMapPage(
+                    reports: context.read<ResponderRepository>().watchAssigned(
+                      team,
+                    ),
+                    viewerUid: auth.user?.uid ?? '',
+                    viewerTeam: team,
+                  ),
+                ),
+              ),
+            ),
           TextButton(onPressed: auth.logout, child: const Text('Log out')),
         ],
       ),

@@ -215,6 +215,22 @@ String? validatePhoto(PickedPhoto p) {
 
 // ---------- Responder ----------
 
+class MapPoint {
+  final double lat;
+  final double lng;
+  const MapPoint(this.lat, this.lng);
+
+  @override
+  bool operator ==(Object other) =>
+      other is MapPoint && other.lat == lat && other.lng == lng;
+
+  @override
+  int get hashCode => Object.hash(lat, lng);
+
+  @override
+  String toString() => 'MapPoint($lat, $lng)';
+}
+
 class AssignedReport {
   final String id;
   final String type;
@@ -225,6 +241,10 @@ class AssignedReport {
   final double? lat;
   final double? lng;
   final DateTime? createdAt;
+  final String? priority;
+  final String? reporterId;
+  final String? assignedTeamId;
+  final MapPoint? coarseLocation;
   const AssignedReport({
     required this.id,
     required this.type,
@@ -235,6 +255,10 @@ class AssignedReport {
     this.lat,
     this.lng,
     this.createdAt,
+    this.priority,
+    this.reporterId,
+    this.assignedTeamId,
+    this.coarseLocation,
   });
 }
 
