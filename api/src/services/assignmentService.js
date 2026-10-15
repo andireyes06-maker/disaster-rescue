@@ -26,7 +26,7 @@ export async function assign({ repo, notifier }, user, id, body) {
   // Verified reports advance to Awaiting Assignment first, so none get stuck.
   if (report.status === STATUS.VERIFIED) report = await transition(repo, user, report, STATUS.AWAITING_ASSIGNMENT);
   // Compare-and-set inside transition: of two concurrent assigns, one gets 409.
-  report = await transition(repo, user, report, STATUS.TEAM_ASSIGNED, { assignedTeamId: teamId });
+  report = await transition(repo, user, report, STATUS.TEAM_ASSIGNED, { assignedTeamId: teamId, assignedAt: new Date() });
 
   await repo.saveTeam(teamId, { busy: true, currentReportId: id });
   await safeAudit(repo, {

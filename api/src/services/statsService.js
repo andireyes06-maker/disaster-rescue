@@ -1,0 +1,61 @@
+import { STATUS } from '../domain/workflow.js';
+import { HttpError } from '../errors.js';
+
+const NOT_OPEN = new Set([STATUS.RESOLVED, STATUS.CLOSED, STATUS.CANCELLED, STATUS.REJECTED, STATUS.DUPLICATE]);
+const RESOLVED = new Set([STATUS.RESOLVED, STATUS.CLOSED]);
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+// ISO date (YYYY-MM-DD) to a Date. `to` is inclusive of its whole UTC day.
+export function parseRange(query = {}) {
+  const parse = (v, endOfDay) => {
+    if (v === undefined || v === '') return undefined;
+    const bad = () => new HttpError(400, 'invalid_date', 'Dates must be YYYY-MM-DD');
+    if (typeof v !== 'string' || !DATE_RE.test(v)) throw bad();
+    const d = new Date(`${v}${endOfDay ? 'T23:59:59.999Z' : 'T00:00:00.000Z'}`);
+    if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== v) throw bad();
+    return d;
+  };
+  return { from: parse(query.from, false), to: parse(query.to, true) };
+}
+
+// Reports in range, each with its updates attached (needed for peopleRescued).
+export async function loadReports(repo, { from, to } = {}) {
+  const reports = await repo.listReports({ from, to });
+  return Promise.all(reports.map(async (r) => ({ ...r, updates: await repo.listUpdates(r.id) })));
+}
+
+const countBy = (rows, key) => rows.reduce((acc, r) => {
+  if (r[key] !== undefined && r[key] !== null) acc[r[key]] = (acc[r[key]] ?? 0) + 1;
+  return acc;
+}, {});
+
+export function buildStats(reports, { from, to } = {}) {
+  const rows = reports.filter((r) => (!from || r.createdAt >= from) && (!to || r.createdAt <= to));
+
+  const days = new Map();
+  for (const r of rows) {
+    const date = r.createdAt.toISOString().slice(0, 10);
+    days.set(date, (days.get(date) ?? 0) + 1);
+  }
+  const perDay = [...days].sort(([a], [b]) => a.localeCompare(b)).map(([date, count]) => ({ date, count }));
+
+  const minutes = rows.filter((r) => r.assignedAt).map((r) => (r.assignedAt - r.createdAt) / 60000);
+  const avgResponseMinutes = minutes.length
+    ? Math.round((minutes.reduce((a, b) => a + b, 0) / minutes.length) * 10) / 10
+    : null;
+
+  const peopleRescued = rows.reduce((sum, r) => sum + (r.updates ?? []).reduce(
+    (s, u) => s + (Number.isFinite(u.peopleRescued) ? u.peopleRescued : 0), 0), 0);
+
+  return {
+    total: rows.length,
+    open: rows.filter((r) => !NOT_OPEN.has(r.status)).length,
+    resolved: rows.filter((r) => RESOLVED.has(r.status)).length,
+    byType: countBy(rows, 'type'),
+    byStatus: countBy(rows, 'status'),
+    byPriority: countBy(rows, 'priority'),
+    perDay,
+    avgResponseMinutes,
+    peopleRescued,
+  };
+}
