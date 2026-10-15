@@ -39,7 +39,9 @@
 - Task 12 spec check done against `task-12-brief.md` (all files and behaviors present; SocketException maps to ApiException(0, 'network') in api_client.dart). Committed on `build/disaster-rescue`.
 - Task 13 (teams, assignment, rescue updates, close, users) DONE. API suite 167 passing. Includes `requireIdentity` for `POST /users/self`, 409 on disabled or non-resident accounts, deactivation keeps claims with `active:false`, and 409 `team_busy` when a team is already on another rescue.
 - Task 13 deviations (accepted): team GET open to any signed-in account; a 101-char name gets 400, not truncation; closing frees the team only for its current report.
-- Next: Task 14 per X-PLAN.md (map on web, flutter_map on mobile).
+- Task 14 (notifications, in-app plus FCM) DONE. Stored before send, sender errors caught, removes only dead FCM tokens. API suite 181 passing.
+- Security fixes after review (Oct 15): dispatchers cannot modify admins or their own account (403); `GET /api/teams` now dispatcher, dmo, admin only (team status reveals active rescues).
+- Next: Task 15 per X-PLAN.md.
 - Not verified: real device, APK build (NDK still corrupt).
 - Open for Task 13: deactivation must set claims `{role, active:false}`, never `{}`; `POST /api/users/self` must be idempotent, accept an empty body, and refuse (409) if the account is disabled or has a non-resident role.
 - Airen's manual steps still open: Firebase project, service account file, Cloudinary keys (see `docs/firebase-setup.md`). Android NDK at `~/Library/Android/sdk/ndk` is corrupt; delete that folder so Gradle re-downloads it before any APK build.

@@ -5,6 +5,7 @@ import { loadConfig, validateConfig } from './config.js';
 import { buildApp } from './app.js';
 import { createFirestoreRepo } from './adapters/firestoreRepo.js';
 import { createCloudinaryUploader } from './adapters/cloudinaryUploader.js';
+import { createFcmSender } from './adapters/fcmSender.js';
 
 const config = validateConfig(loadConfig());
 
@@ -20,15 +21,11 @@ const verifyToken = async (token) => {
   return { uid: claims.uid, role: claims.role, active: claims.active };
 };
 
-// Replaced by the real notification service in a later task.
-const notifier = { notifyUsers: async () => {}, notifyRole: async () => {} };
-
 const app = buildApp({
   repo: createFirestoreRepo(getFirestore()),
   uploader: createCloudinaryUploader(config.cloudinary),
-  sender: null,
+  sender: createFcmSender(admin.messaging()),
   verifyToken,
-  notifier,
   auth: admin.auth(),
 });
 

@@ -3,13 +3,14 @@ import { createMemoryRepo } from './memoryRepo.js';
 import { createFakeUploader } from './fakeUploader.js';
 import { createFakeSender } from './fakeSender.js';
 import { createFakeAuth } from './fakeAuth.js';
+import { createNotifier } from '../../src/services/notificationService.js';
 
-export function makeTestApp({ notifier } = {}) {
+export function makeTestApp({ notifier, sender = createFakeSender() } = {}) {
   const repo = createMemoryRepo();
   const uploader = createFakeUploader();
-  const sender = createFakeSender();
   const auth = createFakeAuth();
-  const noop = notifier ?? { notifyUsers: async () => {}, notifyRole: async () => {} };
+  // Default notifier is the real service wired to the fake sender, so no FCM call is made.
+  const noop = notifier ?? createNotifier({ repo, sender });
   // Token forms: "<role>:<uid>" for staff claims, "new:<uid>[:<email>]" for a signed-in
   // account with no claims yet, "off:<uid>" for a deactivated account.
   const verifyToken = async (token) => {
