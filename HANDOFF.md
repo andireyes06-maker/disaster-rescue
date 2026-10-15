@@ -20,7 +20,15 @@
 - Hosts: Vercel (web), Render (API), Firebase Spark.
 - Calm Clarity UI. Coral is for critical priority only.
 
+## Live (Oct 15)
+- API: https://disaster-rescue-api.onrender.com (Render free plan, Blueprint from render.yaml). Health: /api/health.
+- Web: https://disaster-rescue-web.vercel.app (Vercel production, linked project disaster-rescue-web). Sign-in page loads with no console errors.
+- Production audit: 0 vulnerabilities after firebase-admin 14 (named imports in api/src/server.js).
+
 ## Waiting on Airen
+0. **Render CORS:** set `CORS_ORIGINS=https://disaster-rescue-web.vercel.app` on disaster-rescue-api (Environment tab), so the web app can call the API.
+0b. **Vercel protection:** the per-deploy URL is behind Vercel login. Turn off Deployment Protection in the project settings if the stable URL should be public for the demo.
+0c. **Render redeploy:** confirm the latest commit (b95ab98) shows Live in Render's Deploys tab.
 1. **Done:** private GitHub repo created and pushed. Render (dashboard) still needs setting up from `render.yaml`.
 2. **Firebase (Spark):** create project, enable Email/Password, create Firestore, register a web app, and give the four `VITE_FIREBASE_*` values. Download the service account to `api/serviceAccount.json` (never commit it).
 3. **Cloudinary:** cloud name, API key, API secret, into `api/.env` and Render.
