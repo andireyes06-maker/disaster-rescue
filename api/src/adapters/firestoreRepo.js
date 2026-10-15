@@ -25,6 +25,10 @@ function stripUndefined(v) {
 }
 
 const doc = (snap) => (snap.exists ? { id: snap.id, ...fromFs(snap.data()) } : null);
+const userDoc = (snap) => {
+  if (!snap.exists) return null;
+  return { uid: snap.id, ...fromFs(snap.data()) };
+};
 const docs = (qs) => qs.docs.map(doc);
 
 export function createFirestoreRepo(db) {
@@ -71,12 +75,13 @@ export function createFirestoreRepo(db) {
       return docs(await col('reports').doc(reportId).collection('updates').orderBy('at', 'asc').get());
     },
 
-    async getUser(uid) { return doc(await col('users').doc(uid).get()); },
+    async getUser(uid) { return userDoc(await col('users').doc(uid).get()); },
     async createUser(uid, data) {
-      await col('users').doc(uid).set(stripUndefined({ ...data, createdAt: data.createdAt ?? new Date() }));
+      const { uid: _u, id: _i, ...rest } = data;
+      await col('users').doc(uid).set(stripUndefined({ ...rest, createdAt: data.createdAt ?? new Date() }));
     },
     async updateUser(uid, patch) { await col('users').doc(uid).update(stripUndefined(patch)); },
-    async listUsers() { return docs(await col('users').get()); },
+    async listUsers() { return (await col('users').get()).docs.map(userDoc); },
 
     async getTeam(id) { return doc(await col('teams').doc(id).get()); },
     async listTeams() { return docs(await col('teams').get()); },

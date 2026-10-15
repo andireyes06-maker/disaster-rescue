@@ -58,7 +58,10 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
 
     async getUser(uid) { const u = users.get(uid); return u ? copy(u) : null; },
     async createUser(uid, data) { users.set(uid, { ...copy(data), uid, createdAt: data.createdAt ?? new Date() }); },
-    async updateUser(uid, patch) { users.set(uid, { ...users.get(uid), ...copy(patch) }); },
+    async updateUser(uid, patch) {
+      if (!users.has(uid)) throw new Error(`user not found: ${uid}`);
+      users.set(uid, { ...users.get(uid), ...copy(patch) });
+    },
     async listUsers() { return copy([...users.values()]); },
 
     async getTeam(id) { const t = teams.get(id); return t ? copy(t) : null; },
@@ -97,7 +100,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
       return copy(audits.filter((a) => (f.actorUid === undefined || a.actorUid === f.actorUid)
         && (f.reportId === undefined || a.reportId === f.reportId)
         && (f.action === undefined || a.action === f.action)
-        && inRange(a.at, f.from, f.to)).reverse());
+        && inRange(a.at, f.from, f.to)).sort((x, y) => y.at - x.at));
     },
 
     async getHotlines() { return copy(hotlines); },
