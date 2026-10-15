@@ -4,7 +4,8 @@ export function requireAuth(verifyToken) {
     if (!m) return res.status(401).json({ error: 'missing_token' });
     let d;
     try { d = await verifyToken(m[1]); } catch { return res.status(401).json({ error: 'invalid_token' }); }
-    if (d.active === false) return res.status(403).json({ error: 'account_disabled' });
+    if (!d?.uid) return res.status(401).json({ error: 'invalid_token' });
+    if (d.active !== true) return res.status(403).json({ error: 'account_disabled' });
     req.user = { uid: d.uid, role: d.role ?? null, active: true };
     next();
   };
