@@ -1,6 +1,8 @@
 export function loadConfig(env = process.env) {
   return {
     port: Number(env.PORT) || 3000,
+    // Number of proxy hops in front of the API (0 when serving directly).
+    trustProxy: Number(env.TRUST_PROXY) || 0,
     corsOrigins: (env.CORS_ORIGINS ?? '').split(',').map((s) => s.trim()).filter(Boolean),
     firebaseProjectId: env.FIREBASE_PROJECT_ID,
     // Firebase Admin reads the service account file from this path.

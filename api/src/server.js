@@ -28,6 +28,7 @@ const app = buildApp({
   verifyToken,
   auth: admin.auth(),
   corsOrigins: config.corsOrigins,
+  trustProxy: config.trustProxy,
 });
 
 app.listen(config.port, () => console.log(`API listening on ${config.port}`));

@@ -5,7 +5,7 @@ import { createFakeSender } from './fakeSender.js';
 import { createFakeAuth } from './fakeAuth.js';
 import { createNotifier } from '../../src/services/notificationService.js';
 
-export function makeTestApp({ notifier, sender = createFakeSender(), corsOrigins, rateLimit } = {}) {
+export function makeTestApp({ notifier, sender = createFakeSender(), corsOrigins, rateLimit, trustProxy } = {}) {
   const repo = createMemoryRepo();
   const uploader = createFakeUploader();
   const auth = createFakeAuth();
@@ -24,7 +24,7 @@ export function makeTestApp({ notifier, sender = createFakeSender(), corsOrigins
     if (role === 'off') return { uid, role: 'resident', active: false };
     return { uid, role, active: true };
   };
-  const app = buildApp({ repo, uploader, sender, verifyToken, notifier: noop, auth, corsOrigins, rateLimit });
+  const app = buildApp({ repo, uploader, sender, verifyToken, notifier: noop, auth, corsOrigins, rateLimit, trustProxy });
   const as = (role, uid = `${role}-1`) => `Bearer ${role}:${uid}`;
   return { app, repo, uploader, sender, notifier: noop, auth, as };
 }

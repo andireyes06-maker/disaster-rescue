@@ -25,3 +25,19 @@ describe('HTTP hardening', () => {
     expect(statuses).toEqual([401, 401, 429]);
   });
 });
+
+describe('rate limit behind a proxy', () => {
+  it('counts each forwarded client separately when trustProxy is on', async () => {
+    const t = makeTestApp({ rateLimit: { windowMs: 60_000, limit: 1 }, trustProxy: 1 });
+    const a = await request(t.app).get('/api/teams').set('X-Forwarded-For', '198.51.100.1');
+    const b = await request(t.app).get('/api/teams').set('X-Forwarded-For', '198.51.100.2');
+    expect([a.status, b.status]).toEqual([401, 401]);
+  });
+
+  it('without trustProxy, every forwarded client shares the proxy address limit', async () => {
+    const t = makeTestApp({ rateLimit: { windowMs: 60_000, limit: 1 } });
+    const a = await request(t.app).get('/api/teams').set('X-Forwarded-For', '198.51.100.1');
+    const b = await request(t.app).get('/api/teams').set('X-Forwarded-For', '198.51.100.2');
+    expect([a.status, b.status]).toEqual([401, 429]);
+  });
+});

@@ -16,10 +16,13 @@ export function buildApp({
   notifier = createNotifier({ repo, sender }),
   corsOrigins = [],
   rateLimit: rateOptions = DEFAULT_RATE_LIMIT,
+  trustProxy = 0,
 }) {
   const deps = { repo, uploader, sender, verifyToken, notifier, auth };
   const app = express();
   app.disable('x-powered-by');
+  // Behind a host's proxy, count clients by their forwarded address, not the proxy's.
+  app.set('trust proxy', trustProxy);
   app.use(helmet());
   // Only configured origins may call the API from a browser. Others get no CORS header.
   app.use(cors({ origin: corsOrigins.length ? corsOrigins : false }));
