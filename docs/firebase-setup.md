@@ -45,10 +45,10 @@ The seed creates 4 accounts, team `teams/team-alpha`, and `config/hotlines`. It 
 | responder@test.dev | responder (team-alpha) |
 | dmo@test.dev | dmo |
 
-TEST-ONLY password for all four: `TestOnly-Rescue#2026`. Never use it on a real deployment.
+TEST-ONLY password for the emulator accounts: `TestOnly-Rescue#2026`. The seed uses it only on emulators. On a real project it refuses to run without `SEED_PASSWORD`, and re-runs never overwrite an existing user's password or reset `createdAt`.
 
 - Against emulators (one shot): `firebase emulators:exec --only auth,firestore --project demo-disaster-rescue "node firebase/seed.js"`
 - Against emulators you started yourself: `cd firebase && FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 FIREBASE_PROJECT_ID=demo-disaster-rescue node seed.js`
-- Against the real project (only after part 1): `cd firebase && GOOGLE_APPLICATION_CREDENTIALS=../api/serviceAccount.json FIREBASE_PROJECT_ID=<id> node seed.js --real`
+- Against the real project (only after part 1): `cd firebase && GOOGLE_APPLICATION_CREDENTIALS=../api/serviceAccount.json FIREBASE_PROJECT_ID=<id> SEED_PASSWORD='<a strong password you choose>' node seed.js --real`. `--real` also refuses to run if either emulator host variable is set.
 
-The seed refuses to run with no target. The hotline `LDRRMO` number `000-0000` is a placeholder: replace it with your local number (dispatchers can edit it through the API).
+The seed refuses to run with no target. Real accounts are test accounts too: delete them or change their passwords before any public demo. The hotline `LDRRMO` number `000-0000` is a placeholder: replace it with your local number (dispatchers can edit it through the API).

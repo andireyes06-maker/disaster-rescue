@@ -3,18 +3,29 @@
 // Real project: set GOOGLE_APPLICATION_CREDENTIALS and pass --real.
 import admin from 'firebase-admin';
 
-export const TEST_PASSWORD = 'TestOnly-Rescue#2026'; // TEST ONLY, never reuse
-const emulator = Boolean(process.env.FIREBASE_AUTH_EMULATOR_HOST && process.env.FIRESTORE_EMULATOR_HOST);
+const EMULATOR_TEST_PASSWORD = 'TestOnly-Rescue#2026'; // emulator only, never reuse
+const authHost = process.env.FIREBASE_AUTH_EMULATOR_HOST;
+const fsHost = process.env.FIRESTORE_EMULATOR_HOST;
 const real = process.argv.includes('--real');
+const emulator = Boolean(authHost && fsHost);
 
-if (emulator && real) {
-  console.error('Refusing: emulator hosts are set and --real was passed. Unset one.');
+if (real && (authHost || fsHost)) {
+  console.error('Refusing: an emulator host is set and --real was passed. Unset FIREBASE_AUTH_EMULATOR_HOST and FIRESTORE_EMULATOR_HOST.');
+  process.exit(1);
+}
+if (!real && Boolean(authHost) !== Boolean(fsHost)) {
+  console.error('Refusing: set BOTH FIREBASE_AUTH_EMULATOR_HOST and FIRESTORE_EMULATOR_HOST (or neither).');
   process.exit(1);
 }
 if (!emulator && !(real && process.env.GOOGLE_APPLICATION_CREDENTIALS)) {
   console.error('Refusing to run. Use emulator hosts (FIREBASE_AUTH_EMULATOR_HOST + FIRESTORE_EMULATOR_HOST),\nor set GOOGLE_APPLICATION_CREDENTIALS and pass --real.');
   process.exit(1);
 }
+if (real && !process.env.SEED_PASSWORD) {
+  console.error('Refusing: --real requires the SEED_PASSWORD env var (no default password for a real project).');
+  process.exit(1);
+}
+const PASSWORD = real ? process.env.SEED_PASSWORD : EMULATOR_TEST_PASSWORD;
 
 const projectId = process.env.FIREBASE_PROJECT_ID || process.env.GCLOUD_PROJECT || (emulator ? 'demo-disaster-rescue' : undefined);
 admin.initializeApp(emulator ? { projectId } : { credential: admin.credential.applicationDefault(), projectId });
@@ -29,20 +40,22 @@ const ACCOUNTS = [
 ];
 
 async function upsertUser(a) {
-  const props = { email: a.email, password: TEST_PASSWORD, displayName: a.name, emailVerified: true };
+  // Existing users keep their password. Only brand new users get PASSWORD.
   let user;
   try {
     user = await auth.getUserByEmail(a.email);
-    user = await auth.updateUser(user.uid, props);
+    user = await auth.updateUser(user.uid, { displayName: a.name, emailVerified: true });
   } catch (e) {
     if (e.code !== 'auth/user-not-found') throw e;
-    user = await auth.createUser(props);
+    user = await auth.createUser({ email: a.email, password: PASSWORD, displayName: a.name, emailVerified: true });
   }
   const claims = { role: a.role, active: true, ...(a.team ? { team: a.team } : {}) };
   await auth.setCustomUserClaims(user.uid, claims);
-  const profile = { name: a.name, role: a.role, phone: a.phone, active: true, createdAt: new Date() };
+  const profile = { name: a.name, role: a.role, phone: a.phone, active: true };
   if (a.team) profile.team = a.team;
-  await db.collection('users').doc(user.uid).set(profile, { merge: true });
+  const ref = db.collection('users').doc(user.uid);
+  if ((await ref.get()).exists) await ref.set(profile, { merge: true }); // keep createdAt
+  else await ref.set({ ...profile, createdAt: new Date() });
   return { uid: user.uid, claims };
 }
 

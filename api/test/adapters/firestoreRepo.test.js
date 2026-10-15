@@ -132,10 +132,50 @@ describe('firestoreRepo.listReports', () => {
     expect(last.wheres.map((w) => w[0]).sort()).toEqual(['createdAt', 'createdAt']);
     expect(last.order).toEqual(['createdAt', 'desc']);
   });
+  it('sends at most one equality where and filters the rest in memory', async () => {
+    const { db, repo } = setup();
+    const mk = async (data, createdAt) => {
+      const id = await repo.createReport(data);
+      await db.collection('reports').doc(id).update({ createdAt });
+      return id;
+    };
+    const a = await mk({ ...base, reporterId: 'u1', type: 'flood', status: 'New' }, new Date('2026-01-01'));
+    const b = await mk({ ...base, reporterId: 'u1', type: 'fire', status: 'New' }, new Date('2026-01-03'));
+    const c = await mk({ ...base, reporterId: 'u1', type: 'fire', status: 'Closed' }, new Date('2026-01-02'));
+    await mk({ ...base, reporterId: 'u2', type: 'fire', status: 'New' }, new Date('2026-01-04'));
+    const eqs = () => db.calls.queries.at(-1).wheres.filter((w) => w[1] === '==');
+    const ids = async (f) => (await repo.listReports(f)).map((r) => r.id);
+    expect(await ids({ reporterId: 'u1', type: 'fire', status: 'New' })).toEqual([b]);
+    expect(eqs()).toEqual([['reporterId', '==', 'u1']]);
+    expect(await ids({ type: 'fire', status: 'Closed' })).toEqual([c]);
+    expect(eqs()).toEqual([['status', '==', 'Closed']]);
+    expect(await ids({ reporterId: 'u1', type: 'fire', from: new Date('2026-01-01'), to: new Date('2026-01-02T12:00:00Z') })).toEqual([c]);
+    expect(eqs()).toEqual([['reporterId', '==', 'u1']]);
+    expect(await ids({ type: 'flood' })).toEqual([a]);
+    expect(eqs()).toEqual([['type', '==', 'flood']]);
+  });
   it('listOpenReports excludes closed statuses', async () => {
     const { repo } = setup();
     const a = await repo.createReport({ ...base });
     await repo.createReport({ ...base, status: 'Closed' });
     expect((await repo.listOpenReports()).map((r) => r.id)).toEqual([a]);
+  });
+});
+
+describe('firestoreRepo.listAudit filters', () => {
+  it('sends at most one equality where and filters the rest in memory', async () => {
+    const { db, repo } = setup();
+    await repo.addAudit({ actorUid: 'a', reportId: 'r1', action: 'assign', at: new Date('2026-01-01') });
+    await repo.addAudit({ actorUid: 'a', reportId: 'r2', action: 'assign', at: new Date('2026-01-02') });
+    await repo.addAudit({ actorUid: 'b', reportId: 'r1', action: 'close', at: new Date('2026-01-03') });
+    const eqs = () => db.calls.queries.at(-1).wheres.filter((w) => w[1] === '==');
+    const acts = async (f) => (await repo.listAudit(f)).map((e) => `${e.actorUid}${e.reportId}${e.action}`);
+    expect(await acts({ actorUid: 'a', reportId: 'r1', action: 'assign' })).toEqual(['ar1assign']);
+    expect(eqs()).toEqual([['reportId', '==', 'r1']]);
+    expect(await acts({ actorUid: 'a', action: 'assign' })).toEqual(['ar2assign', 'ar1assign']);
+    expect(eqs()).toEqual([['actorUid', '==', 'a']]);
+    expect(await acts({ action: 'close' })).toEqual(['br1close']);
+    expect(eqs()).toEqual([['action', '==', 'close']]);
+    expect(db.calls.queries.at(-1).order).toEqual(['at', 'desc']);
   });
 });

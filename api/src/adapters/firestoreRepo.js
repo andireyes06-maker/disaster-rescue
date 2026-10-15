@@ -31,17 +31,25 @@ const userDoc = (snap) => {
 };
 const docs = (qs) => qs.docs.map(doc);
 
+// Firestore needs a composite index per equality-field combination. To keep the
+// index list small and exact, send at most ONE equality filter (the first present
+// key in priority order) and apply the others in memory on the results.
+function pickEquality(f, priority) {
+  const key = priority.find((k) => f[k] !== undefined);
+  const rest = priority.filter((k) => k !== key && f[k] !== undefined);
+  return { key, matches: (row) => rest.every((k) => row[k] === f[k]) };
+}
+
 export function createFirestoreRepo(db) {
   const col = (n) => db.collection(n);
 
   async function listReports(f = {}) {
     let q = col('reports');
-    for (const k of ['reporterId', 'assignedTeamId', 'status', 'type']) {
-      if (f[k] !== undefined) q = q.where(k, '==', f[k]);
-    }
+    const { key, matches } = pickEquality(f, ['reporterId', 'assignedTeamId', 'status', 'type']);
+    if (key) q = q.where(key, '==', f[key]);
     if (f.from) q = q.where('createdAt', '>=', f.from);
     if (f.to) q = q.where('createdAt', '<=', f.to);
-    return docs(await q.orderBy('createdAt', 'desc').get());
+    return docs(await q.orderBy('createdAt', 'desc').get()).filter(matches);
   }
 
   return {
@@ -123,12 +131,11 @@ export function createFirestoreRepo(db) {
     },
     async listAudit(f = {}) {
       let q = col('auditLogs');
-      for (const k of ['actorUid', 'reportId', 'action']) {
-        if (f[k] !== undefined) q = q.where(k, '==', f[k]);
-      }
+      const { key, matches } = pickEquality(f, ['reportId', 'actorUid', 'action']);
+      if (key) q = q.where(key, '==', f[key]);
       if (f.from) q = q.where('at', '>=', f.from);
       if (f.to) q = q.where('at', '<=', f.to);
-      return docs(await q.orderBy('at', 'desc').get());
+      return docs(await q.orderBy('at', 'desc').get()).filter(matches);
     },
 
     async getHotlines() {

@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict';
 import { test, before, after, beforeEach, describe } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -15,8 +16,6 @@ const ctx = {
   dmo: () => env.authenticatedContext('dmo1', { role: 'dmo', active: true }).firestore(),
   responderA: () => env.authenticatedContext('resp1', { role: 'responder', active: true, team: 'team-alpha' }).firestore(),
   responderB: () => env.authenticatedContext('resp2', { role: 'responder', active: true, team: 'team-bravo' }).firestore(),
-  inactive: (role, extra = {}) => env.authenticatedContext('x1', { role, active: false, ...extra }).firestore(),
-  noClaim: (role, extra = {}) => env.authenticatedContext('x2', { role, ...extra }).firestore(),
 };
 
 before(async () => {
@@ -33,6 +32,9 @@ beforeEach(async () => {
     const db = c.firestore();
     await db.doc('reports/r1').set({ reporterId: 'res1', assignedTeamId: 'team-alpha', status: 'assigned', type: 'flood' });
     await db.doc('reports/r2').set({ reporterId: 'res2', assignedTeamId: 'team-bravo', status: 'new', type: 'fire' });
+    await db.doc('reports/r3').set({ reporterId: 'res2', assignedTeamId: null, status: 'new', type: 'flood' });
+    await db.doc('reports/r4').set({ reporterId: 'res2', status: 'new', type: 'flood' });
+    await db.doc('reports/r3/updates/u3').set({ status: 'new', byUid: 'res2' });
     await db.doc('reports/r1/updates/u1').set({ status: 'assigned', byUid: 'disp1' });
     await db.doc('reports/r2/updates/u2').set({ status: 'new', byUid: 'res2' });
     await db.doc('users/res1').set({ role: 'resident', name: 'R1' });
@@ -82,6 +84,34 @@ describe('reports', () => {
     const db = env.authenticatedContext('resp3', { role: 'responder', active: true }).firestore();
     await assertFails(db.doc('reports/r1').get());
   });
+  describe('unassigned reports (null and missing assignedTeamId) are never readable by responders', () => {
+    const variants = {
+      'no team claim': { role: 'responder', active: true },
+      'empty team claim': { role: 'responder', active: true, team: '' },
+      'real team claim': { role: 'responder', active: true, team: 'team-alpha' },
+    };
+    for (const [name, claims] of Object.entries(variants)) {
+      for (const id of ['r3', 'r4']) {
+        test(`${name} cannot get reports/${id}`, async () => {
+          await assertFails(env.authenticatedContext('resp9', claims).firestore().doc(`reports/${id}`).get());
+        });
+        test(`${name} cannot read updates of reports/${id}`, async () => {
+          await assertFails(env.authenticatedContext('resp9', claims).firestore().doc(`reports/${id}/updates/u${id.slice(1)}`).get());
+        });
+      }
+      test(`${name} cannot query assignedTeamId == null`, async () => {
+        await assertFails(env.authenticatedContext('resp9', claims).firestore().collection('reports').where('assignedTeamId', '==', null).get());
+      });
+      test(`${name} cannot query assignedTeamId == ''`, async () => {
+        await assertFails(env.authenticatedContext('resp9', claims).firestore().collection('reports').where('assignedTeamId', '==', '').get());
+      });
+    }
+    test('proper team query returns only assigned reports', async () => {
+      const db = env.authenticatedContext('resp9', variants['real team claim']).firestore();
+      const snap = await assertSucceeds(db.collection('reports').where('assignedTeamId', '==', 'team-alpha').get());
+      assert.deepEqual(snap.docs.map((d) => d.id), ['r1']);
+    });
+  });
   test('no client can write reports', async () => {
     for (const who of ['resident', 'dispatcher', 'dmo', 'responderA']) {
       await assertFails(ctx[who]().doc('reports/new').set({ reporterId: 'res1' }));
@@ -102,7 +132,7 @@ describe('report updates', () => {
     await assertSucceeds(ctx.dmo().doc('reports/r2/updates/u2').get());
   });
   test('inactive user cannot read updates', async () => {
-    await assertFails(ctx.inactive('dispatcher').doc('reports/r1/updates/u1').get());
+    await assertFails(env.authenticatedContext('disp1', { role: 'dispatcher', active: false }).firestore().doc('reports/r1/updates/u1').get());
   });
   test('no client can write updates', async () => {
     for (const who of ['resident', 'dispatcher', 'dmo', 'responderA']) {
@@ -118,11 +148,11 @@ describe('inactive or missing active claim', () => {
     const extra = role === 'responder' ? { team: 'team-alpha' } : {};
     for (const p of reads) {
       test(`${role} with active=false cannot read ${p}`, async () => {
-        const db = env.authenticatedContext(role === 'resident' ? 'res1' : 'x1', { role, active: false, ...extra }).firestore();
+        const db = env.authenticatedContext('res1', { role, active: false, ...extra }).firestore();
         await assertFails(db.doc(p).get());
       });
       test(`${role} with MISSING active claim cannot read ${p}`, async () => {
-        const db = env.authenticatedContext(role === 'resident' ? 'res1' : 'x1', { role, ...extra }).firestore();
+        const db = env.authenticatedContext('res1', { role, ...extra }).firestore();
         await assertFails(db.doc(p).get());
       });
     }
