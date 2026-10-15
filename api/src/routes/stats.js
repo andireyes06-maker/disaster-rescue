@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { requireAuth, requireRole } from '../middleware/auth.js';
-import { buildStats, loadReports, parseRange } from '../services/statsService.js';
+import { buildStats, loadReports, parseFilters } from '../services/statsService.js';
 
 export function statsRouter(deps) {
   const r = Router();
@@ -9,8 +9,8 @@ export function statsRouter(deps) {
   // Aggregates only: no contact details, photos or locations.
   r.get('/', auth, requireRole('dispatcher', 'dmo', 'responder', 'admin'), async (req, res, next) => {
     try {
-      const range = parseRange(req.query);
-      res.json(buildStats(await loadReports(deps.repo, range), range));
+      const filters = parseFilters(req.query);
+      res.json(buildStats(await loadReports(deps.repo, filters), filters));
     } catch (e) { next(e); }
   });
 

@@ -18,9 +18,16 @@ export function parseRange(query = {}) {
   return { from: parse(query.from, false), to: parse(query.to, true) };
 }
 
+// Optional type and status filters. Short plain strings only; anything else is ignored.
+const FILTER_RE = /^[A-Za-z ]{1,40}$/;
+export function parseFilters(query = {}) {
+  const pick = (v) => (typeof v === 'string' && FILTER_RE.test(v) ? v : undefined);
+  return { ...parseRange(query), type: pick(query.type), status: pick(query.status) };
+}
+
 // Reports in range, each with its updates attached (needed for peopleRescued).
-export async function loadReports(repo, { from, to } = {}) {
-  const reports = await repo.listReports({ from, to });
+export async function loadReports(repo, { from, to, type, status } = {}) {
+  const reports = await repo.listReports({ from, to, type, status });
   return Promise.all(reports.map(async (r) => ({ ...r, updates: await repo.listUpdates(r.id) })));
 }
 
