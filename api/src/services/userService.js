@@ -69,6 +69,8 @@ export async function updateStaff({ repo, auth }, id, body, callerUid) {
   if (!active) await auth.revokeRefreshTokens(id);
   await auth.updateUser(id, { disabled: !active });
   await repo.updateUser(id, patch);
+  // A deactivated account must stop receiving pushes, so its device tokens go too.
+  if (!active) for (const token of await repo.listDevices(id)) await repo.removeDevice(token);
   return { uid: id, role, active };
 }
 

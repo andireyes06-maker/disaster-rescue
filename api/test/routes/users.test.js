@@ -91,6 +91,14 @@ describe('PATCH /api/users/:id guards', () => {
     expect(await t.repo.getUser('adm-1')).toMatchObject({ role: 'admin', active: true });
   });
 
+  it('deactivating a user removes their device tokens so they stop receiving pushes', async () => {
+    const t = makeTestApp();
+    const uid = await makeStaff(t);
+    await t.repo.addDevice(uid, 'tok-bea');
+    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('dispatcher')).send({ active: false })).status).toBe(200);
+    expect(await t.repo.listDevices(uid)).toEqual([]);
+  });
+
   it('a dispatcher cannot change their own account (403)', async () => {
     const t = makeTestApp();
     await t.repo.createUser('d1', { name: 'Dee', role: 'dispatcher', active: true });
