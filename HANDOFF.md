@@ -32,3 +32,10 @@
 - Cannot verify here: Flutter on a real phone, real push notifications, GPS accuracy.
 
 **Resume prompt:** "Read HANDOFF.md and X-SPEC.md in /Users/rien/Documents/FINAL_PROJECT. The spec is [approved / needs these changes: ...]. Continue to X-PLAN.md."
+
+**PAUSED (Oct 15, 2026). Resume here:**
+- Done and committed: Tasks 1 to 11 (last commit `f9af371`). Ledger: `.superpowers/sdd/X-PLAN/progress.md`.
+- Task 12 (resident Flutter flow) was STOPPED mid-run. Its partial work is UNCOMMITTED in `mobile/` (report flow, my reports, offline page, profile, tests). It was fixing the role gate test when stopped. Resume by re-dispatching Task 12 from `task-12-brief.md` and asking the implementer to inspect the uncommitted files first, or review and commit them.
+- Open for Task 13: deactivation must set claims `{role, active:false}`, never `{}`; `POST /api/users/self` must be idempotent, accept an empty body, and refuse (409) if the account is disabled or has a non-resident role.
+- Airen's manual steps still open: Firebase project, service account file, Cloudinary keys (see `docs/firebase-setup.md`). Android NDK at `~/Library/Android/sdk/ndk` is corrupt; delete that folder so Gradle re-downloads it before any APK build.
+- Resume prompt: "Read HANDOFF.md and .superpowers/sdd/X-PLAN/progress.md in /Users/rien/Documents/FINAL_PROJECT. Continue the X-PLAN subagent-driven build at Task 12 (uncommitted mobile work present)."
