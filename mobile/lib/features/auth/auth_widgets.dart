@@ -23,6 +23,10 @@ String failureMessage(AuthFailure f, String? detail) {
       return 'That email already has an account. Try logging in.';
     case AuthFailure.weakPassword:
       return 'Choose a longer password (at least 6 characters).';
+    case AuthFailure.registrationUncertain:
+      return 'Your account may have been created. Try signing in.';
+    case AuthFailure.registrationIncomplete:
+      return 'We could not finish creating your account. Try signing in, or contact support.';
     case AuthFailure.registrationFailed:
       return detail ?? 'We could not create your account. Please try again.';
   }

@@ -76,7 +76,7 @@ class ApiClient {
       rethrow;
     } on TimeoutException {
       throw const ApiException(0, 'network', 'The server took too long to answer. Check your connection and try again.');
-    } on SocketException {
+    } on IOException {
       throw const ApiException(0, 'network', 'Cannot reach the server. Check your connection and try again.');
     } on http.ClientException {
       throw const ApiException(0, 'network', 'Cannot reach the server. Check your connection and try again.');

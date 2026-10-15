@@ -55,6 +55,11 @@ void main() {
         throwsA(isA<ApiException>().having((e) => e.code, 'code', 'network').having((e) => e.status, 's', 0)));
   });
 
+  test('handshake exception gives network', () async {
+    final c = make(MockClient((r) async => throw const HandshakeException('tls')));
+    expect(c.send('GET', 'x'), throwsA(isA<ApiException>().having((e) => e.code, 'code', 'network')));
+  });
+
   test('client exception gives network', () async {
     final c = make(MockClient((r) async => throw http.ClientException('x')));
     expect(c.send('GET', 'x'), throwsA(isA<ApiException>().having((e) => e.code, 'code', 'network')));

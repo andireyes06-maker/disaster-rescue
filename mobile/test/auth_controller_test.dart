@@ -66,6 +66,20 @@ void main() {
     expect(c.error, isNull);
   });
 
+  test('claims error while a newer event arrives: newer wins', () async {
+    repo.logoutGate = Completer<void>();
+    repo.emitOnLogout = false;
+    repo.events.addError(Exception('claims'));
+    await pump();
+    repo.events.add(residentUser);
+    await pump();
+    repo.logoutGate!.complete();
+    await pump();
+    await pump();
+    expect(c.user?.uid, 'u1');
+    expect(c.error, isNull);
+  });
+
   test('later successful login clears the error', () async {
     repo.events.add(disabled);
     await pump();

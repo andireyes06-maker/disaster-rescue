@@ -42,19 +42,26 @@ class AuthController extends ChangeNotifier {
       return;
     }
     if (!u.active) {
-      // Error first, so the sign-out event cannot erase it.
-      _set(user: null, loading: false, error: AuthFailure.accountDisabled);
-      await _repo.logout();
+      await _failClosed(seq, AuthFailure.accountDisabled);
       return;
     }
-    if (seq != _seq) return;
     _set(user: u, loading: false);
   }
 
   Future<void> _onClaimsError(Object _) async {
-    ++_seq;
-    _set(user: null, loading: false, error: AuthFailure.authFailed);
-    await _repo.logout();
+    await _failClosed(++_seq, AuthFailure.authFailed);
+  }
+
+  /// Error is set BEFORE signing out so the sign-out event cannot erase it.
+  /// The sequence is captured before the await and checked after it, so a
+  /// newer event that arrived meanwhile is not overwritten.
+  Future<void> _failClosed(int seq, AuthFailure failure) async {
+    _set(user: null, loading: false, error: failure);
+    try {
+      await _repo.logout();
+    } catch (_) {}
+    if (seq != _seq) return;
+    _set(user: null, loading: false, error: failure);
   }
 
   Future<void> login(String email, String password) => _run(() => _repo.login(email, password));
