@@ -118,6 +118,6 @@ describe('AuthProvider', () => {
     await waitFor(() => expect(screen.getByTestId('e')).toHaveTextContent('account_disabled'));
     await act(async () => authCallback(fbUser({ role: 'dmo', active: true })));
     await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:dmo'));
-    expect(screen.getByTestId('e')).toHaveTextContent('');
+    expect(screen.getByTestId('e')).toBeEmptyDOMElement();
   });
 });
