@@ -19,7 +19,7 @@
 - Photos: max 5 per report, max 5 MB each, JPEG, PNG, WebP, checked by file signature.
 - Duplicate radius 200 m, window 6 hours, same type, open reports only. Coarse location rounded to 0.005 degrees (about 500 m).
 - Illegal status transition returns HTTP 409. Wrong role returns 403. Unknown or not-visible report returns 404.
-- Palette: background `#F6F1EA`, primary teal `#0F6B66`, coral `#E8553D` only for critical and the main emergency action. Status never shown by color alone. 44 px minimum touch targets, WCAG AA contrast.
+- Palette: background `#F6F1EA`, primary teal `#0F6B66`, coral `#C83919` only for critical and the main emergency action. Status never shown by color alone. 44 px minimum touch targets, WCAG AA contrast.
 - No em dashes in any user-facing text. Disclaimer text, exact: "Submitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
 - Flutter style handoff file does NOT apply. Commit after each task. Update `HANDOFF.md` and commit at the end of each phase.
 - Cannot be verified in this environment and must be reported as unchecked: Flutter on a physical phone, push on a real device, GPS accuracy.
@@ -115,7 +115,7 @@ docs/
 ```json
 {
   "color": { "bg": "#F6F1EA", "surface": "#FFFFFF", "primary": "#0F6B66", "primarySoft": "#EEF3F2",
-    "critical": "#E8553D", "high": "#C77700", "medium": "#0F6B66", "low": "#5F6B6A", "text": "#1D2B2A", "muted": "#566665" },
+    "critical": "#C83919", "high": "#9E5A00", "medium": "#0F6B66", "low": "#5F6B6A", "text": "#1D2B2A", "muted": "#566665" },
   "radius": { "md": 12, "lg": 20 },
   "space": { "touch": 44 }
 }

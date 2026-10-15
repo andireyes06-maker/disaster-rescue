@@ -120,7 +120,7 @@ Realtime: both clients use Firestore listeners for live updates. The API does al
 
 ## 8. UI/UX direction: Calm Clarity
 
-- Palette: background `#F6F1EA`, white cards, primary deep teal `#0F6B66`, coral `#E8553D` only for critical priority and the main emergency action. Priority colors: critical coral, high amber, medium teal, low gray. Status is never shown by color alone (label and icon too).
+- Palette: background `#F6F1EA`, white cards, primary deep teal `#0F6B66`, coral `#C83919` only for critical priority and the main emergency action. Priority colors: critical coral, high amber, medium teal, low gray. Status is never shown by color alone (label and icon too).
 - Type and shape: friendly sans-serif, large headings, 12 to 20 px rounded corners, soft shadows.
 - Resident flow: one question per step, large tap targets, hotline always visible, warning shown plainly on the confirm step.
 - Web admin and responder: same palette, denser layout, map and queue as focus.

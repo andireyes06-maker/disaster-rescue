@@ -15,7 +15,7 @@
 - Backend: Express API in front of Firebase (Auth, Firestore, FCM, Admin SDK). Reads live from Firestore, writes through API.
 - Web: React + Vite. Mobile: Flutter (FLUTTER_STYLE_HANDOFF.md does NOT apply here).
 - Maps: Leaflet/OSM (web), flutter_map/OSM (mobile). Responder UI on both web and Flutter.
-- UI: "Calm Clarity" (off-white #F6F1EA, teal #0F6B66, coral #E8553D for critical only). Own direction, not the brief's navy and red.
+- UI: "Calm Clarity" (off-white #F6F1EA, teal #0F6B66, coral #C83919 for critical only). Own direction, not the brief's navy and red.
 
 **Next step:** Airen reviews X-PLAN.md (written 2026-10-15) and picks the execution method (subagent-driven or native). Then start Task 1 in Phase 1.
 

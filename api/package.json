@@ -2,6 +2,7 @@
   "name": "disaster-rescue-api",
   "private": true,
   "type": "module",
+  "engines": { "node": ">=22" },
   "scripts": { "dev": "node --watch src/server.js", "start": "node src/server.js", "test": "vitest run --passWithNoTests" },
   "dependencies": {
     "cloudinary": "^2.5.0", "cors": "^2.8.5", "express": "^4.21.0", "express-rate-limit": "^7.4.0",
