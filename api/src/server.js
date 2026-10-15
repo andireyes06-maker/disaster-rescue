@@ -27,6 +27,7 @@ const app = buildApp({
   sender: createFcmSender(admin.messaging()),
   verifyToken,
   auth: admin.auth(),
+  corsOrigins: config.corsOrigins,
 });
 
 app.listen(config.port, () => console.log(`API listening on ${config.port}`));

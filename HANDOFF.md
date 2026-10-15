@@ -47,7 +47,9 @@
 - Task 16 (Flutter responder mode and notifications) DONE. Flutter 98 tests passing, analyze clean. Photos for operation records out of scope. Not checked on a device: push delivery, maps launch.
 - Known gap: if the sign-out DELETE /devices fails offline, the token stays bound and the next user gets 409 on that device.
 - Lesson: never run `dart format` on whole folders. It rewrote 27 untouched files; reverted (format-only).
-- Next: Task 17 per X-PLAN.md.
+- HTTP hardening (Oct 15): helmet, CORS allowlist from `CORS_ORIGINS`, express-rate-limit (300 req per 15 min per IP). These were installed but unused until now. API suite 187 passing. Behind a proxy in hosting (T21), set `trust proxy` or the limit will see one IP.
+- OPEN DECISION (Airen): Software Build Guidelines (`~/Downloads/Software Build Guidelines/project-standards`) name Next.js + TypeScript + Tailwind + shadcn/ui, React Hook Form + Zod, Vitest + Playwright for applications. We use React + Vite in plain JS and CSS, and Express in plain JS. Guidelines say existing projects need a scoped migration decision, not an automatic rewrite. Not changed yet. Options are in the chat.
+- Next: Task 17 per X-PLAN.md (paused on the stack decision above for web).
 - Not verified: real device, APK build (NDK still corrupt).
 - Open for Task 13: deactivation must set claims `{role, active:false}`, never `{}`; `POST /api/users/self` must be idempotent, accept an empty body, and refuse (409) if the account is disabled or has a non-resident role.
 - Airen's manual steps still open: Firebase project, service account file, Cloudinary keys (see `docs/firebase-setup.md`). Android NDK at `~/Library/Android/sdk/ndk` is corrupt; delete that folder so Gradle re-downloads it before any APK build.
