@@ -7,7 +7,7 @@ services:
     rootDir: api
     buildCommand: npm ci
     startCommand: npm start
-    healthCheckPath: /api/teams
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
         value: "22"

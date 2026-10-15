@@ -31,6 +31,8 @@ export function buildApp({
   app.use(cors({ origin: corsOrigins.length ? corsOrigins : false }));
   app.use(rateLimit({ ...rateOptions, standardHeaders: 'draft-7', legacyHeaders: false }));
   app.use(express.json({ limit: '100kb' }));
+  // Public liveness check for the host. Reveals nothing about data.
+  app.get('/api/health', (req, res) => res.json({ ok: true }));
   app.use('/api/reports', reportsRouter(deps));
   app.use('/api/teams', teamsRouter(deps));
   app.use('/api/users', usersRouter(deps));
