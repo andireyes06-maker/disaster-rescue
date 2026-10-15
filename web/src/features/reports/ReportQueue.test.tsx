@@ -63,8 +63,17 @@ describe('ReportQueue', () => {
     ['Verification', 'pending'],
   ])('filter %s narrows rows', async (label, value) => {
     show(data());
+    await userEvent.click(screen.getByRole('button', { name: /^Filters/ }));
     await userEvent.selectOptions(screen.getByLabelText(label), value);
     expect(screen.queryByText('Flood A')).toBeNull();
     expect(screen.getByText('Fire B')).toBeInTheDocument();
+  });
+
+  it('hides the filter controls until the Filters button is pressed', async () => {
+    show(data());
+    expect(screen.queryByLabelText('Status')).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: /^Filters/ }));
+    expect(screen.getByLabelText('Status')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Hide filters/ })).toHaveAttribute('aria-expanded', 'true');
   });
 });

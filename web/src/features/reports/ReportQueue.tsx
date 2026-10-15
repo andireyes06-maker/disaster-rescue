@@ -36,6 +36,8 @@ interface Filters {
 export default function ReportQueue() {
   const { reports, loading, error } = useReports();
   const [f, setF] = useState<Filters>({ status: '', type: '', priority: '', verified: '' });
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const activeFilters = Object.values(f).filter(Boolean).length;
   const set = (k: keyof Filters) => (v: string) => setF((s) => ({ ...s, [k]: v }));
 
   const rows = reports.filter((r) =>
@@ -62,12 +64,19 @@ export default function ReportQueue() {
         ))}
       </div>
 
-      <div className="filters card" role="group" aria-label="Filters">
-        <Select label="Status" value={f.status} onChange={set('status')} options={REPORT_STATUSES.map((s) => [s, s] as const)} />
-        <Select label="Type" value={f.type} onChange={set('type')} options={REPORT_TYPES.map((s) => [s, s] as const)} />
-        <Select label="Priority" value={f.priority} onChange={set('priority')} options={PRIORITIES.map((s) => [s, s] as const)} />
-        <Select label="Verification" value={f.verified} onChange={set('verified')} options={[['verified', 'Verified'], ['pending', 'Pending']]} />
-      </div>
+      <button type="button" className="btn btn--ghost filters__toggle" aria-expanded={filtersOpen} aria-controls="report-filters"
+        onClick={() => setFiltersOpen((v) => !v)}>
+        {filtersOpen ? 'Hide filters' : 'Filters'}{activeFilters > 0 ? ` (${activeFilters} active)` : ''}
+      </button>
+
+      {filtersOpen && (
+        <div id="report-filters" className="filters card" role="group" aria-label="Filters">
+          <Select label="Status" value={f.status} onChange={set('status')} options={REPORT_STATUSES.map((s) => [s, s] as const)} />
+          <Select label="Type" value={f.type} onChange={set('type')} options={REPORT_TYPES.map((s) => [s, s] as const)} />
+          <Select label="Priority" value={f.priority} onChange={set('priority')} options={PRIORITIES.map((s) => [s, s] as const)} />
+          <Select label="Verification" value={f.verified} onChange={set('verified')} options={[['verified', 'Verified'], ['pending', 'Pending']]} />
+        </div>
+      )}
 
       {error && <p className="error" role="alert">Could not load reports. Check your connection and try again.</p>}
       {loading && <p role="status" className="loading">Loading...</p>}
