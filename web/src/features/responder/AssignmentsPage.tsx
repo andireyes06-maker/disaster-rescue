@@ -4,7 +4,7 @@ import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import type { GeoPoint, Report } from '../../types/domain';
 import { useAssignedReports } from './useAssignedReports';
-import OperationForm from './OperationForm';
+import OperationForm, { allowedOperationStatuses } from './OperationForm';
 import StatusBadge from '../reports/StatusBadge';
 import PriorityBadge from '../reports/PriorityBadge';
 import { formatTime } from '../reports/format';
@@ -34,6 +34,7 @@ interface AssignedCardProps {
 
 function AssignedCard({ report }: AssignedCardProps) {
   const [openForm, setOpenForm] = useState(false);
+  const canPostUpdate = allowedOperationStatuses(report.status).length > 0;
   const [message, setMessage] = useState<Message | null>(null);
   const [busy, setBusy] = useState(false);
   const loc = report.location;
@@ -80,12 +81,14 @@ function AssignedCard({ report }: AssignedCardProps) {
         )}
         <div className="actions__row">
           <button type="button" className="btn" disabled={busy} onClick={acknowledge}>Acknowledge</button>
-          <button type="button" className="btn btn--ghost" aria-expanded={openForm}
-            onClick={() => setOpenForm((v) => !v)}>
-            {openForm ? 'Hide operation form' : 'Post an update'}
-          </button>
+          {canPostUpdate && (
+            <button type="button" className="btn btn--ghost" aria-expanded={openForm}
+              onClick={() => setOpenForm((v) => !v)}>
+              {openForm ? 'Hide operation form' : 'Post an update'}
+            </button>
+          )}
         </div>
-        {openForm && <OperationForm reportId={report.id} />}
+        {canPostUpdate && openForm && <OperationForm reportId={report.id} reportStatus={report.status} />}
       </div>
     </li>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { doc, onSnapshot, type FirestoreError } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, query, type FirestoreError } from 'firebase/firestore';
 import { getFirebaseDb } from '../../firebase';
 import type { Report } from '../../types/domain';
 import { convertReport } from './useReports';
@@ -61,4 +61,42 @@ export function useReportsByIds(ids: string[] | undefined): Record<string, Repor
   }, [key]);
 
   return byId;
+}
+
+export interface RescueUpdate {
+  id: string;
+  status: string;
+  note: string;
+  peopleRescued: number;
+  at: Date | null;
+}
+
+// Responder progress entries, oldest first. Firestore rules let staff read them.
+export function useReportUpdates(id: string) {
+  const [state, setState] = useState<{ updates: RescueUpdate[]; error: FirestoreError | null }>({ updates: [], error: null });
+
+  useEffect(() => {
+    setState({ updates: [], error: null });
+    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'asc'));
+    return onSnapshot(
+      q,
+      (snap) => setState({
+        updates: snap.docs.map((d) => {
+          const data = d.data();
+          const at = data.at && typeof data.at.toDate === 'function' ? data.at.toDate() : null;
+          return {
+            id: d.id,
+            status: typeof data.status === 'string' ? data.status : '',
+            note: typeof data.note === 'string' ? data.note : '',
+            peopleRescued: typeof data.peopleRescued === 'number' ? data.peopleRescued : 0,
+            at,
+          };
+        }),
+        error: null,
+      }),
+      (error) => setState({ updates: [], error }),
+    );
+  }, [id]);
+
+  return state;
 }

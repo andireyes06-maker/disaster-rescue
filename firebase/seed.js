@@ -21,11 +21,15 @@ if (!emulator && !(real && process.env.GOOGLE_APPLICATION_CREDENTIALS)) {
   console.error('Refusing to run. Use emulator hosts (FIREBASE_AUTH_EMULATOR_HOST + FIRESTORE_EMULATOR_HOST),\nor set GOOGLE_APPLICATION_CREDENTIALS and pass --real.');
   process.exit(1);
 }
-if (real && !process.env.SEED_PASSWORD) {
-  console.error('Refusing: --real requires the SEED_PASSWORD env var (no default password for a real project).');
-  process.exit(1);
+// Real project: one password per role, from SEED_PASSWORD_RESIDENT, _DISPATCHER, _RESPONDER, _DMO.
+const passwordFor = (key) => (real ? process.env[`SEED_PASSWORD_${key.toUpperCase()}`] : EMULATOR_TEST_PASSWORD);
+if (real) {
+  const missing = ['resident', 'dispatcher', 'responder', 'dmo'].filter((k) => !passwordFor(k));
+  if (missing.length) {
+    console.error(`Refusing: --real requires SEED_PASSWORD_<ROLE> for: ${missing.join(', ')} (no default password for a real project).`);
+    process.exit(1);
+  }
 }
-const PASSWORD = real ? process.env.SEED_PASSWORD : EMULATOR_TEST_PASSWORD;
 
 const projectId = process.env.FIREBASE_PROJECT_ID || process.env.GCLOUD_PROJECT || (emulator ? 'demo-disaster-rescue' : undefined);
 admin.initializeApp(emulator ? { projectId } : { credential: admin.credential.applicationDefault(), projectId });
@@ -33,21 +37,21 @@ const auth = admin.auth();
 const db = admin.firestore();
 
 const ACCOUNTS = [
-  { key: 'resident', email: 'resident@test.dev', name: 'Test Resident', role: 'resident', phone: '09170000001' },
-  { key: 'dispatcher', email: 'dispatcher@test.dev', name: 'Test Dispatcher', role: 'dispatcher', phone: '09170000002' },
-  { key: 'responder', email: 'responder@test.dev', name: 'Test Responder', role: 'responder', phone: '09170000003', team: 'team-alpha' },
-  { key: 'dmo', email: 'dmo@test.dev', name: 'Test DMO', role: 'dmo', phone: '09170000004' },
+  { key: 'resident', email: 'resident@test.dev', name: 'Maria Santos', role: 'resident', phone: '09170000001' },
+  { key: 'dispatcher', email: 'dispatcher@test.dev', name: 'Jose Reyes', role: 'dispatcher', phone: '09170000002' },
+  { key: 'responder', email: 'responder@test.dev', name: 'Ana Cruz', role: 'responder', phone: '09170000003', team: 'team-alpha' },
+  { key: 'dmo', email: 'dmo@test.dev', name: 'Miguel Tan', role: 'dmo', phone: '09170000004' },
 ];
 
 async function upsertUser(a) {
-  // Existing users keep their password. Only brand new users get PASSWORD.
+  // Existing users keep their password. Only brand new users get their role's password.
   let user;
   try {
     user = await auth.getUserByEmail(a.email);
     user = await auth.updateUser(user.uid, { displayName: a.name, emailVerified: true });
   } catch (e) {
     if (e.code !== 'auth/user-not-found') throw e;
-    user = await auth.createUser({ email: a.email, password: PASSWORD, displayName: a.name, emailVerified: true });
+    user = await auth.createUser({ email: a.email, password: passwordFor(a.key), displayName: a.name, emailVerified: true });
   }
   const claims = { role: a.role, active: true, ...(a.team ? { team: a.team } : {}) };
   await auth.setCustomUserClaims(user.uid, claims);

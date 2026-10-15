@@ -26,13 +26,10 @@
 - Production audit: 0 vulnerabilities after firebase-admin 14 (named imports in api/src/server.js).
 
 ## Waiting on Airen
-0. **Render CORS:** set `CORS_ORIGINS=https://disaster-rescue-web.vercel.app` on disaster-rescue-api (Environment tab), so the web app can call the API.
-0c. **Render redeploy:** confirm the latest commit (b95ab98) shows Live in Render's Deploys tab.
-1. **Done:** private GitHub repo created and pushed. Render (dashboard) still needs setting up from `render.yaml`.
-2. **Firebase (Spark):** create project, enable Email/Password, create Firestore, register a web app, and give the four `VITE_FIREBASE_*` values. Download the service account to `api/serviceAccount.json` (never commit it).
-3. **Cloudinary:** cloud name, API key, API secret, into `api/.env` and Render.
-4. **Android NDK:** delete `~/Library/Android/sdk/ndk` so Gradle re-downloads it, then `flutter build apk --debug`.
-5. **Course docs:** fill `docs/contributions.md`; confirm the LDRRMO hotline number; get legal review of `docs/privacy-and-coordination.md` before real use.
+Done: Render CORS and redeploy, GitHub repo, Firebase project `flutter-5094e` (service account `api/serviceAccount.json`, git-ignored), Cloudinary keys in `api/.env`, NDK fix. Firestore rules and indexes deployed to `flutter-5094e` (Oct 15). Functional audit (Oct 15): API 224 and web 134 tests pass, the full report lifecycle works across all four roles, and the access and validation checks behave. Fixed: rescue updates now show on the incident page (`useReportUpdates`), and the responder form offers only statuses valid for the report. Test reports on the real project: 4 created, 3 closed, 1 open at Awaiting Assignment (`WsRUEbXwEgIA13kOoqTm`, DR-T49M76). Delete or close them before the demo. Test accounts seeded on `flutter-5094e` (resident, dispatcher, responder, dmo @test.dev); sign-in checked for all four. Passwords are not stored in the repo. `flutter build apk --debug` succeeds (Oct 15). `flutter analyze` clean, 107 tests pass.
+
+5. **Course docs:** fill `docs/contributions.md` (names and roles); replace the `000-0000` LDRRMO placeholder in `config/hotlines` with the real number; get legal review of `docs/privacy-and-coordination.md` before real use.
+6. **Push and PR:** nothing pushed, no PR. Needs your approval.
 
 ## Open questions
 - Admin role: code has `admin`, spec says dispatcher-equivalent. Web app has no admin role.

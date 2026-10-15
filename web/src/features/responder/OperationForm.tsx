@@ -30,16 +30,27 @@ function errorText(err: unknown): string {
 
 interface OperationFormProps {
   reportId: string;
+  // Current report status. Only the statuses the API accepts from here are offered.
+  reportStatus?: string;
   onSaved?: () => void;
 }
 
-export default function OperationForm({ reportId, onSaved }: OperationFormProps) {
+// Mirrors the API workflow: Team Assigned -> Rescue in Progress -> Resolved.
+export function allowedOperationStatuses(reportStatus?: string): readonly (typeof OPERATION_STATUSES)[number][] {
+  if (reportStatus === undefined) return OPERATION_STATUSES;
+  if (reportStatus === 'Team Assigned') return ['Rescue in Progress'];
+  if (reportStatus === 'Rescue in Progress') return ['Rescue in Progress', 'Resolved'];
+  return [];
+}
+
+export default function OperationForm({ reportId, reportStatus, onSaved }: OperationFormProps) {
+  const statuses = allowedOperationStatuses(reportStatus);
   const [busy, setBusy] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const { register, handleSubmit, reset, formState: { errors } } = useForm<OperationUpdate>({
     resolver: zodResolver(operationUpdateSchema),
-    defaultValues: { status: OPERATION_STATUSES[0], peopleRescued: 0, note: '' },
+    defaultValues: { status: statuses[0] ?? OPERATION_STATUSES[0], peopleRescued: 0, note: '' },
   });
 
   async function onValid(values: OperationUpdate) {
@@ -67,7 +78,7 @@ export default function OperationForm({ reportId, onSaved }: OperationFormProps)
       onSubmit={(e) => { setSaved(false); return handleSubmit(onValid)(e); }}>
       <label htmlFor={`status-${reportId}`}>Status</label>
       <select id={`status-${reportId}`} {...register('status')}>
-        {OPERATION_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+        {statuses.map((s) => <option key={s} value={s}>{s}</option>)}
       </select>
 
       <label htmlFor={`count-${reportId}`}>People rescued</label>

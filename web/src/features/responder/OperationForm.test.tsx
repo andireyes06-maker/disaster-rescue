@@ -15,7 +15,7 @@ vi.mock('../../api/client', async () => {
   }
   return { api: h.api, ApiError };
 });
-import OperationForm from './OperationForm';
+import OperationForm, { allowedOperationStatuses } from './OperationForm';
 
 describe('OperationForm', () => {
   beforeEach(() => { h.api.mockReset(); h.api.mockResolvedValue({}); });
@@ -42,5 +42,19 @@ describe('OperationForm', () => {
       method: 'POST',
       body: { status: 'Resolved', peopleRescued: 12, note: 'Family moved to the shelter' },
     });
+  });
+});
+
+describe('allowedOperationStatuses', () => {
+  it('offers only Rescue in Progress right after assignment', () => {
+    expect(allowedOperationStatuses('Team Assigned')).toEqual(['Rescue in Progress']);
+  });
+
+  it('offers Resolved once the rescue is in progress', () => {
+    expect(allowedOperationStatuses('Rescue in Progress')).toEqual(['Rescue in Progress', 'Resolved']);
+  });
+
+  it('offers nothing for a resolved report', () => {
+    expect(allowedOperationStatuses('Resolved')).toEqual([]);
   });
 });

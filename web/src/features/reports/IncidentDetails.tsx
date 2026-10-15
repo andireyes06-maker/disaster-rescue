@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
 import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
-import { useReport, useReportsByIds, MAX_DUPLICATE_IDS, type ReportEntry } from './useReport';
+import { useReport, useReportUpdates, useReportsByIds, MAX_DUPLICATE_IDS, type ReportEntry } from './useReport';
 import StatusBadge from './StatusBadge';
 import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
@@ -115,6 +115,7 @@ interface IncidentViewProps {
 function IncidentView({ id }: IncidentViewProps) {
   const { role } = useAuth();
   const { report, loading, error, notFound, removed, retry } = useReport(id);
+  const updatesState = useReportUpdates(id);
   const byId = useReportsByIds(report ? report.possibleDuplicates || [] : []);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<Message | null>(null);
@@ -203,6 +204,23 @@ function IncidentView({ id }: IncidentViewProps) {
               <li key={p.url}><a href={p.url} target="_blank" rel="noreferrer">Photo {i + 1}</a></li>
             ))}
           </ul>
+        )}
+      </section>
+
+      <section className="card" aria-labelledby="updates-title">
+        <h2 id="updates-title">Rescue updates</h2>
+        {updatesState.error && <p role="alert" className="error">Could not load rescue updates.</p>}
+        {!updatesState.error && updatesState.updates.length === 0 && <p>No rescue updates yet.</p>}
+        {updatesState.updates.length > 0 && (
+          <ol className="updates">
+            {updatesState.updates.map((u) => (
+              <li key={u.id}>
+                <strong>{u.status}</strong> <span>{formatTime(u.at)}</span>
+                {u.peopleRescued > 0 && <p>People rescued: {u.peopleRescued}</p>}
+                {u.note && <p className="plain">{u.note}</p>}
+              </li>
+            ))}
+          </ol>
         )}
       </section>
 

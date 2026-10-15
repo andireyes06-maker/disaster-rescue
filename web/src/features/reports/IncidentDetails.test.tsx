@@ -10,6 +10,7 @@ const h = vi.hoisted(() => ({
   reports: [] as Report[],
   api: vi.fn(),
   over: {} as Record<string, unknown>,
+  updates: [] as { id: string; status: string; note: string; peopleRescued: number; at: Date | null }[],
   retry: vi.fn(),
 }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => h.auth }));
@@ -19,6 +20,7 @@ vi.mock('./useReport', () => ({
     const report = h.reports.find((r) => r.id === id) || null;
     return { report, loading: false, error: null, notFound: !report, removed: false, retry: h.retry, ...h.over };
   },
+  useReportUpdates: () => ({ updates: h.updates, error: null }),
   useReportsByIds: (ids: string[]) => Object.fromEntries(ids.map((i) => [i, { report: h.reports.find((r) => r.id === i) || null, loading: false }])),
 }));
 vi.mock('../../api/client', async () => {
@@ -110,6 +112,25 @@ describe('IncidentDetails', () => {
     expect(screen.queryByText(/not found/i)).toBeNull();
     await userEvent.click(screen.getByRole('button', { name: /try again/i }));
     expect(h.retry).toHaveBeenCalled();
+  });
+
+  it('lists responder rescue updates oldest first', () => {
+    h.updates = [
+      { id: 'u1', status: 'Rescue in Progress', note: 'On site', peopleRescued: 2, at: new Date('2026-10-15T08:00:00Z') },
+      { id: 'u2', status: 'Resolved', note: 'Done', peopleRescued: 3, at: new Date('2026-10-15T09:00:00Z') },
+    ];
+    show([makeReport({ id: 'r1' })]);
+    const list = screen.getByRole('list');
+    const items = within(list).getAllByRole('listitem');
+    expect(items[0]).toHaveTextContent('Rescue in Progress');
+    expect(items[1]).toHaveTextContent('Resolved');
+    expect(screen.getByText('People rescued: 2')).toBeInTheDocument();
+    h.updates = [];
+  });
+
+  it('says so when there are no rescue updates', () => {
+    show([makeReport({ id: 'r1' })]);
+    expect(screen.getByText('No rescue updates yet.')).toBeInTheDocument();
   });
 
   it('shows loading state', () => {
