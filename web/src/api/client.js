@@ -1,6 +1,6 @@
 import { getFirebaseAuth } from '../firebase.js';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api').replace(/\/+$/, '');
 
 export class ApiError extends Error {
   constructor({ status, code, message }) {
@@ -18,7 +18,12 @@ async function defaultGetToken() {
 
 export async function api(path, { method = 'GET', body, formData, getToken = defaultGetToken } = {}) {
   const headers = {};
-  const token = await getToken();
+  let token;
+  try {
+    token = await getToken();
+  } catch {
+    throw new ApiError({ status: 0, code: 'auth', message: 'Could not get a sign-in token' });
+  }
   if (token) headers.Authorization = `Bearer ${token}`;
 
   let payload;
@@ -31,7 +36,7 @@ export async function api(path, { method = 'GET', body, formData, getToken = def
 
   let res;
   try {
-    res = await fetch(`${BASE_URL}${path}`, { method, headers, body: payload });
+    res = await fetch(`${BASE_URL}/${String(path).replace(/^\/+/, '')}`, { method, headers, body: payload });
   } catch {
     throw new ApiError({ status: 0, code: 'network', message: 'Network error. Check your connection.' });
   }
@@ -50,7 +55,7 @@ export async function api(path, { method = 'GET', body, formData, getToken = def
     throw new ApiError({
       status: res.status,
       code: (data && data.error) || `http_${res.status}`,
-      message: (data && data.message) || text || `Request failed (${res.status})`,
+      message: (data && typeof data.message === 'string' && data.message) || `Request failed (${res.status})`,
     });
   }
   return data;

@@ -58,4 +58,30 @@ describe('api()', () => {
     expect(init.headers['Content-Type']).toBeUndefined();
     expect(init.body).toBe(fd);
   });
+
+  it('joins base and path with exactly one slash', async () => {
+    mockFetch(200, {});
+    await api('reports', { getToken });
+    await api('//reports', { getToken });
+    for (const c of fetch.mock.calls) expect(c[0]).toMatch(/[^/]\/reports$/);
+    expect(fetch.mock.calls[0][0]).not.toMatch(/\/\/reports/);
+  });
+
+  it('wraps token failures as ApiError status 0 code auth', async () => {
+    mockFetch(200, {});
+    await expect(api('/x', { getToken: async () => { throw new Error('boom'); } })).rejects.toMatchObject({
+      status: 0, code: 'auth', message: 'Could not get a sign-in token',
+    });
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it('never uses a raw HTML body as the message', async () => {
+    mockFetch(500, '<html>secret stack</html>', false);
+    await expect(api('/x', { getToken })).rejects.toMatchObject({ message: 'Request failed (500)' });
+  });
+
+  it('returns null for an empty 204 body', async () => {
+    mockFetch(204, '', false);
+    expect(await api('/x', { getToken })).toBeNull();
+  });
 });

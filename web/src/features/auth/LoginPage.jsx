@@ -29,7 +29,9 @@ export default function LoginPage() {
     error ||
     (authError === 'account_disabled'
       ? 'This account is disabled. Contact your administrator.'
-      : '');
+      : authError === 'auth_failed'
+        ? 'We could not sign you in. Check your connection and try again.'
+        : '');
 
   return (
     <main className="login">
@@ -41,7 +43,7 @@ export default function LoginPage() {
         <label htmlFor="password">Password</label>
         <input id="password" type="password" autoComplete="current-password" required value={password}
           onChange={(e) => setPassword(e.target.value)} />
-        {message && <p role="alert" className="error">Error: {message}</p>}
+        {message && <p role="alert" className="error"><span aria-hidden="true">&#9888; </span><strong>Problem:</strong> {message}</p>}
         <button type="submit" className="btn" disabled={busy}>{busy ? 'Signing in...' : 'Sign in'}</button>
       </form>
       <footer className="login__footer">

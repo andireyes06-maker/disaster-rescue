@@ -3,6 +3,10 @@ import { getAuth, connectAuthEmulator } from 'firebase/auth';
 
 let auth;
 
+export function shouldUseEmulators(env) {
+  return env.DEV === true && env.VITE_USE_EMULATORS === 'true';
+}
+
 // Lazy so that missing config never crashes module import (tests, first run).
 export function getFirebaseAuth() {
   if (auth) return auth;
@@ -14,7 +18,7 @@ export function getFirebaseAuth() {
     appId: env.VITE_FIREBASE_APP_ID,
   });
   auth = getAuth(app);
-  if (env.VITE_USE_EMULATORS === 'true') {
+  if (shouldUseEmulators(env)) {
     connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
   }
   return auth;

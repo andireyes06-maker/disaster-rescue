@@ -23,7 +23,7 @@ export default function AppShell({ title, children }) {
       <div className="shell__body">
         <header className="shell__top">
           <span>{user?.displayName || user?.email} ({role})</span>
-          <button type="button" className="btn btn--ghost" onClick={logout}>Sign out</button>
+          <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>
         </header>
         <main className="shell__main">
           <h1>{title}</h1>

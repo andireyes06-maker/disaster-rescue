@@ -15,4 +15,6 @@
   --radius-lg: 20px;
 
   --space-touch: 44px;
+
+  --shadow-card: 0 1px 3px rgba(29, 43, 42, 0.12);
 }

@@ -15,7 +15,7 @@ export default function Forbidden() {
             : 'Your account does not have access to this page.'}
         </p>
         {LANDING[role] && <Link className="btn" to={landingFor(role)}>Go to my page</Link>}
-        <button type="button" className="btn btn--ghost" onClick={logout}>Sign out</button>
+        <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>
       </div>
     </main>
   );

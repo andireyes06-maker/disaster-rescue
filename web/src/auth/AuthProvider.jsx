@@ -1,32 +1,50 @@
-import { createContext, useContext, useEffect, useMemo, useState, useCallback } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createContext, useContext, useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { onIdTokenChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirebaseAuth } from '../firebase.js';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [state, setState] = useState({ user: null, role: null, loading: true, error: null });
+  const seq = useRef(0);
+  const refreshedUid = useRef(null);
 
   useEffect(() => {
     const auth = getFirebaseAuth();
-    return onAuthStateChanged(auth, async (fbUser) => {
+    const unsubscribe = onIdTokenChanged(auth, async (fbUser) => {
+      const id = ++seq.current;
+      const stale = () => id !== seq.current;
+
       if (!fbUser) {
+        refreshedUid.current = null;
         setState((s) => ({ user: null, role: null, loading: false, error: s.error }));
         return;
       }
       try {
-        const { claims } = await fbUser.getIdTokenResult();
+        // Force a refresh once per sign-in; later events already carry a fresh token.
+        const force = refreshedUid.current !== fbUser.uid;
+        refreshedUid.current = fbUser.uid;
+        const { claims } = await fbUser.getIdTokenResult(force);
+        if (stale()) return;
         // Fail closed: the active claim must be exactly true.
         if (claims.active !== true || !claims.role) {
           await signOut(auth).catch(() => {});
+          if (stale()) return;
           setState({ user: null, role: null, loading: false, error: 'account_disabled' });
           return;
         }
         setState({ user: fbUser, role: claims.role, loading: false, error: null });
       } catch {
+        if (stale()) return;
+        await signOut(auth).catch(() => {});
+        if (stale()) return;
         setState({ user: null, role: null, loading: false, error: 'auth_failed' });
       }
     });
+    return () => {
+      seq.current += 1;
+      unsubscribe();
+    };
   }, []);
 
   const login = useCallback(async (email, password) => {
