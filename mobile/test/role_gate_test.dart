@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'fakes.dart';
+import 'report_fakes.dart';
 
 const disclaimer =
     'Submitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.';
@@ -42,19 +43,30 @@ void main() {
     expect(find.byType(LoginPage), findsOneWidget);
   });
 
-  for (final entry in {
-    'resident': find.byType(ResidentHome),
-    'responder': find.byType(ResponderHome),
-  }.entries) {
-    testWidgets('${entry.key} gets its home', (t) async {
-      await t.pumpWidget(host(c, const RoleGate()));
-      repo.events.add(withRole(entry.key));
-      await t.pump();
-      await t.pump();
-      expect(entry.value, findsOneWidget);
-      expect(find.text('Nothing to show yet'), findsOneWidget);
-    });
-  }
+  testWidgets('resident gets the report, my reports, profile navigation', (t) async {
+    final env = Env();
+    addTearDown(env.dispose);
+    await t.pumpWidget(env.host(const RoleGate()));
+    env.authRepo.events.add(withRole('resident'));
+    await t.pump();
+    env.reports.controller.add(const []);
+    await t.pumpAndSettle();
+    expect(find.byType(ResidentHome), findsOneWidget);
+    expect(find.text('Step 1 of 4'), findsOneWidget);
+    for (final label in ['Report', 'My Reports', 'Profile']) {
+      expect(find.descendant(of: find.byType(NavigationBar), matching: find.text(label)), findsOneWidget);
+    }
+    expect(find.byType(NavigationDestination), findsNWidgets(3));
+  });
+
+  testWidgets('responder gets its home', (t) async {
+    await t.pumpWidget(host(c, const RoleGate()));
+    repo.events.add(withRole('responder'));
+    await t.pump();
+    await t.pump();
+    expect(find.byType(ResponderHome), findsOneWidget);
+    expect(find.text('Nothing to show yet'), findsOneWidget);
+  });
 
   for (final role in ['dispatcher', 'dmo']) {
     testWidgets('$role is told to use the web dashboard', (t) async {

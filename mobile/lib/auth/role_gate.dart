@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../features/auth/login_page.dart';
+import '../features/home/resident_home.dart';
+
+export '../features/home/resident_home.dart';
 import 'auth_controller.dart';
 
 class RoleGate extends StatelessWidget {
@@ -41,12 +44,6 @@ class _Placeholder extends StatelessWidget {
       body: const Center(child: Text('Nothing to show yet')),
     );
   }
-}
-
-class ResidentHome extends StatelessWidget {
-  const ResidentHome({super.key});
-  @override
-  Widget build(BuildContext context) => const _Placeholder('Resident home');
 }
 
 class ResponderHome extends StatelessWidget {

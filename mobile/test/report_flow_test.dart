@@ -1,0 +1,290 @@
+import 'dart:typed_data';
+
+import 'package:disaster_rescue/data/api_client.dart';
+import 'package:disaster_rescue/data/report_models.dart';
+import 'package:disaster_rescue/data/services.dart';
+import 'package:disaster_rescue/features/offline/offline_help_page.dart';
+import 'package:disaster_rescue/features/report/report_flow_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'fakes.dart';
+import 'report_fakes.dart';
+
+const disclaimer =
+    'Submitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.';
+
+late Env env;
+
+void bigScreen(WidgetTester t) {
+  t.view.physicalSize = const Size(800, 2400);
+  t.view.devicePixelRatio = 1;
+  addTearDown(t.view.reset);
+}
+
+Future<void> open(WidgetTester t, {double scale = 1.0}) async {
+  bigScreen(t);
+  env.authRepo.events.add(residentUser);
+  await t.pumpWidget(env.host(const ReportFlowPage(), textScale: scale));
+  await t.pumpAndSettle();
+}
+
+Finder photoChips() => find.byWidgetPredicate(
+      (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith('photo-chip-'),
+    );
+Finder nextBtn() => find.widgetWithText(FilledButton, 'Next');
+Future<void> tapText(WidgetTester t, String s) async {
+  await t.tap(find.text(s));
+  await t.pumpAndSettle();
+}
+
+Future<void> toStep2(WidgetTester t) async {
+  await tapText(t, 'Flood');
+  await t.tap(nextBtn());
+  await t.pumpAndSettle();
+}
+
+Future<void> toStep3(WidgetTester t) async {
+  await toStep2(t);
+  await tapText(t, 'Use my current location');
+  await t.tap(nextBtn());
+  await t.pumpAndSettle();
+}
+
+Future<void> fillDetails(WidgetTester t) async {
+  await t.enterText(find.byKey(const Key('description')), 'Water up to the roof');
+  await t.enterText(find.byKey(const Key('contactName')), 'Ana Reyes');
+  await t.enterText(find.byKey(const Key('contactPhone')), '0917 123 4567');
+  await t.pump();
+}
+
+Future<void> toStep4(WidgetTester t) async {
+  await toStep3(t);
+  await fillDetails(t);
+  await t.tap(nextBtn());
+  await t.pumpAndSettle();
+}
+
+void main() {
+  setUp(() => env = Env());
+  tearDown(() => env.dispose());
+
+  group('validators', () {
+    test('phone', () {
+      expect(validatePhone('+63 912 345 6789'), isNull);
+      expect(validatePhone('(02) 8123-4567'), isNull);
+      expect(validatePhone(''), isNotNull);
+      expect(validatePhone('abc12345'), isNotNull);
+      expect(validatePhone('123'), isNotNull);
+      expect(validatePhone('1' * 21), isNotNull);
+    });
+    test('photo', () {
+      expect(validatePhoto(photo('a.jpg')), isNull);
+      expect(validatePhoto(PickedPhoto(name: 'a.png', bytes: pngBytes(), mime: 'image/png')), isNull);
+      expect(validatePhoto(PickedPhoto(name: 'fake.jpg', bytes: Uint8List.fromList([1, 2, 3, 4]), mime: 'image/jpeg')),
+          contains('not a JPEG'));
+      expect(validatePhoto(PickedPhoto(name: 'e.jpg', bytes: Uint8List(0), mime: 'image/jpeg')), isNotNull);
+      final big = Uint8List(maxPhotoBytes + 1)..setRange(0, 3, [0xFF, 0xD8, 0xFF]);
+      expect(validatePhoto(PickedPhoto(name: 'big.jpg', bytes: big, mime: 'image/jpeg')), contains('5 MB'));
+    });
+  });
+
+  testWidgets('step 1 shows five types and a progress label', (t) async {
+    await open(t);
+    expect(find.text('Step 1 of 4'), findsOneWidget);
+    for (final s in ['Flood', 'Fire', 'Earthquake', 'Landslide', 'Other']) {
+      expect(find.text(s), findsOneWidget);
+    }
+    expect(find.text('Call hotline'), findsOneWidget);
+    expect(tester(nextBtn(), t).onPressed, isNull);
+  });
+
+  testWidgets('cannot advance step 2 without a location', (t) async {
+    await open(t);
+    await toStep2(t);
+    expect(find.text('Step 2 of 4'), findsOneWidget);
+    expect(tester(nextBtn(), t).onPressed, isNull);
+    await t.tap(nextBtn(), warnIfMissed: false);
+    await t.pumpAndSettle();
+    expect(find.text('Step 2 of 4'), findsOneWidget);
+    await tapText(t, 'Use my current location');
+    expect(tester(nextBtn(), t).onPressed, isNotNull);
+    expect(find.textContaining('14.59950'), findsOneWidget);
+  });
+
+  testWidgets('permission denied and GPS off show a message and the map fallback', (t) async {
+    await open(t);
+    await toStep2(t);
+    env.location.result = const LocationResult(LocationStatus.denied);
+    await tapText(t, 'Use my current location');
+    expect(find.textContaining('permission'), findsWidgets);
+    expect(find.text('Pick on a map'), findsOneWidget);
+    env.location.result = const LocationResult(LocationStatus.serviceOff);
+    await tapText(t, 'Use my current location');
+    expect(find.textContaining('turned off'), findsWidgets);
+    expect(tester(nextBtn(), t).onPressed, isNull);
+  });
+
+  testWidgets('the sixth photo is blocked with a message', (t) async {
+    await open(t);
+    await toStep3(t);
+    env.photos.next = [for (var i = 0; i < 5; i++) photo('p$i.jpg')];
+    await tapText(t, 'Add photos');
+    expect(photoChips(), findsNWidgets(5));
+    final calls = env.photos.calls;
+    await tapText(t, 'Add photos');
+    expect(find.textContaining('up to 5 photos'), findsOneWidget);
+    expect(env.photos.calls, calls);
+    expect(photoChips(), findsNWidgets(5));
+  });
+
+  testWidgets('a photo over 5 MB or not an image is rejected before upload', (t) async {
+    await open(t);
+    await toStep3(t);
+    final big = Uint8List(maxPhotoBytes + 1)..setRange(0, 3, [0xFF, 0xD8, 0xFF]);
+    env.photos.next = [
+      PickedPhoto(name: 'big.jpg', bytes: big, mime: 'image/jpeg'),
+      PickedPhoto(name: 'notes.jpg', bytes: Uint8List.fromList([9, 9, 9, 9]), mime: 'image/jpeg'),
+    ];
+    await tapText(t, 'Add photos');
+    expect(photoChips(), findsNothing);
+    expect(find.textContaining('larger than 5 MB'), findsOneWidget);
+    expect(find.textContaining('not a JPEG, PNG or WebP'), findsOneWidget);
+    expect(env.reports.created, isEmpty);
+  });
+
+  testWidgets('details step needs a valid description and phone', (t) async {
+    await open(t);
+    await toStep3(t);
+    await t.enterText(find.byKey(const Key('description')), 'ab');
+    await t.enterText(find.byKey(const Key('contactPhone')), 'abc');
+    await t.tap(nextBtn());
+    await t.pumpAndSettle();
+    expect(find.text('Step 3 of 4'), findsOneWidget);
+    expect(find.textContaining('at least 3'), findsOneWidget);
+    expect(find.textContaining('7 to 20 digits'), findsOneWidget);
+  });
+
+  testWidgets('contact is prefilled from the profile', (t) async {
+    await open(t);
+    await toStep3(t);
+    expect(find.text('Ana Reyes'), findsOneWidget);
+    expect(find.text('0917 123 4567'), findsOneWidget);
+  });
+
+  testWidgets('confirm step shows the exact disclaimer and a coral submit', (t) async {
+    await open(t);
+    await toStep4(t);
+    expect(find.text('Step 4 of 4'), findsOneWidget);
+    expect(find.text(disclaimer), findsOneWidget);
+    expect(find.text('Water up to the roof'), findsOneWidget);
+    expect(find.text('Submit report'), findsOneWidget);
+  });
+
+  testWidgets('success shows the reference and clears the draft', (t) async {
+    env.drafts.draft = const ReportDraft(type: 'fire');
+    await open(t);
+    await tapText(t, 'Discard');
+    await toStep4(t);
+    await tapText(t, 'Submit report');
+    expect(find.text('DR-AB12CD'), findsOneWidget);
+    expect(find.text('Your report was submitted. Status: Submitted.'), findsOneWidget);
+    expect(find.text('View my reports'), findsOneWidget);
+    expect(env.drafts.draft, isNull);
+    expect(env.reports.created.single.type, 'flood');
+    expect(env.reports.created.single.source, 'gps');
+  });
+
+  for (final e in {
+    400: const ApiException(400, 'validation_error', 'Description is too short.'),
+    429: const ApiException(429, 'rate_limited', 'Slow down'),
+    403: const ApiException(403, 'account_disabled', 'Off'),
+    0: const ApiException(0, 'auth', 'You are signed out. Please log in again.'),
+  }.entries) {
+    testWidgets('ApiException ${e.key} leads to the NOT submitted page', (t) async {
+      await open(t);
+      env.reports.createError = e.value;
+      await toStep4(t);
+      await tapText(t, 'Submit report');
+      expect(find.text('Your report was NOT submitted.'), findsOneWidget);
+      expect(find.text('Try again'), findsOneWidget);
+      expect(find.text('Call hotline'), findsWidgets);
+      expect(find.textContaining('SMS'), findsOneWidget);
+      expect(env.drafts.draft, isNull);
+      if (e.key == 429) expect(find.textContaining('too many reports'), findsOneWidget);
+      if (e.key == 400) expect(find.textContaining('Description is too short.'), findsOneWidget);
+      if (e.key == 403 || e.key == 0) expect(find.textContaining('session'), findsOneWidget);
+    });
+  }
+
+  testWidgets('a network failure saves a draft and opens the offline page with hotlines', (t) async {
+    await open(t);
+    env.reports.createError = const ApiException(0, 'network', 'Cannot reach the server.');
+    await toStep4(t);
+    await tapText(t, 'Submit report');
+    expect(find.byType(OfflineHelpPage), findsOneWidget);
+    expect(env.drafts.draft?.type, 'flood');
+    expect(env.drafts.draft?.description, 'Water up to the roof');
+    expect(find.text('National emergency'), findsOneWidget);
+    expect(find.text('911'), findsOneWidget);
+    expect(find.text('Call the hotline, or send an SMS to your local disaster office, then try again when you have a signal.'),
+        findsOneWidget);
+    // Retry succeeds this time.
+    env.reports.createError = null;
+    await tapText(t, 'Try again');
+    expect(find.text('DR-AB12CD'), findsOneWidget);
+    expect(env.drafts.draft, isNull);
+  });
+
+  testWidgets('a saved draft is offered on launch', (t) async {
+    env.drafts.draft = const ReportDraft(
+      type: 'fire', description: 'Smoke everywhere', lat: 1, lng: 2, source: 'manual',
+      contactName: 'Ben', contactPhone: '0917 000 1111');
+    await open(t);
+    expect(find.text('Continue your saved report'), findsOneWidget);
+    await tapText(t, 'Continue your saved report');
+    expect(find.text('Step 4 of 4'), findsOneWidget);
+    expect(find.text('Smoke everywhere'), findsOneWidget);
+  });
+
+  testWidgets('discard clears the saved draft', (t) async {
+    env.drafts.draft = const ReportDraft(type: 'fire');
+    await open(t);
+    await tapText(t, 'Discard');
+    expect(env.drafts.draft, isNull);
+    expect(find.text('Continue your saved report'), findsNothing);
+  });
+
+  testWidgets('hotline button dials the first hotline', (t) async {
+    await open(t);
+    await tapText(t, 'Call hotline');
+    expect(env.dialer.dialed, ['911']);
+  });
+
+  for (final step in [1, 2, 3, 4]) {
+    testWidgets('step $step renders at 200 percent text without overflow', (t) async {
+      t.view.physicalSize = const Size(400, 900);
+      t.view.devicePixelRatio = 1;
+      addTearDown(t.view.reset);
+      env.authRepo.events.add(residentUser);
+      await t.pumpWidget(env.host(const ReportFlowPage(), textScale: 2.0));
+      await t.pumpAndSettle();
+      if (step >= 2) await toStep2(t);
+      if (step >= 3) {
+        await tapText(t, 'Use my current location');
+        await t.tap(nextBtn());
+        await t.pumpAndSettle();
+      }
+      if (step >= 4) {
+        await fillDetails(t);
+        await t.ensureVisible(nextBtn());
+        await t.tap(nextBtn());
+        await t.pumpAndSettle();
+      }
+      expect(find.text('Step $step of 4'), findsOneWidget);
+      expect(t.takeException(), isNull);
+    });
+  }
+}
+
+FilledButton tester(Finder f, WidgetTester t) => t.widget<FilledButton>(f);

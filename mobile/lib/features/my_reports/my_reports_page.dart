@@ -1,0 +1,254 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../data/api_client.dart';
+import '../../data/report_models.dart';
+import '../../data/services.dart';
+import '../../theme/app_theme.dart';
+import '../auth/auth_widgets.dart';
+import '../report/report_flow_page.dart' show reportTypeInfo;
+import 'status_timeline.dart';
+
+String formatWhen(DateTime? t) {
+  if (t == null) return 'Time not known';
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  final l = t.toLocal();
+  final hh = l.hour.toString().padLeft(2, '0');
+  final mm = l.minute.toString().padLeft(2, '0');
+  return '${l.day} ${months[l.month - 1]} ${l.year}, $hh:$mm';
+}
+
+class StatusChip extends StatelessWidget {
+  const StatusChip(this.status, {super.key});
+  final String status;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = StatusStyle.of(status);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: AppColors.primarySoft,
+        borderRadius: BorderRadius.circular(AppRadius.md),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(s.icon, size: 16, color: AppColors.text),
+          const SizedBox(width: 6),
+          Flexible(child: Text(s.label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600))),
+        ],
+      ),
+    );
+  }
+}
+
+class MyReportsPage extends StatefulWidget {
+  const MyReportsPage({super.key, required this.uid});
+  final String uid;
+
+  @override
+  State<MyReportsPage> createState() => _MyReportsPageState();
+}
+
+class _MyReportsPageState extends State<MyReportsPage> {
+  late final Stream<List<ReportSummary>> _stream =
+      context.read<ReportsRepository>().watchMyReports(widget.uid);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('My reports'),
+          bottom: const TabBar(tabs: [Tab(text: 'Active'), Tab(text: 'History')]),
+        ),
+        body: StreamBuilder<List<ReportSummary>>(
+          stream: _stream,
+          builder: (context, snap) {
+            if (snap.hasError) {
+              return const Padding(
+                padding: EdgeInsets.all(16),
+                child: InlineError('Could not load your reports. Check your connection and try again later.'),
+              );
+            }
+            if (!snap.hasData) return const Center(child: CircularProgressIndicator());
+            final all = sortNewestFirst(snap.data!);
+            return TabBarView(children: [
+              _ReportList(
+                items: all.where((r) => !isHistoryStatus(r.status)).toList(),
+                empty: 'No active reports.',
+                stream: _stream,
+              ),
+              _ReportList(
+                items: all.where((r) => isHistoryStatus(r.status)).toList(),
+                empty: 'No past reports yet.',
+                stream: _stream,
+              ),
+            ]);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _ReportList extends StatelessWidget {
+  const _ReportList({required this.items, required this.empty, required this.stream});
+  final List<ReportSummary> items;
+  final String empty;
+  final Stream<List<ReportSummary>> stream;
+
+  @override
+  Widget build(BuildContext context) {
+    if (items.isEmpty) {
+      return Center(
+        child: Padding(padding: const EdgeInsets.all(24), child: Text(empty, textAlign: TextAlign.center)),
+      );
+    }
+    return ListView.separated(
+      padding: const EdgeInsets.all(16),
+      itemCount: items.length,
+      separatorBuilder: (_, _) => const SizedBox(height: 12),
+      itemBuilder: (context, i) {
+        final r = items[i];
+        final info = reportTypeInfo[r.type] ?? reportTypeInfo['other']!;
+        return Card(
+          child: InkWell(
+            borderRadius: BorderRadius.circular(AppRadius.lg),
+            onTap: () async {
+              final messenger = ScaffoldMessenger.of(context);
+              final result = await Navigator.of(context).push<String>(
+                MaterialPageRoute(builder: (_) => ReportDetailPage(initial: r, updates: stream)),
+              );
+              if (result != null) messenger.showSnackBar(SnackBar(content: Text(result)));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    Icon(info.icon, color: AppColors.primary),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(info.label, style: const TextStyle(fontWeight: FontWeight.w700))),
+                  ]),
+                  const SizedBox(height: 8),
+                  Text(r.description, maxLines: 2, overflow: TextOverflow.ellipsis),
+                  const SizedBox(height: 8),
+                  Text(formatWhen(r.createdAt), style: const TextStyle(color: AppColors.muted, fontSize: 13)),
+                  const SizedBox(height: 8),
+                  StatusChip(r.status),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class ReportDetailPage extends StatefulWidget {
+  const ReportDetailPage({super.key, required this.initial, required this.updates});
+  final ReportSummary initial;
+  final Stream<List<ReportSummary>> updates;
+
+  @override
+  State<ReportDetailPage> createState() => _ReportDetailPageState();
+}
+
+class _ReportDetailPageState extends State<ReportDetailPage> {
+  bool _busy = false;
+  String? _error;
+
+  Future<void> _cancel(ReportSummary r) async {
+    final yes = await showDialog<bool>(
+      context: context,
+      builder: (c) => AlertDialog(
+        title: const Text('Cancel this report?'),
+        content: const Text('Responders will not act on it. You can send a new report at any time.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(c, false), child: const Text('Keep report')),
+          TextButton(onPressed: () => Navigator.pop(c, true), child: const Text('Yes, cancel it')),
+        ],
+      ),
+    );
+    if (yes != true || !mounted) return;
+    final repo = context.read<ReportsRepository>();
+    final nav = Navigator.of(context);
+    setState(() {
+      _busy = true;
+      _error = null;
+    });
+    try {
+      await repo.cancel(r.id);
+      nav.pop('Your report was cancelled.');
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _busy = false;
+        _error = e.status == 409 ? 'This report can no longer be cancelled.' : e.message;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _busy = false;
+        _error = 'Could not cancel the report. Please try again.';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<ReportSummary>>(
+      stream: widget.updates,
+      initialData: [widget.initial],
+      builder: (context, snap) {
+        final r = (snap.data ?? const <ReportSummary>[])
+                .where((x) => x.id == widget.initial.id)
+                .firstOrNull ??
+            widget.initial;
+        final info = reportTypeInfo[r.type] ?? reportTypeInfo['other']!;
+        return Scaffold(
+          appBar: AppBar(title: const Text('Report details')),
+          body: SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                Row(children: [
+                  Icon(info.icon, color: AppColors.primary),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(info.label, style: Theme.of(context).textTheme.titleLarge)),
+                ]),
+                const SizedBox(height: 8),
+                Text(formatWhen(r.createdAt), style: const TextStyle(color: AppColors.muted)),
+                if (r.reference != null) Text('Reference: ${r.reference}'),
+                const SizedBox(height: 12),
+                Text(r.description),
+                const SizedBox(height: 12),
+                Align(alignment: Alignment.centerLeft, child: StatusChip(r.status)),
+                const SizedBox(height: 20),
+                Text('Progress', style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 12),
+                StatusTimeline(status: r.status),
+                if (r.status == 'Submitted') ...[
+                  const SizedBox(height: 16),
+                  OutlinedButton(
+                    onPressed: _busy ? null : () => _cancel(r),
+                    child: const Text('Cancel report'),
+                  ),
+                ],
+                if (_error != null) ...[
+                  const SizedBox(height: 12),
+                  InlineError(_error!),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

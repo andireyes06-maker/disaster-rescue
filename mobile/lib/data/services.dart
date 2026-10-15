@@ -1,0 +1,255 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'api_client.dart';
+import 'report_models.dart';
+
+// ---------- Reports ----------
+
+abstract class ReportsRepository {
+  Future<SubmitResult> create(NewReport report);
+
+  /// Live list of the signed-in resident's own reports. The query always
+  /// filters on reporterId, which the Firestore rules require.
+  Stream<List<ReportSummary>> watchMyReports(String uid);
+  Future<void> cancel(String id);
+}
+
+class ApiReportsRepository implements ReportsRepository {
+  ApiReportsRepository(this._api, this._db);
+  final ApiClient _api;
+  final FirebaseFirestore _db;
+
+  @override
+  Future<SubmitResult> create(NewReport r) async {
+    final res = await _api.sendMultipart(
+      'POST',
+      '/reports',
+      fields: {
+        'type': r.type,
+        'description': r.description,
+        'lat': r.lat.toString(),
+        'lng': r.lng.toString(),
+        'source': r.source,
+        'addressText': r.addressText,
+        'contactName': r.contactName,
+        'contactPhone': r.contactPhone,
+      },
+      files: [
+        for (final p in r.photos) http.MultipartFile.fromBytes('photos', p.bytes, filename: p.name),
+      ],
+    );
+    final id = res?['id'];
+    if (id is! String) {
+      throw const ApiException(0, 'bad_response', 'The server sent an unexpected reply.');
+    }
+    return SubmitResult(
+      id: id,
+      status: (res?['status'] as String?) ?? 'Submitted',
+      reference: (res?['reference'] as String?) ?? id,
+    );
+  }
+
+  @override
+  Stream<List<ReportSummary>> watchMyReports(String uid) {
+    return _db
+        .collection('reports')
+        .where('reporterId', isEqualTo: uid)
+        .snapshots()
+        .map((snap) => sortNewestFirst(snap.docs.map((d) {
+              final m = d.data();
+              final created = m['createdAt'];
+              return ReportSummary(
+                id: d.id,
+                type: (m['type'] as String?) ?? 'other',
+                description: (m['description'] as String?) ?? '',
+                status: (m['status'] as String?) ?? 'Submitted',
+                priority: m['priority'] as String?,
+                createdAt: created is Timestamp ? created.toDate() : null,
+                reference: m['reference'] as String?,
+              );
+            })))
+        .asBroadcastStream();
+  }
+
+  @override
+  Future<void> cancel(String id) async {
+    await _api.send('PATCH', '/reports/$id/cancel');
+  }
+}
+
+// ---------- Location ----------
+
+enum LocationStatus { ok, denied, deniedForever, serviceOff, error }
+
+class LocationResult {
+  final LocationStatus status;
+  final double? lat;
+  final double? lng;
+  const LocationResult(this.status, {this.lat, this.lng});
+}
+
+abstract class LocationService {
+  Future<LocationResult> current();
+}
+
+class GeolocatorLocationService implements LocationService {
+  @override
+  Future<LocationResult> current() async {
+    try {
+      if (!await Geolocator.isLocationServiceEnabled()) {
+        return const LocationResult(LocationStatus.serviceOff);
+      }
+      var perm = await Geolocator.checkPermission();
+      if (perm == LocationPermission.denied) {
+        perm = await Geolocator.requestPermission();
+      }
+      if (perm == LocationPermission.denied) return const LocationResult(LocationStatus.denied);
+      if (perm == LocationPermission.deniedForever) {
+        return const LocationResult(LocationStatus.deniedForever);
+      }
+      final pos = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          timeLimit: Duration(seconds: 20),
+        ),
+      );
+      return LocationResult(LocationStatus.ok, lat: pos.latitude, lng: pos.longitude);
+    } catch (_) {
+      return const LocationResult(LocationStatus.error);
+    }
+  }
+}
+
+// ---------- Photos ----------
+
+abstract class PhotoService {
+  /// Lets the user choose up to [limit] images. Returns nothing if cancelled.
+  Future<List<PickedPhoto>> pick(int limit);
+}
+
+class ImagePickerPhotoService implements PhotoService {
+  final ImagePicker _picker = ImagePicker();
+
+  static String _mimeFor(String name, String? reported) {
+    if (reported != null && reported.startsWith('image/')) return reported;
+    final n = name.toLowerCase();
+    if (n.endsWith('.png')) return 'image/png';
+    if (n.endsWith('.webp')) return 'image/webp';
+    return 'image/jpeg';
+  }
+
+  @override
+  Future<List<PickedPhoto>> pick(int limit) async {
+    if (limit <= 0) return const [];
+    final files = await _picker.pickMultiImage(limit: limit < 2 ? null : limit);
+    final out = <PickedPhoto>[];
+    for (final f in files.take(limit)) {
+      out.add(PickedPhoto(name: f.name, bytes: await f.readAsBytes(), mime: _mimeFor(f.name, f.mimeType)));
+    }
+    return out;
+  }
+}
+
+// ---------- Phone ----------
+
+abstract class PhoneDialer {
+  Future<bool> dial(String number);
+}
+
+class UrlLauncherDialer implements PhoneDialer {
+  @override
+  Future<bool> dial(String number) async {
+    try {
+      return await launchUrl(Uri(scheme: 'tel', path: number.replaceAll(RegExp(r'\s'), '')));
+    } catch (_) {
+      return false;
+    }
+  }
+}
+
+// ---------- Hotlines ----------
+
+abstract class HotlineRepository {
+  /// Reads the hotline list. When the network fails, returns the last copy
+  /// saved on the phone, so the offline page still works. May return empty.
+  Future<List<Hotline>> load();
+}
+
+class FirestoreHotlineRepository implements HotlineRepository {
+  FirestoreHotlineRepository(this._db);
+  final FirebaseFirestore _db;
+  static const _cacheKey = 'hotlines_cache_v1';
+
+  @override
+  Future<List<Hotline>> load() async {
+    try {
+      final snap = await _db.doc('config/hotlines').get().timeout(const Duration(seconds: 6));
+      final list = _parse(snap.data()?['numbers']);
+      if (list.isNotEmpty) {
+        await _save(list);
+        return list;
+      }
+    } catch (_) {}
+    return _cached();
+  }
+
+  static List<Hotline> _parse(Object? raw) {
+    if (raw is! List) return const [];
+    final out = <Hotline>[];
+    for (final e in raw) {
+      if (e is Map && e['number'] is String && (e['number'] as String).trim().isNotEmpty) {
+        out.add(Hotline((e['label'] as String?) ?? (e['number'] as String), (e['number'] as String).trim()));
+      }
+    }
+    return out;
+  }
+
+  Future<void> _save(List<Hotline> list) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+          _cacheKey, jsonEncode([for (final h in list) {'label': h.label, 'number': h.number}]));
+    } catch (_) {}
+  }
+
+  Future<List<Hotline>> _cached() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final s = prefs.getString(_cacheKey);
+      if (s == null) return const [];
+      return _parse(jsonDecode(s));
+    } catch (_) {
+      return const [];
+    }
+  }
+}
+
+// ---------- Profile ----------
+
+abstract class ProfileRepository {
+  Future<Profile?> load(String uid);
+}
+
+class FirestoreProfileRepository implements ProfileRepository {
+  FirestoreProfileRepository(this._db);
+  final FirebaseFirestore _db;
+
+  @override
+  Future<Profile?> load(String uid) async {
+    try {
+      final snap = await _db.doc('users/$uid').get().timeout(const Duration(seconds: 6));
+      final m = snap.data();
+      if (m == null) return null;
+      return Profile(name: m['name'] as String?, phone: m['phone'] as String?);
+    } catch (_) {
+      return null;
+    }
+  }
+}

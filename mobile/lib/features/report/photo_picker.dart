@@ -1,0 +1,118 @@
+import 'package:flutter/material.dart';
+
+import '../../data/report_models.dart';
+import '../../data/services.dart';
+import '../auth/auth_widgets.dart';
+
+/// Up to five photos. Each is checked for size and file signature on the
+/// phone before it is kept, so a bad file never reaches the upload.
+class PhotoPickerSection extends StatefulWidget {
+  const PhotoPickerSection({super.key, required this.service, required this.photos, required this.onChanged});
+  final PhotoService service;
+  final List<PickedPhoto> photos;
+  final ValueChanged<List<PickedPhoto>> onChanged;
+
+  @override
+  State<PhotoPickerSection> createState() => _PhotoPickerSectionState();
+}
+
+class _PhotoPickerSectionState extends State<PhotoPickerSection> {
+  final List<String> _messages = [];
+  bool _busy = false;
+
+  Future<void> _add() async {
+    if (widget.photos.length >= maxPhotos) {
+      setState(() => _messages
+        ..clear()
+        ..add('You can add up to 5 photos. Remove one to add another.'));
+      return;
+    }
+    setState(() => _busy = true);
+    final msgs = <String>[];
+    var list = [...widget.photos];
+    try {
+      final picked = await widget.service.pick(maxPhotos - list.length);
+      for (final p in picked) {
+        if (list.length >= maxPhotos) {
+          msgs.add('Only 5 photos can be added. The rest were skipped.');
+          break;
+        }
+        final problem = validatePhoto(p);
+        if (problem != null) {
+          msgs.add('$problem It was not added.');
+        } else {
+          list.add(p);
+        }
+      }
+    } catch (_) {
+      msgs.add('Could not open your photos. You can still send the report without them.');
+    }
+    if (!mounted) return;
+    setState(() {
+      _busy = false;
+      _messages
+        ..clear()
+        ..addAll(msgs);
+    });
+    widget.onChanged(list);
+  }
+
+  void _remove(int i) {
+    final list = [...widget.photos]..removeAt(i);
+    setState(_messages.clear);
+    widget.onChanged(list);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text('Photos (optional, up to 5)', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (var i = 0; i < widget.photos.length; i++)
+              Container(
+                key: ValueKey('photo-chip-$i'),
+                padding: const EdgeInsets.only(left: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black26),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.image_outlined, size: 20),
+                    const SizedBox(width: 6),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 140),
+                      child: Text(widget.photos[i].name, overflow: TextOverflow.ellipsis),
+                    ),
+                    IconButton(
+                      tooltip: 'Remove photo ${widget.photos[i].name}',
+                      icon: const Icon(Icons.close),
+                      onPressed: () => _remove(i),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        OutlinedButton.icon(
+          onPressed: _busy ? null : _add,
+          icon: const Icon(Icons.add_photo_alternate_outlined),
+          label: const Text('Add photos'),
+        ),
+        for (final m in _messages) ...[
+          const SizedBox(height: 8),
+          InlineError(m),
+        ],
+      ],
+    );
+  }
+}

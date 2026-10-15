@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,8 @@ import 'auth/auth_controller.dart';
 import 'auth/auth_repository.dart';
 import 'auth/role_gate.dart';
 import 'data/api_client.dart';
+import 'data/services.dart';
+import 'features/report/report_draft_store.dart';
 import 'firebase_bootstrap.dart';
 import 'theme/app_theme.dart';
 
@@ -39,6 +42,13 @@ Future<void> main() async {
         Provider<ApiClient>.value(value: api),
         Provider<AuthRepository>.value(value: repo),
         ChangeNotifierProvider<AuthController>.value(value: controller),
+        Provider<ReportsRepository>.value(value: ApiReportsRepository(api, FirebaseFirestore.instance)),
+        Provider<LocationService>.value(value: GeolocatorLocationService()),
+        Provider<PhotoService>.value(value: ImagePickerPhotoService()),
+        Provider<PhoneDialer>.value(value: UrlLauncherDialer()),
+        Provider<HotlineRepository>.value(value: FirestoreHotlineRepository(FirebaseFirestore.instance)),
+        Provider<ProfileRepository>.value(value: FirestoreProfileRepository(FirebaseFirestore.instance)),
+        Provider<DraftStore>.value(value: ReportDraftStore()),
       ],
       child: MaterialApp(
         title: 'Disaster Rescue',
