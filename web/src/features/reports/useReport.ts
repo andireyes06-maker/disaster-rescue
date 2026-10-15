@@ -81,17 +81,20 @@ export function useReportUpdates(id: string) {
     return onSnapshot(
       q,
       (snap) => setState({
-        updates: snap.docs.map((d) => {
-          const data = d.data();
-          const at = data.at && typeof data.at.toDate === 'function' ? data.at.toDate() : null;
-          return {
-            id: d.id,
-            status: typeof data.status === 'string' ? data.status : '',
-            note: typeof data.note === 'string' ? data.note : '',
-            peopleRescued: typeof data.peopleRescued === 'number' ? data.peopleRescued : 0,
-            at,
-          };
-        }),
+        // Acknowledgements share this subcollection but carry no status; they are not progress entries.
+        updates: snap.docs
+          .filter((d) => typeof d.data().status === 'string' && d.data().status !== '')
+          .map((d) => {
+            const data = d.data();
+            const at = data.at && typeof data.at.toDate === 'function' ? data.at.toDate() : null;
+            return {
+              id: d.id,
+              status: data.status as string,
+              note: typeof data.note === 'string' ? data.note : '',
+              peopleRescued: typeof data.peopleRescued === 'number' ? data.peopleRescued : 0,
+              at,
+            };
+          }),
         error: null,
       }),
       (error) => setState({ updates: [], error }),

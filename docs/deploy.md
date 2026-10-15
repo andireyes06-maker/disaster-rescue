@@ -54,7 +54,7 @@ Order matters. Each step lists what to check afterwards.
 5. **Set API secrets.** Service account file or secret, Cloudinary keys, `CORS_ORIGINS`, and `TRUST_PROXY` set to the number of proxies in front of the API (the code reads an integer; set it to match the host, UNVERIFIED value). Without `TRUST_PROXY`, the rate limit sees one IP for everyone behind the proxy. NOT RUN.
 6. **Deploy the API.** Check that an API route such as `GET /api/reports` returns 401 without a token (UNVERIFIED status code), which shows the auth check runs. NOT RUN.
 7. **Build and deploy the web app** with the API URL set. Check the login page loads over HTTPS and that a request reaches the API. NOT RUN.
-8. **Seed the real project only if needed**, with `--real` and `SEED_PASSWORD` (see `firebase/seed.js` and `docs/firebase-setup.md`). The seed creates test accounts. Delete or change their passwords before any demo. NOT RUN.
+8. **Seed the real project only if needed**, with `--real` and the four `SEED_PASSWORD_<ROLE>` variables (see `firebase/seed.js` and `docs/firebase-setup.md`). The seed creates test accounts. Delete or change their passwords before any demo. NOT RUN.
 9. **Replace the placeholder hotline number** in `config/hotlines` with the local LDRRMO number. NOT RUN.
 10. **Build the APK** after the NDK fix (section 2.3). NOT RUN.
 11. **Real-device test.** Install the APK, sign in as each role, submit one report, and check notifications. NOT RUN.
