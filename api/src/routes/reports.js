@@ -3,6 +3,7 @@ import { requireAuth, requireRole } from '../middleware/auth.js';
 import { uploadPhotos } from '../middleware/upload.js';
 import { create } from '../services/reportService.js';
 import * as review from '../services/reviewService.js';
+import * as assignment from '../services/assignmentService.js';
 
 export function reportsRouter(deps) {
   const r = Router();
@@ -38,6 +39,14 @@ export function reportsRouter(deps) {
   patch('reject', 'dispatcher', review.reject);
   patch('duplicate', 'dispatcher', review.markDuplicate);
   patch('cancel', 'resident', review.cancel);
+  patch('close', 'dispatcher', assignment.close);
+
+  const post = (path, role, fn) => r.post(`/:id/${path}`, auth, requireRole(role), async (req, res, next) => {
+    try { res.json(await fn(deps, req.user, req.params.id, req.body ?? {})); } catch (e) { next(e); }
+  });
+  post('assign', 'dispatcher', assignment.assign);
+  post('acknowledge', 'responder', assignment.acknowledge);
+  post('updates', 'responder', assignment.addUpdate);
 
   return r;
 }

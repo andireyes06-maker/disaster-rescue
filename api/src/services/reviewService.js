@@ -5,27 +5,27 @@ import { sanitizeText } from '../domain/validation.js';
 import { record } from './auditService.js';
 
 const PRIORITIES = ['low', 'medium', 'high', 'critical'];
-const notFound = () => new HttpError(404, 'not_found', 'Report not found');
-const conflict = () => new HttpError(409, 'conflict', 'The report was changed by someone else');
+export const notFound = () => new HttpError(404, 'not_found', 'Report not found');
+export const conflict = () => new HttpError(409, 'conflict', 'The report was changed by someone else');
 
-async function safeAudit(repo, entry) {
+export async function safeAudit(repo, entry) {
   try { await record(repo, entry); } catch (e) { console.error('audit write failed', e); }
 }
-async function safeNotify(fn) {
+export async function safeNotify(fn) {
   try { await fn(); } catch (e) { console.error('notify failed', e); }
 }
 const notifyReporter = (notifier, report, title, body) => safeNotify(async () => {
   if (report.reporterId) await notifier?.notifyUsers?.([report.reporterId], { title, body, reportId: report.id });
 });
 
-async function load(repo, id) {
+export async function load(repo, id) {
   const report = await repo.getReport(id);
   if (!report) throw notFound();
   return report;
 }
 
 // One guarded status change: workflow check, atomic write, then audit.
-async function transition(repo, user, report, to, patch = {}) {
+export async function transition(repo, user, report, to, patch = {}) {
   assertTransition(report.status, to, user.role);
   const ok = await repo.updateReportIf(report.id, report.status, { ...patch, status: to });
   if (!ok) throw conflict();

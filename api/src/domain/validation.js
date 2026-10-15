@@ -42,6 +42,8 @@ const coord = (min, max) => z.preprocess(
   z.number().finite().min(min).max(max),
 );
 
+export const PHONE_RE = /^[0-9+()\-\s]{7,20}$/;
+
 const schema = z.object({
   type: z.enum(['flood', 'fire', 'earthquake', 'landslide', 'other']),
   description: z.preprocess((v) => (typeof v === 'string' ? sanitizeText(v, 1000) : undefined), z.string().min(3)),
@@ -51,7 +53,7 @@ const schema = z.object({
   addressText: z.preprocess((v) => (v == null ? undefined : sanitizeText(v, 300)), z.string().optional()),
   contact: z.object({
     name: z.string().trim().min(1).max(100),
-    phone: z.string().trim().regex(/^[0-9+()\-\s]{7,20}$/),
+    phone: z.string().trim().regex(PHONE_RE),
   }).optional(),
 });
 

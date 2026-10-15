@@ -37,7 +37,9 @@
 - Done and committed: Tasks 1 to 11 (last commit `f9af371`). Ledger: `.superpowers/sdd/X-PLAN/progress.md`.
 - Task 12 (resident Flutter flow): test failures FIXED (Oct 15). `flutter analyze` clean, `flutter test` 89 passing. Photo chips had duplicate keys (fixed with `ValueKey('photo-chip-$i')`). Role gate test was rewritten, not just patched: resident case now emits `[]` on the reports stream, and the old "Nothing to show yet" check was dropped for residents. Re-check that is intended.
 - Task 12 spec check done against `task-12-brief.md` (all files and behaviors present; SocketException maps to ApiException(0, 'network') in api_client.dart). Committed on `build/disaster-rescue`.
-- Next: Task 13 (POST /api/users/self, admin user creation, teams, assignment). Carry the security rules in the "Open for Task 13" bullet below.
+- Task 13 (teams, assignment, rescue updates, close, users) DONE. API suite 167 passing. Includes `requireIdentity` for `POST /users/self`, 409 on disabled or non-resident accounts, deactivation keeps claims with `active:false`, and 409 `team_busy` when a team is already on another rescue.
+- Task 13 deviations (accepted): team GET open to any signed-in account; a 101-char name gets 400, not truncation; closing frees the team only for its current report.
+- Next: Task 14 per X-PLAN.md (map on web, flutter_map on mobile).
 - Not verified: real device, APK build (NDK still corrupt).
 - Open for Task 13: deactivation must set claims `{role, active:false}`, never `{}`; `POST /api/users/self` must be idempotent, accept an empty body, and refuse (409) if the account is disabled or has a non-resident role.
 - Airen's manual steps still open: Firebase project, service account file, Cloudinary keys (see `docs/firebase-setup.md`). Android NDK at `~/Library/Android/sdk/ndk` is corrupt; delete that folder so Gradle re-downloads it before any APK build.

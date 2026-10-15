@@ -29,6 +29,7 @@ const app = buildApp({
   sender: null,
   verifyToken,
   notifier,
+  auth: admin.auth(),
 });
 
 app.listen(config.port, () => console.log(`API listening on ${config.port}`));
