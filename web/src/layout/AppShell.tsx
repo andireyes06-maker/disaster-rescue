@@ -11,6 +11,7 @@ interface NavItem {
 const NAV: Partial<Record<Role, NavItem[]>> = {
   dispatcher: [
     { to: '/dashboard', label: 'Dashboard' },
+    { to: '/map', label: 'Map' },
     { to: '/teams', label: 'Teams' },
     { to: '/users', label: 'Users' },
   ],
