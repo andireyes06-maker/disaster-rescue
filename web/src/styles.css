@@ -162,3 +162,18 @@ select, textarea {
     @apply bg-background text-foreground; }
   html {
     @apply font-sans; } }
+/* Analytics, audit and dashboard summary */
+.analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 16px; }
+.chart-card { display: grid; gap: 12px; padding: 16px; min-width: 0; }
+.chart-card__title { margin: 0; font-size: 1.125rem; }
+.chart-card__chart { width: 100%; min-height: 220px; }
+.chart-card__bar .recharts-rectangle { fill: var(--color-primary); }
+.chart-card .recharts-cartesian-axis-tick-value { fill: var(--color-muted); }
+.export-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.table-wrap { overflow-x: auto; }
+.table-wrap table { width: 100%; border-collapse: collapse; }
+.table-wrap th, .table-wrap td { text-align: left; vertical-align: top; padding: 8px; border-bottom: 1px solid var(--color-primary-soft); }
+.audit { margin-top: 16px; }
+.audit__changes { margin: 0; padding-left: 16px; }
+.audit__changes del { color: var(--color-muted); }
+.audit__changes ins { text-decoration: none; font-weight: 700; color: var(--color-text); }

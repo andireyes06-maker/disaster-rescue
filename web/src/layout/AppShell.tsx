@@ -12,10 +12,15 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
   dispatcher: [
     { to: '/dashboard', label: 'Dashboard' },
     { to: '/map', label: 'Map' },
+    { to: '/analytics', label: 'Analytics' },
+    { to: '/audit', label: 'Audit' },
     { to: '/teams', label: 'Teams' },
     { to: '/users', label: 'Users' },
   ],
-  dmo: [{ to: '/monitor', label: 'Monitor' }],
+  dmo: [
+    { to: '/monitor', label: 'Monitor' },
+    { to: '/analytics', label: 'Analytics' },
+  ],
   responder: [{ to: '/assignments', label: 'Assignments' }],
 };
 

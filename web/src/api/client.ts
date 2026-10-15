@@ -84,3 +84,29 @@ export async function api(
   }
   return data;
 }
+
+// Binary downloads (CSV, PDF). Same sign-in token and error mapping as api(), but returns a Blob.
+export async function apiBlob(
+  path: string,
+  { getToken = defaultGetToken }: Pick<ApiOptions, 'getToken'> = {},
+): Promise<Blob> {
+  const headers: Record<string, string> = {};
+  let token: string | null;
+  try {
+    token = await getToken();
+  } catch {
+    throw new ApiError({ status: 0, code: 'auth', message: 'Could not get a sign-in token' });
+  }
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  let res: Response;
+  try {
+    res = await fetch(`${BASE_URL}/${String(path).replace(/^\/+/, '')}`, { method: 'GET', headers });
+  } catch {
+    throw new ApiError({ status: 0, code: 'network', message: 'Network error. Check your connection.' });
+  }
+  if (!res.ok) {
+    throw new ApiError({ status: res.status, code: `http_${res.status}`, message: `Request failed (${res.status})` });
+  }
+  return res.blob();
+}

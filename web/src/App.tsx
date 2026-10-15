@@ -12,6 +12,9 @@ import UsersPage from './features/users/UsersPage';
 import AssignmentsPage from './features/responder/AssignmentsPage';
 import IncidentMap from './features/map/IncidentMap';
 import MonitorPage from './features/dmo/MonitorPage';
+import AnalyticsPage from './features/analytics/AnalyticsPage';
+import AuditPage from './features/audit/AuditPage';
+import SummaryCards from './features/dashboard/SummaryCards';
 
 function Home() {
   const { user, role, loading } = useAuth();
@@ -25,7 +28,9 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/forbidden" element={<Forbidden />} />
-      <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />
+      <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><SummaryCards /><ReportQueue /></AppShell></RoleRoute>} />
+      <Route path="/analytics" element={<RoleRoute allow={['dispatcher', 'dmo']}><AppShell title="Analytics"><AnalyticsPage /></AppShell></RoleRoute>} />
+      <Route path="/audit" element={<RoleRoute allow={['dispatcher']}><AppShell title="Audit log"><AuditPage /></AppShell></RoleRoute>} />
       <Route path="/monitor" element={<RoleRoute allow={['dmo']}><AppShell title="Monitor"><MonitorPage /></AppShell></RoleRoute>} />
       <Route path="/map" element={<RoleRoute allow={['dispatcher']}><AppShell title="Map"><IncidentMap /></AppShell></RoleRoute>} />
       <Route path="/incidents/:id" element={<RoleRoute allow={['dispatcher', 'dmo']}><AppShell title="Incident details"><IncidentDetails /></AppShell></RoleRoute>} />
