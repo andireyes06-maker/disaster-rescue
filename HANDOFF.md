@@ -7,7 +7,7 @@
 
 **Status (Oct 15, 2026):**
 - Brainstorm done. Brief read from `/Users/rien/Downloads/IT 305 - PROJECT 4.pdf`.
-- `X-SPEC.md` written, WAITING FOR AIREN'S REVIEW AND APPROVAL.
+- `X-SPEC.md` APPROVED by Airen (2026-10-15). Photos decided: Cloudinary via API.
 - git initialized, `.gitignore` added. Nothing else exists yet (no code).
 
 **Decisions locked:**
@@ -17,10 +17,9 @@
 - Maps: Leaflet/OSM (web), flutter_map/OSM (mobile). Responder UI on both web and Flutter.
 - UI: "Calm Clarity" (off-white #F6F1EA, teal #0F6B66, coral #E8553D for critical only). Own direction, not the brief's navy and red.
 
-**Next step:** Airen reviews X-SPEC.md. After approval, review spec against reality (Firebase Storage plan, hosting), then write X-PLAN.md with phases from spec section 11.
+**Next step:** write X-PLAN.md with phases from spec section 11, then Airen approves it and picks the execution method.
 
 **Open questions:**
-- Does Firebase Storage need the paid Blaze plan on Airen's project? Fallback: Cloudinary via API.
 - Hosting for API and web app.
 - Group size, leader, and roles (only needed for the contribution report).
 

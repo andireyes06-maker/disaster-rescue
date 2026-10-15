@@ -2,7 +2,7 @@
 
 Course: IT 305 Advance Web Development, BSIT 3J, Bulacan State University
 Build window: Oct 12 to 30, 2026. Submission: Nov 2, 2026.
-Status: DRAFT for review. No code is written until this is approved.
+Status: APPROVED by Airen on 2026-10-15.
 
 ## 1. Goal and success criteria
 
@@ -27,6 +27,7 @@ Success means:
 | Maps | Leaflet with OpenStreetMap on web, `flutter_map` with OpenStreetMap on mobile |
 | Responder interface | Both web and Flutter |
 | UI direction | "Calm Clarity" (section 8). Replaces the brief's sample navy and red look. |
+| Photo storage | Cloudinary via the API |
 | Deviation from brief | Brief suggests PostgreSQL/PostGIS or MySQL. We use Firestore. The brief allows stack choice based on team skills. Documented in the schema doc. |
 
 ## 3. Architecture
@@ -45,7 +46,7 @@ React web (admin, DMO, responders)    --+--> Express API --> Firebase Admin SDK
 - Firestore security rules are a second layer. Clients get read-only live listeners scoped by role. Clients cannot write report data directly. `auditLogs` is append-only from the API.
 - Repo layout: `api/`, `web/`, `mobile/`, `docs/`.
 - Roles: `resident`, `dispatcher` (admin and dispatcher are one role), `responder`, `dmo`.
-- Photo storage: Firebase Storage if available on the project plan, otherwise Cloudinary through the API. Only `photos[].url` differs. To be confirmed in phase 1.
+- Photo storage: Cloudinary, uploaded through the API (decided, avoids needing the Firebase Blaze plan). Only the image URL is stored in `photos[].url`.
 
 ## 4. Data model (Firestore)
 
@@ -187,7 +188,7 @@ Anything not in the brief, SMS gateway integration, real LDRRMO integration, for
 
 ## 14. Open items
 
-- Firebase Storage plan requirement: confirm in phase 1, fall back to Cloudinary if needed.
+- Firebase Storage: per Firebase's Sept 2024 FAQ, Cloud Storage for Firebase needs the Blaze (billing-enabled) plan even for default buckets, with free-tier usage still at no cost. Decided: photos go through the API to Cloudinary, so Blaze is not needed. FCM itself is free and the Admin SDK can send from our Express server, so Cloud Functions are not needed.
 - Hosting targets for the API and web app (to decide in the plan).
 - Whether Firebase Cloud Messaging setup works smoothly with the chosen Flutter version (check early in phase 3).
 - Project leader and member roles for the contribution report (needed later, not for the build).
