@@ -38,6 +38,8 @@ export function buildApp({
   app.use('/api/export', exportRouter(deps));
   app.use('/api/audit', auditRouter(deps));
   app.use('/api', notificationsRouter(deps));
+  // Any other /api path is unknown. Answer in the same JSON shape as every other error.
+  app.use('/api', (req, res) => res.status(404).json({ error: 'not_found' }));
   app.use(errorHandler);
   return app;
 }

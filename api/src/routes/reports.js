@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { uploadPhotos } from '../middleware/upload.js';
 import { create } from '../services/reportService.js';
@@ -8,8 +9,17 @@ import * as assignment from '../services/assignmentService.js';
 export function reportsRouter(deps) {
   const r = Router();
   const auth = requireAuth(deps.verifyToken);
+  // Keyed by signed-in user, so it must run after auth. Counts only residents' submissions.
+  const submitLimit = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 10,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    keyGenerator: (req) => req.user.uid,
+    handler: (req, res) => res.status(429).json({ error: 'rate_limited' }),
+  });
 
-  r.post('/', auth, requireRole('resident'), uploadPhotos(), async (req, res, next) => {
+  r.post('/', auth, requireRole('resident'), submitLimit, uploadPhotos(), async (req, res, next) => {
     try {
       const b = req.body ?? {};
       const input = {
