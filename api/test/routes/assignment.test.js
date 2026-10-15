@@ -171,8 +171,17 @@ describe('teams', () => {
     expect(renamed.status).toBe(200);
     expect((await t.repo.getTeam(created.body.id)).name).toBe('Fire Unit 2');
     expect((await request(t.app).patch('/api/teams/ghost').set('Authorization', t.as('dispatcher')).send({ name: 'x' })).status).toBe(404);
-    const list = await request(t.app).get('/api/teams').set('Authorization', t.as('responder'));
+    const list = await request(t.app).get('/api/teams').set('Authorization', t.as('dispatcher'));
     expect(list.status).toBe(200);
     expect(list.body).toHaveLength(1);
+  });
+
+  it('team status is hidden from residents and responders (403); dispatcher, dmo and admin can list', async () => {
+    const t = makeTestApp();
+    await t.repo.saveTeam('tA', { name: 'Team A', busy: true, currentReportId: 'rep-secret' });
+    expect((await request(t.app).get('/api/teams').set('Authorization', t.as('resident'))).status).toBe(403);
+    expect((await request(t.app).get('/api/teams').set('Authorization', t.as('responder'))).status).toBe(403);
+    expect((await request(t.app).get('/api/teams').set('Authorization', t.as('dmo'))).status).toBe(200);
+    expect((await request(t.app).get('/api/teams').set('Authorization', t.as('admin'))).status).toBe(200);
   });
 });

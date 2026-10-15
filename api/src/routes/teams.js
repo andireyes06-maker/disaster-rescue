@@ -13,7 +13,8 @@ export function teamsRouter(deps) {
   const r = Router();
   const auth = requireAuth(deps.verifyToken);
 
-  r.get('/', auth, async (req, res, next) => {
+  // Team status (busy, currentReportId) reveals active rescues, so only staff who coordinate see it.
+  r.get('/', auth, requireRole('dispatcher', 'dmo', 'admin'), async (req, res, next) => {
     try { res.json(await deps.repo.listTeams()); } catch (e) { next(e); }
   });
   r.post('/', auth, requireRole('dispatcher'), async (req, res, next) => {

@@ -44,9 +44,12 @@ export async function createStaff({ repo, auth }, body) {
   return { uid, role, team };
 }
 
-export async function updateStaff({ repo, auth }, id, body) {
+export async function updateStaff({ repo, auth }, id, body, callerUid) {
   const user = await repo.getUser(id);
   if (!user) throw new HttpError(404, 'not_found', 'User not found');
+  // Dispatchers cannot touch admins or their own account, so they cannot lock out or demote an admin.
+  if (user.role === 'admin') throw new HttpError(403, 'forbidden', 'Dispatchers cannot modify admins');
+  if (id === callerUid) throw new HttpError(403, 'forbidden', 'You cannot change your own account');
   const hasRole = body?.role !== undefined;
   const hasActive = body?.active !== undefined;
   if (!hasRole && !hasActive) throw new HttpError(400, 'nothing_to_update', 'Send role and/or active');

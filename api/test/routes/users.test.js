@@ -79,6 +79,28 @@ describe('PATCH /api/users/:id', () => {
   });
 });
 
+describe('PATCH /api/users/:id guards', () => {
+  it('a dispatcher cannot deactivate or change an admin (403) and nothing is written', async () => {
+    const t = makeTestApp();
+    await t.repo.createUser('adm-1', { name: 'Root', role: 'admin', active: true });
+    t.auth.users.set('adm-1', { uid: 'adm-1', email: 'root@x.test', disabled: false });
+    const res = await request(t.app).patch('/api/users/adm-1').set('Authorization', t.as('dispatcher')).send({ active: false });
+    expect(res.status).toBe(403);
+    expect(t.auth.calls.setCustomUserClaims).toHaveLength(0);
+    expect(t.auth.calls.revokeRefreshTokens ?? []).toHaveLength(0);
+    expect(await t.repo.getUser('adm-1')).toMatchObject({ role: 'admin', active: true });
+  });
+
+  it('a dispatcher cannot change their own account (403)', async () => {
+    const t = makeTestApp();
+    await t.repo.createUser('d1', { name: 'Dee', role: 'dispatcher', active: true });
+    t.auth.users.set('d1', { uid: 'd1', email: 'dee@x.test', disabled: false });
+    const res = await request(t.app).patch('/api/users/d1').set('Authorization', t.as('dispatcher', 'd1')).send({ active: false });
+    expect(res.status).toBe(403);
+    expect(await t.repo.getUser('d1')).toMatchObject({ active: true });
+  });
+});
+
 describe('POST /api/users/self', () => {
   it('empty body creates a resident with users doc and claims {role, active:true}', async () => {
     const t = makeTestApp();

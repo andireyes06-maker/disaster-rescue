@@ -20,7 +20,7 @@ export function usersRouter(deps) {
     try { res.json(await deps.repo.listUsers()); } catch (e) { next(e); }
   });
   r.patch('/:id', auth, requireRole('dispatcher'), async (req, res, next) => {
-    try { res.json(await updateStaff(deps, req.params.id, req.body ?? {})); } catch (e) { next(e); }
+    try { res.json(await updateStaff(deps, req.params.id, req.body ?? {}, req.user.uid)); } catch (e) { next(e); }
   });
 
   return r;
