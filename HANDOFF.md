@@ -54,7 +54,9 @@
 - Install-script warnings (not approved, pre-existing): @firebase/util, protobufjs, fsevents, from Firebase's own dependency tree.
 - Phase 3 DONE: all 46 web source and test files are .ts/.tsx, allowJs false, no any or suppressions. Typecheck clean, 115 tests pass, build OK.
 - Known type casts to tighten later: useReports.ts (`as Report`, `as Date` on Firestore data), AuthProvider.tsx (`claims.role as Role`, safe because unknown roles reach /forbidden), and `as Team[]`/`as User[]` in TeamsPage, UsersPage, AssignTeamDialog. Guidelines prefer runtime validation at these boundaries.
-- Next: Phase 4 Playwright tests and the visual check of Tailwind's base styles.
+- Phase 4 DONE: Playwright added (`npm run e2e`, Chromium). 3 smoke tests pass (labels, no horizontal scroll at 375px, no console errors). Visual check against pre-Tailwind f30db64 found two preflight regressions on the login page, both fixed in styles.css: h1 lost bold (now 700), and paragraph margins were removed (restored to 1em). Login now matches baseline at 1280px. Signed-in pages were NOT visually compared (sign-in is not allowed in tests). Re-check after real sign-in in a browser before the demo.
+- Visual baseline images are in web/e2e/__screenshots__/baseline (pre-Tailwind) and current.
+- Next: Task 17 (maps), now on the migrated web app. Flutter map part uses flutter_map.
 - (Superseded) OPEN DECISION (Airen): Software Build Guidelines (`~/Downloads/Software Build Guidelines/project-standards`) name Next.js + TypeScript + Tailwind + shadcn/ui, React Hook Form + Zod, Vitest + Playwright for applications. We use React + Vite in plain JS and CSS, and Express in plain JS. Guidelines say existing projects need a scoped migration decision, not an automatic rewrite. Not changed yet. Options are in the chat.
 - Next: Task 17 per X-PLAN.md (paused on the stack decision above for web).
 - Not verified: real device, APK build (NDK still corrupt).

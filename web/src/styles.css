@@ -13,7 +13,9 @@ body {
   color: var(--color-text);
   font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-h1 { font-size: 1.5rem; margin: 0 0 16px; }
+h1 { font-size: 1.5rem; font-weight: 700; line-height: 1.5; margin: 0 0 16px; }
+/* Tailwind's preflight removes paragraph margins; the app was built on the browser default. */
+p { margin: 1em 0; }
 .card {
   background: var(--color-surface);
   border-radius: var(--radius-lg);
