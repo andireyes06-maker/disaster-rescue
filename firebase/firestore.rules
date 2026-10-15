@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helpers. A token without active == true (missing, false, or non-boolean)
+    // is treated as not active and reads nothing anywhere.
+    function signedIn() { return request.auth != null; }
+    function isActive() { return signedIn() && request.auth.token.get('active', false) == true; }
+    function role() { return request.auth.token.get('role', ''); }
+    function team() { return request.auth.token.get('team', ''); }
+    function isStaff() { return isActive() && (role() == 'dispatcher' || role() == 'dmo'); }
+
+    // Can the signed-in user see this report data?
+    function canSeeReport(data) {
+      return isStaff()
+        || (isActive() && role() == 'resident' && data.reporterId == request.auth.uid)
+        || (isActive() && role() == 'responder' && team() != '' && data.assignedTeamId == team());
+    }
+
+    // The Express API (Admin SDK) is the only writer. Clients never write.
+    match /reports/{reportId} {
+      allow read: if canSeeReport(resource.data);
+      allow write: if false;
+
+      match /updates/{updateId} {
+        allow read: if canSeeReport(get(/databases/$(database)/documents/reports/$(reportId)).data);
+        allow write: if false;
+      }
+    }
+
+    match /users/{uid} {
+      allow read: if isActive() && (request.auth.uid == uid || role() == 'dispatcher');
+      allow write: if false;
+    }
+
+    match /notifications/{id} {
+      allow read: if isActive() && resource.data.recipientUid == request.auth.uid;
+      allow write: if false;
+    }
+
+    match /teams/{id} {
+      allow read: if isActive() && (role() == 'dispatcher' || role() == 'dmo' || role() == 'responder');
+      allow write: if false;
+    }
+
+    match /auditLogs/{id} {
+      allow read: if isStaff();
+      allow write: if false;
+    }
+
+    match /config/hotlines {
+      allow read: if isActive();
+      allow write: if false;
+    }
+
+    match /devices/{token} {
+      allow read, write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

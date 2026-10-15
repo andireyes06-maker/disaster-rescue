@@ -1,0 +1,14 @@
+{
+  "name": "disaster-rescue-firebase",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test rules.test.js",
+    "seed": "node seed.js"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^4.0.1",
+    "firebase": "^11.0.0",
+    "firebase-admin": "^13.0.0"
+  }
+}
