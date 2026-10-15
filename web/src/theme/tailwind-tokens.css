@@ -1,0 +1,20 @@
+/* Calm Clarity tokens exposed to Tailwind. Values live in tokens.css; these only alias them.
+   Prefixed "calm-" because shadcn/ui reserves --color-primary for its own theme. */
+@theme {
+  --color-calm-bg: var(--color-bg);
+  --color-calm-surface: var(--color-surface);
+  --color-calm-primary: var(--color-primary);
+  --color-calm-primary-soft: var(--color-primary-soft);
+  --color-calm-critical: var(--color-critical);
+  --color-calm-high: var(--color-high);
+  --color-calm-medium: var(--color-medium);
+  --color-calm-low: var(--color-low);
+  --color-calm-text: var(--color-text);
+  --color-calm-muted: var(--color-muted);
+  --color-calm-overlay: var(--color-overlay);
+
+  --radius-calm-md: var(--radius-md);
+  --radius-calm-lg: var(--radius-lg);
+
+  --shadow-calm-card: var(--shadow-card);
+}

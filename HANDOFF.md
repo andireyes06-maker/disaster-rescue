@@ -48,7 +48,9 @@
 - Known gap: if the sign-out DELETE /devices fails offline, the token stays bound and the next user gets 409 on that device.
 - Lesson: never run `dart format` on whole folders. It rewrote 27 untouched files; reverted (format-only).
 - HTTP hardening (Oct 15): helmet, CORS allowlist from `CORS_ORIGINS`, express-rate-limit (300 req per 15 min per IP). These were installed but unused until now. API suite 187 passing. Behind a proxy in hosting (T21), set `trust proxy` or the limit will see one IP.
-- OPEN DECISION (Airen): Software Build Guidelines (`~/Downloads/Software Build Guidelines/project-standards`) name Next.js + TypeScript + Tailwind + shadcn/ui, React Hook Form + Zod, Vitest + Playwright for applications. We use React + Vite in plain JS and CSS, and Express in plain JS. Guidelines say existing projects need a scoped migration decision, not an automatic rewrite. Not changed yet. Options are in the chat.
+- Web migration option B (Airen chose it Oct 15). Spec amendment in X-SPEC.md. Phase 1 DONE: TypeScript (incremental, allowJs, typecheck script), Tailwind v4 with calm- tokens, shadcn/ui primitives added. Typecheck clean, 94 tests pass, build OK. Visual check NOT done: Tailwind preflight may shift base styles; verify with Playwright (Phase 4).
+- Phase 2 next: RHF + Zod for forms, shadcn Dialog replaces the custom Dialog.jsx.
+- (Superseded) OPEN DECISION (Airen): Software Build Guidelines (`~/Downloads/Software Build Guidelines/project-standards`) name Next.js + TypeScript + Tailwind + shadcn/ui, React Hook Form + Zod, Vitest + Playwright for applications. We use React + Vite in plain JS and CSS, and Express in plain JS. Guidelines say existing projects need a scoped migration decision, not an automatic rewrite. Not changed yet. Options are in the chat.
 - Next: Task 17 per X-PLAN.md (paused on the stack decision above for web).
 - Not verified: real device, APK build (NDK still corrupt).
 - Open for Task 13: deactivation must set claims `{role, active:false}`, never `{}`; `POST /api/users/self` must be idempotent, accept an empty body, and refuse (409) if the account is disabled or has a non-resident role.
