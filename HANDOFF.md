@@ -17,7 +17,7 @@
 - Maps: Leaflet/OSM (web), flutter_map/OSM (mobile). Responder UI on both web and Flutter.
 - UI: "Calm Clarity" (off-white #F6F1EA, teal #0F6B66, coral #E8553D for critical only). Own direction, not the brief's navy and red.
 
-**Next step:** write X-PLAN.md with phases from spec section 11, then Airen approves it and picks the execution method.
+**Next step:** Airen reviews X-PLAN.md (written 2026-10-15) and picks the execution method (subagent-driven or native). Then start Task 1 in Phase 1.
 
 **Open questions:**
 - Hosting for API and web app.
