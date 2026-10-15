@@ -1,51 +1,76 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, ApiError } from '../../api/client.js';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { api } from '../../api/client.js';
+import { apiFailure } from '../../lib/apiError';
+import { staffAccountSchema, STAFF_ROLE_OPTIONS, type StaffAccount } from '../../lib/schemas';
 
-export const STAFF_ROLE_OPTIONS = ['responder', 'dispatcher', 'dmo'];
+interface User {
+  uid: string;
+  email: string;
+  name?: string | null;
+  role: string;
+  active: boolean;
+}
 
-function errorText(err) {
-  if (err instanceof ApiError || (err && typeof err.status === 'number')) {
-    if (err.code === 'email_taken') return 'That email already has an account.';
-    if (err.code === 'invalid_email') return 'Enter a valid email address.';
-    if (err.code === 'invalid_team') return 'The selected team does not exist.';
-    if (err.status === 403) return 'You do not have permission to do that.';
-    if (err.status === 0) return 'Network error. Check your connection and try again.';
+interface Team {
+  id: string;
+  name: string;
+}
+
+interface Message {
+  kind: 'ok' | 'error';
+  text: string;
+}
+
+const EMPTY_ACCOUNT: StaffAccount = { email: '', name: '', role: 'responder', team: '' };
+
+function errorText(err: unknown): string {
+  const failure = apiFailure(err);
+  if (failure) {
+    if (failure.code === 'email_taken') return 'That email already has an account.';
+    if (failure.code === 'invalid_email') return 'Enter a valid email address.';
+    if (failure.code === 'invalid_team') return 'The selected team does not exist.';
+    if (failure.status === 403) return 'You do not have permission to do that.';
+    if (failure.status === 0) return 'Network error. Check your connection and try again.';
   }
   return 'Something went wrong. Please try again.';
 }
 
 export default function UsersPage() {
-  const [users, setUsers] = useState(null);
-  const [teams, setTeams] = useState([]);
-  const [loadError, setLoadError] = useState(null);
-  const [form, setForm] = useState({ email: '', name: '', role: 'responder', team: '' });
+  const [users, setUsers] = useState<User[] | null>(null);
+  const [teams, setTeams] = useState<Team[]>([]);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<Message | null>(null);
+  const { register, handleSubmit, reset, watch } = useForm<StaffAccount>({
+    resolver: zodResolver(staffAccountSchema),
+    defaultValues: EMPTY_ACCOUNT,
+  });
+  const email = watch('email');
+  const fullName = watch('name');
 
   const load = useCallback(() => {
     setLoadError(null);
     return Promise.all([api('/users'), api('/teams')])
-      .then(([u, t]) => {
-        setUsers(Array.isArray(u) ? u : []);
-        setTeams(Array.isArray(t) ? t : []);
+      .then(([u, t]: [unknown, unknown]) => {
+        setUsers(Array.isArray(u) ? (u as User[]) : []);
+        setTeams(Array.isArray(t) ? (t as Team[]) : []);
       })
       .catch(() => setLoadError('Could not load users. Check your connection and try again.'));
   }, []);
 
   useEffect(() => { load(); }, [load]);
 
-  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
-
-  async function create(e) {
-    e.preventDefault();
+  async function create(values: StaffAccount) {
     setBusy(true);
     setMessage(null);
     try {
       await api('/users', {
         method: 'POST',
-        body: { email: form.email.trim(), name: form.name.trim(), role: form.role, team: form.team || null },
+        body: { email: values.email, name: values.name, role: values.role, team: values.team || null },
       });
-      setForm({ email: '', name: '', role: 'responder', team: '' });
+      reset(EMPTY_ACCOUNT);
       setMessage({ kind: 'ok', text: 'Staff account created.' });
       await load();
     } catch (err) {
@@ -55,7 +80,7 @@ export default function UsersPage() {
     }
   }
 
-  async function setActive(u, active) {
+  async function setActive(u: User, active: boolean) {
     setBusy(true);
     setMessage(null);
     try {
@@ -71,22 +96,22 @@ export default function UsersPage() {
 
   return (
     <div>
-      <form className="card ops-form" onSubmit={create} aria-label="Create staff account">
+      <form className="card ops-form" onSubmit={handleSubmit(create)} aria-label="Create staff account">
         <label htmlFor="staff-email">Email</label>
-        <input id="staff-email" type="email" value={form.email} onChange={set('email')} />
+        <input id="staff-email" type="email" {...register('email')} />
         <label htmlFor="staff-name">Name</label>
-        <input id="staff-name" maxLength={100} value={form.name} onChange={set('name')} />
+        <input id="staff-name" maxLength={100} {...register('name')} />
         <label htmlFor="staff-role">Role</label>
-        <select id="staff-role" value={form.role} onChange={set('role')}>
+        <select id="staff-role" {...register('role')}>
           {STAFF_ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
         </select>
         <label htmlFor="staff-team">Team (optional)</label>
-        <select id="staff-team" value={form.team} onChange={set('team')}>
+        <select id="staff-team" {...register('team')}>
           <option value="">No team</option>
           {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
         </select>
         <div className="actions__row">
-          <button type="submit" className="btn" disabled={busy || !form.email.trim() || !form.name.trim()}>Create account</button>
+          <button type="submit" className="btn" disabled={busy || !email.trim() || !fullName.trim()}>Create account</button>
         </div>
       </form>
 

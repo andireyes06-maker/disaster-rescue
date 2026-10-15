@@ -9,7 +9,7 @@ vi.mock('../../api/client.js', async () => {
   }
   return { api: h.api, ApiError };
 });
-import OperationForm from './OperationForm.jsx';
+import OperationForm from './OperationForm';
 
 describe('OperationForm', () => {
   beforeEach(() => { h.api.mockReset(); h.api.mockResolvedValue({}); });

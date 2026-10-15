@@ -49,7 +49,10 @@
 - Lesson: never run `dart format` on whole folders. It rewrote 27 untouched files; reverted (format-only).
 - HTTP hardening (Oct 15): helmet, CORS allowlist from `CORS_ORIGINS`, express-rate-limit (300 req per 15 min per IP). These were installed but unused until now. API suite 187 passing. Behind a proxy in hosting (T21), set `trust proxy` or the limit will see one IP.
 - Web migration option B (Airen chose it Oct 15). Spec amendment in X-SPEC.md. Phase 1 DONE: TypeScript (incremental, allowJs, typecheck script), Tailwind v4 with calm- tokens, shadcn/ui primitives added. Typecheck clean, 94 tests pass, build OK. Visual check NOT done: Tailwind preflight may shift base styles; verify with Playwright (Phase 4).
-- Phase 2 next: RHF + Zod for forms, shadcn Dialog replaces the custom Dialog.jsx.
+- Phase 2 DONE: React Hook Form + Zod for OperationForm, AssignTeamDialog, Teams and Users forms; shadcn Dialog replaces Dialog.jsx. Web tests 115 passing, typecheck and build OK. Error alert now clears when the field is corrected (timing change, noted).
+- Supply chain (Oct 15): the shadcn installer added the `cn` npm package (repo shadcn-ui/cn, maintainer shadcn, so not a look-alike). Replaced with a local `cn` in web/src/lib/utils.ts built on pinned clsx 2.1.1 and tailwind-merge 3.7.0.
+- Install-script warnings (not approved, pre-existing): @firebase/util, protobufjs, fsevents, from Firebase's own dependency tree.
+- Next: Phase 3 (convert remaining web files to TypeScript incrementally), then Phase 4 Playwright (visual check included).
 - (Superseded) OPEN DECISION (Airen): Software Build Guidelines (`~/Downloads/Software Build Guidelines/project-standards`) name Next.js + TypeScript + Tailwind + shadcn/ui, React Hook Form + Zod, Vitest + Playwright for applications. We use React + Vite in plain JS and CSS, and Express in plain JS. Guidelines say existing projects need a scoped migration decision, not an automatic rewrite. Not changed yet. Options are in the chat.
 - Next: Task 17 per X-PLAN.md (paused on the stack decision above for web).
 - Not verified: real device, APK build (NDK still corrupt).

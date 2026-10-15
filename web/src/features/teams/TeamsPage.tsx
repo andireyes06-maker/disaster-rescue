@@ -1,25 +1,50 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, ApiError } from '../../api/client.js';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { api } from '../../api/client.js';
+import { apiFailure } from '../../lib/apiError';
+import { teamNameSchema, type TeamName } from '../../lib/schemas';
 
-function errorText(err) {
-  if (err instanceof ApiError || (err && typeof err.status === 'number')) {
-    if (err.code === 'invalid_name') return 'Team names must be 1 to 100 characters.';
-    if (err.status === 403) return 'You do not have permission to do that.';
-    if (err.status === 404) return 'This team could not be found.';
-    if (err.status === 0) return 'Network error. Check your connection and try again.';
+interface Team {
+  id: string;
+  name: string;
+  busy: boolean;
+}
+
+interface Message {
+  kind: 'ok' | 'error';
+  text: string;
+}
+
+function errorText(err: unknown): string {
+  const failure = apiFailure(err);
+  if (failure) {
+    if (failure.code === 'invalid_name') return 'Team names must be 1 to 100 characters.';
+    if (failure.status === 403) return 'You do not have permission to do that.';
+    if (failure.status === 404) return 'This team could not be found.';
+    if (failure.status === 0) return 'Network error. Check your connection and try again.';
   }
   return 'Something went wrong. Please try again.';
 }
 
-function TeamRow({ team, onSaved, onError }) {
-  const [name, setName] = useState(team.name);
-  const [busy, setBusy] = useState(false);
+interface TeamRowProps {
+  team: Team;
+  onSaved: (text: string) => void;
+  onError: (text: string) => void;
+}
 
-  async function save(e) {
-    e.preventDefault();
+function TeamRow({ team, onSaved, onError }: TeamRowProps) {
+  const [busy, setBusy] = useState(false);
+  const { register, handleSubmit, watch } = useForm<TeamName>({
+    resolver: zodResolver(teamNameSchema),
+    defaultValues: { name: team.name },
+  });
+  const name = watch('name');
+
+  async function save(values: TeamName) {
     setBusy(true);
     try {
-      await api(`/teams/${team.id}`, { method: 'PATCH', body: { name: name.trim() } });
+      await api(`/teams/${team.id}`, { method: 'PATCH', body: { name: values.name } });
       onSaved('Team renamed.');
     } catch (err) {
       onError(errorText(err));
@@ -30,9 +55,9 @@ function TeamRow({ team, onSaved, onError }) {
 
   return (
     <li className="queue__row card">
-      <form onSubmit={save} className="ops-form" aria-label={`Team ${team.name}`}>
+      <form onSubmit={handleSubmit(save)} className="ops-form" aria-label={`Team ${team.name}`}>
         <label htmlFor={`team-name-${team.id}`}>Team name</label>
-        <input id={`team-name-${team.id}`} maxLength={100} value={name} onChange={(e) => setName(e.target.value)} />
+        <input id={`team-name-${team.id}`} maxLength={100} {...register('name')} />
         <span className="queue__meta">Status: {team.busy ? 'Busy on a rescue' : 'Free'}</span>
         <div className="actions__row">
           <button type="submit" className="btn" disabled={busy || !name.trim()}>Save name</button>
@@ -43,28 +68,31 @@ function TeamRow({ team, onSaved, onError }) {
 }
 
 export default function TeamsPage() {
-  const [teams, setTeams] = useState(null);
-  const [loadError, setLoadError] = useState(null);
-  const [newName, setNewName] = useState('');
+  const [teams, setTeams] = useState<Team[] | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<Message | null>(null);
+  const { register, handleSubmit, reset, watch } = useForm<TeamName>({
+    resolver: zodResolver(teamNameSchema),
+    defaultValues: { name: '' },
+  });
+  const newName = watch('name');
 
   const load = useCallback(() => {
     setLoadError(null);
     return api('/teams')
-      .then((list) => setTeams(Array.isArray(list) ? list : []))
+      .then((list: unknown) => setTeams(Array.isArray(list) ? (list as Team[]) : []))
       .catch(() => setLoadError('Could not load teams. Check your connection and try again.'));
   }, []);
 
   useEffect(() => { load(); }, [load]);
 
-  async function create(e) {
-    e.preventDefault();
+  async function create(values: TeamName) {
     setBusy(true);
     setMessage(null);
     try {
-      await api('/teams', { method: 'POST', body: { name: newName.trim() } });
-      setNewName('');
+      await api('/teams', { method: 'POST', body: { name: values.name } });
+      reset({ name: '' });
       setMessage({ kind: 'ok', text: 'Team created.' });
       await load();
     } catch (err) {
@@ -76,9 +104,9 @@ export default function TeamsPage() {
 
   return (
     <div>
-      <form className="card ops-form" onSubmit={create} aria-label="Create team">
+      <form className="card ops-form" onSubmit={handleSubmit(create)} aria-label="Create team">
         <label htmlFor="new-team">New team name</label>
-        <input id="new-team" maxLength={100} value={newName} onChange={(e) => setNewName(e.target.value)} />
+        <input id="new-team" maxLength={100} {...register('name')} />
         <div className="actions__row">
           <button type="submit" className="btn" disabled={busy || !newName.trim()}>Create team</button>
         </div>

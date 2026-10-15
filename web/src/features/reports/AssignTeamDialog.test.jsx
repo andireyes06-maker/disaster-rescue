@@ -9,7 +9,7 @@ vi.mock('../../api/client.js', async () => {
   }
   return { api: h.api, ApiError };
 });
-import AssignTeamDialog from './AssignTeamDialog.jsx';
+import AssignTeamDialog from './AssignTeamDialog';
 
 const TEAMS = [
   { id: 't1', name: 'Alpha', busy: false, currentReportId: null },

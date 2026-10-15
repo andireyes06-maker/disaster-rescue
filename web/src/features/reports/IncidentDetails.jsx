@@ -6,8 +6,8 @@ import { useReport, useReportsByIds, MAX_DUPLICATE_IDS } from './useReport.js';
 import StatusBadge from './StatusBadge.jsx';
 import PriorityBadge from './PriorityBadge.jsx';
 import VerifiedBadge from './VerifiedBadge.jsx';
-import Dialog from './Dialog.jsx';
-import AssignTeamDialog from './AssignTeamDialog.jsx';
+import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
+import AssignTeamDialog from './AssignTeamDialog';
 import { PRIORITIES, isOpen, formatTime, distanceMeters } from './format.js';
 
 const CONFLICT = 'Someone else already changed this report. Reloading the latest status.';
@@ -218,13 +218,17 @@ function IncidentView({ id }) {
       )}
 
       {canAct && rejecting && (
-        <Dialog title="Reject this report" onClose={() => setRejecting(false)}>
-          <label htmlFor="reject-reason">Reason (required)</label>
-          <textarea id="reject-reason" rows={4} value={reason} onChange={(e) => setReason(e.target.value)} />
-          <div className="actions__row">
-            <button type="button" className="btn" disabled={busy || !reason.trim()} onClick={confirmReject}>Confirm reject</button>
-            <button type="button" className="btn btn--ghost" onClick={() => setRejecting(false)}>Cancel</button>
-          </div>
+        <Dialog open onOpenChange={(open) => { if (!open) setRejecting(false); }}>
+          <DialogContent showCloseButton={false} aria-describedby={undefined}
+            onPointerDownOutside={(e) => e.preventDefault()} onInteractOutside={(e) => e.preventDefault()}>
+            <DialogTitle>Reject this report</DialogTitle>
+            <label htmlFor="reject-reason">Reason (required)</label>
+            <textarea id="reject-reason" rows={4} value={reason} onChange={(e) => setReason(e.target.value)} />
+            <div className="actions__row">
+              <button type="button" className="btn" disabled={busy || !reason.trim()} onClick={confirmReject}>Confirm reject</button>
+              <button type="button" className="btn btn--ghost" onClick={() => setRejecting(false)}>Cancel</button>
+            </div>
+          </DialogContent>
         </Dialog>
       )}
     </div>

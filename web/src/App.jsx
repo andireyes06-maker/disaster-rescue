@@ -7,8 +7,8 @@ import Forbidden from './pages/Forbidden.jsx';
 import AppShell from './layout/AppShell.jsx';
 import ReportQueue from './features/reports/ReportQueue.jsx';
 import IncidentDetails from './features/reports/IncidentDetails.jsx';
-import TeamsPage from './features/teams/TeamsPage.jsx';
-import UsersPage from './features/users/UsersPage.jsx';
+import TeamsPage from './features/teams/TeamsPage';
+import UsersPage from './features/users/UsersPage';
 import AssignmentsPage from './features/responder/AssignmentsPage.jsx';
 
 function Home() {

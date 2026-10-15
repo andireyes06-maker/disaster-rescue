@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../../auth/AuthProvider.jsx';
 import { api, ApiError } from '../../api/client.js';
 import { useAssignedReports } from './useAssignedReports.js';
-import OperationForm from './OperationForm.jsx';
+import OperationForm from './OperationForm';
 import StatusBadge from '../reports/StatusBadge.jsx';
 import PriorityBadge from '../reports/PriorityBadge.jsx';
 import { formatTime } from '../reports/format.js';
