@@ -28,17 +28,16 @@ export function AuthProvider({ children }) {
         if (stale()) return;
         // Fail closed: the active claim must be exactly true.
         if (claims.active !== true || !claims.role) {
-          await signOut(auth).catch(() => {});
-          if (stale()) return;
+          // Set the error first: signOut fires a null event that bumps seq.
           setState({ user: null, role: null, loading: false, error: 'account_disabled' });
+          await signOut(auth).catch(() => {});
           return;
         }
         setState({ user: fbUser, role: claims.role, loading: false, error: null });
       } catch {
         if (stale()) return;
-        await signOut(auth).catch(() => {});
-        if (stale()) return;
         setState({ user: null, role: null, loading: false, error: 'auth_failed' });
+        await signOut(auth).catch(() => {});
       }
     });
     return () => {

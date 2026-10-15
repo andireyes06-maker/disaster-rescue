@@ -94,4 +94,30 @@ describe('AuthProvider', () => {
     await act(async () => { releaseFirst(); await flush(); });
     expect(screen.getByTestId('s')).toHaveTextContent('in:responder');
   });
+
+  it('keeps account_disabled when signOut fires the null token event', async () => {
+    signOutFn.mockImplementationOnce(async () => { await authCallback(null); });
+    render(<AuthProvider><Probe /></AuthProvider>);
+    await act(async () => authCallback(fbUser({ role: 'dispatcher', active: false })));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('out'));
+    expect(screen.getByTestId('e')).toHaveTextContent('account_disabled');
+  });
+
+  it('keeps auth_failed when signOut fires the null token event', async () => {
+    signOutFn.mockImplementationOnce(async () => { await authCallback(null); });
+    render(<AuthProvider><Probe /></AuthProvider>);
+    await act(async () =>
+      authCallback({ uid: 'u', getIdTokenResult: async () => { throw new Error('x'); } }));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('out'));
+    expect(screen.getByTestId('e')).toHaveTextContent('auth_failed');
+  });
+
+  it('a later successful sign in clears the error', async () => {
+    render(<AuthProvider><Probe /></AuthProvider>);
+    await act(async () => authCallback(fbUser({ role: 'dmo', active: false })));
+    await waitFor(() => expect(screen.getByTestId('e')).toHaveTextContent('account_disabled'));
+    await act(async () => authCallback(fbUser({ role: 'dmo', active: true })));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:dmo'));
+    expect(screen.getByTestId('e')).toHaveTextContent('');
+  });
 });
