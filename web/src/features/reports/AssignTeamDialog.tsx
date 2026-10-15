@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '../../api/client.js';
+import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import { assignTeamSchema, type AssignTeam } from '../../lib/schemas';
 import {
@@ -12,11 +12,7 @@ import {
 
 export const NO_FREE_TEAMS = 'No rescue teams are free right now. Close a finished rescue to free a team, then try again.';
 
-interface Team {
-  id: string;
-  name: string;
-  busy: boolean;
-}
+import type { Team } from '../../types/domain';
 
 interface AssignTeamDialogProps {
   reportId: string;

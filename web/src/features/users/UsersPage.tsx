@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '../../api/client.js';
+import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import { staffAccountSchema, STAFF_ROLE_OPTIONS, type StaffAccount } from '../../lib/schemas';
 
@@ -13,10 +13,7 @@ interface User {
   active: boolean;
 }
 
-interface Team {
-  id: string;
-  name: string;
-}
+type Team = Pick<import('../../types/domain').Team, 'id' | 'name'>;
 
 interface Message {
   kind: 'ok' | 'error';

@@ -1,4 +1,4 @@
-import { ApiError } from '../api/client.js';
+import { ApiError } from '../api/client';
 
 export interface ApiFailure {
   status: number;

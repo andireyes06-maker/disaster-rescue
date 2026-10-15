@@ -1,15 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '../../api/client.js';
+import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import { teamNameSchema, type TeamName } from '../../lib/schemas';
 
-interface Team {
-  id: string;
-  name: string;
-  busy: boolean;
-}
+import type { Team } from '../../types/domain';
 
 interface Message {
   kind: 'ok' | 'error';

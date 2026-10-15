@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '../../api/client.js';
+import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import {
   OPERATION_STATUSES,

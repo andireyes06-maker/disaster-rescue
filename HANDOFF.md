@@ -52,7 +52,9 @@
 - Phase 2 DONE: React Hook Form + Zod for OperationForm, AssignTeamDialog, Teams and Users forms; shadcn Dialog replaces Dialog.jsx. Web tests 115 passing, typecheck and build OK. Error alert now clears when the field is corrected (timing change, noted).
 - Supply chain (Oct 15): the shadcn installer added the `cn` npm package (repo shadcn-ui/cn, maintainer shadcn, so not a look-alike). Replaced with a local `cn` in web/src/lib/utils.ts built on pinned clsx 2.1.1 and tailwind-merge 3.7.0.
 - Install-script warnings (not approved, pre-existing): @firebase/util, protobufjs, fsevents, from Firebase's own dependency tree.
-- Next: Phase 3 (convert remaining web files to TypeScript incrementally), then Phase 4 Playwright (visual check included).
+- Phase 3 DONE: all 46 web source and test files are .ts/.tsx, allowJs false, no any or suppressions. Typecheck clean, 115 tests pass, build OK.
+- Known type casts to tighten later: useReports.ts (`as Report`, `as Date` on Firestore data), AuthProvider.tsx (`claims.role as Role`, safe because unknown roles reach /forbidden), and `as Team[]`/`as User[]` in TeamsPage, UsersPage, AssignTeamDialog. Guidelines prefer runtime validation at these boundaries.
+- Next: Phase 4 Playwright tests and the visual check of Tailwind's base styles.
 - (Superseded) OPEN DECISION (Airen): Software Build Guidelines (`~/Downloads/Software Build Guidelines/project-standards`) name Next.js + TypeScript + Tailwind + shadcn/ui, React Hook Form + Zod, Vitest + Playwright for applications. We use React + Vite in plain JS and CSS, and Express in plain JS. Guidelines say existing projects need a scoped migration decision, not an automatic rewrite. Not changed yet. Options are in the chat.
 - Next: Task 17 per X-PLAN.md (paused on the stack decision above for web).
 - Not verified: real device, APK build (NDK still corrupt).
