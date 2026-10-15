@@ -1,12 +1,12 @@
 import { readFileSync } from 'node:fs';
 import admin from 'firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
-import { loadConfig } from './config.js';
+import { loadConfig, validateConfig } from './config.js';
 import { buildApp } from './app.js';
 import { createFirestoreRepo } from './adapters/firestoreRepo.js';
 import { createCloudinaryUploader } from './adapters/cloudinaryUploader.js';
 
-const config = loadConfig();
+const config = validateConfig(loadConfig());
 
 admin.initializeApp({
   ...(config.serviceAccountPath
@@ -16,7 +16,7 @@ admin.initializeApp({
 });
 
 const verifyToken = async (token) => {
-  const claims = await admin.auth().verifyIdToken(token);
+  const claims = await admin.auth().verifyIdToken(token, true);
   return { uid: claims.uid, role: claims.role, active: claims.active };
 };
 

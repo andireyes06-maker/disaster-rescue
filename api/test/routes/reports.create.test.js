@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import request from 'supertest';
 import { makeTestApp } from '../fakes/testApp.js';
 
@@ -16,6 +16,8 @@ function post(t, auth = t.as('resident'), over = {}, photos = []) {
 const writes = async (t) => (await t.repo.listReports()).length;
 
 describe('POST /api/reports', () => {
+  afterEach(() => { vi.restoreAllMocks(); });
+
   it('201 with id, status and reference; stores the report', async () => {
     const t = makeTestApp();
     const res = await post(t, t.as('resident', 'res-9'), { contactName: 'Ana', contactPhone: '09171234567', addressText: 'Main St' }, [JPEG, PNG]);
@@ -107,7 +109,53 @@ describe('POST /api/reports', () => {
       .field('type', 'flood').field('description', 'Water rising').field('lat', '14').field('lng', '120').field('source', 'gps')
       .attach('files', JPEG, { filename: 'a.jpg' });
     expect(res.status).toBe(400);
+    expect(t.uploader.calls).toHaveLength(0);
     expect(await writes(t)).toBe(0);
+  });
+
+  it('ignores mass-assigned fields', async () => {
+    const t = makeTestApp();
+    const res = await post(t, t.as('resident', 'res-3'), { status: 'Closed', reporterId: 'x', priority: 'high', verified: 'true', assignedTeamId: 't1' });
+    expect(res.status).toBe(201);
+    const r = await t.repo.getReport(res.body.id);
+    expect(r).toMatchObject({ status: 'Submitted', priority: 'medium', verified: false, reporterId: 'res-3' });
+    expect(r.assignedTeamId).toBeUndefined();
+  });
+
+  it('createReport failure after upload is 500 and removes the uploaded assets', async () => {
+    const t = makeTestApp();
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    t.repo.createReport = async () => { throw new Error('db down'); };
+    const res = await post(t, undefined, {}, [JPEG, PNG]);
+    expect(res.status).toBe(500);
+    expect(res.body.error).toBe('internal_error');
+    expect(t.uploader.removed).toHaveLength(2);
+    expect(t.uploader.removed.map((x) => x.publicId)).toEqual(['fake-1', 'fake-2']);
+  });
+
+  it('lists open reports before uploading', async () => {
+    const t = makeTestApp();
+    t.repo.listOpenReports = async () => { throw new Error('read fail'); };
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const res = await post(t, undefined, {}, [JPEG]);
+    expect(res.status).toBe(500);
+    expect(t.uploader.calls).toHaveLength(0);
+  });
+
+  it('audit failure after create still returns 201 with one stored report', async () => {
+    const t = makeTestApp();
+    const err = vi.spyOn(console, 'error').mockImplementation(() => {});
+    t.repo.addAudit = async () => { throw new Error('audit down'); };
+    const res = await post(t);
+    expect(res.status).toBe(201);
+    expect(await writes(t)).toBe(1);
+    expect(err).toHaveBeenCalled();
+  });
+
+  it('does not expose public ids in stored photos', async () => {
+    const t = makeTestApp();
+    const res = await post(t, undefined, {}, [JPEG]);
+    expect((await t.repo.getReport(res.body.id)).photos[0]).not.toHaveProperty('publicId');
   });
 
   it('400 for empty contact name', async () => {
@@ -150,7 +198,6 @@ describe('POST /api/reports', () => {
     const res = await post(t, undefined, {}, [JPEG]);
     expect(res.status).toBe(500);
     expect(await writes(t)).toBe(0);
-    vi.restoreAllMocks();
   });
 
   it('notifies dispatchers, and a throwing notifier never fails the report', async () => {
@@ -161,6 +208,5 @@ describe('POST /api/reports', () => {
     expect(res.status).toBe(201);
     expect(notifyRole).toHaveBeenCalledWith('dispatcher', expect.objectContaining({ reportId: res.body.id }));
     expect(err).toHaveBeenCalled();
-    vi.restoreAllMocks();
   });
 });

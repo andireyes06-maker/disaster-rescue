@@ -16,8 +16,6 @@ export async function create({ repo, uploader, notifier }, user, input, files) {
   const data = parseReportInput(input);
   validatePhotos(files);
 
-  const photos = files?.length ? await uploader.upload(files) : [];
-
   const reference = makeReference();
   const now = new Date();
   const location = { lat: data.lat, lng: data.lng, source: data.source };
@@ -31,18 +29,36 @@ export async function create({ repo, uploader, notifier }, user, input, files) {
     location,
     coarseLocation: coarsen(data.lat, data.lng),
     reporterId: user.uid,
-    photos,
+    photos: [],
     createdAt: now,
   };
   if (data.addressText) report.addressText = data.addressText;
   if (data.contact) report.contact = data.contact;
 
+  // Read before uploading so a failure here leaves no orphaned assets.
   const open = await repo.listOpenReports();
   report.possibleDuplicates = findPossibleDuplicates(report, open);
 
-  const id = await repo.createReport(report);
-  await record(repo, { actorUid: user.uid, action: 'report.create', reportId: id, after: { status: report.status, type: report.type, reference } });
+  const uploaded = files?.length ? await uploader.upload(files) : [];
+  // publicId is internal (for cleanup) and never stored on the report.
+  report.photos = uploaded.map(({ publicId, ...photo }) => photo);
 
+  let id;
+  try {
+    id = await repo.createReport(report);
+  } catch (e) {
+    if (uploaded.length) {
+      try { await uploader.remove(uploaded); } catch (re) { console.error('photo cleanup failed', re); }
+    }
+    throw e;
+  }
+
+  // The report exists now: audit and notify failures must not fail the request.
+  try {
+    await record(repo, { actorUid: user.uid, action: 'report.create', reportId: id, after: { status: report.status, type: report.type, reference } });
+  } catch (e) {
+    console.error('audit write failed', e);
+  }
   try {
     await notifier?.notifyRole?.('dispatcher', {
       title: 'New report',

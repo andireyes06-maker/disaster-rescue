@@ -12,3 +12,15 @@ export function loadConfig(env = process.env) {
     },
   };
 }
+
+export function validateConfig(config) {
+  const required = [
+    ['CLOUDINARY_CLOUD_NAME', config.cloudinary.cloudName],
+    ['CLOUDINARY_API_KEY', config.cloudinary.apiKey],
+    ['CLOUDINARY_API_SECRET', config.cloudinary.apiSecret],
+    ['GOOGLE_APPLICATION_CREDENTIALS', config.serviceAccountPath],
+  ];
+  const missing = required.filter(([, v]) => !v).map(([k]) => k);
+  if (missing.length) throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+  return config;
+}

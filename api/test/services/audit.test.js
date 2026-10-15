@@ -115,7 +115,7 @@ describe('fakes', () => {
     const u = createFakeUploader();
     const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 0]);
     const out = await u.upload([{ buffer: png }]);
-    expect(out).toEqual([{ url: 'https://fake.cdn/photo-1.jpg', sizeBytes: png.length, mimeType: 'image/png' }]);
+    expect(out).toEqual([{ publicId: 'fake-1', url: 'https://fake.cdn/photo-1.jpg', sizeBytes: png.length, mimeType: 'image/png' }]);
     expect(u.calls).toHaveLength(1);
     u.failNext = true;
     await expect(u.upload([{ buffer: png }])).rejects.toThrow();
