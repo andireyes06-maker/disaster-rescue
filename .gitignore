@@ -6,3 +6,6 @@ node_modules/
 api/serviceAccount.json
 web/node_modules/
 web/dist/
+mobile/android/app/google-services.json
+mobile/ios/Runner/GoogleService-Info.plist
+**/firebase_options.dart
