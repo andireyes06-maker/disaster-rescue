@@ -132,3 +132,9 @@ select, textarea {
 .dialog { width: min(480px, 100%); }
 .dialog h2 { margin-top: 0; }
 @media (max-width: 640px) { .fact { grid-template-columns: 1fr; gap: 0; } }
+
+.ops-form { display: grid; gap: 8px; }
+.ops-form input, .ops-form select, .ops-form textarea { width: 100%; }
+.ops-form__help { color: var(--color-muted); font-size: 0.875rem; }
+.assignment { display: block; }
+.assignment__main { display: grid; gap: 12px; width: 100%; }

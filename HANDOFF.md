@@ -43,7 +43,8 @@
 - Security fixes after review (Oct 15): dispatchers cannot modify admins or their own account (403); `GET /api/teams` now dispatcher, dmo, admin only (team status reveals active rescues).
 - Device takeover fix (Oct 15): `POST /api/devices` returns 409 `device_claimed` when the token belongs to another account; new owner-only `DELETE /api/devices/:token` (404 for others). API suite 183 passing.
 - TODO for clients: call `DELETE /api/devices/:token` on sign-out, or a shared phone's next user gets 409. Not wired yet in Flutter or web.
-- Next: Task 15 per X-PLAN.md.
+- Task 15 (web teams, users, responder view) DONE. Web tests 94 passing, build OK. Not checked in a browser or emulator: real listener and API calls end to end.
+- Next: Task 16 per X-PLAN.md.
 - Not verified: real device, APK build (NDK still corrupt).
 - Open for Task 13: deactivation must set claims `{role, active:false}`, never `{}`; `POST /api/users/self` must be idempotent, accept an empty body, and refuse (409) if the account is disabled or has a non-resident role.
 - Airen's manual steps still open: Firebase project, service account file, Cloudinary keys (see `docs/firebase-setup.md`). Android NDK at `~/Library/Android/sdk/ndk` is corrupt; delete that folder so Gradle re-downloads it before any APK build.

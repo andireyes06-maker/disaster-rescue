@@ -7,7 +7,9 @@ import Forbidden from './pages/Forbidden.jsx';
 import AppShell from './layout/AppShell.jsx';
 import ReportQueue from './features/reports/ReportQueue.jsx';
 import IncidentDetails from './features/reports/IncidentDetails.jsx';
-import Placeholder from './pages/Placeholder.jsx';
+import TeamsPage from './features/teams/TeamsPage.jsx';
+import UsersPage from './features/users/UsersPage.jsx';
+import AssignmentsPage from './features/responder/AssignmentsPage.jsx';
 
 function Home() {
   const { user, role, loading } = useAuth();
@@ -24,7 +26,9 @@ export default function App() {
       <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />
       <Route path="/monitor" element={<RoleRoute allow={['dmo']}><AppShell title="Monitor"><ReportQueue /></AppShell></RoleRoute>} />
       <Route path="/incidents/:id" element={<RoleRoute allow={['dispatcher', 'dmo']}><AppShell title="Incident details"><IncidentDetails /></AppShell></RoleRoute>} />
-      <Route path="/assignments" element={<RoleRoute allow={['responder']}><Placeholder title="Assignments" /></RoleRoute>} />
+      <Route path="/teams" element={<RoleRoute allow={['dispatcher']}><AppShell title="Teams"><TeamsPage /></AppShell></RoleRoute>} />
+      <Route path="/users" element={<RoleRoute allow={['dispatcher']}><AppShell title="Users"><UsersPage /></AppShell></RoleRoute>} />
+      <Route path="/assignments" element={<RoleRoute allow={['responder']}><AppShell title="Assignments"><AssignmentsPage /></AppShell></RoleRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

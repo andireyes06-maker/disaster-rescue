@@ -2,7 +2,11 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider.jsx';
 
 const NAV = {
-  dispatcher: [{ to: '/dashboard', label: 'Dashboard' }],
+  dispatcher: [
+    { to: '/dashboard', label: 'Dashboard' },
+    { to: '/teams', label: 'Teams' },
+    { to: '/users', label: 'Users' },
+  ],
   dmo: [{ to: '/monitor', label: 'Monitor' }],
   responder: [{ to: '/assignments', label: 'Assignments' }],
 };

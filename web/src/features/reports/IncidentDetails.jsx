@@ -7,6 +7,7 @@ import StatusBadge from './StatusBadge.jsx';
 import PriorityBadge from './PriorityBadge.jsx';
 import VerifiedBadge from './VerifiedBadge.jsx';
 import Dialog from './Dialog.jsx';
+import AssignTeamDialog from './AssignTeamDialog.jsx';
 import { PRIORITIES, isOpen, formatTime, distanceMeters } from './format.js';
 
 const CONFLICT = 'Someone else already changed this report. Reloading the latest status.';
@@ -95,6 +96,7 @@ function IncidentView({ id }) {
   const [reason, setReason] = useState('');
   const [priority, setPriority] = useState('');
   const [classification, setClassification] = useState('');
+  const [assigning, setAssigning] = useState(false);
 
   const backTo = role === 'dmo' ? '/monitor' : '/dashboard';
   if (loading) return <p role="status" className="loading">Loading...</p>;
@@ -113,6 +115,7 @@ function IncidentView({ id }) {
   const awaitingVerify = report.status === 'Submitted' || report.status === 'Under Verification';
   const candidates = (report.possibleDuplicates || []).slice(0, MAX_DUPLICATE_IDS).map((pid) => ({ id: pid, entry: byId[pid] }));
   const shownPriority = priority || report.priority || 'medium';
+  const canAssign = report.status === 'Verified' || report.status === 'Awaiting Assignment';
 
   async function run(path, body, okText) {
     setBusy(true);
@@ -178,6 +181,11 @@ function IncidentView({ id }) {
 
       {canAct && (
         <section className="card actions" aria-label="Actions">
+          {canAssign && (
+            <div className="actions__row">
+              <button type="button" className="btn" disabled={busy} onClick={() => setAssigning(true)}>Assign team</button>
+            </div>
+          )}
           {awaitingVerify && (
             <div className="actions__row">
               <button type="button" className="btn" disabled={busy} onClick={() => run('verify', undefined, 'Report verified.')}>Verify</button>
@@ -202,6 +210,11 @@ function IncidentView({ id }) {
               onClick={() => run('classify', { classification: classification.trim() }, 'Classification saved.')}>Classify</button>
           </div>
         </section>
+      )}
+
+      {canAct && assigning && (
+        <AssignTeamDialog reportId={report.id} onClose={() => setAssigning(false)}
+          onAssigned={() => setMessage({ kind: 'ok', text: 'Rescue team assigned.' })} />
       )}
 
       {canAct && rejecting && (

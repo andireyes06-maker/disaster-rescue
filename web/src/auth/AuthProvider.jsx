@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
           await signOut(auth).catch(() => {});
           return;
         }
-        setState({ user: fbUser, role: claims.role, loading: false, error: null });
+        setState({ user: fbUser, role: claims.role, team: typeof claims.team === 'string' ? claims.team : null, loading: false, error: null });
       } catch {
         if (stale()) return;
         setState({ user: null, role: null, loading: false, error: 'auth_failed' });
