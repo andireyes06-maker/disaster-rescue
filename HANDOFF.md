@@ -6,9 +6,11 @@
 **Path:** Big task. Brainstorm, X-SPEC.md, review against code, X-PLAN.md, then build. No code before spec approval.
 
 **Status (Oct 15, 2026):**
-- Brainstorm done. Brief read from `/Users/rien/Downloads/IT 305 - PROJECT 4.pdf`.
-- `X-SPEC.md` APPROVED by Airen (2026-10-15). Photos decided: Cloudinary via API.
-- git initialized, `.gitignore` added. Nothing else exists yet (no code).
+- Spec and plan APPROVED. Executing X-PLAN.md with subagent-driven development on branch `build/disaster-rescue`.
+- Phase 1 (Foundation) DONE: tasks 1 to 6 (scaffold + tokens, auth/role middleware, status workflow, privacy/duplicates/validation, repo port + fakes + audit, Firebase rules/indexes/seed). API suite 72 tests, rules suite 117 tests, all passing.
+- Task ledger lives in `.superpowers/sdd/X-PLAN/progress.md` (git-ignored). Trust it plus `git log` after any reset.
+
+**AIREN MANUAL STEPS (not done yet):** create the Firebase project (Spark), enable Email/Password auth, create Firestore, download service account to `api/serviceAccount.json`, create a Cloudinary account and fill `api/.env`. Exact steps in `docs/firebase-setup.md`. Seed real project only with `--real` and `SEED_PASSWORD`.
 
 **Decisions locked:**
 - Full scope: all 15 FRs, 4 roles, 3 interfaces, built in vertical slices.
@@ -17,7 +19,7 @@
 - Maps: Leaflet/OSM (web), flutter_map/OSM (mobile). Responder UI on both web and Flutter.
 - UI: "Calm Clarity" (off-white #F6F1EA, teal #0F6B66, coral #C83919 for critical only). Own direction, not the brief's navy and red.
 
-**Next step:** Airen reviews X-PLAN.md (written 2026-10-15) and picks the execution method (subagent-driven or native). Then start Task 1 in Phase 1.
+**Next step:** Phase 2, Task 7 (POST /reports), then 8 to 12. Photos: Cloudinary with private/signed delivery.
 
 **Open questions:**
 - Hosting for API and web app.
