@@ -1,0 +1,27 @@
+# Render Blueprint for the API. Secret values are entered in the Render dashboard (sync: false),
+# never committed here. Firebase service account goes in as a Secret File at /etc/secrets/serviceAccount.json.
+services:
+  - type: web
+    name: disaster-rescue-api
+    runtime: node
+    rootDir: api
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/teams
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: /etc/secrets/serviceAccount.json
+      - key: CORS_ORIGINS
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
