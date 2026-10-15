@@ -192,3 +192,16 @@ Anything not in the brief, SMS gateway integration, real LDRRMO integration, for
 - Hosting targets for the API and web app (to decide in the plan).
 - Whether Firebase Cloud Messaging setup works smoothly with the chosen Flutter version (check early in phase 3).
 - Project leader and member roles for the contribution report (needed later, not for the build).
+
+---
+
+## Amendment (Oct 15, 2026): web stack, option B
+
+Airen chose option B from the Software Build Guidelines review. Web keeps React + Vite and moves to:
+- **TypeScript**, incremental: `allowJs` during migration, `strict` on for converted files, `tsc --noEmit` in the test script. The API stays JavaScript for now (recorded as a deliberate deviation; the guideline allows a documented reason).
+- **Tailwind CSS** (v4, `@tailwindcss/vite`). Calm Clarity tokens from `web/src/theme/tokens.css` map to Tailwind theme variables. No raw hex in components.
+- **shadcn/ui** for primitives (button, dialog, input, label, select, table). Components are pulled from the official registry or CLI, not hand-written copies.
+- **React Hook Form + Zod** for forms (team, user, assignment, operation forms). The API still validates independently.
+- **Playwright** for end-to-end flows (after the migration).
+
+Unchanged: Express API (JavaScript), Firebase, Flutter, Calm Clarity colors and the coral-for-critical rule. Migration is tested at each phase; no behavior changes are intended.
