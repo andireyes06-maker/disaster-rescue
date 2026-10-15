@@ -118,6 +118,7 @@ export function createFirestoreRepo(db) {
     },
 
     // Devices stored as devices/{token} = {uid, createdAt}; token is the doc id.
+    async getDeviceOwner(token) { const d = await col('devices').doc(token).get(); return d.exists ? d.data().uid : null; },
     async addDevice(uid, token) { await col('devices').doc(token).set({ uid, createdAt: new Date() }); },
     async listDevices(uid) {
       return (await col('devices').where('uid', '==', uid).get()).docs.map((d) => d.id);

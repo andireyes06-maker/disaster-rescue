@@ -28,8 +28,22 @@ export function notificationsRouter(deps) {
       if (!token || token.length > MAX_TOKEN_LENGTH) {
         throw new HttpError(400, 'invalid_token', `token must be 1 to ${MAX_TOKEN_LENGTH} characters`);
       }
+      // A token already held by someone else is refused, so one user cannot redirect another's pushes.
+      const owner = await deps.repo.getDeviceOwner(token);
+      if (owner && owner !== req.user.uid) throw new HttpError(409, 'device_claimed', 'This device is registered to another account');
       await deps.repo.addDevice(req.user.uid, token);
       res.json({ registered: true });
+    } catch (e) { next(e); }
+  });
+
+  // Sign-out: the owner removes their own token. Someone else's token looks missing (404).
+  r.delete('/devices/:token', auth, async (req, res, next) => {
+    try {
+      if ((await deps.repo.getDeviceOwner(req.params.token)) !== req.user.uid) {
+        throw new HttpError(404, 'not_found', 'Device not found');
+      }
+      await deps.repo.removeDevice(req.params.token);
+      res.json({ removed: true });
     } catch (e) { next(e); }
   });
 

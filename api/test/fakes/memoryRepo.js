@@ -87,6 +87,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
       return true;
     },
 
+    async getDeviceOwner(token) { return devices.get(token) ?? null; },
     async addDevice(uid, token) { devices.set(token, uid); },
     async listDevices(uid) { return [...devices].filter(([, u]) => u === uid).map(([t]) => t); },
     async removeDevice(token) { devices.delete(token); },

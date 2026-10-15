@@ -30,6 +30,26 @@ describe('POST /api/devices', () => {
     expect((await request(t.app).post('/api/devices').set('Authorization', auth).send({ token: 'tok-ok' })).status).toBe(200);
     expect(await t.repo.listDevices('res-1')).toEqual(['tok-ok']);
   });
+
+  it('refuses a token already registered to another user (409) and leaves the owner unchanged', async () => {
+    const t = makeTestApp();
+    await t.repo.addDevice('res-1', 'tok-victim');
+    const r = await request(t.app).post('/api/devices').set('Authorization', t.as('resident', 'res-2')).send({ token: 'tok-victim' });
+    expect(r.status).toBe(409);
+    expect(await t.repo.listDevices('res-1')).toEqual(['tok-victim']);
+    expect(await t.repo.listDevices('res-2')).toEqual([]);
+  });
+});
+
+describe('DELETE /api/devices/:token', () => {
+  it('the owner can remove their token (sign-out); another user gets 404 and the token stays', async () => {
+    const t = makeTestApp();
+    await t.repo.addDevice('res-1', 'tok-1');
+    expect((await request(t.app).delete('/api/devices/tok-1').set('Authorization', t.as('resident', 'res-2'))).status).toBe(404);
+    expect(await t.repo.listDevices('res-1')).toEqual(['tok-1']);
+    expect((await request(t.app).delete('/api/devices/tok-1').set('Authorization', t.as('resident', 'res-1'))).status).toBe(200);
+    expect(await t.repo.listDevices('res-1')).toEqual([]);
+  });
 });
 
 describe('GET /api/notifications', () => {
