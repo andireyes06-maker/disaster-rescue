@@ -50,7 +50,7 @@ describe('ReportQueue', () => {
   it('computes summary cards', () => {
     show(data());
     const card = (name: string) => document.querySelector('.summary')?.textContent?.match(new RegExp(`${name}(\\d+)`))?.[1];
-    expect(card('Total')).toBe('2');
+    expect(card('All reports')).toBe('2');
     expect(card('Open')).toBe('2');
     expect(card('Critical')).toBe('1');
     expect(card('Verified')).toBe('1');

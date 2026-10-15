@@ -3,7 +3,7 @@
 ## Start here
 
 **Project:** IT 305 final project, Disaster Rescue Reporting and Monitoring System (Flutter + React + Express + Firebase). Due Nov 2, 2026.
-**Branch:** `build/disaster-rescue`. Nothing merged to `master`. No git remote yet.
+**Branch:** `build/disaster-rescue`. Nothing merged to `master`. Repo: https://github.com/andireyes06-maker/disaster-rescue (private). Vercel project `disaster-rescue-web` is linked, not deployed.
 **Status (Oct 15, 2026):** all 21 plan tasks are built and committed. Remaining work is deployment and the course deliverables.
 
 **Verified on the last run:**
@@ -21,7 +21,7 @@
 - Calm Clarity UI. Coral is for critical priority only.
 
 ## Waiting on Airen
-1. **Deploy approval and GitHub:** create a private repo and push `build/disaster-rescue`. Vercel and Render deploy from it.
+1. **Done:** private GitHub repo created and pushed. Render (dashboard) still needs setting up from `render.yaml`.
 2. **Firebase (Spark):** create project, enable Email/Password, create Firestore, register a web app, and give the four `VITE_FIREBASE_*` values. Download the service account to `api/serviceAccount.json` (never commit it).
 3. **Cloudinary:** cloud name, API key, API secret, into `api/.env` and Render.
 4. **Android NDK:** delete `~/Library/Android/sdk/ndk` so Gradle re-downloads it, then `flutter build apk --debug`.
@@ -30,13 +30,13 @@
 ## Open questions
 - Admin role: code has `admin`, spec says dispatcher-equivalent. Web app has no admin role.
 - Firestore rules let responders read teams; the API does not.
-- Web "Total" shows twice on the dashboard.
 - Recharts resize warnings not inspected.
+- Dashboard queue card renamed "All reports" to avoid clashing with the stats "Total reports".
 
 ## Gotchas
 - Never run `dart format` on folders (it rewrote 27 files once).
 - Firestore queries use at most one equality filter; the rest filter in memory.
-- Sign-out must call `DELETE /api/devices/:token`, or the next user on a shared phone gets 409. Not yet wired into the Flutter sign-out path beyond the repo hook.
+- Sign-out calls `DELETE /api/devices/:token` (wired via `beforeSignOut` in `mobile/lib/main.dart`). Keep it.
 - The web app's "map" and "monitor" routes are not browser-checked.
 
 ## Resume prompt

@@ -45,7 +45,7 @@ export default function ReportQueue() {
     && (!f.verified || (f.verified === 'verified') === Boolean(r.verified)));
 
   const cards: [string, number][] = [
-    ['Total', reports.length],
+    ['All reports', reports.length],
     ['Open', reports.filter(isOpen).length],
     ['Critical', reports.filter((r) => r.priority === 'critical' && isOpen(r)).length],
     ['Verified', reports.filter((r) => r.verified).length],
