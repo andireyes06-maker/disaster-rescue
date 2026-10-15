@@ -1,0 +1,18 @@
+/* Design tokens. Source of truth: docs/design-tokens/tokens.json (keep in sync). */
+:root {
+  --color-bg: #F6F1EA;
+  --color-surface: #FFFFFF;
+  --color-primary: #0F6B66;
+  --color-primary-soft: #EEF3F2;
+  --color-critical: #E8553D;
+  --color-high: #9E5A00;
+  --color-medium: #0F6B66;
+  --color-low: #5F6B6A;
+  --color-text: #1D2B2A;
+  --color-muted: #566665;
+
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --space-touch: 44px;
+}
