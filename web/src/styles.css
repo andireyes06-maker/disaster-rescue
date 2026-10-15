@@ -128,7 +128,7 @@ select, textarea {
 }
 .photos { display: flex; gap: 16px; list-style: none; padding: 0; }
 .photos a { display: inline-flex; align-items: center; min-height: var(--space-touch); }
-.overlay { position: fixed; inset: 0; display: grid; place-items: center; padding: 16px; background: rgba(29, 43, 42, 0.5); }
+.overlay { position: fixed; inset: 0; display: grid; place-items: center; padding: 16px; background: var(--color-overlay); }
 .dialog { width: min(480px, 100%); }
 .dialog h2 { margin-top: 0; }
 @media (max-width: 640px) { .fact { grid-template-columns: 1fr; gap: 0; } }

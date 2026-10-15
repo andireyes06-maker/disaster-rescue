@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider.jsx';
 import { api, ApiError } from '../../api/client.js';
-import { useReports } from './useReports.js';
+import { useReport, useReportsByIds, MAX_DUPLICATE_IDS } from './useReport.js';
 import StatusBadge from './StatusBadge.jsx';
 import PriorityBadge from './PriorityBadge.jsx';
 import VerifiedBadge from './VerifiedBadge.jsx';
@@ -34,23 +34,42 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }) {
   return (
     <section className="card dup" aria-labelledby="dup-title">
       <h2 id="dup-title">Possible duplicates</h2>
-      <p>These reports were flagged as similar. Compare them with this one.</p>
+      <p>These reports were flagged as similar. Compare them with the one you are viewing.</p>
+      <p>The report you are viewing will be closed as a duplicate of the report you choose.</p>
       <div className="dup__grid">
-        {[{ r: report, current: true }, ...candidates.map((r) => ({ r, current: false }))].map(({ r, current }) => {
-          const dist = current ? null : distanceMeters(report.location, r.location);
+        <article className="dup__item">
+          <h3>This report</h3>
+          <dl>
+            <Fact label="Type">{report.type}</Fact>
+            <Fact label="Description"><span className="plain">{report.description}</span></Fact>
+            <Fact label="Reported">{formatTime(report.createdAt)}</Fact>
+            <Fact label="Status"><StatusBadge status={report.status} /></Fact>
+          </dl>
+        </article>
+        {candidates.map(({ id, entry }) => {
+          const r = entry && entry.report;
+          if (!r) {
+            return (
+              <article key={id} className="dup__item">
+                <h3>Flagged report</h3>
+                <p>{entry && entry.loading ? 'Loading...' : 'Report unavailable'}</p>
+              </article>
+            );
+          }
+          const dist = distanceMeters(report.location, r.location);
           return (
-            <article key={r.id} className="dup__item">
-              <h3>{current ? 'This report' : 'Flagged report'}</h3>
+            <article key={id} className="dup__item">
+              <h3>Flagged report</h3>
               <dl>
                 <Fact label="Type">{r.type}</Fact>
-                <Fact label="Description">{r.description}</Fact>
+                <Fact label="Description"><span className="plain">{r.description}</span></Fact>
                 <Fact label="Reported">{formatTime(r.createdAt)}</Fact>
                 {dist !== null && <Fact label="Distance">{dist} m away</Fact>}
                 <Fact label="Status"><StatusBadge status={r.status} /></Fact>
               </dl>
-              {!current && canAct && (
+              {canAct && isOpen(r) && (
                 <button type="button" className="btn" disabled={busy} onClick={() => onMark(r.id)}>
-                  Mark as duplicate of this report
+                  Mark the report you are viewing as a duplicate of this one
                 </button>
               )}
             </article>
@@ -63,8 +82,13 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }) {
 
 export default function IncidentDetails() {
   const { id } = useParams();
+  return <IncidentView key={id} id={id} />;
+}
+
+function IncidentView({ id }) {
   const { role } = useAuth();
-  const { reports, loading } = useReports();
+  const { report, loading, error, notFound, removed, retry } = useReport(id);
+  const byId = useReportsByIds(report ? report.possibleDuplicates || [] : []);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState(null);
   const [rejecting, setRejecting] = useState(false);
@@ -72,13 +96,22 @@ export default function IncidentDetails() {
   const [priority, setPriority] = useState('');
   const [classification, setClassification] = useState('');
 
-  const report = reports.find((r) => r.id === id);
+  const backTo = role === 'dmo' ? '/monitor' : '/dashboard';
   if (loading) return <p role="status" className="loading">Loading...</p>;
-  if (!report) return <p className="card">Report not found. <Link to={role === 'dmo' ? '/monitor' : '/dashboard'}>Back to the queue</Link></p>;
+  if (error) {
+    return (
+      <div>
+        <p role="alert" className="error">We could not load this report. Check your connection and try again.</p>
+        <button type="button" className="btn" onClick={retry}>Try again</button>
+      </div>
+    );
+  }
+  if (removed) return <p className="card">This report is no longer available. <Link to={backTo}>Back to the queue</Link></p>;
+  if (notFound || !report) return <p className="card">Report not found. <Link to={role === 'dmo' ? '/monitor' : '/dashboard'}>Back to the queue</Link></p>;
 
   const canAct = role === 'dispatcher';
   const awaitingVerify = report.status === 'Submitted' || report.status === 'Under Verification';
-  const candidates = (report.possibleDuplicates || []).map((pid) => reports.find((r) => r.id === pid)).filter(Boolean);
+  const candidates = (report.possibleDuplicates || []).slice(0, MAX_DUPLICATE_IDS).map((pid) => ({ id: pid, entry: byId[pid] }));
   const shownPriority = priority || report.priority || 'medium';
 
   async function run(path, body, okText) {

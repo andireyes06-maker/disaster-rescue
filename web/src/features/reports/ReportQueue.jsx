@@ -56,7 +56,7 @@ export default function ReportQueue() {
 
       {error && <p className="error" role="alert">Could not load reports. Check your connection and try again.</p>}
       {loading && <p role="status" className="loading">Loading...</p>}
-      {!loading && rows.length === 0 && (
+      {!loading && !error && rows.length === 0 && (
         <p className="card empty">No reports match these filters.</p>
       )}
       {rows.length > 0 && (

@@ -4,9 +4,16 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { makeReport } from './fixtures.js';
 
-const h = vi.hoisted(() => ({ auth: { role: 'dispatcher' }, reports: [], api: vi.fn() }));
+const h = vi.hoisted(() => ({ auth: { role: 'dispatcher' }, reports: [], api: vi.fn(), over: {}, retry: vi.fn() }));
 vi.mock('../../auth/AuthProvider.jsx', () => ({ useAuth: () => h.auth }));
-vi.mock('./useReports.js', () => ({ useReports: () => ({ reports: h.reports, loading: false, error: null }) }));
+vi.mock('./useReport.js', () => ({
+  MAX_DUPLICATE_IDS: 10,
+  useReport: (id) => {
+    const report = h.reports.find((r) => r.id === id) || null;
+    return { report, loading: false, error: null, notFound: !report, removed: false, retry: h.retry, ...h.over };
+  },
+  useReportsByIds: (ids) => Object.fromEntries(ids.map((i) => [i, { report: h.reports.find((r) => r.id === i) || null, loading: false }])),
+}));
 vi.mock('../../api/client.js', async () => {
   class ApiError extends Error {
     constructor({ status, code, message }) { super(message || code); this.status = status; this.code = code; }
@@ -16,8 +23,9 @@ vi.mock('../../api/client.js', async () => {
 import { ApiError } from '../../api/client.js';
 import IncidentDetails from './IncidentDetails.jsx';
 
-function show(reports, role = 'dispatcher', id = 'r1') {
+function show(reports, role = 'dispatcher', id = 'r1', over = {}) {
   h.auth = { role };
+  h.over = over;
   h.reports = reports;
   return render(
     <MemoryRouter initialEntries={[`/incidents/${id}`]}>
@@ -52,7 +60,7 @@ describe('IncidentDetails', () => {
     const { unmount } = show([makeReport({ possibleDuplicates: ['r2'] }), other]);
     const banner = screen.getByRole('region', { name: /possible duplicates/i });
     expect(within(banner).getByText('Same flood nearby')).toBeInTheDocument();
-    expect(within(banner).getByRole('button', { name: /mark as duplicate of this report/i })).toBeInTheDocument();
+    expect(within(banner).getByRole('button', { name: /mark the report you are viewing as a duplicate of this one/i })).toBeInTheDocument();
     unmount();
     show([makeReport(), other]);
     expect(screen.queryByRole('region', { name: /possible duplicates/i })).toBeNull();
@@ -61,8 +69,44 @@ describe('IncidentDetails', () => {
   it('marks a candidate as duplicate via PATCH', async () => {
     const other = makeReport({ id: 'r2' });
     show([makeReport({ possibleDuplicates: ['r2'] }), other]);
-    await userEvent.click(screen.getByRole('button', { name: /mark as duplicate of this report/i }));
+    await userEvent.click(screen.getByRole('button', { name: /mark the report you are viewing as a duplicate of this one/i }));
     expect(h.api).toHaveBeenCalledWith('/reports/r1/duplicate', { method: 'PATCH', body: { duplicateOf: 'r2' } });
+  });
+
+  it('explains the duplicate direction in the banner', () => {
+    show([makeReport({ possibleDuplicates: ['r2'] }), makeReport({ id: 'r2' })]);
+    expect(screen.getByText('The report you are viewing will be closed as a duplicate of the report you choose.')).toBeInTheDocument();
+  });
+
+  it.each(['Closed', 'Rejected', 'Duplicate', 'Cancelled'])('shows a %s candidate without the mark button', (status) => {
+    show([makeReport({ possibleDuplicates: ['r2'] }), makeReport({ id: 'r2', status, description: 'Old one' })]);
+    const banner = screen.getByRole('region', { name: /possible duplicates/i });
+    expect(within(banner).getByText('Old one')).toBeInTheDocument();
+    expect(within(banner).getByText(status)).toBeInTheDocument();
+    expect(within(banner).queryByRole('button')).toBeNull();
+  });
+
+  it('shows Report unavailable for a candidate that cannot be loaded', () => {
+    show([makeReport({ possibleDuplicates: ['gone'] })]);
+    expect(screen.getByText('Report unavailable')).toBeInTheDocument();
+  });
+
+  it('shows a load error with retry, distinct from not found', async () => {
+    show([], 'dispatcher', 'r1', { error: new Error('permission-denied'), notFound: false });
+    expect(screen.getByRole('alert')).toHaveTextContent('We could not load this report. Check your connection and try again.');
+    expect(screen.queryByText(/not found/i)).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: /try again/i }));
+    expect(h.retry).toHaveBeenCalled();
+  });
+
+  it('shows loading state', () => {
+    show([], 'dispatcher', 'r1', { loading: true, notFound: false });
+    expect(screen.getByRole('status')).toHaveTextContent(/loading/i);
+  });
+
+  it('shows a message when the report disappears mid-view', () => {
+    show([], 'dispatcher', 'r1', { removed: true, notFound: false });
+    expect(screen.getByText(/This report is no longer available/)).toBeInTheDocument();
   });
 
   it('keeps Reject confirm disabled until a reason is typed, then PATCHes', async () => {

@@ -10,6 +10,7 @@
   --color-low: #5F6B6A;
   --color-text: #1D2B2A;
   --color-muted: #566665;
+  --color-overlay: rgba(29, 43, 42, 0.5);
 
   --radius-md: 12px;
   --radius-lg: 20px;
