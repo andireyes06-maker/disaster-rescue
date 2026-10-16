@@ -39,7 +39,7 @@ service cloud.firestore {
     }
 
     match /teams/{id} {
-      allow read: if isActive() && (role() == 'dispatcher' || role() == 'dmo' || role() == 'responder');
+      allow read: if isActive() && (role() == 'dispatcher' || role() == 'dmo' || (role() == 'responder' && team() == id));
       allow write: if false;
     }
 

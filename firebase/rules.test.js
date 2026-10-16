@@ -215,12 +215,13 @@ describe('auditLogs', () => {
 });
 
 describe('teams', () => {
-  test('dispatcher, dmo, responder read', async () => {
+  test('dispatcher, dmo, and a responder of that team read', async () => {
     await assertSucceeds(ctx.dispatcher().doc('teams/team-alpha').get());
     await assertSucceeds(ctx.dmo().doc('teams/team-alpha').get());
     await assertSucceeds(ctx.responderA().doc('teams/team-alpha').get());
   });
   test('resident cannot read', async () => { await assertFails(ctx.resident().doc('teams/team-alpha').get()); });
+  test('responder cannot read another team', async () => { await assertFails(ctx.responderB().doc('teams/team-alpha').get()); });
   test('no client can write', async () => {
     for (const who of ['resident', 'dispatcher', 'dmo', 'responderA']) {
       await assertFails(ctx[who]().doc('teams/team-alpha').update({ status: 'busy' }));
