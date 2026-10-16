@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { useAuth } from './auth/AuthProvider';
 import RoleRoute from './routes/RoleRoute';
-import { landingFor } from './routes/landing';
+import Home from './routes/Home';
 import LoginPage from './features/auth/LoginPage';
 import Forbidden from './pages/Forbidden';
 import AppShell from './layout/AppShell';
@@ -15,12 +14,6 @@ import MonitorPage from './features/dmo/MonitorPage';
 import AnalyticsPage from './features/analytics/AnalyticsPage';
 import AuditPage from './features/audit/AuditPage';
 import SummaryCards from './features/dashboard/SummaryCards';
-
-function Home() {
-  const { user, role, loading } = useAuth();
-  if (loading) return <p role="status" className="loading">Loading...</p>;
-  return <Navigate to={user ? landingFor(role) : '/login'} replace />;
-}
 
 export default function App() {
   return (
