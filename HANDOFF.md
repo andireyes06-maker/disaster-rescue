@@ -4,6 +4,11 @@
 
 **Project:** IT 305 final project, Disaster Rescue Reporting and Monitoring System (Flutter + React + Express + Firebase). Due Nov 2, 2026.
 **Branch:** `build/disaster-rescue`. Nothing merged to `master`. Repo: https://github.com/andireyes06-maker/disaster-rescue (private). Vercel project `disaster-rescue-web` is linked, not deployed.
+**Redesign in progress (Oct 16, 2026):** whole web product, ground-up, approved in `REDESIGN-SPEC.md`; tasks in `REDESIGN-PLAN.md` (8 phases, one commit each).
+- Done: phase 1 primitives (`web/src/components/calm/`, commits 5547b39, dc5bfe1); phase 2 shell with mobile menu (e2efb93).
+- Next: phase 3 public pages, then 4 to 8. Staff screens cannot be browser-checked without test credentials (Airen to provide).
+- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the redesign at phase 3."
+
 **Status (Oct 15, 2026):** all 21 plan tasks are built and committed. Remaining work is deployment and the course deliverables.
 
 **Verified on the last run:**
