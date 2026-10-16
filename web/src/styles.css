@@ -180,7 +180,7 @@ select, textarea {
 .audit__changes ins { text-decoration: none; font-weight: 700; color: var(--color-text); }
 
 /* Public landing page (signed-out visitors at /). Coral is used only for the emergency hotline. */
-.landing { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 32px; }
+.landing { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 32px;  font-family: "Geist Variable", system-ui, sans-serif; }
 .landing__hero h1 { font-size: 1.75rem; }
 .landing__lede { font-size: 1.125rem; color: var(--color-muted); }
 .landing__actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -193,7 +193,7 @@ select, textarea {
 .landing__flow { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .landing__step { padding: 12px 16px; background: var(--color-surface); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary); font-weight: 600; }
 .landing__hotline { background: var(--color-critical); border-color: var(--color-critical); width: 100%; }
-.landing__muted { color: var(--color-muted); font-size: 0.875rem; }
+.landing__muted { color: var(--color-muted); font-size: 1rem; }
 .landing__footer { display: grid; gap: 8px; padding-top: 16px; border-top: 1px solid var(--color-primary-soft); }
 .landing__footer a { color: var(--color-primary); font-weight: 600; min-height: var(--space-touch); display: inline-flex; align-items: center; }
 .landing__footer p { margin: 0; }
