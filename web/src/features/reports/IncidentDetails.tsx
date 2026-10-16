@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
 import { api } from '../../api/client';
@@ -118,6 +118,8 @@ function IncidentView({ id }: IncidentViewProps) {
   const updatesState = useReportUpdates(id);
   const byId = useReportsByIds(report ? report.possibleDuplicates || [] : []);
   const [busy, setBusy] = useState(false);
+  const rejectTrigger = useRef<HTMLButtonElement>(null);
+  const assignTrigger = useRef<HTMLButtonElement>(null);
   const [message, setMessage] = useState<Message | null>(null);
   const [rejecting, setRejecting] = useState(false);
   const [reason, setReason] = useState('');
@@ -228,13 +230,13 @@ function IncidentView({ id }: IncidentViewProps) {
         <section className="card actions" aria-label="Actions">
           {canAssign && (
             <div className="actions__row">
-              <button type="button" className="btn" disabled={busy} onClick={() => setAssigning(true)}>Assign team</button>
+              <button ref={assignTrigger} type="button" className="btn" disabled={busy} onClick={() => setAssigning(true)}>Assign team</button>
             </div>
           )}
           {awaitingVerify && (
             <div className="actions__row">
               <button type="button" className="btn" disabled={busy} onClick={() => run('verify', undefined, 'Report verified.')}>Verify</button>
-              <button type="button" className="btn btn--ghost" disabled={busy} onClick={() => setRejecting(true)}>Reject</button>
+              <button ref={rejectTrigger} type="button" className="btn btn--ghost" disabled={busy} onClick={() => setRejecting(true)}>Reject</button>
             </div>
           )}
           {isOpen(report) && (
@@ -258,13 +260,14 @@ function IncidentView({ id }: IncidentViewProps) {
       )}
 
       {canAct && assigning && (
-        <AssignTeamDialog reportId={report.id} onClose={() => setAssigning(false)}
+        <AssignTeamDialog reportId={report.id} onClose={() => setAssigning(false)} returnFocusTo={assignTrigger}
           onAssigned={() => setMessage({ kind: 'ok', text: 'Rescue team assigned.' })} />
       )}
 
       {canAct && rejecting && (
         <Dialog open onOpenChange={(open) => { if (!open) setRejecting(false); }}>
           <DialogContent showCloseButton={false} aria-describedby={undefined}
+            onCloseAutoFocus={(e) => { e.preventDefault(); rejectTrigger.current?.focus(); }}
             onPointerDownOutside={(e) => e.preventDefault()} onInteractOutside={(e) => e.preventDefault()}>
             <DialogTitle>Reject this report</DialogTitle>
             <label htmlFor="reject-reason">Reason (required)</label>

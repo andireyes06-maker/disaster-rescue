@@ -15,6 +15,7 @@ export const NO_FREE_TEAMS = 'No rescue teams are free right now. Close a finish
 import type { Team } from '../../types/domain';
 
 interface AssignTeamDialogProps {
+  returnFocusTo?: React.RefObject<HTMLElement | null>;
   reportId: string;
   onClose: () => void;
   onAssigned?: () => void;
@@ -90,7 +91,7 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
   );
 }
 
-export default function AssignTeamDialog({ reportId, onClose, onAssigned }: AssignTeamDialogProps) {
+export default function AssignTeamDialog({ reportId, onClose, onAssigned, returnFocusTo }: AssignTeamDialogProps) {
   const [state, setState] = useState<TeamsState>({ teams: [], loading: true, error: null });
 
   useEffect(() => {
@@ -113,6 +114,7 @@ export default function AssignTeamDialog({ reportId, onClose, onAssigned }: Assi
       <DialogContent
         showCloseButton={false}
         aria-describedby={undefined}
+        onCloseAutoFocus={(e) => { if (returnFocusTo?.current) { e.preventDefault(); returnFocusTo.current.focus(); } }}
         onPointerDownOutside={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
       >

@@ -165,6 +165,21 @@ describe('IncidentDetails', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
+  it('names the reject dialog and marks it modal', async () => {
+    show([makeReport()]);
+    await userEvent.click(screen.getByRole('button', { name: 'Reject' }));
+    const dialog = screen.getByRole('dialog', { name: 'Reject this report' });
+    expect(dialog).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('returns focus to the Reject button after Escape', async () => {
+    show([makeReport()]);
+    const trigger = screen.getByRole('button', { name: 'Reject' });
+    await userEvent.click(trigger);
+    await userEvent.keyboard('{Escape}');
+    expect(trigger).toHaveFocus();
+  });
+
   it('shows the conflict message on 409', async () => {
     h.api.mockRejectedValue(new ApiError({ status: 409, code: 'conflict' }));
     show([makeReport()]);
