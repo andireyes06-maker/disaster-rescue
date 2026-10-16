@@ -185,7 +185,7 @@ select, textarea {
 .landing__lede { font-size: 1.125rem; color: var(--color-muted); }
 .landing__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .landing__actions .btn { margin-top: 0; }
-.landing__section h2 { font-size: 1.25rem; margin: 0 0 12px; }
+.landing__section h2 { font-size: 1.25rem; font-weight: 700; margin: 0 0 12px; }
 .landing__section > p { margin-top: 0; }
 .landing__audience { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .landing__audience h3 { font-size: 1rem; margin: 0 0 4px; color: var(--color-primary); }
@@ -195,6 +195,8 @@ select, textarea {
 .landing__hotline { background: var(--color-critical); border-color: var(--color-critical); width: 100%; }
 .landing__muted { color: var(--color-muted); font-size: 0.875rem; }
 .landing__footer { display: grid; gap: 8px; padding-top: 16px; border-top: 1px solid var(--color-primary-soft); }
+.landing__footer a { color: var(--color-primary); font-weight: 600; min-height: var(--space-touch); display: inline-flex; align-items: center; }
+.landing__footer p { margin: 0; }
 @media (min-width: 720px) {
   .landing__flow { flex-direction: row; flex-wrap: wrap; }
   .landing__step { flex: 1 1 120px; border-left: none; border-top: 4px solid var(--color-primary); }
