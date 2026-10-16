@@ -10,8 +10,9 @@
 - Done: phase 5 incident details. Reject and Assign dialogs return focus to their buttons; shared dialog sets aria-modal (commit below).
 - Done: phase 6 map and audit empty states (commit below). Monitor reuses the map; export buttons already had text labels.
 - Done: phase 7 teams and responder empty states, responder tests (commit below). Form labels were already in place.
-- Next: phase 8 (cleanup, browser check, staff sign-in check). Staff screens cannot be browser-checked without test credentials (Airen to provide).
-- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the redesign at phase 8."
+- Phase 8 (partial): public pages checked in Chromium, Firefox, WebKit at 375/768/1440, no overflow, no errors. Not done: unused-style cleanup in styles.css (deferred, low value), staff screens browser check (needs seeded test sign-in from Airen).
+- Next: Airen provides a test sign-in for staff screens, or accepts the partial check. Staff screens cannot be browser-checked without test credentials (Airen to provide).
+- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the redesign: staff browser check (needs test sign-in), then cleanup."
 
 **Status (Oct 15, 2026):** all 21 plan tasks are built and committed. Remaining work is deployment and the course deliverables.
 
