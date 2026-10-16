@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import RoleRoute from './routes/RoleRoute';
 import Home from './routes/Home';
 import LoginPage from './features/auth/LoginPage';
+import ResidentSignUp from './features/resident/ResidentSignUp';
 import Forbidden from './pages/Forbidden';
 import AppShell from './layout/AppShell';
 const ReportQueue = lazy(() => import('./features/reports/ReportQueue'));
@@ -20,6 +21,7 @@ export default function App() {
     <Suspense fallback={<p className="loading" role="status">Loading page…</p>}><Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<ResidentSignUp />} />
       <Route path="/forbidden" element={<Forbidden />} />
       <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />
       <Route path="/analytics" element={<RoleRoute allow={['dispatcher', 'dmo']}><AppShell title="Analytics"><AnalyticsPage /></AppShell></RoleRoute>} />

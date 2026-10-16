@@ -44,3 +44,18 @@ export const staffAccountSchema = z.object({
 });
 
 export type StaffAccount = z.infer<typeof staffAccountSchema>;
+
+// Same phone rule as the API (PHONE_RE in api/src/domain/validation.js).
+const PHONE_PATTERN = /^[0-9+()\-\s]{7,20}$/;
+
+export const residentSignUpSchema = z
+  .object({
+    name: z.string().trim().min(1, { error: 'Enter your name.' }).max(100, { error: 'Name can be at most 100 characters.' }),
+    email: z.string().trim().email({ error: 'Enter a valid email.' }),
+    phone: z.string().trim().regex(PHONE_PATTERN, { error: 'Enter a valid phone number.' }),
+    password: z.string().min(8, { error: 'Password must be at least 8 characters.' }).max(128, { error: 'Password is too long.' }),
+    confirmPassword: z.string(),
+  })
+  .refine((d) => d.password === d.confirmPassword, { error: 'Passwords do not match', path: ['confirmPassword'] });
+
+export type ResidentSignUp = z.infer<typeof residentSignUpSchema>;

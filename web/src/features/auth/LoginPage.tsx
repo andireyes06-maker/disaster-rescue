@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
 import { landingFor } from '../../routes/landing';
 import PublicHeader from '../../components/PublicHeader';
@@ -52,6 +52,7 @@ export default function LoginPage() {
         {message && <Banner tone="error" role="alert"><span aria-hidden="true">&#9888; </span><strong>Problem:</strong> {message}</Banner>}
         <button type="submit" className="btn" disabled={busy}>{busy ? 'Signing in...' : 'Sign in'}</button>
         <p className="login__help">Need an account or help signing in? Contact your team’s dispatcher.</p>
+        <p className="login__help">Residents: <Link to="/register">create a resident account</Link>.</p>
       </form>
       <footer className="login__footer">
         <p>Submitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.</p>
