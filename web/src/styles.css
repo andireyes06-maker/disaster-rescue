@@ -323,3 +323,18 @@ select, textarea {
 .report-form textarea, .report-form select, .report-form input { width: 100%; box-sizing: border-box; }
 .report-form__location { display: grid; gap: 8px; border: 1px solid var(--color-mist); border-radius: 8px; padding: 12px; margin: 0; }
 .report-form > .btn { width: 100%; min-height: var(--space-touch); margin-top: 8px; }
+
+/* Admin tables and forms: readable columns, aligned controls. */
+.admin-accounts table, .admin-teams ul { width: 100%; border-collapse: collapse; }
+.admin-accounts th, .admin-accounts td { text-align: left; vertical-align: middle; padding: 10px 12px; border-bottom: 1px solid var(--color-mist); }
+.admin-accounts select { min-height: var(--space-touch); }
+.admin-accounts__create, .admin-settings, .admin-teams form { display: grid; gap: 8px; margin-top: 24px; }
+.admin-teams ul { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 8px; }
+.admin-teams li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.admin-health { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 4px; }
+@media (max-width: 719px) {
+  .admin-accounts table, .admin-accounts thead, .admin-accounts tbody, .admin-accounts tr, .admin-accounts td { display: block; width: 100%; }
+  .admin-accounts thead { position: absolute; left: -9999px; }
+  .admin-accounts tr { border-bottom: 1px solid var(--color-mist); padding: 8px 0; }
+  .admin-accounts td { border: 0; padding: 4px 0; }
+}
