@@ -4,7 +4,7 @@
 
 **Project:** IT 305 final project, Disaster Rescue Reporting and Monitoring System (Flutter + React + Express + Firebase). Due Nov 2, 2026.
 **Branch:** `build/disaster-rescue`. Nothing merged to `master`. Repo: https://github.com/andireyes06-maker/disaster-rescue (private).
-**Resident web and admin (Oct 16, 2026, late):** committed on this branch (latest `f65cb96`). Web deployed to Vercel production (includes the resident pages and admin screen). Firestore rules deployed to `flutter-5094e`. **API not yet live:** Render deploys from GitHub, so the new API routes (public map, admin, admin-everything permissions) need a push of `build/disaster-rescue`, which waits for Airen's approval. Plan: `docs/superpowers/plans/2026-10-16-web-resident-redesign.md`. Ledger with every ruling and deviation: `.superpowers/sdd/2026-10-16-web-resident-redesign/progress.md`. Spec amendment in `X-SPEC.md`.
+**Resident web and admin (Oct 16, 2026, late):** committed on this branch (latest `f65cb96`). Web deployed to Vercel production (includes the resident pages and admin screen). Firestore rules deployed to `flutter-5094e`. **Pushed (Oct 16, 2026, evening):** `build/disaster-rescue` pushed to origin at `c5f9845` after Airen approved it. Render redeploys from GitHub; confirm `/api/public/incidents` returns 200 before calling the API live. Plan: `docs/superpowers/plans/2026-10-16-web-resident-redesign.md`. Ledger with every ruling and deviation: `.superpowers/sdd/2026-10-16-web-resident-redesign/progress.md`. Spec amendment in `X-SPEC.md`.
 **Website pass (Oct 16, 2026):** see [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md) for the layouts, retry controls, and open decisions.
 **Status:** committed on this branch, see the commit named in CLAUDE-HANDOFF.md. Deployed to production at https://disaster-rescue-web.vercel.app (live Firebase project `flutter-5094e`, not the emulator). Sign-in not verified on the live site.
 **Redesign:** the staff screens already match the approved operations-console direction (checked by rendering); `REDESIGN-SPEC.md` and `REDESIGN-PLAN.md` are older and need reconciling.
@@ -22,16 +22,16 @@
 
 ## Live
 - Web: https://disaster-rescue-web.vercel.app (Vercel production, project `disaster-rescue-web`). Deployment protection is on for the deployment-specific URL.
-- API: https://disaster-rescue-api.onrender.com (Render free plan). Health: `/api/health`.
+- API: https://disaster-rescue-api.onrender.com (Render free plan). Health: `/api/health`. Pushed `c5f9845` on Oct 16; the new routes go live once Render finishes deploying.
 - Firestore rules and indexes deployed to `flutter-5094e`. Test reports left on the real project (DR-T49M76 and others) should be closed or deleted before the demo.
 
 ## Waiting on Airen
-1. **Push the branch so Render deploys the new API** (approve the push of `build/disaster-rescue`). Without it the live resident map and admin screen will not work.
+1. **Confirm the Render deploy** of the new API (`/api/public/incidents` returns 200). Then test live sign-in and the public map.
 1b. **Later (not yet planned in detail):** QR code and biometric sign-in, as the professor mentioned. Plan these once the main work is settled and only light work is left.
 2. **Live sign-in:** the demo accounts exist only in the local emulator. Decide whether to create demo logins on `flutter-5094e`.
 3. **Redesign:** approve `REDESIGN-SPEC.md`.
 4. **Course docs:** fill `docs/contributions.md`; replace the `000-0000` LDRRMO placeholder in `config/hotlines`; get legal review of `docs/privacy-and-coordination.md`.
-5. **Push and PR:** nothing pushed, no PR. Needs your approval.
+5. **PR to master:** not opened. Needs your approval.
 
 ## Open questions
 - Admin role: now a real web role (admin screen). The API lets admins manage accounts and teams; they get no exports.
