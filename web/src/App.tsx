@@ -6,6 +6,7 @@ import LoginPage from './features/auth/LoginPage';
 import ResidentSignUp from './features/resident/ResidentSignUp';
 import ResidentDashboard from './features/resident/ResidentDashboard';
 import ReportForm from './features/resident/ReportForm';
+import ResidentLayout from './features/resident/ResidentLayout';
 import ResidentReportDetail from './features/resident/ResidentReportDetail';
 import AdminPage from './features/admin/AdminPage';
 import Forbidden from './pages/Forbidden';
@@ -26,9 +27,9 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<ResidentSignUp />} />
-      <Route path="/my" element={<RoleRoute allow={['resident']}><ResidentDashboard /></RoleRoute>} />
-      <Route path="/my/report" element={<RoleRoute allow={['resident']}><ReportForm /></RoleRoute>} />
-      <Route path="/my/reports/:id" element={<RoleRoute allow={['resident']}><ResidentReportDetail /></RoleRoute>} />
+      <Route path="/my" element={<RoleRoute allow={['resident']}><ResidentLayout><ResidentDashboard /></ResidentLayout></RoleRoute>} />
+      <Route path="/my/report" element={<RoleRoute allow={['resident']}><ResidentLayout><ReportForm /></ResidentLayout></RoleRoute>} />
+      <Route path="/my/reports/:id" element={<RoleRoute allow={['resident']}><ResidentLayout><ResidentReportDetail /></ResidentLayout></RoleRoute>} />
       <Route path="/admin" element={<RoleRoute allow={['admin']}><AppShell title="Admin"><AdminPage /></AppShell></RoleRoute>} />
       <Route path="/forbidden" element={<Forbidden />} />
       <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />

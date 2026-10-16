@@ -305,3 +305,21 @@ select, textarea {
 .public-circle--open { stroke: var(--color-primary); fill: var(--color-primary); fill-opacity: 0.18; }
 .public-circle--responding { stroke: var(--color-notice); fill: var(--color-notice); fill-opacity: 0.22; }
 .public-circle--resolved { stroke: var(--color-muted); fill: var(--color-muted); fill-opacity: 0.12; }
+
+/* Resident pages: one column with a 16 px gutter on phones, wider on desktop. */
+.resident-layout { min-height: 100dvh; background: var(--color-paper); }
+.resident-layout__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 12px 16px; background: var(--color-harbor); color: var(--color-surface); }
+.resident-layout__brand { margin: 0; font-weight: 650; letter-spacing: -0.025em; }
+.resident-layout__nav { display: flex; flex-wrap: wrap; gap: 16px; }
+.resident-layout__nav a { color: var(--color-surface); min-height: var(--space-touch); display: inline-flex; align-items: center; }
+.resident-layout__account { display: flex; align-items: center; gap: 12px; font-size: 0.8125rem; color: var(--color-on-harbor); }
+.resident-layout__account span { overflow-wrap: anywhere; }
+.resident { width: 100%; max-width: 720px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; box-sizing: border-box; }
+.resident .card { margin: 0; }
+.resident__actions .btn { width: 100%; min-height: var(--space-touch); }
+.resident__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.resident__list a { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: var(--space-touch); padding: 8px 12px; border: 1px solid var(--color-mist); border-radius: 8px; color: var(--color-text); }
+.report-form { display: grid; gap: 8px; }
+.report-form textarea, .report-form select, .report-form input { width: 100%; box-sizing: border-box; }
+.report-form__location { display: grid; gap: 8px; border: 1px solid var(--color-mist); border-radius: 8px; padding: 12px; margin: 0; }
+.report-form > .btn { width: 100%; min-height: var(--space-touch); margin-top: 8px; }
