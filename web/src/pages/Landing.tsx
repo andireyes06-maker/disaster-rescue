@@ -22,18 +22,25 @@ export default function Landing() {
 
       <main>
         <section className="landing__hero" aria-labelledby="hero-heading">
-          <h1 id="hero-heading">Disaster Rescue Reporting and Monitoring System</h1>
-          <p className="landing__lede">
-            Report an emergency, track the response, and see how the community is affected.
-          </p>
+          <div className="landing__hero-inner">
+            <p className="landing__kicker">Emergency reporting for residents and response teams</p>
+            <h1 id="hero-heading">Disaster Rescue Reporting and Monitoring System</h1>
+            <p className="landing__lede">
+              Report an emergency, track the response, and see how the community is affected.
+            </p>
+          </div>
+        </section>
 
+        <section className="landing__doors-wrap" aria-label="Choose your door">
           <div className="landing__doors">
-            <article className="door">
+            <article className="door door--resident">
+              <p className="door__tag">Residents</p>
               <h2>I need to report an emergency</h2>
-              <p>Residents use the mobile app to report with photos and location, and to follow the status.</p>
+              <p>Use the mobile app to report with photos and location, and to follow the status.</p>
               <a className="btn btn--ghost door__action" href="#resident-app">Get the resident app</a>
             </article>
-            <article className="door">
+            <article className="door door--staff">
+              <p className="door__tag">Response team</p>
               <h2>I work for the response team</h2>
               <p>Dispatchers, responders, and the DMO sign in to the staff web.</p>
               <Link className="btn door__action" to="/login">Sign in to the staff web</Link>

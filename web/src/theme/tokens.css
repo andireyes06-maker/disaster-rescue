@@ -1,25 +1,26 @@
-/* Design tokens. Source of truth: docs/design-tokens/tokens.json (keep in sync). */
+/* Design tokens. Source of truth: docs/design-tokens/tokens.json (keep in sync). Bold public-safety palette, Oct 16, 2026. */
 :root {
-  --color-bg: #F6F1EA;
+  --color-bg: #F3F5F8;
   --color-surface: #FFFFFF;
-  --color-primary: #0F6B66;
-  --color-primary-soft: #EEF3F2;
-  --color-critical: #C83919;
-  --color-high: #9E5A00;
-  --color-medium: #0F6B66;
-  --color-low: #5F6B6A;
-  --color-text: #1D2B2A;
-  --color-muted: #566665;
-  --color-overlay: rgba(29, 43, 42, 0.5);
-  --color-harbor: #123B39;
-  --color-paper: #FAFAF7;
-  --color-mist: #E9EFEE;
-  --color-notice: #9E5A00;
+  --color-primary: #1E5BC6;
+  --color-primary-soft: #E8F0FC;
+  --color-critical: #C8102E;
+  --color-high: #B45309;
+  --color-medium: #1E5BC6;
+  --color-low: #4F5B70;
+  --color-text: #111B2E;
+  --color-muted: #4F5B70;
+  --color-overlay: rgba(17, 27, 46, 0.55);
+  --color-harbor: #0B2A4A;
+  --color-paper: #F3F5F8;
+  --color-mist: #DDE3EC;
+  --color-notice: #B45309;
+  --color-on-harbor: #C9D6E8;
 
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
 
   --space-touch: 44px;
 
-  --shadow-card: 0 1px 3px rgba(29, 43, 42, 0.12);
+  --shadow-card: 0 1px 2px rgba(17, 27, 46, 0.06), 0 4px 12px rgba(17, 27, 46, 0.04);
 }

@@ -11,8 +11,10 @@
 - Done: phase 6 map and audit empty states (commit below). Monitor reuses the map; export buttons already had text labels.
 - Done: phase 7 teams and responder empty states, responder tests (commit below). Form labels were already in place.
 - Phase 8 (partial): public pages checked in Chromium, Firefox, WebKit at 375/768/1440, no overflow, no errors. Stylesheet cleanup done (dead `.overlay` and `.dialog` removed). Not done: staff screens browser check. It needs the seed password (`SEED_PASSWORD`, not on this machine) from Airen.
-- Next: Airen provides SEED_PASSWORD (or a staff test sign-in) for the staff browser check. Staff screens cannot be browser-checked without test credentials (Airen to provide).
-- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the redesign: staff browser check (needs test sign-in), then cleanup."
+- Oct 16 remake request (Airen): colour scheme replaced with bold public-safety palette (navy harbour, blue primary, red hotline only, amber notices). Tokens in `tokens.css` and `docs/design-tokens/tokens.json` updated. Landing remade (full-bleed navy hero, raised door cards).
+- Not finished: staff screens (dashboard, incident details, analytics, monitor, users, teams, assignments, operation form) still use the old layouts and only got shared messages/badges/cards. Remake them on the new palette, then browser-check (needs SEED_PASSWORD from Airen).
+- Next: remake the staff screens; then the staff browser check. Staff screens cannot be browser-checked without test credentials (Airen to provide).
+- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the remake: staff screens on the new palette, then the staff browser check."
 
 **Status (Oct 15, 2026):** all 21 plan tasks are built and committed. Remaining work is deployment and the course deliverables.
 
