@@ -32,8 +32,8 @@
 5. **Push and PR:** nothing pushed, no PR. Needs your approval.
 
 ## Open questions
-- Admin role: code has `admin`, spec says dispatcher-equivalent. Web app has no admin role.
-- Firestore rules let responders read teams; the API does not.
+- Admin role: now a real web role (admin screen). The API lets admins manage accounts and teams; they get no exports.
+- Responders read only their own team, in the rules and the API (done).
 - Public placeholders still open: hotline number, privacy text, credits.
 
 ## Gotchas
