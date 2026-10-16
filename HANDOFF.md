@@ -24,6 +24,7 @@
 - Web: https://disaster-rescue-web.vercel.app (Vercel production, project `disaster-rescue-web`). Deployment protection is on for the deployment-specific URL.
 - API: https://disaster-rescue-api.onrender.com (Render free plan). Health: `/api/health`. Pushed `c5f9845` on Oct 16; the new routes go live once Render finishes deploying.
 - Firestore rules and indexes deployed to `flutter-5094e`. Test reports left on the real project (DR-T49M76 and others) should be closed or deleted before the demo.
+- Live test accounts (`resident/dispatcher/responder/dmo@test.dev`) use password `AuditOnly#2026`, set by Airen on Oct 16 evening. Consider a different password before a real demo.
 
 ## Waiting on Airen
 1. **Confirm the Render deploy** of the new API (`/api/public/incidents` returns 200). Then test live sign-in and the public map.
@@ -34,7 +35,7 @@
 5. **PR to master:** not opened. Needs your approval.
 
 ## Open questions
-- Admin role: now a real web role (admin screen). The API lets admins manage accounts and teams; they get no exports.
+- Admin role: now a real web role (admin screen). Admins manage accounts and teams, and download CSV/PDF summaries from Analytics (the admin audit section points there).
 - Responders read only their own team, in the rules and the API (done).
 - Public placeholders still open: hotline number, privacy text, credits.
 
