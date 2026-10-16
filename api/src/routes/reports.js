@@ -28,7 +28,7 @@ export function reportsRouter(deps) {
       if (b.contactName !== undefined || b.contactPhone !== undefined) {
         input.contact = { name: b.contactName ?? '', phone: b.contactPhone };
       }
-      const out = await create(deps, req.user, input, req.files ?? []);
+      const out = await create(deps, req.user, input, req.files ?? [], req.get('Idempotency-Key'));
       res.status(201).json(out);
     } catch (e) { next(e); }
   });

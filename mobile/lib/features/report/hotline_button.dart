@@ -29,9 +29,11 @@ class HotlineButton extends StatelessWidget {
   Widget build(BuildContext context) {
     const icon = Icon(Icons.call_outlined);
     const label = Text('Call hotline');
+    // The semantic node carries its own tap action, so a screen reader can activate the call.
     return Semantics(
       button: true,
       label: 'Call the emergency hotline',
+      onTap: () => _call(context),
       excludeSemantics: true,
       child: filled
           ? FilledButton.icon(onPressed: () => _call(context), icon: icon, label: label)

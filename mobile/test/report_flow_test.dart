@@ -181,6 +181,20 @@ void main() {
     expect(find.text('Submit report'), findsOneWidget);
   });
 
+  testWidgets('a confirmed report is not shown as unsent when local draft cleanup fails (M03)', (t) async {
+    env.drafts.draft = const ReportDraft(type: 'fire');
+    await open(t);
+    await tapText(t, 'Discard');
+    await toStep4(t);
+    // Fail only the cleanup that runs after the send, not the discard above.
+    env.drafts.failClear = true;
+    await tapText(t, 'Submit report');
+    expect(env.reports.created, hasLength(1));
+    expect(find.text('DR-AB12CD'), findsOneWidget);
+    expect(find.textContaining('not sent'), findsNothing);
+    env.drafts.failClear = false;
+  });
+
   testWidgets('success shows the reference and clears the draft', (t) async {
     env.drafts.draft = const ReportDraft(type: 'fire');
     await open(t);
@@ -216,6 +230,21 @@ void main() {
       if (e.key == 403 || e.key == 0) expect(find.textContaining('session'), findsOneWidget);
     });
   }
+
+  testWidgets('a retry after a lost response sends the same submission key (M04)', (t) async {
+    await open(t);
+    env.reports.createError = const ApiException(0, 'network', 'Cannot reach the server.');
+    await toStep4(t);
+    await tapText(t, 'Submit report');
+    expect(find.text('We could not confirm that your report reached us.'), findsOneWidget);
+    expect(find.textContaining('has not been sent'), findsNothing);
+    env.reports.createError = null;
+    await tapText(t, 'Try again');
+    expect(env.reports.keysSeen, hasLength(2));
+    expect(env.reports.keysSeen.first, isNotNull);
+    expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
+    expect(env.reports.keysSeen.first, matches(RegExp(r'^[0-9a-f]{32}$')));
+  });
 
   testWidgets('a network failure saves a draft and opens the offline page with hotlines', (t) async {
     await open(t);

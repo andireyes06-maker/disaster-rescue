@@ -58,11 +58,13 @@ class ApiClient {
     String path, {
     Map<String, String> fields = const {},
     List<http.MultipartFile> files = const [],
+    Map<String, String> headers = const {},
   }) async {
     final token = await _token();
     final req = http.MultipartRequest(method, _uri(path))
       ..headers['Authorization'] = 'Bearer $token'
       ..headers['Accept'] = 'application/json'
+      ..headers.addAll(headers)
       ..fields.addAll(fields)
       ..files.addAll(files);
     return _run(() async => http.Response.fromStream(await _client.send(req)));

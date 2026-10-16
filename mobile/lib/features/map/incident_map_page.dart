@@ -64,15 +64,38 @@ class _IncidentMapPageState extends State<IncidentMapPage> {
             );
             if (p != null) points.add(_Pin(r, p));
           }
-          return Column(
-            children: [
-              _FilterBar(
-                selected: _type,
-                onSelected: (t) => setState(() => _type = t),
-              ),
-              SizedBox(height: 260, child: _buildMap(points)),
-              Expanded(child: _buildList(shown)),
-            ],
+          final filters = _FilterBar(
+            selected: _type,
+            onSelected: (t) => setState(() => _type = t),
+          );
+          // Landscape and short screens: map and list side by side, so neither overflows.
+          // Portrait: the map takes a share of the available height, never a fixed 260dp.
+          return LayoutBuilder(
+            builder: (context, c) {
+              if (c.maxWidth > c.maxHeight) {
+                return Column(
+                  children: [
+                    filters,
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(child: _buildMap(points)),
+                          Expanded(child: _buildList(shown)),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+              final mapHeight = (c.maxHeight * 0.4).clamp(180.0, 320.0);
+              return Column(
+                children: [
+                  filters,
+                  SizedBox(height: mapHeight, child: _buildMap(points)),
+                  Expanded(child: _buildList(shown)),
+                ],
+              );
+            },
           );
         },
       ),

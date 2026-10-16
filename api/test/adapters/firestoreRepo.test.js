@@ -179,3 +179,43 @@ describe('firestoreRepo.listAudit filters', () => {
     expect(db.calls.queries.at(-1).order).toEqual(['at', 'desc']);
   });
 });
+
+describe('atomic staff and report writes (transactions)', () => {
+  it('setStaffGuarded refuses to remove the last active admin, and allows it when another remains', async () => {
+    const { repo } = setup();
+    await repo.createUser('a1', { name: 'A', role: 'admin', active: true });
+    await repo.createUser('a2', { name: 'B', role: 'admin', active: true });
+    expect(await repo.setStaffGuarded('a1', { active: false }, { removesAdmin: true })).toEqual({ ok: true });
+    expect(await repo.setStaffGuarded('a2', { active: false }, { removesAdmin: true })).toEqual({ ok: false, reason: 'last_admin' });
+    expect(await repo.getUser('a2')).toMatchObject({ active: true });
+  });
+
+  it('applyReportChange refuses a team already on another report and leaves the report unchanged', async () => {
+    const { repo } = setup();
+    await repo.saveTeam('tA', { name: 'Team A', busy: true, currentReportId: 'other' });
+    const id = await repo.createReport({ ...base, status: 'Awaiting Assignment' });
+    const result = await repo.applyReportChange(id, 'Awaiting Assignment', {
+      reportPatch: { status: 'Team Assigned', assignedTeamId: 'tA' },
+      team: { id: 'tA', claim: true },
+    });
+    expect(result).toEqual({ ok: false, reason: 'team_busy' });
+    expect(await repo.getReport(id)).toMatchObject({ status: 'Awaiting Assignment' });
+    expect(await repo.getTeam('tA')).toMatchObject({ busy: true, currentReportId: 'other' });
+  });
+
+  it('applyReportChange writes the status, the team claim, and the update record together', async () => {
+    const { repo } = setup();
+    await repo.saveTeam('tA', { name: 'Team A', busy: false });
+    const id = await repo.createReport({ ...base, status: 'Awaiting Assignment' });
+    const result = await repo.applyReportChange(id, 'Awaiting Assignment', {
+      reportPatch: { status: 'Team Assigned', assignedTeamId: 'tA' },
+      team: { id: 'tA', claim: true },
+      updateDoc: { kind: 'status', status: 'Team Assigned' },
+    });
+    expect(result).toEqual({ ok: true });
+    expect(await repo.getReport(id)).toMatchObject({ status: 'Team Assigned', assignedTeamId: 'tA' });
+    expect(await repo.getTeam('tA')).toMatchObject({ busy: true, currentReportId: id });
+    expect(await repo.listUpdates(id)).toHaveLength(1);
+  });
+});
+

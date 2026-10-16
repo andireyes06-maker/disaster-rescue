@@ -22,6 +22,10 @@
  * @property {(uid: string, data: object) => Promise<void>} createUser
  * @property {(uid: string, patch: object) => Promise<void>} updateUser
  * @property {() => Promise<object[]>} listUsers
+ * @property {(uid: string, patch: object, opts: {removesAdmin: boolean}) => Promise<{ok: boolean, reason?: string}>} setStaffGuarded
+ * @property {(reportId: string, expectedStatus: string, change: object) => Promise<{ok: boolean, reason?: string}>} applyReportChange
+ * @property {(uid: string, key: string, opts: {staleAfterMs: number}) => Promise<{state: 'new'|'pending'|'done', result?: object}>} claimSubmission
+ * @property {(uid: string, key: string, result: object) => Promise<void>} completeSubmission
  * @property {(id: string) => Promise<object|null>} getTeam
  * @property {() => Promise<object[]>} listTeams
  * @property {(id: string|null, data: object) => Promise<string>} saveTeam
@@ -39,8 +43,8 @@
 
 export const REPO_METHODS = [
   'getReport', 'listReports', 'listOpenReports', 'createReport', 'updateReportIf',
-  'addUpdate', 'listUpdates',
-  'getUser', 'createUser', 'updateUser', 'listUsers',
+  'addUpdate', 'listUpdates', 'applyReportChange', 'claimSubmission', 'completeSubmission',
+  'getUser', 'createUser', 'updateUser', 'listUsers', 'setStaffGuarded',
   'getTeam', 'listTeams', 'saveTeam',
   'addNotification', 'listNotifications', 'markRead',
   'addDevice', 'listDevices', 'removeDevice',

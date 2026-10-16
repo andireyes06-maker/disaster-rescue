@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { api } from '../../api/client';
 import EmptyState from '../../components/calm/EmptyState';
+import { Skeleton } from '../../components/calm/Skeleton';
 import Banner from '../../components/calm/Banner';
 
 export interface PublicIncident {
@@ -40,7 +41,8 @@ export default function PublicIncidentMap() {
 
   const retry = () => setAttempt((n) => n + 1);
 
-  if (state.loading) return <p role="status">Loading the map...</p>;
+  // Reserve the map's final height while loading, so the page does not jump when the map arrives (W06).
+  if (state.loading) return <Skeleton label="Loading the map"><div className="skeleton-map" /></Skeleton>;
   if (state.error) {
     return (
       <Banner tone="error" role="alert">

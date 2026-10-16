@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, type ReactNode } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
 import '../../pages/public.css';
 
@@ -12,13 +12,16 @@ interface ResidentLayoutProps {
 
 export default function ResidentLayout({ title, description, children }: ResidentLayoutProps) {
   const { user, logout } = useAuth();
+  // The browser title names the page the resident is on (W12).
+  useEffect(() => { document.title = `${title} · Rescue Reports`; }, [title]);
   return (
     <div className="resident-layout">
       <header className="resident-layout__top">
         <p className="resident-layout__brand">Rescue Reports</p>
+        <a className="skip-link" href="#resident-main">Skip to content</a>
         <nav aria-label="Resident" className="resident-layout__nav">
-          <Link to="/my">My reports</Link>
-          <Link to="/my/report">Report an emergency</Link>
+          <NavLink to="/my" end>My reports</NavLink>
+          <NavLink to="/my/report">Report an emergency</NavLink>
         </nav>
         <div className="resident-layout__account">
           <span>{user?.email}</span>
@@ -31,7 +34,7 @@ export default function ResidentLayout({ title, description, children }: Residen
           <p className="shell__description">{description}</p>
         </div>
       </header>
-      <div className="resident__body">{children}</div>
+      <div className="resident__body" id="resident-main" tabIndex={-1}>{children}</div>
     </div>
   );
 }

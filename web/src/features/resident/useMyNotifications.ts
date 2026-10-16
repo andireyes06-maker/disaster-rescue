@@ -14,8 +14,9 @@ export interface MyNotification {
 const time = (n: MyNotification) => n.createdAt.getTime();
 
 // Notifications addressed to this resident, newest first. The rules allow this read only for recipientUid == uid.
-export function useMyNotifications(uid: string): { notifications: MyNotification[]; error: FirestoreError | null } {
-  const [state, setState] = useState<{ notifications: MyNotification[]; error: FirestoreError | null }>({ notifications: [], error: null });
+export function useMyNotifications(uid: string): { notifications: MyNotification[]; error: FirestoreError | null; loading: boolean } {
+  // loading stays true until the first answer, so an empty list is not shown as "none" before the read finishes (W06).
+  const [state, setState] = useState<{ notifications: MyNotification[]; error: FirestoreError | null; loading: boolean }>({ notifications: [], error: null, loading: true });
 
   useEffect(() => {
     if (!uid) return undefined;
@@ -30,9 +31,9 @@ export function useMyNotifications(uid: string): { notifications: MyNotification
             return { id: d.id, title: data.title, body: data.body, reportId: data.reportId, read: data.read === true, createdAt: created };
           })
           .sort((a, b) => time(b) - time(a));
-        setState({ notifications, error: null });
+        setState({ notifications, error: null, loading: false });
       },
-      (error) => setState((s) => ({ ...s, error })),
+      (error) => setState((s) => ({ ...s, error, loading: false })),
     );
   }, [uid]);
 

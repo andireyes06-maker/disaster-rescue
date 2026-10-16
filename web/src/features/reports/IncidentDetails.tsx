@@ -10,7 +10,7 @@ import VerifiedBadge from './VerifiedBadge';
 import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
 import AssignTeamDialog from './AssignTeamDialog';
 import { isOpen, formatTime, distanceMeters } from './format';
-import { awaitingVerify, canAssign, nextStep } from './workflow';
+import { awaitingVerify, canAssign, canActOnReports, nextStep } from './workflow';
 import { PRIORITIES, type Report } from '../../types/domain';
 import Banner from '../../components/calm/Banner';
 
@@ -148,7 +148,7 @@ function IncidentView({ id }: IncidentViewProps) {
   if (notFound || !report) return <p className="card">Report not found. <Link to={role === 'dmo' ? '/monitor' : '/dashboard'}>Back to the queue</Link></p>;
 
   const reportId = report.id;
-  const canAct = role === 'dispatcher';
+  const canAct = canActOnReports(role);
   const step = nextStep(report);
   const candidates = (report.possibleDuplicates || []).slice(0, MAX_DUPLICATE_IDS).map((pid) => ({ id: pid, entry: byId[pid] }));
   const shownPriority = priority || report.priority || 'medium';
@@ -268,6 +268,11 @@ function IncidentView({ id }: IncidentViewProps) {
           {canAssign(report) && (
             <div className="actions__row">
               <button ref={assignTrigger} type="button" className="btn" disabled={busy} onClick={() => setAssigning(true)}>Assign team</button>
+            </div>
+          )}
+          {report.status === 'Resolved' && (
+            <div className="actions__row">
+              <button type="button" className="btn" disabled={busy} onClick={() => run('close', undefined, 'Report closed.')}>Close report</button>
             </div>
           )}
           {awaitingVerify(report) && (

@@ -5,7 +5,7 @@ import { makeReport } from '../reports/fixtures';
 
 const h = vi.hoisted(() => ({
   reports: { reports: [] as unknown[], loading: false, error: null, retry: vi.fn() },
-  notifications: { notifications: [] as unknown[], error: null },
+  notifications: { notifications: [] as unknown[], error: null, loading: false },
   hotlines: { numbers: [{ label: 'National Emergency Hotline', number: '911' }], residentNotice: '' },
 }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'res-1', email: 'ana@example.com' }, role: 'resident' }) }));
@@ -23,7 +23,7 @@ function renderPage() {
 describe('ResidentDashboard', () => {
   beforeEach(() => {
     h.reports = { reports: [], loading: false, error: null, retry: vi.fn() };
-    h.notifications = { notifications: [], error: null };
+    h.notifications = { notifications: [], error: null, loading: false };
     h.hotlines = { numbers: [{ label: 'National Emergency Hotline', number: '911' }], residentNotice: '' };
   });
 
@@ -60,5 +60,14 @@ describe('ResidentDashboard', () => {
     h.notifications.notifications = [{ id: 'n1', title: 'Report verified', body: 'Your flood report was verified.', reportId: 'r1', read: false, createdAt: new Date() }];
     renderPage();
     expect(screen.getByText('Report verified')).toBeInTheDocument();
+  });
+
+  it('does not say "no notifications" before the first answer arrives (W06)', () => {
+    const prev = h.notifications;
+    h.notifications = { notifications: [], error: null, loading: true };
+    render(<MemoryRouter><ResidentDashboard /></MemoryRouter>);
+    expect(screen.queryByText('No notifications yet.')).toBeNull();
+    expect(screen.getByText('Loading notifications')).toBeInTheDocument();
+    h.notifications = prev;
   });
 });

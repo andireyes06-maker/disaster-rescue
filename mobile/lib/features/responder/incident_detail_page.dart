@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,10 +21,38 @@ class IncidentDetailPage extends StatefulWidget {
 }
 
 class _IncidentDetailPageState extends State<IncidentDetailPage> {
-  late String _status = widget.report.status;
+  // The live record. Null once the report is removed or this team no longer has access, so its details are hidden.
+  AssignedReport? _current;
   bool _acknowledged = false;
   bool _busy = false;
   String? _error;
+  StreamSubscription<AssignedReport?>? _sub;
+
+  static const _closedStatuses = {'Resolved', 'Closed', 'Rejected', 'Duplicate', 'Cancelled'};
+
+  @override
+  void initState() {
+    super.initState();
+    _current = widget.report;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _sub ??= context.read<ResponderRepository>().watchReport(widget.report.id).listen(
+      (r) => setState(() {
+        _current = r;
+        _error = null;
+      }),
+      onError: (_) => setState(() => _current = null),
+    );
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
 
   Future<void> _acknowledge() async {
     setState(() {
@@ -47,16 +77,16 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   }
 
   Future<void> _updateStatus() async {
-    final saved = await Navigator.of(context).push<OperationUpdate>(
+    // The live subscription shows the new status once the server confirms it.
+    await Navigator.of(context).push<OperationUpdate>(
       MaterialPageRoute(
         builder: (_) => OperationFormPage(reportId: widget.report.id),
       ),
     );
-    if (saved != null && mounted) setState(() => _status = saved.status);
   }
 
   Future<void> _openMap() async {
-    final r = widget.report;
+    final r = _current ?? widget.report;
     final uri = Uri.https('www.google.com', '/maps/search/', {
       'api': '1',
       'query': '${r.lat},${r.lng}',
@@ -81,15 +111,39 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final r = widget.report;
+    final r = _current;
+    if (r == null) {
+      return Scaffold(
+        appBar: AppBar(title: Text(widget.report.reference ?? 'Incident')),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  'This incident is no longer assigned to your team, or it was removed. Its details are hidden.',
+                ),
+                const SizedBox(height: 16),
+                OutlinedButton(
+                  onPressed: () => Navigator.of(context).maybePop(),
+                  child: const Text('Back to assignments'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
     final hasLocation = r.lat != null && r.lng != null;
+    final closed = _closedStatuses.contains(r.status);
     return Scaffold(
       appBar: AppBar(title: Text(r.reference ?? 'Incident')),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            Row(children: [StatusChip(_status)]),
+            Row(children: [StatusChip(r.status)]),
             const SizedBox(height: 16),
             Text(
               'What is happening',
@@ -122,18 +176,20 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
               const SizedBox(height: 16),
             ],
             FilledButton.icon(
-              onPressed: _acknowledged || _busy ? null : _acknowledge,
+              onPressed: _acknowledged || _busy || closed ? null : _acknowledge,
               icon: Icon(
                 _acknowledged ? Icons.check : Icons.thumb_up_alt_outlined,
               ),
               label: Text(_acknowledged ? 'Acknowledged' : 'Acknowledge'),
             ),
-            const SizedBox(height: 12),
-            OutlinedButton.icon(
-              onPressed: _updateStatus,
-              icon: const Icon(Icons.edit_note),
-              label: const Text('Add operation update'),
-            ),
+            if (!closed) ...[
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                onPressed: _updateStatus,
+                icon: const Icon(Icons.edit_note),
+                label: const Text('Add operation update'),
+              ),
+            ],
           ],
         ),
       ),

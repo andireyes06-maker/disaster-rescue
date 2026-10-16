@@ -11,6 +11,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
   const updates = new Map();
   const users = new Map();
   const teams = new Map();
+  const submissions = new Map();
   const notifications = new Map();
   const devices = new Map(); // token -> uid
   const audits = [];
@@ -48,6 +49,39 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
       reports.set(id, { ...r, ...copy(patch), id, updatedAt: new Date() });
       return true;
     },
+    // Atomic: every check and write happens in one synchronous step, as in the transaction.
+    async applyReportChange(reportId, expectedStatus, change) {
+      const r = reports.get(reportId);
+      if (!r) return { ok: false, reason: 'not_found' };
+      if (r.status !== expectedStatus) return { ok: false, reason: 'conflict' };
+      const team = change.team ? teams.get(change.team.id) : null;
+      if (change.team?.claim) {
+        if (!team) return { ok: false, reason: 'team_missing' };
+        if (team.busy === true && team.currentReportId && team.currentReportId !== reportId) return { ok: false, reason: 'team_busy' };
+      }
+      reports.set(reportId, { ...r, ...copy(change.reportPatch), id: reportId, updatedAt: new Date() });
+      if (change.team?.claim) teams.set(change.team.id, { ...team, busy: true, currentReportId: reportId });
+      if (change.team?.release && team && team.currentReportId === reportId) {
+        teams.set(change.team.id, { ...team, busy: false, currentReportId: null });
+      }
+      if (change.updateDoc) {
+        if (!updates.has(reportId)) updates.set(reportId, []);
+        updates.get(reportId).push({ ...copy(change.updateDoc), id: nextId('u') });
+      }
+      return { ok: true };
+    },
+    async claimSubmission(uid, key, { staleAfterMs }) {
+      const k = `${uid}__${key}`;
+      const now = Date.now();
+      const d = submissions.get(k);
+      if (d?.state === 'done') return { state: 'done', result: copy(d.result) };
+      if (d?.state === 'pending' && now - d.startedAtMs < staleAfterMs) return { state: 'pending' };
+      submissions.set(k, { state: 'pending', startedAtMs: now });
+      return { state: 'new' };
+    },
+    async completeSubmission(uid, key, result) {
+      submissions.set(`${uid}__${key}`, { state: 'done', result: copy(result) });
+    },
     async addUpdate(reportId, update) {
       const id = nextId('u');
       if (!updates.has(reportId)) updates.set(reportId, []);
@@ -63,6 +97,17 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
       users.set(uid, { ...users.get(uid), ...copy(patch) });
     },
     async listUsers() { return copy([...users.values()]); },
+    // Atomic: the admin check and the write happen in one synchronous step, as in the transaction.
+    async setStaffGuarded(uid, patch, { removesAdmin }) {
+      const target = users.get(uid);
+      if (!target) return { ok: false, reason: 'not_found' };
+      if (removesAdmin) {
+        const others = [...users.values()].filter((u) => u.uid !== uid && u.role === 'admin' && u.active === true);
+        if (others.length === 0) return { ok: false, reason: 'last_admin' };
+      }
+      users.set(uid, { ...target, ...copy(patch) });
+      return { ok: true };
+    },
 
     async getTeam(id) { const t = teams.get(id); return t ? copy(t) : null; },
     async listTeams() { return copy([...teams.values()]); },

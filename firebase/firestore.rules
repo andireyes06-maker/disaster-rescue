@@ -2,12 +2,22 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helpers. A token without active == true (missing, false, or non-boolean)
-    // is treated as not active and reads nothing anywhere.
+    // Helpers. The users/{uid} document is the current authority for active state, role, and team.
+    // Token claims alone are not trusted: a disabled, demoted, or moved account is refused at once,
+    // even while its ID token still carries the old claims. Any mismatch between the token and the
+    // document fails closed (the role or team reads as empty).
     function signedIn() { return request.auth != null; }
-    function isActive() { return signedIn() && request.auth.token.get('active', false) == true; }
-    function role() { return request.auth.token.get('role', ''); }
-    function team() { return request.auth.token.get('team', ''); }
+    function userRef() { return /databases/$(database)/documents/users/$(request.auth.uid); }
+    function hasUser() { return signedIn() && exists(userRef()); }
+    function userData() { return get(userRef()).data; }
+    function claimActive() { return request.auth.token.get('active', false) == true; }
+    function isActive() { return claimActive() && hasUser() && userData().get('active', false) == true; }
+    function role() {
+      return isActive() && userData().get('role', '') == request.auth.token.get('role', '') ? userData().get('role', '') : '';
+    }
+    function team() {
+      return isActive() && userData().get('team', '') == request.auth.token.get('team', '') ? userData().get('team', '') : '';
+    }
     // Admins hold every staff permission.
     function isStaff() { return isActive() && (role() == 'dispatcher' || role() == 'dmo' || role() == 'admin'); }
 

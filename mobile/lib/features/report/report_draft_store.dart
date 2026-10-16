@@ -11,19 +11,44 @@ abstract class DraftStore {
   Future<void> clear();
 }
 
+/// Drafts belong to one signed-in account. Each account's draft has its own key, so a draft saved
+/// by one resident is never shown to another account on the same phone. Without a signed-in account,
+/// nothing is saved or loaded.
 class ReportDraftStore implements DraftStore {
-  static const _key = 'report_draft_v1';
+  ReportDraftStore({required this.currentUid});
+
+  /// Returns the signed-in account's uid, or null when nobody is signed in.
+  final String? Function() currentUid;
+
+  // The pre-ownership key cannot be attributed to an account, so it is deleted rather than adopted.
+  static const _legacyKey = 'report_draft_v1';
+  static const _prefix = 'report_draft_v2:';
+
+  String? get _key {
+    final uid = currentUid();
+    return uid == null || uid.isEmpty ? null : '$_prefix$uid';
+  }
+
+  Future<SharedPreferences> _prefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_legacyKey);
+    return prefs;
+  }
 
   @override
   Future<void> save(ReportDraft draft) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_key, jsonEncode(draft.toJson()));
+    final key = _key;
+    if (key == null) return;
+    final prefs = await _prefs();
+    await prefs.setString(key, jsonEncode(draft.toJson()));
   }
 
   @override
   Future<ReportDraft?> load() async {
-    final prefs = await SharedPreferences.getInstance();
-    final s = prefs.getString(_key);
+    final key = _key;
+    if (key == null) return null;
+    final prefs = await _prefs();
+    final s = prefs.getString(key);
     if (s == null) return null;
     try {
       final j = jsonDecode(s);
@@ -34,7 +59,9 @@ class ReportDraftStore implements DraftStore {
 
   @override
   Future<void> clear() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_key);
+    final key = _key;
+    if (key == null) return;
+    final prefs = await _prefs();
+    await prefs.remove(key);
   }
 }

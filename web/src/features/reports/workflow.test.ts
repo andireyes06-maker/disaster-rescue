@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { awaitingVerify, canAssign, nextStep } from './workflow';
+import { awaitingVerify, canAssign, canActOnReports, nextStep } from './workflow';
 import type { ReportStatus } from '../../types/domain';
 
 describe('workflow predicates', () => {
@@ -22,5 +22,16 @@ describe('workflow predicates', () => {
   it('offers no staff action for closed or in-progress reports', () => {
     expect(nextStep({ status: 'Rescue in Progress' }).action).toBeNull();
     expect(nextStep({ status: 'Closed' }).action).toBeNull();
+  });
+
+  it('offers close for a resolved report and frees the team with it', () => {
+    expect(nextStep({ status: 'Resolved' }).action).toBe('close');
+  });
+
+  it('lets dispatchers and admins act, and never DMOs or residents', () => {
+    expect(canActOnReports('dispatcher')).toBe(true);
+    expect(canActOnReports('admin')).toBe(true);
+    expect(canActOnReports('dmo')).toBe(false);
+    expect(canActOnReports('resident')).toBe(false);
   });
 });

@@ -7,11 +7,14 @@ export const awaitingVerify = (r: Pick<Report, 'status'>): boolean =>
 export const canAssign = (r: Pick<Report, 'status'>): boolean =>
   r.status === 'Verified' || r.status === 'Awaiting Assignment';
 
+// Staff actions on reports. Mirrors the API: dispatchers and admins act; DMOs read; residents never act here.
+export const canActOnReports = (role: string | null | undefined): boolean => role === 'dispatcher' || role === 'admin';
+
 export interface NextStep {
   title: string;
   body: string;
-  // Where the action is performed. Only dispatchers see the link; others read the text.
-  action: 'verify' | 'assign' | null;
+  // Where the action is performed. Only staff who can act see the link; others read the text.
+  action: 'verify' | 'assign' | 'close' | null;
 }
 
 export function nextStep(r: Pick<Report, 'status'>): NextStep {
@@ -20,6 +23,9 @@ export function nextStep(r: Pick<Report, 'status'>): NextStep {
   }
   if (canAssign(r)) {
     return { title: 'Assign a rescue team', body: 'The report is verified and waiting for a team.', action: 'assign' };
+  }
+  if (r.status === 'Resolved') {
+    return { title: 'Close the report', body: 'The rescue is complete. Closing the report frees the team.', action: 'close' };
   }
   if (r.status === 'Team Assigned' || r.status === 'Rescue in Progress') {
     return { title: 'Rescue in progress', body: 'A team is responding. Follow the rescue updates.', action: null };

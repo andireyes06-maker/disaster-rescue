@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useReports } from './useReports';
 import StatusBadge from './StatusBadge';
 import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
 import IncidentPreview from './IncidentPreview';
 import { isOpen, formatTime } from './format';
-import { awaitingVerify } from './workflow';
+import { awaitingVerify, canActOnReports } from './workflow';
 import { useAuth } from '../../auth/AuthProvider';
 import { REPORT_TYPES, PRIORITIES, REPORT_STATUSES } from '../../types/domain';
 import EmptyState from '../../components/calm/EmptyState';
 import Card from '../../components/calm/Card';
+import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import { MapPin, Waves, Flame, Building2, Mountain, CircleHelp, SlidersHorizontal, Search } from 'lucide-react';
 
 type Report = ReturnType<typeof useReports>['reports'][number];
@@ -40,7 +42,6 @@ interface Filters {
   verified: string;
 }
 
-const NO_FILTERS: Filters = { status: '', type: '', priority: '', verified: '' };
 
 // Quick views are derived from the full dataset; counts never depend on the visible results.
 type Quick = 'all' | 'verify' | 'active';
@@ -95,17 +96,46 @@ function InboxRow({ r, selected, onSelect }: { r: Report; selected: boolean; onS
 export default function ReportQueue() {
   const { role } = useAuth();
   const { reports, loading, error, retry } = useReports();
-  const [f, setF] = useState<Filters>(NO_FILTERS);
-  const [quick, setQuick] = useState<Quick>('all');
+  // Filters, quick view, and selection live in the URL (W08): Back, reload, and shared links restore the same list.
+  const [params, setParams] = useSearchParams();
+  const f: Filters = {
+    status: params.get('status') ?? '',
+    type: params.get('type') ?? '',
+    priority: params.get('priority') ?? '',
+    verified: params.get('verified') ?? '',
+  };
+  const quickParam = params.get('quick');
+  const quick: Quick = quickParam === 'verify' || quickParam === 'active' ? quickParam : 'all';
+  const selectedId = params.get('sel');
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  // Replace, not push: changing a filter or selection should not add a Back step per click.
+  const update = (change: (p: URLSearchParams) => void) => setParams((prev) => {
+    const next = new URLSearchParams(prev);
+    change(next);
+    return next;
+  }, { replace: true });
+  // Set by a user's selection on narrow screens; consumed after the preview has rendered.
+  const focusPreviewOnNextRender = useRef(false);
+  const setSelectedId = (id: string) => {
+    update((p) => p.set('sel', id));
+    // On a phone the preview sits below the whole list. Bring it into view when the user picks a report (W03).
+    // Only a user's choice moves focus; live list updates never do.
+    if (window.matchMedia?.('(max-width: 1199px)').matches) focusPreviewOnNextRender.current = true;
+  };
+  const set = (k: keyof Filters) => (v: string) => update((p) => { if (v) p.set(k, v); else p.delete(k); });
+  const setQuick = (q: Quick) => update((p) => { if (q === 'all') p.delete('quick'); else p.set('quick', q); });
+  const clearAll = () => update((p) => {
+    for (const k of ['status', 'type', 'priority', 'verified', 'quick'] as const) p.delete(k);
+  });
 
   const activeFilters = Object.values(f).filter(Boolean).length + (quick !== 'all' ? 1 : 0);
-  const set = (k: keyof Filters) => (v: string) => setF((s) => ({ ...s, [k]: v }));
-  const clearAll = () => { setF(NO_FILTERS); setQuick('all'); };
+
+  const query = (params.get('q') ?? '').trim().toLowerCase();
+  const matchesQuery = (r: Report) => !query || [r.type, r.description, r.addressText ?? '', r.reference ?? '']
+    .some((text) => text.toLowerCase().includes(query));
 
   const rows = reports.filter((r) =>
-    quickMatch(r, quick)
+    matchesQuery(r) && quickMatch(r, quick)
     && (!f.status || r.status === f.status)
     && (!f.type || r.type === f.type)
     && (!f.priority || r.priority === f.priority)
@@ -113,6 +143,11 @@ export default function ReportQueue() {
 
   // First visible report is the default. Once chosen, the selection stays put while the list changes.
   const effectiveId = selectedId ?? rows[0]?.id ?? null;
+  useEffect(() => {
+    if (!focusPreviewOnNextRender.current) return;
+    focusPreviewOnNextRender.current = false;
+    document.getElementById('preview-title')?.focus();
+  }, [effectiveId]);
   const selected: Report | undefined = reports.find((r) => r.id === effectiveId);
   const selectedHidden = Boolean(selected) && !rows.some((r) => r.id === selected?.id);
 
@@ -123,7 +158,7 @@ export default function ReportQueue() {
     ['Verified', reports.filter((r) => r.verified).length],
   ];
   const quickCount = (q: Quick) => reports.filter((r) => quickMatch(r, q)).length;
-  const canAct = role === 'dispatcher';
+  const canAct = canActOnReports(role);
   const failed = Boolean(error);
 
   return (
@@ -154,6 +189,11 @@ export default function ReportQueue() {
           </div>
         </div>
 
+        <div className="inbox-search">
+          <label htmlFor="inbox-search">Search incidents</label>
+          <input id="inbox-search" type="search" value={params.get('q') ?? ''} placeholder="Type, place, description, or reference"
+            onChange={(e) => update((p) => { if (e.target.value) p.set('q', e.target.value); else p.delete('q'); })} />
+        </div>
         <div className="quick" role="group" aria-label="Quick views">
           {QUICK.map(([key, text]) => (
             <button key={key} type="button" className="quick__chip" aria-pressed={quick === key}
@@ -178,7 +218,7 @@ export default function ReportQueue() {
             <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
           </p>
         )}
-        {loading && <p role="status" className="loading">Loading...</p>}
+        {loading && <Skeleton label="Loading incident inbox"><SkeletonRows rows={5} height={84} /></Skeleton>}
         {!loading && !error && rows.length === 0 && (
           <EmptyState
             title="No reports match these filters"

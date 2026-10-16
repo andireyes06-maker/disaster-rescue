@@ -92,4 +92,40 @@ describe('ReportForm', () => {
     expect(form.get('source')).toBe('gps');
     expect(form.get('lat')).toBe('14.6');
   });
+
+  it('an invalid submit marks fields, links the summary, and moves focus to the first invalid field (W09)', async () => {
+    const user = userEvent.setup();
+    renderForm();
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    expect(screen.getByLabelText('Type of emergency')).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByLabelText('Type of emergency')).toHaveAccessibleDescription(/choose|type|emergency/i);
+    expect(screen.getByRole('link', { name: 'Type of emergency' })).toHaveAttribute('href', '#type');
+    expect(screen.getByLabelText('Type of emergency')).toHaveFocus();
+    expect(h.api).not.toHaveBeenCalled();
+  });
+
+  it('a half-filled contact pair is flagged on both contact fields (W09)', async () => {
+    const user = userEvent.setup();
+    giveGps();
+    renderForm();
+    await fillBasics(user);
+    await user.click(screen.getByRole('button', { name: 'Use my location' }));
+    await user.type(screen.getByLabelText('Your name (optional)'), 'Ana');
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    expect(screen.getByLabelText('Your name (optional)')).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByLabelText('Phone (optional)')).toHaveAttribute('aria-invalid', 'true');
+    expect(h.api).not.toHaveBeenCalled();
+  });
+
+  it('warns before leaving the page when the report has unsaved entries (W10)', async () => {
+    const user = userEvent.setup();
+    renderForm();
+    const clean = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(clean);
+    expect(clean.defaultPrevented).toBe(false);
+    await user.type(screen.getByLabelText('What is happening?'), 'Water up to the roof');
+    const dirty = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(dirty);
+    expect(dirty.defaultPrevented).toBe(true);
+  });
 });

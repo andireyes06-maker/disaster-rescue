@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { api } from '../../api/client';
+import { apiFailure } from '../../lib/apiError';
 import Banner from '../../components/calm/Banner';
 
 export interface AdminUser {
@@ -13,7 +14,20 @@ export interface AdminUser {
 
 export interface AdminTeam { id: string; name: string }
 
+// Roles an admin can assign to staff. A resident account is shown as resident and is never silently changed to another role.
 const ROLE_OPTIONS = ['responder', 'dispatcher', 'dmo', 'admin'] as const;
+
+function roleOptionsFor(current: string): string[] {
+  return current === 'resident' ? ['resident', ...ROLE_OPTIONS] : [...ROLE_OPTIONS];
+}
+
+function failureText(err: unknown, fallback: string): string {
+  const f = apiFailure(err);
+  if (f?.code === 'last_admin') return 'At least one active admin must remain. Make another admin active first.';
+  if (f?.status === 403) return 'You cannot change this account. Admins cannot change their own account.';
+  if (f?.status === 400 && f.code === 'role_not_allowed') return 'Only an admin can assign the admin role.';
+  return fallback;
+}
 
 export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
   const [users, setUsers] = useState<AdminUser[]>([]);
@@ -22,24 +36,43 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState<string>('responder');
   const [team, setTeam] = useState('');
+  // Staged role choices per account. Nothing is sent until the admin presses Save.
+  const [draft, setDraft] = useState<Record<string, string>>({});
+  // Every request in flight. A second action on the same account or the form waits for the first (W11).
+  const [pending, setPending] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     api('/users').then((res) => setUsers(res as AdminUser[])).catch(() => setError('Could not load accounts.'));
   }, []);
 
-  async function changeRole(u: AdminUser, next: string) {
+  const busy = (key: string) => pending.has(key);
+  const setBusy = (key: string, on: boolean) => setPending((set) => {
+    const next = new Set(set);
+    if (on) next.add(key); else next.delete(key);
+    return next;
+  });
+
+  async function saveRole(u: AdminUser) {
+    const next = draft[u.uid] ?? u.role;
+    if (busy(u.uid) || next === u.role) return;
     setError('');
+    setBusy(u.uid, true);
     try {
       await api(`/users/${u.uid}`, { method: 'PATCH', body: { role: next } });
       setUsers((list) => list.map((x) => (x.uid === u.uid ? { ...x, role: next } : x)));
-    } catch {
-      setError(`Could not change the role for ${u.name}.`);
+      setDraft((d) => { const { [u.uid]: _, ...rest } = d; return rest; });
+    } catch (err) {
+      setError(failureText(err, `Could not change the role for ${u.name}. Nothing was changed.`));
+    } finally {
+      setBusy(u.uid, false);
     }
   }
 
   async function create(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (busy('create')) return;
     setError('');
+    setBusy('create', true);
     try {
       const body: Record<string, unknown> = { name: name.trim(), email: email.trim(), role };
       if (role === 'responder' && team) body.team = team;
@@ -48,8 +81,10 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
       setEmail('');
       setTeam('');
       setUsers((await api('/users')) as AdminUser[]);
-    } catch {
-      setError('Could not create the account. Check the details; the email may already be in use.');
+    } catch (err) {
+      setError(failureText(err, 'Could not create the account. Check the details; the email may already be in use.'));
+    } finally {
+      setBusy('create', false);
     }
   }
 
@@ -64,9 +99,15 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
               <td>{u.name}</td>
               <td>{u.email}</td>
               <td>
-                <select id={`role-${u.uid}`} aria-label={`Role for ${u.name}`} value={u.role} onChange={(e) => changeRole(u, e.target.value)}>
-                  {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
+                <select id={`role-${u.uid}`} aria-label={`Role for ${u.name}`} value={draft[u.uid] ?? u.role}
+                  disabled={busy(u.uid)} onChange={(e) => setDraft((d) => ({ ...d, [u.uid]: e.target.value }))}>
+                  {roleOptionsFor(u.role).map((r) => <option key={r} value={r}>{r}</option>)}
                 </select>
+                {(draft[u.uid] ?? u.role) !== u.role && (
+                  <button type="button" className="btn" disabled={busy(u.uid)} onClick={() => saveRole(u)}>
+                    {busy(u.uid) ? 'Saving role...' : `Save role for ${u.name}`}
+                  </button>
+                )}
               </td>
               <td>{u.active ? 'Active' : 'Inactive'}</td>
             </tr>
@@ -93,7 +134,7 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
             </select>
           </>
         )}
-        <button type="submit" className="btn">Create account</button>
+        <button type="submit" className="btn" disabled={busy('create')}>{busy('create') ? 'Creating account...' : 'Create account'}</button>
       </form>
     </div>
   );

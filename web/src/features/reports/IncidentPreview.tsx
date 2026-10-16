@@ -6,7 +6,7 @@ import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
 import Banner from '../../components/calm/Banner';
 import { formatTime } from './format';
-import { nextStep } from './workflow';
+import { nextStep, canActOnReports } from './workflow';
 import type { Report, ReportType } from '../../types/domain';
 
 // Decorative category icons. The type name is always printed beside them.
@@ -33,6 +33,8 @@ interface IncidentPreviewProps {
   onClearFilters: () => void;
 }
 
+const ACTION_LABEL = { verify: 'Verify report', assign: 'Assign team', close: 'Close report' } as const;
+
 // Rendered with key={report.id} so the rescue-updates subscription follows the selection.
 export default function IncidentPreview({ report, canAct, outsideFilters, onClearFilters }: IncidentPreviewProps) {
   const updates = useReportUpdates(report.id);
@@ -53,7 +55,7 @@ export default function IncidentPreview({ report, canAct, outsideFilters, onClea
       <header className="preview__head">
         <span className={`type-icon ${TYPE_CLASS[report.type] || 'type-icon--other'}`} aria-hidden="true"><Icon /></span>
         <div className="preview__title">
-          <h2 id="preview-title">{report.type.charAt(0).toUpperCase() + report.type.slice(1)} report</h2>
+          <h2 id="preview-title" tabIndex={-1}>{report.type.charAt(0).toUpperCase() + report.type.slice(1)} report</h2>
           <p className="preview__place"><MapPin aria-hidden="true" /> {report.addressText || 'No address given'}</p>
           <div className="preview__badges">
             <PriorityBadge priority={report.priority} />
@@ -82,7 +84,7 @@ export default function IncidentPreview({ report, canAct, outsideFilters, onClea
         <p>{step.body}</p>
         <div className="preview__actions">
           {canAct && step.action && (
-            <Link className="btn" to={actionTo}>{step.action === 'verify' ? 'Verify report' : 'Assign team'}</Link>
+            <Link className="btn" to={actionTo}>{ACTION_LABEL[step.action]}</Link>
           )}
           <Link className="preview__open" to={actionTo}>Open full report</Link>
         </div>

@@ -14,16 +14,24 @@ const CANCEL_REFUSED = 'This report can no longer be cancelled. It may already h
 export default function ResidentReportDetail() {
   const { id = '' } = useParams();
   const { user } = useAuth();
-  const { reports, loading, retry } = useMyReports(user?.uid ?? '');
-  const { updates } = useReportUpdates(id);
+  const { reports, loading, error, retry } = useMyReports(user?.uid ?? '');
+  const { updates, error: updatesError, retry: retryUpdates } = useReportUpdates(id);
   const report = reports.find((r) => r.id === id);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ tone: 'ok' | 'error'; text: string } | null>(null);
 
+  // A failed read is not a missing report. "Not found" appears only after a successful read.
   if (!report) {
     return (
       <main className="resident">
-        <p>{loading ? 'Loading report...' : 'We could not find this report.'}</p>
+        {loading && <p role="status">Loading report...</p>}
+        {!loading && error && (
+          <Banner tone="error" role="alert">
+            We could not load this report. Check your connection and try again.{' '}
+            <button type="button" className="btn btn--ghost" onClick={retry}>Try again</button>
+          </Banner>
+        )}
+        {!loading && !error && <p>We could not find this report.</p>}
         <Link to="/my">Back to my reports</Link>
       </main>
     );
@@ -66,7 +74,13 @@ export default function ResidentReportDetail() {
 
       <section className="card" aria-labelledby="history-title">
         <h2 id="history-title">Status history</h2>
-        {updates.length === 0 && <p>No updates yet.</p>}
+        {updatesError && (
+          <Banner tone="error" role="alert">
+            Could not load the latest updates.{' '}
+            <button type="button" className="btn btn--ghost" onClick={retryUpdates}>Try again</button>
+          </Banner>
+        )}
+        {updates.length === 0 && !updatesError && <p>No updates yet.</p>}
         <ol className="resident__list">
           {updates.map((u) => (
             <li key={u.id}>

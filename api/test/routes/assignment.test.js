@@ -86,6 +86,68 @@ describe('assign to a busy team', () => {
   });
 });
 
+describe('resolution is all-or-nothing (BE03)', () => {
+  it('a failed atomic change leaves no Resolved report without its note, and a retry succeeds once', async () => {
+    const t = makeTestApp();
+    await withTeams(t);
+    const id = await seed(t, { status: 'Rescue in Progress', assignedTeamId: 'tA' });
+    const real = t.repo.applyReportChange;
+    t.repo.applyReportChange = async () => { throw new Error('injected write failure'); };
+    const body = { status: 'Resolved', note: 'Area cleared', peopleRescued: 2 };
+    const failed = await request(t.app).post(`/api/reports/${id}/updates`).set('Authorization', t.as('responder', 'rsp-a')).send(body);
+    expect(failed.status).toBe(500);
+    expect(await t.repo.getReport(id)).toMatchObject({ status: 'Rescue in Progress' });
+    expect(await t.repo.listUpdates(id)).toEqual([]);
+
+    t.repo.applyReportChange = real;
+    const retried = await request(t.app).post(`/api/reports/${id}/updates`).set('Authorization', t.as('responder', 'rsp-a')).send(body);
+    expect(retried.status).toBe(200);
+    expect(await t.repo.getReport(id)).toMatchObject({ status: 'Resolved' });
+    const updates = await t.repo.listUpdates(id);
+    expect(updates).toHaveLength(1);
+    expect(updates[0]).toMatchObject({ status: 'Resolved', note: 'Area cleared', peopleRescued: 2 });
+  });
+});
+
+describe('one team, two reports (BE02)', () => {
+  it('two different reports racing for one free team: one assigned, the other refused, team points to the winner', async () => {
+    const t = makeTestApp();
+    await withTeams(t);
+    const first = await seed(t, { status: 'Awaiting Assignment', verified: true });
+    const second = await seed(t, { status: 'Awaiting Assignment', verified: true, reference: 'DR-CCCCCC' });
+    const rs = await Promise.all([
+      post(t, first, 'assign', t.as('dispatcher', 'd1'), { teamId: 'tA' }),
+      post(t, second, 'assign', t.as('dispatcher', 'd2'), { teamId: 'tA' }),
+    ]);
+    expect(rs.map((r) => r.status).sort()).toEqual([200, 409]);
+    const winner = rs[0].status === 200 ? first : second;
+    const loser = winner === first ? second : first;
+    expect(await t.repo.getTeam('tA')).toMatchObject({ busy: true, currentReportId: winner });
+    expect(await t.repo.getReport(winner)).toMatchObject({ status: 'Team Assigned', assignedTeamId: 'tA' });
+    expect(await t.repo.getReport(loser)).toMatchObject({ status: 'Awaiting Assignment' });
+    expect(await t.repo.getReport(loser)).not.toHaveProperty('assignedTeamId', 'tA');
+  });
+
+  it('closing one report never frees a team that is busy with another report', async () => {
+    const t = makeTestApp();
+    await withTeams(t);
+    const current = await seed(t, { status: 'Resolved', assignedTeamId: 'tA' });
+    await t.repo.saveTeam('tA', { busy: true, currentReportId: 'someone-else' });
+    expect((await request(t.app).patch(`/api/reports/${current}/close`).set('Authorization', t.as('dispatcher', 'd1')).send({})).status).toBe(200);
+    expect(await t.repo.getTeam('tA')).toMatchObject({ busy: true, currentReportId: 'someone-else' });
+  });
+
+  it('closing the report a team is on releases the team in the same step', async () => {
+    const t = makeTestApp();
+    await withTeams(t);
+    const id = await seed(t, { status: 'Resolved', assignedTeamId: 'tA' });
+    await t.repo.saveTeam('tA', { busy: true, currentReportId: id });
+    expect((await request(t.app).patch(`/api/reports/${id}/close`).set('Authorization', t.as('dispatcher', 'd1')).send({})).status).toBe(200);
+    expect(await t.repo.getTeam('tA')).toMatchObject({ busy: false, currentReportId: null });
+    expect(await t.repo.getReport(id)).toMatchObject({ status: 'Closed' });
+  });
+});
+
 describe('acknowledge and updates', () => {
   afterEach(() => { vi.restoreAllMocks(); });
 

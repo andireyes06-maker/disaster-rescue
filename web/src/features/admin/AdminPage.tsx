@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { api } from '../../api/client';
 import AccountsPanel, { type AdminTeam } from './AccountsPanel';
 import TeamsPanel from './TeamsPanel';
 import SettingsPanel from './SettingsPanel';
 import HealthPanel from './HealthPanel';
-import AuditPage from '../audit/AuditPage';
+// The audit log is its own chunk, loaded only when the admin page needs it (W14).
+const AuditPage = lazy(() => import('../audit/AuditPage'));
 import '../../pages/public.css';
 
 // Admin uses the API for everything. Nothing here reads Firestore directly.
@@ -43,7 +44,9 @@ export default function AdminPage() {
       <section className="card" aria-labelledby="audit-heading">
         <h2 id="audit-heading">Audit and exports</h2>
         <p>Admins can download CSV and PDF summaries from Analytics. Exports include exact locations, so share them only with staff who need them.</p>
-        <AuditPage />
+        <Suspense fallback={<p role="status">Loading the audit log...</p>}>
+          <AuditPage />
+        </Suspense>
       </section>
     </div>
   );

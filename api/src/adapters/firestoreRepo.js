@@ -74,6 +74,52 @@ export function createFirestoreRepo(db) {
         return true;
       });
     },
+    // One transaction for a status change and the team it claims or frees, plus its update record.
+    // Reads come first (report, then team), then all writes, so a conflict on either document retries cleanly.
+    async applyReportChange(reportId, expectedStatus, change) {
+      const ref = col('reports').doc(reportId);
+      const teamRef = change.team ? col('teams').doc(change.team.id) : null;
+      return db.runTransaction(async (tx) => {
+        const report = await tx.get(ref);
+        if (!report.exists) return { ok: false, reason: 'not_found' };
+        if (report.data().status !== expectedStatus) return { ok: false, reason: 'conflict' };
+        const team = teamRef ? await tx.get(teamRef) : null;
+        if (change.team?.claim) {
+          if (!team.exists) return { ok: false, reason: 'team_missing' };
+          const t = team.data();
+          if (t.busy === true && t.currentReportId && t.currentReportId !== reportId) return { ok: false, reason: 'team_busy' };
+        }
+        tx.update(ref, stripUndefined({ ...change.reportPatch, updatedAt: new Date() }));
+        if (change.team?.claim) tx.set(teamRef, { busy: true, currentReportId: reportId }, { merge: true });
+        if (change.team?.release && team?.exists && team.data().currentReportId === reportId) {
+          tx.set(teamRef, { busy: false, currentReportId: null }, { merge: true });
+        }
+        if (change.updateDoc) {
+          const update = change.updateDoc;
+          tx.set(ref.collection('updates').doc(), stripUndefined({ ...update, at: update.at ?? new Date() }));
+        }
+        return { ok: true };
+      });
+    },
+    // Idempotent report submission: one document per (account, key). A completed key replays its result;
+    // a fresh in-flight key refuses a second attempt; an abandoned one (older than staleAfterMs) can be retried.
+    async claimSubmission(uid, key, { staleAfterMs }) {
+      const ref = col('submissions').doc(`${uid}__${key}`);
+      return db.runTransaction(async (tx) => {
+        const snap = await tx.get(ref);
+        const now = Date.now();
+        if (snap.exists) {
+          const d = snap.data();
+          if (d.state === 'done') return { state: 'done', result: d.result };
+          if (d.state === 'pending' && now - d.startedAtMs < staleAfterMs) return { state: 'pending' };
+        }
+        tx.set(ref, { state: 'pending', startedAtMs: now, uid });
+        return { state: 'new' };
+      });
+    },
+    async completeSubmission(uid, key, result) {
+      await col('submissions').doc(`${uid}__${key}`).set({ state: 'done', result, completedAt: new Date() }, { merge: true });
+    },
     async addUpdate(reportId, update) {
       const ref = col('reports').doc(reportId).collection('updates').doc();
       await ref.set(stripUndefined({ ...update, at: update.at ?? new Date() }));
@@ -90,6 +136,22 @@ export function createFirestoreRepo(db) {
     },
     async updateUser(uid, patch) { await col('users').doc(uid).update(stripUndefined(patch)); },
     async listUsers() { return (await col('users').get()).docs.map(userDoc); },
+    // Serialized through a transaction: the admin set is read in the same transaction as the write,
+    // so two concurrent demotions of different admins cannot both see the other as still active.
+    async setStaffGuarded(uid, patch, { removesAdmin }) {
+      const ref = col('users').doc(uid);
+      const admins = col('users').where('role', '==', 'admin');
+      return db.runTransaction(async (tx) => {
+        const target = await tx.get(ref);
+        if (!target.exists) return { ok: false, reason: 'not_found' };
+        if (removesAdmin) {
+          const others = (await tx.get(admins)).docs.filter((d) => d.id !== uid && d.data().active === true);
+          if (others.length === 0) return { ok: false, reason: 'last_admin' };
+        }
+        tx.update(ref, stripUndefined(patch));
+        return { ok: true };
+      });
+    },
 
     async getTeam(id) { return doc(await col('teams').doc(id).get()); },
     async listTeams() { return docs(await col('teams').get()); },

@@ -31,6 +31,7 @@ class ApiReportsRepository implements ReportsRepository {
     final res = await _api.sendMultipart(
       'POST',
       '/reports',
+      headers: {if (r.idempotencyKey != null) 'Idempotency-Key': r.idempotencyKey!},
       fields: {
         'type': r.type,
         'description': r.description,
@@ -274,6 +275,8 @@ abstract class ResponderRepository {
   /// Live list of reports assigned to [teamId]. The query has one equality
   /// filter; anything else is filtered in memory by the caller.
   Stream<List<AssignedReport>> watchAssigned(String teamId);
+  /// Live state of one report. Emits null when the record no longer exists, and errors when access is refused.
+  Stream<AssignedReport?> watchReport(String id);
   Future<void> acknowledge(String id);
   Future<void> postUpdate(String id, OperationUpdate update);
 }
@@ -291,37 +294,17 @@ class ApiResponderRepository implements ResponderRepository {
         .snapshots()
         .map(
           (snap) => snap.docs.map((d) {
-            final m = d.data();
-            final created = m['createdAt'];
-            final loc = m['location'];
-            final lat = loc is Map ? (loc['lat'] as num?)?.toDouble() : null;
-            final lng = loc is Map ? (loc['lng'] as num?)?.toDouble() : null;
-            final coarse = m['coarseLocation'];
-            final cLat = coarse is Map
-                ? (coarse['lat'] as num?)?.toDouble()
-                : null;
-            final cLng = coarse is Map
-                ? (coarse['lng'] as num?)?.toDouble()
-                : null;
-            return AssignedReport(
-              id: d.id,
-              type: (m['type'] as String?) ?? 'other',
-              description: (m['description'] as String?) ?? '',
-              status: (m['status'] as String?) ?? 'Team Assigned',
-              reference: m['reference'] as String?,
-              addressText: m['addressText'] as String?,
-              lat: lat,
-              lng: lng,
-              createdAt: created is Timestamp ? created.toDate() : null,
-              priority: m['priority'] as String?,
-              reporterId: m['reporterId'] as String?,
-              assignedTeamId: m['assignedTeamId'] as String?,
-              coarseLocation: cLat != null && cLng != null
-                  ? MapPoint(cLat, cLng)
-                  : null,
-            );
+            return _assignedFrom(d.id, d.data());
           }).toList(),
         );
+  }
+
+  @override
+  Stream<AssignedReport?> watchReport(String id) {
+    return _db.collection('reports').doc(id).snapshots().map((snap) {
+      final m = snap.data();
+      return m == null ? null : _assignedFrom(snap.id, m);
+    });
   }
 
   @override
@@ -416,4 +399,29 @@ class FirestoreProfileRepository implements ProfileRepository {
       return null;
     }
   }
+}
+
+AssignedReport _assignedFrom(String id, Map<String, dynamic> m) {
+  final created = m['createdAt'];
+  final loc = m['location'];
+  final lat = loc is Map ? (loc['lat'] as num?)?.toDouble() : null;
+  final lng = loc is Map ? (loc['lng'] as num?)?.toDouble() : null;
+  final coarse = m['coarseLocation'];
+  final cLat = coarse is Map ? (coarse['lat'] as num?)?.toDouble() : null;
+  final cLng = coarse is Map ? (coarse['lng'] as num?)?.toDouble() : null;
+  return AssignedReport(
+    id: id,
+    type: (m['type'] as String?) ?? 'other',
+    description: (m['description'] as String?) ?? '',
+    status: (m['status'] as String?) ?? 'Team Assigned',
+    reference: m['reference'] as String?,
+    addressText: m['addressText'] as String?,
+    lat: lat,
+    lng: lng,
+    createdAt: created is Timestamp ? created.toDate() : null,
+    priority: m['priority'] as String?,
+    reporterId: m['reporterId'] as String?,
+    assignedTeamId: m['assignedTeamId'] as String?,
+    coarseLocation: cLat != null && cLng != null ? MapPoint(cLat, cLng) : null,
+  );
 }

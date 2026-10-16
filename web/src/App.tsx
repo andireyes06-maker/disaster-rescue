@@ -8,7 +8,6 @@ import ResidentDashboard from './features/resident/ResidentDashboard';
 import ReportForm from './features/resident/ReportForm';
 import ResidentLayout from './features/resident/ResidentLayout';
 import ResidentReportDetail from './features/resident/ResidentReportDetail';
-import AdminPage from './features/admin/AdminPage';
 import Forbidden from './pages/Forbidden';
 import AppShell from './layout/AppShell';
 const ReportQueue = lazy(() => import('./features/reports/ReportQueue'));
@@ -20,6 +19,7 @@ const IncidentMap = lazy(() => import('./features/map/IncidentMap'));
 const MonitorPage = lazy(() => import('./features/dmo/MonitorPage'));
 const AnalyticsPage = lazy(() => import('./features/analytics/AnalyticsPage'));
 const AuditPage = lazy(() => import('./features/audit/AuditPage'));
+const AdminPage = lazy(() => import('./features/admin/AdminPage'));
 
 export default function App() {
   return (

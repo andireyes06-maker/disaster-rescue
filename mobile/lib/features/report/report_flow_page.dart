@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth/auth_controller.dart';
+import '../../data/submission_key.dart';
 import '../../data/api_client.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
@@ -61,6 +64,9 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   String? _source;
   List<PickedPhoto> _photos = [];
   bool _submitting = false;
+  // One key per submission attempt. Kept across network retries; replaced when the content changes.
+  String? _submitKey;
+  String? _submitKeySignature;
   ReportDraft? _savedDraft;
 
   @override
@@ -142,6 +148,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   }
 
   void _reset() {
+    _submitKey = null;
+    _submitKeySignature = null;
     setState(() {
       _step = 0;
       _type = null;
@@ -175,8 +183,14 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     final reports = context.read<ReportsRepository>();
     final drafts = context.read<DraftStore>();
     var retry = false;
+    SubmitResult? created;
+    final signature = jsonEncode({..._currentDraft().toJson(), 'photos': _photos.length});
+    if (_submitKey == null || _submitKeySignature != signature) {
+      _submitKey = newSubmissionKey();
+      _submitKeySignature = signature;
+    }
     try {
-      final res = await reports.create(NewReport(
+      created = await reports.create(NewReport(
         type: _type!,
         description: _description.text.trim(),
         lat: _lat!,
@@ -186,23 +200,17 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
         contactName: _name.text.trim(),
         contactPhone: _phone.text.trim(),
         photos: _photos,
-      ));
-      await drafts.clear();
-      if (!mounted) return;
-      _reset();
-      await nav.push(MaterialPageRoute(
-        builder: (_) => SubmissionSuccessPage(
-          reference: res.reference,
-          onViewReports: widget.onViewReports ?? () {},
-        ),
+        idempotencyKey: _submitKey,
       ));
     } catch (e) {
       final network = e is ApiException && e.status == 0 && e.code != 'auth';
       if (network) {
+        // The outcome is uncertain, so the key stays: a retry cannot create a second report.
         await drafts.save(_currentDraft());
         if (!mounted) return;
         retry = (await nav.push<bool>(MaterialPageRoute(builder: (_) => const OfflineHelpPage()))) ?? false;
       } else {
+        _submitKey = null;
         if (!mounted) return;
         await nav.push(MaterialPageRoute(
           builder: (_) => SubmissionFailurePage(reason: submitFailureReason(e)),
@@ -211,7 +219,25 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
-    if (retry && mounted) _submit();
+    if (created == null) {
+      if (retry && mounted) _submit();
+      return;
+    }
+    _submitKey = null;
+    _submitKeySignature = null;
+    // The report exists on the server now. Clearing the local draft is best effort: a failure here
+    // must not turn a confirmed submission into "not sent" or allow a second send.
+    try {
+      await drafts.clear();
+    } catch (_) {}
+    if (!mounted) return;
+    _reset();
+    await nav.push(MaterialPageRoute(
+      builder: (_) => SubmissionSuccessPage(
+        reference: created!.reference,
+        onViewReports: widget.onViewReports ?? () {},
+      ),
+    ));
   }
 
   @override
@@ -471,6 +497,7 @@ class _TypeTile extends StatelessWidget {
       button: true,
       selected: selected,
       label: info.label,
+      onTap: onTap,
       excludeSemantics: true,
       child: InkWell(
         onTap: onTap,

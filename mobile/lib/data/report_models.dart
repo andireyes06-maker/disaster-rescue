@@ -105,6 +105,8 @@ class NewReport {
   final String contactName;
   final String contactPhone;
   final List<PickedPhoto> photos;
+  /// Same key for every retry of one submission; the server returns the first result instead of duplicating.
+  final String? idempotencyKey;
   const NewReport({
     required this.type,
     required this.description,
@@ -115,6 +117,7 @@ class NewReport {
     required this.contactName,
     required this.contactPhone,
     this.photos = const [],
+    this.idempotencyKey,
   });
 }
 

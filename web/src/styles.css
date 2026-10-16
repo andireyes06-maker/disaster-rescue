@@ -157,7 +157,7 @@ select, textarea {
 .inbox-panel .calm-empty { margin: 24px; }
 .empty { color: var(--color-muted); }
 .quick { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 24px; border-bottom: 1px solid var(--color-mist); }
-.quick__chip { min-height: 40px; padding: 6px 14px; border: 1px solid var(--color-mist); border-radius: 999px; background: var(--color-surface); color: var(--color-text); font: inherit; font-weight: 550; cursor: pointer; }
+.quick__chip { min-height: var(--space-touch); padding: 6px 14px; border: 1px solid var(--color-mist); border-radius: 999px; background: var(--color-surface); color: var(--color-text); font: inherit; font-weight: 550; cursor: pointer; }
 .quick__chip[aria-pressed="true"] { background: var(--color-primary-soft); border-color: var(--color-primary); color: var(--color-primary); font-weight: 650; }
 .quick__count { color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .inbox { list-style: none; margin: 0; padding: 0; }
@@ -419,3 +419,18 @@ select, textarea {
 .admin-teams li .btn { margin-top: 0; }
 .admin-teams form { display: grid; gap: 8px; }
 @media (max-width: 639px) { .admin-teams li { grid-template-columns: minmax(0, 1fr); } .admin-teams li .btn { width: 100%; } }
+.field-error { margin: 4px 0 0; color: var(--color-critical); font-weight: 600; font-size: 0.875rem; }
+.error-summary { margin: 8px 0 0; padding-left: 20px; }
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--color-critical); border-width: 2px; }
+.resident-layout__nav a.active { text-decoration: underline; text-underline-offset: 6px; font-weight: 650; }
+/* Loading placeholders (W06). Shimmer only when motion is allowed; reduced motion gets static blocks. */
+.skeleton-block { display: block; margin: 12px 16px; border-radius: var(--radius-md); background: var(--color-mist); }
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton-block { background: linear-gradient(90deg, var(--color-mist) 25%, var(--color-paper) 50%, var(--color-mist) 75%) 0 0 / 200% 100%; animation: skeleton-pulse 1.4s ease-in-out infinite; }
+}
+@keyframes skeleton-pulse { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+.skeleton-map { height: 320px; margin: 0; border-radius: var(--radius-md); background: var(--color-mist); }
+.report-form__note { margin: 0 0 12px; color: var(--color-muted); font-size: 0.875rem; }
+.inbox-search { padding: 16px 24px 0; }
+.inbox-search label { margin-top: 0; }
+.inbox-search input { max-width: 480px; }

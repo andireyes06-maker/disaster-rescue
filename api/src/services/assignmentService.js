@@ -1,9 +1,18 @@
 import { HttpError } from '../errors.js';
-import { STATUS, isOpen } from '../domain/workflow.js';
+import { STATUS, isOpen, assertTransition } from '../domain/workflow.js';
 import { sanitizeText } from '../domain/validation.js';
-import { load, transition, notFound, safeAudit, safeNotify } from './reviewService.js';
+import { load, transition, notFound, conflict, safeAudit, safeNotify } from './reviewService.js';
 
 const RESPONDER_STATUSES = [STATUS.IN_PROGRESS, STATUS.RESOLVED];
+
+// Maps a refused atomic change to the same responses the single-document path gives.
+function throwIfRejected(result) {
+  if (result.ok) return;
+  if (result.reason === 'team_busy') throw new HttpError(409, 'team_busy', 'This team is already on a rescue');
+  if (result.reason === 'team_missing') throw new HttpError(400, 'invalid_team', 'Team does not exist');
+  if (result.reason === 'not_found') throw notFound();
+  throw conflict();
+}
 
 // Responders see a report only through their own team. Other teams get 404, not 403,
 // so the report's existence is not leaked.
@@ -17,18 +26,21 @@ export async function assign({ repo, notifier }, user, id, body) {
   if (!teamId) throw new HttpError(400, 'invalid_team', 'teamId is required');
   const team = await repo.getTeam(teamId);
   if (!team) throw new HttpError(400, 'invalid_team', 'Team does not exist');
-  // One rescue at a time per team. Closing frees the team only for its current report.
-  if (team.busy && team.currentReportId && team.currentReportId !== id) {
-    throw new HttpError(409, 'team_busy', 'This team is already on a rescue');
-  }
 
   let report = await load(repo, id);
   // Verified reports advance to Awaiting Assignment first, so none get stuck.
   if (report.status === STATUS.VERIFIED) report = await transition(repo, user, report, STATUS.AWAITING_ASSIGNMENT);
-  // Compare-and-set inside transition: of two concurrent assigns, one gets 409.
-  report = await transition(repo, user, report, STATUS.TEAM_ASSIGNED, { assignedTeamId: teamId, assignedAt: new Date() });
-
-  await repo.saveTeam(teamId, { busy: true, currentReportId: id });
+  assertTransition(report.status, STATUS.TEAM_ASSIGNED, user.role);
+  // Authoritative: the team claim and the report change commit together, so one team can serve one report.
+  // Two different reports racing for the same free team get one success and one team_busy.
+  const previous = report.status;
+  const assignedAt = new Date();
+  throwIfRejected(await repo.applyReportChange(id, previous, {
+    reportPatch: { status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId, assignedAt },
+    team: { id: teamId, claim: true },
+  }));
+  report = { ...report, status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId, assignedAt };
+  await safeAudit(repo, { actorUid: user.uid, action: 'status.change', reportId: id, before: { status: previous }, after: { status: STATUS.TEAM_ASSIGNED } });
   await safeAudit(repo, {
     actorUid: user.uid, action: 'report.assign', reportId: id,
     after: { status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId },
@@ -68,12 +80,17 @@ export async function addUpdate({ repo }, user, id, body) {
   }
   const note = sanitizeText(body?.note ?? '', 1000);
 
+  const update = { kind: 'status', status, note, peopleRescued, byUid: user.uid, at: new Date() };
   if (report.status !== status) {
-    await transition(repo, user, report, status);
+    // The status change and its update record commit together, so a failure never leaves a Resolved report without its note.
+    assertTransition(report.status, status, user.role);
+    throwIfRejected(await repo.applyReportChange(id, report.status, { reportPatch: { status }, updateDoc: update }));
+    await safeAudit(repo, { actorUid: user.uid, action: 'status.change', reportId: id, before: { status: report.status }, after: { status } });
   } else if (status !== STATUS.IN_PROGRESS) {
     throw new HttpError(409, 'illegal_transition', `Report is already ${status}`);
+  } else {
+    await repo.addUpdate(id, update);
   }
-  await repo.addUpdate(id, { kind: 'status', status, note, peopleRescued, byUid: user.uid, at: new Date() });
   await safeAudit(repo, {
     actorUid: user.uid, action: 'report.update', reportId: id,
     before: { status: report.status }, after: { status, peopleRescued },
@@ -84,11 +101,14 @@ export async function addUpdate({ repo }, user, id, body) {
 export async function close({ repo }, user, id) {
   const report = await load(repo, id);
   // Only Resolved -> Closed is an edge; anything else is 409 from assertTransition.
-  await transition(repo, user, report, STATUS.CLOSED);
+  assertTransition(report.status, STATUS.CLOSED, user.role);
   const teamId = report.assignedTeamId;
-  if (teamId && (await repo.getTeam(teamId))?.currentReportId === id) {
-    await repo.saveTeam(teamId, { busy: false, currentReportId: null });
-  }
+  // The status change and the team release commit together, so a team is never left busy after its report closed.
+  throwIfRejected(await repo.applyReportChange(id, report.status, {
+    reportPatch: { status: STATUS.CLOSED },
+    team: teamId ? { id: teamId, release: true } : undefined,
+  }));
+  await safeAudit(repo, { actorUid: user.uid, action: 'status.change', reportId: id, before: { status: report.status }, after: { status: STATUS.CLOSED } });
   await safeAudit(repo, { actorUid: user.uid, action: 'report.close', reportId: id, after: { status: STATUS.CLOSED } });
   return { id, status: STATUS.CLOSED };
 }

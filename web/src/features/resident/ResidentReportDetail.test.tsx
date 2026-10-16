@@ -9,11 +9,14 @@ const h = vi.hoisted(() => ({
   reports: [] as unknown[],
   retry: vi.fn(),
   updates: [] as unknown[],
+  readError: null as Error | null,
+  readLoading: false,
+  updatesError: null as Error | null,
 }));
 vi.mock('../../api/client', () => ({ api: h.api }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'res-1' }, role: 'resident' }) }));
-vi.mock('./useMyReports', () => ({ useMyReports: () => ({ reports: h.reports, loading: false, error: null, retry: h.retry }) }));
-vi.mock('../reports/useReport', () => ({ useReportUpdates: () => ({ updates: h.updates, error: null }) }));
+vi.mock('./useMyReports', () => ({ useMyReports: () => ({ reports: h.reports, loading: h.readLoading, error: h.readError, retry: h.retry }) }));
+vi.mock('../reports/useReport', () => ({ useReportUpdates: () => ({ updates: h.updates, error: h.updatesError, retry: h.retry }) }));
 
 import ResidentReportDetail from './ResidentReportDetail';
 
@@ -71,5 +74,29 @@ describe('ResidentReportDetail', () => {
     h.reports = [];
     renderAt('nope');
     expect(screen.getByText('We could not find this report.')).toBeInTheDocument();
+  });
+
+  it('a failed first read says the report could not load, not that it does not exist', () => {
+    h.reports = [];
+    h.readError = new Error('unavailable');
+    renderAt('r1');
+    expect(screen.getByRole('alert')).toHaveTextContent(/could not load this report/i);
+    expect(screen.queryByText(/could not find this report/i)).toBeNull();
+    h.readError = null;
+  });
+
+  it('Try again after a failed read calls the retry', async () => {
+    h.reports = [];
+    h.readError = new Error('unavailable');
+    renderAt('r1');
+    await userEvent.click(screen.getByRole('button', { name: 'Try again' }));
+    expect(h.retry).toHaveBeenCalled();
+    h.readError = null;
+  });
+
+  it('a successful read with no matching report says it was not found', () => {
+    h.reports = [];
+    renderAt('missing');
+    expect(screen.getByText(/could not find this report/i)).toBeInTheDocument();
   });
 });

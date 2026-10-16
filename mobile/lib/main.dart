@@ -66,7 +66,7 @@ Future<void> main() async {
         Provider<ProfileRepository>.value(
           value: FirestoreProfileRepository(FirebaseFirestore.instance),
         ),
-        Provider<DraftStore>.value(value: ReportDraftStore()),
+        Provider<DraftStore>.value(value: ReportDraftStore(currentUid: () => controller.user?.uid)),
         Provider<ResponderRepository>.value(
           value: ApiResponderRepository(api, FirebaseFirestore.instance),
         ),

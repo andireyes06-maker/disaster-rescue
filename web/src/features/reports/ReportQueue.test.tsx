@@ -70,11 +70,19 @@ describe('ReportQueue', () => {
   });
 
   it('shows the next step as text only for roles that cannot act', async () => {
-    h.role = 'admin';
+    h.role = 'dmo';
     show(data());
     await userEvent.click(within(inbox()).getByRole('button', { name: /Fire B/ }));
     expect(within(preview()).queryByRole('link', { name: 'Verify report' })).toBeNull();
     expect(within(preview()).getByText('Verify the report')).toBeInTheDocument();
+    h.role = 'dispatcher';
+  });
+
+  it('lets an admin open the verify action, as the server allows', async () => {
+    h.role = 'admin';
+    show(data());
+    await userEvent.click(within(inbox()).getByRole('button', { name: /Fire B/ }));
+    expect(within(preview()).getByRole('link', { name: 'Verify report' })).toBeInTheDocument();
     h.role = 'dispatcher';
   });
 
@@ -149,5 +157,29 @@ describe('ReportQueue', () => {
     await userEvent.click(screen.getByRole('button', { name: /^Filters/ }));
     expect(screen.getByLabelText('Status')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Hide filters/ })).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('restores the quick view and selection from the URL, so Back and reload keep the same decision context (W08)', async () => {
+    h.reports = data();
+    h.loading = false;
+    h.error = null;
+    render(<MemoryRouter initialEntries={['/dashboard?quick=verify&sel=b']}><ReportQueue /></MemoryRouter>);
+    expect(screen.getByRole('button', { name: /Needs verification/ })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(preview()).getByRole('heading', { name: 'Fire report' })).toBeInTheDocument();
+    expect(within(inbox()).queryByText('Flood A')).toBeNull();
+  });
+
+  it('searches the real report fields: place, description, type, and reference', async () => {
+    show([
+      makeReport({ id: 'a', description: 'Flood A', addressText: 'Riverside Road', reference: 'DR-AAAAAA' }),
+      makeReport({ id: 'b', description: 'Fire B', addressText: 'Market Street', reference: 'DR-BBBBBB' }),
+    ]);
+    await userEvent.type(screen.getByLabelText('Search incidents'), 'market');
+    expect(within(inbox()).queryByText('Flood A')).toBeNull();
+    expect(within(inbox()).getByText('Fire B')).toBeInTheDocument();
+    await userEvent.clear(screen.getByLabelText('Search incidents'));
+    await userEvent.type(screen.getByLabelText('Search incidents'), 'dr-aaaaaa');
+    expect(within(inbox()).getByText('Flood A')).toBeInTheDocument();
+    expect(within(inbox()).queryByText('Fire B')).toBeNull();
   });
 });

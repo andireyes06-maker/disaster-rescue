@@ -8,6 +8,24 @@ import { initializeTestEnvironment, assertFails, assertSucceeds } from '@firebas
 const here = dirname(fileURLToPath(import.meta.url));
 let env;
 
+// The users/{uid} document is the authority the rules read. setUser writes it with the same role,
+// active, and team as the token claims unless a test deliberately makes them disagree.
+async function setUser(uid, { role, active, team, name = uid }) {
+  await env.withSecurityRulesDisabled(async (c) => {
+    const data = { role, active, name };
+    if (team !== undefined) data.team = team;
+    await c.firestore().doc(`users/${uid}`).set(data);
+  });
+}
+
+// Seeds a matching user document, then returns a client authenticated with the given claims.
+async function as(uid, claims) {
+  const { role, active, team } = claims;
+  await setUser(uid, { role, active: active === true, ...(team !== undefined ? { team } : {}) });
+  return env.authenticatedContext(uid, claims).firestore();
+}
+
+// Standard actors are seeded in beforeEach, so these factories stay synchronous.
 const ctx = {
   anon: () => env.unauthenticatedContext().firestore(),
   resident: (uid = 'res1') => env.authenticatedContext(uid, { role: 'resident', active: true }).firestore(),
@@ -21,7 +39,7 @@ const ctx = {
 
 before(async () => {
   env = await initializeTestEnvironment({
-    projectId: 'demo-disaster-rescue',
+    projectId: 'demo-rules-unit',
     firestore: { rules: readFileSync(join(here, 'firestore.rules'), 'utf8') },
   });
 });
@@ -38,8 +56,13 @@ beforeEach(async () => {
     await db.doc('reports/r3/updates/u3').set({ status: 'new', byUid: 'res2' });
     await db.doc('reports/r1/updates/u1').set({ status: 'assigned', byUid: 'disp1' });
     await db.doc('reports/r2/updates/u2').set({ status: 'new', byUid: 'res2' });
-    await db.doc('users/res1').set({ role: 'resident', name: 'R1' });
-    await db.doc('users/res2').set({ role: 'resident', name: 'R2' });
+    await db.doc('users/res1').set({ role: 'resident', name: 'R1', active: true });
+    await db.doc('users/res2').set({ role: 'resident', name: 'R2', active: true });
+    await db.doc('users/disp1').set({ role: 'dispatcher', name: 'D1', active: true });
+    await db.doc('users/dmo1').set({ role: 'dmo', name: 'M1', active: true });
+    await db.doc('users/adm1').set({ role: 'admin', name: 'A1', active: true });
+    await db.doc('users/resp1').set({ role: 'responder', name: 'P1', active: true, team: 'team-alpha' });
+    await db.doc('users/resp2').set({ role: 'responder', name: 'P2', active: true, team: 'team-bravo' });
     await db.doc('notifications/n1').set({ recipientUid: 'res1', title: 't' });
     await db.doc('notifications/n2').set({ recipientUid: 'res2', title: 't' });
     await db.doc('teams/team-alpha').set({ name: 'Team Alpha', members: ['resp1'], status: 'available' });
@@ -82,7 +105,7 @@ describe('reports', () => {
     await assertFails(ctx.responderA().collection('reports').get());
   });
   test('responder without team claim reads nothing', async () => {
-    const db = env.authenticatedContext('resp3', { role: 'responder', active: true }).firestore();
+    const db = await as('resp3', { role: 'responder', active: true });
     await assertFails(db.doc('reports/r1').get());
   });
   describe('unassigned reports (null and missing assignedTeamId) are never readable by responders', () => {
@@ -94,21 +117,21 @@ describe('reports', () => {
     for (const [name, claims] of Object.entries(variants)) {
       for (const id of ['r3', 'r4']) {
         test(`${name} cannot get reports/${id}`, async () => {
-          await assertFails(env.authenticatedContext('resp9', claims).firestore().doc(`reports/${id}`).get());
+          await assertFails((await as('resp9', claims)).doc(`reports/${id}`).get());
         });
         test(`${name} cannot read updates of reports/${id}`, async () => {
-          await assertFails(env.authenticatedContext('resp9', claims).firestore().doc(`reports/${id}/updates/u${id.slice(1)}`).get());
+          await assertFails((await as('resp9', claims)).doc(`reports/${id}/updates/u${id.slice(1)}`).get());
         });
       }
       test(`${name} cannot query assignedTeamId == null`, async () => {
-        await assertFails(env.authenticatedContext('resp9', claims).firestore().collection('reports').where('assignedTeamId', '==', null).get());
+        await assertFails((await as('resp9', claims)).collection('reports').where('assignedTeamId', '==', null).get());
       });
       test(`${name} cannot query assignedTeamId == ''`, async () => {
-        await assertFails(env.authenticatedContext('resp9', claims).firestore().collection('reports').where('assignedTeamId', '==', '').get());
+        await assertFails((await as('resp9', claims)).collection('reports').where('assignedTeamId', '==', '').get());
       });
     }
     test('proper team query returns only assigned reports', async () => {
-      const db = env.authenticatedContext('resp9', variants['real team claim']).firestore();
+      const db = await as('resp9', variants['real team claim']);
       const snap = await assertSucceeds(db.collection('reports').where('assignedTeamId', '==', 'team-alpha').get());
       assert.deepEqual(snap.docs.map((d) => d.id), ['r1']);
     });
@@ -133,7 +156,7 @@ describe('report updates', () => {
     await assertSucceeds(ctx.dmo().doc('reports/r2/updates/u2').get());
   });
   test('inactive user cannot read updates', async () => {
-    await assertFails(env.authenticatedContext('disp1', { role: 'dispatcher', active: false }).firestore().doc('reports/r1/updates/u1').get());
+    await assertFails((await as('disp1', { role: 'dispatcher', active: false })).doc('reports/r1/updates/u1').get());
   });
   test('no client can write updates', async () => {
     for (const who of ['resident', 'dispatcher', 'dmo', 'responderA']) {
@@ -149,18 +172,65 @@ describe('inactive or missing active claim', () => {
     const extra = role === 'responder' ? { team: 'team-alpha' } : {};
     for (const p of reads) {
       test(`${role} with active=false cannot read ${p}`, async () => {
-        const db = env.authenticatedContext('res1', { role, active: false, ...extra }).firestore();
+        const db = await as('res1', { role, active: false, ...extra });
         await assertFails(db.doc(p).get());
       });
+      // The document is active here, so only the token decides. This isolates the claim check.
       test(`${role} with MISSING active claim cannot read ${p}`, async () => {
+        await setUser('res1', { role, active: true, ...extra });
         const db = env.authenticatedContext('res1', { role, ...extra }).firestore();
         await assertFails(db.doc(p).get());
       });
     }
   }
   test('active claim must be boolean true, not a string', async () => {
+    await setUser('res1', { role: 'resident', active: true });
     const db = env.authenticatedContext('res1', { role: 'resident', active: 'true' }).firestore();
     await assertFails(db.doc('reports/r1').get());
+  });
+});
+
+describe('stale or disagreeing claims (canonical users document wins)', () => {
+  test('a demoted dispatcher with an old dispatcher token cannot read other residents', async () => {
+    const stale = await as('disp1', { role: 'dispatcher', active: true });
+    await setUser('disp1', { role: 'resident', active: true });
+    await assertFails(stale.doc('reports/r2').get());
+    await assertFails(stale.doc('users/res2').get());
+    await assertFails(stale.collection('reports').get());
+  });
+
+  test('a disabled staff member with a still-valid token is refused everywhere', async () => {
+    const stale = await as('disp1', { role: 'dispatcher', active: true });
+    await setUser('disp1', { role: 'dispatcher', active: false });
+    await assertFails(stale.doc('reports/r2').get());
+    await assertFails(stale.doc('auditLogs/a1').get());
+    await assertFails(stale.doc('teams/team-alpha').get());
+  });
+
+  test('a deleted or missing users document reads nothing even with matching claims', async () => {
+    const db = env.authenticatedContext('ghost1', { role: 'dispatcher', active: true }).firestore();
+    await assertFails(db.doc('reports/r2').get());
+    await assertFails(db.doc('auditLogs/a1').get());
+  });
+
+  test('a responder moved to another team loses the old team reports at once', async () => {
+    const moved = await as('resp1', { role: 'responder', active: true, team: 'team-alpha' });
+    await assertSucceeds(moved.doc('reports/r1').get());
+    await setUser('resp1', { role: 'responder', active: true, team: 'team-bravo' });
+    await assertFails(moved.doc('reports/r1').get());
+    await assertFails(moved.collection('reports').where('assignedTeamId', '==', 'team-alpha').get());
+  });
+
+  test('a responder whose token team disagrees with the document reads nothing', async () => {
+    await setUser('resp1', { role: 'responder', active: true, team: 'team-bravo' });
+    const db = env.authenticatedContext('resp1', { role: 'responder', active: true, team: 'team-alpha' }).firestore();
+    await assertFails(db.doc('reports/r1').get());
+  });
+
+  test('a resident demoted to responder keeps only resident access', async () => {
+    const stale = await as('res1', { role: 'resident', active: true });
+    await setUser('res1', { role: 'responder', active: true, team: 'team-alpha' });
+    await assertFails(stale.doc('reports/r1').get());
   });
 });
 

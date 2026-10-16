@@ -6,7 +6,7 @@ import { coarsen } from '../../src/domain/privacy.js';
 describe('GET /api/public/incidents', () => {
   it('answers with no token and returns only rounded, non-identifying fields', async () => {
     const t = makeTestApp();
-    await t.repo.createReport({ type: 'flood', status: 'Verified', lat: 14.6123, lng: 121.0456, reporterId: 'r1', addressText: '12 Mabini St', contact: { name: 'Ana', phone: '09170000001' }, photos: [{ url: 'https://img/x.jpg' }] });
+    await t.repo.createReport({ type: 'flood', status: 'Verified', location: { lat: 14.6123, lng: 121.0456, source: 'gps' }, reporterId: 'r1', addressText: '12 Mabini St', contact: { name: 'Ana', phone: '09170000001' }, photos: [{ url: 'https://img/x.jpg' }] });
     const res = await request(t.app).get('/api/public/incidents');
     expect(res.status).toBe(200);
     expect(res.body.incidents).toHaveLength(1);
@@ -22,7 +22,7 @@ describe('GET /api/public/incidents', () => {
 
   it('maps statuses to open, responding, and resolved, and leaves out closed and internal statuses', async () => {
     const t = makeTestApp();
-    const base = { type: 'fire', lat: 14.6, lng: 121.0, reporterId: 'r1' };
+    const base = { type: 'fire', location: { lat: 14.6, lng: 121.0, source: 'gps' }, reporterId: 'r1' };
     await t.repo.createReport({ ...base, status: 'Awaiting Assignment' });
     await t.repo.createReport({ ...base, status: 'Rescue in Progress' });
     await t.repo.createReport({ ...base, status: 'Resolved' });
@@ -46,5 +46,19 @@ describe('GET /api/public/incidents', () => {
     for (let i = 0; i < 61; i += 1) last = await request(t.app).get('/api/public/incidents');
     expect(last.status).toBe(429);
     expect(last.body).toEqual({ error: 'rate_limited' });
+  });
+
+  it('a report submitted through the API appears publicly once verified (BE04 end to end)', async () => {
+    const t = makeTestApp();
+    const created = await request(t.app).post('/api/reports').set('Authorization', t.as('resident'))
+      .field('type', 'flood').field('description', 'Water rising fast').field('lat', '14.8512').field('lng', '120.8123').field('source', 'gps');
+    expect(created.status).toBe(201);
+    expect((await request(t.app).get('/api/public/incidents')).body.incidents).toEqual([]);
+    const id = created.body.id;
+    await t.repo.updateReportIf(id, 'Submitted', { status: 'Verified', verified: true });
+    const res = await request(t.app).get('/api/public/incidents');
+    expect(res.body.incidents).toEqual([{
+      type: 'flood', statusCategory: 'open', center: coarsen(14.8512, 120.8123), radiusMeters: 500,
+    }]);
   });
 });

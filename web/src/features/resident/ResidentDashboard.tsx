@@ -7,6 +7,7 @@ import SafetyNotice from './SafetyNotice';
 import PublicIncidentMap from './PublicIncidentMap';
 import StatusBadge from '../reports/StatusBadge';
 import Banner from '../../components/calm/Banner';
+import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import '../../pages/public.css';
 
 const label = (type: string) => type.charAt(0).toUpperCase() + type.slice(1);
@@ -15,7 +16,7 @@ export default function ResidentDashboard() {
   const { user } = useAuth();
   const uid = user?.uid ?? '';
   const { reports, loading, error, retry } = useMyReports(uid);
-  const { notifications, error: notificationsError } = useMyNotifications(uid);
+  const { notifications, error: notificationsError, loading: notificationsLoading } = useMyNotifications(uid);
   const hotlines = useHotlines();
 
   return (
@@ -32,6 +33,7 @@ export default function ResidentDashboard() {
         {error && (
           <Banner tone="error" role="alert">Could not load your reports. <button type="button" className="btn btn--ghost" onClick={retry}>Try again</button></Banner>
         )}
+        {loading && reports.length === 0 && <Skeleton label="Loading your reports"><SkeletonRows rows={3} height={48} /></Skeleton>}
         {!error && !loading && reports.length === 0 && <p>You have no reports yet.</p>}
         {reports.length > 0 && (
           <ul className="resident__list">
@@ -51,7 +53,8 @@ export default function ResidentDashboard() {
       <section className="card" aria-labelledby="notifications-title">
         <h2 id="notifications-title">Notifications</h2>
         {notificationsError && <Banner tone="error" role="alert">Could not load notifications.</Banner>}
-        {!notificationsError && notifications.length === 0 && <p>No notifications yet.</p>}
+        {notificationsLoading && !notificationsError && <Skeleton label="Loading notifications"><SkeletonRows rows={2} height={40} /></Skeleton>}
+        {!notificationsLoading && !notificationsError && notifications.length === 0 && <p>No notifications yet.</p>}
         <ul className="resident__list">
           {notifications.slice(0, 10).map((n) => (
             <li key={n.id}>

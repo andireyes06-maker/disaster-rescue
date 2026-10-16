@@ -94,9 +94,11 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
 
 export default function AssignTeamDialog({ reportId, onClose, onAssigned, returnFocusTo }: AssignTeamDialogProps) {
   const [state, setState] = useState<TeamsState>({ teams: [], loading: true, error: null });
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     let active = true;
+    setState((s) => ({ ...s, loading: true, error: null }));
     api('/teams')
       .then((list: unknown) => {
         if (active) setState({ teams: Array.isArray(list) ? (list as Team[]) : [], loading: false, error: null });
@@ -105,10 +107,11 @@ export default function AssignTeamDialog({ reportId, onClose, onAssigned, return
         if (active) setState({ teams: [], loading: false, error: 'Could not load rescue teams.' });
       });
     return () => { active = false; };
-  }, []);
+  }, [attempt]);
 
   const free = state.teams.filter((t) => !t.busy);
   const showEmpty = !state.loading && !state.error && free.length === 0;
+  const showForm = !state.loading && !state.error && free.length > 0;
 
   return (
     <Dialog open onOpenChange={(open) => { if (!open) onClose(); }}>
@@ -123,11 +126,15 @@ export default function AssignTeamDialog({ reportId, onClose, onAssigned, return
         {state.loading && <p role="status" className="loading">Loading teams...</p>}
         {state.error && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {state.error}</Banner>}
         {showEmpty && <p className="card empty">{NO_FREE_TEAMS}</p>}
-        {!state.loading && !state.error && free.length > 0 && (
+        {showForm && (
           <AssignForm reportId={reportId} freeTeams={free} onClose={onClose} onAssigned={onAssigned} />
         )}
-        {showEmpty && (
+        {!showForm && (
+          // Always a way out while loading, after an error, and when no team is free (W04).
           <div className="actions__row">
+            {state.error && (
+              <button type="button" className="btn" onClick={() => setAttempt((n) => n + 1)}>Try again</button>
+            )}
             <button type="button" className="btn btn--ghost" onClick={onClose}>Close</button>
           </div>
         )}

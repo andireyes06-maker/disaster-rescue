@@ -210,3 +210,60 @@ describe('POST /api/reports', () => {
     expect(err).toHaveBeenCalled();
   });
 });
+
+describe('idempotent submission (M04)', () => {
+  const KEY = 'k-0123456789abcdefABCDEF';
+  const send = (t, key) => {
+    let r = request(t.app).post('/api/reports').set('Authorization', t.as('resident'));
+    if (key !== undefined) r = r.set('Idempotency-Key', key);
+    for (const [k, v] of Object.entries(fields)) r = r.field(k, v);
+    return r;
+  };
+
+  it('a retry with the same key returns the original report and creates no second one', async () => {
+    const t = makeTestApp();
+    const first = await send(t, KEY);
+    const retry = await send(t, KEY);
+    expect(first.status).toBe(201);
+    expect(retry.status).toBe(201);
+    expect(retry.body).toEqual(first.body);
+    expect(await writes(t)).toBe(1);
+  });
+
+  it('two requests with the same key at the same time create one report', async () => {
+    const t = makeTestApp();
+    const rs = await Promise.all([send(t, KEY), send(t, KEY)]);
+    // Each reply is either the created report or a refusal while the first attempt is in flight. Never two reports.
+    for (const r of rs) expect([201, 409]).toContain(r.status);
+    const created = rs.filter((r) => r.status === 201).map((r) => r.body);
+    expect(created.every((b) => b.id === created[0].id)).toBe(true);
+    expect(await writes(t)).toBe(1);
+  });
+
+  it('a key whose first attempt is still in flight is refused, not run twice', async () => {
+    const t = makeTestApp();
+    expect((await t.repo.claimSubmission('res-x', KEY, { staleAfterMs: 120000 })).state).toBe('new');
+    const second = await t.repo.claimSubmission('res-x', KEY, { staleAfterMs: 120000 });
+    expect(second.state).toBe('pending');
+    const res = await request(t.app).post('/api/reports').set('Authorization', t.as('resident', 'res-x')).set('Idempotency-Key', KEY).field('type', 'flood').field('description', 'Water rising fast').field('lat', '14.8512').field('lng', '120.8123').field('source', 'gps');
+    expect(res.status).toBe(409);
+    expect(res.body.error).toBe('submission_in_progress');
+    expect(await writes(t)).toBe(0);
+  });
+
+  it('separate submissions with different keys are separate reports', async () => {
+    const t = makeTestApp();
+    await send(t, KEY);
+    await send(t, 'k-zyxwvutsrqponmlkjihg');
+    expect(await writes(t)).toBe(2);
+  });
+
+  it('a malformed key is refused before anything is created', async () => {
+    const t = makeTestApp();
+    const res = await send(t, 'short');
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('invalid_idempotency_key');
+    expect(await writes(t)).toBe(0);
+  });
+});
+

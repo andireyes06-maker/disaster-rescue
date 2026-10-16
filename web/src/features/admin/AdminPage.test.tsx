@@ -98,7 +98,16 @@ describe('AdminPage', () => {
     renderPage();
     const row = (await screen.findByText('Ana Cruz')).closest('tr') as HTMLElement;
     await user.selectOptions(within(row).getByLabelText('Role for Ana Cruz'), 'dmo');
+    // Staged: nothing is sent until the admin saves the change (W11).
+    expect(h.api).not.toHaveBeenCalledWith('/users/r1', expect.objectContaining({ method: 'PATCH' }));
+    await user.click(within(row).getByRole('button', { name: 'Save role for Ana Cruz' }));
     expect(h.api).toHaveBeenCalledWith('/users/r1', expect.objectContaining({ method: 'PATCH', body: { role: 'dmo' } }));
+  });
+
+  it("shows each account's current role in its row", async () => {
+    renderPage();
+    const row = (await screen.findByText('Ana Cruz')).closest('tr') as HTMLElement;
+    expect(within(row).getByLabelText('Role for Ana Cruz')).toHaveValue('responder');
   });
 
   it('renames a team from its row', async () => {

@@ -66,4 +66,20 @@ describe('AssignTeamDialog', () => {
     await userEvent.click(screen.getByRole('button', { name: /assign team/i }));
     expect(h.api).toHaveBeenCalledWith('/reports/r1/assign', { method: 'POST', body: { teamId: 't3' } });
   });
+
+  it('a failed team load still offers Close and Try again (W04)', async () => {
+    h.api.mockReset().mockRejectedValueOnce(new Error('503')).mockResolvedValueOnce(TEAMS);
+    render(<AssignTeamDialog reportId="r1" onClose={vi.fn()} onAssigned={vi.fn()} />);
+    expect(await screen.findByRole('alert')).toHaveTextContent(/could not load rescue teams/i);
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Try again' }));
+    expect(await screen.findByRole('combobox', { name: /rescue team/i })).toBeInTheDocument();
+  });
+
+  it('a team list that never answers still offers Close', () => {
+    h.api.mockReset().mockReturnValue(new Promise(() => {}));
+    render(<AssignTeamDialog reportId="r1" onClose={vi.fn()} onAssigned={vi.fn()} />);
+    expect(screen.getByRole('status')).toHaveTextContent(/loading teams/i);
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+  });
 });

@@ -41,6 +41,34 @@ describe('admin account management', () => {
     expect(await t.repo.getUser('adm-2')).toMatchObject({ active: true });
   });
 
+  it('two admins removing each other at the same time leave one active admin (BE07)', async () => {
+    const t = makeTestApp();
+    await seedAdmin(t, 'adm-1', 'One');
+    await seedAdmin(t, 'adm-2', 'Two');
+    const [a, b] = await Promise.all([
+      patch(t, t.as('admin', 'adm-1'), 'adm-2', { active: false }),
+      patch(t, t.as('admin', 'adm-2'), 'adm-1', { active: false }),
+    ]);
+    expect([a.status, b.status].sort()).toEqual([200, 409]);
+    const active = (await t.repo.listUsers()).filter((u) => u.role === 'admin' && u.active === true);
+    expect(active).toHaveLength(1);
+  });
+
+  it('a failed Auth update leaves the change pending, and a retry completes it (BE07 recovery)', async () => {
+    const t = makeTestApp();
+    await seedAdmin(t, 'adm-2', 'Second');
+    await seedAdmin(t, 'adm-3', 'Third');
+    t.auth.failOnce.setCustomUserClaims = true;
+    const failed = await patch(t, t.as('admin', 'adm-1'), 'adm-2', { active: false });
+    expect(failed.status).toBe(500);
+    expect(await t.repo.getUser('adm-2')).toMatchObject({ active: false, authSyncPending: true });
+
+    const retried = await patch(t, t.as('admin', 'adm-1'), 'adm-2', { active: false });
+    expect(retried.status).toBe(200);
+    expect(await t.repo.getUser('adm-2')).toMatchObject({ active: false, authSyncPending: false });
+    expect(t.auth.users.get('adm-2').disabled).toBe(true);
+  });
+
   it('admin cannot change their own account (403)', async () => {
     const t = makeTestApp();
     await t.repo.createUser('adm-1', { name: 'Me', role: 'admin', active: true });
@@ -73,5 +101,20 @@ describe('admin account management', () => {
     t.auth.users.set('res-9', { uid: 'res-9', email: 'rae@x.test', disabled: false, customClaims: { role: 'responder', active: true } });
     expect((await patch(t, t.as('admin'), 'res-9', { role: 'dmo' })).status).toBe(200);
     expect(t.auth.calls.revokeRefreshTokens).toContain('res-9');
+  });
+
+  it('creating and changing accounts writes an audit entry with actor, target, and before/after (BE05)', async () => {
+    const t = makeTestApp();
+    await seedAdmin(t, 'adm-2', 'Second');
+    await seedAdmin(t, 'adm-3', 'Third');
+    const made = await create(t, t.as('admin', 'adm-1'), { email: 'd@x.test', name: 'Dee', role: 'dispatcher' });
+    expect(made.status).toBe(201);
+    expect(await patch(t, t.as('admin', 'adm-1'), made.body.uid, { role: 'responder' })).toMatchObject({ status: 200 });
+    const audit = await t.repo.listAudit({});
+    const create_ = audit.find((a) => a.action === 'user.create');
+    const update = audit.find((a) => a.action === 'user.update');
+    expect(create_).toMatchObject({ actorUid: 'adm-1', after: { target: made.body.uid, role: 'dispatcher', active: true } });
+    expect(update).toMatchObject({ actorUid: 'adm-1', before: { role: 'dispatcher', active: true }, after: { target: made.body.uid, role: 'responder', active: true } });
+    expect(JSON.stringify(audit)).not.toMatch(/password|token|09/i);
   });
 });

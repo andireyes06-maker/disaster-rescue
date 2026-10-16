@@ -15,11 +15,12 @@ export const PUBLIC_RADIUS_METERS = 500;
 export async function listPublicIncidents({ repo }) {
   const rows = await repo.listReports({});
   return rows
-    .filter((r) => CATEGORY[r.status] && Number.isFinite(r.lat) && Number.isFinite(r.lng))
+    // Coordinates live in the canonical nested location written at creation (see reportService.create).
+    .filter((r) => CATEGORY[r.status] && Number.isFinite(r.location?.lat) && Number.isFinite(r.location?.lng))
     .map((r) => ({
       type: r.type,
       statusCategory: CATEGORY[r.status],
-      center: coarsen(r.lat, r.lng),
+      center: coarsen(r.location.lat, r.location.lng),
       radiusMeters: PUBLIC_RADIUS_METERS,
     }));
 }

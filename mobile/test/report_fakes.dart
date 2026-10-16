@@ -18,6 +18,8 @@ import 'fakes.dart';
 class FakeReportsRepository implements ReportsRepository {
   Object? createError;
   final List<NewReport> created = [];
+  // Every attempt's key, including attempts that failed (M04).
+  final List<String?> keysSeen = [];
   final List<String> cancelled = [];
   Object? cancelError;
   final StreamController<List<ReportSummary>> controller =
@@ -25,6 +27,7 @@ class FakeReportsRepository implements ReportsRepository {
 
   @override
   Future<SubmitResult> create(NewReport report) async {
+    keysSeen.add(report.idempotencyKey);
     if (createError != null) throw createError!;
     created.add(report);
     return const SubmitResult(
@@ -90,12 +93,17 @@ class FakeProfiles implements ProfileRepository {
 
 class MemoryDraftStore implements DraftStore {
   ReportDraft? draft;
+  // Set to simulate local storage failing after a successful send (M03).
+  bool failClear = false;
   @override
   Future<void> save(ReportDraft d) async => draft = d;
   @override
   Future<ReportDraft?> load() async => draft;
   @override
-  Future<void> clear() async => draft = null;
+  Future<void> clear() async {
+    if (failClear) throw StateError('storage unavailable');
+    draft = null;
+  }
 }
 
 Uint8List jpegBytes([int extra = 20]) =>
@@ -127,6 +135,10 @@ class FakeResponderRepository implements ResponderRepository {
 
   @override
   Stream<List<AssignedReport>> watchAssigned(String teamId) => assigned.stream;
+
+  final StreamController<AssignedReport?> single = StreamController.broadcast();
+  @override
+  Stream<AssignedReport?> watchReport(String id) => single.stream;
 
   @override
   Future<void> acknowledge(String id) async => acknowledged.add(id);

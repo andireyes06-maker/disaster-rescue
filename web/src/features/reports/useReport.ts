@@ -77,7 +77,7 @@ export function useReportUpdates(id: string) {
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    setState({ updates: [], error: null });
+    setState((s) => ({ ...s, error: null }));
     const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'asc'));
     return onSnapshot(
       q,
@@ -98,7 +98,8 @@ export function useReportUpdates(id: string) {
           }),
         error: null,
       }),
-      (error) => setState({ updates: [], error }),
+      // Keep the last good history on a failed refresh; the error is shown beside it.
+      (error) => setState((s) => ({ ...s, error })),
     );
   }, [id, attempt]);
 

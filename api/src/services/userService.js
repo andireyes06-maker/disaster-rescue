@@ -1,4 +1,5 @@
 import { HttpError } from '../errors.js';
+import { record } from './auditService.js';
 import { PHONE_RE, sanitizeText } from '../domain/validation.js';
 
 const STAFF_ROLES = ['resident', 'responder', 'dispatcher', 'dmo'];
@@ -14,6 +15,15 @@ const cleanName = (v) => {
 };
 
 // Dispatcher creates staff. Dispatchers may never create admins.
+// Account changes are audited by actor and target. Passwords, tokens, and contact details are never recorded.
+async function auditAccount(repo, caller, action, target, after, before) {
+  try {
+    await record(repo, { actorUid: caller?.uid ?? null, action, reportId: undefined, before: before ?? undefined, after: { target: target.uid, ...after } });
+  } catch (e) {
+    console.error('account audit write failed', e);
+  }
+}
+
 export async function createStaff({ repo, auth }, body, caller = { role: 'dispatcher' }) {
   const email = typeof body?.email === 'string' ? body.email.trim() : '';
   if (!EMAIL_RE.test(email)) throw new HttpError(400, 'invalid_email', 'A valid email is required');
@@ -42,6 +52,7 @@ export async function createStaff({ repo, auth }, body, caller = { role: 'dispat
     try { await auth.deleteUser(uid); } catch (de) { console.error('orphan account cleanup failed', de); }
     throw e;
   }
+  await auditAccount(repo, caller, 'user.create', { uid }, { role, active: true, team });
   return { uid, role, team };
 }
 
@@ -61,14 +72,17 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
 
   const role = hasRole ? body.role : user.role;
   const active = hasActive ? body.active : user.active === true;
-  const patch = { role, active };
 
-  // Never leave the system with no active admin: deactivating or demoting the last one is refused.
+  // Never leave the system with no active admin. The check and the write are one guarded repository
+  // step, so two concurrent demotions cannot both pass.
   const stopsBeingAdmin = user.role === 'admin' && user.active === true && (role !== 'admin' || !active);
-  if (stopsBeingAdmin) {
-    const otherActiveAdmins = (await repo.listUsers()).filter((u) => u.uid !== id && u.role === 'admin' && u.active === true);
-    if (otherActiveAdmins.length === 0) throw new HttpError(409, 'last_admin', 'At least one active admin must remain');
-  }
+  // The users document is canonical: rules read it, so the old access stops here first. Auth follows.
+  // authSyncPending stays true until Auth is updated; a retry of the same change completes it.
+  const guarded = await repo.setStaffGuarded(id, { role, active, authSyncPending: true }, { removesAdmin: stopsBeingAdmin });
+  if (!guarded.ok && guarded.reason === 'last_admin') throw new HttpError(409, 'last_admin', 'At least one active admin must remain');
+  if (!guarded.ok) throw new HttpError(404, 'not_found', 'User not found');
+  // Recorded as soon as the canonical change commits, so a later Auth failure is still visible in the log.
+  await auditAccount(repo, caller, 'user.update', { uid: id }, { role, active }, { role: user.role, active: user.active === true });
 
   // Claims are never cleared. Deactivation keeps the role and sets active:false.
   const claims = active
@@ -78,7 +92,7 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   // Revoke on deactivation and on any role change, so the old claims stop working at once (the API checks revocation).
   if (!active || role !== user.role) await auth.revokeRefreshTokens(id);
   await auth.updateUser(id, { disabled: !active });
-  await repo.updateUser(id, patch);
+  await repo.updateUser(id, { authSyncPending: false });
   // A deactivated account must stop receiving pushes, so its device tokens go too.
   if (!active) for (const token of await repo.listDevices(id)) await repo.removeDevice(token);
   return { uid: id, role, active };
