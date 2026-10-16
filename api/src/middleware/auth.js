@@ -10,8 +10,10 @@ export function requireAuth(verifyToken) {
     next();
   };
 }
+// Admins hold every staff permission. A route that lists only 'resident' stays resident-only.
+export const grants = (roles, role) => roles.includes(role) || (role === 'admin' && roles.some((r) => r !== 'resident'));
 export const requireRole = (...roles) => (req, res, next) =>
-  roles.includes(req.user?.role) ? next() : res.status(403).json({ error: 'forbidden' });
+  grants(roles, req.user?.role) ? next() : res.status(403).json({ error: 'forbidden' });
 
 // Verifies the token only. Used by POST /api/users/self, where a brand-new account
 // has no role or active claims yet. Every other route keeps requireAuth (fails closed).

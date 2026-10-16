@@ -1,3 +1,4 @@
+import { grants } from '../middleware/auth.js';
 import { HttpError } from '../errors.js';
 
 export const STATUS = Object.freeze({
@@ -22,11 +23,11 @@ const EDGES = [
   [S.RESOLVED, S.CLOSED, ['dispatcher']],
 ];
 const find = (from, to) => EDGES.find(([f, t]) => f === from && t === to);
-export const canTransition = (from, to, role) => !!find(from, to)?.[2].includes(role);
+export const canTransition = (from, to, role) => !!find(from, to) && grants(find(from, to)[2], role);
 export function assertTransition(from, to, role) {
   const e = find(from, to);
   if (!e) throw new HttpError(409, 'illegal_transition', `Cannot move from ${from} to ${to}`);
-  if (!e[2].includes(role)) throw new HttpError(403, 'forbidden', `Role ${role} cannot make this change`);
+  if (!grants(e[2], role)) throw new HttpError(403, 'forbidden', `Role ${role} cannot make this change`);
 }
 const CLOSED_SET = new Set([S.CLOSED, S.REJECTED, S.DUPLICATE, S.CANCELLED]);
 export const isOpen = (status) => !CLOSED_SET.has(status);

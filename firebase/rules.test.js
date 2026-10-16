@@ -14,6 +14,7 @@ const ctx = {
   resident2: () => env.authenticatedContext('res2', { role: 'resident', active: true }).firestore(),
   dispatcher: () => env.authenticatedContext('disp1', { role: 'dispatcher', active: true }).firestore(),
   dmo: () => env.authenticatedContext('dmo1', { role: 'dmo', active: true }).firestore(),
+  admin: () => env.authenticatedContext('adm1', { role: 'admin', active: true }).firestore(),
   responderA: () => env.authenticatedContext('resp1', { role: 'responder', active: true, team: 'team-alpha' }).firestore(),
   responderB: () => env.authenticatedContext('resp2', { role: 'responder', active: true, team: 'team-bravo' }).firestore(),
 };
@@ -265,3 +266,19 @@ describe('default deny', () => {
     await assertFails(ctx.dispatcher().doc('misc/m2').set({ a: 1 }));
   });
 });
+
+describe('admin holds every staff read', () => {
+  test('admin reads any report, team, user record, and audit entry', async () => {
+    await assertSucceeds(ctx.admin().doc('reports/r1').get());
+    await assertSucceeds(ctx.admin().doc('teams/team-alpha').get());
+    await assertSucceeds(ctx.admin().doc('users/res1').get());
+    await assertSucceeds(ctx.admin().doc('auditLogs/a1').get());
+  });
+  test('admin still cannot write report data directly', async () => {
+    await assertFails(ctx.admin().doc('reports/r1').update({ status: 'Closed' }));
+  });
+  test('a resident still reads only their own reports', async () => {
+    await assertFails(ctx.resident2().doc('reports/r1').get());
+  });
+});
+

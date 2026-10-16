@@ -8,7 +8,8 @@ service cloud.firestore {
     function isActive() { return signedIn() && request.auth.token.get('active', false) == true; }
     function role() { return request.auth.token.get('role', ''); }
     function team() { return request.auth.token.get('team', ''); }
-    function isStaff() { return isActive() && (role() == 'dispatcher' || role() == 'dmo'); }
+    // Admins hold every staff permission.
+    function isStaff() { return isActive() && (role() == 'dispatcher' || role() == 'dmo' || role() == 'admin'); }
 
     // Can the signed-in user see this report data?
     function canSeeReport(data) {
@@ -29,7 +30,7 @@ service cloud.firestore {
     }
 
     match /users/{uid} {
-      allow read: if isActive() && (request.auth.uid == uid || role() == 'dispatcher');
+      allow read: if isActive() && (request.auth.uid == uid || role() == 'dispatcher' || role() == 'admin');
       allow write: if false;
     }
 
@@ -39,7 +40,7 @@ service cloud.firestore {
     }
 
     match /teams/{id} {
-      allow read: if isActive() && (role() == 'dispatcher' || role() == 'dmo' || (role() == 'responder' && team() == id));
+      allow read: if isActive() && (role() == 'dispatcher' || role() == 'dmo' || role() == 'admin' || (role() == 'responder' && team() == id));
       allow write: if false;
     }
 

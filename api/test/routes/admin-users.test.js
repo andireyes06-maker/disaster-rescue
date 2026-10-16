@@ -61,10 +61,10 @@ describe('admin account management', () => {
     expect(renamed.status).toBe(200);
   });
 
-  it('admin cannot download the summary or the incident CSV (both carry exact locations)', async () => {
+  it('admin can download the summary and the incident CSV (admins hold every staff permission)', async () => {
     const t = makeTestApp();
-    expect((await request(t.app).get('/api/export/summary.pdf').set('Authorization', t.as('admin'))).status).toBe(403);
-    expect((await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('admin'))).status).toBe(403);
+    expect((await request(t.app).get('/api/export/summary.pdf').set('Authorization', t.as('admin'))).status).toBe(200);
+    expect((await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('admin'))).status).toBe(200);
   });
 
   it('a role change revokes refresh tokens so the new role applies at once', async () => {

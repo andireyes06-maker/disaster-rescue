@@ -24,7 +24,18 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
     { to: '/analytics', label: 'Analytics', icon: ChartNoAxesCombined },
   ],
   responder: [{ to: '/assignments', label: 'Assignments', icon: ClipboardList }],
-  admin: [{ to: '/admin', label: 'Admin', icon: Settings }],
+  // Admins hold every staff permission, so they see every staff page plus Admin.
+  admin: [
+    { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { to: '/map', label: 'Map', icon: Map },
+    { to: '/monitor', label: 'Monitor', icon: Map },
+    { to: '/analytics', label: 'Analytics', icon: ChartNoAxesCombined },
+    { to: '/audit', label: 'Audit', icon: History },
+    { to: '/teams', label: 'Teams', icon: ShieldCheck },
+    { to: '/users', label: 'Users', icon: Users },
+    { to: '/assignments', label: 'Assignments', icon: ClipboardList },
+    { to: '/admin', label: 'Admin', icon: Settings },
+  ],
 };
 
 const DESCRIPTIONS: Record<string, string> = {

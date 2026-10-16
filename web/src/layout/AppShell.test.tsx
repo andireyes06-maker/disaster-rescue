@@ -60,4 +60,12 @@ describe('AppShell', () => {
     renderAt('/my');
     expect(screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')).toHaveLength(0);
   });
+  it('shows an admin every staff page, plus Admin', () => {
+    auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
+    renderAt('/dashboard');
+    const names = [...screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')].map((a) => a.textContent);
+    for (const label of ['Dashboard', 'Map', 'Monitor', 'Analytics', 'Audit', 'Teams', 'Users', 'Assignments', 'Admin']) {
+      expect(names).toContain(label);
+    }
+  });
 });
