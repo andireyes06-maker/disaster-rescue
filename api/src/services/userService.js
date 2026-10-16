@@ -2,6 +2,7 @@ import { HttpError } from '../errors.js';
 import { PHONE_RE, sanitizeText } from '../domain/validation.js';
 
 const STAFF_ROLES = ['resident', 'responder', 'dispatcher', 'dmo'];
+const ADMIN_ROLES = [...STAFF_ROLES, 'admin'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const badName = () => new HttpError(400, 'invalid_name', 'Name must be 1 to 100 characters');
@@ -13,13 +14,13 @@ const cleanName = (v) => {
 };
 
 // Dispatcher creates staff. Dispatchers may never create admins.
-export async function createStaff({ repo, auth }, body) {
+export async function createStaff({ repo, auth }, body, caller = { role: 'dispatcher' }) {
   const email = typeof body?.email === 'string' ? body.email.trim() : '';
   if (!EMAIL_RE.test(email)) throw new HttpError(400, 'invalid_email', 'A valid email is required');
   const name = cleanName(body?.name);
   const role = body?.role;
-  if (role === 'admin') throw new HttpError(400, 'role_not_allowed', 'Dispatchers cannot create admins');
-  if (!STAFF_ROLES.includes(role)) throw new HttpError(400, 'invalid_role', 'Unknown role');
+  if (role === 'admin' && caller.role !== 'admin') throw new HttpError(400, 'role_not_allowed', 'Dispatchers cannot create admins');
+  if (!(caller.role === 'admin' ? ADMIN_ROLES : STAFF_ROLES).includes(role)) throw new HttpError(400, 'invalid_role', 'Unknown role');
   const team = body?.team == null ? null : body.team;
   if (team !== null && (typeof team !== 'string' || !(await repo.getTeam(team)))) {
     throw new HttpError(400, 'invalid_team', 'Team does not exist');
@@ -44,22 +45,30 @@ export async function createStaff({ repo, auth }, body) {
   return { uid, role, team };
 }
 
-export async function updateStaff({ repo, auth }, id, body, callerUid) {
+export async function updateStaff({ repo, auth }, id, body, caller) {
+  const isAdmin = caller.role === 'admin';
   const user = await repo.getUser(id);
   if (!user) throw new HttpError(404, 'not_found', 'User not found');
-  // Dispatchers cannot touch admins or their own account, so they cannot lock out or demote an admin.
-  if (user.role === 'admin') throw new HttpError(403, 'forbidden', 'Dispatchers cannot modify admins');
-  if (id === callerUid) throw new HttpError(403, 'forbidden', 'You cannot change your own account');
+  // Dispatchers cannot touch admins. Nobody can change their own account, so nobody can lock themselves out.
+  if (user.role === 'admin' && !isAdmin) throw new HttpError(403, 'forbidden', 'Dispatchers cannot modify admins');
+  if (id === caller.uid) throw new HttpError(403, 'forbidden', 'You cannot change your own account');
   const hasRole = body?.role !== undefined;
   const hasActive = body?.active !== undefined;
   if (!hasRole && !hasActive) throw new HttpError(400, 'nothing_to_update', 'Send role and/or active');
-  if (hasRole && body.role === 'admin') throw new HttpError(400, 'role_not_allowed', 'Dispatchers cannot assign admins');
-  if (hasRole && !STAFF_ROLES.includes(body.role)) throw new HttpError(400, 'invalid_role', 'Unknown role');
+  if (hasRole && body.role === 'admin' && !isAdmin) throw new HttpError(400, 'role_not_allowed', 'Dispatchers cannot assign admins');
+  if (hasRole && !(isAdmin ? ADMIN_ROLES : STAFF_ROLES).includes(body.role)) throw new HttpError(400, 'invalid_role', 'Unknown role');
   if (hasActive && typeof body.active !== 'boolean') throw new HttpError(400, 'invalid_active', 'active must be true or false');
 
   const role = hasRole ? body.role : user.role;
   const active = hasActive ? body.active : user.active === true;
   const patch = { role, active };
+
+  // Never leave the system with no active admin: deactivating or demoting the last one is refused.
+  const stopsBeingAdmin = user.role === 'admin' && user.active === true && (role !== 'admin' || !active);
+  if (stopsBeingAdmin) {
+    const otherActiveAdmins = (await repo.listUsers()).filter((u) => u.uid !== id && u.role === 'admin' && u.active === true);
+    if (otherActiveAdmins.length === 0) throw new HttpError(409, 'last_admin', 'At least one active admin must remain');
+  }
 
   // Claims are never cleared. Deactivation keeps the role and sets active:false.
   const claims = active

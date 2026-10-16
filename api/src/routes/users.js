@@ -13,14 +13,14 @@ export function usersRouter(deps) {
       res.status(out.created ? 201 : 200).json({ uid: out.uid, role: out.role });
     } catch (e) { next(e); }
   });
-  r.post('/', auth, requireRole('dispatcher'), async (req, res, next) => {
-    try { res.status(201).json(await createStaff(deps, req.body ?? {})); } catch (e) { next(e); }
+  r.post('/', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
+    try { res.status(201).json(await createStaff(deps, req.body ?? {}, req.user)); } catch (e) { next(e); }
   });
   r.get('/', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
     try { res.json(await deps.repo.listUsers()); } catch (e) { next(e); }
   });
-  r.patch('/:id', auth, requireRole('dispatcher'), async (req, res, next) => {
-    try { res.json(await updateStaff(deps, req.params.id, req.body ?? {}, req.user.uid)); } catch (e) { next(e); }
+  r.patch('/:id', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
+    try { res.json(await updateStaff(deps, req.params.id, req.body ?? {}, req.user)); } catch (e) { next(e); }
   });
 
   return r;

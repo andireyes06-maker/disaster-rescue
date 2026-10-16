@@ -110,3 +110,17 @@ export async function apiBlob(
   }
   return res.blob();
 }
+
+// Downloads a file the signed-in user may read (for example, the summary PDF). The token goes in the header, never the URL.
+export async function apiDownload(path: string, filename: string): Promise<void> {
+  const token = await defaultGetToken();
+  const headers: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+  const res = await fetch(`${BASE_URL}/${String(path).replace(/^\/+/, '')}`, { headers });
+  if (!res.ok) throw new ApiError({ status: res.status, message: 'Download failed' });
+  const url = URL.createObjectURL(await res.blob());
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}

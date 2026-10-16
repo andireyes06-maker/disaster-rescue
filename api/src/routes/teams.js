@@ -17,13 +17,13 @@ export function teamsRouter(deps) {
   r.get('/', auth, requireRole('dispatcher', 'dmo', 'admin'), async (req, res, next) => {
     try { res.json(await deps.repo.listTeams()); } catch (e) { next(e); }
   });
-  r.post('/', auth, requireRole('dispatcher'), async (req, res, next) => {
+  r.post('/', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
     try {
       const id = await deps.repo.saveTeam(null, { name: teamName(req.body?.name), busy: false, currentReportId: null, createdAt: new Date() });
       res.status(201).json({ id });
     } catch (e) { next(e); }
   });
-  r.patch('/:id', auth, requireRole('dispatcher'), async (req, res, next) => {
+  r.patch('/:id', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
     try {
       const name = teamName(req.body?.name);
       if (!(await deps.repo.getTeam(req.params.id))) throw new HttpError(404, 'not_found', 'Team not found');
