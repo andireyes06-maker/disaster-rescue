@@ -4,17 +4,12 @@
 
 **Project:** IT 305 final project, Disaster Rescue Reporting and Monitoring System (Flutter + React + Express + Firebase). Due Nov 2, 2026.
 **Branch:** `build/disaster-rescue`. Nothing merged to `master`. Repo: https://github.com/andireyes06-maker/disaster-rescue (private). Vercel project `disaster-rescue-web` is linked, not deployed.
-**Redesign in progress (Oct 16, 2026):** whole web product, ground-up, approved in `REDESIGN-SPEC.md`; tasks in `REDESIGN-PLAN.md` (8 phases, one commit each).
-- Done: phase 1 primitives (`web/src/components/calm/`, commits 5547b39, dc5bfe1); phase 2 shell with mobile menu (e2efb93); phase 3 public pages with `public.css` and landing tests (commit below).
-- Done: phase 4 dispatcher queue as DataTable with EmptyState (commit below).
-- Done: phase 5 incident details. Reject and Assign dialogs return focus to their buttons; shared dialog sets aria-modal (commit below).
-- Done: phase 6 map and audit empty states (commit below). Monitor reuses the map; export buttons already had text labels.
-- Done: phase 7 teams and responder empty states, responder tests (commit below). Form labels were already in place.
-- Phase 8 (partial): public pages checked in Chromium, Firefox, WebKit at 375/768/1440, no overflow, no errors. Stylesheet cleanup done (dead `.overlay` and `.dialog` removed). Not done: staff screens browser check. It needs the seed password (`SEED_PASSWORD`, not on this machine) from Airen.
-- Oct 16 remake request (Airen): colour scheme replaced with bold public-safety palette (navy harbour, blue primary, red hotline only, amber notices). Tokens in `tokens.css` and `docs/design-tokens/tokens.json` updated. Landing remade (full-bleed navy hero, raised door cards).
-- Not finished: staff screens (dashboard, incident details, analytics, monitor, users, teams, assignments, operation form) still use the old layouts and only got shared messages/badges/cards. Remake them on the new palette, then browser-check (needs SEED_PASSWORD from Airen).
-- Next: remake the staff screens; then the staff browser check. Staff screens cannot be browser-checked without test credentials (Airen to provide).
-- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the remake: staff screens on the new palette, then the staff browser check."
+**Redesign in progress (Oct 16, 2026):** whole web product, ground-up. Spec `REDESIGN-SPEC.md`, plan `REDESIGN-PLAN.md`. Palette changed to bold public-safety (navy `#0B2A4A`, blue `#1E5BC6`, red `#C8102E` for hotline and critical only, amber `#B45309`), tokens in `web/src/theme/tokens.css` and `docs/design-tokens/tokens.json`.
+- Done: shared components in `web/src/components/calm/` (Card, Badge, Field, DataTable, EmptyState, Banner, PageHeader); shell with mobile menu; public pages (landing remade: full-bleed navy hero, raised door cards); dispatcher queue as DataTable; incident dialogs with aria-modal and focus return; empty states on map, audit, teams, responder; messages, badges and summary cards on shared components. Last commit `22bae48`. 170 web tests pass.
+- Not done: the staff screens are not remade. Dashboard, incident details, analytics, monitor, users, teams, assignments and operation form still have their old layouts. Only the palette, messages, badges and cards changed.
+- Decided, not yet built: staff layout option B (command toolbar with counts and filters; incident details as two columns with a sticky action rail; cards for assignments). Design presented in chat; approval not confirmed.
+- Open decision: the staff browser check needs either (1) four role passwords from Airen as `SEED_PASSWORD_<ROLE>`, with confirmation that the four test accounts on `flutter-5094e` may be reset, or (2) a local emulator run. Do not run `seed.js --real` without that approval.
+- Resume prompt: "Read HANDOFF.md and REDESIGN-SPEC.md in /Users/rien/Documents/FINAL_PROJECT. Confirm whether Option B is approved and which staff-check route to use, then continue the staff screens."
 
 **Status (Oct 15, 2026):** all 21 plan tasks are built and committed. Remaining work is deployment and the course deliverables.
 
