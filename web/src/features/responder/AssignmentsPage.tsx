@@ -9,6 +9,7 @@ import OperationForm, { allowedOperationStatuses } from './OperationForm';
 import StatusBadge from '../reports/StatusBadge';
 import PriorityBadge from '../reports/PriorityBadge';
 import { formatTime } from '../reports/format';
+import Banner from '../../components/calm/Banner';
 
 interface Message {
   kind: 'ok' | 'error';
@@ -77,8 +78,8 @@ function AssignedCard({ report }: AssignedCardProps) {
         </div>
         {message && (
           message.kind === 'ok'
-            ? <p role="status" className="success">{message.text}</p>
-            : <p role="alert" className="error"><span aria-hidden="true">✖</span> {message.text}</p>
+            ? <Banner tone="info" role="status">{message.text}</Banner>
+            : <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message.text}</Banner>
         )}
         <div className="actions__row">
           <button type="button" className="btn" disabled={busy} onClick={acknowledge}>Acknowledge</button>
@@ -109,7 +110,7 @@ export default function AssignmentsPage() {
   }
   return (
     <div>
-      {error && <p role="alert" className="error"><span aria-hidden="true">✖</span> Could not load your assignments. Check your connection and try again.</p>}
+      {error && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> Could not load your assignments. Check your connection and try again.</Banner>}
       {loading && <p role="status" className="loading">Loading...</p>}
       {!loading && !error && reports.length === 0 && (
         <EmptyState

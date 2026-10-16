@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
 import AssignTeamDialog from './AssignTeamDialog';
 import { isOpen, formatTime, distanceMeters } from './format';
 import { PRIORITIES, type Report } from '../../types/domain';
+import Banner from '../../components/calm/Banner';
 
 const CONFLICT = 'Someone else already changed this report. Reloading the latest status.';
 
@@ -132,7 +133,7 @@ function IncidentView({ id }: IncidentViewProps) {
   if (error) {
     return (
       <div>
-        <p role="alert" className="error">We could not load this report. Check your connection and try again.</p>
+        <Banner tone="error" role="alert">We could not load this report. Check your connection and try again.</Banner>
         <button type="button" className="btn" onClick={retry}>Try again</button>
       </div>
     );
@@ -175,8 +176,8 @@ function IncidentView({ id }: IncidentViewProps) {
 
       {message && (
         message.kind === 'ok'
-          ? <p role="status" className="success">{message.text}</p>
-          : <p role="alert" className="error">{message.text}</p>
+          ? <Banner tone="info" role="status">{message.text}</Banner>
+          : <Banner tone="error" role="alert">{message.text}</Banner>
       )}
 
       {candidates.length > 0 && (
@@ -211,7 +212,7 @@ function IncidentView({ id }: IncidentViewProps) {
 
       <section className="card" aria-labelledby="updates-title">
         <h2 id="updates-title">Rescue updates</h2>
-        {updatesState.error && <p role="alert" className="error">Could not load rescue updates.</p>}
+        {updatesState.error && <Banner tone="error" role="alert">Could not load rescue updates.</Banner>}
         {!updatesState.error && updatesState.updates.length === 0 && <p>No rescue updates yet.</p>}
         {updatesState.updates.length > 0 && (
           <ol className="updates">

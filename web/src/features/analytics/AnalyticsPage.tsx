@@ -4,6 +4,7 @@ import { REPORT_TYPES, REPORT_STATUSES } from '../../types/domain';
 import ChartCard, { type ChartDatum } from './ChartCard';
 import ExportButtons, { buildExportQuery, type ExportFilters } from './ExportButtons';
 import { fetchStats, type Stats } from './stats';
+import Banner from '../../components/calm/Banner';
 
 const FILTER_KEYS = ['from', 'to', 'type', 'status'] as const;
 
@@ -81,7 +82,7 @@ export default function AnalyticsPage() {
       <ExportButtons filters={filters} />
 
       {loading && <p role="status" className="loading">Loading...</p>}
-      {!loading && result?.error && <p role="alert" className="error">Could not load analytics. Check your connection and try again.</p>}
+      {!loading && result?.error && <Banner tone="error" role="alert">Could not load analytics. Check your connection and try again.</Banner>}
 
       {!loading && !result?.error && (
         <div className="analytics-grid">

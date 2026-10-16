@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { apiBlob } from '../../api/client';
+import Banner from '../../components/calm/Banner';
 
 export interface ExportFilters {
   from: string;
@@ -53,7 +54,7 @@ export default function ExportButtons({ filters }: ExportButtonsProps) {
       <button type="button" className="btn" disabled={busy !== null} onClick={() => download('summary.pdf', 'summary.pdf')}>
         Download PDF
       </button>
-      {error && <p role="alert" className="error">{error}</p>}
+      {error && <Banner tone="error" role="alert">{error}</Banner>}
     </div>
   );
 }

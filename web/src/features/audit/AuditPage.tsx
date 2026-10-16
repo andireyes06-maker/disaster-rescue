@@ -1,6 +1,7 @@
 import EmptyState from '../../components/calm/EmptyState';
 import { useEffect, useState, type ChangeEvent } from 'react';
 import { api } from '../../api/client';
+import Banner from '../../components/calm/Banner';
 
 interface AuditEntry {
   actorUid?: string;
@@ -99,7 +100,7 @@ export default function AuditPage() {
       </form>
 
       {loading && <p role="status" className="loading">Loading...</p>}
-      {!loading && result?.error && <p role="alert" className="error">Could not load the audit log. Check your connection and try again.</p>}
+      {!loading && result?.error && <Banner tone="error" role="alert">Could not load the audit log. Check your connection and try again.</Banner>}
       {!loading && !result?.error && result?.rows?.length === 0 && (
         <EmptyState
           title="No audit entries match these filters"

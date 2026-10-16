@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import { staffAccountSchema, STAFF_ROLE_OPTIONS, type StaffAccount } from '../../lib/schemas';
+import Banner from '../../components/calm/Banner';
 
 interface User {
   uid: string;
@@ -113,9 +114,9 @@ export default function UsersPage() {
       </form>
 
       {message && (message.kind === 'ok'
-        ? <p role="status" className="success">{message.text}</p>
-        : <p role="alert" className="error"><span aria-hidden="true">✖</span> {message.text}</p>)}
-      {loadError && <p role="alert" className="error"><span aria-hidden="true">✖</span> {loadError}</p>}
+        ? <Banner tone="info" role="status">{message.text}</Banner>
+        : <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message.text}</Banner>)}
+      {loadError && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {loadError}</Banner>}
       {!loadError && users === null && <p role="status" className="loading">Loading...</p>}
       {users && users.length > 0 && (
         <ul className="queue" aria-label="Users">

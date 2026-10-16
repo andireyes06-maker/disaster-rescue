@@ -9,6 +9,7 @@ import {
   operationUpdateSchema,
   type OperationUpdate,
 } from '../../lib/schemas';
+import Banner from '../../components/calm/Banner';
 
 // Whole-number text becomes its integer value. Anything else becomes NaN, which the schema rejects.
 // React Hook Form also passes the numeric default through here, so numbers are returned unchanged.
@@ -90,8 +91,8 @@ export default function OperationForm({ reportId, reportStatus, onSaved }: Opera
       <label htmlFor={`note-${reportId}`}>Notes</label>
       <textarea id={`note-${reportId}`} rows={3} maxLength={MAX_NOTE_LENGTH} {...register('note')} />
 
-      {message && <p role="alert" className="error"><span aria-hidden="true">✖</span> {message}</p>}
-      {saved && <p role="status" className="success">Update saved.</p>}
+      {message && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message}</Banner>}
+      {saved && <Banner tone="info" role="status">Update saved.</Banner>}
 
       <div className="actions__row">
         <button type="submit" className="btn" disabled={busy}>Submit update</button>

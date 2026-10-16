@@ -4,6 +4,7 @@ import { useAuth } from '../../auth/AuthProvider';
 import { landingFor } from '../../routes/landing';
 import PublicHeader from '../../components/PublicHeader';
 import '../../pages/public.css';
+import Banner from '../../components/calm/Banner';
 
 export default function LoginPage() {
   const { user, role, error: authError, login } = useAuth();
@@ -47,7 +48,7 @@ export default function LoginPage() {
         <label htmlFor="password">Password</label>
         <input id="password" type="password" autoComplete="current-password" required value={password}
           onChange={(e) => setPassword(e.target.value)} />
-        {message && <p role="alert" className="error"><span aria-hidden="true">&#9888; </span><strong>Problem:</strong> {message}</p>}
+        {message && <Banner tone="error" role="alert"><span aria-hidden="true">&#9888; </span><strong>Problem:</strong> {message}</Banner>}
         <button type="submit" className="btn" disabled={busy}>{busy ? 'Signing in...' : 'Sign in'}</button>
       </form>
       <footer className="login__footer">

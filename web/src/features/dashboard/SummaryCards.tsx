@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../api/client';
 import { fetchStats, type Stats } from '../analytics/stats';
+import Banner from '../../components/calm/Banner';
+import Card from '../../components/calm/Card';
 
 interface Summary {
   stats: Stats;
@@ -22,7 +24,7 @@ export default function SummaryCards() {
 
   if (!result) return <p role="status" className="loading">Loading...</p>;
   if (result.error || !result.summary) {
-    return <p role="alert" className="error">Could not load the summary. Check your connection and try again.</p>;
+    return <Banner tone="error" role="alert">Could not load the summary. Check your connection and try again.</Banner>;
   }
 
   const { stats, teams } = result.summary;
@@ -36,10 +38,10 @@ export default function SummaryCards() {
   return (
     <div className="summary">
       {cards.map(([label, n]) => (
-        <div className="card summary__card" key={label}>
+        <Card key={label} className="summary__card">
           <span className="summary__label">{label}</span>
           <strong className="summary__value">{n}</strong>
-        </div>
+        </Card>
       ))}
     </div>
   );

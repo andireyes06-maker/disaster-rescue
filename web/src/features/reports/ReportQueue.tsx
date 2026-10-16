@@ -8,6 +8,7 @@ import { isOpen, formatTime } from './format';
 import { REPORT_TYPES, PRIORITIES, REPORT_STATUSES } from '../../types/domain';
 import DataTable, { type Column } from '../../components/calm/DataTable';
 import EmptyState from '../../components/calm/EmptyState';
+import Card from '../../components/calm/Card';
 
 type Report = ReturnType<typeof useReports>['reports'][number];
 
@@ -78,10 +79,10 @@ export default function ReportQueue() {
     <div>
       <div className="summary">
         {cards.map(([label, n]) => (
-          <div className="card summary__card" key={label}>
+          <Card key={label} className="summary__card">
             <span className="summary__label">{label}</span>
             <strong className="summary__value">{n}</strong>
-          </div>
+          </Card>
         ))}
       </div>
 

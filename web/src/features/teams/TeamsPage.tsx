@@ -7,6 +7,7 @@ import { apiFailure } from '../../lib/apiError';
 import { teamNameSchema, type TeamName } from '../../lib/schemas';
 
 import type { Team } from '../../types/domain';
+import Banner from '../../components/calm/Banner';
 
 interface Message {
   kind: 'ok' | 'error';
@@ -110,9 +111,9 @@ export default function TeamsPage() {
       </form>
 
       {message && (message.kind === 'ok'
-        ? <p role="status" className="success">{message.text}</p>
-        : <p role="alert" className="error"><span aria-hidden="true">✖</span> {message.text}</p>)}
-      {loadError && <p role="alert" className="error"><span aria-hidden="true">✖</span> {loadError}</p>}
+        ? <Banner tone="info" role="status">{message.text}</Banner>
+        : <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message.text}</Banner>)}
+      {loadError && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {loadError}</Banner>}
       {!loadError && teams === null && <p role="status" className="loading">Loading...</p>}
       {teams && teams.length === 0 && (
         <EmptyState title="No teams yet" body="Create the first team below. Dispatchers assign reports to teams." />

@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import { useReports } from '../reports/useReports';
 import { markerStyle } from './markerStyle';
 import { PRIORITIES, REPORT_STATUSES, REPORT_TYPES, type Report } from '../../types/domain';
+import Banner from '../../components/calm/Banner';
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
@@ -69,7 +70,7 @@ export default function IncidentMap() {
     ? ([located[0].location.lat, located[0].location.lng] as [number, number])
     : DEFAULT_CENTER;
 
-  if (error) return <p role="alert" className="error">The map could not load reports. Try again later.</p>;
+  if (error) return <Banner tone="error" role="alert">The map could not load reports. Try again later.</Banner>;
   if (loading) return <p role="status" className="loading">Loading...</p>;
 
   return (

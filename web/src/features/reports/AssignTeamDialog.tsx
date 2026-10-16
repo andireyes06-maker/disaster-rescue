@@ -13,6 +13,7 @@ import {
 export const NO_FREE_TEAMS = 'No rescue teams are free right now. Close a finished rescue to free a team, then try again.';
 
 import type { Team } from '../../types/domain';
+import Banner from '../../components/calm/Banner';
 
 interface AssignTeamDialogProps {
   returnFocusTo?: React.RefObject<HTMLElement | null>;
@@ -82,7 +83,7 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
           </select>
         )}
       />
-      {message && <p role="alert" className="error"><span aria-hidden="true">✖</span> {message}</p>}
+      {message && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message}</Banner>}
       <div className="actions__row">
         <button type="submit" className="btn" disabled={busy}>Assign team</button>
         <button type="button" className="btn btn--ghost" onClick={onClose}>Cancel</button>
@@ -120,7 +121,7 @@ export default function AssignTeamDialog({ reportId, onClose, onAssigned, return
       >
         <DialogTitle>Assign a rescue team</DialogTitle>
         {state.loading && <p role="status" className="loading">Loading teams...</p>}
-        {state.error && <p role="alert" className="error"><span aria-hidden="true">✖</span> {state.error}</p>}
+        {state.error && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {state.error}</Banner>}
         {showEmpty && <p className="card empty">{NO_FREE_TEAMS}</p>}
         {!state.loading && !state.error && free.length > 0 && (
           <AssignForm reportId={reportId} freeTeams={free} onClose={onClose} onAssigned={onAssigned} />
