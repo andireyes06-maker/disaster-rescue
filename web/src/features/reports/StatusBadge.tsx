@@ -1,17 +1,18 @@
 import type { ReportStatus } from '../../types/domain';
+import { Clock3, Check, Circle, Flag, Activity, X, Copy, Ban } from 'lucide-react';
 
-const ICONS: Partial<Record<ReportStatus, string>> = {
-  Submitted: '✉',
-  'Under Verification': '⧖',
-  Verified: '✓',
-  'Awaiting Assignment': '⏳',
-  'Team Assigned': '⚑',
-  'Rescue in Progress': '⚒',
-  Resolved: '✔',
-  Closed: '■',
-  Rejected: '✕',
-  Duplicate: '⧉',
-  Cancelled: '⊘',
+const ICONS = {
+  Submitted: Circle,
+  'Under Verification': Clock3,
+  Verified: Check,
+  'Awaiting Assignment': Clock3,
+  'Team Assigned': Flag,
+  'Rescue in Progress': Activity,
+  Resolved: Check,
+  Closed: Check,
+  Rejected: X,
+  Duplicate: Copy,
+  Cancelled: Ban,
 };
 
 interface StatusBadgeProps {
@@ -19,9 +20,11 @@ interface StatusBadgeProps {
 }
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
+  const Icon = ICONS[status] || Circle;
+  const complete = status === 'Resolved' || status === 'Closed';
   return (
-    <span className="badge badge--status">
-      <span aria-hidden="true">{ICONS[status] || '●'}</span>
+    <span className={`badge badge--status${complete ? ' badge--complete' : ''}`}>
+      <Icon aria-hidden="true" />
       <span>{status}</span>
     </span>
   );

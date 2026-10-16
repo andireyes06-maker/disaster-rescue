@@ -15,7 +15,7 @@ export default function DataTable<T>({ columns, rows, rowKey, empty }: {
 }) {
   if (rows.length === 0) return <>{empty}</>;
   return (
-    <div className="calm-table-wrap">
+    <div className="calm-table-wrap" tabIndex={0} role="region" aria-label="Scrollable report table">
       <table className="calm-table">
         <thead>
           <tr>{columns.map((c) => <th key={c.key} scope="col">{c.header}</th>)}</tr>

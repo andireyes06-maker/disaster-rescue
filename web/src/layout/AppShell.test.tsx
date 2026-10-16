@@ -46,5 +46,7 @@ describe('AppShell', () => {
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await userEvent.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(screen.getByRole('link', { name: 'Map' }));
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
   });
 });

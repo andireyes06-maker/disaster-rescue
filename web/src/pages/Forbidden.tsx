@@ -16,10 +16,12 @@ export default function Forbidden() {
         <p>
           {isResident
             ? 'Residents report and track incidents in the mobile app. This web app is for staff.'
-            : 'Your account does not have access to this page.'}
+            : role ? 'Your account does not have access to this page.' : 'Sign in with a staff account to continue.'}
         </p>
-        {role && LANDING[role] && <Link className="btn" to={landingFor(role)}>Go to my page</Link>}
-        <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>
+        {role && !isResident && LANDING[role] && <Link className="btn" to={landingFor(role)}>Go to my page</Link>}
+        {!role && <Link className="btn" to="/login">Sign in</Link>}
+        {role && <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>}
+        <Link className="login__home" to="/">Back to home</Link>
       </div>
     </main>
     </div>

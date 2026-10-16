@@ -56,9 +56,12 @@ function AssignedCard({ report }: AssignedCardProps) {
   }
 
   return (
-    <li className="queue__row card assignment">
+    <li className="card assignment">
       <div className="assignment__main">
-        <span className="queue__type">{report.type}</span>
+        <div className="assignment__heading">
+        <h2 className="queue__type">{report.type} report</h2>
+        <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /></div>
+        </div>
         <span className="plain">{report.description}</span>
         <dl>
           <div className="fact"><dt>Address</dt><dd><span className="plain">{report.addressText || 'No address given'}</span></dd></div>
@@ -72,10 +75,6 @@ function AssignedCard({ report }: AssignedCardProps) {
           </dd></div>
           <div className="fact"><dt>Reported</dt><dd>{formatTime(report.createdAt)}</dd></div>
         </dl>
-        <div className="incident__badges">
-          <StatusBadge status={report.status} />
-          <PriorityBadge priority={report.priority} />
-        </div>
         {message && (
           message.kind === 'ok'
             ? <Banner tone="info" role="status">{message.text}</Banner>
@@ -98,7 +97,7 @@ function AssignedCard({ report }: AssignedCardProps) {
 
 export default function AssignmentsPage() {
   const { team } = useAuth();
-  const { reports, loading, error } = useAssignedReports(team);
+  const { reports, loading, error, retry } = useAssignedReports(team);
 
   if (!team) {
     return (
@@ -110,7 +109,12 @@ export default function AssignmentsPage() {
   }
   return (
     <div>
-      {error && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> Could not load your assignments. Check your connection and try again.</Banner>}
+      {error && (
+        <Banner tone="error" role="alert">
+          <span aria-hidden="true">✖</span> Could not load your assignments. Check your connection and try again.{' '}
+          <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
+        </Banner>
+      )}
       {loading && <p role="status" className="loading">Loading...</p>}
       {!loading && !error && reports.length === 0 && (
         <EmptyState

@@ -1,0 +1,19 @@
+{
+  "mobileMenuAfterNavigate": "true",
+  "teamErrorText": "Teams\nNew team name\nCreate team\n✖ Could not load teams. Check your connection and try again.",
+  "reversedRange": "Analytics\nFrom\nTo\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nDownload CSV\nDownload PDF\nIncidents by type\n\nNo data for this range.\n\nIncidents by status\n\nNo data for this range.\n\nIncidents per day\n\nNo data for this range.",
+  "dialogTabFocus": {
+    "tag": "DIV",
+    "text": "Assign a rescue teamLoading teams...",
+    "withinDialog": true,
+    "outline": "oklab(0.708 0 0 / 0.5) solid 3px"
+  },
+  "dialogEscapeFocus": "Assign team",
+  "loginKeyboardFocus": {
+    "tag": "A",
+    "outline": "rgb(30, 91, 198) solid 3px"
+  },
+  "loginError": "⚠ Problem: Could not sign in. Check your email and password and try again.",
+  "residentAppDestination": "The resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.",
+  "hotlineHref": "tel:000-0000"
+}

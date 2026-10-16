@@ -1,0 +1,10 @@
+{
+  "mobileMenuCloses": true,
+  "visibleMapMarkerNavigation": true,
+  "classificationSaved": true,
+  "dialogFocusAndEscape": true,
+  "teamRenameWorks": true,
+  "teamCreateWorks": true,
+  "reversedRangeExplained": true,
+  "retryRecovers": true
+}

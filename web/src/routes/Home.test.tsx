@@ -31,7 +31,7 @@ describe('Home at /', () => {
 
   it('shows the landing page to a signed-out visitor without redirecting', () => {
     renderAt();
-    expect(screen.getByRole('heading', { level: 1, name: 'Disaster Rescue Reporting and Monitoring System' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: /Report an incident/ })).toBeInTheDocument();
     expect(screen.queryByTestId('at')).toBeNull();
   });
 

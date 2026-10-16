@@ -43,9 +43,10 @@ const queueColumns: Column<Report>[] = [
     key: 'report',
     header: 'Report',
     render: (r) => (
-      <Link to={`/incidents/${r.id}`} className="queue__link">
+      <Link to={`/incidents/${r.id}`} className="queue__link" title={r.description}>
         <span className="queue__type">{r.type}</span>
         <span className="queue__desc">{r.description}</span>
+        <span className="queue__location">{r.addressText || 'No address given'}</span>
       </Link>
     ),
   },
@@ -56,11 +57,12 @@ const queueColumns: Column<Report>[] = [
 ];
 
 export default function ReportQueue() {
-  const { reports, loading, error } = useReports();
+  const { reports, loading, error, retry } = useReports();
   const [f, setF] = useState<Filters>({ status: '', type: '', priority: '', verified: '' });
   const [filtersOpen, setFiltersOpen] = useState(false);
   const activeFilters = Object.values(f).filter(Boolean).length;
   const set = (k: keyof Filters) => (v: string) => setF((s) => ({ ...s, [k]: v }));
+  const active = reports.filter((r) => isOpen(r) && r.status !== 'Resolved');
 
   const rows = reports.filter((r) =>
     (!f.status || r.status === f.status)
@@ -70,8 +72,8 @@ export default function ReportQueue() {
 
   const cards: [string, number][] = [
     ['All reports', reports.length],
-    ['Open', reports.filter(isOpen).length],
-    ['Critical', reports.filter((r) => r.priority === 'critical' && isOpen(r)).length],
+    ['Active reports', active.length],
+    ['Critical', active.filter((r) => r.priority === 'critical').length],
     ['Verified', reports.filter((r) => r.verified).length],
   ];
 
@@ -81,15 +83,22 @@ export default function ReportQueue() {
         {cards.map(([label, n]) => (
           <Card key={label} className="summary__card">
             <span className="summary__label">{label}</span>
-            <strong className="summary__value">{n}</strong>
+            <strong className="summary__value">{loading || error ? '—' : n}</strong>
           </Card>
         ))}
       </div>
 
+      <section className="queue-panel" aria-labelledby="queue-heading">
+      <div className="queue-toolbar">
+        <div><h2 id="queue-heading">Incident queue</h2><p>{loading ? 'Loading reports…' : error ? 'Reports unavailable' : `${rows.length} reports · newest first`}</p></div>
+        <div className="queue-toolbar__actions">
+        {activeFilters > 0 && <button type="button" className="btn btn--ghost" onClick={() => setF({ status: '', type: '', priority: '', verified: '' })}>Clear filters</button>}
       <button type="button" className="btn btn--ghost filters__toggle" aria-expanded={filtersOpen} aria-controls="report-filters"
         onClick={() => setFiltersOpen((v) => !v)}>
         {filtersOpen ? 'Hide filters' : 'Filters'}{activeFilters > 0 ? ` (${activeFilters} active)` : ''}
       </button>
+        </div>
+      </div>
 
       {filtersOpen && (
         <div id="report-filters" className="filters card" role="group" aria-label="Filters">
@@ -100,7 +109,12 @@ export default function ReportQueue() {
         </div>
       )}
 
-      {error && <p className="error" role="alert">Could not load reports. Check your connection and try again.</p>}
+      {error && (
+        <p className="error" role="alert">
+          Could not load reports. Check your connection and try again.{' '}
+          <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
+        </p>
+      )}
       {loading && <p role="status" className="loading">Loading...</p>}
       {!loading && !error && rows.length === 0 && (
         <EmptyState
@@ -116,6 +130,7 @@ export default function ReportQueue() {
           empty={null}
         />
       )}
+      </section>
     </div>
   );
 }

@@ -12,6 +12,7 @@ vi.mock('../reports/useReports', () => ({
   }),
 }));
 vi.mock('react-leaflet', () => ({
+  useMap: () => ({ fitBounds: vi.fn() }),
   MapContainer: ({ children }: { children?: ReactNode }) => <div data-testid="map">{children}</div>,
   TileLayer: () => null,
   Marker: ({ title }: { title?: string }) => <button type="button" aria-label={title} />,

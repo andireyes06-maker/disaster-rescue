@@ -11,11 +11,13 @@ export interface AssignedReportsState {
   reports: Report[];
   loading: boolean;
   error: FirestoreError | null;
+  retry: () => void;
 }
 
 // One equality filter in the query (assignedTeamId); status filtering and sorting happen in memory.
 export function useAssignedReports(teamId: string | null | undefined): AssignedReportsState {
-  const [state, setState] = useState<AssignedReportsState>({ reports: [], loading: true, error: null });
+  const [state, setState] = useState<Omit<AssignedReportsState, 'retry'>>({ reports: [], loading: true, error: null });
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     if (!teamId) {
@@ -35,7 +37,8 @@ export function useAssignedReports(teamId: string | null | undefined): AssignedR
       },
       (error) => setState((s) => ({ ...s, loading: false, error })),
     );
-  }, [teamId]);
+  }, [teamId, attempt]);
 
-  return state;
+  const retry = () => setAttempt((n) => n + 1);
+  return { ...state, retry };
 }

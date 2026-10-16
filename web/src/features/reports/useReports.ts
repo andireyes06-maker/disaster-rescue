@@ -22,12 +22,15 @@ export interface ReportsState {
   reports: Report[];
   loading: boolean;
   error: FirestoreError | null;
+  retry: () => void;
 }
 
 export function useReports(): ReportsState {
-  const [state, setState] = useState<ReportsState>({ reports: [], loading: true, error: null });
+  const [state, setState] = useState<Omit<ReportsState, 'retry'>>({ reports: [], loading: true, error: null });
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
+    setState((s) => (s.error ? { ...s, loading: true, error: null } : s));
     const q = query(collection(getFirebaseDb(), 'reports'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(
       q,
@@ -40,7 +43,8 @@ export function useReports(): ReportsState {
       (error) => setState((s) => ({ ...s, loading: false, error })),
     );
     return unsubscribe;
-  }, []);
+  }, [attempt]);
 
-  return state;
+  const retry = () => setAttempt((n) => n + 1);
+  return { ...state, retry };
 }

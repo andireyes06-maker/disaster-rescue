@@ -3,52 +3,43 @@
 ## Start here
 
 **Project:** IT 305 final project, Disaster Rescue Reporting and Monitoring System (Flutter + React + Express + Firebase). Due Nov 2, 2026.
-**Branch:** `build/disaster-rescue`. Nothing merged to `master`. Repo: https://github.com/andireyes06-maker/disaster-rescue (private). Vercel project `disaster-rescue-web` is linked, not deployed.
-**Redesign in progress (Oct 16, 2026):** whole web product, ground-up. Spec `REDESIGN-SPEC.md`, plan `REDESIGN-PLAN.md`. Palette changed to bold public-safety (navy `#0B2A4A`, blue `#1E5BC6`, red `#C8102E` for hotline and critical only, amber `#B45309`), tokens in `web/src/theme/tokens.css` and `docs/design-tokens/tokens.json`.
-- Done: shared components in `web/src/components/calm/` (Card, Badge, Field, DataTable, EmptyState, Banner, PageHeader); shell with mobile menu; public pages (landing remade: full-bleed navy hero, raised door cards); dispatcher queue as DataTable; incident dialogs with aria-modal and focus return; empty states on map, audit, teams, responder; messages, badges and summary cards on shared components. Last commit `22bae48`. 170 web tests pass.
-- Not done: the staff screens are not remade. Dashboard, incident details, analytics, monitor, users, teams, assignments and operation form still have their old layouts. Only the palette, messages, badges and cards changed.
-- Decided, not yet built: staff layout option B (command toolbar with counts and filters; incident details as two columns with a sticky action rail; cards for assignments). Design presented in chat; approval not confirmed.
-- Open decision: the staff browser check needs either (1) four role passwords from Airen as `SEED_PASSWORD_<ROLE>`, with confirmation that the four test accounts on `flutter-5094e` may be reset, or (2) a local emulator run. Do not run `seed.js --real` without that approval.
-- Resume prompt: "Read HANDOFF.md and REDESIGN-SPEC.md in /Users/rien/Documents/FINAL_PROJECT. Confirm whether Option B is approved and which staff-check route to use, then continue the staff screens."
+**Branch:** `build/disaster-rescue`. Nothing merged to `master`. Repo: https://github.com/andireyes06-maker/disaster-rescue (private).
+**Website pass (Oct 16, 2026):** the latest work is in [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md). Read that first. It records the layouts, retry controls, tests, and open decisions.
+**Status:** committed on this branch, see the commit named in CLAUDE-HANDOFF.md. Deployed to production at https://disaster-rescue-web.vercel.app (live Firebase project `flutter-5094e`, not the emulator). Sign-in not verified on the live site.
+**Redesign:** spec `REDESIGN-SPEC.md` awaits Airen's review. Option B (staff layout) and the local emulator check route are approved. The staff screens are not remade yet. Plan `REDESIGN-PLAN.md` still needs revising for Option B and the emulator route before any staff-screen code.
 
-**Status (Oct 15, 2026):** all 21 plan tasks are built and committed. Remaining work is deployment and the course deliverables.
-
-**Verified on the last run:**
-- API 224 tests, web 129 tests, web e2e 3 passing (4 skipped by design), web typecheck and build OK.
-- Firestore rules 117 of 117 on the emulator.
-- Flutter `flutter analyze` clean, 107 tests passing.
-
-**Not verified:** real device (GPS, camera, push, map tiles), real Firebase or Cloudinary, deployed hosts, signed-in web pages.
+**Verified (Oct 16):** web 172 tests pass (24 files), `tsc --noEmit` clean, Impeccable detector 0 findings on changed UI, `git diff --check` clean.
+**Not verified:** physical phones, screen readers, Firefox and WebKit, signed-in live pages, real device features (GPS, camera, push, map tiles), real Cloudinary.
 
 ## Decisions locked
-- Firestore, not PostgreSQL (documented in `docs/schema.md`).
-- Express API in JavaScript. Web: React + Vite + TypeScript + Tailwind + shadcn/ui (spec amendment in `X-SPEC.md`).
+- Firestore, not PostgreSQL (`docs/schema.md`).
+- Express API in JavaScript. Web: React + Vite + TypeScript. Calm Clarity UI, bold public-safety palette: navy `#0B2A4A`, blue `#1E5BC6`, red `#C8102E` (hotline and critical only), amber `#B45309`.
 - Photos through Cloudinary, signed. No Firebase Storage (needs Blaze).
 - Hosts: Vercel (web), Render (API), Firebase Spark.
-- Calm Clarity UI. Coral is for critical priority only.
 
-## Live (Oct 15)
-- API: https://disaster-rescue-api.onrender.com (Render free plan, Blueprint from render.yaml). Health: /api/health.
-- Web: https://disaster-rescue-web.vercel.app (Vercel production, linked project disaster-rescue-web). Sign-in page loads with no console errors.
-- Production audit: 0 vulnerabilities after firebase-admin 14 (named imports in api/src/server.js).
+## Live
+- Web: https://disaster-rescue-web.vercel.app (Vercel production, project `disaster-rescue-web`). Deployment protection is on for the deployment-specific URL.
+- API: https://disaster-rescue-api.onrender.com (Render free plan). Health: `/api/health`.
+- Firestore rules and indexes deployed to `flutter-5094e`. Test reports left on the real project (DR-T49M76 and others) should be closed or deleted before the demo.
 
 ## Waiting on Airen
-Done: Render CORS and redeploy, GitHub repo, Firebase project `flutter-5094e` (service account `api/serviceAccount.json`, git-ignored), Cloudinary keys in `api/.env`, NDK fix. Firestore rules and indexes deployed to `flutter-5094e` (Oct 15). Functional audit (Oct 15): API 224 and web 134 tests pass, the full report lifecycle works across all four roles, and the access and validation checks behave. Fixed: rescue updates now show on the incident page (`useReportUpdates`), and the responder form offers only statuses valid for the report. Test reports on the real project: 4 created, 3 closed, 1 open at Awaiting Assignment (`WsRUEbXwEgIA13kOoqTm`, DR-T49M76). Delete or close them before the demo. Test accounts seeded on `flutter-5094e` (resident, dispatcher, responder, dmo @test.dev); sign-in checked for all four. Passwords are not stored in the repo. `flutter build apk --debug` succeeds (Oct 15). `flutter analyze` clean, 107 tests pass.
-
-5. **Course docs:** fill `docs/contributions.md` (names and roles); replace the `000-0000` LDRRMO placeholder in `config/hotlines` with the real number; get legal review of `docs/privacy-and-coordination.md` before real use.
-6. **Push and PR:** nothing pushed, no PR. Needs your approval.
+1. **Website decisions** (listed in CLAUDE-HANDOFF.md): audit-log phone treatment, incident photo thumbnails, whether to wire Reticle, and any whole visual direction change.
+2. **Live sign-in:** the demo accounts exist only in the local emulator. Decide whether to create demo logins on `flutter-5094e`.
+3. **Redesign:** approve `REDESIGN-SPEC.md`.
+4. **Course docs:** fill `docs/contributions.md`; replace the `000-0000` LDRRMO placeholder in `config/hotlines`; get legal review of `docs/privacy-and-coordination.md`.
+5. **Push and PR:** nothing pushed, no PR. Needs your approval.
 
 ## Open questions
 - Admin role: code has `admin`, spec says dispatcher-equivalent. Web app has no admin role.
 - Firestore rules let responders read teams; the API does not.
-- Recharts resize warnings not inspected.
-- Dashboard queue card renamed "All reports" to avoid clashing with the stats "Total reports".
+- Public placeholders still open: hotline number, privacy text, credits.
 
 ## Gotchas
 - Never run `dart format` on folders (it rewrote 27 files once).
 - Firestore queries use at most one equality filter; the rest filter in memory.
 - Sign-out calls `DELETE /api/devices/:token` (wired via `beforeSignOut` in `mobile/lib/main.dart`). Keep it.
-- The web app's "map" and "monitor" routes are not browser-checked.
+- Local emulators: Auth 9099, Firestore 8180 (the app hardcodes 8080 in `web/src/firebase.ts`; port 8080 is held by an unrelated process). Seeded API 3101.
+- `mobile/web/` and `.vscode/` are untracked and deliberately not committed.
 
 ## Resume prompt
-"Read HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT. Continue from 'Waiting on Airen'. Older history is in docs/history.md."
+"Read HANDOFF.md and CLAUDE-HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT. Continue from 'Waiting on Airen'. Older history is in docs/history.md."

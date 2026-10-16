@@ -1,0 +1,32 @@
+{
+  "unit_tests": 172,
+  "unit_files": 25,
+  "typecheck": "passed",
+  "build": "passed",
+  "browser_smoke_tests": 4,
+  "route_captures": 73,
+  "widths": [
+    1440,
+    768,
+    390,
+    320
+  ],
+  "whole_page_overflow": [],
+  "map_heights": [
+    583
+  ],
+  "detector_findings": 0,
+  "interactions": {
+    "mobileMenuCloses": true,
+    "visibleMapMarkerNavigation": true,
+    "classificationSaved": true,
+    "dialogFocusAndEscape": true,
+    "teamRenameWorks": true,
+    "teamCreateWorks": true,
+    "reversedRangeExplained": true,
+    "retryRecovers": true
+  },
+  "physical_device_tested": false,
+  "production_modified": false,
+  "committed": false
+}

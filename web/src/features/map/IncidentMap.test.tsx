@@ -11,6 +11,7 @@ vi.mock('../reports/useReports', () => ({
   useReports: () => ({ reports: h.reports, loading: false, error: null }),
 }));
 vi.mock('react-leaflet', () => ({
+  useMap: () => ({ fitBounds: vi.fn() }),
   MapContainer: ({ children }: { children?: ReactNode }) => <div data-testid="map">{children}</div>,
   TileLayer: () => null,
   Marker: ({ eventHandlers, title }: { eventHandlers?: { click?: () => void }; title?: string }) => (

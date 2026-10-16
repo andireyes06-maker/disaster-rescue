@@ -62,13 +62,15 @@ export default function AuditPage() {
   const requestQuery = params.toString();
 
   const [result, setResult] = useState<Result | null>(null);
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     let cancelled = false;
     api(`/audit${requestQuery ? `?${requestQuery}` : ''}`)
       .then((data) => { if (!cancelled) setResult({ key: requestQuery, rows: Array.isArray(data) ? (data as AuditEntry[]) : [] }); })
       .catch(() => { if (!cancelled) setResult({ key: requestQuery, error: true }); });
     return () => { cancelled = true; };
-  }, [requestQuery]);
+  }, [requestQuery, attempt]);
+  const retry = () => { setResult(null); setAttempt((n) => n + 1); };
 
   const loading = result?.key !== requestQuery;
   const set = (k: keyof AuditFilters) => (e: ChangeEvent<HTMLInputElement>) =>
@@ -100,7 +102,12 @@ export default function AuditPage() {
       </form>
 
       {loading && <p role="status" className="loading">Loading...</p>}
-      {!loading && result?.error && <Banner tone="error" role="alert">Could not load the audit log. Check your connection and try again.</Banner>}
+      {!loading && result?.error && (
+        <Banner tone="error" role="alert">
+          Could not load the audit log. Check your connection and try again.{' '}
+          <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
+        </Banner>
+      )}
       {!loading && !result?.error && result?.rows?.length === 0 && (
         <EmptyState
           title="No audit entries match these filters"
@@ -108,7 +115,7 @@ export default function AuditPage() {
         />
       )}
       {!loading && !result?.error && result?.rows && result.rows.length > 0 && (
-        <div className="table-wrap card audit">
+        <div className="table-wrap card audit" tabIndex={0} role="region" aria-label="Audit entries">
           <table>
             <thead>
               <tr>

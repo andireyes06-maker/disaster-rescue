@@ -64,9 +64,16 @@ describe('ReportQueue', () => {
     show(data());
     const card = (name: string) => document.querySelector('.summary')?.textContent?.match(new RegExp(`${name}(\\d+)`))?.[1];
     expect(card('All reports')).toBe('2');
-    expect(card('Open')).toBe('2');
+    expect(card('Active reports')).toBe('2');
     expect(card('Critical')).toBe('1');
     expect(card('Verified')).toBe('1');
+  });
+
+  it('excludes resolved and terminal reports from the active workload without hiding them from the queue', () => {
+    show([makeReport({ id: 'active', status: 'Submitted', description: 'Needs response' }), makeReport({ id: 'resolved', status: 'Resolved', description: 'Rescue complete' }), makeReport({ id: 'closed', status: 'Closed', description: 'Review complete' })]);
+    expect(document.querySelector('.summary')).toHaveTextContent('Active reports1');
+    expect(screen.getByText('Rescue complete')).toBeInTheDocument();
+    expect(screen.getByText('Review complete')).toBeInTheDocument();
   });
 
   it.each([

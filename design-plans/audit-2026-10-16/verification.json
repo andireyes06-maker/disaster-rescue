@@ -1,0 +1,33 @@
+{
+  "web_unit_tests": {
+    "status": "passed",
+    "files": 25,
+    "tests": 170,
+    "includes_typecheck": true
+  },
+  "web_build": {
+    "status": "passed",
+    "output": "/tmp/rescue-audit-build",
+    "javascript_bytes_kb": 1533.85,
+    "javascript_gzip_kb": 461.41
+  },
+  "existing_login_browser_tests": {
+    "status": "failed",
+    "failed": 3,
+    "reason": "All three tests visit / and expect the obsolete Sign in heading; local / is now the landing page.",
+    "artifacts": "/tmp/rescue-audit-e2e"
+  },
+  "browser_audit": {
+    "engine": "Chromium headless",
+    "main_captures": 77,
+    "followup_captures": 3,
+    "widths": [
+      1440,
+      768,
+      390,
+      320
+    ],
+    "physical_device_tested": false
+  },
+  "product_source_modified": false
+}

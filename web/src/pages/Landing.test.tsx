@@ -13,10 +13,10 @@ describe('Landing', () => {
     )).toBeInTheDocument();
   });
 
-  it('has a tel link for the placeholder hotline in the header', () => {
+  it('shows an honest demo notice without a dialable placeholder hotline', () => {
     renderLanding();
-    const links = screen.getAllByRole('link', { name: 'Emergency hotline (placeholder)' });
-    expect(links[0]).toHaveAttribute('href', 'tel:000-0000');
+    expect(screen.getByText('Demo site · hotline not configured')).toBeInTheDocument();
+    expect(document.querySelector('a[href="tel:000-0000"]')).toBeNull();
   });
 
   it('sends the staff door to /login', () => {
@@ -28,6 +28,6 @@ describe('Landing', () => {
 
   it('sends the resident door to the resident app section', () => {
     renderLanding();
-    expect(screen.getByRole('link', { name: 'Get the resident app' })).toHaveAttribute('href', '#resident-app');
+    expect(screen.getByRole('link', { name: 'Resident app availability' })).toHaveAttribute('href', '#resident-app');
   });
 });

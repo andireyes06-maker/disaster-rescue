@@ -70,9 +70,10 @@ describe('IncidentDetails', () => {
     expect(screen.queryByRole('textbox')).toBeNull();
   });
 
-  it('shows the duplicate banner only when flagged', () => {
+  it('shows the duplicate comparison when expanded, only when flagged', async () => {
     const other = makeReport({ id: 'r2', description: 'Same flood nearby' });
     const { unmount } = show([makeReport({ possibleDuplicates: ['r2'] }), other]);
+    await userEvent.click(screen.getByText('Possible duplicates (1)'));
     const banner = screen.getByRole('region', { name: /possible duplicates/i });
     expect(within(banner).getByText('Same flood nearby')).toBeInTheDocument();
     expect(within(banner).getByRole('button', { name: /mark the report you are viewing as a duplicate of this one/i })).toBeInTheDocument();
@@ -84,6 +85,7 @@ describe('IncidentDetails', () => {
   it('marks a candidate as duplicate via PATCH', async () => {
     const other = makeReport({ id: 'r2' });
     show([makeReport({ possibleDuplicates: ['r2'] }), other]);
+    await userEvent.click(screen.getByText('Possible duplicates (1)'));
     await userEvent.click(screen.getByRole('button', { name: /mark the report you are viewing as a duplicate of this one/i }));
     expect(h.api).toHaveBeenCalledWith('/reports/r1/duplicate', { method: 'PATCH', body: { duplicateOf: 'r2' } });
   });
@@ -93,8 +95,9 @@ describe('IncidentDetails', () => {
     expect(screen.getByText('The report you are viewing will be closed as a duplicate of the report you choose.')).toBeInTheDocument();
   });
 
-  it.each(['Closed', 'Rejected', 'Duplicate', 'Cancelled'] as const)('shows a %s candidate without the mark button', (status) => {
+  it.each(['Closed', 'Rejected', 'Duplicate', 'Cancelled'] as const)('shows a %s candidate without the mark button', async (status) => {
     show([makeReport({ possibleDuplicates: ['r2'] }), makeReport({ id: 'r2', status, description: 'Old one' })]);
+    await userEvent.click(screen.getByText('Possible duplicates (1)'));
     const banner = screen.getByRole('region', { name: /possible duplicates/i });
     expect(within(banner).getByText('Old one')).toBeInTheDocument();
     expect(within(banner).getByText(status)).toBeInTheDocument();
@@ -196,6 +199,7 @@ describe('IncidentDetails', () => {
 
   it('sets priority and classification', async () => {
     show([makeReport()]);
+    await userEvent.click(screen.getByRole('button', { name: 'Edit priority & classification' }));
     await userEvent.selectOptions(screen.getByLabelText(/priority/i), 'high');
     await userEvent.click(screen.getByRole('button', { name: 'Set priority' }));
     expect(h.api).toHaveBeenCalledWith('/reports/r1/priority', { method: 'PATCH', body: { priority: 'high' } });
@@ -204,8 +208,9 @@ describe('IncidentDetails', () => {
     expect(h.api).toHaveBeenCalledWith('/reports/r1/classify', { method: 'PATCH', body: { classification: 'Rising river' } });
   });
 
-  it('hides priority control for closed reports', () => {
+  it('hides priority control for closed reports', async () => {
     show([makeReport({ status: 'Closed' })]);
+    await userEvent.click(screen.getByRole('button', { name: 'Edit priority & classification' }));
     expect(screen.queryByRole('button', { name: 'Set priority' })).toBeNull();
   });
 

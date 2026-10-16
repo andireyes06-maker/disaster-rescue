@@ -41,6 +41,15 @@ function renderPage(path = '/analytics') {
 describe('AnalyticsPage', () => {
   beforeEach(() => vi.restoreAllMocks());
 
+  it('rejects a reversed date interval instead of showing misleading empty charts or allowing exports', () => {
+    serveStats(STATS);
+    renderPage('/analytics?from=2026-10-17&to=2026-10-01');
+    expect(screen.getByRole('alert')).toHaveTextContent('The end date must be on or after the start date.');
+    expect(screen.getByLabelText('To')).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.queryByRole('button', { name: 'Download CSV' })).toBeNull();
+    expect(globalThis.fetch).not.toHaveBeenCalled();
+  });
+
   it('shows the empty state and no chart when there is no data', async () => {
     serveStats(EMPTY);
     renderPage();

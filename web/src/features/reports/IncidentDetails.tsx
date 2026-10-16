@@ -55,8 +55,10 @@ interface DuplicateBannerProps {
 
 function DuplicateBanner({ report, candidates, canAct, busy, onMark }: DuplicateBannerProps) {
   return (
-    <section className="card dup" aria-labelledby="dup-title">
-      <h2 id="dup-title">Possible duplicates</h2>
+    <details className="card dup">
+      <summary>Possible duplicates ({candidates.length})</summary>
+      <section className="dup__body" aria-label="Possible duplicates">
+      <h2 id="dup-title">Compare flagged reports</h2>
       <p>These reports were flagged as similar. Compare them with the one you are viewing.</p>
       <p>The report you are viewing will be closed as a duplicate of the report you choose.</p>
       <div className="dup__grid">
@@ -99,7 +101,8 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }: Duplicate
           );
         })}
       </div>
-    </section>
+      </section>
+    </details>
   );
 }
 
@@ -127,6 +130,7 @@ function IncidentView({ id }: IncidentViewProps) {
   const [priority, setPriority] = useState('');
   const [classification, setClassification] = useState('');
   const [assigning, setAssigning] = useState(false);
+  const [editingDetails, setEditingDetails] = useState(false);
 
   const backTo = role === 'dmo' ? '/monitor' : '/dashboard';
   if (loading) return <p role="status" className="loading">Loading...</p>;
@@ -172,7 +176,13 @@ function IncidentView({ id }: IncidentViewProps) {
   const loc = report.location;
   return (
     <div className="incident">
-      <p><Link to={canAct ? '/dashboard' : '/monitor'}>Back to the queue</Link></p>
+      <p className="incident__back"><Link to={canAct ? '/dashboard' : '/monitor'}>Back to the queue</Link></p>
+
+      <header className="incident__heading">
+        <h2>{report.type} report</h2>
+        <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /><VerifiedBadge verified={report.verified} /></div>
+        <p className="incident__reference">Report {report.id} · {formatTime(report.createdAt)}</p>
+      </header>
 
       {message && (
         message.kind === 'ok'
@@ -180,25 +190,15 @@ function IncidentView({ id }: IncidentViewProps) {
           : <Banner tone="error" role="alert">{message.text}</Banner>
       )}
 
-      {candidates.length > 0 && (
-        <DuplicateBanner report={report} candidates={candidates} canAct={canAct} busy={busy}
-          onMark={(dupId) => run('duplicate', { duplicateOf: dupId }, 'Report marked as a duplicate.')} />
-      )}
-
+      <div className="incident__content">
       <section className="card" aria-label="Report details">
-        <div className="incident__badges">
-          <StatusBadge status={report.status} />
-          <PriorityBadge priority={report.priority} />
-          <VerifiedBadge verified={report.verified} />
-        </div>
+        <h2>Reported incident</h2>
+        <p className="plain incident__description">{report.description}</p>
         <dl>
-          <Fact label="Type">{report.type}</Fact>
-          <Fact label="Description"><span className="plain">{report.description}</span></Fact>
           <Fact label="Classification"><span className="plain">{report.classification || 'Not classified'}</span></Fact>
-          <Fact label="Reported">{formatTime(report.createdAt)}</Fact>
           <Fact label="Address"><span className="plain">{report.addressText || 'No address given'}</span></Fact>
           {loc && Number.isFinite(loc.lat) && <Fact label="Location">{loc.lat.toFixed(5)}, {loc.lng.toFixed(5)} ({loc.source})</Fact>}
-          <Fact label="Contact"><span className="plain">{report.contact?.name} {report.contact?.phone}</span></Fact>
+          <Fact label="Contact"><span className="plain">{report.contact?.name}{' '}{report.contact?.phone && <a href={`tel:${report.contact.phone}`}>{report.contact.phone}</a>}</span></Fact>
           {report.rejectionReason && <Fact label="Rejection reason"><span className="plain">{report.rejectionReason}</span></Fact>}
         </dl>
         {report.photos?.length > 0 && (
@@ -212,7 +212,12 @@ function IncidentView({ id }: IncidentViewProps) {
 
       <section className="card" aria-labelledby="updates-title">
         <h2 id="updates-title">Rescue updates</h2>
-        {updatesState.error && <Banner tone="error" role="alert">Could not load rescue updates.</Banner>}
+        {updatesState.error && (
+          <Banner tone="error" role="alert">
+            Could not load rescue updates.{' '}
+            <button className="btn btn--ghost" type="button" onClick={updatesState.retry}>Try again</button>
+          </Banner>
+        )}
         {!updatesState.error && updatesState.updates.length === 0 && <p>No rescue updates yet.</p>}
         {updatesState.updates.length > 0 && (
           <ol className="updates">
@@ -227,8 +232,15 @@ function IncidentView({ id }: IncidentViewProps) {
         )}
       </section>
 
+      {candidates.length > 0 && (
+        <DuplicateBanner report={report} candidates={candidates} canAct={canAct} busy={busy}
+          onMark={(dupId) => run('duplicate', { duplicateOf: dupId }, 'Report marked as a duplicate.')} />
+      )}
+      </div>
+
       {canAct && (
-        <section className="card actions" aria-label="Actions">
+        <aside className="card actions incident__actions" aria-label="Actions">
+          <h2>Report actions</h2>
           {canAssign && (
             <div className="actions__row">
               <button ref={assignTrigger} type="button" className="btn" disabled={busy} onClick={() => setAssigning(true)}>Assign team</button>
@@ -240,6 +252,9 @@ function IncidentView({ id }: IncidentViewProps) {
               <button ref={rejectTrigger} type="button" className="btn btn--ghost" disabled={busy} onClick={() => setRejecting(true)}>Reject</button>
             </div>
           )}
+          <button type="button" className="btn btn--ghost" aria-expanded={editingDetails} aria-controls="report-metadata"
+            onClick={() => setEditingDetails((open) => !open)}>{editingDetails ? 'Hide report settings' : 'Edit priority & classification'}</button>
+          {editingDetails && <div id="report-metadata" className="actions" role="group" aria-label="Report settings">
           {isOpen(report) && (
             <div className="actions__row">
               <label htmlFor="priority-select">Priority</label>
@@ -257,7 +272,8 @@ function IncidentView({ id }: IncidentViewProps) {
             <button type="button" className="btn" disabled={busy || !classification.trim()}
               onClick={() => run('classify', { classification: classification.trim() }, 'Classification saved.')}>Classify</button>
           </div>
-        </section>
+          </div>}
+        </aside>
       )}
 
       {canAct && assigning && (

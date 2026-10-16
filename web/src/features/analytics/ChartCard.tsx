@@ -23,11 +23,11 @@ export default function ChartCard({ title, labelHeader, data }: ChartCardProps) 
       ) : (
         <>
           <div role="img" aria-label={`${title} chart`} className="chart-card__chart">
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={data}>
-                <CartesianGrid vertical={false} />
-                <XAxis dataKey="label" />
-                <YAxis allowDecimals={false} />
+            <ResponsiveContainer width="100%" height={Math.max(240, data.length * 38)}>
+              <BarChart data={data} layout="vertical" margin={{ top: 8, right: 12, bottom: 8, left: 0 }}>
+                <CartesianGrid horizontal={false} stroke="var(--color-mist)" />
+                <XAxis type="number" allowDecimals={false} tick={{ fontSize: 12 }} />
+                <YAxis type="category" dataKey="label" width={138} tick={{ fontSize: 11 }} interval={0} />
                 <Bar dataKey="value" className="chart-card__bar" isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>

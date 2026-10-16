@@ -15,7 +15,7 @@ test.describe('login page', () => {
   });
 
   test('renders the sign-in form with accessible labels', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/login');
 
     await expect(page.getByRole('heading', { name: 'Sign in', level: 1 })).toBeVisible();
     await expect(page.getByLabel('Email')).toBeVisible();
@@ -25,7 +25,7 @@ test.describe('login page', () => {
 
   test('has no horizontal scroll and a side gutter of at least 16px at 375px', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 800 });
-    await page.goto('/');
+    await page.goto('/login');
     await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
 
     const { scrollWidth, innerWidth } = await page.evaluate(() => ({
@@ -47,7 +47,7 @@ test.describe('login page', () => {
     });
     page.on('pageerror', (err) => errors.push(err.message));
 
-    await page.goto('/');
+    await page.goto('/login');
     await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
     await page.waitForLoadState('networkidle');
 

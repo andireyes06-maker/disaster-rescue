@@ -27,6 +27,23 @@ function serveAudit(body: unknown) {
 describe('AuditPage', () => {
   beforeEach(() => vi.restoreAllMocks());
 
+  it('retries a failed load from the error banner', async () => {
+    const user = userEvent.setup();
+    let calls = 0;
+    globalThis.fetch = vi.fn(async () => {
+      calls += 1;
+      if (calls === 1) throw new TypeError('network down');
+      return { ok: true, status: 200, text: async () => JSON.stringify(ROWS) };
+    }) as unknown as typeof fetch;
+
+    render(<AuditPage />);
+    await screen.findByText(/Could not load the audit log/);
+    await user.click(screen.getByRole('button', { name: 'Try again' }));
+
+    await waitFor(() => expect(screen.getByText('update_status')).toBeInTheDocument());
+    expect(calls).toBe(2);
+  });
+
   it('shows before and after values as plain text, never as markup', async () => {
     serveAudit(ROWS);
     const { container } = render(<AuditPage />);

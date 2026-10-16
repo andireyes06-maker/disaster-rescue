@@ -1,7 +1,7 @@
 import EmptyState from '../../components/calm/EmptyState';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useReports } from '../reports/useReports';
@@ -51,8 +51,19 @@ function iconFor(report: Report): L.DivIcon {
 
 const DEFAULT_CENTER: [number, number] = [0, 0];
 
+function FitReports({ reports }: { reports: Report[] }) {
+  const map = useMap();
+  const coordinates = reports.map((r) => `${r.location!.lat},${r.location!.lng}`).join(';');
+  useEffect(() => {
+    if (!coordinates) return;
+    const points = coordinates.split(';').map((point) => point.split(',').map(Number) as [number, number]);
+    map.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 14, animate: false });
+  }, [map, coordinates]);
+  return null;
+}
+
 export default function IncidentMap() {
-  const { reports, loading, error } = useReports();
+  const { reports, loading, error, retry } = useReports();
   const navigate = useNavigate();
   const [filters, setFilters] = useState<Filters>({ type: '', priority: '', status: '' });
   const set = (key: keyof Filters) => (value: string) => setFilters((f) => ({ ...f, [key]: value }));
@@ -70,7 +81,14 @@ export default function IncidentMap() {
     ? ([located[0].location.lat, located[0].location.lng] as [number, number])
     : DEFAULT_CENTER;
 
-  if (error) return <Banner tone="error" role="alert">The map could not load reports. Try again later.</Banner>;
+  if (error) {
+    return (
+      <Banner tone="error" role="alert">
+        The map could not load reports. Try again later.{' '}
+        <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
+      </Banner>
+    );
+  }
   if (loading) return <p role="status" className="loading">Loading...</p>;
 
   return (
@@ -80,7 +98,10 @@ export default function IncidentMap() {
         <FilterSelect label="Priority" value={filters.priority} onChange={set('priority')} options={PRIORITIES} />
         <FilterSelect label="Status" value={filters.status} onChange={set('status')} options={REPORT_STATUSES} />
       </div>
-      <p>{visible.length} located report{visible.length === 1 ? '' : 's'} shown.</p>
+      <div className="map-legend" aria-label="Map legend">
+        <strong>{visible.length} located report{visible.length === 1 ? '' : 's'} shown</strong>
+        {PRIORITIES.map((priority) => <span key={priority}><span className={`badge badge--${priority}`}>{cap(priority)}</span></span>)}
+      </div>
       {visible.length === 0 && (
         <EmptyState
           title="No located reports yet"
@@ -89,6 +110,7 @@ export default function IncidentMap() {
       )}
       <div className="incident-map">
         <MapContainer center={center} zoom={located.length ? 13 : 2} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+          <FitReports reports={visible} />
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution="&copy; OpenStreetMap contributors"

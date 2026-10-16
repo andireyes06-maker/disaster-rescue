@@ -74,6 +74,7 @@ export interface RescueUpdate {
 // Responder progress entries, oldest first. Firestore rules let staff read them.
 export function useReportUpdates(id: string) {
   const [state, setState] = useState<{ updates: RescueUpdate[]; error: FirestoreError | null }>({ updates: [], error: null });
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     setState({ updates: [], error: null });
@@ -99,7 +100,8 @@ export function useReportUpdates(id: string) {
       }),
       (error) => setState({ updates: [], error }),
     );
-  }, [id]);
+  }, [id, attempt]);
 
-  return state;
+  const retry = () => setAttempt((n) => n + 1);
+  return { ...state, retry };
 }

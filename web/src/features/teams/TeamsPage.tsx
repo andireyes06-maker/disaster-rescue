@@ -52,15 +52,17 @@ function TeamRow({ team, onSaved, onError }: TeamRowProps) {
   }
 
   return (
-    <li className="queue__row card">
+    <li className="management-row">
+      <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
+      <details className="team-edit"><summary>Edit name</summary>
       <form onSubmit={handleSubmit(save)} className="ops-form" aria-label={`Team ${team.name}`}>
         <label htmlFor={`team-name-${team.id}`}>Team name</label>
         <input id={`team-name-${team.id}`} maxLength={100} {...register('name')} />
-        <span className="queue__meta">Status: {team.busy ? 'Busy on a rescue' : 'Free'}</span>
         <div className="actions__row">
           <button type="submit" className="btn" disabled={busy || !name.trim()}>Save name</button>
         </div>
       </form>
+      </details>
     </li>
   );
 }
@@ -102,6 +104,8 @@ export default function TeamsPage() {
 
   return (
     <div>
+      <div className="management-toolbar"><div><h2>Rescue teams{teams ? ` (${teams.length})` : ''}</h2><p>Availability updates as teams are assigned to rescues.</p></div></div>
+      <details className="management-create"><summary className="btn">Create team</summary>
       <form className="card ops-form" onSubmit={handleSubmit(create)} aria-label="Create team">
         <label htmlFor="new-team">New team name</label>
         <input id="new-team" maxLength={100} {...register('name')} />
@@ -109,17 +113,18 @@ export default function TeamsPage() {
           <button type="submit" className="btn" disabled={busy || !newName.trim()}>Create team</button>
         </div>
       </form>
+      </details>
 
       {message && (message.kind === 'ok'
         ? <Banner tone="info" role="status">{message.text}</Banner>
         : <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message.text}</Banner>)}
-      {loadError && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {loadError}</Banner>}
+      {loadError && <Banner tone="error" role="alert">{loadError} <button className="btn btn--ghost" type="button" onClick={load}>Try again</button></Banner>}
       {!loadError && teams === null && <p role="status" className="loading">Loading...</p>}
       {teams && teams.length === 0 && (
-        <EmptyState title="No teams yet" body="Create the first team below. Dispatchers assign reports to teams." />
+        <EmptyState title="No teams yet" body="Choose Create team to add the first rescue team." />
       )}
       {teams && teams.length > 0 && (
-        <ul className="queue" aria-label="Teams">
+        <ul className="management-list" aria-label="Teams">
           {teams.map((t) => (
             <TeamRow key={t.id} team={t}
               onSaved={(text) => { setMessage({ kind: 'ok', text }); load(); }}

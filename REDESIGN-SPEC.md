@@ -1,8 +1,14 @@
 # REDESIGN-SPEC: whole web product, ground up
 
-Status: draft for approval. No code until approved (CLAUDE.md big-task rule).
+Status: written spec, awaiting Airen's review. No code until the spec and the plan are approved (architectural path).
 Date: Oct 16, 2026. Decisions from Airen: scope = whole product; depth = rewrite markup too.
 Builds on: `LANDING-AUDIT.md` (option A, calm civic), `docs/design-tokens/tokens.json`.
+
+## Decisions recorded (Oct 16, 2026)
+
+- **Staff layout: Option B, approved.** Command toolbar with counts and filters on the dispatcher dashboard; incident details as two columns with a sticky action rail; assignments as cards. Applies to phases 4, 5 and 7.
+- **Staff browser check: local Firebase emulator.** No passwords and no changes to the real `flutter-5094e` project. Replaces the real-project sign-in in `REDESIGN-PLAN.md` phase 8, step 4, which must be revised when the plan is updated. Not yet verified that the emulator runs with seed data here.
+- **Open questions 1-3 below:** still on their defaults (no answer given).
 
 ## Goal
 

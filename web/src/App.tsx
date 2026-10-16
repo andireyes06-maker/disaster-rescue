@@ -1,27 +1,27 @@
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import RoleRoute from './routes/RoleRoute';
 import Home from './routes/Home';
 import LoginPage from './features/auth/LoginPage';
 import Forbidden from './pages/Forbidden';
 import AppShell from './layout/AppShell';
-import ReportQueue from './features/reports/ReportQueue';
-import IncidentDetails from './features/reports/IncidentDetails';
-import TeamsPage from './features/teams/TeamsPage';
-import UsersPage from './features/users/UsersPage';
-import AssignmentsPage from './features/responder/AssignmentsPage';
-import IncidentMap from './features/map/IncidentMap';
-import MonitorPage from './features/dmo/MonitorPage';
-import AnalyticsPage from './features/analytics/AnalyticsPage';
-import AuditPage from './features/audit/AuditPage';
-import SummaryCards from './features/dashboard/SummaryCards';
+const ReportQueue = lazy(() => import('./features/reports/ReportQueue'));
+const IncidentDetails = lazy(() => import('./features/reports/IncidentDetails'));
+const TeamsPage = lazy(() => import('./features/teams/TeamsPage'));
+const UsersPage = lazy(() => import('./features/users/UsersPage'));
+const AssignmentsPage = lazy(() => import('./features/responder/AssignmentsPage'));
+const IncidentMap = lazy(() => import('./features/map/IncidentMap'));
+const MonitorPage = lazy(() => import('./features/dmo/MonitorPage'));
+const AnalyticsPage = lazy(() => import('./features/analytics/AnalyticsPage'));
+const AuditPage = lazy(() => import('./features/audit/AuditPage'));
 
 export default function App() {
   return (
-    <Routes>
+    <Suspense fallback={<p className="loading" role="status">Loading page…</p>}><Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/forbidden" element={<Forbidden />} />
-      <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><SummaryCards /><ReportQueue /></AppShell></RoleRoute>} />
+      <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />
       <Route path="/analytics" element={<RoleRoute allow={['dispatcher', 'dmo']}><AppShell title="Analytics"><AnalyticsPage /></AppShell></RoleRoute>} />
       <Route path="/audit" element={<RoleRoute allow={['dispatcher']}><AppShell title="Audit log"><AuditPage /></AppShell></RoleRoute>} />
       <Route path="/monitor" element={<RoleRoute allow={['dmo']}><AppShell title="Monitor"><MonitorPage /></AppShell></RoleRoute>} />
@@ -31,6 +31,6 @@ export default function App() {
       <Route path="/users" element={<RoleRoute allow={['dispatcher']}><AppShell title="Users"><UsersPage /></AppShell></RoleRoute>} />
       <Route path="/assignments" element={<RoleRoute allow={['responder']}><AppShell title="Assignments"><AssignmentsPage /></AppShell></RoleRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    </Routes></Suspense>
   );
 }

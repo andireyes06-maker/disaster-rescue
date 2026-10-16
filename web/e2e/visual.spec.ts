@@ -22,7 +22,7 @@ test.describe('visual comparison', () => {
 
   for (const [label, url] of [
     ['baseline', BASELINE_URL ?? ''],
-    ['current', 'http://localhost:5173/'],
+    ['current', 'http://localhost:5173/login'],
   ] as const) {
     for (const width of WIDTHS) {
       test(`${label} login at ${width}px`, async ({ page }) => {

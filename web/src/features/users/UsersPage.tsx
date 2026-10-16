@@ -94,6 +94,8 @@ export default function UsersPage() {
 
   return (
     <div>
+      <div className="management-toolbar"><div><h2>Accounts{users ? ` (${users.length})` : ''}</h2><p>Review access before changing an account’s status.</p></div></div>
+      <details className="management-create"><summary className="btn">Create staff account</summary>
       <form className="card ops-form" onSubmit={handleSubmit(create)} aria-label="Create staff account">
         <label htmlFor="staff-email">Email</label>
         <input id="staff-email" type="email" {...register('email')} />
@@ -112,28 +114,30 @@ export default function UsersPage() {
           <button type="submit" className="btn" disabled={busy || !email.trim() || !fullName.trim()}>Create account</button>
         </div>
       </form>
+      </details>
 
       {message && (message.kind === 'ok'
         ? <Banner tone="info" role="status">{message.text}</Banner>
         : <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message.text}</Banner>)}
-      {loadError && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {loadError}</Banner>}
+      {loadError && <Banner tone="error" role="alert">{loadError} <button className="btn btn--ghost" type="button" onClick={load}>Try again</button></Banner>}
       {!loadError && users === null && <p role="status" className="loading">Loading...</p>}
       {users && users.length > 0 && (
-        <ul className="queue" aria-label="Users">
+        <ul className="management-list" aria-label="Users">
           {users.map((u) => (
-            <li key={u.uid} className="queue__row card">
-              <span className="queue__link">
-                <span className="queue__type">{u.name || u.email}</span>
-                <span className="plain">{u.email}</span>
-              </span>
-              <span className="queue__meta">
-                <span>{u.role}</span>
+            <li key={u.uid} className="management-row">
+              <div className="management-identity">
+                <strong>{u.name || u.email}</strong>
+                <small>{u.email}</small>
+                <span className="badge badge--neutral">{u.role}</span>
+              </div>
+              <div className="management-actions">
                 <span>{u.active ? 'Active' : 'Deactivated'}</span>
                 <button type="button" className="btn btn--ghost" disabled={busy}
+                  aria-label={`${u.active ? 'Deactivate' : 'Activate'} ${u.name || u.email}`}
                   onClick={() => setActive(u, !u.active)}>
-                  {u.active ? `Deactivate ${u.name || u.email}` : `Activate ${u.name || u.email}`}
+                  {u.active ? 'Deactivate' : 'Activate'}
                 </button>
-              </span>
+              </div>
             </li>
           ))}
         </ul>

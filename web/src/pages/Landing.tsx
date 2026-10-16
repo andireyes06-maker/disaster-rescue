@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import PublicHeader from '../components/PublicHeader';
 import './public.css';
 
-const HOTLINE_PLACEHOLDER = '000-0000';
-
 const FLOW = ['Submitted', 'Verified', 'Assigned', 'In progress', 'Resolved', 'Closed'];
 
 const ROLES = [
@@ -23,27 +21,25 @@ export default function Landing() {
       <main>
         <section className="landing__hero" aria-labelledby="hero-heading">
           <div className="landing__hero-inner">
-            <p className="landing__kicker">Emergency reporting for residents and response teams</p>
-            <h1 id="hero-heading">Disaster Rescue Reporting and Monitoring System</h1>
+            <h1 id="hero-heading">Report an incident.<br />Coordinate the response.</h1>
             <p className="landing__lede">
-              Report an emergency, track the response, and see how the community is affected.
+              One place for response teams to review reports, assign rescue teams, and follow each incident through to resolution.
             </p>
           </div>
         </section>
 
         <section className="landing__doors-wrap" aria-label="Choose your door">
           <div className="landing__doors">
-            <article className="door door--resident">
-              <p className="door__tag">Residents</p>
-              <h2>I need to report an emergency</h2>
-              <p>Use the mobile app to report with photos and location, and to follow the status.</p>
-              <a className="btn btn--ghost door__action" href="#resident-app">Get the resident app</a>
-            </article>
             <article className="door door--staff">
-              <p className="door__tag">Response team</p>
-              <h2>I work for the response team</h2>
+              <h2>Staff workspace</h2>
               <p>Dispatchers, responders, and the DMO sign in to the staff web.</p>
               <Link className="btn door__action" to="/login">Sign in to the staff web</Link>
+            </article>
+            <article className="door door--resident">
+              <h2>Resident mobile app</h2>
+              <p>Use the mobile app to report with photos and location, and to follow the status.</p>
+              <p className="door__availability">Not publicly released. Ask your team lead for a demo build.</p>
+              <a className="door__link" href="#resident-app">Resident app availability</a>
             </article>
           </div>
         </section>
@@ -104,11 +100,10 @@ export default function Landing() {
           </div>
           <div>
             <p className="landing__footer-title">Credits</p>
-            <p>Team names and roles: to be added.</p>
             <p>{COURSE}</p>
           </div>
         </div>
-        <p className="landing__footer-hotline">Emergency hotline: {HOTLINE_PLACEHOLDER} (placeholder)</p>
+        <p className="landing__footer-hotline">Demonstration site. A local emergency hotline has not been configured.</p>
         </div>
       </footer>
     </div>

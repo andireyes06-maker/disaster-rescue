@@ -1,0 +1,4647 @@
+[
+  {
+    "label": "landing",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Disaster Rescue Reporting and Monitoring System"
+      },
+      {
+        "tag": "H2",
+        "text": "I need to report an emergency"
+      },
+      {
+        "tag": "H2",
+        "text": "I work for the response team"
+      },
+      {
+        "tag": "H2",
+        "text": "How a report moves"
+      },
+      {
+        "tag": "H2",
+        "text": "Who it is for"
+      },
+      {
+        "tag": "H3",
+        "text": "Residents"
+      },
+      {
+        "tag": "H3",
+        "text": "Dispatchers"
+      },
+      {
+        "tag": "H3",
+        "text": "Responders"
+      },
+      {
+        "tag": "H3",
+        "text": "DMO"
+      },
+      {
+        "tag": "H2",
+        "text": "The resident app"
+      },
+      {
+        "tag": "H2",
+        "text": "Privacy"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 2159.78125,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 200.34375,
+      "height": 44,
+      "x": 260,
+      "y": 651.78125
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1040,
+      "height": 1761.28125,
+      "x": 200,
+      "y": 68
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\n\nEmergency reporting for residents and response teams\n\nDisaster Rescue Reporting and Monitoring System\n\nReport an emergency, track the response, and see how the community is affected.\n\nResidents\n\nI need to report an emergency\n\nUse the mobile app to report with photos and location, and to follow the status.\n\nGet the resident app\n\nResponse team\n\nI work for the response team\n\nDispatchers, responders, and the DMO sign in to the staff web.\n\nSign in to the staff web\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when.\n\nWho it is for\nResidents\n\nReport an emergency with photos and location, and follow its status.\n\nDispatchers\n\nVerify, prioritize, and assign reports.\n\nResponders\n\nAcknowledge assignments and post rescue updates.\n\nDMO\n\nMonitor trends and export summaries.\n\nThe resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.\n\nPrivacy\n\nPrivacy notice (pending review).\n\nDR\nDisaster Rescue\n\nStaff\n\nSign in to the staff web\n\nCredits\n\nTeam names and roles: to be added.\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nEmergency hotline: 000-0000 (placeholder)",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "landing",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Disaster Rescue Reporting and Monitoring System"
+      },
+      {
+        "tag": "H2",
+        "text": "I need to report an emergency"
+      },
+      {
+        "tag": "H2",
+        "text": "I work for the response team"
+      },
+      {
+        "tag": "H2",
+        "text": "How a report moves"
+      },
+      {
+        "tag": "H2",
+        "text": "Who it is for"
+      },
+      {
+        "tag": "H3",
+        "text": "Residents"
+      },
+      {
+        "tag": "H3",
+        "text": "Dispatchers"
+      },
+      {
+        "tag": "H3",
+        "text": "Responders"
+      },
+      {
+        "tag": "H3",
+        "text": "DMO"
+      },
+      {
+        "tag": "H2",
+        "text": "The resident app"
+      },
+      {
+        "tag": "H2",
+        "text": "Privacy"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 2166.8125,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 200.34375,
+      "height": 44,
+      "x": 60,
+      "y": 658.8125
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 768,
+      "height": 1768.3125,
+      "x": 0,
+      "y": 68
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\n\nEmergency reporting for residents and response teams\n\nDisaster Rescue Reporting and Monitoring System\n\nReport an emergency, track the response, and see how the community is affected.\n\nResidents\n\nI need to report an emergency\n\nUse the mobile app to report with photos and location, and to follow the status.\n\nGet the resident app\n\nResponse team\n\nI work for the response team\n\nDispatchers, responders, and the DMO sign in to the staff web.\n\nSign in to the staff web\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when.\n\nWho it is for\nResidents\n\nReport an emergency with photos and location, and follow its status.\n\nDispatchers\n\nVerify, prioritize, and assign reports.\n\nResponders\n\nAcknowledge assignments and post rescue updates.\n\nDMO\n\nMonitor trends and export summaries.\n\nThe resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.\n\nPrivacy\n\nPrivacy notice (pending review).\n\nDR\nDisaster Rescue\n\nStaff\n\nSign in to the staff web\n\nCredits\n\nTeam names and roles: to be added.\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nEmergency hotline: 000-0000 (placeholder)",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "landing",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Disaster Rescue Reporting and Monitoring System"
+      },
+      {
+        "tag": "H2",
+        "text": "I need to report an emergency"
+      },
+      {
+        "tag": "H2",
+        "text": "I work for the response team"
+      },
+      {
+        "tag": "H2",
+        "text": "How a report moves"
+      },
+      {
+        "tag": "H2",
+        "text": "Who it is for"
+      },
+      {
+        "tag": "H3",
+        "text": "Residents"
+      },
+      {
+        "tag": "H3",
+        "text": "Dispatchers"
+      },
+      {
+        "tag": "H3",
+        "text": "Responders"
+      },
+      {
+        "tag": "H3",
+        "text": "DMO"
+      },
+      {
+        "tag": "H2",
+        "text": "The resident app"
+      },
+      {
+        "tag": "H2",
+        "text": "Privacy"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 3087.953125,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 200.34375,
+      "height": 44,
+      "x": 60,
+      "y": 730.171875
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 2533.453125,
+      "x": 0,
+      "y": 124
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\n\nEmergency reporting for residents and response teams\n\nDisaster Rescue Reporting and Monitoring System\n\nReport an emergency, track the response, and see how the community is affected.\n\nResidents\n\nI need to report an emergency\n\nUse the mobile app to report with photos and location, and to follow the status.\n\nGet the resident app\n\nResponse team\n\nI work for the response team\n\nDispatchers, responders, and the DMO sign in to the staff web.\n\nSign in to the staff web\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when.\n\nWho it is for\nResidents\n\nReport an emergency with photos and location, and follow its status.\n\nDispatchers\n\nVerify, prioritize, and assign reports.\n\nResponders\n\nAcknowledge assignments and post rescue updates.\n\nDMO\n\nMonitor trends and export summaries.\n\nThe resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.\n\nPrivacy\n\nPrivacy notice (pending review).\n\nDR\nDisaster Rescue\n\nStaff\n\nSign in to the staff web\n\nCredits\n\nTeam names and roles: to be added.\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nEmergency hotline: 000-0000 (placeholder)",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "landing",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Disaster Rescue Reporting and Monitoring System"
+      },
+      {
+        "tag": "H2",
+        "text": "I need to report an emergency"
+      },
+      {
+        "tag": "H2",
+        "text": "I work for the response team"
+      },
+      {
+        "tag": "H2",
+        "text": "How a report moves"
+      },
+      {
+        "tag": "H2",
+        "text": "Who it is for"
+      },
+      {
+        "tag": "H3",
+        "text": "Residents"
+      },
+      {
+        "tag": "H3",
+        "text": "Dispatchers"
+      },
+      {
+        "tag": "H3",
+        "text": "Responders"
+      },
+      {
+        "tag": "H3",
+        "text": "DMO"
+      },
+      {
+        "tag": "H2",
+        "text": "The resident app"
+      },
+      {
+        "tag": "H2",
+        "text": "Privacy"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 3316.25,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 200,
+      "height": 68,
+      "x": 60,
+      "y": 815.96875
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 2715.25,
+      "x": 0,
+      "y": 148
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\n\nEmergency reporting for residents and response teams\n\nDisaster Rescue Reporting and Monitoring System\n\nReport an emergency, track the response, and see how the community is affected.\n\nResidents\n\nI need to report an emergency\n\nUse the mobile app to report with photos and location, and to follow the status.\n\nGet the resident app\n\nResponse team\n\nI work for the response team\n\nDispatchers, responders, and the DMO sign in to the staff web.\n\nSign in to the staff web\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when.\n\nWho it is for\nResidents\n\nReport an emergency with photos and location, and follow its status.\n\nDispatchers\n\nVerify, prioritize, and assign reports.\n\nResponders\n\nAcknowledge assignments and post rescue updates.\n\nDMO\n\nMonitor trends and export summaries.\n\nThe resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.\n\nPrivacy\n\nPrivacy notice (pending review).\n\nDR\nDisaster Rescue\n\nStaff\n\nSign in to the staff web\n\nCredits\n\nTeam names and roles: to be added.\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nEmergency hotline: 000-0000 (placeholder)",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "login",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/login",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Sign in"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(30, 91, 198)",
+      "width": 96.296875,
+      "height": 44,
+      "x": 535,
+      "y": 544.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1040,
+      "height": 832,
+      "x": 200,
+      "y": 68
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\nSign in\nEmail\nPassword\nSign in\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "login",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/login",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Sign in"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(30, 91, 198)",
+      "width": 96.296875,
+      "height": 44,
+      "x": 199,
+      "y": 544.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 768,
+      "height": 832,
+      "x": 0,
+      "y": 68
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\nSign in\nEmail\nPassword\nSign in\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "login",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/login",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Sign in"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(30, 91, 198)",
+      "width": 96.296875,
+      "height": 44,
+      "x": 41,
+      "y": 572.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 776,
+      "x": 0,
+      "y": 124
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\nSign in\nEmail\nPassword\nSign in\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "login",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/login",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Sign in"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(30, 91, 198)",
+      "width": 96.296875,
+      "height": 44,
+      "x": 41,
+      "y": 574
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 752,
+      "x": 0,
+      "y": 148
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\nSign in\nEmail\nPassword\nSign in\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "forbidden",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/forbidden",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Access denied"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 107.78125,
+      "height": 44,
+      "x": 544.4375,
+      "y": 532
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1040,
+      "height": 832,
+      "x": 200,
+      "y": 68
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\nAccess denied\n\nYour account does not have access to this page.\n\nSign out",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "forbidden",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/forbidden",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Access denied"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 107.78125,
+      "height": 44,
+      "x": 208.4375,
+      "y": 532
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 768,
+      "height": 832,
+      "x": 0,
+      "y": 68
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\nAccess denied\n\nYour account does not have access to this page.\n\nSign out",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "forbidden",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/forbidden",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Access denied"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 107.78125,
+      "height": 44,
+      "x": 41,
+      "y": 572
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 776,
+      "x": 0,
+      "y": 124
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\nAccess denied\n\nYour account does not have access to this page.\n\nSign out",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "forbidden",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/forbidden",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Access denied"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 107.78125,
+      "height": 44,
+      "x": 41,
+      "y": 584
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 752,
+      "x": 0,
+      "y": 148
+    },
+    "text": "DR\nDisaster Rescue\nEmergency hotline (placeholder)\nAccess denied\n\nYour account does not have access to this page.\n\nSign out",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "dashboard",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/dashboard",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Dashboard"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1185,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(79, 91, 112)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 238,
+      "height": 24,
+      "x": 281,
+      "y": 184
+    },
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 1116,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nDashboard\nTotal reports\n8\nOngoing\n6\nResolved\n2\nRescue teams\n3\nAll reports\n8\nOpen\n7\nCritical\n2\nVerified\n5\nFilters\nReport\tPriority\tStatus\tVerification\tReported\n\nFlood\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\n\t\n\u26a0\nCritical\n\t\n\u2709\nSubmitted\n\t\n\u25cb\nPending\n\t10/16/2026, 11:53:50 AM\n\nFire\nSmoke is coming from a residential building near the market. Residents have moved to the street.\n\t\n\u25b2\nHigh\n\t\n\u23f3\nAwaiting Assignment\n\t\n\u2713\nVerified\n\t10/16/2026, 10:53:50 AM\n\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\n\t\n\u26a0\nCritical\n\t\n\u2691\nTeam Assigned\n\t\n\u2713\nVerified\n\t10/16/2026, 9:53:50 AM\n\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\n\t\n\u25b2\nHigh\n\t\n\u2692\nRescue in Progress\n\t\n\u2713\nVerified\n\t10/16/2026, 8:53:50 AM\n\nFlood\nWater has receded. All affected residents have reached the evacuation center.\n\t\n\u25c6\nMedium\n\t\n\u2714\nResolved\n\t\n\u2713\nVerified\n\t10/16/2026, 7:53:50 AM\n\nOther\nThe rescue is complete and the report has been reviewed.\n\t\n\u25bc\nLow\n\t\n\u25a0\nClosed\n\t\n\u2713\nVerified\n\t10/16/2026, 6:53:50 AM\n\nLandslide\nA retaining wall has collapsed after heavy rain. Nearby houses may be affected.\n\t\n\u25b2\nHigh\n\t\n\u29d6\nUnder Verification\n\t\n\u25cb\nPending\n\t10/16/2026, 5:53:50 AM\n\nOther\nA tree has fallen across the road outside the school.\n\t\n\u25c6\nMedium\n\t\n\u2709\nSubmitted\n\t\n\u25cb\nPending\n\t10/16/2026, 4:53:50 AM",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "dashboard",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/dashboard",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Dashboard"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 2250,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(79, 91, 112)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 112.65625,
+      "height": 24,
+      "x": 281,
+      "y": 184
+    },
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 2181,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nDashboard\nTotal reports\n8\nOngoing\n6\nResolved\n2\nRescue teams\n3\nAll reports\n8\nOpen\n7\nCritical\n2\nVerified\n5\nFilters\nReport\tPriority\tStatus\tVerification\tReported\n\nFlood\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\n\t\n\u26a0\nCritical\n\t\n\u2709\nSubmitted\n\t\n\u25cb\nPending\n\t10/16/2026, 11:53:50 AM\n\nFire\nSmoke is coming from a residential building near the market. Residents have moved to the street.\n\t\n\u25b2\nHigh\n\t\n\u23f3\nAwaiting Assignment\n\t\n\u2713\nVerified\n\t10/16/2026, 10:53:50 AM\n\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\n\t\n\u26a0\nCritical\n\t\n\u2691\nTeam Assigned\n\t\n\u2713\nVerified\n\t10/16/2026, 9:53:50 AM\n\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\n\t\n\u25b2\nHigh\n\t\n\u2692\nRescue in Progress\n\t\n\u2713\nVerified\n\t10/16/2026, 8:53:50 AM\n\nFlood\nWater has receded. All affected residents have reached the evacuation center.\n\t\n\u25c6\nMedium\n\t\n\u2714\nResolved\n\t\n\u2713\nVerified\n\t10/16/2026, 7:53:50 AM\n\nOther\nThe rescue is complete and the report has been reviewed.\n\t\n\u25bc\nLow\n\t\n\u25a0\nClosed\n\t\n\u2713\nVerified\n\t10/16/2026, 6:53:50 AM\n\nLandslide\nA retaining wall has collapsed after heavy rain. Nearby houses may be affected.\n\t\n\u25b2\nHigh\n\t\n\u29d6\nUnder Verification\n\t\n\u25cb\nPending\n\t10/16/2026, 5:53:50 AM\n\nOther\nA tree has fallen across the road outside the school.\n\t\n\u25c6\nMedium\n\t\n\u2709\nSubmitted\n\t\n\u25cb\nPending\n\t10/16/2026, 4:53:50 AM",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "dashboard",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/dashboard",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Dashboard"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 3584.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(79, 91, 112)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 137,
+      "height": 24,
+      "x": 33,
+      "y": 257.5
+    },
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 3430,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nDashboard\nTotal reports\n8\nOngoing\n6\nResolved\n2\nRescue teams\n3\nAll reports\n8\nOpen\n7\nCritical\n2\nVerified\n5\nFilters\nFlood\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\n\u26a0\nCritical\n\u2709\nSubmitted\n\u25cb\nPending\n10/16/2026, 11:53:50 AM\nFire\nSmoke is coming from a residential building near the market. Residents have moved to the street.\n\u25b2\nHigh\n\u23f3\nAwaiting Assignment\n\u2713\nVerified\n10/16/2026, 10:53:50 AM\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\n\u26a0\nCritical\n\u2691\nTeam Assigned\n\u2713\nVerified\n10/16/2026, 9:53:50 AM\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\n\u25b2\nHigh\n\u2692\nRescue in Progress\n\u2713\nVerified\n10/16/2026, 8:53:50 AM\nFlood\nWater has receded. All affected residents have reached the evacuation center.\n\u25c6\nMedium\n\u2714\nResolved\n\u2713\nVerified\n10/16/2026, 7:53:50 AM\nOther\nThe rescue is complete and the report has been reviewed.\n\u25bc\nLow\n\u25a0\nClosed\n\u2713\nVerified\n10/16/2026, 6:53:50 AM\nLandslide\nA retaining wall has collapsed after heavy rain. Nearby houses may be affected.\n\u25b2\nHigh\n\u29d6\nUnder Verification\n\u25cb\nPending\n10/16/2026, 5:53:50 AM\nOther\nA tree has fallen across the road outside the school.\n\u25c6\nMedium\n\u2709\nSubmitted\n\u25cb\nPending\n10/16/2026, 4:53:50 AM",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "dashboard",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/dashboard",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Dashboard"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 4208.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 95.71875,
+      "height": 68,
+      "x": 192.28125,
+      "y": 97.5
+    },
+    "muted": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(79, 91, 112)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 254,
+      "height": 24,
+      "x": 33,
+      "y": 281.5
+    },
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 4030,
+      "x": 0,
+      "y": 178.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nDashboard\nTotal reports\n8\nOngoing\n6\nResolved\n2\nRescue teams\n3\nAll reports\n8\nOpen\n7\nCritical\n2\nVerified\n5\nFilters\nFlood\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\n\u26a0\nCritical\n\u2709\nSubmitted\n\u25cb\nPending\n10/16/2026, 11:53:50 AM\nFire\nSmoke is coming from a residential building near the market. Residents have moved to the street.\n\u25b2\nHigh\n\u23f3\nAwaiting Assignment\n\u2713\nVerified\n10/16/2026, 10:53:50 AM\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\n\u26a0\nCritical\n\u2691\nTeam Assigned\n\u2713\nVerified\n10/16/2026, 9:53:50 AM\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\n\u25b2\nHigh\n\u2692\nRescue in Progress\n\u2713\nVerified\n10/16/2026, 8:53:50 AM\nFlood\nWater has receded. All affected residents have reached the evacuation center.\n\u25c6\nMedium\n\u2714\nResolved\n\u2713\nVerified\n10/16/2026, 7:53:50 AM\nOther\nThe rescue is complete and the report has been reviewed.\n\u25bc\nLow\n\u25a0\nClosed\n\u2713\nVerified\n10/16/2026, 6:53:50 AM\nLandslide\nA retaining wall has collapsed after heavy rain. Nearby houses may be affected.\n\u25b2\nHigh\n\u29d6\nUnder Verification\n\u25cb\nPending\n10/16/2026, 5:53:50 AM\nOther\nA tree has fallen across the road outside the school.\n\u25c6\nMedium\n\u2709\nSubmitted\n\u25cb\nPending\n10/16/2026, 4:53:50 AM",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "incident-submitted",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/incidents/audit-1",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Possible duplicates"
+      },
+      {
+        "tag": "H3",
+        "text": "This report"
+      },
+      {
+        "tag": "H3",
+        "text": "Flagged report"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1575,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 1506,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\nPossible duplicates\n\nThese reports were flagged as similar. Compare them with the one you are viewing.\n\nThe report you are viewing will be closed as a duplicate of the report you choose.\n\nThis report\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nReported\n10/16/2026, 11:53:50 AM\nStatus\n\u2709\nSubmitted\nFlagged report\nType\nother\nDescription\nA tree has fallen across the road outside the school.\nReported\n10/16/2026, 4:53:50 AM\nDistance\n2778 m away\nStatus\n\u2709\nSubmitted\nMark the report you are viewing as a duplicate of this one\n\u2709\nSubmitted\n\u26a0\nCritical\n\u25cb\nPending\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nClassification\nNot classified\nReported\n10/16/2026, 11:53:50 AM\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85000, 120.81000 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nVerify\nReject\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-submitted",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/incidents/audit-1",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Possible duplicates"
+      },
+      {
+        "tag": "H3",
+        "text": "This report"
+      },
+      {
+        "tag": "H3",
+        "text": "Flagged report"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 2150,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 2081,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\nPossible duplicates\n\nThese reports were flagged as similar. Compare them with the one you are viewing.\n\nThe report you are viewing will be closed as a duplicate of the report you choose.\n\nThis report\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nReported\n10/16/2026, 11:53:50 AM\nStatus\n\u2709\nSubmitted\nFlagged report\nType\nother\nDescription\nA tree has fallen across the road outside the school.\nReported\n10/16/2026, 4:53:50 AM\nDistance\n2778 m away\nStatus\n\u2709\nSubmitted\nMark the report you are viewing as a duplicate of this one\n\u2709\nSubmitted\n\u26a0\nCritical\n\u25cb\nPending\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nClassification\nNot classified\nReported\n10/16/2026, 11:53:50 AM\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85000, 120.81000 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nVerify\nReject\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-submitted",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/incidents/audit-1",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Possible duplicates"
+      },
+      {
+        "tag": "H3",
+        "text": "This report"
+      },
+      {
+        "tag": "H3",
+        "text": "Flagged report"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 2584.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 2430,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\nPossible duplicates\n\nThese reports were flagged as similar. Compare them with the one you are viewing.\n\nThe report you are viewing will be closed as a duplicate of the report you choose.\n\nThis report\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nReported\n10/16/2026, 11:53:50 AM\nStatus\n\u2709\nSubmitted\nFlagged report\nType\nother\nDescription\nA tree has fallen across the road outside the school.\nReported\n10/16/2026, 4:53:50 AM\nDistance\n2778 m away\nStatus\n\u2709\nSubmitted\nMark the report you are viewing as a duplicate of this one\n\u2709\nSubmitted\n\u26a0\nCritical\n\u25cb\nPending\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nClassification\nNot classified\nReported\n10/16/2026, 11:53:50 AM\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85000, 120.81000 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nVerify\nReject\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-submitted",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/incidents/audit-1",
+    "viewport": 320,
+    "scrollWidth": 327,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Possible duplicates"
+      },
+      {
+        "tag": "H3",
+        "text": "This report"
+      },
+      {
+        "tag": "H3",
+        "text": "Flagged report"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 2716.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 97.5625,
+      "height": 68,
+      "x": 197.4375,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 327,
+      "height": 2538,
+      "x": 0,
+      "y": 178.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\nPossible duplicates\n\nThese reports were flagged as similar. Compare them with the one you are viewing.\n\nThe report you are viewing will be closed as a duplicate of the report you choose.\n\nThis report\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nReported\n10/16/2026, 11:53:50 AM\nStatus\n\u2709\nSubmitted\nFlagged report\nType\nother\nDescription\nA tree has fallen across the road outside the school.\nReported\n10/16/2026, 4:53:50 AM\nDistance\n2778 m away\nStatus\n\u2709\nSubmitted\nMark the report you are viewing as a duplicate of this one\n\u2709\nSubmitted\n\u26a0\nCritical\n\u25cb\nPending\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nClassification\nNot classified\nReported\n10/16/2026, 11:53:50 AM\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85000, 120.81000 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nVerify\nReject\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [
+      {
+        "tag": "ASIDE",
+        "class": "shell__side"
+      },
+      {
+        "tag": "DIV",
+        "class": "shell__body"
+      },
+      {
+        "tag": "HEADER",
+        "class": "shell__top"
+      },
+      {
+        "tag": "MAIN",
+        "class": "shell__main"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-assignment",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/incidents/audit-2",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1002,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 933,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u23f3\nAwaiting Assignment\n\u25b2\nHigh\n\u2713\nVerified\nType\nfire\nDescription\nSmoke is coming from a residential building near the market. Residents have moved to the street.\nClassification\nNot classified\nReported\n10/16/2026, 10:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85300, 120.81200 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nAssign team\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-assignment",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/incidents/audit-2",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 1154,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 1085,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u23f3\nAwaiting Assignment\n\u25b2\nHigh\n\u2713\nVerified\nType\nfire\nDescription\nSmoke is coming from a residential building near the market. Residents have moved to the street.\nClassification\nNot classified\nReported\n10/16/2026, 10:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85300, 120.81200 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nAssign team\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-assignment",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/incidents/audit-2",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1468.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 1314,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u23f3\nAwaiting Assignment\n\u25b2\nHigh\n\u2713\nVerified\nType\nfire\nDescription\nSmoke is coming from a residential building near the market. Residents have moved to the street.\nClassification\nNot classified\nReported\n10/16/2026, 10:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85300, 120.81200 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nAssign team\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-assignment",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/incidents/audit-2",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 1576.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 95.71875,
+      "height": 68,
+      "x": 192.28125,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 1398,
+      "x": 0,
+      "y": 178.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u23f3\nAwaiting Assignment\n\u25b2\nHigh\n\u2713\nVerified\nType\nfire\nDescription\nSmoke is coming from a residential building near the market. Residents have moved to the street.\nClassification\nNot classified\nReported\n10/16/2026, 10:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85300, 120.81200 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nAssign team\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-active",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/incidents/audit-4",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1006,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 937,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u2692\nRescue in Progress\n\u25b2\nHigh\n\u2713\nVerified\nType\nearthquake\nDescription\nFallen debris is blocking access to the evacuation center. A team is on site.\nClassification\nNot classified\nReported\n10/16/2026, 8:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\nRescue in Progress 10/16/2026, 11:53:50 AM\n\nPeople rescued: 2\n\nTeam reached the area and is assisting residents.\n\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-active",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/incidents/audit-4",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 1134,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 1065,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u2692\nRescue in Progress\n\u25b2\nHigh\n\u2713\nVerified\nType\nearthquake\nDescription\nFallen debris is blocking access to the evacuation center. A team is on site.\nClassification\nNot classified\nReported\n10/16/2026, 8:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\nRescue in Progress 10/16/2026, 11:53:50 AM\n\nPeople rescued: 2\n\nTeam reached the area and is assisting residents.\n\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-active",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/incidents/audit-4",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1496.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 1342,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u2692\nRescue in Progress\n\u25b2\nHigh\n\u2713\nVerified\nType\nearthquake\nDescription\nFallen debris is blocking access to the evacuation center. A team is on site.\nClassification\nNot classified\nReported\n10/16/2026, 8:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\nRescue in Progress 10/16/2026, 11:53:50 AM\n\nPeople rescued: 2\n\nTeam reached the area and is assisting residents.\n\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-active",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/incidents/audit-4",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 1604.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 95.71875,
+      "height": 68,
+      "x": 192.28125,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 1426,
+      "x": 0,
+      "y": 178.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u2692\nRescue in Progress\n\u25b2\nHigh\n\u2713\nVerified\nType\nearthquake\nDescription\nFallen debris is blocking access to the evacuation center. A team is on site.\nClassification\nNot classified\nReported\n10/16/2026, 8:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\nRescue in Progress 10/16/2026, 11:53:50 AM\n\nPeople rescued: 2\n\nTeam reached the area and is assisting residents.\n\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-missing",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/incidents/missing",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 220,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nReport not found. Back to the queue",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-missing",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/incidents/missing",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 220,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nReport not found. Back to the queue",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-missing",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/incidents/missing",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 372.25
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 196,
+      "x": 0,
+      "y": 429.25
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nReport not found. Back to the queue",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "incident-missing",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/incidents/missing",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 95.71875,
+      "height": 68,
+      "x": 192.28125,
+      "y": 348.25
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 220,
+      "x": 0,
+      "y": 429.25
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nReport not found. Back to the queue",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 213.328125,
+        "height": 42
+      }
+    ]
+  },
+  {
+    "label": "map",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/map",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Map"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": {
+      "font": "\"Helvetica Neue\", Arial, Helvetica, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(221, 221, 221)",
+      "width": 1136,
+      "height": 0,
+      "x": 264,
+      "y": 495
+    },
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 458,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nMap\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n\n8 located reports shown.\n\nCritical\nHigh\nCritical\nHigh\nMedium\nLow\nHigh\nMedium\n+\n\u2212\n Leaflet | \u00a9 OpenStreetMap contributors",
+    "overflow": [
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "+",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "\u2212",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "Leaflet",
+        "width": 51.34375,
+        "height": 14
+      }
+    ]
+  },
+  {
+    "label": "map",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/map",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Map"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": {
+      "font": "\"Helvetica Neue\", Arial, Helvetica, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(221, 221, 221)",
+      "width": 472,
+      "height": 0,
+      "x": 264,
+      "y": 495
+    },
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 458,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nMap\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n\n8 located reports shown.\n\nCritical\nHigh\nCritical\nHigh\nMedium\nLow\nHigh\nMedium\n+\n\u2212\n Leaflet | \u00a9 OpenStreetMap contributors",
+    "overflow": [
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "+",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "\u2212",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "Leaflet",
+        "width": 51.34375,
+        "height": 14
+      }
+    ]
+  },
+  {
+    "label": "map",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/map",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Map"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 253.25
+    },
+    "muted": null,
+    "map": {
+      "font": "\"Helvetica Neue\", Arial, Helvetica, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(221, 221, 221)",
+      "width": 358,
+      "height": 0,
+      "x": 16,
+      "y": 724.25
+    },
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 434,
+      "x": 0,
+      "y": 310.25
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nMap\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n\n8 located reports shown.\n\nCritical\nHigh\nCritical\nHigh\nMedium\nLow\nHigh\nMedium\n+\n\u2212\n Leaflet | \u00a9 OpenStreetMap contributors",
+    "overflow": [
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      },
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "+",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "\u2212",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "Leaflet",
+        "width": 51.34375,
+        "height": 14
+      }
+    ]
+  },
+  {
+    "label": "map",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/map",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Map"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 95.71875,
+      "height": 68,
+      "x": 192.28125,
+      "y": 241.25
+    },
+    "muted": null,
+    "map": {
+      "font": "\"Helvetica Neue\", Arial, Helvetica, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(221, 221, 221)",
+      "width": 288,
+      "height": 0,
+      "x": 16,
+      "y": 736.25
+    },
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 434,
+      "x": 0,
+      "y": 322.25
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nMap\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n\n8 located reports shown.\n\nCritical\nHigh\nCritical\nHigh\nMedium\nLow\nHigh\nMedium\n+\n\u2212\n Leaflet | \u00a9 OpenStreetMap contributors",
+    "overflow": [
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      },
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "+",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "\u2212",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "Leaflet",
+        "width": 51.34375,
+        "height": 14
+      }
+    ]
+  },
+  {
+    "label": "analytics",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/analytics",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Analytics"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents by type"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents by status"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents per day"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1024,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 955,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nAnalytics\nFrom\nTo\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nDownload CSV\nDownload PDF\nIncidents by type\nflood\nearthquake\nlandslide\n0\n1\n2\n3\n4\nType\tCount\nflood\t3\nfire\t1\nearthquake\t1\nother\t2\nlandslide\t1\nIncidents by status\nAwaiting Assignment\nUnder Verification\n0\n1\n2\n3\n4\nStatus\tCount\nSubmitted\t2\nAwaiting Assignment\t1\nTeam Assigned\t1\nRescue in Progress\t1\nResolved\t1\nClosed\t1\nUnder Verification\t1\nIncidents per day\n2026-10-15\n2026-10-16\n0\n1\n2\n3\n4\nDay\tCount\n2026-10-15\t4\n2026-10-16\t4\n2026-10-15",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "analytics",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/analytics",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Analytics"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents by type"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents by status"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents per day"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 2121,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 2052,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nAnalytics\nFrom\nTo\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nDownload CSV\nDownload PDF\nIncidents by type\nflood\nfire\nearthquake\nother\nlandslide\n0\n1\n2\n3\n4\nType\tCount\nflood\t3\nfire\t1\nearthquake\t1\nother\t2\nlandslide\t1\nIncidents by status\nSubmitted\nTeam Assigned\nUnder Verification\n0\n1\n2\n3\n4\nStatus\tCount\nSubmitted\t2\nAwaiting Assignment\t1\nTeam Assigned\t1\nRescue in Progress\t1\nResolved\t1\nClosed\t1\nUnder Verification\t1\nIncidents per day\n2026-10-15\n2026-10-16\n0\n1\n2\n3\n4\nDay\tCount\n2026-10-15\t4\n2026-10-16\t4\n2026-10-15",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "analytics",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/analytics",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Analytics"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents by type"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents by status"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents per day"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 2354.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 2200,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nAnalytics\nFrom\nTo\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nDownload CSV\nDownload PDF\nIncidents by type\nflood\nearthquake\nlandslide\n0\n1\n2\n3\n4\nType\tCount\nflood\t3\nfire\t1\nearthquake\t1\nother\t2\nlandslide\t1\nIncidents by status\nSubmitted\nUnder Verification\n0\n1\n2\n3\n4\nStatus\tCount\nSubmitted\t2\nAwaiting Assignment\t1\nTeam Assigned\t1\nRescue in Progress\t1\nResolved\t1\nClosed\t1\nUnder Verification\t1\nIncidents per day\n2026-10-15\n2026-10-16\n0\n1\n2\n3\n4\nDay\tCount\n2026-10-15\t4\n2026-10-16\t4\n2026-10-15",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "analytics",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/analytics",
+    "viewport": 320,
+    "scrollWidth": 332,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Analytics"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents by type"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents by status"
+      },
+      {
+        "tag": "H2",
+        "text": "Incidents per day"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 2450.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 98.875,
+      "height": 68,
+      "x": 201.125,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 332,
+      "height": 2272,
+      "x": 0,
+      "y": 178.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nAnalytics\nFrom\nTo\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nDownload CSV\nDownload PDF\nIncidents by type\nflood\nfire\nlandslide\n0\n1\n2\n3\n4\nType\tCount\nflood\t3\nfire\t1\nearthquake\t1\nother\t2\nlandslide\t1\nIncidents by status\nSubmitted\nUnder Verification\n0\n1\n2\n3\n4\nStatus\tCount\nSubmitted\t2\nAwaiting Assignment\t1\nTeam Assigned\t1\nRescue in Progress\t1\nResolved\t1\nClosed\t1\nUnder Verification\t1\nIncidents per day\n2026-10-15\n2026-10-16\n0\n1\n2\n3\n4\nDay\tCount\n2026-10-15\t4\n2026-10-16\t4\n2026-10-15",
+    "overflow": [
+      {
+        "tag": "ASIDE",
+        "class": "shell__side"
+      },
+      {
+        "tag": "DIV",
+        "class": "shell__body"
+      },
+      {
+        "tag": "HEADER",
+        "class": "shell__top"
+      },
+      {
+        "tag": "MAIN",
+        "class": "shell__main"
+      }
+    ],
+    "smallTargets": []
+  },
+  {
+    "label": "audit",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/audit",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Audit log"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 809,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nAudit log\nReport ID\nActor UID\nAction\nFrom\nTo\nWhen\tAction\tActor\tReport\tChanges (before, after)\n10/16/2026, 11:53:50 AM\tverify_report\taudit-dispatcher\taudit-1\t\nverified: false true\n\n10/16/2026, 10:53:50 AM\tverify_report\taudit-dispatcher\taudit-2\t\nstatus: Submitted Awaiting Assignment\nverified: false true\n\n10/16/2026, 9:53:50 AM\tverify_report\taudit-dispatcher\taudit-3\t\nstatus: Submitted Team Assigned\nverified: false true\n\n10/16/2026, 8:53:50 AM\tverify_report\taudit-dispatcher\taudit-4\t\nstatus: Submitted Rescue in Progress\nverified: false true\n\n10/16/2026, 7:53:50 AM\tverify_report\taudit-dispatcher\taudit-5\t\nstatus: Submitted Resolved\nverified: false true\n\n10/16/2026, 6:53:50 AM\tverify_report\taudit-dispatcher\taudit-6\t\nstatus: Submitted Closed\nverified: false true\n\n10/16/2026, 5:53:50 AM\tverify_report\taudit-dispatcher\taudit-7\t\nstatus: Submitted Under Verification\nverified: false true\n\n10/16/2026, 4:53:50 AM\tverify_report\taudit-dispatcher\taudit-8\t\nverified: false true",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "audit",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/audit",
+    "viewport": 768,
+    "scrollWidth": 842,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Audit log"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 1636,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 702.9375,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 609.515625,
+      "height": 1567,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nAudit log\nReport ID\nActor UID\nAction\nFrom\nTo\nWhen\tAction\tActor\tReport\tChanges (before, after)\n10/16/2026, 11:53:50 AM\tverify_report\taudit-dispatcher\taudit-1\t\nverified: false true\n\n10/16/2026, 10:53:50 AM\tverify_report\taudit-dispatcher\taudit-2\t\nstatus: Submitted Awaiting Assignment\nverified: false true\n\n10/16/2026, 9:53:50 AM\tverify_report\taudit-dispatcher\taudit-3\t\nstatus: Submitted Team Assigned\nverified: false true\n\n10/16/2026, 8:53:50 AM\tverify_report\taudit-dispatcher\taudit-4\t\nstatus: Submitted Rescue in Progress\nverified: false true\n\n10/16/2026, 7:53:50 AM\tverify_report\taudit-dispatcher\taudit-5\t\nstatus: Submitted Resolved\nverified: false true\n\n10/16/2026, 6:53:50 AM\tverify_report\taudit-dispatcher\taudit-6\t\nstatus: Submitted Closed\nverified: false true\n\n10/16/2026, 5:53:50 AM\tverify_report\taudit-dispatcher\taudit-7\t\nstatus: Submitted Under Verification\nverified: false true\n\n10/16/2026, 4:53:50 AM\tverify_report\taudit-dispatcher\taudit-8\t\nverified: false true",
+    "overflow": [
+      {
+        "tag": "DIV",
+        "class": "shell__body"
+      },
+      {
+        "tag": "HEADER",
+        "class": "shell__top"
+      },
+      {
+        "tag": "BUTTON",
+        "class": "btn btn--ghost"
+      },
+      {
+        "tag": "MAIN",
+        "class": "shell__main"
+      },
+      {
+        "tag": "H1",
+        "class": ""
+      },
+      {
+        "tag": "DIV",
+        "class": ""
+      },
+      {
+        "tag": "FORM",
+        "class": "filters card"
+      },
+      {
+        "tag": "DIV",
+        "class": "filter"
+      },
+      {
+        "tag": "LABEL",
+        "class": ""
+      },
+      {
+        "tag": "INPUT",
+        "class": ""
+      },
+      {
+        "tag": "DIV",
+        "class": "table-wrap card audit"
+      },
+      {
+        "tag": "TABLE",
+        "class": ""
+      }
+    ],
+    "smallTargets": []
+  },
+  {
+    "label": "audit",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/audit",
+    "viewport": 390,
+    "scrollWidth": 578,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Audit log"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1697.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 438.9375,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 577.515625,
+      "height": 1543,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nAudit log\nReport ID\nActor UID\nAction\nFrom\nTo\nWhen\tAction\tActor\tReport\tChanges (before, after)\n10/16/2026, 11:53:50 AM\tverify_report\taudit-dispatcher\taudit-1\t\nverified: false true\n\n10/16/2026, 10:53:50 AM\tverify_report\taudit-dispatcher\taudit-2\t\nstatus: Submitted Awaiting Assignment\nverified: false true\n\n10/16/2026, 9:53:50 AM\tverify_report\taudit-dispatcher\taudit-3\t\nstatus: Submitted Team Assigned\nverified: false true\n\n10/16/2026, 8:53:50 AM\tverify_report\taudit-dispatcher\taudit-4\t\nstatus: Submitted Rescue in Progress\nverified: false true\n\n10/16/2026, 7:53:50 AM\tverify_report\taudit-dispatcher\taudit-5\t\nstatus: Submitted Resolved\nverified: false true\n\n10/16/2026, 6:53:50 AM\tverify_report\taudit-dispatcher\taudit-6\t\nstatus: Submitted Closed\nverified: false true\n\n10/16/2026, 5:53:50 AM\tverify_report\taudit-dispatcher\taudit-7\t\nstatus: Submitted Under Verification\nverified: false true\n\n10/16/2026, 4:53:50 AM\tverify_report\taudit-dispatcher\taudit-8\t\nverified: false true",
+    "overflow": [
+      {
+        "tag": "ASIDE",
+        "class": "shell__side"
+      },
+      {
+        "tag": "DIV",
+        "class": "shell__sidehead"
+      },
+      {
+        "tag": "BUTTON",
+        "class": "shell__menu-toggle"
+      },
+      {
+        "tag": "DIV",
+        "class": "shell__body"
+      },
+      {
+        "tag": "HEADER",
+        "class": "shell__top"
+      },
+      {
+        "tag": "SPAN",
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "class": "btn btn--ghost"
+      },
+      {
+        "tag": "MAIN",
+        "class": "shell__main"
+      },
+      {
+        "tag": "H1",
+        "class": ""
+      },
+      {
+        "tag": "DIV",
+        "class": ""
+      },
+      {
+        "tag": "FORM",
+        "class": "filters card"
+      },
+      {
+        "tag": "DIV",
+        "class": "filter"
+      }
+    ],
+    "smallTargets": []
+  },
+  {
+    "label": "audit",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/audit",
+    "viewport": 320,
+    "scrollWidth": 578,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Audit log"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 1697.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 438.9375,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 577.515625,
+      "height": 1543,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nAudit log\nReport ID\nActor UID\nAction\nFrom\nTo\nWhen\tAction\tActor\tReport\tChanges (before, after)\n10/16/2026, 11:53:50 AM\tverify_report\taudit-dispatcher\taudit-1\t\nverified: false true\n\n10/16/2026, 10:53:50 AM\tverify_report\taudit-dispatcher\taudit-2\t\nstatus: Submitted Awaiting Assignment\nverified: false true\n\n10/16/2026, 9:53:50 AM\tverify_report\taudit-dispatcher\taudit-3\t\nstatus: Submitted Team Assigned\nverified: false true\n\n10/16/2026, 8:53:50 AM\tverify_report\taudit-dispatcher\taudit-4\t\nstatus: Submitted Rescue in Progress\nverified: false true\n\n10/16/2026, 7:53:50 AM\tverify_report\taudit-dispatcher\taudit-5\t\nstatus: Submitted Resolved\nverified: false true\n\n10/16/2026, 6:53:50 AM\tverify_report\taudit-dispatcher\taudit-6\t\nstatus: Submitted Closed\nverified: false true\n\n10/16/2026, 5:53:50 AM\tverify_report\taudit-dispatcher\taudit-7\t\nstatus: Submitted Under Verification\nverified: false true\n\n10/16/2026, 4:53:50 AM\tverify_report\taudit-dispatcher\taudit-8\t\nverified: false true",
+    "overflow": [
+      {
+        "tag": "ASIDE",
+        "class": "shell__side"
+      },
+      {
+        "tag": "DIV",
+        "class": "shell__sidehead"
+      },
+      {
+        "tag": "BUTTON",
+        "class": "shell__menu-toggle"
+      },
+      {
+        "tag": "DIV",
+        "class": "shell__body"
+      },
+      {
+        "tag": "HEADER",
+        "class": "shell__top"
+      },
+      {
+        "tag": "SPAN",
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "class": "btn btn--ghost"
+      },
+      {
+        "tag": "MAIN",
+        "class": "shell__main"
+      },
+      {
+        "tag": "H1",
+        "class": ""
+      },
+      {
+        "tag": "DIV",
+        "class": ""
+      },
+      {
+        "tag": "FORM",
+        "class": "filters card"
+      },
+      {
+        "tag": "DIV",
+        "class": "filter"
+      }
+    ],
+    "smallTargets": []
+  },
+  {
+    "label": "teams",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/teams",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Teams"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1111,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 1042,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nTeams\nNew team name\nCreate team\nTeam name\nStatus: Busy on a rescue\nSave name\nTeam name\nStatus: Free\nSave name\nTeam name\nStatus: Free\nSave name",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "teams",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/teams",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Teams"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 1111,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 1042,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nTeams\nNew team name\nCreate team\nTeam name\nStatus: Busy on a rescue\nSave name\nTeam name\nStatus: Free\nSave name\nTeam name\nStatus: Free\nSave name",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "teams",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/teams",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Teams"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1172.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 1018,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nTeams\nNew team name\nCreate team\nTeam name\nStatus: Busy on a rescue\nSave name\nTeam name\nStatus: Free\nSave name\nTeam name\nStatus: Free\nSave name",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "teams",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/teams",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Teams"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 1196.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 95.71875,
+      "height": 68,
+      "x": 192.28125,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 1018,
+      "x": 0,
+      "y": 178.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nTeams\nNew team name\nCreate team\nTeam name\nStatus: Busy on a rescue\nSave name\nTeam name\nStatus: Free\nSave name\nTeam name\nStatus: Free\nSave name",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "users",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/users",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Users"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1065,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 996,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nUsers\nEmail\nName\nRole\nresponder\ndispatcher\ndmo\nTeam (optional)\nNo team\nTeam Alpha\nTeam Bravo\nTeam Charlie\nCreate account\nJose Reyes\ndispatcher@audit.test\ndispatcher\nActive\nDeactivate Jose Reyes\nMiguel Tan\ndmo@audit.test\ndmo\nActive\nDeactivate Miguel Tan\nMaria Santos\nresident@audit.test\nresident\nActive\nDeactivate Maria Santos\nAna Cruz\nresponder@audit.test\nresponder\nActive\nDeactivate Ana Cruz",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "users",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/users",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Users"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 1233,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 1164,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nUsers\nEmail\nName\nRole\nresponder\ndispatcher\ndmo\nTeam (optional)\nNo team\nTeam Alpha\nTeam Bravo\nTeam Charlie\nCreate account\nJose Reyes\ndispatcher@audit.test\ndispatcher\nActive\nDeactivate Jose Reyes\nMiguel Tan\ndmo@audit.test\ndmo\nActive\nDeactivate Miguel Tan\nMaria Santos\nresident@audit.test\nresident\nActive\nDeactivate Maria Santos\nAna Cruz\nresponder@audit.test\nresponder\nActive\nDeactivate Ana Cruz",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "users",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/users",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Users"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1446.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 1292,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nUsers\nEmail\nName\nRole\nresponder\ndispatcher\ndmo\nTeam (optional)\nNo team\nTeam Alpha\nTeam Bravo\nTeam Charlie\nCreate account\nJose Reyes\ndispatcher@audit.test\ndispatcher\nActive\nDeactivate Jose Reyes\nMiguel Tan\ndmo@audit.test\ndmo\nActive\nDeactivate Miguel Tan\nMaria Santos\nresident@audit.test\nresident\nActive\nDeactivate Maria Santos\nAna Cruz\nresponder@audit.test\nresponder\nActive\nDeactivate Ana Cruz",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "users",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/users",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Users"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 1502.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 95.71875,
+      "height": 68,
+      "x": 192.28125,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 1324,
+      "x": 0,
+      "y": 178.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nUsers\nEmail\nName\nRole\nresponder\ndispatcher\ndmo\nTeam (optional)\nNo team\nTeam Alpha\nTeam Bravo\nTeam Charlie\nCreate account\nJose Reyes\ndispatcher@audit.test\ndispatcher\nActive\nDeactivate Jose Reyes\nMiguel Tan\ndmo@audit.test\ndmo\nActive\nDeactivate Miguel Tan\nMaria Santos\nresident@audit.test\nresident\nActive\nDeactivate Maria Santos\nAna Cruz\nresponder@audit.test\nresponder\nActive\nDeactivate Ana Cruz",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "dashboard-filters",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/dashboard",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Dashboard"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1301,
+      "x": 0,
+      "y": -369
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": -357
+    },
+    "muted": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(79, 91, 112)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 238,
+      "height": 24,
+      "x": 281,
+      "y": -185
+    },
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 1232,
+      "x": 232,
+      "y": -300
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nDashboard\nTotal reports\n8\nOngoing\n6\nResolved\n2\nRescue teams\n3\nAll reports\n8\nOpen\n7\nCritical\n2\nVerified\n5\nHide filters\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nPriority\nAll\nlow\nmedium\nhigh\ncritical\nVerification\nAll\nVerified\nPending\nReport\tPriority\tStatus\tVerification\tReported\n\nFlood\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\n\t\n\u26a0\nCritical\n\t\n\u2709\nSubmitted\n\t\n\u25cb\nPending\n\t10/16/2026, 11:53:50 AM\n\nFire\nSmoke is coming from a residential building near the market. Residents have moved to the street.\n\t\n\u25b2\nHigh\n\t\n\u23f3\nAwaiting Assignment\n\t\n\u2713\nVerified\n\t10/16/2026, 10:53:50 AM\n\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\n\t\n\u26a0\nCritical\n\t\n\u2691\nTeam Assigned\n\t\n\u2713\nVerified\n\t10/16/2026, 9:53:50 AM\n\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\n\t\n\u25b2\nHigh\n\t\n\u2692\nRescue in Progress\n\t\n\u2713\nVerified\n\t10/16/2026, 8:53:50 AM\n\nFlood\nWater has receded. All affected residents have reached the evacuation center.\n\t\n\u25c6\nMedium\n\t\n\u2714\nResolved\n\t\n\u2713\nVerified\n\t10/16/2026, 7:53:50 AM\n\nOther\nThe rescue is complete and the report has been reviewed.\n\t\n\u25bc\nLow\n\t\n\u25a0\nClosed\n\t\n\u2713\nVerified\n\t10/16/2026, 6:53:50 AM\n\nLandslide\nA retaining wall has collapsed after heavy rain. Nearby houses may be affected.\n\t\n\u25b2\nHigh\n\t\n\u29d6\nUnder Verification\n\t\n\u25cb\nPending\n\t10/16/2026, 5:53:50 AM\n\nOther\nA tree has fallen across the road outside the school.\n\t\n\u25c6\nMedium\n\t\n\u2709\nSubmitted\n\t\n\u25cb\nPending\n\t10/16/2026, 4:53:50 AM",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "dashboard-filters",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/dashboard",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Dashboard"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 3958.5,
+      "x": 0,
+      "y": -369
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": -271.5
+    },
+    "muted": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(79, 91, 112)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 137,
+      "height": 24,
+      "x": 33,
+      "y": -111.5
+    },
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 3804,
+      "x": 0,
+      "y": -214.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nDashboard\nTotal reports\n8\nOngoing\n6\nResolved\n2\nRescue teams\n3\nAll reports\n8\nOpen\n7\nCritical\n2\nVerified\n5\nHide filters\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nPriority\nAll\nlow\nmedium\nhigh\ncritical\nVerification\nAll\nVerified\nPending\nFlood\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\n\u26a0\nCritical\n\u2709\nSubmitted\n\u25cb\nPending\n10/16/2026, 11:53:50 AM\nFire\nSmoke is coming from a residential building near the market. Residents have moved to the street.\n\u25b2\nHigh\n\u23f3\nAwaiting Assignment\n\u2713\nVerified\n10/16/2026, 10:53:50 AM\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\n\u26a0\nCritical\n\u2691\nTeam Assigned\n\u2713\nVerified\n10/16/2026, 9:53:50 AM\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\n\u25b2\nHigh\n\u2692\nRescue in Progress\n\u2713\nVerified\n10/16/2026, 8:53:50 AM\nFlood\nWater has receded. All affected residents have reached the evacuation center.\n\u25c6\nMedium\n\u2714\nResolved\n\u2713\nVerified\n10/16/2026, 7:53:50 AM\nOther\nThe rescue is complete and the report has been reviewed.\n\u25bc\nLow\n\u25a0\nClosed\n\u2713\nVerified\n10/16/2026, 6:53:50 AM\nLandslide\nA retaining wall has collapsed after heavy rain. Nearby houses may be affected.\n\u25b2\nHigh\n\u29d6\nUnder Verification\n\u25cb\nPending\n10/16/2026, 5:53:50 AM\nOther\nA tree has fallen across the road outside the school.\n\u25c6\nMedium\n\u2709\nSubmitted\n\u25cb\nPending\n10/16/2026, 4:53:50 AM",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "dashboard-empty",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/dashboard",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Dashboard"
+      },
+      {
+        "tag": "H2",
+        "text": "No reports match these filters"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1331.5,
+      "x": 0,
+      "y": -369
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": -271.5
+    },
+    "muted": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(79, 91, 112)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 137,
+      "height": 24,
+      "x": 33,
+      "y": -111.5
+    },
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 1177,
+      "x": 0,
+      "y": -214.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nDashboard\nTotal reports\n8\nOngoing\n6\nResolved\n2\nRescue teams\n3\nAll reports\n8\nOpen\n7\nCritical\n2\nVerified\n5\nHide filters (1 active)\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nPriority\nAll\nlow\nmedium\nhigh\ncritical\nVerification\nAll\nVerified\nPending\nNo reports match these filters\n\nClear a filter to see more reports, or wait for new reports to arrive.",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "assign-dialog",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/incidents/audit-2",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      },
+      {
+        "tag": "H2",
+        "text": "Assign a rescue team"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1002,
+      "x": 0,
+      "y": -102
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": -90
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 933,
+      "x": 232,
+      "y": -33
+    },
+    "text": "Rescue Reports\n\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u23f3\nAwaiting Assignment\n\u25b2\nHigh\n\u2713\nVerified\nType\nfire\nDescription\nSmoke is coming from a residential building near the market. Residents have moved to the street.\nClassification\nNot classified\nReported\n10/16/2026, 10:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85300, 120.81200 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nAssign team\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify\nAssign a rescue team\nRescue team\nChoose a team\nTeam Bravo\nTeam Charlie\nAssign team\nCancel",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "assign-dialog",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/incidents/audit-2",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      },
+      {
+        "tag": "H2",
+        "text": "Assign a rescue team"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1468.5,
+      "x": 0,
+      "y": -102
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": -4.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 1314,
+      "x": 0,
+      "y": 52.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\n\u23f3\nAwaiting Assignment\n\u25b2\nHigh\n\u2713\nVerified\nType\nfire\nDescription\nSmoke is coming from a residential building near the market. Residents have moved to the street.\nClassification\nNot classified\nReported\n10/16/2026, 10:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85300, 120.81200 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nAssign team\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify\nAssign a rescue team\nRescue team\nChoose a team\nTeam Bravo\nTeam Charlie\nAssign team\nCancel",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "assign-dialog-escape-focus",
+    "focused": "Assign team"
+  },
+  {
+    "label": "reject-dialog",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/incidents/audit-1",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Possible duplicates"
+      },
+      {
+        "tag": "H3",
+        "text": "This report"
+      },
+      {
+        "tag": "H3",
+        "text": "Flagged report"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      },
+      {
+        "tag": "H2",
+        "text": "Reject this report"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 2584.5,
+      "x": 0,
+      "y": -1685
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": -1587.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 2430,
+      "x": 0,
+      "y": -1530.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nIncident details\n\nBack to the queue\n\nPossible duplicates\n\nThese reports were flagged as similar. Compare them with the one you are viewing.\n\nThe report you are viewing will be closed as a duplicate of the report you choose.\n\nThis report\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nReported\n10/16/2026, 11:53:50 AM\nStatus\n\u2709\nSubmitted\nFlagged report\nType\nother\nDescription\nA tree has fallen across the road outside the school.\nReported\n10/16/2026, 4:53:50 AM\nDistance\n2778 m away\nStatus\n\u2709\nSubmitted\nMark the report you are viewing as a duplicate of this one\n\u2709\nSubmitted\n\u26a0\nCritical\n\u25cb\nPending\nType\nflood\nDescription\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\nClassification\nNot classified\nReported\n10/16/2026, 11:53:50 AM\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85000, 120.81000 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\n\nNo rescue updates yet.\n\nVerify\nReject\nPriority\nlow\nmedium\nhigh\ncritical\nSet priority\nClassification\nClassify\nReject this report\nReason (required)\nConfirm reject\nCancel",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "users-invalid",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/users",
+    "viewport": 390,
+    "scrollWidth": 978,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Users"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1372.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 839.390625,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 977.96875,
+      "height": 1218,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nJose Reyes (dispatcher)\nSign out\nUsers\nEmail\nName\nRole\nresponder\ndispatcher\ndmo\nTeam (optional)\nNo team\nTeam Alpha\nTeam Bravo\nTeam Charlie\nCreate account\nStaff account created.\nXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nnew@audit.test\nresponder\nActive\nDeactivate xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nJose Reyes\ndispatcher@audit.test\ndispatcher\nActive\nDeactivate Jose Reyes\nMiguel Tan\ndmo@audit.test\ndmo\nActive\nDeactivate Miguel Tan\nMaria Santos\nresident@audit.test\nresident\nActive\nDeactivate Maria Santos\nAna Cruz\nresponder@audit.test\nresponder\nActive\nDeactivate Ana Cruz",
+    "overflow": [
+      {
+        "tag": "ASIDE",
+        "class": "shell__side"
+      },
+      {
+        "tag": "DIV",
+        "class": "shell__sidehead"
+      },
+      {
+        "tag": "BUTTON",
+        "class": "shell__menu-toggle"
+      },
+      {
+        "tag": "DIV",
+        "class": "shell__body"
+      },
+      {
+        "tag": "HEADER",
+        "class": "shell__top"
+      },
+      {
+        "tag": "SPAN",
+        "class": ""
+      },
+      {
+        "tag": "BUTTON",
+        "class": "btn btn--ghost"
+      },
+      {
+        "tag": "MAIN",
+        "class": "shell__main"
+      },
+      {
+        "tag": "H1",
+        "class": ""
+      },
+      {
+        "tag": "DIV",
+        "class": ""
+      },
+      {
+        "tag": "FORM",
+        "class": "card ops-form"
+      },
+      {
+        "tag": "LABEL",
+        "class": ""
+      }
+    ],
+    "smallTargets": [],
+    "scenarioNote": "Accepted schema-limit staff name stress test; synthetic record created only in emulator."
+  },
+  {
+    "label": "monitor",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/monitor",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Monitor"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": {
+      "font": "\"Helvetica Neue\", Arial, Helvetica, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(221, 221, 221)",
+      "width": 1136,
+      "height": 0,
+      "x": 264,
+      "y": 535
+    },
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 498,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nMonitor\nAnalytics\nMiguel Tan (dmo)\nSign out\nMonitor\n\nRead-only view. Select a marker to open the incident details.\n\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n\n8 located reports shown.\n\nCritical\nHigh\nCritical\nHigh\nMedium\nLow\nHigh\nMedium\n+\n\u2212\n Leaflet | \u00a9 OpenStreetMap contributors",
+    "overflow": [
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "+",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "\u2212",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "Leaflet",
+        "width": 51.34375,
+        "height": 14
+      }
+    ]
+  },
+  {
+    "label": "monitor",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/monitor",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Monitor"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": {
+      "font": "\"Helvetica Neue\", Arial, Helvetica, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(221, 221, 221)",
+      "width": 472,
+      "height": 0,
+      "x": 264,
+      "y": 535
+    },
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 498,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nMonitor\nAnalytics\nMiguel Tan (dmo)\nSign out\nMonitor\n\nRead-only view. Select a marker to open the incident details.\n\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n\n8 located reports shown.\n\nCritical\nHigh\nCritical\nHigh\nMedium\nLow\nHigh\nMedium\n+\n\u2212\n Leaflet | \u00a9 OpenStreetMap contributors",
+    "overflow": [
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "+",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "\u2212",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "Leaflet",
+        "width": 51.34375,
+        "height": 14
+      }
+    ]
+  },
+  {
+    "label": "monitor",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/monitor",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Monitor"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 221.25
+    },
+    "muted": null,
+    "map": {
+      "font": "\"Helvetica Neue\", Arial, Helvetica, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(221, 221, 221)",
+      "width": 358,
+      "height": 0,
+      "x": 16,
+      "y": 756.25
+    },
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 498,
+      "x": 0,
+      "y": 278.25
+    },
+    "text": "Rescue Reports\n\nMenu\nMiguel Tan (dmo)\nSign out\nMonitor\n\nRead-only view. Select a marker to open the incident details.\n\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n\n8 located reports shown.\n\nCritical\nHigh\nCritical\nHigh\nMedium\nLow\nHigh\nMedium\n+\n\u2212\n Leaflet | \u00a9 OpenStreetMap contributors",
+    "overflow": [
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      },
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "+",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "\u2212",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "Leaflet",
+        "width": 51.34375,
+        "height": 14
+      }
+    ]
+  },
+  {
+    "label": "monitor",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/monitor",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Monitor"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 181.421875,
+      "y": 221.25
+    },
+    "muted": null,
+    "map": {
+      "font": "\"Helvetica Neue\", Arial, Helvetica, sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(221, 221, 221)",
+      "width": 288,
+      "height": 0,
+      "x": 16,
+      "y": 756.25
+    },
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 498,
+      "x": 0,
+      "y": 278.25
+    },
+    "text": "Rescue Reports\n\nMenu\nMiguel Tan (dmo)\nSign out\nMonitor\n\nRead-only view. Select a marker to open the incident details.\n\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n\n8 located reports shown.\n\nCritical\nHigh\nCritical\nHigh\nMedium\nLow\nHigh\nMedium\n+\n\u2212\n Leaflet | \u00a9 OpenStreetMap contributors",
+    "overflow": [
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      },
+      {
+        "tag": "IMG",
+        "class": "leaflet-tile leaflet-tile-loaded"
+      }
+    ],
+    "smallTargets": [
+      {
+        "text": "+",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "\u2212",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "text": "Leaflet",
+        "width": 51.34375,
+        "height": 14
+      }
+    ]
+  },
+  {
+    "label": "dmo-incident",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/incidents/audit-4",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 767,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nMonitor\nAnalytics\nMiguel Tan (dmo)\nSign out\nIncident details\n\nBack to the queue\n\n\u2692\nRescue in Progress\n\u25b2\nHigh\n\u2713\nVerified\nType\nearthquake\nDescription\nFallen debris is blocking access to the evacuation center. A team is on site.\nClassification\nNot classified\nReported\n10/16/2026, 8:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\nRescue in Progress 10/16/2026, 11:53:50 AM\n\nPeople rescued: 2\n\nTeam reached the area and is assisting residents.",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "dmo-incident",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/incidents/audit-4",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 908,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 839,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nMonitor\nAnalytics\nMiguel Tan (dmo)\nSign out\nIncident details\n\nBack to the queue\n\n\u2692\nRescue in Progress\n\u25b2\nHigh\n\u2713\nVerified\nType\nearthquake\nDescription\nFallen debris is blocking access to the evacuation center. A team is on site.\nClassification\nNot classified\nReported\n10/16/2026, 8:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\nRescue in Progress 10/16/2026, 11:53:50 AM\n\nPeople rescued: 2\n\nTeam reached the area and is assisting residents.",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "dmo-incident",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/incidents/audit-4",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1178.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 1024,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nMiguel Tan (dmo)\nSign out\nIncident details\n\nBack to the queue\n\n\u2692\nRescue in Progress\n\u25b2\nHigh\n\u2713\nVerified\nType\nearthquake\nDescription\nFallen debris is blocking access to the evacuation center. A team is on site.\nClassification\nNot classified\nReported\n10/16/2026, 8:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\nRescue in Progress 10/16/2026, 11:53:50 AM\n\nPeople rescued: 2\n\nTeam reached the area and is assisting residents.",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "dmo-incident",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/incidents/audit-4",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Incident details"
+      },
+      {
+        "tag": "H2",
+        "text": "Rescue updates"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 1226.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 181.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 1072,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nMiguel Tan (dmo)\nSign out\nIncident details\n\nBack to the queue\n\n\u2692\nRescue in Progress\n\u25b2\nHigh\n\u2713\nVerified\nType\nearthquake\nDescription\nFallen debris is blocking access to the evacuation center. A team is on site.\nClassification\nNot classified\nReported\n10/16/2026, 8:53:50 AM\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 (gps)\nContact\nMaria Santos 09170000000\nPhoto 1\nRescue updates\nRescue in Progress 10/16/2026, 11:53:50 AM\n\nPeople rescued: 2\n\nTeam reached the area and is assisting residents.",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Back to the queue",
+        "width": 131.390625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "assignments",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/assignments",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Assignments"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 772,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nAssignments\nAna Cruz (responder)\nSign out\nAssignments\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85600, 120.81400 Open in maps\nReported\n10/16/2026, 9:53:50 AM\n\u2691\nTeam Assigned\n\u26a0\nCritical\nAcknowledge\nPost an update\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 Open in maps\nReported\n10/16/2026, 8:53:50 AM\n\u2692\nRescue in Progress\n\u25b2\nHigh\nAcknowledge\nPost an update",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      },
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "assignments",
+    "width": 768,
+    "url": "http://127.0.0.1:5173/assignments",
+    "viewport": 768,
+    "scrollWidth": 768,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Assignments"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 768,
+      "height": 937,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 629.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 536,
+      "height": 868,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nAssignments\nAna Cruz (responder)\nSign out\nAssignments\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85600, 120.81400 Open in maps\nReported\n10/16/2026, 9:53:50 AM\n\u2691\nTeam Assigned\n\u26a0\nCritical\nAcknowledge\nPost an update\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 Open in maps\nReported\n10/16/2026, 8:53:50 AM\n\u2692\nRescue in Progress\n\u25b2\nHigh\nAcknowledge\nPost an update",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      },
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "assignments",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/assignments",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Assignments"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1094.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 940,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nAna Cruz (responder)\nSign out\nAssignments\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85600, 120.81400 Open in maps\nReported\n10/16/2026, 9:53:50 AM\n\u2691\nTeam Assigned\n\u26a0\nCritical\nAcknowledge\nPost an update\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 Open in maps\nReported\n10/16/2026, 8:53:50 AM\n\u2692\nRescue in Progress\n\u25b2\nHigh\nAcknowledge\nPost an update",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      },
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "assignments",
+    "width": 320,
+    "url": "http://127.0.0.1:5173/assignments",
+    "viewport": 320,
+    "scrollWidth": 320,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Assignments"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 320,
+      "height": 1374.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 100,
+      "height": 68,
+      "x": 188,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 320,
+      "height": 1196,
+      "x": 0,
+      "y": 178.5
+    },
+    "text": "Rescue Reports\n\nMenu\nAna Cruz (responder)\nSign out\nAssignments\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85600, 120.81400 Open in maps\nReported\n10/16/2026, 9:53:50 AM\n\u2691\nTeam Assigned\n\u26a0\nCritical\nAcknowledge\nPost an update\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 Open in maps\nReported\n10/16/2026, 8:53:50 AM\n\u2692\nRescue in Progress\n\u25b2\nHigh\nAcknowledge\nPost an update",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Open in maps",
+        "width": 213.71875,
+        "height": 42
+      },
+      {
+        "text": "Open in maps",
+        "width": 213.609375,
+        "height": 42
+      }
+    ]
+  },
+  {
+    "label": "operation-form",
+    "width": 1440,
+    "url": "http://127.0.0.1:5173/assignments",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Assignments"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 1440,
+      "height": 1306,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 1301.421875,
+      "y": 12
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1200,
+      "height": 1237,
+      "x": 232,
+      "y": 69
+    },
+    "text": "Rescue Reports\n\nAssignments\nAna Cruz (responder)\nSign out\nAssignments\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85600, 120.81400 Open in maps\nReported\n10/16/2026, 9:53:50 AM\n\u2691\nTeam Assigned\n\u26a0\nCritical\nAcknowledge\nHide operation form\nStatus\nRescue in Progress\nPeople rescued\nWhole number, 0 to 10000.\nNotes\nSubmit update\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 Open in maps\nReported\n10/16/2026, 8:53:50 AM\n\u2692\nRescue in Progress\n\u25b2\nHigh\nAcknowledge\nPost an update",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      },
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "operation-form",
+    "width": 390,
+    "url": "http://127.0.0.1:5173/assignments",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Assignments"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgb(243, 245, 248)",
+      "width": 390,
+      "height": 1615.5,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(30, 91, 198)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 106.578125,
+      "height": 44,
+      "x": 251.421875,
+      "y": 97.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(17, 27, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 1461,
+      "x": 0,
+      "y": 154.5
+    },
+    "text": "Rescue Reports\n\nMenu\nAna Cruz (responder)\nSign out\nAssignments\nFlood\nA family is stranded near the river bridge. Road access is blocked by rising water.\nAddress\nBarangay San Pablo, Malolos, Bulacan\nLocation\n14.85600, 120.81400 Open in maps\nReported\n10/16/2026, 9:53:50 AM\n\u2691\nTeam Assigned\n\u26a0\nCritical\nAcknowledge\nHide operation form\nStatus\nRescue in Progress\nPeople rescued\nWhole number, 0 to 10000.\nNotes\nSubmit update\nEarthquake\nFallen debris is blocking access to the evacuation center. A team is on site.\nAddress\nBarangay Sto. Rosario, Malolos, Bulacan\nLocation\n14.85900, 120.81600 Open in maps\nReported\n10/16/2026, 8:53:50 AM\n\u2692\nRescue in Progress\n\u25b2\nHigh\nAcknowledge\nPost an update",
+    "overflow": [],
+    "smallTargets": [
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      },
+      {
+        "text": "Open in maps",
+        "width": 100.015625,
+        "height": 18
+      }
+    ]
+  },
+  {
+    "label": "live-landing",
+    "width": 1440,
+    "url": "https://disaster-rescue-web.vercel.app/login",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Sign in"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(29, 43, 42)",
+      "background": "rgb(246, 241, 234)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(15, 107, 102)",
+      "width": 95.171875,
+      "height": 44,
+      "x": 534,
+      "y": 486.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(29, 43, 42)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "text": "Sign in\nEmail\nPassword\nSign in\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "live-landing",
+    "width": 390,
+    "url": "https://disaster-rescue-web.vercel.app/login",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Sign in"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(29, 43, 42)",
+      "background": "rgb(246, 241, 234)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(15, 107, 102)",
+      "width": 95.171875,
+      "height": 44,
+      "x": 40,
+      "y": 486.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(29, 43, 42)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "text": "Sign in\nEmail\nPassword\nSign in\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "live-login",
+    "width": 1440,
+    "url": "https://disaster-rescue-web.vercel.app/login",
+    "viewport": 1440,
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Sign in"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(29, 43, 42)",
+      "background": "rgb(246, 241, 234)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(15, 107, 102)",
+      "width": 95.171875,
+      "height": 44,
+      "x": 534,
+      "y": 486.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(29, 43, 42)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 1440,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "text": "Sign in\nEmail\nPassword\nSign in\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "overflow": [],
+    "smallTargets": []
+  },
+  {
+    "label": "live-login",
+    "width": 390,
+    "url": "https://disaster-rescue-web.vercel.app/login",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Sign in"
+      }
+    ],
+    "body": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(29, 43, 42)",
+      "background": "rgb(246, 241, 234)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "primary": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(15, 107, 102)",
+      "width": 95.171875,
+      "height": 44,
+      "x": 40,
+      "y": 486.5
+    },
+    "muted": null,
+    "map": null,
+    "main": {
+      "font": "system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "color": "rgb(29, 43, 42)",
+      "background": "rgba(0, 0, 0, 0)",
+      "width": 390,
+      "height": 900,
+      "x": 0,
+      "y": 0
+    },
+    "text": "Sign in\nEmail\nPassword\nSign in\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "overflow": [],
+    "smallTargets": []
+  }
+]
