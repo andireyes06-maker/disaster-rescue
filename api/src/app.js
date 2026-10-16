@@ -10,6 +10,7 @@ import { exportRouter } from './routes/export.js';
 import { auditRouter } from './routes/audit.js';
 import { usersRouter } from './routes/users.js';
 import { notificationsRouter } from './routes/notifications.js';
+import { publicRouter } from './routes/public.js';
 import { createNotifier } from './services/notificationService.js';
 
 const DEFAULT_RATE_LIMIT = { windowMs: 15 * 60 * 1000, limit: 300 };
@@ -33,6 +34,7 @@ export function buildApp({
   app.use(express.json({ limit: '100kb' }));
   // Public liveness check for the host. Reveals nothing about data.
   app.get('/api/health', (req, res) => res.json({ ok: true }));
+  app.use('/api/public', publicRouter(deps));
   app.use('/api/reports', reportsRouter(deps));
   app.use('/api/teams', teamsRouter(deps));
   app.use('/api/users', usersRouter(deps));
