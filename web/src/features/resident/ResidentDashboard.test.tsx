@@ -12,6 +12,7 @@ vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'res-
 vi.mock('./useMyReports', () => ({ useMyReports: () => h.reports }));
 vi.mock('./useMyNotifications', () => ({ useMyNotifications: () => h.notifications }));
 vi.mock('./useHotlines', () => ({ useHotlines: () => h.hotlines }));
+vi.mock('./PublicIncidentMap', () => ({ default: () => <p>public map</p> }));
 
 import ResidentDashboard from './ResidentDashboard';
 
@@ -48,6 +49,11 @@ describe('ResidentDashboard', () => {
   it('says so when there are no reports yet', () => {
     renderPage();
     expect(screen.getByText('You have no reports yet.')).toBeInTheDocument();
+  });
+
+  it('shows the public map of rounded areas', () => {
+    renderPage();
+    expect(screen.getByText('public map')).toBeInTheDocument();
   });
 
   it('shows recent notifications about the resident\'s reports', () => {

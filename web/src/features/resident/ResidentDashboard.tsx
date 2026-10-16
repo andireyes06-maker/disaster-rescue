@@ -4,6 +4,7 @@ import { useMyReports } from './useMyReports';
 import { useMyNotifications } from './useMyNotifications';
 import { useHotlines } from './useHotlines';
 import SafetyNotice from './SafetyNotice';
+import PublicIncidentMap from './PublicIncidentMap';
 import StatusBadge from '../reports/StatusBadge';
 import Banner from '../../components/calm/Banner';
 import '../../pages/public.css';
@@ -42,6 +43,12 @@ export default function ResidentDashboard() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section className="card" aria-labelledby="map-title">
+        <h2 id="map-title">Incidents near you</h2>
+        <p>Areas are rounded to protect exact locations.</p>
+        <PublicIncidentMap />
       </section>
 
       <section className="card" aria-labelledby="notifications-title">

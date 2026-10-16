@@ -301,3 +301,7 @@ select, textarea {
 .leaflet-control-zoom a { width: 44px !important; height: 44px !important; line-height: 44px !important; }
 .range-error { margin: 12px 0; color: var(--color-notice); font-weight: 600; }
 @media (max-width: 639px) { .map-filters { grid-template-columns: 1fr; gap: 12px; } .chart-card { padding: 20px 16px; } }
+/* Public incident areas: colours come from the design tokens. */
+.public-circle--open { stroke: var(--color-primary); fill: var(--color-primary); fill-opacity: 0.18; }
+.public-circle--responding { stroke: var(--color-notice); fill: var(--color-notice); fill-opacity: 0.22; }
+.public-circle--resolved { stroke: var(--color-muted); fill: var(--color-muted); fill-opacity: 0.12; }
