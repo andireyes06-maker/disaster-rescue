@@ -11,6 +11,10 @@
   --color-text: #1D2B2A;
   --color-muted: #566665;
   --color-overlay: rgba(29, 43, 42, 0.5);
+  --color-harbor: #123B39;
+  --color-paper: #FAFAF7;
+  --color-mist: #E9EFEE;
+  --color-notice: #9E5A00;
 
   --radius-md: 12px;
   --radius-lg: 20px;
