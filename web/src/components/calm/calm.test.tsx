@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Badge from './Badge';
-import DataTable from './DataTable';
+import DataTable, { type Column } from './DataTable';
 import Field from './Field';
 import Banner from './Banner';
 import EmptyState from './EmptyState';
@@ -18,9 +18,10 @@ describe('Badge', () => {
 });
 
 describe('DataTable', () => {
-  const columns = [
-    { key: 'type', header: 'Type', render: (r: { type: string }) => r.type },
-    { key: 'team', header: 'Team', render: (r: { team: string }) => r.team },
+  type Row = { type: string; team: string };
+  const columns: Column<Row>[] = [
+    { key: 'type', header: 'Type', render: (r) => r.type },
+    { key: 'team', header: 'Team', render: (r) => r.team },
   ];
 
   it('shows the empty content when there are no rows', () => {
