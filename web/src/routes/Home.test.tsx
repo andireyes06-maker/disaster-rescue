@@ -52,9 +52,9 @@ describe('Home at /', () => {
     expect(screen.getByTestId('at')).toHaveTextContent(path);
   });
 
-  it('sends a signed-in resident to /forbidden', () => {
+  it('sends a signed-in resident to /my', () => {
     auth.value = { user: { uid: 'u1' }, role: 'resident', loading: false };
     renderAt();
-    expect(screen.getByTestId('at')).toHaveTextContent('/forbidden');
+    expect(screen.getByTestId('at')).toHaveTextContent('/my');
   });
 });

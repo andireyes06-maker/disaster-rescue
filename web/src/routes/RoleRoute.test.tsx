@@ -44,3 +44,18 @@ describe('RoleRoute', () => {
     expect(screen.getByText('secret')).toBeInTheDocument();
   });
 });
+
+describe('RoleRoute for residents', () => {
+  it('lets a resident into a resident-only page', () => {
+    state.value = { user: { uid: 'r1' }, role: 'resident', loading: false };
+    render(
+      <MemoryRouter initialEntries={['/my']}>
+        <Routes>
+          <Route path="/forbidden" element={<p>forbidden page</p>} />
+          <Route path="/my" element={<RoleRoute allow={['resident']}><p>my reports</p></RoleRoute>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText('my reports')).toBeInTheDocument();
+  });
+});

@@ -6,19 +6,16 @@ import './public.css';
 
 export default function Forbidden() {
   const { role, logout } = useAuth();
-  const isResident = role === 'resident';
   return (
     <div className="login-page">
       <PublicHeader />
     <main className="login">
       <div className="card login__card">
-        <h1>{isResident ? 'Use the mobile app' : 'Access denied'}</h1>
+        <h1>Access denied</h1>
         <p>
-          {isResident
-            ? 'Residents report and track incidents in the mobile app. This web app is for staff.'
-            : role ? 'Your account does not have access to this page.' : 'Sign in with a staff account to continue.'}
+          {role ? 'Your account does not have access to this page.' : 'Sign in to continue.'}
         </p>
-        {role && !isResident && LANDING[role] && <Link className="btn" to={landingFor(role)}>Go to my page</Link>}
+        {role && LANDING[role] && <Link className="btn" to={landingFor(role)}>Go to my page</Link>}
         {!role && <Link className="btn" to="/login">Sign in</Link>}
         {role && <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>}
         <Link className="login__home" to="/">Back to home</Link>

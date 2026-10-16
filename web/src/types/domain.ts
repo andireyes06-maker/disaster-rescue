@@ -23,7 +23,7 @@ export type ReportStatus = (typeof REPORT_STATUSES)[number];
 
 export const TERMINAL_STATUSES: readonly ReportStatus[] = ['Closed', 'Rejected', 'Duplicate', 'Cancelled'];
 
-export type Role = 'dispatcher' | 'dmo' | 'responder' | 'resident';
+export type Role = 'dispatcher' | 'dmo' | 'responder' | 'resident' | 'admin';
 
 export interface GeoPoint {
   lat: number;

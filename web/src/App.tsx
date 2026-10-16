@@ -4,6 +4,8 @@ import RoleRoute from './routes/RoleRoute';
 import Home from './routes/Home';
 import LoginPage from './features/auth/LoginPage';
 import ResidentSignUp from './features/resident/ResidentSignUp';
+import ResidentHome from './features/resident/ResidentHome';
+import AdminHome from './features/admin/AdminHome';
 import Forbidden from './pages/Forbidden';
 import AppShell from './layout/AppShell';
 const ReportQueue = lazy(() => import('./features/reports/ReportQueue'));
@@ -22,6 +24,8 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<ResidentSignUp />} />
+      <Route path="/my" element={<RoleRoute allow={['resident']}><ResidentHome /></RoleRoute>} />
+      <Route path="/admin" element={<RoleRoute allow={['admin']}><AdminHome /></RoleRoute>} />
       <Route path="/forbidden" element={<Forbidden />} />
       <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />
       <Route path="/analytics" element={<RoleRoute allow={['dispatcher', 'dmo']}><AppShell title="Analytics"><AnalyticsPage /></AppShell></RoleRoute>} />
