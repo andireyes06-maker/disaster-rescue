@@ -47,6 +47,19 @@ describe('ReportQueue', () => {
     expect(screen.getByRole('link', { name: /Flood A/ })).toHaveAttribute('href', '/incidents/a');
   });
 
+  it('shows a 600-character description in full, in its own table cell', () => {
+    const long = 'x'.repeat(600);
+    show([makeReport({ id: 'long', description: long, type: 'flood' })]);
+    const cell = screen.getByText(long);
+    expect(cell.closest('td')).toHaveAttribute('data-label', 'Report');
+  });
+
+  it('labels every queue cell with its column header', () => {
+    show(data());
+    expect(screen.getByRole('columnheader', { name: 'Priority' })).toBeInTheDocument();
+    expect(screen.getByText('Fire B').closest('td')).toHaveAttribute('data-label', 'Report');
+  });
+
   it('computes summary cards', () => {
     show(data());
     const card = (name: string) => document.querySelector('.summary')?.textContent?.match(new RegExp(`${name}(\\d+)`))?.[1];

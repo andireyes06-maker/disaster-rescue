@@ -6,6 +6,10 @@ import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
 import { isOpen, formatTime } from './format';
 import { REPORT_TYPES, PRIORITIES, REPORT_STATUSES } from '../../types/domain';
+import DataTable, { type Column } from '../../components/calm/DataTable';
+import EmptyState from '../../components/calm/EmptyState';
+
+type Report = ReturnType<typeof useReports>['reports'][number];
 
 interface SelectProps {
   label: string;
@@ -32,6 +36,23 @@ interface Filters {
   priority: string;
   verified: string;
 }
+
+const queueColumns: Column<Report>[] = [
+  {
+    key: 'report',
+    header: 'Report',
+    render: (r) => (
+      <Link to={`/incidents/${r.id}`} className="queue__link">
+        <span className="queue__type">{r.type}</span>
+        <span className="queue__desc">{r.description}</span>
+      </Link>
+    ),
+  },
+  { key: 'priority', header: 'Priority', render: (r) => <PriorityBadge priority={r.priority} /> },
+  { key: 'status', header: 'Status', render: (r) => <StatusBadge status={r.status} /> },
+  { key: 'verified', header: 'Verification', render: (r) => <VerifiedBadge verified={r.verified} /> },
+  { key: 'reported', header: 'Reported', render: (r) => <time>{formatTime(r.createdAt)}</time> },
+];
 
 export default function ReportQueue() {
   const { reports, loading, error } = useReports();
@@ -81,25 +102,18 @@ export default function ReportQueue() {
       {error && <p className="error" role="alert">Could not load reports. Check your connection and try again.</p>}
       {loading && <p role="status" className="loading">Loading...</p>}
       {!loading && !error && rows.length === 0 && (
-        <p className="card empty">No reports match these filters.</p>
+        <EmptyState
+          title="No reports match these filters"
+          body="Clear a filter to see more reports, or wait for new reports to arrive."
+        />
       )}
       {rows.length > 0 && (
-        <ul className="queue" aria-label="Reports, newest first">
-          {rows.map((r) => (
-            <li key={r.id} className="queue__row card">
-              <Link to={`/incidents/${r.id}`} className="queue__link">
-                <span className="queue__type">{r.type}</span>
-                <span className="queue__desc">{r.description}</span>
-              </Link>
-              <span className="queue__meta">
-                <StatusBadge status={r.status} />
-                <PriorityBadge priority={r.priority} />
-                <VerifiedBadge verified={r.verified} />
-                <time>{formatTime(r.createdAt)}</time>
-              </span>
-            </li>
-          ))}
-        </ul>
+        <DataTable<Report>
+          columns={queueColumns}
+          rows={rows}
+          rowKey={(r) => r.id}
+          empty={null}
+        />
       )}
     </div>
   );
