@@ -180,25 +180,50 @@ select, textarea {
 .audit__changes ins { text-decoration: none; font-weight: 700; color: var(--color-text); }
 
 /* Public landing page (signed-out visitors at /). Coral is used only for the emergency hotline. */
-.landing { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 32px;  font-family: "Geist Variable", system-ui, sans-serif; }
-.landing__hero h1 { font-size: 1.75rem; }
-.landing__lede { font-size: 1.125rem; color: var(--color-muted); }
+.landing { max-width: 1040px; margin: 0 auto; padding: 24px 16px 0; font-family: "Geist Variable", system-ui, sans-serif; }
+.landing__brand { display: flex; align-items: center; gap: 12px; font-weight: 700; color: var(--color-primary); margin-bottom: 40px; }
+.landing__mark { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-primary); color: var(--color-surface); font-weight: 700; letter-spacing: 0.02em; }
+.landing__hero { display: grid; gap: 32px; align-items: center; margin-bottom: 64px; }
+.landing__eyebrow { margin: 0 0 12px; color: var(--color-primary); font-weight: 600; font-size: 0.9375rem; }
+.landing__hero h1 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 16px; }
+.landing__lede { font-size: 1.125rem; color: var(--color-muted); margin: 0; }
 .landing__actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.landing__actions .btn { margin-top: 0; }
-.landing__section h2 { font-size: 1.25rem; font-weight: 700; margin: 0 0 12px; }
+.landing__actions .btn { margin-top: 16px; }
+.landing__rail { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 24px; }
+.landing__rail-title { margin: 0 0 16px; font-weight: 700; }
+.landing__steps { list-style: none; margin: 0; padding: 0; position: relative; }
+.landing__step { position: relative; display: flex; align-items: center; gap: 12px; min-height: var(--space-touch); padding-left: 0; color: var(--color-muted); font-weight: 600; }
+.landing__step.is-done { color: var(--color-text); }
+.landing__step.is-current { color: var(--color-primary); }
+.landing__dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--color-primary); background: var(--color-surface); flex: none; }
+.landing__step.is-done .landing__dot { background: var(--color-primary); }
+.landing__step.is-current .landing__dot { background: var(--color-primary); box-shadow: 0 0 0 4px var(--color-primary-soft); }
+.landing__rail .landing__muted { margin: 16px 0 0; }
+.landing__section { margin-bottom: 56px; }
+.landing__section h2 { font-size: 1.5rem; font-weight: 700; margin: 0 0 16px; }
 .landing__section > p { margin-top: 0; }
-.landing__audience { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.landing__audience h3 { font-size: 1rem; margin: 0 0 4px; color: var(--color-primary); }
+.landing__audience { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-primary-soft); }
+.landing__audience li { display: grid; gap: 4px; padding: 20px 0; border-bottom: 1px solid var(--color-primary-soft); }
+.landing__audience h3 { font-size: 1.0625rem; margin: 0; color: var(--color-primary); }
 .landing__audience p { margin: 0; }
-.landing__flow { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.landing__step { padding: 12px 16px; background: var(--color-surface); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary); font-weight: 600; }
+.landing__safety { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 24px; }
+.landing__safety h2 { margin-bottom: 8px; }
+.landing__safety-text { font-size: 1.0625rem; margin: 0 0 8px; }
 .landing__hotline { background: var(--color-critical); border-color: var(--color-critical); width: 100%; }
 .landing__muted { color: var(--color-muted); font-size: 1rem; }
-.landing__footer { display: grid; gap: 8px; padding-top: 16px; border-top: 1px solid var(--color-primary-soft); }
-.landing__footer a { color: var(--color-primary); font-weight: 600; min-height: var(--space-touch); display: inline-flex; align-items: center; }
+.landing__footer { display: grid; gap: 24px; background: var(--color-primary); color: var(--color-surface); padding: 32px 16px; margin: 0 -16px; }
 .landing__footer p { margin: 0; }
+.landing__footer-title { font-weight: 700; margin-bottom: 8px !important; }
+.landing__footer-link { color: var(--color-surface); font-weight: 600; text-decoration: underline; display: inline-flex; align-items: center; min-height: var(--space-touch); }
 @media (min-width: 720px) {
-  .landing__flow { flex-direction: row; flex-wrap: wrap; }
-  .landing__step { flex: 1 1 120px; border-left: none; border-top: 4px solid var(--color-primary); }
+  .landing { padding-top: 40px; }
+  .landing__hero { grid-template-columns: 1.2fr 1fr; gap: 48px; }
   .landing__hotline { width: auto; }
+  .landing__steps { display: grid; grid-template-columns: 1fr; }
+  .landing__steps::before { content: ""; position: absolute; left: 6px; top: 22px; bottom: 22px; width: 2px; background: var(--color-primary-soft); }
+  .landing__footer { grid-template-columns: 1fr 1fr; margin: 0 calc(50% - 50vw); padding: 40px max(16px, calc(50vw - 520px)); }
+}
+@media (min-width: 900px) {
+  .landing__audience { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0; }
+  .landing__audience li { border-bottom: 0; border-top: 3px solid var(--color-primary); padding: 16px 16px 0 0; }
 }
