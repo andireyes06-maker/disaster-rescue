@@ -36,9 +36,10 @@ export default function Landing() {
               <Link className="btn door__action" to="/login">Sign in to the staff web</Link>
             </article>
             <article className="door door--resident">
-              <h2>Resident mobile app</h2>
-              <p>Use the mobile app to report with photos and location, and to follow the status.</p>
-              <p className="door__availability">Not publicly released. Ask your team lead for a demo build.</p>
+              <h2>Residents</h2>
+              <p>Report an emergency with photos and location, and follow its status on the website or in the mobile app.</p>
+              <Link className="btn door__action" to="/register">Create a resident account</Link>
+              <p className="door__availability">Mobile app: not publicly released. Ask your team lead for a demo build.</p>
               <a className="door__link" href="#resident-app">Resident app availability</a>
             </article>
           </div>
