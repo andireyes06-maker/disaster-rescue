@@ -4,6 +4,7 @@ import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import type { GeoPoint, Report } from '../../types/domain';
 import { useAssignedReports } from './useAssignedReports';
+import EmptyState from '../../components/calm/EmptyState';
 import OperationForm, { allowedOperationStatuses } from './OperationForm';
 import StatusBadge from '../reports/StatusBadge';
 import PriorityBadge from '../reports/PriorityBadge';
@@ -99,14 +100,22 @@ export default function AssignmentsPage() {
   const { reports, loading, error } = useAssignedReports(team);
 
   if (!team) {
-    return <p className="card empty">Your account is not linked to a rescue team yet. Ask a dispatcher to assign you one.</p>;
+    return (
+      <EmptyState
+        title="Your account is not linked to a rescue team"
+        body="Ask a dispatcher to assign you to a team. Assignments appear here once you have one."
+      />
+    );
   }
   return (
     <div>
       {error && <p role="alert" className="error"><span aria-hidden="true">✖</span> Could not load your assignments. Check your connection and try again.</p>}
       {loading && <p role="status" className="loading">Loading...</p>}
       {!loading && !error && reports.length === 0 && (
-        <p className="card empty">No open assignments right now.</p>
+        <EmptyState
+          title="No open assignments right now"
+          body="New assignments from your dispatcher appear here."
+        />
       )}
       {reports.length > 0 && (
         <ul className="queue" aria-label="Assigned incidents, newest first">

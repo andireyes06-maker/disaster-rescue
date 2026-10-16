@@ -9,8 +9,9 @@
 - Done: phase 4 dispatcher queue as DataTable with EmptyState (commit below).
 - Done: phase 5 incident details. Reject and Assign dialogs return focus to their buttons; shared dialog sets aria-modal (commit below).
 - Done: phase 6 map and audit empty states (commit below). Monitor reuses the map; export buttons already had text labels.
-- Next: phases 7 and 8. Staff screens cannot be browser-checked without test credentials (Airen to provide).
-- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the redesign at phase 7."
+- Done: phase 7 teams and responder empty states, responder tests (commit below). Form labels were already in place.
+- Next: phase 8 (cleanup, browser check, staff sign-in check). Staff screens cannot be browser-checked without test credentials (Airen to provide).
+- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the redesign at phase 8."
 
 **Status (Oct 15, 2026):** all 21 plan tasks are built and committed. Remaining work is deployment and the course deliverables.
 

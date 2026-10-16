@@ -1,3 +1,4 @@
+import EmptyState from '../../components/calm/EmptyState';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -113,7 +114,9 @@ export default function TeamsPage() {
         : <p role="alert" className="error"><span aria-hidden="true">✖</span> {message.text}</p>)}
       {loadError && <p role="alert" className="error"><span aria-hidden="true">✖</span> {loadError}</p>}
       {!loadError && teams === null && <p role="status" className="loading">Loading...</p>}
-      {teams && teams.length === 0 && <p className="card empty">No teams yet.</p>}
+      {teams && teams.length === 0 && (
+        <EmptyState title="No teams yet" body="Create the first team below. Dispatchers assign reports to teams." />
+      )}
       {teams && teams.length > 0 && (
         <ul className="queue" aria-label="Teams">
           {teams.map((t) => (
