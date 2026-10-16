@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -78,10 +78,10 @@ describe('AdminPage', () => {
     await user.type(screen.getByLabelText('New account email'), 'second@x.test');
     await user.selectOptions(screen.getByLabelText('New account role'), 'admin');
     await user.click(screen.getByRole('button', { name: 'Create account' }));
-    expect(h.api).toHaveBeenCalledWith('/users', expect.objectContaining({
+    await waitFor(() => expect(h.api).toHaveBeenCalledWith('/users', expect.objectContaining({
       method: 'POST',
       body: expect.objectContaining({ email: 'second@x.test', name: 'Second Admin', role: 'admin' }),
-    }));
+    })));
   });
 
   it('lists teams and creates a new one', async () => {
@@ -90,7 +90,7 @@ describe('AdminPage', () => {
     expect(await screen.findByText('Team Alpha')).toBeInTheDocument();
     await user.type(screen.getByLabelText('New team name'), 'Team Bravo');
     await user.click(screen.getByRole('button', { name: 'Create team' }));
-    expect(h.api).toHaveBeenCalledWith('/teams', expect.objectContaining({ method: 'POST', body: { name: 'Team Bravo' } }));
+    await waitFor(() => expect(h.api).toHaveBeenCalledWith('/teams', expect.objectContaining({ method: 'POST', body: { name: 'Team Bravo' } })));
   });
 
   it('changes an account role from its row', async () => {
@@ -108,7 +108,7 @@ describe('AdminPage', () => {
     await user.clear(input);
     await user.type(input, 'Team Alfa');
     await user.click(screen.getByRole('button', { name: 'Save name for Team Alpha' }));
-    expect(h.api).toHaveBeenCalledWith('/teams/team-alpha', expect.objectContaining({ method: 'PATCH', body: { name: 'Team Alfa' } }));
+    await waitFor(() => expect(h.api).toHaveBeenCalledWith('/teams/team-alpha', expect.objectContaining({ method: 'PATCH', body: { name: 'Team Alfa' } })));
   });
 
   it('shows the audit log, and no export button (exports carry exact locations)', async () => {

@@ -14,6 +14,8 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './src/test-setup.ts',
+    // The full suite runs many jsdom files in parallel; typing-heavy tests need more than the default 5 s.
+    testTimeout: 20000,
     exclude: ['node_modules', 'dist', 'e2e/**'],
   },
 });
