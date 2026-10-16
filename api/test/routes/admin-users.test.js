@@ -61,9 +61,17 @@ describe('admin account management', () => {
     expect(renamed.status).toBe(200);
   });
 
-  it('admin can download the summary but not the incident CSV (exact locations)', async () => {
+  it('admin cannot download the summary or the incident CSV (both carry exact locations)', async () => {
     const t = makeTestApp();
-    expect((await request(t.app).get('/api/export/summary.pdf').set('Authorization', t.as('admin'))).status).toBe(200);
+    expect((await request(t.app).get('/api/export/summary.pdf').set('Authorization', t.as('admin'))).status).toBe(403);
     expect((await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('admin'))).status).toBe(403);
+  });
+
+  it('a role change revokes refresh tokens so the new role applies at once', async () => {
+    const t = makeTestApp();
+    await t.repo.createUser('res-9', { name: 'Rae', role: 'responder', active: true, team: null });
+    t.auth.users.set('res-9', { uid: 'res-9', email: 'rae@x.test', disabled: false, customClaims: { role: 'responder', active: true } });
+    expect((await patch(t, t.as('admin'), 'res-9', { role: 'dmo' })).status).toBe(200);
+    expect(t.auth.calls.revokeRefreshTokens).toContain('res-9');
   });
 });

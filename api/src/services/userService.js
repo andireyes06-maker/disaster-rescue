@@ -75,7 +75,8 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
     ? { role, active: true, ...(user.team ? { team: user.team } : {}) }
     : { role, active: false };
   await auth.setCustomUserClaims(id, claims);
-  if (!active) await auth.revokeRefreshTokens(id);
+  // Revoke on deactivation and on any role change, so the old claims stop working at once (the API checks revocation).
+  if (!active || role !== user.role) await auth.revokeRefreshTokens(id);
   await auth.updateUser(id, { disabled: !active });
   await repo.updateUser(id, patch);
   // A deactivated account must stop receiving pushes, so its device tokens go too.

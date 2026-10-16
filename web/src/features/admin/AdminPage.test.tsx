@@ -111,9 +111,9 @@ describe('AdminPage', () => {
     expect(h.api).toHaveBeenCalledWith('/teams/team-alpha', expect.objectContaining({ method: 'PATCH', body: { name: 'Team Alfa' } }));
   });
 
-  it('shows the audit log and an export of the summary', async () => {
+  it('shows the audit log, and no export button (exports carry exact locations)', async () => {
     renderPage();
     expect(screen.getByText('audit entries')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Download summary (PDF)' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Download summary (PDF)' })).toBeNull();
   });
 });

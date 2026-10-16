@@ -7,9 +7,8 @@ import { toCsv, toPdf } from '../services/exportService.js';
 export function exportRouter(deps) {
   const r = Router();
   const auth = requireAuth(deps.verifyToken);
+  // Both exports carry exact locations (the summary lists each incident), so only the roles that see them in the app get them.
   const staff = requireRole('dispatcher', 'dmo');
-  // The summary holds totals only, so admins may download it. The incident CSV carries exact locations, so it stays with the roles that see them.
-  const summaryRoles = requireRole('dispatcher', 'dmo', 'admin');
 
   r.get('/incidents.csv', auth, staff, async (req, res, next) => {
     try {
@@ -19,7 +18,7 @@ export function exportRouter(deps) {
     } catch (e) { next(e); }
   });
 
-  r.get('/summary.pdf', auth, summaryRoles, async (req, res, next) => {
+  r.get('/summary.pdf', auth, staff, async (req, res, next) => {
     try {
       const range = parseRange(req.query);
       const reports = await loadReports(deps.repo, range);

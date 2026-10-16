@@ -4,7 +4,6 @@ import AccountsPanel, { type AdminTeam } from './AccountsPanel';
 import TeamsPanel from './TeamsPanel';
 import SettingsPanel from './SettingsPanel';
 import HealthPanel from './HealthPanel';
-import ExportPanel from './ExportPanel';
 import AuditPage from '../audit/AuditPage';
 import '../../pages/public.css';
 
@@ -42,7 +41,7 @@ export default function AdminPage() {
 
       <section className="card" aria-labelledby="audit-heading">
         <h2 id="audit-heading">Audit and exports</h2>
-        <ExportPanel />
+        <p>Exports are available to dispatchers and DMOs, because they include exact locations.</p>
         <AuditPage />
       </section>
     </main>
