@@ -126,6 +126,7 @@ function IncidentView({ id }: IncidentViewProps) {
   const assignTrigger = useRef<HTMLButtonElement>(null);
   const [message, setMessage] = useState<Message | null>(null);
   const [rejecting, setRejecting] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState<number | null>(null);
   const [reason, setReason] = useState('');
   const [priority, setPriority] = useState('');
   const [classification, setClassification] = useState('');
@@ -204,9 +205,28 @@ function IncidentView({ id }: IncidentViewProps) {
         {report.photos?.length > 0 && (
           <ul className="photos" aria-label="Photos">
             {report.photos.map((p, i) => (
-              <li key={p.url}><a href={p.url} target="_blank" rel="noreferrer">Photo {i + 1}</a></li>
+              <li key={p.url}>
+                <button type="button" className="photo-thumb" onClick={() => setPhotoIndex(i)}
+                  aria-label={`Open photo ${i + 1} of ${report.photos.length}`}>
+                  <img src={p.url} alt="" loading="lazy" />
+                </button>
+              </li>
             ))}
           </ul>
+        )}
+        {photoIndex !== null && report.photos?.[photoIndex] && (
+          <Dialog open onOpenChange={(open) => { if (!open) setPhotoIndex(null); }}>
+            <DialogContent className="photo-viewer">
+              <DialogTitle>Photo {photoIndex + 1} of {report.photos.length}</DialogTitle>
+              <img src={report.photos[photoIndex].url} alt={`Incident photo ${photoIndex + 1}`} />
+              <div className="photo-viewer__nav">
+                <button type="button" className="btn btn--ghost" disabled={photoIndex === 0}
+                  onClick={() => setPhotoIndex(photoIndex - 1)}>Previous</button>
+                <button type="button" className="btn btn--ghost" disabled={photoIndex === report.photos.length - 1}
+                  onClick={() => setPhotoIndex(photoIndex + 1)}>Next</button>
+              </div>
+            </DialogContent>
+          </Dialog>
         )}
       </section>
 

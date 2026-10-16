@@ -106,6 +106,15 @@ No product code changed in this pass. Nothing was committed, pushed, or deployed
 - Demo accounts (`AuditOnly#2026`) exist only in the local emulator. The live project may not have them. Airen has not yet decided whether to create demo logins there.
 - Open decisions for Airen are in item 1 of `HANDOFF.md` "Waiting on Airen" and in the Remaining work list above (items 1, 2, 5, and the Reticle and direction questions).
 
+## Decisions applied (October 16, after the commit)
+
+- Audit log on phone: visible "Swipe sideways to see every column" cue, shown under 720px (`web/src/styles.css` `.scroll-cue`, `web/src/features/audit/AuditPage.tsx`). The table still scrolls inside its focusable region.
+- Incident photos: thumbnails in the incident page open a viewer dialog with Previous and Next (`web/src/features/reports/IncidentDetails.tsx`). Test added. The thumbnails use the stored photo URLs.
+- Reticle: left installed but unwired. No SDK files added.
+- Whole visual direction: a change was chosen. Not started. A direction brief must be approved before any code.
+- Checks: `npx vitest run` 173 passed (24 files), `tsc --noEmit` clean, `git diff --check` clean, Impeccable detector 0 findings on the edited files. Not checked: a rendered screenshot of the new viewer or the scroll cue on a phone.
+- These edits are uncommitted.
+
 ## Suggested continuation prompt
 
 “Read CLAUDE-HANDOFF.md in FINAL_PROJECT, inventory the installed plugins and skills, and use the applicable toolkit, including Impeccable, as instructed there. Inspect the current git diff and the before/after review, and continue from the remaining work. Preserve the implemented hierarchy and business rules. Ask Airen for visual feedback before making another whole-product visual direction change. Verify with local demo emulators and report which tools you used; do not use production credentials, push, or deploy without authorization.”

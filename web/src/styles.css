@@ -194,6 +194,14 @@ select, textarea {
 }
 .photos { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; padding: 0; }
 .photos a { display: inline-flex; align-items: center; min-height: var(--space-touch); padding: 8px 16px; border: 1px solid var(--color-mist); border-radius: 8px; color: var(--color-primary); }
+.photo-thumb { display: block; padding: 0; border: 1px solid var(--color-mist); border-radius: 8px; overflow: hidden; background: var(--color-surface, #fff); cursor: zoom-in; }
+.photo-thumb img { display: block; width: 120px; height: 120px; object-fit: cover; }
+.photo-thumb:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+.photo-viewer { max-width: min(92vw, 880px); }
+.photo-viewer img { display: block; width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px; background: var(--color-primary-soft); }
+.photo-viewer__nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.scroll-cue { display: none; margin: 0 0 8px; font-size: 0.875rem; color: var(--color-muted, #475569); }
+@media (max-width: 719px) { .scroll-cue { display: block; } }
 .updates { list-style: none; padding: 0; margin: 0; }
 .updates li + li { border-top: 1px solid var(--color-mist); padding-top: 16px; margin-top: 16px; }
 .updates li > span { display: block; color: var(--color-muted); font-size: 0.8125rem; }

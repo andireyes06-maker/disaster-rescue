@@ -115,6 +115,8 @@ export default function AuditPage() {
         />
       )}
       {!loading && !result?.error && result?.rows && result.rows.length > 0 && (
+        <>
+        <p className="scroll-cue">Swipe sideways to see every column.</p>
         <div className="table-wrap card audit" tabIndex={0} role="region" aria-label="Audit entries">
           <table>
             <thead>
@@ -147,6 +149,7 @@ export default function AuditPage() {
             </tbody>
           </table>
         </div>
+        </>
       )}
     </div>
   );

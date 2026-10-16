@@ -57,6 +57,18 @@ describe('IncidentDetails', () => {
     expect(screen.getByRole('button', { name: 'Verify' })).toBeInTheDocument();
   });
 
+  it('opens photo thumbnails in a viewer and steps between them', async () => {
+    const user = userEvent.setup();
+    show([makeReport({ photos: [{ url: 'https://img.test/a.jpg' }, { url: 'https://img.test/b.jpg' }] } as Partial<Report>)]);
+    await user.click(screen.getByRole('button', { name: 'Open photo 1 of 2' }));
+    const viewer = screen.getByRole('dialog');
+    expect(within(viewer).getByRole('img', { name: 'Incident photo 1' })).toHaveAttribute('src', 'https://img.test/a.jpg');
+    expect(within(viewer).getByRole('button', { name: 'Previous' })).toBeDisabled();
+    await user.click(within(viewer).getByRole('button', { name: 'Next' }));
+    expect(within(viewer).getByRole('img', { name: 'Incident photo 2' })).toHaveAttribute('src', 'https://img.test/b.jpg');
+    expect(within(viewer).getByRole('button', { name: 'Next' })).toBeDisabled();
+  });
+
   it('does not show Verify for Verified', () => {
     show([makeReport({ status: 'Verified', verified: true })]);
     expect(screen.queryByRole('button', { name: 'Verify' })).toBeNull();
