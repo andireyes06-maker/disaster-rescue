@@ -4,11 +4,13 @@
 
 **Project:** IT 305 final project, Disaster Rescue Reporting and Monitoring System (Flutter + React + Express + Firebase). Due Nov 2, 2026.
 **Branch:** `build/disaster-rescue`. Nothing merged to `master`. Repo: https://github.com/andireyes06-maker/disaster-rescue (private).
-**Website pass (Oct 16, 2026):** the latest work is in [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md). Read that first. It records the layouts, retry controls, tests, and open decisions.
+**Resident web and admin (Oct 16, 2026, late):** built on this branch, committed, not deployed. Plan: `docs/superpowers/plans/2026-10-16-web-resident-redesign.md`. Ledger with every ruling and deviation: `.superpowers/sdd/2026-10-16-web-resident-redesign/progress.md`. Spec amendment in `X-SPEC.md`.
+**Website pass (Oct 16, 2026):** see [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md) for the layouts, retry controls, and open decisions.
 **Status:** committed on this branch, see the commit named in CLAUDE-HANDOFF.md. Deployed to production at https://disaster-rescue-web.vercel.app (live Firebase project `flutter-5094e`, not the emulator). Sign-in not verified on the live site.
 **Redesign:** spec `REDESIGN-SPEC.md` awaits Airen's review. Option B (staff layout) and the local emulator check route are approved. The staff screens are not remade yet. Plan `REDESIGN-PLAN.md` still needs revising for Option B and the emulator route before any staff-screen code.
 
-**Verified (Oct 16):** web 172 tests pass (24 files), `tsc --noEmit` clean, Impeccable detector 0 findings on changed UI, `git diff --check` clean.
+**Verified (Oct 16, late):** API 248 tests, rules 118 (emulator 8180), web 215 tests (3 full runs stable), `tsc` clean, production build OK, Impeccable 0 findings on the changed UI, `git diff --check` clean.
+**Open from the redesign:** the last-admin check is not atomic (security review finding, deferred; needs a transactional repo method). Populated staff screens (assignment cards, queue rows, incident details with data) were not rendered: the emulator has no reports. Analytics and users pages not rendered.
 **Not verified:** physical phones, screen readers, Firefox and WebKit, signed-in live pages, real device features (GPS, camera, push, map tiles), real Cloudinary.
 
 ## Decisions locked
@@ -23,7 +25,7 @@
 - Firestore rules and indexes deployed to `flutter-5094e`. Test reports left on the real project (DR-T49M76 and others) should be closed or deleted before the demo.
 
 ## Waiting on Airen
-1. **Website decisions** (listed in CLAUDE-HANDOFF.md): audit-log phone treatment, incident photo thumbnails, whether to wire Reticle, and any whole visual direction change.
+1. **Resident web and admin:** review on the local emulator; decide whether to deploy (Vercel and the rules need a separate approval). Rules still need deploying to `flutter-5094e` before the live site uses them.
 2. **Live sign-in:** the demo accounts exist only in the local emulator. Decide whether to create demo logins on `flutter-5094e`.
 3. **Redesign:** approve `REDESIGN-SPEC.md`.
 4. **Course docs:** fill `docs/contributions.md`; replace the `000-0000` LDRRMO placeholder in `config/hotlines`; get legal review of `docs/privacy-and-coordination.md`.

@@ -115,6 +115,15 @@ No product code changed in this pass. Nothing was committed, pushed, or deployed
 - Checks: `npx vitest run` 173 passed (24 files), `tsc --noEmit` clean, `git diff --check` clean, Impeccable detector 0 findings on the edited files. Not checked: a rendered screenshot of the new viewer or the scroll cue on a phone.
 - These edits are uncommitted.
 
+## Resident web and admin (October 16, late)
+
+- Built per `docs/superpowers/plans/2026-10-16-web-resident-redesign.md` on `build/disaster-rescue`, committed in phases. Ledger with rulings: `.superpowers/sdd/2026-10-16-web-resident-redesign/progress.md`.
+- Checks: API 248, rules 118, web 215 (stable over 3 runs; per-test timeout raised to 20 s), `tsc` clean, production build OK, Impeccable 0 findings.
+- Rendered on the local emulator at 390 and 1440 px: dispatcher dashboard, map, audit, teams; DMO monitor; responder assignments (empty state only); resident dashboard and report form; admin page. No horizontal overflow.
+- Gaps: populated staff screens not rendered (no reports in the emulator); analytics and users not rendered; the rendered public map tiles not checked.
+- Known open: last-admin race (deferred); admin cannot export (by decision); map pick for residents deferred.
+- Dev note: run Vite with `VITE_USE_EMULATORS=true` and `VITE_API_BASE_URL=http://127.0.0.1:3101/api` for local work. Without the flag the app signs in against the real Firebase Auth. This happened once during this session.
+
 ## Suggested continuation prompt
 
 “Read CLAUDE-HANDOFF.md in FINAL_PROJECT, inventory the installed plugins and skills, and use the applicable toolkit, including Impeccable, as instructed there. Inspect the current git diff and the before/after review, and continue from the remaining work. Preserve the implemented hierarchy and business rules. Ask Airen for visual feedback before making another whole-product visual direction change. Verify with local demo emulators and report which tools you used; do not use production credentials, push, or deploy without authorization.”

@@ -205,3 +205,13 @@ Airen chose option B from the Software Build Guidelines review. Web keeps React 
 - **Playwright** for end-to-end flows (after the migration).
 
 Unchanged: Express API (JavaScript), Firebase, Flutter, Calm Clarity colors and the coral-for-critical rule. Migration is tested at each phase; no behavior changes are intended.
+
+## Amendment (Oct 16, 2026): resident web interface and admin role
+
+Decided by Airen on Oct 16, after the PDF brief was checked. The brief says residents report "via a mobile application or website" and track their requests.
+
+- **Residents on the web:** sign up (self registration, `POST /api/users/self`), see a dashboard with the hotline and safety notice, "My reports", notifications, and a public map of rounded areas (about 500 m, from `GET /api/public/incidents`, no identities). They submit a report with GPS, up to 5 photos, and optional contact details, and they can cancel a report only while it is Submitted. The map pick is deferred (see the plan's ledger).
+- **Admin role:** a separate `admin` role in the web app. Admins manage accounts and roles (including other admins; never themselves; never the last active admin), manage teams, view the audit log, and set the hotline and resident notice. Admins do not get exports: the summary and the incident CSV both carry exact locations. The first admin is created with `api/scripts/create-admin.js`, run once from a terminal.
+- **Responders** see only their own team (Firestore rules and API).
+
+The "admin and dispatcher are one role" line in section 3 applies to the API's dispatcher checks only. Plan and ledger: `docs/superpowers/plans/2026-10-16-web-resident-redesign.md`, `.superpowers/sdd/2026-10-16-web-resident-redesign/progress.md`.
