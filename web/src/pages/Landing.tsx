@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import PublicHeader from '../components/PublicHeader';
+import './public.css';
 
 const HOTLINE_PLACEHOLDER = '000-0000';
 

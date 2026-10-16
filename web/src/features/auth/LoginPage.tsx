@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
 import { landingFor } from '../../routes/landing';
 import PublicHeader from '../../components/PublicHeader';
+import '../../pages/public.css';
 
 export default function LoginPage() {
   const { user, role, error: authError, login } = useAuth();
