@@ -34,6 +34,7 @@
  * @property {(entry: object) => Promise<string>} addAudit
  * @property {(filter?: object) => Promise<object[]>} listAudit
  * @property {() => Promise<object>} getHotlines
+ * @property {(doc: object) => Promise<void>} saveHotlines
  */
 
 export const REPO_METHODS = [
@@ -44,5 +45,5 @@ export const REPO_METHODS = [
   'addNotification', 'listNotifications', 'markRead',
   'addDevice', 'listDevices', 'removeDevice',
   'addAudit', 'listAudit',
-  'getHotlines',
+  'getHotlines', 'saveHotlines',
 ];

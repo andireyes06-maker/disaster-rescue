@@ -105,6 +105,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
     },
 
     async getHotlines() { return copy(hotlines); },
+    async saveHotlines(doc) { hotlines = copy(doc); },
 
     // Test helper: backdate a report.
     _setCreatedAt(id, date) { reports.get(id).createdAt = date; },
