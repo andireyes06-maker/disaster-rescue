@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, ClipboardList, type LucideIcon } from 'lucide-react';
+import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, ClipboardList, Settings, type LucideIcon } from 'lucide-react';
 import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
 
@@ -24,6 +24,7 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
     { to: '/analytics', label: 'Analytics', icon: ChartNoAxesCombined },
   ],
   responder: [{ to: '/assignments', label: 'Assignments', icon: ClipboardList }],
+  admin: [{ to: '/admin', label: 'Admin', icon: Settings }],
 };
 
 const DESCRIPTIONS: Record<string, string> = {
@@ -35,6 +36,7 @@ const DESCRIPTIONS: Record<string, string> = {
   Teams: 'Manage rescue teams and see their current availability.',
   Users: 'Manage staff access and team membership.',
   Assignments: 'Review your team’s incidents and record rescue progress.',
+  Admin: 'Manage accounts, roles, teams, system settings, and the audit log.',
   'Incident details': 'Review the report, its evidence, and the response history.',
 };
 

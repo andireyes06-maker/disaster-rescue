@@ -49,4 +49,15 @@ describe('AppShell', () => {
     await userEvent.click(screen.getByRole('link', { name: 'Map' }));
     expect(toggle).toHaveAttribute('aria-expanded', 'false');
   });
+  it('shows the admin navigation to an admin', () => {
+    auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
+    renderAt('/admin');
+    expect(screen.getByRole('link', { name: 'Admin' })).toHaveAttribute('href', '/admin');
+  });
+
+  it('shows no staff navigation to a resident', () => {
+    auth.value = { user: { email: 'r@test.dev' }, role: 'resident', logout: vi.fn() };
+    renderAt('/my');
+    expect(screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')).toHaveLength(0);
+  });
 });

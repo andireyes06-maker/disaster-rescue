@@ -29,7 +29,7 @@ export default function App() {
       <Route path="/my" element={<RoleRoute allow={['resident']}><ResidentDashboard /></RoleRoute>} />
       <Route path="/my/report" element={<RoleRoute allow={['resident']}><ReportForm /></RoleRoute>} />
       <Route path="/my/reports/:id" element={<RoleRoute allow={['resident']}><ResidentReportDetail /></RoleRoute>} />
-      <Route path="/admin" element={<RoleRoute allow={['admin']}><AdminPage /></RoleRoute>} />
+      <Route path="/admin" element={<RoleRoute allow={['admin']}><AppShell title="Admin"><AdminPage /></AppShell></RoleRoute>} />
       <Route path="/forbidden" element={<Forbidden />} />
       <Route path="/dashboard" element={<RoleRoute allow={['dispatcher']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />
       <Route path="/analytics" element={<RoleRoute allow={['dispatcher', 'dmo']}><AppShell title="Analytics"><AnalyticsPage /></AppShell></RoleRoute>} />

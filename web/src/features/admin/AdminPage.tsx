@@ -19,8 +19,7 @@ export default function AdminPage() {
   }, []);
 
   return (
-    <main className="admin">
-      <h1>Admin</h1>
+    <div className="admin">
 
       <section className="card" aria-labelledby="accounts-heading">
         <h2 id="accounts-heading">Accounts and roles</h2>
@@ -44,6 +43,6 @@ export default function AdminPage() {
         <p>Exports are available to dispatchers and DMOs, because they include exact locations.</p>
         <AuditPage />
       </section>
-    </main>
+    </div>
   );
 }
