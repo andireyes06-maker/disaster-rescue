@@ -1,3 +1,4 @@
+import EmptyState from '../../components/calm/EmptyState';
 import { useEffect, useState, type ChangeEvent } from 'react';
 import { api } from '../../api/client';
 
@@ -100,7 +101,10 @@ export default function AuditPage() {
       {loading && <p role="status" className="loading">Loading...</p>}
       {!loading && result?.error && <p role="alert" className="error">Could not load the audit log. Check your connection and try again.</p>}
       {!loading && !result?.error && result?.rows?.length === 0 && (
-        <p className="card empty">No audit entries match these filters.</p>
+        <EmptyState
+          title="No audit entries match these filters"
+          body="Audit entries appear here as staff verify, assign, or change reports. Clear the filters to see more."
+        />
       )}
       {!loading && !result?.error && result?.rows && result.rows.length > 0 && (
         <div className="table-wrap card audit">

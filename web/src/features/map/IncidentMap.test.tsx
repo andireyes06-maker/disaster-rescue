@@ -34,6 +34,11 @@ function renderMap(reports: Report[]) {
 describe('IncidentMap', () => {
   beforeEach(() => { h.reports = []; });
 
+  it('shows an empty state when no located reports exist', () => {
+    renderMap([makeReport({ id: 'r1', location: undefined })]);
+    expect(screen.getByRole('heading', { name: 'No located reports yet' })).toBeInTheDocument();
+  });
+
   it('hides markers whose status does not match the filter', async () => {
     const user = userEvent.setup();
     renderMap([

@@ -1,3 +1,4 @@
+import EmptyState from '../../components/calm/EmptyState';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
@@ -79,6 +80,12 @@ export default function IncidentMap() {
         <FilterSelect label="Status" value={filters.status} onChange={set('status')} options={REPORT_STATUSES} />
       </div>
       <p>{visible.length} located report{visible.length === 1 ? '' : 's'} shown.</p>
+      {visible.length === 0 && (
+        <EmptyState
+          title="No located reports yet"
+          body="Reports appear here once they include a location. Clear the filters to see all located reports."
+        />
+      )}
       <div className="incident-map">
         <MapContainer center={center} zoom={located.length ? 13 : 2} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
           <TileLayer

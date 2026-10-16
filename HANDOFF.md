@@ -8,8 +8,9 @@
 - Done: phase 1 primitives (`web/src/components/calm/`, commits 5547b39, dc5bfe1); phase 2 shell with mobile menu (e2efb93); phase 3 public pages with `public.css` and landing tests (commit below).
 - Done: phase 4 dispatcher queue as DataTable with EmptyState (commit below).
 - Done: phase 5 incident details. Reject and Assign dialogs return focus to their buttons; shared dialog sets aria-modal (commit below).
-- Next: phases 6 to 8. Staff screens cannot be browser-checked without test credentials (Airen to provide).
-- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the redesign at phase 6."
+- Done: phase 6 map and audit empty states (commit below). Monitor reuses the map; export buttons already had text labels.
+- Next: phases 7 and 8. Staff screens cannot be browser-checked without test credentials (Airen to provide).
+- Resume prompt: "Read HANDOFF.md and REDESIGN-PLAN.md in /Users/rien/Documents/FINAL_PROJECT. Continue the redesign at phase 7."
 
 **Status (Oct 15, 2026):** all 21 plan tasks are built and committed. Remaining work is deployment and the course deliverables.
 
