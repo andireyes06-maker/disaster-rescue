@@ -185,8 +185,9 @@ describe('atomic staff and report writes (transactions)', () => {
     const { repo } = setup();
     await repo.createUser('a1', { name: 'A', role: 'admin', active: true });
     await repo.createUser('a2', { name: 'B', role: 'admin', active: true });
-    expect(await repo.setStaffGuarded('a1', { active: false }, { removesAdmin: true })).toEqual({ ok: true });
-    expect(await repo.setStaffGuarded('a2', { active: false }, { removesAdmin: true })).toEqual({ ok: false, reason: 'last_admin' });
+    const lastAdminGuard = (target, others) => (target?.role === 'admin' && target.active === true && others.length === 0 ? 'last_admin' : null);
+    expect(await repo.setStaffGuarded('a1', { active: false }, lastAdminGuard)).toEqual({ ok: true });
+    expect(await repo.setStaffGuarded('a2', { active: false }, lastAdminGuard)).toEqual({ ok: false, reason: 'last_admin' });
     expect(await repo.getUser('a2')).toMatchObject({ active: true });
   });
 

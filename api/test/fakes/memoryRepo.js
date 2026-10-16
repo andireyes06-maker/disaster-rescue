@@ -98,13 +98,12 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
     },
     async listUsers() { return copy([...users.values()]); },
     // Atomic: the admin check and the write happen in one synchronous step, as in the transaction.
-    async setStaffGuarded(uid, patch, { removesAdmin }) {
-      const target = users.get(uid);
-      if (!target) return { ok: false, reason: 'not_found' };
-      if (removesAdmin) {
-        const others = [...users.values()].filter((u) => u.uid !== uid && u.role === 'admin' && u.active === true);
-        if (others.length === 0) return { ok: false, reason: 'last_admin' };
-      }
+    // Same contract as the transaction: the guard sees the stored target and other active admins, then the write.
+    async setStaffGuarded(uid, patch, guard) {
+      const target = users.get(uid) ?? null;
+      const others = [...users.values()].filter((u) => u.uid !== uid && u.role === 'admin' && u.active === true);
+      const reason = guard(target ? copy(target) : null, copy(others));
+      if (reason) return { ok: false, reason };
       users.set(uid, { ...target, ...copy(patch) });
       return { ok: true };
     },

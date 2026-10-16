@@ -22,7 +22,7 @@
  * @property {(uid: string, data: object) => Promise<void>} createUser
  * @property {(uid: string, patch: object) => Promise<void>} updateUser
  * @property {() => Promise<object[]>} listUsers
- * @property {(uid: string, patch: object, opts: {removesAdmin: boolean}) => Promise<{ok: boolean, reason?: string}>} setStaffGuarded
+ * @property {(uid: string, patch: object, guard: (target: object|null, otherActiveAdmins: object[]) => string|null) => Promise<{ok: boolean, reason?: string}>} setStaffGuarded
  * @property {(reportId: string, expectedStatus: string, change: object) => Promise<{ok: boolean, reason?: string}>} applyReportChange
  * @property {(uid: string, key: string, opts: {staleAfterMs: number}) => Promise<{state: 'new'|'pending'|'done', result?: object}>} claimSubmission
  * @property {(uid: string, key: string, result: object) => Promise<void>} completeSubmission

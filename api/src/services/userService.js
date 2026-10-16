@@ -73,24 +73,43 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   const role = hasRole ? body.role : user.role;
   const active = hasActive ? body.active : user.active === true;
 
-  // Never leave the system with no active admin. The check and the write are one guarded repository
-  // step, so two concurrent demotions cannot both pass.
-  const stopsBeingAdmin = user.role === 'admin' && user.active === true && (role !== 'admin' || !active);
+  // Every decision that depends on the target's current state is made inside the same transaction that
+  // writes it. The guard receives the target and the other active admins as read in that transaction (review).
+  // A stale read taken above therefore cannot authorize the change.
+  let prior = null;
+  const guard = (target, otherActiveAdmins) => {
+    if (!target) return 'not_found';
+    const targetActive = target.active === true;
+    if (target.role === 'admin' && !isAdmin) return 'forbidden';
+    if (target.role !== user.role || targetActive !== (user.active === true)) return 'changed';
+    const removesAdmin = target.role === 'admin' && targetActive && (role !== 'admin' || !active);
+    if (removesAdmin && otherActiveAdmins.length === 0) return 'last_admin';
+    prior = { role: target.role, active: targetActive, authSyncPending: target.authSyncPending === true };
+    return null;
+  };
   // The users document is canonical: rules read it, so the old access stops here first. Auth follows.
   // authSyncPending stays true until Auth is updated; a retry of the same change completes it.
-  const guarded = await repo.setStaffGuarded(id, { role, active, authSyncPending: true }, { removesAdmin: stopsBeingAdmin });
-  if (!guarded.ok && guarded.reason === 'last_admin') throw new HttpError(409, 'last_admin', 'At least one active admin must remain');
-  if (!guarded.ok) throw new HttpError(404, 'not_found', 'User not found');
+  const result = await repo.setStaffGuarded(id, { role, active, authSyncPending: true }, guard);
+  if (!result.ok) {
+    const refused = {
+      not_found: [404, 'not_found', 'User not found'],
+      changed: [409, 'stale_user', 'This account was changed by someone else. Reload and try again.'],
+      forbidden: [403, 'forbidden', 'Dispatchers cannot modify admins'],
+      last_admin: [409, 'last_admin', 'At least one active admin must remain'],
+    }[result.reason] ?? [409, 'conflict', 'The change could not be applied'];
+    throw new HttpError(refused[0], refused[1], refused[2]);
+  }
   // Recorded as soon as the canonical change commits, so a later Auth failure is still visible in the log.
-  await auditAccount(repo, caller, 'user.update', { uid: id }, { role, active }, { role: user.role, active: user.active === true });
+  await auditAccount(repo, caller, 'user.update', { uid: id }, { role, active }, { role: prior.role, active: prior.active });
 
   // Claims are never cleared. Deactivation keeps the role and sets active:false.
   const claims = active
     ? { role, active: true, ...(user.team ? { team: user.team } : {}) }
     : { role, active: false };
   await auth.setCustomUserClaims(id, claims);
-  // Revoke on deactivation and on any role change, so the old claims stop working at once (the API checks revocation).
-  if (!active || role !== user.role) await auth.revokeRefreshTokens(id);
+  // Revoke on deactivation, on any role change, and whenever an earlier Auth step failed. The last case matters:
+  // a retry finds the role already changed in Firestore, so the comparison alone would skip the revoke.
+  if (!active || role !== prior.role || prior.authSyncPending) await auth.revokeRefreshTokens(id);
   await auth.updateUser(id, { disabled: !active });
   await repo.updateUser(id, { authSyncPending: false });
   // A deactivated account must stop receiving pushes, so its device tokens go too.

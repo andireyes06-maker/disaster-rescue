@@ -138,16 +138,18 @@ export function createFirestoreRepo(db) {
     async listUsers() { return (await col('users').get()).docs.map(userDoc); },
     // Serialized through a transaction: the admin set is read in the same transaction as the write,
     // so two concurrent demotions of different admins cannot both see the other as still active.
-    async setStaffGuarded(uid, patch, { removesAdmin }) {
+    // The guard runs inside the transaction on the target and the other active admins it reads, so the
+    // decision and the write see the same state. Two concurrent demotions of different admins conflict and retry.
+    async setStaffGuarded(uid, patch, guard) {
       const ref = col('users').doc(uid);
       const admins = col('users').where('role', '==', 'admin');
       return db.runTransaction(async (tx) => {
         const target = await tx.get(ref);
-        if (!target.exists) return { ok: false, reason: 'not_found' };
-        if (removesAdmin) {
-          const others = (await tx.get(admins)).docs.filter((d) => d.id !== uid && d.data().active === true);
-          if (others.length === 0) return { ok: false, reason: 'last_admin' };
-        }
+        const others = (await tx.get(admins)).docs
+          .filter((d) => d.id !== uid && d.data().active === true)
+          .map((d) => d.data());
+        const reason = guard(target.exists ? target.data() : null, others);
+        if (reason) return { ok: false, reason };
         tx.update(ref, stripUndefined(patch));
         return { ok: true };
       });

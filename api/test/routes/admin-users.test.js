@@ -117,4 +117,42 @@ describe('admin account management', () => {
     expect(update).toMatchObject({ actorUid: 'adm-1', before: { role: 'dispatcher', active: true }, after: { target: made.body.uid, role: 'responder', active: true } });
     expect(JSON.stringify(audit)).not.toMatch(/password|token|09/i);
   });
+
+  it('a retry after a failed Auth step revokes the old tokens even though the role already changed (review)', async () => {
+    const t = makeTestApp();
+    await seedAdmin(t, 'adm-2', 'Second');
+    await seedAdmin(t, 'adm-3', 'Third');
+    await t.repo.updateUser('adm-2', { role: 'dispatcher' });
+    t.auth.users.get('adm-2').customClaims = { role: 'dispatcher', active: true };
+    t.auth.failOnce.setCustomUserClaims = true;
+    expect((await patch(t, t.as('admin', 'adm-1'), 'adm-2', { role: 'responder' })).status).toBe(500);
+    expect(t.auth.calls.revokeRefreshTokens).not.toContain('adm-2');
+    expect((await patch(t, t.as('admin', 'adm-1'), 'adm-2', { role: 'responder' })).status).toBe(200);
+    expect(t.auth.calls.revokeRefreshTokens).toContain('adm-2');
+  });
+
+  it('a change decided on a stale read is refused inside the transaction (409 stale_user), and nothing is written (review)', async () => {
+    const t = makeTestApp();
+    await seedAdmin(t, 'adm-2', 'Second');
+    await seedAdmin(t, 'adm-3', 'Third');
+    await t.repo.updateUser('adm-2', { role: 'dispatcher' });
+    const real = t.repo.getUser;
+    // The request's read is stale: it still shows responder while the stored role is dispatcher.
+    t.repo.getUser = async (uid) => (uid === 'adm-2' ? { ...(await real(uid)), role: 'responder' } : real(uid));
+    const res = await patch(t, t.as('admin', 'adm-1'), 'adm-2', { active: false });
+    expect(res.status).toBe(409);
+    expect(res.body.error).toBe('stale_user');
+    expect(await real('adm-2')).toMatchObject({ role: 'dispatcher', active: true });
+  });
+
+  it('a dispatcher cannot change an admin even when its own read says the target is not an admin (review)', async () => {
+    const t = makeTestApp();
+    await seedAdmin(t, 'adm-2', 'Root');
+    await seedAdmin(t, 'adm-3', 'Other');
+    const real = t.repo.getUser;
+    t.repo.getUser = async (uid) => (uid === 'adm-2' ? { ...(await real(uid)), role: 'dispatcher' } : real(uid));
+    const res = await patch(t, t.as('dispatcher', 'disp-1'), 'adm-2', { active: false });
+    expect(res.status).toBe(403);
+    expect(await real('adm-2')).toMatchObject({ role: 'admin', active: true });
+  });
 });
