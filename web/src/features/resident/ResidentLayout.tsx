@@ -4,7 +4,13 @@ import { useAuth } from '../../auth/AuthProvider';
 import '../../pages/public.css';
 
 // Header and navigation for resident pages. Staff navigation is not shown to residents.
-export default function ResidentLayout({ children }: { children: ReactNode }) {
+interface ResidentLayoutProps {
+  title: string;
+  description: string;
+  children: ReactNode;
+}
+
+export default function ResidentLayout({ title, description, children }: ResidentLayoutProps) {
   const { user, logout } = useAuth();
   return (
     <div className="resident-layout">
@@ -19,7 +25,13 @@ export default function ResidentLayout({ children }: { children: ReactNode }) {
           <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>
         </div>
       </header>
-      {children}
+      <header className="page-band resident-band">
+        <div className="resident-band__inner">
+          <h1>{title}</h1>
+          <p className="shell__description">{description}</p>
+        </div>
+      </header>
+      <div className="resident__body">{children}</div>
     </div>
   );
 }

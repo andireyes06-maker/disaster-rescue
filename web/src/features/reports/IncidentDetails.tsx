@@ -10,6 +10,7 @@ import VerifiedBadge from './VerifiedBadge';
 import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
 import AssignTeamDialog from './AssignTeamDialog';
 import { isOpen, formatTime, distanceMeters } from './format';
+import { awaitingVerify, canAssign, nextStep } from './workflow';
 import { PRIORITIES, type Report } from '../../types/domain';
 import Banner from '../../components/calm/Banner';
 
@@ -148,10 +149,9 @@ function IncidentView({ id }: IncidentViewProps) {
 
   const reportId = report.id;
   const canAct = role === 'dispatcher';
-  const awaitingVerify = report.status === 'Submitted' || report.status === 'Under Verification';
+  const step = nextStep(report);
   const candidates = (report.possibleDuplicates || []).slice(0, MAX_DUPLICATE_IDS).map((pid) => ({ id: pid, entry: byId[pid] }));
   const shownPriority = priority || report.priority || 'medium';
-  const canAssign = report.status === 'Verified' || report.status === 'Awaiting Assignment';
 
   async function run(path: string, body: unknown, okText: string): Promise<boolean> {
     setBusy(true);
@@ -260,13 +260,17 @@ function IncidentView({ id }: IncidentViewProps) {
 
       {canAct && (
         <aside className="card actions incident__actions" aria-label="Actions">
-          <h2>Report actions</h2>
-          {canAssign && (
+          <div className="next-step">
+            <p className="next-step__label">Next step</p>
+            <p className="next-step__title">{step.title}</p>
+            <p className="next-step__body">{step.body}</p>
+          </div>
+          {canAssign(report) && (
             <div className="actions__row">
               <button ref={assignTrigger} type="button" className="btn" disabled={busy} onClick={() => setAssigning(true)}>Assign team</button>
             </div>
           )}
-          {awaitingVerify && (
+          {awaitingVerify(report) && (
             <div className="actions__row">
               <button type="button" className="btn" disabled={busy} onClick={() => run('verify', undefined, 'Report verified.')}>Verify</button>
               <button ref={rejectTrigger} type="button" className="btn btn--ghost" disabled={busy} onClick={() => setRejecting(true)}>Reject</button>

@@ -4,11 +4,11 @@
 .badge { display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 3px 8px; border-radius: 6px; font-weight: 550; font-size: 0.75rem; line-height: 1.4; white-space: nowrap; flex-shrink: 0; background: var(--color-paper); color: var(--color-muted); }
 .badge svg { width: 13px; height: 13px; flex: none; }
 .badge--status, .badge--verified { color: var(--color-primary); background: var(--color-primary-soft); }
-.badge--critical { color: var(--color-critical); background: #FFF0F2; }
-.badge--high { color: var(--color-notice); background: #FFF4E5; }
+.badge--critical { color: var(--color-critical); background: var(--color-critical-soft); }
+.badge--high { color: var(--color-notice); background: var(--color-high-soft); }
 .badge--medium { color: var(--color-primary); background: var(--color-primary-soft); }
 .badge--low, .badge--neutral, .badge--pending { color: var(--color-muted); background: var(--color-paper); }
-.badge--complete { color: var(--color-harbor); background: #E8EEEF; }
+.badge--complete { color: var(--color-harbor); background: var(--color-complete-soft); }
 
 .calm-field { display: grid; gap: 6px; margin-top: 16px; }
 .calm-field__label { font-weight: 600; }
@@ -20,7 +20,7 @@
 .calm-table td:first-child { width: 40%; min-width: 240px; }
 .calm-table time { display: block; max-width: 105px; font-size: 0.8125rem; color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .calm-table tbody tr:last-child td { border-bottom: 0; }
-.calm-table tbody tr:hover { background: #F8FAFD; }
+.calm-table tbody tr:hover { background: var(--color-paper); }
 .calm-table th { font-size: 0.875rem; color: var(--color-muted); font-weight: 600; }
 @media (max-width: 639px) {
   .calm-table thead { display: none; }

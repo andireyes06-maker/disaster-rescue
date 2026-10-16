@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { makeReport } from './fixtures';
@@ -9,8 +9,11 @@ const h = vi.hoisted(() => ({
   reports: [] as Report[],
   loading: false,
   error: null as Error | null,
+  role: 'dispatcher' as string,
 }));
-vi.mock('./useReports', () => ({ useReports: () => ({ reports: h.reports, loading: h.loading, error: h.error }) }));
+vi.mock('./useReports', () => ({ useReports: () => ({ reports: h.reports, loading: h.loading, error: h.error, retry: () => {} }) }));
+vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ role: h.role }) }));
+vi.mock('./useReport', () => ({ useReportUpdates: () => ({ updates: [], error: null, retry: () => {} }) }));
 import ReportQueue from './ReportQueue';
 
 function show(reports: Report[], { loading = false, error = null }: { loading?: boolean; error?: Error | null } = {}) {
@@ -23,9 +26,12 @@ const data = () => [
   makeReport({ id: 'a', description: 'Flood A', type: 'flood', priority: 'critical', verified: true, status: 'Verified' }),
   makeReport({ id: 'b', description: 'Fire B', type: 'fire', priority: 'low', verified: false, status: 'Submitted' }),
 ];
+const inbox = () => screen.getByRole('list', { name: 'Incident inbox' });
+const preview = () => screen.getByLabelText('Selected report');
 
 describe('ReportQueue', () => {
   it('shows the empty state', () => {
+    h.role = 'dispatcher';
     show([]);
     expect(screen.getByText(/no reports match/i)).toBeInTheDocument();
   });
@@ -42,25 +48,43 @@ describe('ReportQueue', () => {
     expect(screen.queryByText(/no reports match/i)).toBeNull();
   });
 
-  it('rows link to incident details', () => {
+  it('keeps newest-first order and marks the first visible report as selected', () => {
     show(data());
-    expect(screen.getByRole('link', { name: /Flood A/ })).toHaveAttribute('href', '/incidents/a');
+    const rows = within(inbox()).getAllByRole('button');
+    expect(rows[0]).toHaveTextContent('Flood A');
+    expect(rows[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(rows[1]).toHaveAttribute('aria-pressed', 'false');
   });
 
-  it('shows a 600-character description in full, in its own table cell', () => {
+  it('selecting a row updates the preview without navigating', async () => {
+    show(data());
+    await userEvent.click(within(inbox()).getByRole('button', { name: /Fire B/ }));
+    expect(within(preview()).getByRole('heading', { name: 'Fire report' })).toBeInTheDocument();
+    expect(within(preview()).getByRole('link', { name: 'Open full report' })).toHaveAttribute('href', '/incidents/b');
+  });
+
+  it('offers the verify action to dispatchers for a submitted report', async () => {
+    show(data());
+    await userEvent.click(within(inbox()).getByRole('button', { name: /Fire B/ }));
+    expect(within(preview()).getByRole('link', { name: 'Verify report' })).toHaveAttribute('href', '/incidents/b');
+  });
+
+  it('shows the next step as text only for roles that cannot act', async () => {
+    h.role = 'admin';
+    show(data());
+    await userEvent.click(within(inbox()).getByRole('button', { name: /Fire B/ }));
+    expect(within(preview()).queryByRole('link', { name: 'Verify report' })).toBeNull();
+    expect(within(preview()).getByText('Verify the report')).toBeInTheDocument();
+    h.role = 'dispatcher';
+  });
+
+  it('keeps a long description in full inside the preview', () => {
     const long = 'x'.repeat(600);
     show([makeReport({ id: 'long', description: long, type: 'flood' })]);
-    const cell = screen.getByText(long);
-    expect(cell.closest('td')).toHaveAttribute('data-label', 'Report');
+    expect(within(preview()).getByText(long)).toBeInTheDocument();
   });
 
-  it('labels every queue cell with its column header', () => {
-    show(data());
-    expect(screen.getByRole('columnheader', { name: 'Priority' })).toBeInTheDocument();
-    expect(screen.getByText('Fire B').closest('td')).toHaveAttribute('data-label', 'Report');
-  });
-
-  it('computes summary cards', () => {
+  it('computes summary cards from the full dataset', () => {
     show(data());
     const card = (name: string) => document.querySelector('.summary')?.textContent?.match(new RegExp(`${name}(\\d+)`))?.[1];
     expect(card('All reports')).toBe('2');
@@ -72,8 +96,29 @@ describe('ReportQueue', () => {
   it('excludes resolved and terminal reports from the active workload without hiding them from the queue', () => {
     show([makeReport({ id: 'active', status: 'Submitted', description: 'Needs response' }), makeReport({ id: 'resolved', status: 'Resolved', description: 'Rescue complete' }), makeReport({ id: 'closed', status: 'Closed', description: 'Review complete' })]);
     expect(document.querySelector('.summary')).toHaveTextContent('Active reports1');
-    expect(screen.getByText('Rescue complete')).toBeInTheDocument();
-    expect(screen.getByText('Review complete')).toBeInTheDocument();
+    expect(within(inbox()).getByText('Rescue complete')).toBeInTheDocument();
+    expect(within(inbox()).getByText('Review complete')).toBeInTheDocument();
+  });
+
+  it('Needs verification quick view shows only submitted or under-verification reports', async () => {
+    show([
+      makeReport({ id: 'new', status: 'Submitted', description: 'New one' }),
+      makeReport({ id: 'checking', status: 'Under Verification', description: 'Checking one' }),
+      makeReport({ id: 'team', status: 'Team Assigned', description: 'Team one' }),
+    ]);
+    await userEvent.click(screen.getByRole('button', { name: /Needs verification/ }));
+    expect(screen.getByRole('button', { name: /Needs verification/ })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(inbox()).getByText('New one')).toBeInTheDocument();
+    expect(within(inbox()).getByText('Checking one')).toBeInTheDocument();
+    expect(within(inbox()).queryByText('Team one')).toBeNull();
+  });
+
+  it('quick view counts come from all reports, not the filtered result', async () => {
+    show(data());
+    await userEvent.click(screen.getByRole('button', { name: /^Filters/ }));
+    await userEvent.selectOptions(screen.getByLabelText('Type'), 'fire');
+    expect(screen.getByRole('button', { name: /Needs verification/ })).toHaveTextContent('(1)');
+    expect(screen.getByRole('button', { name: /Active/ })).toHaveTextContent('(2)');
   });
 
   it.each([
@@ -85,8 +130,17 @@ describe('ReportQueue', () => {
     show(data());
     await userEvent.click(screen.getByRole('button', { name: /^Filters/ }));
     await userEvent.selectOptions(screen.getByLabelText(label), value);
-    expect(screen.queryByText('Flood A')).toBeNull();
-    expect(screen.getByText('Fire B')).toBeInTheDocument();
+    expect(within(inbox()).queryByText('Flood A')).toBeNull();
+    expect(within(inbox()).getByText('Fire B')).toBeInTheDocument();
+  });
+
+  it('keeps the selected report visible with a note when filters hide it', async () => {
+    show(data());
+    await userEvent.click(within(inbox()).getByRole('button', { name: /Flood A/ }));
+    await userEvent.click(screen.getByRole('button', { name: /^Filters/ }));
+    await userEvent.selectOptions(screen.getByLabelText('Type'), 'fire');
+    expect(within(preview()).getByText(/not in the current results/i)).toBeInTheDocument();
+    expect(within(preview()).getByRole('heading', { name: 'Flood report' })).toBeInTheDocument();
   });
 
   it('hides the filter controls until the Filters button is pressed', async () => {

@@ -99,8 +99,10 @@ export default function AppShell({ title, children }: AppShellProps) {
           </div>
         </header>
         <main className="shell__main" id="main-content" tabIndex={-1}>
-          <h1>{title}</h1>
-          <p className="shell__description">{DESCRIPTIONS[title]}</p>
+          <header className="page-band">
+            <h1>{title}</h1>
+            <p className="shell__description">{DESCRIPTIONS[title]}</p>
+          </header>
           {children ?? <Outlet />}
         </main>
       </div>

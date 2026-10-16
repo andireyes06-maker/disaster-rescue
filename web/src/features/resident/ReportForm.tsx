@@ -102,32 +102,42 @@ export default function ReportForm() {
     <main className="resident">
       <SafetyNotice hotlines={hotlines} />
       <form className="card report-form" onSubmit={onSubmit} noValidate>
-        <h1>Report an emergency</h1>
+        <section className="report-form__group" aria-labelledby="group-situation">
+          <h2 id="group-situation">What is happening</h2>
+          <label htmlFor="type">Type of emergency</label>
+          <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="">Choose a type</option>
+            {REPORT_TYPES.map((t) => <option key={t} value={t}>{TYPE_LABEL[t]}</option>)}
+          </select>
 
-        <label htmlFor="type">Type of emergency</label>
-        <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="">Choose a type</option>
-          {REPORT_TYPES.map((t) => <option key={t} value={t}>{TYPE_LABEL[t]}</option>)}
-        </select>
+          <label htmlFor="description">What is happening?</label>
+          <textarea id="description" rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+        </section>
 
-        <label htmlFor="description">What is happening?</label>
-        <textarea id="description" rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+        <section className="report-form__group" aria-labelledby="group-location">
+          <h2 id="group-location">Where</h2>
+          <fieldset className="report-form__location">
+            <legend>Location</legend>
+            <button type="button" className="btn btn--ghost" onClick={useGps}>Use my location</button>
+            <p>{coords ? `Location set (${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)})` : 'No location set yet.'}</p>
+            <label htmlFor="address">Address or landmark</label>
+            <input id="address" value={addressText} onChange={(e) => setAddressText(e.target.value)} />
+          </fieldset>
+        </section>
 
-        <fieldset className="report-form__location">
-          <legend>Location</legend>
-          <button type="button" className="btn btn--ghost" onClick={useGps}>Use my location</button>
-          <p>{coords ? `Location set (${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)})` : 'No location set yet.'}</p>
-          <label htmlFor="address">Address or landmark</label>
-          <input id="address" value={addressText} onChange={(e) => setAddressText(e.target.value)} />
-        </fieldset>
+        <section className="report-form__group" aria-labelledby="group-evidence">
+          <h2 id="group-evidence">Photos (optional)</h2>
+          <label htmlFor="photos">Photos (up to 5)</label>
+          <input id="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={(e) => onPhotos(e.target.files)} />
+        </section>
 
-        <label htmlFor="photos">Photos (up to 5)</label>
-        <input id="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={(e) => onPhotos(e.target.files)} />
-
-        <label htmlFor="contactName">Your name (optional)</label>
-        <input id="contactName" autoComplete="name" value={contactName} onChange={(e) => setContactName(e.target.value)} />
-        <label htmlFor="contactPhone">Phone (optional)</label>
-        <input id="contactPhone" type="tel" autoComplete="tel" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} />
+        <section className="report-form__group" aria-labelledby="group-contact">
+          <h2 id="group-contact">Your contact (optional)</h2>
+          <label htmlFor="contactName">Your name (optional)</label>
+          <input id="contactName" autoComplete="name" value={contactName} onChange={(e) => setContactName(e.target.value)} />
+          <label htmlFor="contactPhone">Phone (optional)</label>
+          <input id="contactPhone" type="tel" autoComplete="tel" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} />
+        </section>
 
         {error && <Banner tone="error" role="alert"><strong>Problem:</strong> <span>{error}</span></Banner>}
         <button type="submit" className="btn" disabled={busy}>{busy ? 'Sending report...' : 'Submit report'}</button>

@@ -44,10 +44,18 @@ export default function ResidentSignUp() {
   return (
     <div className="login-page">
       <PublicHeader />
-      <main className="login">
+      <main className="login auth-split">
+        <aside className="auth-split__intro" aria-labelledby="signup-title">
+          <h1 id="signup-title">Create a resident account</h1>
+          <p>Report an emergency and follow your reports from one place.</p>
+          <ul className="auth-split__points">
+            <li>Send a report with photos and your location.</li>
+            <li>Follow each status change on your reports.</li>
+            <li>See rounded incident areas near you.</li>
+          </ul>
+          <p className="auth-split__note">If you are in danger, call your local emergency number now. A report does not guarantee immediate rescue.</p>
+        </aside>
         <form className="card login__card" onSubmit={onSubmit} noValidate>
-          <h1>Create a resident account</h1>
-          <p className="login__intro">Report an emergency and follow your reports from one place.</p>
           <label htmlFor="name">Name</label>
           <input id="name" autoComplete="name" value={values.name} onChange={set('name')} />
           <label htmlFor="email">Email</label>

@@ -25,6 +25,8 @@ export default function ResidentDashboard() {
         <Link className="btn" to="/my/report">Report an emergency</Link>
       </div>
 
+      <div className="resident__grid">
+      <div className="resident__col">
       <section className="card" aria-labelledby="my-reports-title">
         <h2 id="my-reports-title">My reports</h2>
         {error && (
@@ -45,11 +47,6 @@ export default function ResidentDashboard() {
         )}
       </section>
 
-      <section className="card" aria-labelledby="map-title">
-        <h2 id="map-title">Incidents near you</h2>
-        <p>Areas are rounded to protect exact locations.</p>
-        <PublicIncidentMap />
-      </section>
 
       <section className="card" aria-labelledby="notifications-title">
         <h2 id="notifications-title">Notifications</h2>
@@ -64,6 +61,15 @@ export default function ResidentDashboard() {
           ))}
         </ul>
       </section>
+      </div>
+      <div className="resident__col">
+      <section className="card" aria-labelledby="map-title">
+        <h2 id="map-title">Incidents near you</h2>
+        <p>Areas are rounded to protect exact locations.</p>
+        <PublicIncidentMap />
+      </section>
+      </div>
+      </div>
     </main>
   );
 }

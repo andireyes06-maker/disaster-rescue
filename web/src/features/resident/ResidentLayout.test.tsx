@@ -10,7 +10,7 @@ import ResidentLayout from './ResidentLayout';
 
 describe('ResidentLayout', () => {
   it('links to the resident pages and shows the brand', () => {
-    render(<MemoryRouter><ResidentLayout><p>page body</p></ResidentLayout></MemoryRouter>);
+    render(<MemoryRouter><ResidentLayout title="Test page" description="Test description"><p>page body</p></ResidentLayout></MemoryRouter>);
     expect(screen.getByText('Rescue Reports')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'My reports' })).toHaveAttribute('href', '/my');
     expect(screen.getByRole('link', { name: 'Report an emergency' })).toHaveAttribute('href', '/my/report');
@@ -19,7 +19,7 @@ describe('ResidentLayout', () => {
 
   it('signs the resident out', async () => {
     const user = userEvent.setup();
-    render(<MemoryRouter><ResidentLayout><p>page body</p></ResidentLayout></MemoryRouter>);
+    render(<MemoryRouter><ResidentLayout title="Test page" description="Test description"><p>page body</p></ResidentLayout></MemoryRouter>);
     await user.click(screen.getByRole('button', { name: 'Sign out' }));
     expect(h.logout).toHaveBeenCalled();
   });

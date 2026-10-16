@@ -49,7 +49,7 @@ export default function ResidentReportDetail() {
     <main className="resident">
       <p><Link to="/my">Back to my reports</Link></p>
       <section className="card" aria-labelledby="report-title">
-        <h1 id="report-title">{report.type.charAt(0).toUpperCase() + report.type.slice(1)} report</h1>
+        <h2 id="report-title">{report.type.charAt(0).toUpperCase() + report.type.slice(1)} report</h2>
         <p>Reference: {report.reference}</p>
         <StatusBadge status={report.status} />
         <p>Submitted {formatTime(report.createdAt)}</p>
@@ -57,7 +57,10 @@ export default function ResidentReportDetail() {
         <p>{report.description}</p>
         {message && <Banner tone={message.tone === 'ok' ? 'info' : 'error'} role="status">{message.text}</Banner>}
         {report.status === 'Submitted' && (
-          <button type="button" className="btn btn--ghost" onClick={cancel} disabled={busy}>Cancel report</button>
+          <div className="resident-detail__cancel">
+            <p>You can cancel this report until staff verify it. After that, cancelling is no longer possible.</p>
+            <button type="button" className="btn btn--ghost" onClick={cancel} disabled={busy}>Cancel report</button>
+          </div>
         )}
       </section>
 

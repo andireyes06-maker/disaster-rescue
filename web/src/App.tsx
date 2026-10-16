@@ -27,9 +27,9 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<ResidentSignUp />} />
-      <Route path="/my" element={<RoleRoute allow={['resident']}><ResidentLayout><ResidentDashboard /></ResidentLayout></RoleRoute>} />
-      <Route path="/my/report" element={<RoleRoute allow={['resident']}><ResidentLayout><ReportForm /></ResidentLayout></RoleRoute>} />
-      <Route path="/my/reports/:id" element={<RoleRoute allow={['resident']}><ResidentLayout><ResidentReportDetail /></ResidentLayout></RoleRoute>} />
+      <Route path="/my" element={<RoleRoute allow={['resident']}><ResidentLayout title="My reports" description="Track the reports you sent and see updates from the response team."><ResidentDashboard /></ResidentLayout></RoleRoute>} />
+      <Route path="/my/report" element={<RoleRoute allow={['resident']}><ResidentLayout title="Report an emergency" description="Describe what is happening and where. Staff review every report before a rescue team is assigned."><ReportForm /></ResidentLayout></RoleRoute>} />
+      <Route path="/my/reports/:id" element={<RoleRoute allow={['resident']}><ResidentLayout title="Report details" description="Current status, what you sent, and the response history."><ResidentReportDetail /></ResidentLayout></RoleRoute>} />
       <Route path="/admin" element={<RoleRoute allow={['admin']}><AppShell title="Admin"><AdminPage /></AppShell></RoleRoute>} />
       <Route path="/forbidden" element={<Forbidden />} />
       <Route path="/dashboard" element={<RoleRoute allow={['dispatcher', 'admin']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />

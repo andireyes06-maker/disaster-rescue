@@ -1,26 +1,37 @@
-/* Design tokens. Source of truth: docs/design-tokens/tokens.json (keep in sync). Bold public-safety palette, Oct 16, 2026. */
+/* Design tokens. Source of truth: docs/design-tokens/tokens.json (keep in sync). Indigo and violet identity, Oct 16, 2026 (STRONG-PALETTE-PROPOSAL). Priority and status meaning stays in text and shape, not colour alone. */
 :root {
-  --color-bg: #F3F5F8;
+  --color-bg: #EDEDF7;
   --color-surface: #FFFFFF;
-  --color-primary: #1E5BC6;
-  --color-primary-soft: #E8F0FC;
-  --color-critical: #C8102E;
-  --color-high: #B45309;
-  --color-medium: #1E5BC6;
-  --color-low: #4F5B70;
-  --color-text: #111B2E;
-  --color-muted: #4F5B70;
-  --color-overlay: rgba(17, 27, 46, 0.55);
-  --color-harbor: #0B2A4A;
-  --color-paper: #F3F5F8;
-  --color-mist: #DDE3EC;
-  --color-notice: #B45309;
-  --color-on-harbor: #C9D6E8;
+  --color-primary: #6D28D9;
+  --color-primary-soft: #EFE8FF;
+  --color-critical: #B42318;
+  --color-critical-soft: #FFF1F0;
+  --color-high: #8A5100;
+  --color-high-soft: #FFF4DC;
+  --color-medium: #4338CA;
+  --color-low: #55516B;
+  --color-text: #19162A;
+  --color-muted: #55516B;
+  --color-overlay: rgba(25, 22, 42, 0.55);
+  --color-harbor: #21134D;
+  --color-paper: #EDEDF7;
+  --color-mist: #DCD6EC;
+  --color-notice: #8A5100;
+  --color-on-harbor: #CFC6EE;
+  --color-complete-soft: #E6E4F0;
+  --color-flood: #1D4ED8;
+  --color-flood-soft: #DCE8FF;
+  --color-fire: #C2410C;
+  --color-fire-soft: #FFE8D6;
+  --color-quake: #6D28D9;
+  --color-quake-soft: #EDE3FF;
+  --color-slide: #7C5A12;
+  --color-slide-soft: #F1E6CC;
 
   --radius-md: 8px;
   --radius-lg: 12px;
 
   --space-touch: 44px;
 
-  --shadow-card: 0 1px 2px rgba(17, 27, 46, 0.06), 0 4px 12px rgba(17, 27, 46, 0.04);
+  --shadow-card: 0 1px 2px rgba(25, 22, 42, 0.06), 0 4px 12px rgba(25, 22, 42, 0.04);
 }

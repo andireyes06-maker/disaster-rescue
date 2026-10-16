@@ -26,6 +26,7 @@ export default function AdminPage() {
         <AccountsPanel teams={teams} />
       </section>
 
+      <div className="admin__pair">
       <section className="card" aria-labelledby="teams-heading">
         <h2 id="teams-heading">Teams</h2>
         {teamsError && <p role="alert">{teamsError}</p>}
@@ -37,10 +38,11 @@ export default function AdminPage() {
         <HealthPanel />
         <SettingsPanel />
       </section>
+      </div>
 
       <section className="card" aria-labelledby="audit-heading">
         <h2 id="audit-heading">Audit and exports</h2>
-        <p>Exports are available to dispatchers and DMOs, because they include exact locations.</p>
+        <p>Admins can download CSV and PDF summaries from Analytics. Exports include exact locations, so share them only with staff who need them.</p>
         <AuditPage />
       </section>
     </div>
