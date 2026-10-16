@@ -84,8 +84,14 @@ input {
 .shell__top { display: flex; justify-content: flex-end; align-items: center; gap: 16px; padding: 12px 32px; background: var(--color-surface); border-bottom: 1px solid var(--color-mist); }
 .shell__main { padding: 32px; max-width: 1200px; }
 .shell__main > h1 { font-size: 1.75rem; letter-spacing: -0.01em; margin-bottom: 24px; }
-@media (max-width: 640px) {
+.shell__sidehead { display: flex; align-items: center; justify-content: space-between; }
+.shell__menu-toggle { display: none; min-height: var(--space-touch); padding: 0 14px; border: 1px solid #D5E7E4; border-radius: var(--radius-md); background: transparent; color: var(--color-surface); font: inherit; font-weight: 600; cursor: pointer; }
+@media (max-width: 639px) {
   .shell { grid-template-columns: 1fr; }
+  .shell__side { position: sticky; top: 0; z-index: 10; }
+  .shell__menu-toggle { display: inline-flex; align-items: center; }
+  .shell__side nav { display: none; padding-top: 12px; }
+  .shell__side.is-open nav { display: block; }
   .shell__main { padding: 20px 16px; }
 }
 @media (prefers-reduced-motion: no-preference) {
