@@ -44,6 +44,7 @@ Buttons:
 - **Footer:** sign-in link and the course line. No repository link (private repo).
 
 ## Design
+- Direction change (Oct 16, 2026, Airen): the design limits below are lifted. Gradients and imagery are allowed. The hotline button stays the only coral element, so emergency contact is never confused with decoration.
 - Follows the existing Calm Clarity tokens in `web/src/theme/tokens.css` and `web/src/styles.css`.
 - Coral (`--color-critical`, `#C83919`) appears only on the hotline button, because it is about emergency contact. No decorative use.
 - No gradients, no stock photos, no icon grid, no testimonials, no user counts.

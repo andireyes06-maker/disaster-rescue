@@ -25,6 +25,21 @@ export default function Landing() {
       </header>
 
       <section className="landing__hero" aria-labelledby="hero-heading">
+        <svg className="landing__art" viewBox="0 0 400 300" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="400" height="300" fill="none" />
+          <g fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5">
+            <path d="M0 80 H400 M0 160 H400 M0 240 H400 M90 0 V300 M190 0 V300 M300 0 V300" />
+            <path d="M0 200 C90 150 150 230 240 170 S360 110 400 130" strokeWidth="6" opacity="0.7" />
+          </g>
+          <g fill="currentColor">
+            <circle cx="90" cy="80" r="9" />
+            <circle cx="240" cy="170" r="11" />
+            <circle cx="300" cy="240" r="8" />
+          </g>
+          <g fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="240" cy="170" r="22" opacity="0.5" />
+          </g>
+        </svg>
         <div className="landing__hero-copy">
           <p className="landing__eyebrow">Emergency reporting for residents and response teams</p>
           <h1 id="hero-heading">Disaster Rescue Reporting and Monitoring System</h1>
