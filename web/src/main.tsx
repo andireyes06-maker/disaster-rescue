@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './theme/tokens.css';
+import './components/calm/calm.css';
 import './styles.css';
 import App from './App';
 import { AuthProvider } from './auth/AuthProvider';
