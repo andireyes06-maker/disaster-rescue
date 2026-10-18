@@ -17,6 +17,9 @@ export interface AdminTeam { id: string; name: string }
 // Roles an admin can assign to staff. A resident account is shown as resident and is never silently changed to another role.
 const ROLE_OPTIONS = ['responder', 'dispatcher', 'dmo', 'admin'] as const;
 
+// Teams apply to field staff and dispatch roles. Residents and admins have no team.
+const TEAM_ROLES = new Set(['responder', 'dispatcher', 'dmo']);
+
 function roleOptionsFor(current: string): string[] {
   return current === 'resident' ? ['resident', ...ROLE_OPTIONS] : [...ROLE_OPTIONS];
 }
@@ -70,6 +73,23 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
     }
   }
 
+  // Assigns or clears a staff member's team, through the same API as the Users screen (F03).
+  async function saveTeam(u: AdminUser, teamId: string) {
+    if (busy(u.uid)) return;
+    setError('');
+    setNotice('');
+    setBusy(u.uid, true);
+    try {
+      await api(`/users/${u.uid}`, { method: 'PATCH', body: { team: teamId || null } });
+      setUsers((list) => list.map((x) => (x.uid === u.uid ? { ...x, team: teamId || undefined } : x)));
+      setNotice(teamId ? `Team assigned for ${u.name}.` : `Team removed for ${u.name}.`);
+    } catch (err) {
+      setError(failureText(err, `Could not change the team for ${u.name}. Nothing was changed.`));
+    } finally {
+      setBusy(u.uid, false);
+    }
+  }
+
   async function create(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (busy('create')) return;
@@ -97,7 +117,7 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
       {error && <Banner tone="error" role="alert"><strong>Problem:</strong> <span>{error}</span></Banner>}
       {notice && <Banner tone="info" role="status">{notice}</Banner>}
       <table>
-        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Team</th><th>Status</th></tr></thead>
         <tbody>
           {users.map((u) => (
             <tr key={u.uid}>
@@ -113,6 +133,15 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
                     {busy(u.uid) ? 'Saving role...' : `Save role for ${u.name}`}
                   </button>
                 )}
+              </td>
+              <td>
+                {TEAM_ROLES.has(u.role) ? (
+                  <select aria-label={`Team for ${u.name}`} value={u.team ?? ''} disabled={busy(u.uid)}
+                    onChange={(e) => saveTeam(u, e.target.value)}>
+                    <option value="">No team</option>
+                    {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
+                  </select>
+                ) : <span>Not applicable</span>}
               </td>
               <td>{u.active ? 'Active' : 'Inactive'}</td>
             </tr>

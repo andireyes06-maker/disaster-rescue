@@ -434,3 +434,13 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 .inbox-search { padding: 16px 24px 0; }
 .inbox-search label { margin-top: 0; }
 .inbox-search input { max-width: 480px; }
+
+/* Audit Finding 5: map markers keep an 18px visible shape but a 44px tap area (Leaflet icon is 44x44, centred on the point). */
+.map-marker-wrap { width: 44px; height: 44px; }
+.map-marker-wrap .map-marker { position: absolute; left: 13px; top: 13px; }
+.map-marker-wrap .map-marker__label { left: 36px; top: 13px; }
+
+/* Audit Finding 5: map zoom buttons get a 44px tap target on touch screens. */
+@media (pointer: coarse) {
+  .leaflet-touch .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; }
+}

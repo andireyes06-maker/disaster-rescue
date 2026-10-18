@@ -88,3 +88,8 @@
 .admin__pair { display: grid; gap: 20px; align-items: start; grid-template-columns: minmax(0, 1fr); min-width: 0; }
 .admin > section, .admin__pair > section { min-width: 0; }
 @media (min-width: 1100px) { .admin__pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+/* Audit Finding 5: inline text links get a 44px tap height on small screens. Visual size is unchanged. */
+@media (max-width: 640px) {
+  .login__help a, .incident__back a, .resident > p > a, .safety-notice__numbers a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 6px; margin-inline: -6px; }
+}

@@ -87,7 +87,8 @@ describe('AdminPage', () => {
   it('lists teams and creates a new one', async () => {
     const user = userEvent.setup();
     renderPage();
-    expect(await screen.findByText('Team Alpha')).toBeInTheDocument();
+    // The team name is shown in its rename field (the team list also appears in account team selectors).
+    expect(await screen.findByRole('textbox', { name: 'Name of Team Alpha' })).toBeInTheDocument();
     await user.type(screen.getByLabelText('New team name'), 'Team Bravo');
     await user.click(screen.getByRole('button', { name: 'Create team' }));
     await waitFor(() => expect(h.api).toHaveBeenCalledWith('/teams', expect.objectContaining({ method: 'POST', body: { name: 'Team Bravo' } })));

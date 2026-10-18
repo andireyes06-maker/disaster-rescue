@@ -42,8 +42,8 @@ function iconFor(report: Report): L.DivIcon {
   const { color, shape, label } = markerStyle(report);
   return L.divIcon({
     className: 'map-marker-wrap',
-    iconSize: [24, 24],
-    iconAnchor: [12, 12],
+    iconSize: [44, 44],
+    iconAnchor: [22, 22],
     html: `<span class="map-marker map-marker--${shape}" style="--marker-color: ${color}"></span>`
       + `<span class="map-marker__label">${label}</span>`,
   });
