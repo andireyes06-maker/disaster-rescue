@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import RoleRoute from './routes/RoleRoute';
 import Home from './routes/Home';
 import LoginPage from './features/auth/LoginPage';
@@ -9,6 +9,7 @@ import ReportForm from './features/resident/ReportForm';
 import ResidentLayout from './features/resident/ResidentLayout';
 import ResidentReportDetail from './features/resident/ResidentReportDetail';
 import Forbidden from './pages/Forbidden';
+import NotFound from './pages/NotFound';
 import AppShell from './layout/AppShell';
 const ReportQueue = lazy(() => import('./features/reports/ReportQueue'));
 const IncidentDetails = lazy(() => import('./features/reports/IncidentDetails'));
@@ -41,7 +42,7 @@ export default function App() {
       <Route path="/teams" element={<RoleRoute allow={['dispatcher', 'admin']}><AppShell title="Teams"><TeamsPage /></AppShell></RoleRoute>} />
       <Route path="/users" element={<RoleRoute allow={['dispatcher', 'admin']}><AppShell title="Users"><UsersPage /></AppShell></RoleRoute>} />
       <Route path="/assignments" element={<RoleRoute allow={['responder', 'admin']}><AppShell title="Assignments"><AssignmentsPage /></AppShell></RoleRoute>} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFound />} />
     </Routes></Suspense>
   );
 }

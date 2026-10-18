@@ -13,9 +13,10 @@ describe('Landing', () => {
     )).toBeInTheDocument();
   });
 
-  it('shows an honest demo notice without a dialable placeholder hotline', () => {
+  it('shows no demo or development banner, and no dialable placeholder hotline', () => {
     renderLanding();
-    expect(screen.getByText('Demo site · hotline not configured')).toBeInTheDocument();
+    expect(screen.queryByText(/demo site/i)).toBeNull();
+    expect(screen.queryByText(/hotline not configured/i)).toBeNull();
     expect(document.querySelector('a[href="tel:000-0000"]')).toBeNull();
   });
 
