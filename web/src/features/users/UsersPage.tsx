@@ -12,7 +12,11 @@ interface User {
   name?: string | null;
   role: string;
   active: boolean;
+  team?: string | null;
 }
+
+// Teams apply to field staff and dispatch roles. Residents and admins have no team.
+const TEAM_ROLES = new Set(['responder', 'dispatcher', 'dmo']);
 
 type Team = Pick<import('../../types/domain').Team, 'id' | 'name'>;
 
@@ -69,7 +73,8 @@ export default function UsersPage() {
         body: { email: values.email, name: values.name, role: values.role, team: values.team || null },
       });
       reset(EMPTY_ACCOUNT);
-      setMessage({ kind: 'ok', text: 'Staff account created.' });
+      // No password is set here (F02). The new person uses Forgot password on the sign-in page to set one.
+      setMessage({ kind: 'ok', text: 'Staff account created. Ask them to open the sign-in page and choose Forgot password to set their password.' });
       await load();
     } catch (err) {
       setMessage({ kind: 'error', text: errorText(err) });
@@ -84,6 +89,21 @@ export default function UsersPage() {
     try {
       await api(`/users/${u.uid}`, { method: 'PATCH', body: { active } });
       setMessage({ kind: 'ok', text: active ? 'Account activated.' : 'Account deactivated.' });
+      await load();
+    } catch (err) {
+      setMessage({ kind: 'error', text: errorText(err) });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // Assigns or clears a staff member's team (F03). The API validates the team and records the change.
+  async function setTeam(u: User, team: string) {
+    setBusy(true);
+    setMessage(null);
+    try {
+      await api(`/users/${u.uid}`, { method: 'PATCH', body: { team: team || null } });
+      setMessage({ kind: 'ok', text: team ? 'Team assigned.' : 'Team removed.' });
       await load();
     } catch (err) {
       setMessage({ kind: 'error', text: errorText(err) });
@@ -132,6 +152,16 @@ export default function UsersPage() {
               </div>
               <div className="management-actions">
                 <span>{u.active ? 'Active' : 'Deactivated'}</span>
+                {TEAM_ROLES.has(u.role) && (
+                  <label className="management-team">
+                    <span>Team</span>
+                    <select aria-label={`Team for ${u.name || u.email}`} value={u.team ?? ''} disabled={busy}
+                      onChange={(e) => setTeam(u, e.target.value)}>
+                      <option value="">No team</option>
+                      {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
+                    </select>
+                  </label>
+                )}
                 <button type="button" className="btn btn--ghost" disabled={busy}
                   aria-label={`${u.active ? 'Deactivate' : 'Activate'} ${u.name || u.email}`}
                   onClick={() => setActive(u, !u.active)}>

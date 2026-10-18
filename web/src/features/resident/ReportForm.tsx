@@ -6,6 +6,7 @@ import { REPORT_TYPES } from '../../types/domain';
 import Banner from '../../components/calm/Banner';
 import SafetyNotice from './SafetyNotice';
 import { useHotlines } from './useHotlines';
+import { useUnsavedChanges } from './UnsavedChanges';
 import '../../pages/public.css';
 
 const TYPE_LABEL: Record<(typeof REPORT_TYPES)[number], string> = {
@@ -52,6 +53,10 @@ export default function ReportForm() {
     window.addEventListener('beforeunload', warn);
     return () => window.removeEventListener('beforeunload', warn);
   }, [dirty]);
+  // In-app navigation asks before leaving while the form is dirty (F06). Cleared when the form unmounts.
+  const { setDirty } = useUnsavedChanges();
+  useEffect(() => { setDirty(dirty); }, [dirty, setDirty]);
+  useEffect(() => () => setDirty(false), [setDirty]);
 
   // After a failed submit, move focus to the first invalid field. Values stay as entered.
   useEffect(() => {

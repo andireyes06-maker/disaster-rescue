@@ -119,7 +119,7 @@ interface IncidentViewProps {
 
 function IncidentView({ id }: IncidentViewProps) {
   const { role } = useAuth();
-  const { report, loading, error, notFound, removed, retry } = useReport(id);
+  const { report, loading, error, notFound, removed, fromCache, retry } = useReport(id);
   const updatesState = useReportUpdates(id);
   const byId = useReportsByIds(report ? report.possibleDuplicates || [] : []);
   const [busy, setBusy] = useState(false);
@@ -178,6 +178,11 @@ function IncidentView({ id }: IncidentViewProps) {
   return (
     <div className="incident">
       <p className="incident__back"><Link to={canAct ? '/dashboard' : '/monitor'}>Back to the queue</Link></p>
+      {fromCache && (
+        <Banner tone="info" role="status">
+          You may be offline. This report's status may be out of date until the connection returns.
+        </Banner>
+      )}
 
       <header className="incident__heading">
         <h2>{report.type} report</h2>

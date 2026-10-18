@@ -97,7 +97,7 @@ function AssignedCard({ report }: AssignedCardProps) {
 
 export default function AssignmentsPage() {
   const { team } = useAuth();
-  const { reports, loading, error, retry } = useAssignedReports(team);
+  const { reports, loading, error, fromCache, retry } = useAssignedReports(team);
 
   if (!team) {
     return (
@@ -109,6 +109,11 @@ export default function AssignmentsPage() {
   }
   return (
     <div>
+      {fromCache && !error && (
+        <Banner tone="info" role="status">
+          You may be offline. Assignments and priorities below may be out of date until the connection returns.
+        </Banner>
+      )}
       {error && (
         <Banner tone="error" role="alert">
           <span aria-hidden="true">✖</span> Could not load your assignments. Check your connection and try again.{' '}

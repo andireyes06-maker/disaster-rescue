@@ -10,29 +10,32 @@ export interface MyReportsState {
   reports: Report[];
   loading: boolean;
   error: FirestoreError | null;
+  // True when the last result came from the local cache, so statuses may be out of date (F07).
+  fromCache: boolean;
   retry: () => void;
 }
 
 // Live list of one resident's reports. The rules allow this read only for the reporter's own reports.
 // Sorted on the client so no composite index is needed.
 export function useMyReports(uid: string): MyReportsState {
-  const [state, setState] = useState<Omit<MyReportsState, 'retry'>>({ reports: [], loading: Boolean(uid), error: null });
+  const [state, setState] = useState<Omit<MyReportsState, 'retry'>>({ reports: [], loading: Boolean(uid), error: null, fromCache: false });
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     if (!uid) {
-      setState({ reports: [], loading: false, error: null });
+      setState({ reports: [], loading: false, error: null, fromCache: false });
       return undefined;
     }
     setState((s) => (s.error ? { ...s, loading: true, error: null } : s));
     const q = query(collection(getFirebaseDb(), 'reports'), where('reporterId', '==', uid));
     return onSnapshot(
       q,
+      { includeMetadataChanges: true },
       (snap) => {
         const reports = snap.docs
           .map((d) => convertReport(d.id, d.data()))
           .sort((a, b) => time(b.createdAt) - time(a.createdAt));
-        setState({ reports, loading: false, error: null });
+        setState({ reports, loading: false, error: null, fromCache: snap.metadata.fromCache });
       },
       (error) => setState((s) => ({ ...s, loading: false, error })),
     );

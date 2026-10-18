@@ -6,11 +6,13 @@ interface Snap {
   id: string;
   exists: () => boolean;
   data: () => Record<string, unknown> | null;
+  metadata: { fromCache: boolean };
 }
 interface Sub {
   ref: string;
   ok: (s: Snap) => void;
   err: (e: unknown) => void;
+  opts: unknown;
   unsub: Mock<() => void>;
 }
 
@@ -20,8 +22,11 @@ vi.mock('firebase/firestore', () => ({
   collection: vi.fn((_db: unknown, c: string, id: string, sub: string) => `${c}/${id}/${sub}`),
   orderBy: vi.fn(() => 'order'),
   query: vi.fn((ref: string) => ref),
-  onSnapshot: vi.fn((ref: string, ok: Sub['ok'], err: Sub['err']) => {
-    const s = { ref, ok, err, unsub: vi.fn<() => void>() };
+  // onSnapshot(ref, [options,] onNext, onError): the options argument is optional.
+  onSnapshot: vi.fn((ref: string, ...rest: unknown[]) => {
+    const hasOptions = typeof rest[0] !== 'function';
+    const [ok, err] = hasOptions ? rest.slice(1) : rest;
+    const s = { ref, ok, err, opts: hasOptions ? rest[0] : undefined, unsub: vi.fn<() => void>() } as Sub;
     h.subs.push(s);
     return s.unsub;
   }),
@@ -29,7 +34,9 @@ vi.mock('firebase/firestore', () => ({
 vi.mock('../../firebase', () => ({ getFirebaseDb: () => ({}) }));
 import { useReport, useReportsByIds, useReportUpdates } from './useReport';
 
-const snap = (id: string, data: Record<string, unknown> | null): Snap => ({ id, exists: () => data !== null, data: () => data });
+const snap = (id: string, data: Record<string, unknown> | null, fromCache = false): Snap => ({
+  id, exists: () => data !== null, data: () => data, metadata: { fromCache },
+});
 const ts = (ms: number) => ({ toDate: () => new Date(ms) });
 
 describe('useReport', () => {
@@ -65,6 +72,15 @@ describe('useReport', () => {
     act(() => result.current.retry());
     expect(h.subs).toHaveLength(2);
     expect(h.subs[0].unsub).toHaveBeenCalled();
+  });
+
+  it('listens with metadata changes and exposes fromCache so a stale status can be flagged (F07)', () => {
+    const { result } = renderHook(() => useReport('r1'));
+    expect(h.subs[0].opts).toEqual({ includeMetadataChanges: true });
+    act(() => h.subs[0].ok(snap('r1', { createdAt: ts(1000) }, true)));
+    expect(result.current.fromCache).toBe(true);
+    act(() => h.subs[0].ok(snap('r1', { createdAt: ts(1000) }, false)));
+    expect(result.current.fromCache).toBe(false);
   });
 
   it('unsubscribes the old listener when the id changes', () => {

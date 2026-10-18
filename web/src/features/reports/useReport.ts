@@ -12,6 +12,8 @@ export interface ReportState {
   error: FirestoreError | null;
   notFound: boolean;
   removed: boolean;
+  // True when the last snapshot came from the local cache (offline or not yet confirmed by the server), so the status may be out of date (F07).
+  fromCache: boolean;
 }
 
 export interface ReportEntry {
@@ -21,22 +23,23 @@ export interface ReportEntry {
 
 export function useReport(id: string) {
   const [attempt, setAttempt] = useState(0);
-  const [state, setState] = useState<ReportState>({ report: null, loading: true, error: null, notFound: false, removed: false });
+  const [state, setState] = useState<ReportState>({ report: null, loading: true, error: null, notFound: false, removed: false, fromCache: false });
 
   useEffect(() => {
     let seen = false;
-    setState({ report: null, loading: true, error: null, notFound: false, removed: false });
+    setState({ report: null, loading: true, error: null, notFound: false, removed: false, fromCache: false });
     const unsubscribe = onSnapshot(
       doc(getFirebaseDb(), 'reports', id),
+      { includeMetadataChanges: true },
       (snap) => {
         if (snap.exists()) {
           seen = true;
-          setState({ report: convertReport(snap.id, snap.data()), loading: false, error: null, notFound: false, removed: false });
+          setState({ report: convertReport(snap.id, snap.data()), loading: false, error: null, notFound: false, removed: false, fromCache: snap.metadata.fromCache });
         } else {
-          setState({ report: null, loading: false, error: null, notFound: !seen, removed: seen });
+          setState({ report: null, loading: false, error: null, notFound: !seen, removed: seen, fromCache: snap.metadata.fromCache });
         }
       },
-      (error) => setState({ report: null, loading: false, error, notFound: false, removed: false }),
+      (error) => setState({ report: null, loading: false, error, notFound: false, removed: false, fromCache: false }),
     );
     return unsubscribe;
   }, [id, attempt]);

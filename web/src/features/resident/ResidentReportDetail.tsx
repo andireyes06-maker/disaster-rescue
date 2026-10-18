@@ -14,7 +14,7 @@ const CANCEL_REFUSED = 'This report can no longer be cancelled. It may already h
 export default function ResidentReportDetail() {
   const { id = '' } = useParams();
   const { user } = useAuth();
-  const { reports, loading, error, retry } = useMyReports(user?.uid ?? '');
+  const { reports, loading, error, fromCache, retry } = useMyReports(user?.uid ?? '');
   const { updates, error: updatesError, retry: retryUpdates } = useReportUpdates(id);
   const report = reports.find((r) => r.id === id);
   const [busy, setBusy] = useState(false);
@@ -56,6 +56,11 @@ export default function ResidentReportDetail() {
   return (
     <main className="resident">
       <p><Link to="/my">Back to my reports</Link></p>
+      {fromCache && (
+        <Banner tone="info" role="status">
+          You may be offline. The status below may be out of date until the connection returns.
+        </Banner>
+      )}
       <section className="card" aria-labelledby="report-title">
         <h2 id="report-title">{report.type.charAt(0).toUpperCase() + report.type.slice(1)} report</h2>
         <p>Reference: {report.reference}</p>

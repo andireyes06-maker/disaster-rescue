@@ -32,6 +32,8 @@ function failureText(err: unknown, fallback: string): string {
 export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [error, setError] = useState('');
+  // Confirms a created account and says how the person sets a password (F02). No credential is shown here.
+  const [notice, setNotice] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState<string>('responder');
@@ -72,6 +74,7 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
     e.preventDefault();
     if (busy('create')) return;
     setError('');
+    setNotice('');
     setBusy('create', true);
     try {
       const body: Record<string, unknown> = { name: name.trim(), email: email.trim(), role };
@@ -80,6 +83,7 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
       setName('');
       setEmail('');
       setTeam('');
+      setNotice('Account created. Ask them to open the sign-in page and choose Forgot password to set their password.');
       setUsers((await api('/users')) as AdminUser[]);
     } catch (err) {
       setError(failureText(err, 'Could not create the account. Check the details; the email may already be in use.'));
@@ -91,6 +95,7 @@ export default function AccountsPanel({ teams }: { teams: AdminTeam[] }) {
   return (
     <div className="admin-accounts">
       {error && <Banner tone="error" role="alert"><strong>Problem:</strong> <span>{error}</span></Banner>}
+      {notice && <Banner tone="info" role="status">{notice}</Banner>}
       <table>
         <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
         <tbody>
