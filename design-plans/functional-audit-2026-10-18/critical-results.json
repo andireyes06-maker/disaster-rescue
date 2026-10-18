@@ -1,0 +1,156 @@
+{
+  "checks": [
+    {
+      "name": "responder aggregate stats access is intentionally allowed",
+      "pass": true
+    },
+    {
+      "name": "exports honor Analytics filter type=flood",
+      "pass": false,
+      "detail": "filtered total 10; CSV still contains 15 excluded incidents; PDF 25\n\n15 !== 0\n"
+    },
+    {
+      "name": "exports honor Analytics filter status=Submitted",
+      "pass": false,
+      "detail": "filtered total 1; CSV still contains 24 excluded incidents; PDF 25\n\n24 !== 0\n"
+    },
+    {
+      "name": "revoked dispatcher token loses privileged access even on a same-second role change",
+      "pass": false,
+      "detail": "[{\"mode\":\"immediate\",\"authTime\":1792299483,\"revokedAfter\":\"Sun, 18 Oct 2026 04:58:03 GMT\",\"storedRole\":\"resident\",\"oldTokenUsersStatus\":200},{\"mode\":\"delayed\",\"authTime\":1792299484,\"revokedAfter\":\"Sun, 18 Oct 2026 04:58:06 GMT\",\"storedRole\":\"resident\",\"oldTokenUsersStatus\":401}]"
+    },
+    {
+      "name": "two-admin concurrent demotions leave one active admin",
+      "pass": true
+    }
+  ],
+  "observations": [
+    {
+      "kind": "export-filter",
+      "query": "type=flood",
+      "expectedTotal": 10,
+      "excludedReferencesInCsv": [
+        "RR-260002",
+        "RR-260003",
+        "RR-260004",
+        "RR-260006",
+        "RR-260008",
+        "RR-260009",
+        "RR-260010",
+        "RR-260013",
+        "RR-260014",
+        "RR-260016",
+        "RR-260017",
+        "RR-260019",
+        "RR-260020",
+        "RR-260022",
+        "RR-260024"
+      ],
+      "pdfTotal": "25"
+    },
+    {
+      "kind": "export-filter",
+      "query": "status=Submitted",
+      "expectedTotal": 1,
+      "excludedReferencesInCsv": [
+        "RR-260001",
+        "RR-260002",
+        "RR-260003",
+        "RR-260005",
+        "RR-260006",
+        "RR-260007",
+        "RR-260008",
+        "RR-260009",
+        "RR-260010",
+        "RR-260011",
+        "RR-260012",
+        "RR-260013",
+        "RR-260014",
+        "RR-260015",
+        "RR-260016",
+        "RR-260017",
+        "RR-260018",
+        "RR-260019",
+        "RR-260020",
+        "RR-260021",
+        "RR-260022",
+        "RR-260023",
+        "RR-260024",
+        "DR-SZYP6E"
+      ],
+      "pdfTotal": "25"
+    },
+    {
+      "kind": "revocation-granularity",
+      "details": [
+        {
+          "mode": "immediate",
+          "authTime": 1792299483,
+          "revokedAfter": "Sun, 18 Oct 2026 04:58:03 GMT",
+          "storedRole": "resident",
+          "oldTokenUsersStatus": 200
+        },
+        {
+          "mode": "delayed",
+          "authTime": 1792299484,
+          "revokedAfter": "Sun, 18 Oct 2026 04:58:06 GMT",
+          "storedRole": "resident",
+          "oldTokenUsersStatus": 401
+        }
+      ]
+    },
+    {
+      "kind": "last-admin-race",
+      "round": 1,
+      "statuses": [
+        409,
+        200
+      ],
+      "codes": [
+        "last_admin",
+        null
+      ],
+      "roles": [
+        "responder",
+        "admin"
+      ]
+    },
+    {
+      "kind": "last-admin-race",
+      "round": 2,
+      "statuses": [
+        409,
+        200
+      ],
+      "codes": [
+        "last_admin",
+        null
+      ],
+      "roles": [
+        "responder",
+        "admin"
+      ]
+    },
+    {
+      "kind": "last-admin-race",
+      "round": 3,
+      "statuses": [
+        200,
+        409
+      ],
+      "codes": [
+        null,
+        "last_admin"
+      ],
+      "roles": [
+        "admin",
+        "responder"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 2,
+    "failed": 3
+  }
+}

@@ -1,0 +1,27 @@
+const { createRequire } = require('node:module');
+const req = createRequire('/Users/rien/Documents/FINAL_PROJECT-fixes/web/package.json');
+const { webkit } = req('playwright');
+const PASSWORD = 'AuditOnly-Rescue-2026';
+(async () => {
+  const b = await webkit.launch({ headless: true, executablePath: `${process.env.HOME}/Library/Caches/ms-playwright/webkit-2359/pw_run.sh` });
+  const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
+  const p = await ctx.newPage();
+  const log = [];
+  p.on('pageerror', (e) => log.push(`[${Date.now() % 100000}] pageerror ${e.message.slice(0, 90)}`));
+  p.on('console', (m) => { if (m.type() === 'error') log.push(`[${Date.now() % 100000}] console ${m.text().slice(0, 90)}`); });
+  p.on('requestfailed', (r) => { if (r.url().includes('Listen')) log.push(`[${Date.now() % 100000}] requestfailed ${r.failure()?.errorText} ${r.url().slice(0, 60)}`); });
+  await p.goto('http://localhost:5178/login', { waitUntil: 'load' });
+  await p.getByLabel('Email').fill('dispatcher@harbor.example');
+  await p.getByLabel('Password').fill(PASSWORD);
+  await p.getByRole('button', { name: 'Sign in' }).click();
+  await p.waitForURL(/\/dashboard/, { timeout: 30000 });
+  log.push('--- dashboard idle 10s (no navigation)');
+  await p.waitForTimeout(10000);
+  log.push(`--- after idle, errors so far: ${log.length}`);
+  log.push('--- navigating to /map');
+  await p.goto('http://localhost:5178/map', { waitUntil: 'load' });
+  await p.waitForTimeout(4000);
+  log.push('--- map idle 4s done');
+  console.log(log.join('\n'));
+  await b.close();
+})().catch((e) => { console.error('script error', e.message); process.exit(1); });

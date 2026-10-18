@@ -1,0 +1,2858 @@
+[
+  {
+    "engine": "chromium",
+    "version": "156.0.8078.4",
+    "width": 1440,
+    "insert": {
+      "focus": "name",
+      "errors": [
+        {
+          "id": "name-error",
+          "text": "Enter your name.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "name-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "clear": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "reduced": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "none"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "none"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "none"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "none"
+        }
+      ],
+      "animations": [],
+      "overflow": false
+    },
+    "login": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter your email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Enter your password.",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    }
+  },
+  {
+    "engine": "chromium",
+    "version": "156.0.8078.4",
+    "width": 390,
+    "insert": {
+      "focus": "name",
+      "errors": [
+        {
+          "id": "name-error",
+          "text": "Enter your name.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "name-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "clear": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "reduced": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "none"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "none"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "none"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "none"
+        }
+      ],
+      "animations": [],
+      "overflow": false
+    },
+    "login": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter your email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Enter your password.",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    }
+  },
+  {
+    "engine": "firefox",
+    "version": "155.0",
+    "width": 1440,
+    "insert": {
+      "focus": "name",
+      "errors": [
+        {
+          "id": "name-error",
+          "text": "Enter your name.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "name-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "clear": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "reduced": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "none"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "none"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "none"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "none"
+        }
+      ],
+      "animations": [],
+      "overflow": false
+    },
+    "login": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter your email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Enter your password.",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    }
+  },
+  {
+    "engine": "firefox",
+    "version": "155.0",
+    "width": 390,
+    "insert": {
+      "focus": "name",
+      "errors": [
+        {
+          "id": "name-error",
+          "text": "Enter your name.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "name-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "clear": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "reduced": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "none"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "none"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "none"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "none"
+        }
+      ],
+      "animations": [],
+      "overflow": false
+    },
+    "login": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter your email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Enter your password.",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    }
+  },
+  {
+    "engine": "webkit",
+    "version": "27.2",
+    "width": 1440,
+    "insert": {
+      "focus": "name",
+      "errors": [
+        {
+          "id": "name-error",
+          "text": "Enter your name.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "name-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "clear": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "reduced": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "none"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "none"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "none"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "none"
+        }
+      ],
+      "animations": [],
+      "overflow": false
+    },
+    "login": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter your email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Enter your password.",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    }
+  },
+  {
+    "engine": "webkit",
+    "version": "27.2",
+    "width": 390,
+    "insert": {
+      "focus": "name",
+      "errors": [
+        {
+          "id": "name-error",
+          "text": "Enter your name.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "phone",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "confirmPassword",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "name-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "clear": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "name",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "phone-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-hint",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "confirmPassword-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    },
+    "reduced": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter a valid email.",
+          "animation": "none"
+        },
+        {
+          "id": "phone-error",
+          "text": "Enter a valid phone number.",
+          "animation": "none"
+        },
+        {
+          "id": "password-error",
+          "text": "Password must be at least 8 characters.",
+          "animation": "none"
+        },
+        {
+          "id": "confirmPassword-error",
+          "text": "Passwords do not match",
+          "animation": "none"
+        }
+      ],
+      "animations": [],
+      "overflow": false
+    },
+    "login": {
+      "focus": "email",
+      "errors": [
+        {
+          "id": "email-error",
+          "text": "Enter your email.",
+          "animation": "feedback-arrive"
+        },
+        {
+          "id": "password-error",
+          "text": "Enter your password.",
+          "animation": "feedback-arrive"
+        }
+      ],
+      "animations": [
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "email",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "CSSTransition",
+          "target": "password",
+          "duration": 160
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "email-error",
+          "duration": 220
+        },
+        {
+          "name": "feedback-arrive",
+          "target": "password-error",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "LABEL",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "password",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "BUTTON",
+          "duration": 220
+        },
+        {
+          "name": "form-reflow",
+          "target": "P",
+          "duration": 220
+        }
+      ],
+      "overflow": false
+    }
+  }
+]

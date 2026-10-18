@@ -1,4 +1,6 @@
-import { useRef, useState, type ReactNode } from 'react';
+import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useDialogFocusReturn } from '../../components/useDialogFocusReturn';
 import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
 import { api } from '../../api/client';
@@ -11,8 +13,12 @@ import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
 import AssignTeamDialog from './AssignTeamDialog';
 import { isOpen, formatTime, distanceMeters } from './format';
 import { awaitingVerify, canAssign, canActOnReports, nextStep } from './workflow';
-import { PRIORITIES, type Report } from '../../types/domain';
+import { PRIORITIES, type Report, type Team } from '../../types/domain';
+import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import Banner from '../../components/calm/Banner';
+import { resolvePhotoUrl } from '../../lib/photos';
+import PhotoImage from '../../components/PhotoImage';
+import EmptyState from '../../components/calm/EmptyState';
 
 const CONFLICT = 'Someone else already changed this report. Reloading the latest status.';
 
@@ -24,7 +30,7 @@ function errorText(err: unknown): string {
     if (failure.status === 404) return 'This report could not be found.';
     if (failure.status === 0) return 'Network error. Check your connection and try again.';
   }
-  return 'Something went wrong. Please try again.';
+  return 'Could not confirm the change. Reload this report to check its latest status.';
 }
 
 interface Message {
@@ -78,7 +84,7 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }: Duplicate
             return (
               <article key={id} className="dup__item">
                 <h3>Flagged report</h3>
-                <p>{entry && entry.loading ? 'Loading...' : 'Report unavailable'}</p>
+                {entry?.loading ? <Skeleton label="Loading flagged report"><SkeletonRows rows={3} height={32} /></Skeleton> : <p>Report unavailable</p>}
               </article>
             );
           }
@@ -94,7 +100,7 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }: Duplicate
                 <Fact label="Status"><StatusBadge status={r.status} /></Fact>
               </dl>
               {canAct && isOpen(r) && (
-                <button type="button" className="btn" disabled={busy} onClick={() => onMark(r.id)}>
+                <button type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={() => onMark(r.id)}>
                   Mark the report you are viewing as a duplicate of this one
                 </button>
               )}
@@ -117,25 +123,60 @@ interface IncidentViewProps {
   id: string;
 }
 
+// Looks up the assigned team's name for the facts list. Staff who cannot list teams still see the assignment.
+function useAssignedTeamName(teamId: string | undefined): string | null {
+  const [name, setName] = useState<string | null>(null);
+  useEffect(() => {
+    if (!teamId) {
+      setName(null);
+      return;
+    }
+    let active = true;
+    api('/teams')
+      .then((list) => {
+        if (!active) return;
+        const teams = Array.isArray(list) ? (list as Team[]) : [];
+        setName(teams.find((t) => t.id === teamId)?.name ?? null);
+      })
+      .catch(() => {
+        if (active) setName(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, [teamId]);
+  return name;
+}
+
 function IncidentView({ id }: IncidentViewProps) {
   const { role } = useAuth();
   const { report, loading, error, notFound, removed, retry } = useReport(id);
   const updatesState = useReportUpdates(id);
+  const teamName = useAssignedTeamName(report?.assignedTeamId);
   const byId = useReportsByIds(report ? report.possibleDuplicates || [] : []);
   const [busy, setBusy] = useState(false);
+  const actionInFlight = useRef(false);
+  const [pendingAction, setPendingAction] = useState<string | null>(null);
   const rejectTrigger = useRef<HTMLButtonElement>(null);
   const assignTrigger = useRef<HTMLButtonElement>(null);
   const [message, setMessage] = useState<Message | null>(null);
   const [rejecting, setRejecting] = useState(false);
   const [photoIndex, setPhotoIndex] = useState<number | null>(null);
+  const [photoOpen, setPhotoOpen] = useState(false);
+  const photoTrigger = useRef<HTMLButtonElement>(null);
+  const photoContent = useRef<HTMLDivElement>(null);
+  const rejectContent = useRef<HTMLDivElement>(null);
+  useDialogFocusReturn(photoOpen, photoTrigger, photoContent);
+  useDialogFocusReturn(rejecting, rejectTrigger, rejectContent);
   const [reason, setReason] = useState('');
   const [priority, setPriority] = useState('');
   const [classification, setClassification] = useState('');
   const [assigning, setAssigning] = useState(false);
   const [editingDetails, setEditingDetails] = useState(false);
 
+  const canAct = canActOnReports(role);
   const backTo = role === 'dmo' ? '/monitor' : '/dashboard';
-  if (loading) return <p role="status" className="loading">Loading...</p>;
+  if (loading) return <Skeleton label="Loading incident details"><SkeletonRows rows={3} height={120} /></Skeleton>;
   if (error) {
     return (
       <div>
@@ -144,16 +185,22 @@ function IncidentView({ id }: IncidentViewProps) {
       </div>
     );
   }
-  if (removed) return <p className="card">This report is no longer available. <Link to={backTo}>Back to the queue</Link></p>;
-  if (notFound || !report) return <p className="card">Report not found. <Link to={role === 'dmo' ? '/monitor' : '/dashboard'}>Back to the queue</Link></p>;
+  if (removed || notFound || !report) return <EmptyState
+    title={removed ? 'This report is no longer available.' : 'Report not found'}
+    body={`The report may have been removed, or the link may be outdated. Return to ${canAct ? 'the incident queue' : 'the monitor'} to choose another report.`}
+    action={<Link className="btn btn--ghost" to={backTo}>{canAct ? 'Back to the queue' : 'Back to monitor'}</Link>}
+  />;
 
   const reportId = report.id;
-  const canAct = canActOnReports(role);
   const step = nextStep(report);
   const candidates = (report.possibleDuplicates || []).slice(0, MAX_DUPLICATE_IDS).map((pid) => ({ id: pid, entry: byId[pid] }));
   const shownPriority = priority || report.priority || 'medium';
 
   async function run(path: string, body: unknown, okText: string): Promise<boolean> {
+    // Busy buttons use aria-disabled so focus stays put; ignore repeat activations here.
+    if (actionInFlight.current) return false;
+    actionInFlight.current = true;
+    setPendingAction(path);
     setBusy(true);
     setMessage(null);
     try {
@@ -164,6 +211,8 @@ function IncidentView({ id }: IncidentViewProps) {
       setMessage({ kind: 'error', text: errorText(err) });
       return false;
     } finally {
+      actionInFlight.current = false;
+      setPendingAction(null);
       setBusy(false);
     }
   }
@@ -177,12 +226,12 @@ function IncidentView({ id }: IncidentViewProps) {
   const loc = report.location;
   return (
     <div className="incident">
-      <p className="incident__back"><Link to={canAct ? '/dashboard' : '/monitor'}>Back to the queue</Link></p>
+      <p className="incident__back"><Link className="touch-link" to={canAct ? '/dashboard' : '/monitor'}>{canAct ? 'Back to the queue' : 'Back to monitor'}</Link></p>
 
       <header className="incident__heading">
         <h2>{report.type} report</h2>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /><VerifiedBadge verified={report.verified} /></div>
-        <p className="incident__reference">Report {report.id} · {formatTime(report.createdAt)}</p>
+        <p className="incident__reference">Report {report.reference || report.id} · {formatTime(report.createdAt)}</p>
       </header>
 
       {message && (
@@ -199,26 +248,27 @@ function IncidentView({ id }: IncidentViewProps) {
           <Fact label="Classification"><span className="plain">{report.classification || 'Not classified'}</span></Fact>
           <Fact label="Address"><span className="plain">{report.addressText || 'No address given'}</span></Fact>
           {loc && Number.isFinite(loc.lat) && <Fact label="Location">{loc.lat.toFixed(5)}, {loc.lng.toFixed(5)} ({loc.source})</Fact>}
-          <Fact label="Contact"><span className="plain">{report.contact?.name}{' '}{report.contact?.phone && <a href={`tel:${report.contact.phone}`}>{report.contact.phone}</a>}</span></Fact>
+          <Fact label="Contact"><span className="plain">{report.contact?.name || (!report.contact?.phone ? 'No contact provided' : '')}{' '}{report.contact?.phone && <a href={`tel:${report.contact.phone}`}>{report.contact.phone}</a>}</span></Fact>
+          {report.assignedTeamId && <Fact label="Assigned team"><span className="plain">{teamName ?? 'Rescue team assigned'}</span></Fact>}
           {report.rejectionReason && <Fact label="Rejection reason"><span className="plain">{report.rejectionReason}</span></Fact>}
         </dl>
         {report.photos?.length > 0 && (
           <ul className="photos" aria-label="Photos">
             {report.photos.map((p, i) => (
               <li key={p.url}>
-                <button type="button" className="photo-thumb" onClick={() => setPhotoIndex(i)}
+                <button type="button" className="photo-thumb" onClick={(event) => { photoTrigger.current = event.currentTarget; setPhotoIndex(i); setPhotoOpen(true); }}
                   aria-label={`Open photo ${i + 1} of ${report.photos.length}`}>
-                  <img src={p.url} alt="" loading="lazy" />
+                  <PhotoImage src={resolvePhotoUrl(p.url)} />
                 </button>
               </li>
             ))}
           </ul>
         )}
         {photoIndex !== null && report.photos?.[photoIndex] && (
-          <Dialog open onOpenChange={(open) => { if (!open) setPhotoIndex(null); }}>
-            <DialogContent className="photo-viewer">
+          <Dialog open={photoOpen} onOpenChange={setPhotoOpen}>
+            <DialogContent ref={photoContent} className="photo-viewer">
               <DialogTitle>Photo {photoIndex + 1} of {report.photos.length}</DialogTitle>
-              <img src={report.photos[photoIndex].url} alt={`Incident photo ${photoIndex + 1}`} />
+              <img src={resolvePhotoUrl(report.photos[photoIndex].url)} alt={`Incident photo ${photoIndex + 1}`} />
               <div className="photo-viewer__nav">
                 <button type="button" className="btn btn--ghost" disabled={photoIndex === 0}
                   onClick={() => setPhotoIndex(photoIndex - 1)}>Previous</button>
@@ -238,7 +288,8 @@ function IncidentView({ id }: IncidentViewProps) {
             <button className="btn btn--ghost" type="button" onClick={updatesState.retry}>Try again</button>
           </Banner>
         )}
-        {!updatesState.error && updatesState.updates.length === 0 && <p>No rescue updates yet.</p>}
+        {updatesState.loading && updatesState.updates.length === 0 && <Skeleton label="Loading rescue updates"><SkeletonRows rows={3} height={52} /></Skeleton>}
+        {!updatesState.loading && !updatesState.error && updatesState.updates.length === 0 && <p>No rescue updates yet.</p>}
         {updatesState.updates.length > 0 && (
           <ol className="updates">
             {updatesState.updates.map((u) => (
@@ -267,60 +318,62 @@ function IncidentView({ id }: IncidentViewProps) {
           </div>
           {canAssign(report) && (
             <div className="actions__row">
-              <button ref={assignTrigger} type="button" className="btn" disabled={busy} onClick={() => setAssigning(true)}>Assign team</button>
+              <button ref={assignTrigger} type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={() => setAssigning(true)}>Assign team</button>
             </div>
           )}
           {report.status === 'Resolved' && (
             <div className="actions__row">
-              <button type="button" className="btn" disabled={busy} onClick={() => run('close', undefined, 'Report closed.')}>Close report</button>
+              <button type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={() => run('close', undefined, 'Report closed.')}>Close report</button>
             </div>
           )}
           {awaitingVerify(report) && (
             <div className="actions__row">
-              <button type="button" className="btn" disabled={busy} onClick={() => run('verify', undefined, 'Report verified.')}>Verify</button>
-              <button ref={rejectTrigger} type="button" className="btn btn--ghost" disabled={busy} onClick={() => setRejecting(true)}>Reject</button>
+              <button type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={() => run('verify', undefined, 'Report verified.')}>Verify</button>
+              <button ref={rejectTrigger} type="button" className="btn btn--ghost" aria-disabled={busy} aria-busy={busy} onClick={() => setRejecting(true)}>Reject</button>
             </div>
           )}
           <button type="button" className="btn btn--ghost" aria-expanded={editingDetails} aria-controls="report-metadata"
             onClick={() => setEditingDetails((open) => !open)}>{editingDetails ? 'Hide report settings' : 'Edit priority & classification'}</button>
-          {editingDetails && <div id="report-metadata" className="actions" role="group" aria-label="Report settings">
+          {editingDetails && <div id="report-metadata" className="actions" role="group" aria-label="Report settings"><RequiredNote />
           {isOpen(report) && (
             <div className="actions__row">
-              <label htmlFor="priority-select">Priority</label>
-              <select id="priority-select" value={shownPriority} onChange={(e) => setPriority(e.target.value)}>
-                {PRIORITIES.map((p) => <option key={p} value={p}>{p}</option>)}
+              <label htmlFor="priority-select">Priority<RequiredMark /></label>
+              <select id="priority-select" aria-required="true" disabled={busy} value={shownPriority} onChange={(e) => setPriority(e.target.value)}>
+                {/* Values stay lowercase for the API; labels match the priority badge. */}
+                {PRIORITIES.map((p) => <option key={p} value={p}>{p.charAt(0).toUpperCase() + p.slice(1)}</option>)}
               </select>
-              <button type="button" className="btn" disabled={busy}
-                onClick={() => run('priority', { priority: shownPriority }, 'Priority updated.')}>Set priority</button>
+              <button type="button" className="btn" aria-disabled={busy} aria-busy={busy}
+                onClick={() => run('priority', { priority: shownPriority }, 'Priority updated.')}>{pendingAction === 'priority' ? 'Saving priority…' : 'Set priority'}</button>
             </div>
           )}
           <div className="actions__row">
-            <label htmlFor="classification-input">Classification</label>
-            <input id="classification-input" maxLength={100} value={classification}
+            <label htmlFor="classification-input">Classification<RequiredMark /></label>
+            <input id="classification-input" aria-required="true" readOnly={busy} maxLength={100} value={classification}
               onChange={(e) => setClassification(e.target.value)} />
-            <button type="button" className="btn" disabled={busy || !classification.trim()}
-              onClick={() => run('classify', { classification: classification.trim() }, 'Classification saved.')}>Classify</button>
+            <button type="button" className="btn" disabled={!classification.trim()} aria-disabled={busy} aria-busy={busy}
+              onClick={() => run('classify', { classification: classification.trim() }, 'Classification saved.')}>{pendingAction === 'classify' ? 'Saving classification…' : 'Classify'}</button>
           </div>
           </div>}
         </aside>
       )}
 
-      {canAct && assigning && (
-        <AssignTeamDialog reportId={report.id} onClose={() => setAssigning(false)} returnFocusTo={assignTrigger}
+      {canAct && (
+        <AssignTeamDialog open={assigning} reportId={report.id} onClose={() => setAssigning(false)} returnFocusTo={assignTrigger}
           onAssigned={() => setMessage({ kind: 'ok', text: 'Rescue team assigned.' })} />
       )}
 
-      {canAct && rejecting && (
-        <Dialog open onOpenChange={(open) => { if (!open) setRejecting(false); }}>
-          <DialogContent showCloseButton={false} aria-describedby={undefined}
+      {canAct && (
+        <Dialog open={rejecting} onOpenChange={(open) => { if (!open) { rejectTrigger.current?.focus(); setRejecting(false); } }}>
+          <DialogContent ref={rejectContent} showCloseButton={false} aria-describedby={undefined}
+            onEscapeKeyDown={() => rejectTrigger.current?.focus()}
             onCloseAutoFocus={(e) => { e.preventDefault(); rejectTrigger.current?.focus(); }}
             onPointerDownOutside={(e) => e.preventDefault()} onInteractOutside={(e) => e.preventDefault()}>
-            <DialogTitle>Reject this report</DialogTitle>
-            <label htmlFor="reject-reason">Reason (required)</label>
-            <textarea id="reject-reason" rows={4} value={reason} onChange={(e) => setReason(e.target.value)} />
+            <DialogTitle>Reject this report</DialogTitle><RequiredNote />
+            <label htmlFor="reject-reason">Reason<RequiredMark /></label>
+            <textarea id="reject-reason" aria-required="true" rows={4} value={reason} onChange={(e) => setReason(e.target.value)} />
             <div className="actions__row">
-              <button type="button" className="btn" disabled={busy || !reason.trim()} onClick={confirmReject}>Confirm reject</button>
-              <button type="button" className="btn btn--ghost" onClick={() => setRejecting(false)}>Cancel</button>
+              <button type="button" className="btn" disabled={!reason.trim()} aria-disabled={busy} aria-busy={busy} onClick={confirmReject}>Confirm reject</button>
+              <button type="button" className="btn btn--ghost" onClick={() => { rejectTrigger.current?.focus(); setRejecting(false); }}>Cancel</button>
             </div>
           </DialogContent>
         </Dialog>

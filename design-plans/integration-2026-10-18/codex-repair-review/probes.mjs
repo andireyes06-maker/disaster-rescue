@@ -1,0 +1,12 @@
+import {writeFileSync} from 'node:fs';
+import {createAttemptStore} from '/private/tmp/rescue-release-integration-2026-10-18/web/src/features/resident/submissionAttempts.ts';
+const scope={uid:'review-user',project:'demo-review',apiBase:'http://localhost:3106/api'};
+const data=new Map();let denyWrites=false;
+const storage={getItem:k=>data.get(k)??null,setItem:(k,v)=>{if(denyWrites)throw Error('quota');data.set(k,v)}};
+const first=createAttemptStore(scope,storage);const digest='a'.repeat(64);const old=first.keyFor(digest).key;
+denyWrites=true;first.confirm(digest);denyWrites=false;
+const after=createAttemptStore(scope,storage).keyFor(digest).key;
+const bounded=createAttemptStore(scope,null);const original=bounded.keyFor(digest).key;for(let i=1;i<=5;i++)bounded.keyFor(i.toString(16).repeat(64));const retry=bounded.keyFor(digest);
+const pair1={uid:'account',key:'extra__1234567890123456'},pair2={uid:'account__extra',key:'1234567890123456'};
+const result={successfulClearWriteFailure:{staleConfirmedKeyReloaded:old===after,description:'A successful send followed by a denied storage write leaves the confirmed key in storage; a new store replays it for a later identical send.'},boundedEviction:{retryGetsNewKey:retry.key!==original,noticeOnly:retry.evicted,description:'After five other unconfirmed versions, the original payload gets a different key. ReportForm sends immediately after showing the notice.'},uidCollision:{pair1,pair2,sameDocumentId:`${pair1.uid}__${pair1.key}`===`${pair2.uid}__${pair2.key}`}};
+writeFileSync('/tmp/rescue-repair-review/probes.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));

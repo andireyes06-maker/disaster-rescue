@@ -1,0 +1,183 @@
+[
+  {
+    "path": "/login",
+    "width": 1440,
+    "errors": [],
+    "scrollWidth": 1440,
+    "height": 900,
+    "firstInputY": 431.515625,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nSign in\n\nResidents and staff sign in here with the account they were given or created.\n\nEmail\nPassword\nSign in\n\nNew to the app? Create a resident account.\n\nWho signs in here\nResidents use the account they created to report an emergency and follow each report.\nStaff (dispatchers, responders, and disaster management officers) use the account their team set up.\n\nNeed an account or help signing in? Contact your team’s dispatcher.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
+  },
+  {
+    "path": "/login",
+    "width": 1024,
+    "errors": [],
+    "scrollWidth": 1024,
+    "height": 900,
+    "firstInputY": 431.515625,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nSign in\n\nResidents and staff sign in here with the account they were given or created.\n\nEmail\nPassword\nSign in\n\nNew to the app? Create a resident account.\n\nWho signs in here\nResidents use the account they created to report an emergency and follow each report.\nStaff (dispatchers, responders, and disaster management officers) use the account their team set up.\n\nNeed an account or help signing in? Contact your team’s dispatcher.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
+  },
+  {
+    "path": "/login",
+    "width": 768,
+    "errors": [],
+    "scrollWidth": 768,
+    "height": 941,
+    "firstInputY": 262.171875,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nSign in\n\nResidents and staff sign in here with the account they were given or created.\n\nEmail\nPassword\nSign in\n\nNew to the app? Create a resident account.\n\nWho signs in here\nResidents use the account they created to report an emergency and follow each report.\nStaff (dispatchers, responders, and disaster management officers) use the account their team set up.\n\nNeed an account or help signing in? Contact your team’s dispatcher.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
+  },
+  {
+    "path": "/login",
+    "width": 390,
+    "errors": [],
+    "scrollWidth": 390,
+    "height": 1030,
+    "firstInputY": 255.859375,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nSign in\n\nResidents and staff sign in here with the account they were given or created.\n\nEmail\nPassword\nSign in\n\nNew to the app? Create a resident account.\n\nWho signs in here\nResidents use the account they created to report an emergency and follow each report.\nStaff (dispatchers, responders, and disaster management officers) use the account their team set up.\n\nNeed an account or help signing in? Contact your team’s dispatcher.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
+  },
+  {
+    "path": "/login",
+    "test": "empty-submit",
+    "active": "email",
+    "invalid": [
+      {
+        "id": "email",
+        "describedBy": "email-error",
+        "message": [
+          "Enter your email."
+        ]
+      },
+      {
+        "id": "password",
+        "describedBy": "password-error",
+        "message": [
+          "Enter your password."
+        ]
+      }
+    ],
+    "alerts": []
+  },
+  {
+    "path": "/login",
+    "test": "reduced-motion",
+    "matches": true,
+    "animations": 0
+  },
+  {
+    "path": "/register",
+    "width": 1440,
+    "errors": [],
+    "scrollWidth": 1440,
+    "height": 900,
+    "firstInputY": 276.296875,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nCreate a resident account\n\nFill in the details below. All fields are required.\n\nName\nEmail\nPhone\nPassword\n\nAt least 8 characters.\n\nConfirm password\nCreate account\n\nAlready registered? Sign in\n\nWhat you can do\nSend a report with photos and your location.\nFollow each status change on your reports.\nSee rounded incident areas near you.\nWhat happens next\nYour account is created with the details you enter.\nYou go straight to your resident page.\n\nIf you are in danger, call your local emergency number now. A report does not guarantee immediate rescue."
+  },
+  {
+    "path": "/register",
+    "width": 1024,
+    "errors": [],
+    "scrollWidth": 1024,
+    "height": 900,
+    "firstInputY": 276.296875,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nCreate a resident account\n\nFill in the details below. All fields are required.\n\nName\nEmail\nPhone\nPassword\n\nAt least 8 characters.\n\nConfirm password\nCreate account\n\nAlready registered? Sign in\n\nWhat you can do\nSend a report with photos and your location.\nFollow each status change on your reports.\nSee rounded incident areas near you.\nWhat happens next\nYour account is created with the details you enter.\nYou go straight to your resident page.\n\nIf you are in danger, call your local emergency number now. A report does not guarantee immediate rescue."
+  },
+  {
+    "path": "/register",
+    "width": 768,
+    "errors": [],
+    "scrollWidth": 768,
+    "height": 1292,
+    "firstInputY": 262.171875,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nCreate a resident account\n\nFill in the details below. All fields are required.\n\nName\nEmail\nPhone\nPassword\n\nAt least 8 characters.\n\nConfirm password\nCreate account\n\nAlready registered? Sign in\n\nWhat you can do\nSend a report with photos and your location.\nFollow each status change on your reports.\nSee rounded incident areas near you.\nWhat happens next\nYour account is created with the details you enter.\nYou go straight to your resident page.\n\nIf you are in danger, call your local emergency number now. A report does not guarantee immediate rescue."
+  },
+  {
+    "path": "/register",
+    "width": 390,
+    "errors": [],
+    "scrollWidth": 390,
+    "height": 1315,
+    "firstInputY": 234.171875,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nCreate a resident account\n\nFill in the details below. All fields are required.\n\nName\nEmail\nPhone\nPassword\n\nAt least 8 characters.\n\nConfirm password\nCreate account\n\nAlready registered? Sign in\n\nWhat you can do\nSend a report with photos and your location.\nFollow each status change on your reports.\nSee rounded incident areas near you.\nWhat happens next\nYour account is created with the details you enter.\nYou go straight to your resident page.\n\nIf you are in danger, call your local emergency number now. A report does not guarantee immediate rescue."
+  },
+  {
+    "path": "/register",
+    "test": "empty-submit",
+    "active": "name",
+    "invalid": [
+      {
+        "id": "name",
+        "describedBy": "name-error",
+        "message": [
+          "Enter your name."
+        ]
+      },
+      {
+        "id": "email",
+        "describedBy": "email-error",
+        "message": [
+          "Enter a valid email."
+        ]
+      },
+      {
+        "id": "phone",
+        "describedBy": "phone-error",
+        "message": [
+          "Enter a valid phone number."
+        ]
+      },
+      {
+        "id": "password",
+        "describedBy": "password-hint password-error",
+        "message": [
+          "At least 8 characters.",
+          "Password must be at least 8 characters."
+        ]
+      }
+    ],
+    "alerts": []
+  },
+  {
+    "path": "/register",
+    "test": "reduced-motion",
+    "matches": true,
+    "animations": 0
+  },
+  {
+    "path": "/forbidden",
+    "width": 1440,
+    "errors": [],
+    "scrollWidth": 1440,
+    "height": 900,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nAccess denied\n\nSign in to continue.\n\nSign in\nBack to home"
+  },
+  {
+    "path": "/forbidden",
+    "width": 1024,
+    "errors": [],
+    "scrollWidth": 1024,
+    "height": 900,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nAccess denied\n\nSign in to continue.\n\nSign in\nBack to home"
+  },
+  {
+    "path": "/forbidden",
+    "width": 768,
+    "errors": [],
+    "scrollWidth": 768,
+    "height": 900,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nAccess denied\n\nSign in to continue.\n\nSign in\nBack to home"
+  },
+  {
+    "path": "/forbidden",
+    "width": 390,
+    "errors": [],
+    "scrollWidth": 390,
+    "height": 900,
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nAccess denied\n\nSign in to continue.\n\nSign in\nBack to home"
+  },
+  {
+    "path": "/forbidden",
+    "test": "reduced-motion",
+    "matches": true,
+    "animations": 0
+  }
+]

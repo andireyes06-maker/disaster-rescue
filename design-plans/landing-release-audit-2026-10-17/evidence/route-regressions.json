@@ -1,0 +1,110 @@
+[
+  {
+    "check": "SPA return restores landing title",
+    "title": "Rescue Reports · Report clearly. Respond together."
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "title": "My reports · Rescue Reports",
+    "url": "http://localhost:5174/my",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "title": "Report an emergency · Rescue Reports",
+    "url": "http://localhost:5174/my/report",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "title": "Report details · Rescue Reports",
+    "url": "http://localhost:5174/my/reports/demo-report-05",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "title": "Admin · Rescue Reports",
+    "url": "http://localhost:5174/admin",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "title": "Dashboard · Rescue Reports",
+    "url": "http://localhost:5174/dashboard",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "title": "Map · Rescue Reports",
+    "url": "http://localhost:5174/map",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "title": "Teams · Rescue Reports",
+    "url": "http://localhost:5174/teams",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "title": "Users · Rescue Reports",
+    "url": "http://localhost:5174/users",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "title": "Monitor · Rescue Reports",
+    "url": "http://localhost:5174/monitor",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "title": "Assignments · Rescue Reports",
+    "url": "http://localhost:5174/assignments",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "title": "Analytics · Rescue Reports",
+    "url": "http://localhost:5174/analytics",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "title": "Audit log · Rescue Reports",
+    "url": "http://localhost:5174/audit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-01",
+    "title": "Incident details · Rescue Reports",
+    "url": "http://localhost:5174/incidents/demo-report-01",
+    "overflow": false,
+    "errors": []
+  }
+]

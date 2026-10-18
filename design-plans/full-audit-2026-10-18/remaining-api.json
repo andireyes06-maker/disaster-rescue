@@ -1,0 +1,22 @@
+[
+  {
+    "name": "another resident cannot cancel the new report",
+    "pass": true
+  },
+  {
+    "name": "blank rejection is refused; real rejection persists",
+    "pass": true
+  },
+  {
+    "name": "duplicate self-reference is refused; link to existing report persists",
+    "pass": true
+  },
+  {
+    "name": "creation audit is present for both new reports",
+    "pass": true
+  },
+  {
+    "name": "public incidents omit identities and precise/sensitive fields",
+    "pass": true
+  }
+]

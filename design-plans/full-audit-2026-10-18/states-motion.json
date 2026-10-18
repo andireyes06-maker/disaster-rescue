@@ -1,0 +1,235 @@
+{
+  "checks": [
+    {
+      "name": "register-errors-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "register error icons, focus, required marks and feedback motion",
+      "pass": true
+    },
+    {
+      "name": "landing autoplay, chapter, pause and resume",
+      "pass": true
+    },
+    {
+      "name": "bell normal-motion open, row stagger, interruption and keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "resident missing report state",
+      "pass": false,
+      "detail": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText(/Report not found/i).first() to be visible\u001b[22m\n"
+    },
+    {
+      "name": "Users phone identity width",
+      "pass": false,
+      "detail": "Account identity collapses to 0px"
+    },
+    {
+      "name": "users-error-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "Users loading skeleton and error recovery",
+      "pass": true
+    },
+    {
+      "name": "teams-error-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "teams-empty-390 axe and layout",
+      "pass": false,
+      "axe": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": [
+            "<p>Choose Create team to add the first rescue team.</p>"
+          ]
+        }
+      ],
+      "overflow": 0
+    },
+    {
+      "name": "Teams error and empty state",
+      "pass": true
+    },
+    {
+      "name": "analytics-error-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "audit-error-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "Analytics and Audit API failures have recovery UI",
+      "pass": true
+    },
+    {
+      "name": "map-error-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "map tile failure is visible and has a retry",
+      "pass": true
+    },
+    {
+      "name": "DMO API versus Firestore audit permissions",
+      "pass": false,
+      "detail": "page.evaluate: TypeError: Failed to resolve module specifier 'firebase/firestore'\n    at eval (eval at evaluate (:370:30), <anonymous>:1:233)\n    at async <anonymous>:396:30"
+    }
+  ],
+  "findings": [
+    {
+      "id": "USERS-MOBILE",
+      "row": 348,
+      "identity": 0,
+      "height": 815.71875
+    }
+  ],
+  "network": [
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 503,
+      "path": "/api/users"
+    },
+    {
+      "status": 503,
+      "path": "/api/users"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 503,
+      "path": "/api/teams"
+    },
+    {
+      "status": 503,
+      "path": "/api/teams"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 503,
+      "path": "/api/stats"
+    },
+    {
+      "status": 503,
+      "path": "/api/stats"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 503,
+      "path": "/api/audit"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/api/audit"
+    }
+  ],
+  "errorMotion": {
+    "name": "feedback-arrive",
+    "duration": "0.22s"
+  },
+  "video": {
+    "muted": true,
+    "playsInline": true,
+    "duration": 16,
+    "time": 0.1129
+  },
+  "bell": {
+    "origin": "366px 0px",
+    "open": "0.3s",
+    "rows": [
+      "0s",
+      "0.035s",
+      "0.07s",
+      "0.105s",
+      "0.14s"
+    ]
+  },
+  "skeleton": {
+    "animations": [
+      {
+        "name": "skeleton-sweep",
+        "keyframes": [
+          {
+            "offset": 0,
+            "easing": "ease-in-out",
+            "composite": "replace",
+            "transform": "translateX(-100%)",
+            "computedOffset": 0
+          },
+          {
+            "offset": 1,
+            "easing": "ease-in-out",
+            "composite": "auto",
+            "transform": "translateX(100%)",
+            "computedOffset": 1
+          }
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "passed": 13,
+    "failed": 4
+  }
+}

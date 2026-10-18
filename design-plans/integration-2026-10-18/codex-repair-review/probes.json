@@ -1,0 +1,22 @@
+{
+  "successfulClearWriteFailure": {
+    "staleConfirmedKeyReloaded": true,
+    "description": "A successful send followed by a denied storage write leaves the confirmed key in storage; a new store replays it for a later identical send."
+  },
+  "boundedEviction": {
+    "retryGetsNewKey": true,
+    "noticeOnly": true,
+    "description": "After five other unconfirmed versions, the original payload gets a different key. ReportForm sends immediately after showing the notice."
+  },
+  "uidCollision": {
+    "pair1": {
+      "uid": "account",
+      "key": "extra__1234567890123456"
+    },
+    "pair2": {
+      "uid": "account__extra",
+      "key": "1234567890123456"
+    },
+    "sameDocumentId": true
+  }
+}

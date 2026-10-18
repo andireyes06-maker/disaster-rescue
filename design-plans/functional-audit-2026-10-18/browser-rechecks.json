@@ -1,0 +1,58 @@
+{
+  "checks": [
+    {
+      "name": "public landing navigation, FAQ and film controls",
+      "pass": false,
+      "detail": "The expression evaluated to a falsy value:\n\n  assert(await anon.getByRole('button',{name:/Play/}).isVisible())\n"
+    },
+    {
+      "name": "registration validation, real creation, role redirect and session restore",
+      "pass": true
+    },
+    {
+      "name": "report sends once through real API and detail survives reload",
+      "pass": false,
+      "detail": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('label.emergency-type--flood')\u001b[22m\n"
+    },
+    {
+      "name": "resident Cancel persists and updates the page",
+      "pass": false,
+      "detail": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Cancel report', exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "in-app navigation protects unsaved report entries",
+      "pass": false,
+      "detail": "no navigation warning; description is empty after returning"
+    },
+    {
+      "name": "dispatcher queue search, no-match recovery and selected incident navigation",
+      "pass": true
+    },
+    {
+      "name": "dispatcher assignment dialog saves to a real available team",
+      "pass": false,
+      "detail": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Assign team', exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "Teams create, search and rename persist through the browser",
+      "pass": true
+    },
+    {
+      "name": "fresh resident email can be found in Admin accounts",
+      "pass": false,
+      "detail": "real new resident cannot be found by registered email\n\n1 !== 0\n"
+    }
+  ],
+  "routeChecks": [],
+  "dialogs": [],
+  "unexpectedHosts": [],
+  "pageErrors": [],
+  "summary": {
+    "checks": 9,
+    "passed": 3,
+    "failed": 6,
+    "routeCases": 0,
+    "unexpectedHosts": 0,
+    "pageErrors": 0
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "runtimeChangesSinceStart": [
+    "web/src/layout/AppShell.tsx",
+    "web/src/layout/AppShell.test.tsx",
+    "web/src/components/PasswordInput.tsx",
+    "web/src/components/PasswordInput.test.tsx",
+    "web/src/pages/page-finish.css",
+    "web/src/components/calm/ActivityHistory.tsx"
+  ],
+  "nativeRuntimeUnchanged": true,
+  "gitDiffCheck": "clean",
+  "sourceBundleFiles": 325,
+  "reconstructionMismatches": 0,
+  "committed": false,
+  "pushed": false,
+  "deployed": false
+}

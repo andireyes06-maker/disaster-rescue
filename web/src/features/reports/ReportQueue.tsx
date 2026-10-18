@@ -11,6 +11,7 @@ import { useAuth } from '../../auth/AuthProvider';
 import { REPORT_TYPES, PRIORITIES, REPORT_STATUSES } from '../../types/domain';
 import EmptyState from '../../components/calm/EmptyState';
 import Card from '../../components/calm/Card';
+import Banner from '../../components/calm/Banner';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import { MapPin, Waves, Flame, Building2, Mountain, CircleHelp, SlidersHorizontal, Search } from 'lucide-react';
 
@@ -191,9 +192,10 @@ export default function ReportQueue() {
 
         <div className="inbox-search">
           <label htmlFor="inbox-search">Search incidents</label>
-          <input id="inbox-search" type="search" value={params.get('q') ?? ''} placeholder="Type, place, description, or reference"
+          <input id="inbox-search" type="search" value={params.get('q') ?? ''} placeholder="Search reports…" aria-describedby="inbox-search-hint"
             onChange={(e) => update((p) => { if (e.target.value) p.set('q', e.target.value); else p.delete('q'); })} />
         </div>
+        <p id="inbox-search-hint" className="inbox-search-hint">Search by type, place, description, or reference.</p>
         <div className="quick" role="group" aria-label="Quick views">
           {QUICK.map(([key, text]) => (
             <button key={key} type="button" className="quick__chip" aria-pressed={quick === key}
@@ -213,16 +215,20 @@ export default function ReportQueue() {
         )}
 
         {error && (
-          <p className="error" role="alert">
+          <Banner tone="error" role="alert">
             Could not load reports. Check your connection and try again.{' '}
             <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
-          </p>
+          </Banner>
         )}
         {loading && <Skeleton label="Loading incident inbox"><SkeletonRows rows={5} height={84} /></Skeleton>}
         {!loading && !error && rows.length === 0 && (
           <EmptyState
-            title="No reports match these filters"
-            body="Clear a filter to see more reports, or wait for new reports to arrive."
+            title={reports.length === 0 ? 'No reports received yet' : 'No reports match this view'}
+            body={reports.length === 0 ? 'New reports will appear here when they arrive.' : 'Clear your search and filters to see all received reports.'}
+            action={(query || activeFilters > 0) ? <button type="button" className="btn btn--ghost" onClick={() => {
+              update((p) => { for (const key of ['q', 'status', 'type', 'priority', 'verified', 'quick']) p.delete(key); });
+              document.getElementById('inbox-search')?.focus();
+            }}>Clear search and filters</button> : undefined}
           />
         )}
         {rows.length > 0 && (

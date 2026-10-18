@@ -1,0 +1,652 @@
+[
+  {
+    "role": "public",
+    "path": "/",
+    "width": 1440,
+    "url": "http://localhost:5174/",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "text": "Skip to content\nRescue Reports\nStaff sign in\nHow it works\nFor residents\nAccess\nDemo site · hotline not configured\nReport clearly.\nRespond together.\n\nWhen something happens, every d",
+    "h1": [
+      "Report clearly.\nRespond together."
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/",
+    "width": 1024,
+    "url": "http://localhost:5174/",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Disaster Rescue Reporting",
+    "text": "Skip to content\nRescue Reports\nStaff sign in\nHow it works\nFor residents\nAccess\nDemo site · hotline not configured\nReport clearly.\nRespond together.\n\nWhen something happens, every d",
+    "h1": [
+      "Report clearly.\nRespond together."
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/",
+    "width": 390,
+    "url": "http://localhost:5174/",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "text": "Skip to content\nRescue Reports\nStaff sign in\nHow it works\nFor residents\nAccess\nDemo site · hotline not configured\nReport clearly.\nRespond together.\n\nWhen something happens, every d",
+    "h1": [
+      "Report clearly.\nRespond together."
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/login",
+    "width": 1440,
+    "url": "http://localhost:5174/login",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nSign in\n\nResidents and staff sign in here with the account they were given or created.\n\nEmail\nPassword\nSign in\n\nNew to the app? Cr",
+    "h1": [
+      "Sign in"
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/login",
+    "width": 1024,
+    "url": "http://localhost:5174/login",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nSign in\n\nResidents and staff sign in here with the account they were given or created.\n\nEmail\nPassword\nSign in\n\nNew to the app? Cr",
+    "h1": [
+      "Sign in"
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/login",
+    "width": 390,
+    "url": "http://localhost:5174/login",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nSign in\n\nResidents and staff sign in here with the account they were given or created.\n\nEmail\nPassword\nSign in\n\nNew to the app? Cr",
+    "h1": [
+      "Sign in"
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/register",
+    "width": 1440,
+    "url": "http://localhost:5174/register",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nCreate a resident account\n\nFill in the details below. All fields are required.\n\nName\nEmail\nPhone\nPassword\n\nAt least 8 characters.\n",
+    "h1": [
+      "Create a resident account"
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/register",
+    "width": 1024,
+    "url": "http://localhost:5174/register",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nCreate a resident account\n\nFill in the details below. All fields are required.\n\nName\nEmail\nPhone\nPassword\n\nAt least 8 characters.\n",
+    "h1": [
+      "Create a resident account"
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/register",
+    "width": 390,
+    "url": "http://localhost:5174/register",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nCreate a resident account\n\nFill in the details below. All fields are required.\n\nName\nEmail\nPhone\nPassword\n\nAt least 8 characters.\n",
+    "h1": [
+      "Create a resident account"
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/forbidden",
+    "width": 1440,
+    "url": "http://localhost:5174/forbidden",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nAccess denied\n\nSign in to continue.\n\nSign in\nBack to home",
+    "h1": [
+      "Access denied"
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/forbidden",
+    "width": 1024,
+    "url": "http://localhost:5174/forbidden",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nAccess denied\n\nSign in to continue.\n\nSign in\nBack to home",
+    "h1": [
+      "Access denied"
+    ]
+  },
+  {
+    "role": "public",
+    "path": "/forbidden",
+    "width": 390,
+    "url": "http://localhost:5174/forbidden",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Disaster Rescue Reporting",
+    "text": "Rescue Reports\nDemo site · hotline not configured\nAccess denied\n\nSign in to continue.\n\nSign in\nBack to home",
+    "h1": [
+      "Access denied"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my",
+    "width": 1440,
+    "url": "http://localhost:5174/my",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "My reports · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nD\nDemo Resident A\nSign out\nMy reports\n\nTrack the reports you sent and see updates from the response team.\n\nIf you are ",
+    "h1": [
+      "My reports"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my",
+    "width": 1024,
+    "url": "http://localhost:5174/my",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "My reports · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nD\nSign out\nMy reports\n\nTrack the reports you sent and see updates from the response team.\n\nIf you are in danger, call ",
+    "h1": [
+      "My reports"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my",
+    "width": 390,
+    "url": "http://localhost:5174/my",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "My reports · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nSign out\nMy reports\n\nTrack the reports you sent and see updates from the response team.\n\nIf you are in danger, call no",
+    "h1": [
+      "My reports"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my/report",
+    "width": 1440,
+    "url": "http://localhost:5174/my/report",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Report an emergency · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nD\nDemo Resident A\nSign out\nReport an emergency\n\nDescribe what is happening and where. Staff review every report before",
+    "h1": [
+      "Report an emergency"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my/report",
+    "width": 1024,
+    "url": "http://localhost:5174/my/report",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Report an emergency · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nD\nSign out\nReport an emergency\n\nDescribe what is happening and where. Staff review every report before a rescue team i",
+    "h1": [
+      "Report an emergency"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my/report",
+    "width": 390,
+    "url": "http://localhost:5174/my/report",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Report an emergency · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nSign out\nReport an emergency\n\nDescribe what is happening and where. Staff review every report before a rescue team is ",
+    "h1": [
+      "Report an emergency"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my/reports/demo-report-01",
+    "width": 1440,
+    "url": "http://localhost:5174/my/reports/demo-report-01",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Report details · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nD\nDemo Resident A\nSign out\nReport details\n\nCurrent status, what you sent, and the response history.\n\nBack to my report",
+    "h1": [
+      "Report details"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my/reports/demo-report-01",
+    "width": 1024,
+    "url": "http://localhost:5174/my/reports/demo-report-01",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Report details · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nD\nSign out\nReport details\n\nCurrent status, what you sent, and the response history.\n\nBack to my reports\n\nFlood report\n",
+    "h1": [
+      "Report details"
+    ]
+  },
+  {
+    "role": "resident",
+    "path": "/my/reports/demo-report-01",
+    "width": 390,
+    "url": "http://localhost:5174/my/reports/demo-report-01",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Report details · Rescue Reports",
+    "text": "Rescue Reports\nSkip to content\nMy reports\nReport an emergency\nSign out\nReport details\n\nCurrent status, what you sent, and the response history.\n\nBack to my reports\n\nFlood report\n\nR",
+    "h1": [
+      "Report details"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/dashboard",
+    "width": 1440,
+    "url": "http://localhost:5174/dashboard",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Dashboard · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / D",
+    "h1": [
+      "Dashboard"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/dashboard",
+    "width": 390,
+    "url": "http://localhost:5174/dashboard",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Dashboard · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nDashboard\n\nReview incoming reports and coordinate the next response.\n\nAll reports\n24\n",
+    "h1": [
+      "Dashboard"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/map",
+    "width": 1440,
+    "url": "http://localhost:5174/map",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Map · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / M",
+    "h1": [
+      "Map"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/map",
+    "width": 390,
+    "url": "http://localhost:5174/map",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Map · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nMap\n\nLocate reported incidents and open a report for details.\n\nType\nAll\nFlood\nFire\nEa",
+    "h1": [
+      "Map"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/monitor",
+    "width": 1440,
+    "url": "http://localhost:5174/monitor",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Monitor · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / M",
+    "h1": [
+      "Monitor"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/monitor",
+    "width": 390,
+    "url": "http://localhost:5174/monitor",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Monitor · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nMonitor\n\nFollow reported incidents across the area. This is a read-only view.\n\nArea o",
+    "h1": [
+      "Monitor"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/analytics",
+    "width": 1440,
+    "url": "http://localhost:5174/analytics",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Analytics · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / A",
+    "h1": [
+      "Analytics"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/analytics",
+    "width": 390,
+    "url": "http://localhost:5174/analytics",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Analytics · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nAnalytics\n\nReview incident patterns for a selected reporting period.\n\nReports in this",
+    "h1": [
+      "Analytics"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/audit",
+    "width": 1440,
+    "url": "http://localhost:5174/audit",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Audit log · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / A",
+    "h1": [
+      "Audit log"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/audit",
+    "width": 390,
+    "url": "http://localhost:5174/audit",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Audit log · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nAudit log\n\nReview who changed a report, what changed, and when.\n\nReport ID\nActor UID\n",
+    "h1": [
+      "Audit log"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/teams",
+    "width": 1440,
+    "url": "http://localhost:5174/teams",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Teams · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / T",
+    "h1": [
+      "Teams"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/teams",
+    "width": 390,
+    "url": "http://localhost:5174/teams",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Teams · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nTeams\n\nManage rescue teams and see their current availability.\n\nRescue teams\n12\nAvail",
+    "h1": [
+      "Teams"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/users",
+    "width": 1440,
+    "url": "http://localhost:5174/users",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Users · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / U",
+    "h1": [
+      "Users"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/users",
+    "width": 390,
+    "url": "http://localhost:5174/users",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Users · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nUsers\n\nManage staff access and team membership.\n\nAccounts (14)\n\nReview access before ",
+    "h1": [
+      "Users"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/assignments",
+    "width": 1440,
+    "url": "http://localhost:5174/assignments",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Assignments · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / A",
+    "h1": [
+      "Assignments"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/assignments",
+    "width": 390,
+    "url": "http://localhost:5174/assignments",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Assignments · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nAssignments\n\nReview your team’s incidents and record rescue progress.\n\nYour account i",
+    "h1": [
+      "Assignments"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/admin",
+    "width": 1440,
+    "url": "http://localhost:5174/admin",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Admin · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / A",
+    "h1": [
+      "Admin"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/admin",
+    "width": 390,
+    "url": "http://localhost:5174/admin",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Admin · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nAdmin\n\nManage accounts, roles, teams, system settings, and the audit log.\n\nAccounts a",
+    "h1": [
+      "Admin"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/incidents/demo-report-01",
+    "width": 1440,
+    "url": "http://localhost:5174/incidents/demo-report-01",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Incident details · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nMonitor\nAnalytics\nAudit\nTeams\nUsers\nAssignments\nAdmin\n\nDisaster reporting & monitoring\n\nResponse coordination / I",
+    "h1": [
+      "Incident details"
+    ]
+  },
+  {
+    "role": "admin",
+    "path": "/incidents/demo-report-01",
+    "width": 390,
+    "url": "http://localhost:5174/incidents/demo-report-01",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Incident details · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Admin (admin)\nSign out\nIncident details\n\nReview the report, its evidence, and the response history.\n\nBack to",
+    "h1": [
+      "Incident details"
+    ]
+  },
+  {
+    "role": "dmo",
+    "path": "/monitor",
+    "width": 1440,
+    "url": "http://localhost:5174/monitor",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Monitor · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nMonitor\nAnalytics\n\nDisaster reporting & monitoring\n\nResponse coordination / Monitor\nDemo workspace · Sample data\nD\nDemo DMO (dm",
+    "h1": [
+      "Monitor"
+    ]
+  },
+  {
+    "role": "dmo",
+    "path": "/monitor",
+    "width": 1024,
+    "url": "http://localhost:5174/monitor",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Monitor · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nMonitor\nAnalytics\n\nDisaster reporting & monitoring\n\nResponse coordination / Monitor\nDemo workspace · Sample data\nD\nDemo DMO (dm",
+    "h1": [
+      "Monitor"
+    ]
+  },
+  {
+    "role": "dmo",
+    "path": "/monitor",
+    "width": 390,
+    "url": "http://localhost:5174/monitor",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Monitor · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo DMO (dmo)\nSign out\nMonitor\n\nFollow reported incidents across the area. This is a read-only view.\n\nArea overv",
+    "h1": [
+      "Monitor"
+    ]
+  },
+  {
+    "role": "responder",
+    "path": "/assignments",
+    "width": 1440,
+    "url": "http://localhost:5174/assignments",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Assignments · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nAssignments\n\nDisaster reporting & monitoring\n\nResponse coordination / Assignments\nDemo workspace · Sample data\nD\nDemo Responder",
+    "h1": [
+      "Assignments"
+    ]
+  },
+  {
+    "role": "responder",
+    "path": "/assignments",
+    "width": 1024,
+    "url": "http://localhost:5174/assignments",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Assignments · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nAssignments\n\nDisaster reporting & monitoring\n\nResponse coordination / Assignments\nDemo workspace · Sample data\nD\nDemo Responder",
+    "h1": [
+      "Assignments"
+    ]
+  },
+  {
+    "role": "responder",
+    "path": "/assignments",
+    "width": 390,
+    "url": "http://localhost:5174/assignments",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Assignments · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Responder A (responder)\nSign out\nAssignments\n\nReview your team’s incidents and record rescue progress.\n\nFloo",
+    "h1": [
+      "Assignments"
+    ]
+  },
+  {
+    "role": "dispatcher",
+    "path": "/dashboard",
+    "width": 1440,
+    "url": "http://localhost:5174/dashboard",
+    "errors": [],
+    "scrollWidth": 1440,
+    "title": "Dashboard · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\n\nDisaster reporting & monitoring\n\nResponse coordination / Dashboard\nDemo workspace · ",
+    "h1": [
+      "Dashboard"
+    ]
+  },
+  {
+    "role": "dispatcher",
+    "path": "/dashboard",
+    "width": 1024,
+    "url": "http://localhost:5174/dashboard",
+    "errors": [],
+    "scrollWidth": 1024,
+    "title": "Dashboard · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nResponse coordination\nDashboard\nMap\nAnalytics\nAudit\nTeams\nUsers\n\nDisaster reporting & monitoring\n\nResponse coordination / Dashboard\nDemo workspace · ",
+    "h1": [
+      "Dashboard"
+    ]
+  },
+  {
+    "role": "dispatcher",
+    "path": "/dashboard",
+    "width": 390,
+    "url": "http://localhost:5174/dashboard",
+    "errors": [],
+    "scrollWidth": 390,
+    "title": "Dashboard · Rescue Reports",
+    "text": "Skip to content\nRescue Reports\nMenu\nDemo workspace · Sample data\nD\nDemo Dispatcher A (dispatcher)\nSign out\nDashboard\n\nReview incoming reports and coordinate the next response.\n\nAll",
+    "h1": [
+      "Dashboard"
+    ]
+  }
+]

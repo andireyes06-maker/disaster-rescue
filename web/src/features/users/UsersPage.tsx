@@ -1,9 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
+import { useAuth } from '../../auth/AuthProvider';
+import MotionForm from '../../components/MotionForm';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import { staffAccountSchema, STAFF_ROLE_OPTIONS, type StaffAccount } from '../../lib/schemas';
+import EmptyState from '../../components/calm/EmptyState';
+import FieldError from '../../components/FieldError';
+import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import Banner from '../../components/calm/Banner';
 
 interface User {
@@ -32,16 +38,20 @@ function errorText(err: unknown): string {
     if (failure.status === 403) return 'You do not have permission to do that.';
     if (failure.status === 0) return 'Network error. Check your connection and try again.';
   }
-  return 'Something went wrong. Please try again.';
+  return 'Could not confirm the account change. Refresh the account list before trying again.';
 }
 
 export default function UsersPage() {
+  const { user } = useAuth();
+  const [query, setQuery] = useState('');
+  const [roleFilter, setRoleFilter] = useState('');
   const [users, setUsers] = useState<User[] | null>(null);
   const [teams, setTeams] = useState<Team[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const pendingRef = useRef(false);
   const [message, setMessage] = useState<Message | null>(null);
-  const { register, handleSubmit, reset, watch } = useForm<StaffAccount>({
+  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm<StaffAccount>({
     resolver: zodResolver(staffAccountSchema),
     defaultValues: EMPTY_ACCOUNT,
   });
@@ -52,6 +62,7 @@ export default function UsersPage() {
     setLoadError(null);
     return Promise.all([api('/users'), api('/teams')])
       .then(([u, t]: [unknown, unknown]) => {
+        if (!Array.isArray(u) || !Array.isArray(t)) throw new Error('Invalid account or team response');
         setUsers(Array.isArray(u) ? (u as User[]) : []);
         setTeams(Array.isArray(t) ? (t as Team[]) : []);
       })
@@ -61,6 +72,8 @@ export default function UsersPage() {
   useEffect(() => { load(); }, [load]);
 
   async function create(values: StaffAccount) {
+    if (pendingRef.current) return;
+    pendingRef.current = true;
     setBusy(true);
     setMessage(null);
     try {
@@ -74,11 +87,14 @@ export default function UsersPage() {
     } catch (err) {
       setMessage({ kind: 'error', text: errorText(err) });
     } finally {
+      pendingRef.current = false;
       setBusy(false);
     }
   }
 
   async function setActive(u: User, active: boolean) {
+    if (pendingRef.current) return;
+    pendingRef.current = true;
     setBusy(true);
     setMessage(null);
     try {
@@ -88,21 +104,25 @@ export default function UsersPage() {
     } catch (err) {
       setMessage({ kind: 'error', text: errorText(err) });
     } finally {
+      pendingRef.current = false;
       setBusy(false);
     }
   }
 
+  const visibleUsers = users?.filter(u => (!roleFilter || u.role === roleFilter) && [u.name, u.email, u.uid].some(value => value?.toLowerCase().includes(query.trim().toLowerCase())));
   return (
     <div>
       <div className="management-toolbar"><div><h2>Accounts{users ? ` (${users.length})` : ''}</h2><p>Review access before changing an account’s status.</p></div></div>
       <details className="management-create"><summary className="btn">Create staff account</summary>
-      <form className="card ops-form" onSubmit={handleSubmit(create)} aria-label="Create staff account">
-        <label htmlFor="staff-email">Email</label>
-        <input id="staff-email" type="email" {...register('email')} />
-        <label htmlFor="staff-name">Name</label>
-        <input id="staff-name" maxLength={100} {...register('name')} />
-        <label htmlFor="staff-role">Role</label>
-        <select id="staff-role" {...register('role')}>
+      <MotionForm className="card ops-form" onSubmit={handleSubmit(create)} noValidate aria-label="Create staff account">
+        <RequiredNote /><label htmlFor="staff-email">Email<RequiredMark /></label>
+        <input id="staff-email" aria-required="true" type="email" {...register('email')} aria-invalid={!!errors.email} aria-describedby={errors.email ? 'staff-email-error' : undefined} />
+        {errors.email && <FieldError id="staff-email-error">{errors.email.message}</FieldError>}
+        <label htmlFor="staff-name">Name<RequiredMark /></label>
+        <input id="staff-name" aria-required="true" maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'staff-name-error' : undefined} />
+        {errors.name && <FieldError id="staff-name-error">{errors.name.message}</FieldError>}
+        <label htmlFor="staff-role">Role<RequiredMark /></label>
+        <select id="staff-role" aria-required="true" {...register('role')}>
           {STAFF_ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
         </select>
         <label htmlFor="staff-team">Team (optional)</label>
@@ -111,32 +131,40 @@ export default function UsersPage() {
           {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
         </select>
         <div className="actions__row">
-          <button type="submit" className="btn" disabled={busy || !email.trim() || !fullName.trim()}>Create account</button>
+          <button type="submit" className="btn" aria-disabled={busy || !email.trim() || !fullName.trim()} aria-busy={busy}>Create account</button>
         </div>
-      </form>
+      </MotionForm>
       </details>
 
       {message && (message.kind === 'ok'
         ? <Banner tone="info" role="status">{message.text}</Banner>
-        : <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message.text}</Banner>)}
+        : <Banner tone="error" role="alert">{message.text}</Banner>)}
       {loadError && <Banner tone="error" role="alert">{loadError} <button className="btn btn--ghost" type="button" onClick={load}>Try again</button></Banner>}
-      {!loadError && users === null && <p role="status" className="loading">Loading...</p>}
-      {users && users.length > 0 && (
+      {!loadError && users === null && <Skeleton label="Loading accounts"><SkeletonRows rows={4} height={80} /></Skeleton>}
+      {users && <>
+        <div className="management-search">
+          <div><label htmlFor="account-search">Find an account</label><input id="account-search" type="search" placeholder="Name, email, or account ID" value={query} onChange={event => setQuery(event.target.value)} /></div>
+          <div><label htmlFor="account-role-filter">Account role</label><select id="account-role-filter" value={roleFilter} onChange={event => setRoleFilter(event.target.value)}><option value="">All roles</option>{['resident', 'responder', 'dispatcher', 'dmo', 'admin'].map(role => <option key={role} value={role}>{role}</option>)}</select></div>
+        </div>
+        <p className="management-result-count" role="status">Showing {visibleUsers?.length} of {users.length} accounts</p>
+        {visibleUsers?.length === 0 && <EmptyState title={users.length ? 'No matching accounts' : 'No accounts yet'} body={users.length ? 'Try a different name or role.' : 'Create a staff account to grant access to your team.'} action={users.length ? <button type="button" className="btn btn--ghost" onClick={() => { setQuery(''); setRoleFilter(''); document.getElementById('account-search')?.focus(); }}>Clear account filters</button> : undefined} />}
+      </>}
+      {visibleUsers && visibleUsers.length > 0 && (
         <ul className="management-list" aria-label="Users">
-          {users.map((u) => (
+          {visibleUsers.map((u) => (
             <li key={u.uid} className="management-row">
               <div className="management-identity">
                 <strong>{u.name || u.email}</strong>
-                <small>{u.email}</small>
+                <small>{u.email || u.uid}</small>
                 <span className="badge badge--neutral">{u.role}</span>
               </div>
               <div className="management-actions">
                 <span>{u.active ? 'Active' : 'Deactivated'}</span>
-                <button type="button" className="btn btn--ghost" disabled={busy}
+                {u.uid === user?.uid ? <span className="field-hint">Your account</span> : <button type="button" className="btn btn--ghost" aria-disabled={busy} aria-busy={busy}
                   aria-label={`${u.active ? 'Deactivate' : 'Activate'} ${u.name || u.email}`}
                   onClick={() => setActive(u, !u.active)}>
                   {u.active ? 'Deactivate' : 'Activate'}
-                </button>
+                </button>}
               </div>
             </li>
           ))}

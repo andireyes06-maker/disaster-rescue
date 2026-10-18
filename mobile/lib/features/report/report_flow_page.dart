@@ -244,7 +244,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   Widget build(BuildContext context) {
     final scale = MediaQuery.textScalerOf(context).scale(1);
     return Scaffold(
-      appBar: AppBar(title: const Text('Report an emergency')),
+      appBar: AppBar(title: const Text('Report an emergency'), leading: Padding(padding: const EdgeInsets.all(14), child: DecoratedBox(decoration: BoxDecoration(color: AppColors.primarySoft, borderRadius: BorderRadius.circular(9)), child: const Icon(Icons.add, color: AppColors.primary, size: 19)))),
       body: SafeArea(
         child: Column(
           children: [
@@ -267,7 +267,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                     label: 'Step ${_step + 1} of 4',
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: LinearProgressIndicator(value: (_step + 1) / 4, minHeight: 8),
+                      child: Row(children: List.generate(4, (index) => Expanded(child: Container(height: 5, margin: EdgeInsets.only(right: index == 3 ? 0 : 5), decoration: BoxDecoration(color: index <= _step ? AppColors.primary : AppColors.border, borderRadius: BorderRadius.circular(4)))))),
                     ),
                   ),
                 ],
@@ -280,7 +280,9 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (_step == 0 && _savedDraft != null) _draftCard(),
-                    Text(_stepTitles[_step], style: Theme.of(context).textTheme.titleLarge),
+                    Text(_stepTitles[_step], style: Theme.of(context).textTheme.headlineMedium),
+                    const SizedBox(height: 8),
+                    Text(const ['Choose the situation that best describes the emergency.', 'A precise location helps the response team find you.', 'Share useful details and a way to reach you.', 'Make sure the information is right before you send.'][_step], style: const TextStyle(color: AppColors.muted, height: 1.5)),
                     const SizedBox(height: 16),
                     _body(scale),
                   ],
@@ -343,7 +345,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
-      childAspectRatio: cols == 1 ? 4 : 1.5,
+      childAspectRatio: cols == 1 ? 4 : 1.4,
       children: [
         for (final e in reportTypeInfo.entries)
           _TypeTile(
@@ -461,7 +463,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           if (last)
             FilledButton(
               onPressed: _submitting ? null : _submit,
-              style: FilledButton.styleFrom(backgroundColor: AppColors.critical, foregroundColor: Colors.white),
+              style: FilledButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white),
               child: _submitting
                   ? const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)),
@@ -506,7 +508,7 @@ class _TypeTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected ? AppColors.primarySoft : AppColors.surface,
             borderRadius: BorderRadius.circular(AppRadius.lg),
-            border: Border.all(color: selected ? AppColors.primary : AppColors.muted.withValues(alpha: 0.5), width: selected ? 3 : 1),
+            border: Border.all(color: selected ? AppColors.primary : AppColors.border, width: selected ? 2 : 1),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),

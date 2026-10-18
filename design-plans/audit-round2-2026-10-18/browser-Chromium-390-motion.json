@@ -1,0 +1,21 @@
+{
+  "environment": {
+    "project": "demo-disaster-rescue",
+    "emulator": true
+  },
+  "engine": "Chromium",
+  "viewport": 390,
+  "mutationResponses": "intercepted 503; no writes persisted",
+  "results": [
+    {
+      "spinner": {
+        "animation": "busy-turn",
+        "content": "\"\""
+      },
+      "name": "Create team",
+      "focusDuringSave": true,
+      "requests": 1,
+      "focusAfterFailure": true
+    }
+  ]
+}

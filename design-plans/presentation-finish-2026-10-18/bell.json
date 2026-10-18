@@ -1,0 +1,40 @@
+[
+  {
+    "width": 390,
+    "animations": [
+      "WAAPI",
+      "WAAPI",
+      "notification-ring",
+      "surface-arrive",
+      "skeleton-sweep",
+      "skeleton-sweep",
+      "skeleton-sweep",
+      "surface-arrive",
+      "notification-open",
+      "surface-arrive",
+      "skeleton-sweep",
+      "skeleton-sweep",
+      "skeleton-sweep",
+      "WAAPI",
+      "WAAPI"
+    ],
+    "copy": "Notifications\n\n17 unread\n\nUnread:\nReport received\n\nRR-260001 was received\n\n10/18/2026, 10:30:43 AM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260005 was received\n\n10/17/2026, 10:30:43 AM\nView report\nMark as read\nUnread:\nReport verified\n\nRR-260009 was verified\n\n10/16/2026, 2:27:43 AM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260009 was received\n\n10/16/2026, 12:30:43 AM\nView report\nMark as read\nUnread:\nTeam assigned\n\nRR-260012 has been assigned to a rescue team\n\n10/14/2026, 1:27:43 AM\nView report\nMark as read\nUnread:\nReport verified\n\nRR-260012 was verified\n\n10/14/2026, 12:27:43 AM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260012 was received\n\n10/13/2026, 10:30:43 PM\nView report\nMark as read\nUnread:\nResponse update\n\nRR-260015 has a response update\n\n10/11/2026, 4:27:43 PM\nView report\nMark as read\nUnread:\nResponse update\n\nRR-260015 has a response update\n\n10/11/2026, 2:27:43 PM\nView report\nMark as read\nUnread:\nTeam assigned\n\nRR-260015 has been assigned to a rescue team\n\n10/11/2026, 1:27:43 PM\nView report\nMark as read\nUnread:\nReport verified\n\nRR-260015 was verified\n\n10/11/2026, 12:27:43 PM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260015 was received\n\n10/11/2026, 10:30:43 AM\nView report\nMark as read\nUnread:\nReport resolved\n\nRR-260018 was resolved\n\n10/8/2026, 12:27:43 AM\nView report\nMark as read\nUnread:\nResponse update\n\nRR-260018 has a response update\n\n10/7/2026, 8:27:43 PM\nView report\nMark as read\nUnread:\nTeam assigned\n\nRR-260018 has been assigned to a rescue team\n\n10/7/2026, 7:27:43 PM\nView report\nMark as read\nUnread:\nReport verified\n\nRR-260018 was verified\n\n10/7/2026, 6:27:43 PM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260018 was received\n\n10/7/2026, 4:30:43 PM\nView report\nMark as read",
+    "focusReturned": true
+  },
+  {
+    "width": 1440,
+    "animations": [
+      "WAAPI",
+      "WAAPI",
+      "notification-ring",
+      "notification-open",
+      "notification-row",
+      "notification-row",
+      "notification-row",
+      "notification-row",
+      "notification-row"
+    ],
+    "copy": "Notifications\n\n17 unread\n\nUnread:\nReport received\n\nRR-260001 was received\n\n10/18/2026, 10:30:43 AM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260005 was received\n\n10/17/2026, 10:30:43 AM\nView report\nMark as read\nUnread:\nReport verified\n\nRR-260009 was verified\n\n10/16/2026, 2:27:43 AM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260009 was received\n\n10/16/2026, 12:30:43 AM\nView report\nMark as read\nUnread:\nTeam assigned\n\nRR-260012 has been assigned to a rescue team\n\n10/14/2026, 1:27:43 AM\nView report\nMark as read\nUnread:\nReport verified\n\nRR-260012 was verified\n\n10/14/2026, 12:27:43 AM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260012 was received\n\n10/13/2026, 10:30:43 PM\nView report\nMark as read\nUnread:\nResponse update\n\nRR-260015 has a response update\n\n10/11/2026, 4:27:43 PM\nView report\nMark as read\nUnread:\nResponse update\n\nRR-260015 has a response update\n\n10/11/2026, 2:27:43 PM\nView report\nMark as read\nUnread:\nTeam assigned\n\nRR-260015 has been assigned to a rescue team\n\n10/11/2026, 1:27:43 PM\nView report\nMark as read\nUnread:\nReport verified\n\nRR-260015 was verified\n\n10/11/2026, 12:27:43 PM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260015 was received\n\n10/11/2026, 10:30:43 AM\nView report\nMark as read\nUnread:\nReport resolved\n\nRR-260018 was resolved\n\n10/8/2026, 12:27:43 AM\nView report\nMark as read\nUnread:\nResponse update\n\nRR-260018 has a response update\n\n10/7/2026, 8:27:43 PM\nView report\nMark as read\nUnread:\nTeam assigned\n\nRR-260018 has been assigned to a rescue team\n\n10/7/2026, 7:27:43 PM\nView report\nMark as read\nUnread:\nReport verified\n\nRR-260018 was verified\n\n10/7/2026, 6:27:43 PM\nView report\nMark as read\nUnread:\nReport received\n\nRR-260018 was received\n\n10/7/2026, 4:30:43 PM\nView report\nMark as read",
+    "focusReturned": true
+  }
+]

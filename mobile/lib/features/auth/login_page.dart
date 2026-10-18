@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../auth/auth_controller.dart';
 import 'auth_widgets.dart';
 import 'register_page.dart';
+import '../../theme/product_widgets.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -44,12 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text('Welcome back', style: Theme.of(context).textTheme.headlineMedium),
-                    const SizedBox(height: 8),
-                    const Text('Log in to report an incident or see your assignments.'),
-                    const SizedBox(height: 24),
-                    const DisclaimerBox(),
-                    const SizedBox(height: 24),
+                    const ProductIntro(title: 'Welcome back', description: 'Your reports, your updates, and the next step. Log in to report an incident or see your assignments.'),
                     TextFormField(
                       controller: _email,
                       keyboardType: TextInputType.emailAddress,
@@ -80,6 +76,8 @@ class _LoginPageState extends State<LoginPage> {
                               .push(MaterialPageRoute<void>(builder: (_) => const RegisterPage())),
                       child: const Text('Create an account'),
                     ),
+                    const SizedBox(height: 24),
+                    const DisclaimerBox(),
                   ],
                 ),
               ),

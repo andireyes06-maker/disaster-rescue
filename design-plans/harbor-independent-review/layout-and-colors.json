@@ -1,0 +1,632 @@
+[
+  {
+    "width": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "colors": [
+      {
+        "text": "Illustrative sample. Not live data.",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Riverside Demo Zone",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.1)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Critical",
+        "color": "rgb(180, 35, 24)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(255, 241, 240)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.1)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Market Demo Block",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "High",
+        "color": "rgb(138, 81, 0)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(255, 244, 220)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Hillside Demo Road",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Medium",
+        "color": "rgb(109, 40, 217)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(239, 232, 255)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": " Riverside Demo Zone",
+        "color": "rgb(207, 198, 238)",
+        "font": "14px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Team Assigned",
+        "color": "rgb(109, 40, 217)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(239, 232, 255)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": " Sample update",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.08)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "width": 232.890625,
+        "height": 317.875,
+        "text": "Sent by a resident\n\nType, description, a pinned location, and up to five photos. Submitted reports appear in the dispatch queue.\n\nFlood\n· Riverside Demo Zone\n\n2 photos attached"
+      },
+      {
+        "width": 232.890625,
+        "height": 261.875,
+        "text": "Verified and assigned\n\nA dispatcher checks the report, sets its priority, and assigns it to a team. Each change is recorded with the person who made it.\n\nVerified\n\nAssigned to a sample team"
+      },
+      {
+        "width": 232.890625,
+        "height": 317.875,
+        "text": "Updated from the field\n\nResponders acknowledge the assignment and post progress. The resident follows each status until the report is closed.\n\nRescue in Progress\n\nTeam reached the access point."
+      }
+    ],
+    "skipTarget": "#main-content",
+    "heroInsideMain": false
+  },
+  {
+    "width": 1024,
+    "viewport": 1024,
+    "overflow": [],
+    "colors": [
+      {
+        "text": "Illustrative sample. Not live data.",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Riverside Demo Zone",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.1)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Critical",
+        "color": "rgb(180, 35, 24)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(255, 241, 240)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.1)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Market Demo Block",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "High",
+        "color": "rgb(138, 81, 0)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(255, 244, 220)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Hillside Demo Road",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Medium",
+        "color": "rgb(109, 40, 217)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(239, 232, 255)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": " Riverside Demo Zone",
+        "color": "rgb(207, 198, 238)",
+        "font": "14px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Team Assigned",
+        "color": "rgb(109, 40, 217)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(239, 232, 255)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": " Sample update",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.08)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "width": 183.109375,
+        "height": 388,
+        "text": "Sent by a resident\n\nType, description, a pinned location, and up to five photos. Submitted reports appear in the dispatch queue.\n\nFlood\n· Riverside Demo Zone\n\n2 photos attached"
+      },
+      {
+        "width": 183.109375,
+        "height": 332,
+        "text": "Verified and assigned\n\nA dispatcher checks the report, sets its priority, and assigns it to a team. Each change is recorded with the person who made it.\n\nVerified\n\nAssigned to a sample team"
+      },
+      {
+        "width": 183.109375,
+        "height": 388,
+        "text": "Updated from the field\n\nResponders acknowledge the assignment and post progress. The resident follows each status until the report is closed.\n\nRescue in Progress\n\nTeam reached the access point."
+      }
+    ],
+    "skipTarget": "#main-content",
+    "heroInsideMain": false
+  },
+  {
+    "width": 390,
+    "viewport": 390,
+    "overflow": [],
+    "colors": [
+      {
+        "text": "Illustrative sample. Not live data.",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Riverside Demo Zone",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.1)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Critical",
+        "color": "rgb(180, 35, 24)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(255, 241, 240)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.1)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Market Demo Block",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "High",
+        "color": "rgb(138, 81, 0)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(255, 244, 220)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Hillside Demo Road",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Medium",
+        "color": "rgb(109, 40, 217)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(239, 232, 255)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": " Riverside Demo Zone",
+        "color": "rgb(207, 198, 238)",
+        "font": "14px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": "Team Assigned",
+        "color": "rgb(109, 40, 217)",
+        "font": "12px",
+        "backgrounds": [
+          "rgb(239, 232, 255)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      },
+      {
+        "text": " Sample update",
+        "color": "rgb(207, 198, 238)",
+        "font": "13px",
+        "backgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(255, 255, 255, 0.08)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(43, 29, 107)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(33, 19, 77)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)",
+          "rgb(237, 237, 247)",
+          "rgba(0, 0, 0, 0)"
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "width": 358,
+        "height": 234.3125,
+        "text": "Sent by a resident\n\nType, description, a pinned location, and up to five photos. Submitted reports appear in the dispatch queue.\n\nFlood\n· Riverside Demo Zone\n\n2 photos attached"
+      },
+      {
+        "width": 358,
+        "height": 238.625,
+        "text": "Verified and assigned\n\nA dispatcher checks the report, sets its priority, and assigns it to a team. Each change is recorded with the person who made it.\n\nVerified\n\nAssigned to a sample team"
+      },
+      {
+        "width": 358,
+        "height": 238.625,
+        "text": "Updated from the field\n\nResponders acknowledge the assignment and post progress. The resident follows each status until the report is closed.\n\nRescue in Progress\n\nTeam reached the access point."
+      }
+    ],
+    "skipTarget": "#main-content",
+    "heroInsideMain": false
+  }
+]

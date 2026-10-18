@@ -1,0 +1,383 @@
+{
+  "dmoEmail": "adrian.santos@harbor.example",
+  "results": [
+    {
+      "engine": "chromium",
+      "role": "resident",
+      "route": "/my",
+      "boundary": false,
+      "h1": "My reports"
+    },
+    {
+      "engine": "chromium",
+      "role": "resident",
+      "route": "/my/report",
+      "boundary": false,
+      "h1": "Report an emergency"
+    },
+    {
+      "engine": "chromium",
+      "role": "dispatcher",
+      "route": "/dashboard",
+      "boundary": false,
+      "h1": "Dashboard"
+    },
+    {
+      "engine": "chromium",
+      "role": "dispatcher",
+      "route": "/map",
+      "boundary": false,
+      "h1": "Map"
+    },
+    {
+      "engine": "chromium",
+      "role": "dispatcher",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    },
+    {
+      "engine": "chromium",
+      "role": "dispatcher",
+      "route": "/audit",
+      "boundary": false,
+      "h1": "Audit log"
+    },
+    {
+      "engine": "chromium",
+      "role": "dispatcher",
+      "route": "/teams",
+      "boundary": false,
+      "h1": "Teams"
+    },
+    {
+      "engine": "chromium",
+      "role": "dispatcher",
+      "route": "/users",
+      "boundary": false,
+      "h1": "Users"
+    },
+    {
+      "engine": "chromium",
+      "role": "admin",
+      "route": "/admin",
+      "boundary": false,
+      "h1": "Admin"
+    },
+    {
+      "engine": "chromium",
+      "role": "admin",
+      "route": "/dashboard",
+      "boundary": false,
+      "h1": "Dashboard"
+    },
+    {
+      "engine": "chromium",
+      "role": "admin",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    },
+    {
+      "engine": "chromium",
+      "role": "admin",
+      "route": "/audit",
+      "boundary": false,
+      "h1": "Audit log"
+    },
+    {
+      "engine": "chromium",
+      "role": "admin",
+      "route": "/teams",
+      "boundary": false,
+      "h1": "Teams"
+    },
+    {
+      "engine": "chromium",
+      "role": "admin",
+      "route": "/users",
+      "boundary": false,
+      "h1": "Users"
+    },
+    {
+      "engine": "chromium",
+      "role": "admin",
+      "route": "/map",
+      "boundary": false,
+      "h1": "Map"
+    },
+    {
+      "engine": "chromium",
+      "role": "responder",
+      "route": "/assignments",
+      "boundary": false,
+      "h1": "Assignments"
+    },
+    {
+      "engine": "chromium",
+      "role": "dmo",
+      "route": "/monitor",
+      "boundary": false,
+      "h1": "Monitor"
+    },
+    {
+      "engine": "chromium",
+      "role": "dmo",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    },
+    {
+      "engine": "firefox",
+      "role": "resident",
+      "route": "/my",
+      "boundary": false,
+      "h1": "My reports"
+    },
+    {
+      "engine": "firefox",
+      "role": "resident",
+      "route": "/my/report",
+      "boundary": false,
+      "h1": "Report an emergency"
+    },
+    {
+      "engine": "firefox",
+      "role": "dispatcher",
+      "route": "/dashboard",
+      "boundary": false,
+      "h1": "Dashboard"
+    },
+    {
+      "engine": "firefox",
+      "role": "dispatcher",
+      "route": "/map",
+      "boundary": false,
+      "h1": "Map"
+    },
+    {
+      "engine": "firefox",
+      "role": "dispatcher",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    },
+    {
+      "engine": "firefox",
+      "role": "dispatcher",
+      "route": "/audit",
+      "boundary": false,
+      "h1": "Audit log"
+    },
+    {
+      "engine": "firefox",
+      "role": "dispatcher",
+      "route": "/teams",
+      "boundary": false,
+      "h1": "Teams"
+    },
+    {
+      "engine": "firefox",
+      "role": "dispatcher",
+      "route": "/users",
+      "boundary": false,
+      "h1": "Users"
+    },
+    {
+      "engine": "firefox",
+      "role": "admin",
+      "route": "/admin",
+      "boundary": false,
+      "h1": "Admin"
+    },
+    {
+      "engine": "firefox",
+      "role": "admin",
+      "route": "/dashboard",
+      "boundary": false,
+      "h1": "Dashboard"
+    },
+    {
+      "engine": "firefox",
+      "role": "admin",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    },
+    {
+      "engine": "firefox",
+      "role": "admin",
+      "route": "/audit",
+      "boundary": false,
+      "h1": "Audit log"
+    },
+    {
+      "engine": "firefox",
+      "role": "admin",
+      "route": "/teams",
+      "boundary": false,
+      "h1": "Teams"
+    },
+    {
+      "engine": "firefox",
+      "role": "admin",
+      "route": "/users",
+      "boundary": false,
+      "h1": "Users"
+    },
+    {
+      "engine": "firefox",
+      "role": "admin",
+      "route": "/map",
+      "boundary": false,
+      "h1": "Map"
+    },
+    {
+      "engine": "firefox",
+      "role": "responder",
+      "route": "/assignments",
+      "boundary": false,
+      "h1": "Assignments"
+    },
+    {
+      "engine": "firefox",
+      "role": "dmo",
+      "route": "/monitor",
+      "boundary": false,
+      "h1": "Monitor"
+    },
+    {
+      "engine": "firefox",
+      "role": "dmo",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    },
+    {
+      "engine": "webkit",
+      "role": "resident",
+      "route": "/my",
+      "boundary": false,
+      "h1": "My reports"
+    },
+    {
+      "engine": "webkit",
+      "role": "resident",
+      "route": "/my/report",
+      "boundary": false,
+      "h1": "Report an emergency"
+    },
+    {
+      "engine": "webkit",
+      "role": "dispatcher",
+      "route": "/dashboard",
+      "boundary": false,
+      "h1": "Dashboard"
+    },
+    {
+      "engine": "webkit",
+      "role": "dispatcher",
+      "route": "/map",
+      "boundary": false,
+      "h1": "Map"
+    },
+    {
+      "engine": "webkit",
+      "role": "dispatcher",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    },
+    {
+      "engine": "webkit",
+      "role": "dispatcher",
+      "route": "/audit",
+      "boundary": false,
+      "h1": "Audit log"
+    },
+    {
+      "engine": "webkit",
+      "role": "dispatcher",
+      "route": "/teams",
+      "boundary": false,
+      "h1": "Teams"
+    },
+    {
+      "engine": "webkit",
+      "role": "dispatcher",
+      "route": "/users",
+      "boundary": false,
+      "h1": "Users"
+    },
+    {
+      "engine": "webkit",
+      "role": "admin",
+      "route": "/admin",
+      "boundary": false,
+      "h1": "Admin"
+    },
+    {
+      "engine": "webkit",
+      "role": "admin",
+      "route": "/dashboard",
+      "boundary": false,
+      "h1": "Dashboard"
+    },
+    {
+      "engine": "webkit",
+      "role": "admin",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    },
+    {
+      "engine": "webkit",
+      "role": "admin",
+      "route": "/audit",
+      "boundary": false,
+      "h1": "Audit log"
+    },
+    {
+      "engine": "webkit",
+      "role": "admin",
+      "route": "/teams",
+      "boundary": false,
+      "h1": "Teams"
+    },
+    {
+      "engine": "webkit",
+      "role": "admin",
+      "route": "/users",
+      "boundary": false,
+      "h1": "Users"
+    },
+    {
+      "engine": "webkit",
+      "role": "admin",
+      "route": "/map",
+      "boundary": false,
+      "h1": "Map"
+    },
+    {
+      "engine": "webkit",
+      "role": "responder",
+      "route": "/assignments",
+      "boundary": false,
+      "h1": "Assignments"
+    },
+    {
+      "engine": "webkit",
+      "role": "dmo",
+      "route": "/monitor",
+      "boundary": false,
+      "h1": "Monitor"
+    },
+    {
+      "engine": "webkit",
+      "role": "dmo",
+      "route": "/analytics",
+      "boundary": false,
+      "h1": "Analytics"
+    }
+  ]
+}

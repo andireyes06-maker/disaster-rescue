@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../data/api_client.dart';
-import '../../theme/app_theme.dart';
 import 'hotline_button.dart';
+import '../../theme/product_widgets.dart';
 
 /// Plain-language reason for a failed submit. Status 0 with code "auth" is a
 /// signed-out token, not a network problem.
@@ -46,8 +46,7 @@ class SubmissionSuccessPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            const Icon(Icons.check_circle_outline, size: 56, color: AppColors.primary),
-            const SizedBox(height: 12),
+            const ProductIntro(title: 'Your report is on its way.', description: 'Keep this reference so you can follow the response.', icon: Icons.check_circle_outline),
             Text('Reference ID', style: Theme.of(context).textTheme.labelLarge),
             SelectableText(reference, style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 12),
@@ -81,8 +80,7 @@ class SubmissionFailurePage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            const Icon(Icons.error_outline, size: 56, color: AppColors.high),
-            const SizedBox(height: 12),
+            const ProductIntro(title: 'Let’s try that again.', description: 'Your information is still here. Check the problem below before retrying.', icon: Icons.error_outline),
             Text('Your report was NOT submitted.', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 12),
             Text(reason),

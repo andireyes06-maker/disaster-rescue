@@ -1,0 +1,236 @@
+[
+  {
+    "width": 390,
+    "role": "responder",
+    "check": "assignments",
+    "url": "/assignments",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "responder",
+    "check": "operation-invalid",
+    "url": "/assignments",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "dmo",
+    "check": "monitor",
+    "url": "/monitor",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "dmo",
+    "check": "incident-readonly",
+    "url": "/incidents/demo-report-01",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "admin",
+    "check": "admin-teams",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "admin",
+    "check": "admin-settings",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "admin",
+    "check": "admin-audit",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "admin",
+    "check": "admin-accounts",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "admin",
+    "check": "admin-create-invalid",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "admin",
+    "check": "teams-recovery",
+    "url": "/teams",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "admin",
+    "check": "users-recovery",
+    "url": "/users",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "resident",
+    "check": "report-invalid",
+    "url": "/my/report",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 390,
+    "role": "resident",
+    "check": "report-location",
+    "url": "/my/report",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "responder",
+    "check": "assignments",
+    "url": "/assignments",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "responder",
+    "check": "operation-invalid",
+    "url": "/assignments",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "dmo",
+    "check": "monitor",
+    "url": "/monitor",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "dmo",
+    "check": "incident-readonly",
+    "url": "/incidents/demo-report-01",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "admin",
+    "check": "admin-teams",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "admin",
+    "check": "admin-settings",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "admin",
+    "check": "admin-audit",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "admin",
+    "check": "admin-accounts",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "admin",
+    "check": "admin-create-invalid",
+    "url": "/admin",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "admin",
+    "check": "teams-recovery",
+    "url": "/teams",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "admin",
+    "check": "users-recovery",
+    "url": "/users",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "resident",
+    "check": "report-invalid",
+    "url": "/my/report",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  },
+  {
+    "width": 1440,
+    "role": "resident",
+    "check": "report-location",
+    "url": "/my/report",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0
+  }
+]

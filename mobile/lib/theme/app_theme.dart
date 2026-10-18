@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 
 /// Values copied from docs/design-tokens/tokens.json.
 class AppColors {
-  static const bg = Color(0xFFF6F1EA);
+  static const bg = Color(0xFFF5F6FA);
   static const surface = Color(0xFFFFFFFF);
-  static const primary = Color(0xFF0F6B66);
-  static const primarySoft = Color(0xFFEEF3F2);
-  static const critical = Color(0xFFC83919);
-  static const high = Color(0xFF9E5A00);
-  static const medium = Color(0xFF0F6B66);
-  static const low = Color(0xFF5F6B6A);
-  static const text = Color(0xFF1D2B2A);
-  static const muted = Color(0xFF566665);
+  static const primary = Color(0xFF6D28D9);
+  static const primarySoft = Color(0xFFEFE8FF);
+  static const critical = Color(0xFFB42318);
+  static const high = Color(0xFF8A5100);
+  static const medium = Color(0xFF4338CA);
+  static const low = Color(0xFF625E73);
+  static const text = Color(0xFF211D35);
+  static const muted = Color(0xFF625E73);
+  static const harbor = Color(0xFF241747);
+  static const border = Color(0xFFE5E3ED);
 }
 
 class AppRadius {
-  static const double md = 12;
-  static const double lg = 20;
+  static const double md = 10;
+  static const double lg = 16;
 }
 
 class AppSpace {
@@ -89,7 +91,7 @@ class AppTheme {
       secondary: AppColors.primary,
       surface: AppColors.surface,
       onSurface: AppColors.text,
-      error: AppColors.high,
+      error: AppColors.critical,
     );
     final shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.md));
     const minSize = Size(AppSpace.touch, AppSpace.touch);
@@ -104,27 +106,31 @@ class AppTheme {
           .apply(bodyColor: AppColors.text, displayColor: AppColors.text)
           .copyWith(
             headlineMedium: base.textTheme.headlineMedium
-                ?.copyWith(fontSize: 30, fontWeight: FontWeight.w700, color: AppColors.text),
+                ?.copyWith(fontSize: 30, height: 1.15, letterSpacing: -0.8, fontWeight: FontWeight.w600, color: AppColors.text),
             titleLarge: base.textTheme.titleLarge
-                ?.copyWith(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.text),
+                ?.copyWith(fontSize: 22, letterSpacing: -0.5, fontWeight: FontWeight.w600, color: AppColors.text),
           ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.bg,
+      appBarTheme: AppBarTheme(
+        backgroundColor: AppColors.surface,
         foregroundColor: AppColors.text,
         elevation: 0,
         scrolledUnderElevation: 0,
+        centerTitle: false,
+        titleSpacing: 20,
+        titleTextStyle: base.textTheme.titleLarge?.copyWith(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.text, letterSpacing: -0.4),
       ),
       cardTheme: CardThemeData(
         color: AppColors.surface,
-        elevation: 1,
+        elevation: 0,
         shadowColor: AppColors.text.withValues(alpha: 0.12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.lg)),
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.lg), side: const BorderSide(color: AppColors.border)),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           minimumSize: const Size(AppSpace.touch, 52),
           shape: shape,
-          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: base.textTheme.labelLarge?.copyWith(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -147,14 +153,27 @@ class AppTheme {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelStyle: const TextStyle(color: AppColors.muted),
         border: border(AppColors.muted, 1),
-        enabledBorder: border(AppColors.muted, 1),
-        focusedBorder: border(AppColors.primary, 3),
-        errorBorder: border(AppColors.high, 2),
-        focusedErrorBorder: border(AppColors.high, 3),
+        enabledBorder: border(AppColors.border, 1),
+        focusedBorder: border(AppColors.primary, 2),
+        errorBorder: border(AppColors.critical, 1.5),
+        focusedErrorBorder: border(AppColors.critical, 2),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
       materialTapTargetSize: MaterialTapTargetSize.padded,
       visualDensity: VisualDensity.standard,
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: AppColors.surface,
+        elevation: 0,
+        height: 76,
+        indicatorColor: AppColors.primarySoft,
+        labelTextStyle: WidgetStateProperty.resolveWith((states) => TextStyle(fontSize: 12, fontWeight: states.contains(WidgetState.selected) ? FontWeight.w600 : FontWeight.w400, color: states.contains(WidgetState.selected) ? AppColors.primary : AppColors.muted)),
+        iconTheme: WidgetStateProperty.resolveWith((states) => IconThemeData(size: 23, color: states.contains(WidgetState.selected) ? AppColors.primary : AppColors.muted)),
+      ),
+      tabBarTheme: const TabBarThemeData(labelColor: AppColors.primary, unselectedLabelColor: AppColors.muted, indicatorColor: AppColors.primary, dividerColor: AppColors.border, labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+      dividerTheme: const DividerThemeData(color: AppColors.border, space: 28),
+      chipTheme: base.chipTheme.copyWith(backgroundColor: AppColors.surface, selectedColor: AppColors.primarySoft, side: const BorderSide(color: AppColors.border), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+      bottomSheetTheme: const BottomSheetThemeData(backgroundColor: AppColors.surface, showDragHandle: true, shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24)))),
+      dialogTheme: DialogThemeData(backgroundColor: AppColors.surface, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
     );
   }
 }

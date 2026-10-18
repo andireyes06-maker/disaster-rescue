@@ -1,0 +1,1692 @@
+[
+  {
+    "role": "public",
+    "route": "/",
+    "width": 390,
+    "settled": true,
+    "axe": [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "html": [
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"true\" aria-label=\"Watch: Report\">",
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"false\" aria-label=\"Watch: Coordinate\">",
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"false\" aria-label=\"Watch: Stay informed\">"
+        ]
+      }
+    ],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "name",
+        "marked": true
+      },
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "phone",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      },
+      {
+        "id": "confirmPassword",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/audit-address-not-found",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 768,
+    "settled": true,
+    "axe": [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "html": [
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"true\" aria-label=\"Watch: Report\">",
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"false\" aria-label=\"Watch: Coordinate\">",
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"false\" aria-label=\"Watch: Stay informed\">"
+        ]
+      }
+    ],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "name",
+        "marked": true
+      },
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "phone",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      },
+      {
+        "id": "confirmPassword",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/audit-address-not-found",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 1024,
+    "settled": true,
+    "axe": [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "html": [
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"true\" aria-label=\"Watch: Report\">",
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"false\" aria-label=\"Watch: Coordinate\">",
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"false\" aria-label=\"Watch: Stay informed\">"
+        ]
+      }
+    ],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "name",
+        "marked": true
+      },
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "phone",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      },
+      {
+        "id": "confirmPassword",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/audit-address-not-found",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 1440,
+    "settled": true,
+    "axe": [
+      {
+        "id": "label-content-name-mismatch",
+        "impact": "serious",
+        "html": [
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"true\" aria-label=\"Watch: Report\">",
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"false\" aria-label=\"Watch: Coordinate\">",
+          "<button type=\"button\" class=\"response-film__chapter\" aria-pressed=\"false\" aria-label=\"Watch: Stay informed\">"
+        ]
+      }
+    ],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "name",
+        "marked": true
+      },
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "phone",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      },
+      {
+        "id": "confirmPassword",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/audit-address-not-found",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-team",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-alpha",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-bravo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-charlie",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-delta",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-echo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-foxtrot",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-golf",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-hotel",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-india",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-juliet",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-kilo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-lima",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "staff-email",
+        "marked": true
+      },
+      {
+        "id": "staff-name",
+        "marked": true
+      },
+      {
+        "id": "staff-role",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-name",
+        "marked": true
+      },
+      {
+        "id": "new-email",
+        "marked": true
+      },
+      {
+        "id": "new-role",
+        "marked": true
+      },
+      {
+        "id": "new-team-name",
+        "marked": true
+      },
+      {
+        "id": "hotline",
+        "marked": true
+      },
+      {
+        "id": "notice",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-05",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-team",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-alpha",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-bravo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-charlie",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-delta",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-echo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-foxtrot",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-golf",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-hotel",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-india",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-juliet",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-kilo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-lima",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "staff-email",
+        "marked": true
+      },
+      {
+        "id": "staff-name",
+        "marked": true
+      },
+      {
+        "id": "staff-role",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-name",
+        "marked": true
+      },
+      {
+        "id": "new-email",
+        "marked": true
+      },
+      {
+        "id": "new-role",
+        "marked": true
+      },
+      {
+        "id": "new-team-name",
+        "marked": true
+      },
+      {
+        "id": "hotline",
+        "marked": true
+      },
+      {
+        "id": "notice",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-05",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-team",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-alpha",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-bravo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-charlie",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-delta",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-echo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-foxtrot",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-golf",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-hotel",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-india",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-juliet",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-kilo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-lima",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "staff-email",
+        "marked": true
+      },
+      {
+        "id": "staff-name",
+        "marked": true
+      },
+      {
+        "id": "staff-role",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-name",
+        "marked": true
+      },
+      {
+        "id": "new-email",
+        "marked": true
+      },
+      {
+        "id": "new-role",
+        "marked": true
+      },
+      {
+        "id": "new-team-name",
+        "marked": true
+      },
+      {
+        "id": "hotline",
+        "marked": true
+      },
+      {
+        "id": "notice",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-05",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-team",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-alpha",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-bravo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-charlie",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-delta",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-echo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-foxtrot",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-golf",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-hotel",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-india",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-juliet",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-kilo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-lima",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "staff-email",
+        "marked": true
+      },
+      {
+        "id": "staff-name",
+        "marked": true
+      },
+      {
+        "id": "staff-role",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-name",
+        "marked": true
+      },
+      {
+        "id": "new-email",
+        "marked": true
+      },
+      {
+        "id": "new-role",
+        "marked": true
+      },
+      {
+        "id": "new-team-name",
+        "marked": true
+      },
+      {
+        "id": "hotline",
+        "marked": true
+      },
+      {
+        "id": "notice",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-05",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "description",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "description",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "description",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "description",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dispatcher",
+    "route": "/dashboard",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dispatcher",
+    "route": "/incidents/demo-report-05",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dispatcher",
+    "route": "/dashboard",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dispatcher",
+    "route": "/incidents/demo-report-05",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dmo",
+    "route": "/monitor",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dmo",
+    "route": "/incidents/demo-report-05",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dmo",
+    "route": "/monitor",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dmo",
+    "route": "/incidents/demo-report-05",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "responder",
+    "route": "/assignments",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "responder",
+    "route": "/assignments",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  }
+]

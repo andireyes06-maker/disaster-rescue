@@ -1,0 +1,1158 @@
+[
+  {
+    "role": "anonymous",
+    "path": "/",
+    "width": 390,
+    "h1": "Report an incident.Coordinate the response.",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/login",
+    "width": 390,
+    "h1": "Sign in",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:create a resident account"
+    ],
+    "url": "/login",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/register",
+    "width": 390,
+    "h1": "Create a resident account",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Sign in"
+    ],
+    "url": "/register",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/forbidden",
+    "width": 390,
+    "h1": "Access denied",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/forbidden",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/no-such-page-audit",
+    "width": 390,
+    "h1": "Report an incident.Coordinate the response.",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/",
+    "width": 768,
+    "h1": "Report an incident.Coordinate the response.",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/login",
+    "width": 768,
+    "h1": "Sign in",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/login",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/register",
+    "width": 768,
+    "h1": "Create a resident account",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/register",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/forbidden",
+    "width": 768,
+    "h1": "Access denied",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/forbidden",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/no-such-page-audit",
+    "width": 768,
+    "h1": "Report an incident.Coordinate the response.",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/",
+    "width": 1024,
+    "h1": "Report an incident.Coordinate the response.",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/login",
+    "width": 1024,
+    "h1": "Sign in",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/login",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/register",
+    "width": 1024,
+    "h1": "Create a resident account",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/register",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/forbidden",
+    "width": 1024,
+    "h1": "Access denied",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/forbidden",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/no-such-page-audit",
+    "width": 1024,
+    "h1": "Report an incident.Coordinate the response.",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/",
+    "width": 1440,
+    "h1": "Report an incident.Coordinate the response.",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/login",
+    "width": 1440,
+    "h1": "Sign in",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/login",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/register",
+    "width": 1440,
+    "h1": "Create a resident account",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/register",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/forbidden",
+    "width": 1440,
+    "h1": "Access denied",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/forbidden",
+    "errors": []
+  },
+  {
+    "role": "anonymous",
+    "path": "/no-such-page-audit",
+    "width": 1440,
+    "h1": "Report an incident.Coordinate the response.",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my",
+    "width": 390,
+    "h1": "My reports",
+    "overflowPx": 0,
+    "smallTargets": 2,
+    "smallSample": [
+      "a:Skip to content",
+      "a:Leaflet"
+    ],
+    "url": "/my",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my/report",
+    "width": 390,
+    "h1": "Report an emergency",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/my/report",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "width": 390,
+    "h1": "Report details",
+    "overflowPx": 0,
+    "smallTargets": 2,
+    "smallSample": [
+      "a:Skip to content",
+      "a:Back to my reports"
+    ],
+    "url": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my",
+    "width": 768,
+    "h1": "My reports",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my/report",
+    "width": 768,
+    "h1": "Report an emergency",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my/report",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "width": 768,
+    "h1": "Report details",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my",
+    "width": 1024,
+    "h1": "My reports",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my/report",
+    "width": 1024,
+    "h1": "Report an emergency",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my/report",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "width": 1024,
+    "h1": "Report details",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my",
+    "width": 1440,
+    "h1": "My reports",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my/report",
+    "width": 1440,
+    "h1": "Report an emergency",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my/report",
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "path": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "width": 1440,
+    "h1": "Report details",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/dashboard",
+    "width": 390,
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/dashboard",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "width": 390,
+    "h1": "Incident details",
+    "overflowPx": 0,
+    "smallTargets": 2,
+    "smallSample": [
+      "a:Skip to content",
+      "a:Back to the queue"
+    ],
+    "url": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/map",
+    "width": 390,
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallTargets": 7,
+    "smallSample": [
+      "a:Skip to content",
+      "div:Medium",
+      "div:Medium",
+      "div:High"
+    ],
+    "url": "/map",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/analytics",
+    "width": 390,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/audit",
+    "width": 390,
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/audit",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/teams",
+    "width": 390,
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/teams",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/users",
+    "width": 390,
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/users",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/dashboard",
+    "width": 768,
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/dashboard",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "width": 768,
+    "h1": "Incident details",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/map",
+    "width": 768,
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/map",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/analytics",
+    "width": 768,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/audit",
+    "width": 768,
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/audit",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/teams",
+    "width": 768,
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/teams",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/users",
+    "width": 768,
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/users",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/dashboard",
+    "width": 1024,
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/dashboard",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "width": 1024,
+    "h1": "Incident details",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/map",
+    "width": 1024,
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/map",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/analytics",
+    "width": 1024,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/audit",
+    "width": 1024,
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/audit",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/teams",
+    "width": 1024,
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/teams",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/users",
+    "width": 1024,
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/users",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/dashboard",
+    "width": 1440,
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/dashboard",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "width": 1440,
+    "h1": "Incident details",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/map",
+    "width": 1440,
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/map",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/analytics",
+    "width": 1440,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/audit",
+    "width": 1440,
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/audit",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/teams",
+    "width": 1440,
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/teams",
+    "errors": []
+  },
+  {
+    "role": "dispatcher",
+    "path": "/users",
+    "width": 1440,
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/users",
+    "errors": []
+  },
+  {
+    "role": "responder",
+    "path": "/assignments",
+    "width": 390,
+    "h1": "Assignments",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/assignments",
+    "errors": []
+  },
+  {
+    "role": "responder",
+    "path": "/assignments",
+    "width": 768,
+    "h1": "Assignments",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/assignments",
+    "errors": []
+  },
+  {
+    "role": "responder",
+    "path": "/assignments",
+    "width": 1024,
+    "h1": "Assignments",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/assignments",
+    "errors": []
+  },
+  {
+    "role": "responder",
+    "path": "/assignments",
+    "width": 1440,
+    "h1": "Assignments",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/assignments",
+    "errors": []
+  },
+  {
+    "role": "dmo",
+    "path": "/monitor",
+    "width": 390,
+    "h1": "Monitor",
+    "overflowPx": 0,
+    "smallTargets": 7,
+    "smallSample": [
+      "a:Skip to content",
+      "div:Medium",
+      "div:Medium",
+      "div:High"
+    ],
+    "url": "/monitor",
+    "errors": []
+  },
+  {
+    "role": "dmo",
+    "path": "/analytics",
+    "width": 390,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "dmo",
+    "path": "/monitor",
+    "width": 768,
+    "h1": "Monitor",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/monitor",
+    "errors": []
+  },
+  {
+    "role": "dmo",
+    "path": "/analytics",
+    "width": 768,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "dmo",
+    "path": "/monitor",
+    "width": 1024,
+    "h1": "Monitor",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/monitor",
+    "errors": []
+  },
+  {
+    "role": "dmo",
+    "path": "/analytics",
+    "width": 1024,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "dmo",
+    "path": "/monitor",
+    "width": 1440,
+    "h1": "Monitor",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/monitor",
+    "errors": []
+  },
+  {
+    "role": "dmo",
+    "path": "/analytics",
+    "width": 1440,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/admin",
+    "width": 390,
+    "h1": "Admin",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/admin",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/dashboard",
+    "width": 390,
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/dashboard",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/users",
+    "width": 390,
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/users",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/teams",
+    "width": 390,
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/teams",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/audit",
+    "width": 390,
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/audit",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/analytics",
+    "width": 390,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 1,
+    "smallSample": [
+      "a:Skip to content"
+    ],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/map",
+    "width": 390,
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallTargets": 7,
+    "smallSample": [
+      "a:Skip to content",
+      "div:Medium",
+      "div:Medium",
+      "div:High"
+    ],
+    "url": "/map",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/admin",
+    "width": 768,
+    "h1": "Admin",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/admin",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/dashboard",
+    "width": 768,
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/dashboard",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/users",
+    "width": 768,
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/users",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/teams",
+    "width": 768,
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/teams",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/audit",
+    "width": 768,
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/audit",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/analytics",
+    "width": 768,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/map",
+    "width": 768,
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/map",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/admin",
+    "width": 1024,
+    "h1": "Admin",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/admin",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/dashboard",
+    "width": 1024,
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/dashboard",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/users",
+    "width": 1024,
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/users",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/teams",
+    "width": 1024,
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/teams",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/audit",
+    "width": 1024,
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/audit",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/analytics",
+    "width": 1024,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/map",
+    "width": 1024,
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/map",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/admin",
+    "width": 1440,
+    "h1": "Admin",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/admin",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/dashboard",
+    "width": 1440,
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/dashboard",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/users",
+    "width": 1440,
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/users",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/teams",
+    "width": 1440,
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/teams",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/audit",
+    "width": 1440,
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/audit",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/analytics",
+    "width": 1440,
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/analytics",
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "path": "/map",
+    "width": 1440,
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallTargets": 0,
+    "smallSample": [],
+    "url": "/map",
+    "errors": []
+  }
+]

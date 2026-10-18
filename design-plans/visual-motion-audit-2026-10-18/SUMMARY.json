@@ -1,0 +1,13 @@
+{
+  "routes": 18,
+  "normalChromiumCases": 46,
+  "targetedChromiumWebKitCheckpoints": 40,
+  "validationFrameRuns": 4,
+  "normalMotionOnly": true,
+  "findings": [
+    "M1 validation overlap",
+    "V1 secondary type scale",
+    "M2 exit ease-in"
+  ],
+  "productSourceChanged": false
+}

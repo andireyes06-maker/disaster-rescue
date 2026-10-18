@@ -1,0 +1,562 @@
+[
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-loading",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-empty",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-arrival",
+    "axe": [],
+    "overflow": 0,
+    "arrival": [
+      {
+        "name": "feedback-arrive",
+        "state": "running"
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-error-keeps-history",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-recovered",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-append-only-new-row",
+    "axe": [],
+    "overflow": 0,
+    "appended": [
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:07 AMTeam is checking the access route.",
+        "active": false
+      },
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:09 AMAccess route confirmed.",
+        "active": true
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-loading",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-empty",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-arrival",
+    "axe": [],
+    "overflow": 0,
+    "arrival": [
+      {
+        "name": "feedback-arrive",
+        "state": "running"
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-error-keeps-history",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-recovered",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-append-only-new-row",
+    "axe": [],
+    "overflow": 0,
+    "appended": [
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:12 AMTeam is checking the access route.",
+        "active": false
+      },
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:13 AMAccess route confirmed.",
+        "active": true
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-loading",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-empty",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-arrival",
+    "axe": [],
+    "overflow": 0,
+    "arrival": [
+      {
+        "name": "feedback-arrive",
+        "state": "running"
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-error-keeps-history",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-recovered",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-append-only-new-row",
+    "axe": [],
+    "overflow": 0,
+    "appended": [
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:16 AMTeam is checking the access route.",
+        "active": false
+      },
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:17 AMAccess route confirmed.",
+        "active": true
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-loading",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-empty",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-arrival",
+    "axe": [],
+    "overflow": 0,
+    "arrival": [
+      {
+        "name": "feedback-arrive",
+        "state": "running"
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-error-keeps-history",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-recovered",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-append-only-new-row",
+    "axe": [],
+    "overflow": 0,
+    "appended": [
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:20 AMTeam is checking the access route.",
+        "active": false
+      },
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:21 AMAccess route confirmed.",
+        "active": true
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-loading",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-empty",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-arrival",
+    "axe": [],
+    "overflow": 0,
+    "arrival": [
+      {
+        "name": "feedback-arrive",
+        "state": "running"
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-error-keeps-history",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-recovered",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "timeline-append-only-new-row",
+    "axe": [],
+    "overflow": 0,
+    "appended": [
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:28 AMTeam is checking the access route.",
+        "active": false
+      },
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:29 AMAccess route confirmed.",
+        "active": true
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-loading",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-empty",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-arrival",
+    "axe": [],
+    "overflow": 0,
+    "arrival": [
+      {
+        "name": "feedback-arrive",
+        "state": "running"
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-error-keeps-history",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-recovered",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "timeline-append-only-new-row",
+    "axe": [],
+    "overflow": 0,
+    "appended": [
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:33 AMTeam is checking the access route.",
+        "active": false
+      },
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:34 AMAccess route confirmed.",
+        "active": true
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-loading",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-empty",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-arrival",
+    "axe": [],
+    "overflow": 0,
+    "arrival": [
+      {
+        "name": "feedback-arrive",
+        "state": "running"
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-error-keeps-history",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-recovered",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "timeline-append-only-new-row",
+    "axe": [],
+    "overflow": 0,
+    "appended": [
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:37 AMTeam is checking the access route.",
+        "active": false
+      },
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:39 AMAccess route confirmed.",
+        "active": true
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-loading",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-empty",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-arrival",
+    "axe": [],
+    "overflow": 0,
+    "arrival": [
+      {
+        "name": "feedback-arrive",
+        "state": "running"
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-error-keeps-history",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-recovered",
+    "axe": [],
+    "overflow": 0,
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "timeline-append-only-new-row",
+    "axe": [],
+    "overflow": 0,
+    "appended": [
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:41 AMTeam is checking the access route.",
+        "active": false
+      },
+      {
+        "text": "Team Assigned 10/18/2026, 10:37:43 AMAccess route confirmed.",
+        "active": true
+      }
+    ],
+    "scope": "Browser-only report-update hook fixture; no transport or persistence claim"
+  }
+]

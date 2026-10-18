@@ -1,0 +1,29 @@
+{
+  "checks": [
+    {
+      "name": "actual Geist asset loads",
+      "pass": true
+    },
+    {
+      "name": "Users narrow identity persists with intended font",
+      "pass": true
+    }
+  ],
+  "note": "Font requests fulfilled with the unchanged installed WOFF2 bytes to bypass the known dev symlink allowlist issue. This is a controlled asset fixture, not hosted evidence.",
+  "font": {
+    "ready": true,
+    "family": "\"Geist Variable\", system-ui, sans-serif"
+  },
+  "cpu4x": {
+    "samples": 137,
+    "medianMs": 16.699999999999818,
+    "p95Ms": 16.799999999999955,
+    "over34ms": 1,
+    "warning": "Headless desktop with CPU throttling; not physical-device/GPU evidence"
+  },
+  "users": {
+    "identityWidth": 0,
+    "rowHeight": 815.71875,
+    "fontReady": true
+  }
+}

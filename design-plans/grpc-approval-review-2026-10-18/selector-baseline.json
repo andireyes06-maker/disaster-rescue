@@ -1,0 +1,7 @@
+{
+  "baseline": "Unmodified integration dev server; no gRPC override applied",
+  "broadPasswordMatches": 2,
+  "exactPasswordMatches": 1,
+  "broadSelectorError": "locator.isVisible: Error: strict mode violation: getByLabel('Password') resolved to 2 elements:\n    1) <input value=\"\" id=\"password\" type=\"password\" name=\"passw",
+  "exactFieldVisible": true
+}

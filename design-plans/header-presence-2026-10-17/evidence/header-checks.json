@@ -1,0 +1,327 @@
+[
+  {
+    "width": 320,
+    "brand": {
+      "left": 16,
+      "right": 177.953125,
+      "top": 14,
+      "bottom": 58,
+      "height": 44
+    },
+    "nav": {
+      "left": 16,
+      "right": 304,
+      "top": 66,
+      "bottom": 118,
+      "height": 52
+    },
+    "action": {
+      "left": 187.109375,
+      "right": 304,
+      "top": 14,
+      "bottom": 58,
+      "height": 44
+    },
+    "header": {
+      "left": 0,
+      "right": 320,
+      "top": 0,
+      "bottom": 151,
+      "height": 151
+    },
+    "overflow": false,
+    "targets": [
+      {
+        "label": "Rescue ReportsIncident reporting & response",
+        "height": 44,
+        "href": "/"
+      },
+      {
+        "label": "How it works",
+        "height": 44,
+        "href": "#how-it-works"
+      },
+      {
+        "label": "For residents",
+        "height": 44,
+        "href": "#residents"
+      },
+      {
+        "label": "Access",
+        "height": 44,
+        "href": "#access"
+      },
+      {
+        "label": "Staff sign in",
+        "height": 44,
+        "href": "/login"
+      }
+    ],
+    "anchor": {
+      "sectionTop": 199.125,
+      "headerBottom": 151
+    }
+  },
+  {
+    "width": 390,
+    "brand": {
+      "left": 20,
+      "right": 204.234375,
+      "top": 14,
+      "bottom": 58,
+      "height": 44
+    },
+    "nav": {
+      "left": 20,
+      "right": 370,
+      "top": 66,
+      "bottom": 118,
+      "height": 52
+    },
+    "action": {
+      "left": 253.109375,
+      "right": 370,
+      "top": 14,
+      "bottom": 58,
+      "height": 44
+    },
+    "header": {
+      "left": 0,
+      "right": 390,
+      "top": 0,
+      "bottom": 152.5,
+      "height": 152.5
+    },
+    "overflow": false,
+    "targets": [
+      {
+        "label": "Rescue ReportsIncident reporting & response",
+        "height": 44,
+        "href": "/"
+      },
+      {
+        "label": "How it works",
+        "height": 44,
+        "href": "#how-it-works"
+      },
+      {
+        "label": "For residents",
+        "height": 44,
+        "href": "#residents"
+      },
+      {
+        "label": "Access",
+        "height": 44,
+        "href": "#access"
+      },
+      {
+        "label": "Staff sign in",
+        "height": 44,
+        "href": "/login"
+      }
+    ],
+    "anchor": {
+      "sectionTop": 200.28125,
+      "headerBottom": 152.5
+    }
+  },
+  {
+    "width": 768,
+    "brand": {
+      "left": 38.390625,
+      "right": 264.578125,
+      "top": 16,
+      "bottom": 77.5,
+      "height": 61.5
+    },
+    "nav": {
+      "left": 284.578125,
+      "right": 569.03125,
+      "top": 24.75,
+      "bottom": 68.75,
+      "height": 44
+    },
+    "action": {
+      "left": 589.03125,
+      "right": 729.609375,
+      "top": 23.75,
+      "bottom": 69.75,
+      "height": 46
+    },
+    "header": {
+      "left": 0,
+      "right": 768,
+      "top": 0,
+      "bottom": 128,
+      "height": 128
+    },
+    "overflow": false,
+    "targets": [
+      {
+        "label": "Rescue ReportsIncident reporting & response",
+        "height": 61.5,
+        "href": "/"
+      },
+      {
+        "label": "How it works",
+        "height": 44,
+        "href": "#how-it-works"
+      },
+      {
+        "label": "For residents",
+        "height": 44,
+        "href": "#residents"
+      },
+      {
+        "label": "Access",
+        "height": 44,
+        "href": "#access"
+      },
+      {
+        "label": "Staff sign in",
+        "height": 46,
+        "href": "/login"
+      }
+    ],
+    "anchor": {
+      "sectionTop": 176.3125,
+      "headerBottom": 128
+    }
+  },
+  {
+    "width": 1024,
+    "brand": {
+      "left": 51.1875,
+      "right": 277.375,
+      "top": 16,
+      "bottom": 77.5,
+      "height": 61.5
+    },
+    "nav": {
+      "left": 313.375,
+      "right": 796.234375,
+      "top": 24.75,
+      "bottom": 68.75,
+      "height": 44
+    },
+    "action": {
+      "left": 832.234375,
+      "right": 972.8125,
+      "top": 23.75,
+      "bottom": 69.75,
+      "height": 46
+    },
+    "header": {
+      "left": 0,
+      "right": 1024,
+      "top": 0,
+      "bottom": 128,
+      "height": 128
+    },
+    "overflow": false,
+    "targets": [
+      {
+        "label": "Rescue ReportsIncident reporting & response",
+        "height": 61.5,
+        "href": "/"
+      },
+      {
+        "label": "How it works",
+        "height": 44,
+        "href": "#how-it-works"
+      },
+      {
+        "label": "For residents",
+        "height": 44,
+        "href": "#residents"
+      },
+      {
+        "label": "Access",
+        "height": 44,
+        "href": "#access"
+      },
+      {
+        "label": "Staff sign in",
+        "height": 46,
+        "href": "/login"
+      }
+    ],
+    "anchor": {
+      "sectionTop": 176.34375,
+      "headerBottom": 128
+    }
+  },
+  {
+    "width": 1440,
+    "brand": {
+      "left": 72,
+      "right": 298.1875,
+      "top": 16,
+      "bottom": 77.5,
+      "height": 61.5
+    },
+    "nav": {
+      "left": 334.1875,
+      "right": 1191.421875,
+      "top": 24.75,
+      "bottom": 68.75,
+      "height": 44
+    },
+    "action": {
+      "left": 1227.421875,
+      "right": 1368,
+      "top": 23.75,
+      "bottom": 69.75,
+      "height": 46
+    },
+    "header": {
+      "left": 0,
+      "right": 1440,
+      "top": 0,
+      "bottom": 128,
+      "height": 128
+    },
+    "overflow": false,
+    "targets": [
+      {
+        "label": "Rescue ReportsIncident reporting & response",
+        "height": 61.5,
+        "href": "/"
+      },
+      {
+        "label": "How it works",
+        "height": 44,
+        "href": "#how-it-works"
+      },
+      {
+        "label": "For residents",
+        "height": 44,
+        "href": "#residents"
+      },
+      {
+        "label": "Access",
+        "height": 44,
+        "href": "#access"
+      },
+      {
+        "label": "Staff sign in",
+        "height": 46,
+        "href": "/login"
+      }
+    ],
+    "anchor": {
+      "sectionTop": 175.59375,
+      "headerBottom": 128
+    }
+  },
+  {
+    "route": "/login",
+    "overflow": false,
+    "notice": "Demo site · hotline not configured"
+  },
+  {
+    "route": "/register",
+    "overflow": false,
+    "notice": "Demo site · hotline not configured"
+  }
+]

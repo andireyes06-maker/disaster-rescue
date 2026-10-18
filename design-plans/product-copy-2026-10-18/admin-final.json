@@ -1,0 +1,20 @@
+{
+  "environment": {
+    "project": "demo-disaster-rescue",
+    "emulator": true
+  },
+  "results": [
+    {
+      "route": "/admin",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/admin",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    }
+  ]
+}

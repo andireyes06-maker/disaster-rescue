@@ -1,0 +1,30 @@
+reference,type,status,priority,verified,createdAt,assignedTeamId,lat,lng,addressText,description
+DR-1JYAPB,flood,Awaiting Assignment,medium,true,2026-10-18T00:45:34.712Z,,14.6,121,Fixture street,Lost-response check 1792284333760
+DR-41J52F,flood,Awaiting Assignment,medium,true,2026-10-18T00:45:03.753Z,,14.6,121,Fixture street,Lost-response check 1792284302998
+DR-OXHJPQ,flood,Awaiting Assignment,medium,true,2026-10-18T00:31:12.918Z,,14.6,121,Fixture street,Fixture for the cancel-refused check. Water on the ground floor.
+DR-ZLFXAE,flood,Cancelled,medium,false,2026-10-17T23:56:36.624Z,,14.6,121,Fixture street,Fixture for the cancel timeline check. Water on the ground floor.
+DR-4KYOPL,flood,Cancelled,medium,false,2026-10-17T23:54:46.529Z,,14.5995,120.9842,"Maple Street, near the footbridge",Water is rising on Maple Street. Two adults and a child are on the second floor and need a boat.
+RR-260001,flood,Cancelled,critical,false,2026-10-16T22:00:00.000Z,,14.5997,120.9997,Riverside District,Water has entered the ground floor. Three residents need help reaching higher ground.
+RR-260002,fire,Rejected,high,false,2026-10-16T19:00:00.000Z,,14.6099,121.0119,Market District,Smoke is coming from a storage area. Residents have moved to an open space.
+RR-260003,landslide,Awaiting Assignment,high,true,2026-10-16T15:00:00.000Z,,14.6168,120.9868,Hillside District,Soil and branches are blocking an access road after heavy rain.
+RR-260004,other,Submitted,medium,false,2026-10-16T10:00:00.000Z,,14.593,121.006,Central District,A fallen tree blocks the entrance to a residential lane.
+RR-260005,flood,Team Assigned,high,true,2026-10-15T22:00:00.000Z,demo-team-juliet,14.6012,121.0012,Riverside District,A household reports rapidly rising water and an older resident who needs assistance.
+RR-260006,earthquake,Under Verification,high,false,2026-10-15T17:00:00.000Z,,14.6101,120.9911,Civic District,Cracks and fallen ceiling panels have been reported near a meeting area.
+RR-260007,flood,Verified,critical,true,2026-10-15T08:00:00.000Z,,14.6043,121.0093,Riverbend District,Four residents are waiting on an upper floor. The location has been confirmed.
+RR-260008,other,Verified,low,true,2026-10-14T20:00:00.000Z,,14.5945,121.0075,Central District,Debris partly blocks a walkway. No trapped residents have been reported.
+RR-260009,fire,Team Assigned,critical,true,2026-10-14T12:00:00.000Z,demo-team-india,14.5834,121.0134,Warehouse District,A fire report has been verified. Nearby residents are waiting in an open area.
+RR-260010,landslide,Awaiting Assignment,high,true,2026-10-13T21:00:00.000Z,,14.6186,120.9886,Hillside District,Road access is blocked. A team is needed to assess a safe approach.
+RR-260011,flood,Awaiting Assignment,medium,true,2026-10-13T06:00:00.000Z,,14.5795,120.9885,South District,Two households need assistance moving to the designated meeting point.
+RR-260012,flood,Rescue in Progress,critical,true,2026-10-12T10:00:00.000Z,demo-team-alpha,14.5997,120.9997,Riverside District,A family is waiting for assistance near the footbridge approach.
+RR-260024,other,Cancelled,low,false,2026-10-12T00:00:00.000Z,,14.5819,120.9909,South District,The resident cancelled the report before verification.
+RR-260013,fire,Team Assigned,high,true,2026-10-11T14:00:00.000Z,demo-team-bravo,14.6099,121.0119,Market District,The assigned team is preparing to assess the reported smoke.
+RR-260014,earthquake,Team Assigned,high,true,2026-10-10T18:00:00.000Z,demo-team-charlie,14.6098,120.9908,Civic District,A team has been assigned to assess reported structural damage.
+RR-260023,flood,Duplicate,medium,false,2026-10-10T02:00:00.000Z,,14.604099999999999,121.0091,Riverbend District,This report describes the same incident as RR-260015.
+RR-260015,flood,Rescue in Progress,critical,true,2026-10-09T22:00:00.000Z,demo-team-delta,14.604,121.009,Riverbend District,Responders have reached the area and are helping residents leave safely.
+RR-260022,other,Rejected,low,false,2026-10-09T12:00:00.000Z,,14.5915,121.0045,Central District,A submitted report was rejected after its location could not be confirmed.
+RR-260016,landslide,Rescue in Progress,high,true,2026-10-08T16:00:00.000Z,demo-team-echo,14.6192,120.9892,Hillside District,The team is assisting residents around the blocked access road.
+RR-260017,other,Rescue in Progress,medium,true,2026-10-07T10:00:00.000Z,demo-team-foxtrot,14.5921,121.0051,Central District,Responders are assisting a household affected by fallen debris.
+RR-260018,flood,Resolved,medium,true,2026-10-06T04:00:00.000Z,demo-team-golf,14.5813,120.9903,South District,The reported residents have reached the meeting point. Staff closure is pending.
+RR-260019,fire,Resolved,high,true,2026-10-04T22:00:00.000Z,demo-team-hotel,14.5855,121.0155,Warehouse District,The assigned team has completed the requested assistance. Staff closure is pending.
+RR-260020,earthquake,Closed,medium,true,2026-10-04T12:00:00.000Z,demo-team-india,14.6104,120.9914,Civic District,The response has been completed and the report reviewed and closed.
+RR-260021,flood,Closed,low,true,2026-10-03T06:00:00.000Z,demo-team-juliet,14.6006,121.0006,Riverside District,The response is complete. Staff have reviewed the final update.

@@ -1,0 +1,89 @@
+[
+  {
+    "engine": "chromium",
+    "version": "156.0.8078.4",
+    "landingFrames": {
+      "frames": 71,
+      "p50": 16.7,
+      "p95": 16.7,
+      "max": 16.8,
+      "over33": 0
+    },
+    "openFrames": {
+      "frames": 41,
+      "p50": 16.7,
+      "p95": 16.8,
+      "max": 16.8,
+      "over33": 0
+    },
+    "closeFrames": {
+      "frames": 31,
+      "p50": 16.7,
+      "p95": 16.8,
+      "max": 16.8,
+      "over33": 0
+    },
+    "trace": {
+      "events": 29462,
+      "layoutMs": 36.5,
+      "paintMs": 36.8,
+      "updateLayoutTreeMs": 41.1,
+      "recalcStyleMs": 0,
+      "longTasksOver50ms": [
+        91,
+        70
+      ],
+      "longTaskCount": 2
+    }
+  },
+  {
+    "engine": "firefox",
+    "version": "155.0",
+    "landingFrames": {
+      "frames": 72,
+      "p50": 16.7,
+      "p95": 18.3,
+      "max": 18.6,
+      "over33": 0
+    },
+    "openFrames": {
+      "frames": 40,
+      "p50": 16.6,
+      "p95": 18.3,
+      "max": 18.5,
+      "over33": 0
+    },
+    "closeFrames": {
+      "frames": 30,
+      "p50": 16.6,
+      "p95": 18.6,
+      "max": 43.5,
+      "over33": 1
+    }
+  },
+  {
+    "engine": "webkit",
+    "version": "27.2",
+    "landingFrames": {
+      "frames": 70,
+      "p50": 17,
+      "p95": 19,
+      "max": 51,
+      "over33": 1
+    },
+    "openFrames": {
+      "frames": 40,
+      "p50": 17,
+      "p95": 18,
+      "max": 18,
+      "over33": 0
+    },
+    "closeFrames": {
+      "frames": 29,
+      "p50": 17,
+      "p95": 18,
+      "max": 18,
+      "over33": 0
+    }
+  }
+]

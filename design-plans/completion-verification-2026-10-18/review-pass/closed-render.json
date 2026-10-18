@@ -1,0 +1,34 @@
+{
+  "kind": "Real emulator (Auth + Firestore) responder, closed report seeded with 24 updates (6 acknowledgements); built web app, normal motion",
+  "widths": {
+    "390": {
+      "recentRowsInHistoryList": 5,
+      "notesVisibleInitially": 5,
+      "loadOlderVisible": true,
+      "notesAfterLoadOlder": 24,
+      "operationalControls": [],
+      "horizontalOverflow": 0,
+      "geistReady": true,
+      "pageHeightBefore": 1557,
+      "buttonLabels": [
+        "Show 15 older updates",
+        "Load older updates"
+      ]
+    },
+    "1440": {
+      "recentRowsInHistoryList": 5,
+      "notesVisibleInitially": 5,
+      "loadOlderVisible": true,
+      "notesAfterLoadOlder": 24,
+      "operationalControls": [],
+      "horizontalOverflow": 0,
+      "geistReady": true,
+      "pageHeightBefore": 1198,
+      "buttonLabels": [
+        "Show 15 older updates",
+        "Load older updates"
+      ]
+    }
+  },
+  "pass": true
+}

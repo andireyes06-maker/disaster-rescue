@@ -1,0 +1,44 @@
+[
+  {
+    "width": 390,
+    "state": "loading",
+    "axe": [],
+    "overflow": 0,
+    "writesMocked": 0
+  },
+  {
+    "width": 390,
+    "state": "error",
+    "axe": [],
+    "overflow": 0,
+    "writesMocked": 0
+  },
+  {
+    "width": 390,
+    "state": "ready",
+    "axe": [],
+    "overflow": 0,
+    "writesMocked": 1
+  },
+  {
+    "width": 1440,
+    "state": "loading",
+    "axe": [],
+    "overflow": 0,
+    "writesMocked": 0
+  },
+  {
+    "width": 1440,
+    "state": "error",
+    "axe": [],
+    "overflow": 0,
+    "writesMocked": 0
+  },
+  {
+    "width": 1440,
+    "state": "ready",
+    "axe": [],
+    "overflow": 0,
+    "writesMocked": 1
+  }
+]

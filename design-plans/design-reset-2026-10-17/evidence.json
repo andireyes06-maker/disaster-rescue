@@ -1,0 +1,52 @@
+[
+  {
+    "width": 1440,
+    "height": 2236,
+    "scrollWidth": 1440,
+    "card": "Illustrative sample. Not live data.\n\nCritical\nRescue in Progress\n\nFlood report\n\nRiverside Demo Zone\n\nTeam reached the access point.\n\nSample update",
+    "main": "main-content",
+    "animations": []
+  },
+  {
+    "width": 1024,
+    "height": 2232,
+    "scrollWidth": 1024,
+    "card": "Illustrative sample. Not live data.\n\nCritical\nRescue in Progress\n\nFlood report\n\nRiverside Demo Zone\n\nTeam reached the access point.\n\nSample update",
+    "main": "main-content",
+    "animations": []
+  },
+  {
+    "width": 390,
+    "height": 3309,
+    "scrollWidth": 390,
+    "card": "Illustrative sample. Not live data.\n\nCritical\nRescue in Progress\n\nFlood report\n\nRiverside Demo Zone\n\nTeam reached the access point.\n\nSample update",
+    "main": "main-content",
+    "animations": []
+  },
+  {
+    "test": "first-tab",
+    "text": "Skip to content",
+    "rect": {
+      "x": 8,
+      "y": 8,
+      "width": 136.796875,
+      "height": 43.25,
+      "top": 8,
+      "right": 144.796875,
+      "bottom": 51.25,
+      "left": 8
+    },
+    "outline": "rgb(109, 40, 217) solid 3px"
+  },
+  {
+    "test": "skip-activated",
+    "active": "MAIN",
+    "id": "main-content",
+    "hash": "#main-content"
+  },
+  {
+    "test": "reduced-motion",
+    "matches": true,
+    "animations": []
+  }
+]

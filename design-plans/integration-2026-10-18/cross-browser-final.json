@@ -1,0 +1,96 @@
+[
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "report validation and category selection",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "notification bell opens and Escape restores focus",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "runtimeErrors": [
+      "/localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-integrated-release%2Fdatabases%2F(default)&RID=14060&CVER=22&X-HTTP-Session-Id=gsessionid&zx=105954v22lha&t=1 due to access control checks."
+    ]
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "CSV and PDF browser downloads",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "account search and Admin panel disclosure",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "runtimeErrors": []
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "report validation and category selection",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "notification bell opens and Escape restores focus",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "runtimeErrors": []
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "CSV and PDF browser downloads",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "account search and Admin panel disclosure",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "runtimeErrors": []
+  }
+]

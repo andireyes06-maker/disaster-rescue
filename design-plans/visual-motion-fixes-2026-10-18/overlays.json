@@ -1,0 +1,194 @@
+[
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "Reject",
+    "exit": [
+      {
+        "slot": "dialog-overlay",
+        "state": "closed",
+        "animation": "veil-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      },
+      {
+        "slot": "dialog-content",
+        "state": "closed",
+        "animation": "dialog-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      }
+    ],
+    "focusReturn": true,
+    "rapidReopen": true,
+    "writes": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "Assign team",
+    "exit": [
+      {
+        "slot": "dialog-overlay",
+        "state": "closed",
+        "animation": "veil-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      },
+      {
+        "slot": "dialog-content",
+        "state": "closed",
+        "animation": "dialog-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      }
+    ],
+    "focusReturn": true,
+    "rapidReopen": true,
+    "writes": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "Reject",
+    "exit": [
+      {
+        "slot": "dialog-overlay",
+        "state": "closed",
+        "animation": "veil-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      },
+      {
+        "slot": "dialog-content",
+        "state": "closed",
+        "animation": "dialog-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      }
+    ],
+    "focusReturn": true,
+    "rapidReopen": true,
+    "writes": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "Assign team",
+    "exit": [
+      {
+        "slot": "dialog-overlay",
+        "state": "closed",
+        "animation": "veil-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      },
+      {
+        "slot": "dialog-content",
+        "state": "closed",
+        "animation": "dialog-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      }
+    ],
+    "focusReturn": true,
+    "rapidReopen": true,
+    "writes": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "Reject",
+    "exit": [
+      {
+        "slot": "dialog-overlay",
+        "state": "closed",
+        "animation": "veil-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      },
+      {
+        "slot": "dialog-content",
+        "state": "closed",
+        "animation": "dialog-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      }
+    ],
+    "focusReturn": true,
+    "rapidReopen": true,
+    "writes": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "Assign team",
+    "exit": [
+      {
+        "slot": "dialog-overlay",
+        "state": "closed",
+        "animation": "veil-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      },
+      {
+        "slot": "dialog-content",
+        "state": "closed",
+        "animation": "dialog-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      }
+    ],
+    "focusReturn": true,
+    "rapidReopen": true,
+    "writes": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "Reject",
+    "exit": [
+      {
+        "slot": "dialog-overlay",
+        "state": "closed",
+        "animation": "veil-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      },
+      {
+        "slot": "dialog-content",
+        "state": "closed",
+        "animation": "dialog-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      }
+    ],
+    "focusReturn": true,
+    "rapidReopen": true,
+    "writes": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "Assign team",
+    "exit": [
+      {
+        "slot": "dialog-overlay",
+        "state": "closed",
+        "animation": "veil-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      },
+      {
+        "slot": "dialog-content",
+        "state": "closed",
+        "animation": "dialog-leave",
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "duration": "0.14s"
+      }
+    ],
+    "focusReturn": true,
+    "rapidReopen": true,
+    "writes": 0
+  }
+]

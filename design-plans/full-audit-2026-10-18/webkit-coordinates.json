@@ -1,0 +1,20 @@
+[
+  {
+    "trial": 0,
+    "method": "fast click",
+    "open": true,
+    "pass": true
+  },
+  {
+    "trial": 1,
+    "method": "settled click",
+    "open": true,
+    "pass": true
+  },
+  {
+    "trial": 2,
+    "method": "keyboard",
+    "open": true,
+    "pass": true
+  }
+]

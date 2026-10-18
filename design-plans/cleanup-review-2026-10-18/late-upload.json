@@ -1,0 +1,11 @@
+{
+  "evidence": "Existing in-memory repo and fake provider; controlled late completion after terminal not-found grace. No Cloudinary request, no real process crash.",
+  "terminalBeforeUploadLanded": "deleted",
+  "assetPresentAfterLateCompletion": true,
+  "nextAttemptAtMs": null,
+  "subsequentDrain": {
+    "destroyed": 0,
+    "checked": 0
+  },
+  "orphanPersists": true
+}

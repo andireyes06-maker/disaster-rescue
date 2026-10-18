@@ -1,0 +1,242 @@
+[
+  {
+    "route": "login",
+    "viewport": "phone",
+    "title": "Sign in · Rescue Reports",
+    "h1": "Sign in",
+    "overflowPx": 0,
+    "smallText": 1,
+    "smallSamples": [
+      {
+        "fs": 13,
+        "text": "Demo site · hotline not configured"
+      }
+    ],
+    "smallTargets": 0,
+    "targetSamples": [],
+    "axe": [],
+    "errors": [],
+    "tabOrder": [
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "INPUT#email:email",
+      "INPUT#password:password",
+      "BUTTON:Sign in",
+      "A:Create a resident accoun",
+      "BODY:Skip to content\nRescue R",
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "INPUT#email:email"
+    ],
+    "afterEmptySubmit": {
+      "focused": "email",
+      "alerts": [
+        "Enter your email.",
+        "Enter your password."
+      ],
+      "invalid": [
+        "email",
+        "password"
+      ]
+    }
+  },
+  {
+    "route": "register",
+    "viewport": "phone",
+    "title": "Create a resident account · Rescue Reports",
+    "h1": "Create a resident account",
+    "overflowPx": 0,
+    "smallText": 2,
+    "smallSamples": [
+      {
+        "fs": 13,
+        "text": "Demo site · hotline not configured"
+      },
+      {
+        "fs": 13,
+        "text": "At least 8 characters."
+      }
+    ],
+    "smallTargets": 0,
+    "targetSamples": [],
+    "axe": [],
+    "errors": [],
+    "tabOrder": [
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "INPUT#name:name",
+      "INPUT#email:email",
+      "INPUT#phone:phone",
+      "INPUT#password:password",
+      "INPUT#confirmPassword:confirmPassword",
+      "BUTTON:Create account",
+      "A:Sign in",
+      "BODY:Skip to content\nRescue R"
+    ],
+    "afterEmptySubmit": {
+      "focused": "name",
+      "alerts": [
+        "Enter your name.",
+        "Enter a valid email.",
+        "Enter a valid phone number.",
+        "Password must be at least 8 characters."
+      ],
+      "invalid": [
+        "name",
+        "email",
+        "phone",
+        "password"
+      ]
+    }
+  },
+  {
+    "route": "forbidden",
+    "viewport": "phone",
+    "title": "Access denied · Rescue Reports",
+    "h1": "Access denied",
+    "overflowPx": 0,
+    "smallText": 1,
+    "smallSamples": [
+      {
+        "fs": 13,
+        "text": "Demo site · hotline not configured"
+      }
+    ],
+    "smallTargets": 0,
+    "targetSamples": [],
+    "axe": [],
+    "errors": [],
+    "tabOrder": [
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "A:Sign in",
+      "A:Back to home",
+      "BODY:Skip to content\nRescue R",
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "A:Sign in",
+      "A:Back to home",
+      "BODY:Skip to content\nRescue R"
+    ]
+  },
+  {
+    "route": "login",
+    "viewport": "desktop",
+    "title": "Sign in · Rescue Reports",
+    "h1": "Sign in",
+    "overflowPx": 0,
+    "smallText": 1,
+    "smallSamples": [
+      {
+        "fs": 13,
+        "text": "Demo site · hotline not configured"
+      }
+    ],
+    "smallTargets": 0,
+    "targetSamples": [],
+    "axe": [],
+    "errors": [],
+    "tabOrder": [
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "INPUT#email:email",
+      "INPUT#password:password",
+      "BUTTON:Sign in",
+      "A:Create a resident accoun",
+      "BODY:Skip to content\nRescue R",
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "INPUT#email:email"
+    ],
+    "afterEmptySubmit": {
+      "focused": "email",
+      "alerts": [
+        "Enter your email.",
+        "Enter your password."
+      ],
+      "invalid": [
+        "email",
+        "password"
+      ]
+    }
+  },
+  {
+    "route": "register",
+    "viewport": "desktop",
+    "title": "Create a resident account · Rescue Reports",
+    "h1": "Create a resident account",
+    "overflowPx": 0,
+    "smallText": 2,
+    "smallSamples": [
+      {
+        "fs": 13,
+        "text": "Demo site · hotline not configured"
+      },
+      {
+        "fs": 13,
+        "text": "At least 8 characters."
+      }
+    ],
+    "smallTargets": 0,
+    "targetSamples": [],
+    "axe": [],
+    "errors": [],
+    "tabOrder": [
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "INPUT#name:name",
+      "INPUT#email:email",
+      "INPUT#phone:phone",
+      "INPUT#password:password",
+      "INPUT#confirmPassword:confirmPassword",
+      "BUTTON:Create account",
+      "A:Sign in",
+      "BODY:Skip to content\nRescue R"
+    ],
+    "afterEmptySubmit": {
+      "focused": "name",
+      "alerts": [
+        "Enter your name.",
+        "Enter a valid email.",
+        "Enter a valid phone number.",
+        "Password must be at least 8 characters."
+      ],
+      "invalid": [
+        "name",
+        "email",
+        "phone",
+        "password"
+      ]
+    }
+  },
+  {
+    "route": "forbidden",
+    "viewport": "desktop",
+    "title": "Access denied · Rescue Reports",
+    "h1": "Access denied",
+    "overflowPx": 0,
+    "smallText": 1,
+    "smallSamples": [
+      {
+        "fs": 13,
+        "text": "Demo site · hotline not configured"
+      }
+    ],
+    "smallTargets": 0,
+    "targetSamples": [],
+    "axe": [],
+    "errors": [],
+    "tabOrder": [
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "A:Sign in",
+      "A:Back to home",
+      "BODY:Skip to content\nRescue R",
+      "A:Skip to content",
+      "A:Rescue Reports",
+      "A:Sign in",
+      "A:Back to home",
+      "BODY:Skip to content\nRescue R"
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "kind": "real emulator fixture and rendered form; POST success delayed/mocked, no real operation written",
+  "pass": true,
+  "requests": 1,
+  "notePreserved": true,
+  "busyFocusPreserved": true
+}

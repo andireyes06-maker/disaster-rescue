@@ -1,0 +1,82 @@
+[
+  {
+    "engine": "chromium",
+    "step": "after sign-in",
+    "url": "/dashboard",
+    "boundaryShown": false
+  },
+  {
+    "engine": "chromium",
+    "step": "incident opened by click",
+    "url": "/incidents/TvYCBZNN46YZcdUyL9nh",
+    "boundaryShown": false
+  },
+  {
+    "engine": "chromium",
+    "step": "map by direct load",
+    "url": "/map",
+    "boundaryShown": false
+  },
+  {
+    "engine": "firefox",
+    "step": "login",
+    "url": "/login",
+    "error": "[JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" styl",
+    "boundary": null
+  },
+  {
+    "engine": "firefox",
+    "step": "after sign-in",
+    "url": "/dashboard",
+    "boundaryShown": false
+  },
+  {
+    "engine": "firefox",
+    "step": "incident opened by click",
+    "url": "/incidents/TvYCBZNN46YZcdUyL9nh",
+    "boundaryShown": false
+  },
+  {
+    "engine": "firefox",
+    "step": "map",
+    "url": "/map",
+    "error": "[JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" styl",
+    "boundary": null
+  },
+  {
+    "engine": "firefox",
+    "step": "map by direct load",
+    "url": "/map",
+    "boundaryShown": false
+  },
+  {
+    "engine": "webkit",
+    "step": "after sign-in",
+    "url": "/dashboard",
+    "boundaryShown": false
+  },
+  {
+    "engine": "webkit",
+    "step": "incident opened by click",
+    "url": "/incidents/TvYCBZNN46YZcdUyL9nh",
+    "boundaryShown": false
+  },
+  {
+    "engine": "webkit",
+    "step": "map",
+    "url": "/incidents/TvYCBZNN46YZcdUyL9nh",
+    "pageerror": "/localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdem"
+  },
+  {
+    "engine": "webkit",
+    "step": "map",
+    "url": "/incidents/TvYCBZNN46YZcdUyL9nh",
+    "pageerror": "/localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdem"
+  },
+  {
+    "engine": "webkit",
+    "step": "map by direct load",
+    "url": "/map",
+    "boundaryShown": false
+  }
+]

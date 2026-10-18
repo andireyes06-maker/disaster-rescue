@@ -1,0 +1,345 @@
+{
+  "environment": {
+    "project": "demo-disaster-rescue",
+    "emulator": true
+  },
+  "requests": "All API writes mocked; no persisted changes",
+  "results": [
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "teams-load-error",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "teams-load-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "accounts-load-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "accounts-empty",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "teams-empty",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "long-and-unknown-role",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "account-filter-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "create-succeeded-refresh-failed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "created-account-list-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "pending-access-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "last-admin-refusal",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "duplicate-email",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "settings-load-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "settings-save-failed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRetained": true,
+      "requests": 1
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "settings-edit-clears-success",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "team-save-failed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "requests": 1
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "health-degraded",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "health-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "accounts-malformed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "settings-malformed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "teams-load-error",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "teams-load-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "accounts-load-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "accounts-empty",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "teams-empty",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "long-and-unknown-role",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "account-filter-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "create-succeeded-refresh-failed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "created-account-list-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "pending-access-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "last-admin-refusal",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "duplicate-email",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "settings-load-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "settings-save-failed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRetained": true,
+      "requests": 1
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "settings-edit-clears-success",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "team-save-failed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "requests": 1
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "health-degraded",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "health-recovered",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "focusRecovered": true
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "accounts-malformed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "settings-malformed",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    }
+  ]
+}

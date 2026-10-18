@@ -6,9 +6,13 @@
     "node": ">=22"
   },
   "scripts": {
+    "presentation": "node scripts/start-presentation.mjs",
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --passWithNoTests",
+    "seed:demo": "firebase emulators:exec --config ../firebase/firebase.demo.json --only firestore,auth --project demo-disaster-rescue \"node scripts/seed-demo.js\"",
+    "demo:emulators": "firebase emulators:start --config ../firebase/firebase.demo.json --only firestore,auth --project demo-disaster-rescue",
+    "test:demo-emulator": "firebase emulators:exec --config ../firebase/firebase.demo.json --only firestore,auth --project demo-disaster-rescue \"vitest run test/demo-seed.emulator.test.js\""
   },
   "dependencies": {
     "cloudinary": "^2.11.0",

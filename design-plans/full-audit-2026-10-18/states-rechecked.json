@@ -1,0 +1,74 @@
+{
+  "checks": [
+    {
+      "name": "resident-missing-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "resident missing report state",
+      "pass": true
+    },
+    {
+      "name": "teams-error-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "teams-empty-390 axe and layout",
+      "pass": true,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "name": "Teams error and empty state",
+      "pass": true
+    },
+    {
+      "name": "DMO API versus Firestore audit permissions",
+      "pass": false,
+      "detail": "page.evaluate: FirebaseError: Expected first argument to collection() to be a CollectionReference, a DocumentReference or FirebaseFirestore"
+    }
+  ],
+  "findings": [],
+  "network": [
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 503,
+      "path": "/api/teams"
+    },
+    {
+      "status": 503,
+      "path": "/api/teams"
+    },
+    {
+      "status": 403,
+      "path": "/@fs/Users/rien/Documents/FINAL_PROJECT/web/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2"
+    },
+    {
+      "status": 403,
+      "path": "/api/audit"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 1
+  }
+}

@@ -1,0 +1,33 @@
+.notification-bell { position: relative; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 44px; height: 44px; border: 1px solid var(--color-mist); border-radius: 10px; background: var(--color-surface); color: var(--color-muted); cursor: pointer; }
+.notification-bell:hover, .notification-bell[data-state="open"] { background: var(--color-primary-soft); color: var(--color-primary); }
+.resident-layout .resident-layout__account .btn { white-space: nowrap; flex-shrink: 0; }
+.notification-bell__count, .notification-bell__error { position: absolute; top: -5px; right: -5px; min-width: 19px; height: 19px; padding: 0 4px; border: 2px solid white; border-radius: 12px; background: var(--color-primary); color: white; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center; font-variant-numeric: tabular-nums; }
+.notification-bell__error { background: var(--color-critical); }
+.notification-panel { z-index: 1000; width: min(390px, calc(100vw - 24px)); max-height: min(600px, var(--radix-popover-content-available-height)); display: flex; flex-direction: column; overflow: hidden; border-radius: 16px; background: var(--color-surface); color: var(--color-text); box-shadow: 0 10px 40px rgba(33,29,53,.18); }
+.notification-panel__header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--color-mist); }
+.notification-panel__header h2 { margin: 0; font-size: 18px; }
+.notification-panel__header p { margin: 4px 0 0; font-size: 13px; color: var(--color-muted); }
+.notification-panel__close { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 0; border-radius: 10px; background: transparent; color: var(--color-muted); cursor: pointer; }
+.notification-panel__close:hover { background: var(--color-bg); }
+.notification-panel__scroll { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.notification-panel__list { list-style: none; margin: 0; padding: 0; }
+.notification-panel__list li { display: flex; align-items: flex-start; gap: 10px; padding: 18px 20px; border-bottom: 1px solid var(--color-mist); }
+.notification-panel__list li:last-child { border-bottom: 0; }
+.notification-panel__list .is-unread { background: #faf8ff; }
+.notification-panel__dot { width: 6px; height: 6px; flex: 0 0 6px; margin-top: 7px; border-radius: 50%; background: transparent; }
+.is-unread .notification-panel__dot { background: var(--color-primary); }
+.notification-panel__text { min-width: 0; overflow-wrap: anywhere; font-size: 13px; }
+.notification-panel__text > strong { font-size: 14px; }
+.notification-panel__text > p { margin: 5px 0 8px; color: var(--color-muted); line-height: 1.5; }
+.notification-panel__text time { font-size: 13px; color: var(--color-muted); }
+.notification-panel__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 6px; }
+.notification-panel__actions a, .notification-panel__actions button { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--color-primary); font: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.notification-panel__actions button:disabled, .notification-panel__actions button[aria-disabled="true"] { opacity: .6; cursor: wait; }
+.notification-panel__empty { padding: 32px 24px; text-align: center; color: var(--color-muted); }
+.notification-panel__empty > svg { color: var(--color-primary); }
+.notification-panel__empty h3 { font-size: 15px; color: var(--color-text); margin: 14px 0 6px; }
+.notification-panel__empty p, .notification-panel__message { font-size: 13px; line-height: 1.5; }
+.notification-panel__message { padding: 16px 20px; margin: 0; background: var(--color-critical-soft); color: var(--color-critical); }
+.notification-panel__message.field-error { padding-left: 44px; }
+.notification-panel__message.field-error > svg { left: 20px; top: 18px; }
+@media (max-width: 899px) { .resident-layout .resident-layout__top .resident-layout__account { max-width: none; gap: 8px; flex-shrink: 0; } }

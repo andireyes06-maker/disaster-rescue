@@ -1,0 +1,146 @@
+[
+  {
+    "engine": "Firefox",
+    "width": 390,
+    "route": "/dashboard",
+    "interaction": {
+      "searchRecovered": false,
+      "focused": true
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Firefox",
+    "width": 390,
+    "route": "/map",
+    "interaction": {
+      "key": "Space",
+      "destination": "/incidents/demo-report-01",
+      "markerSize": {
+        "x": 164,
+        "y": 953.0999755859375,
+        "width": 44,
+        "height": 44
+      }
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Firefox",
+    "width": 390,
+    "route": "/analytics",
+    "interaction": null,
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Firefox",
+    "width": 1440,
+    "route": "/dashboard",
+    "interaction": {
+      "searchRecovered": false,
+      "focused": true
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Firefox",
+    "width": 1440,
+    "route": "/map",
+    "interaction": {
+      "key": "Space",
+      "destination": "/incidents/demo-report-01",
+      "markerSize": {
+        "x": 797,
+        "y": 647.9000244140625,
+        "width": 44,
+        "height": 44
+      }
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Firefox",
+    "width": 1440,
+    "route": "/analytics",
+    "interaction": null,
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "route": "/dashboard",
+    "interaction": {
+      "searchRecovered": false,
+      "focused": true
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "route": "/map",
+    "interaction": {
+      "key": "Space",
+      "destination": "/incidents/demo-report-01",
+      "markerSize": {
+        "x": 164,
+        "y": 893.015625,
+        "width": 44,
+        "height": 44
+      }
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "route": "/analytics",
+    "interaction": null,
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "route": "/dashboard",
+    "interaction": {
+      "searchRecovered": false,
+      "focused": true
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "route": "/map",
+    "interaction": {
+      "key": "Space",
+      "destination": "/incidents/demo-report-01",
+      "markerSize": {
+        "x": 797,
+        "y": 625.984375,
+        "width": 44,
+        "height": 44
+      }
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "route": "/analytics",
+    "interaction": null,
+    "axe": [],
+    "overflow": 0
+  }
+]

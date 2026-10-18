@@ -1,0 +1,918 @@
+[
+  {
+    "width": 390,
+    "name": "landing-type",
+    "data": [
+      {
+        "selector": ".service-opening__promise",
+        "matches": [
+          {
+            "text": "Photos and locationReport trackingTeam updates",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "175px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".response-film__chapter-label",
+        "matches": [
+          {
+            "text": "01 Report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "50.3281px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "02 Coordinate",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "50.3359px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "03 Stay informed",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "50.3281px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".response-film__chapter-label small",
+        "matches": [
+          {
+            "text": "01",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "6.875px 8.52344px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "02",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "6.60938px 8.52344px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "03",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "6.60938px 8.52344px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".response-film__footer > p",
+        "matches": []
+      },
+      {
+        "selector": ".response-scene > figcaption > span",
+        "matches": [
+          {
+            "text": "A connected response",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "74.3438px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "From first report to field update",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "85.8438px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "name": "film-playback",
+    "film": {
+      "time": 1.4784,
+      "paused": true,
+      "muted": true,
+      "inline": true,
+      "ready": 4
+    }
+  },
+  {
+    "width": 390,
+    "name": "access-notice-type",
+    "data": [
+      {
+        "selector": ".public-header__notice > span",
+        "matches": []
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "name": "notification-type",
+    "data": [
+      {
+        "selector": ".notification-panel__header p",
+        "matches": [
+          {
+            "text": "19 unread",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "56.0703px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".notification-panel__text time",
+        "matches": [
+          {
+            "text": "10/18/2026, 8:30:22 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/18/2026, 7:48:31 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/18/2026, 7:47:20 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/17/2026, 6:03:00 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/16/2026, 6:03:00 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/14/2026, 10:00:00 PM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/14/2026, 8:03:00 PM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/12/2026, 9:00:00 PM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".notification-panel__actions a",
+        "matches": [
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".notification-panel__actions button",
+        "matches": [
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".notification-panel",
+        "matches": [
+          {
+            "text": "Notifications19 unreadUnread: Team assignedReport RR-260005 has been assigned to a rescue team10/18/2026, 8:30:22 AMView reportMar",
+            "fontSize": "15px",
+            "lineHeight": "23.25px",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "origin": "366px 0px",
+            "animation": "0.3s cubic-bezier(0.16, 1, 0.3, 1) both notification-open",
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "name": "navigation-hover",
+    "data": [
+      {
+        "selector": ".navlink:hover svg",
+        "matches": []
+      },
+      {
+        "selector": ".shell__brand span",
+        "matches": [
+          {
+            "text": "Rescue Reports",
+            "fontSize": "17px",
+            "lineHeight": "26.35px",
+            "transform": "none",
+            "origin": "81.8516px 16px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "",
+            "fontSize": "17px",
+            "lineHeight": "26.35px",
+            "transform": "none",
+            "origin": "16px 16px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Rescue Reports",
+            "fontSize": "17px",
+            "lineHeight": "26.35px",
+            "transform": "none",
+            "origin": "61.3516px 13.1719px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Reports",
+            "fontSize": "17px",
+            "lineHeight": "26.35px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "name": "pointer-media",
+    "fine": false
+  },
+  {
+    "width": 1440,
+    "name": "landing-type",
+    "data": [
+      {
+        "selector": ".service-opening__promise",
+        "matches": [
+          {
+            "text": "Photos and locationReport trackingTeam updates",
+            "fontSize": "13px",
+            "lineHeight": "20.15px",
+            "transform": "none",
+            "origin": "256.656px 10.0703px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".response-film__chapter-label",
+        "matches": [
+          {
+            "text": "01 Report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "112.445px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "02 Coordinate",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "112.445px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "03 Stay informed",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "112.445px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".response-film__chapter-label small",
+        "matches": [
+          {
+            "text": "01",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "6.875px 8.52344px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "02",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "6.60938px 8.52344px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "03",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "6.60938px 8.52344px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".response-film__footer > p",
+        "matches": []
+      },
+      {
+        "selector": ".response-scene > figcaption > span",
+        "matches": [
+          {
+            "text": "A connected response",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "69.0625px 8.52344px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "From first report to field update",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "85.8438px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "film-playback",
+    "film": {
+      "time": 1.5173,
+      "paused": true,
+      "muted": true,
+      "inline": true,
+      "ready": 4
+    }
+  },
+  {
+    "width": 1440,
+    "name": "access-notice-type",
+    "data": [
+      {
+        "selector": ".public-header__notice > span",
+        "matches": []
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "notification-type",
+    "data": [
+      {
+        "selector": ".notification-panel__header p",
+        "matches": [
+          {
+            "text": "19 unread",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "56.0703px 9.29688px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".notification-panel__text time",
+        "matches": [
+          {
+            "text": "10/18/2026, 8:30:22 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/18/2026, 7:48:31 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/18/2026, 7:47:20 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/17/2026, 6:03:00 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/16/2026, 6:03:00 AM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/14/2026, 10:00:00 PM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/14/2026, 8:03:00 PM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "10/12/2026, 9:00:00 PM",
+            "fontSize": "11px",
+            "lineHeight": "17.05px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".notification-panel__actions a",
+        "matches": [
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "View report",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "31.4609px 22px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".notification-panel__actions button",
+        "matches": [
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Mark as read",
+            "fontSize": "12px",
+            "lineHeight": "18.6px",
+            "transform": "none",
+            "origin": "44.7734px 22px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".notification-panel",
+        "matches": [
+          {
+            "text": "Notifications19 unreadUnread: Team assignedReport RR-260005 has been assigned to a rescue team10/18/2026, 8:30:22 AMView reportMar",
+            "fontSize": "15px",
+            "lineHeight": "23.25px",
+            "transform": "matrix(1, 0, 0, 1, 0, 0)",
+            "origin": "390px 0px",
+            "animation": "0.3s cubic-bezier(0.16, 1, 0.3, 1) both notification-open",
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "navigation-hover",
+    "data": [
+      {
+        "selector": ".navlink:hover svg",
+        "matches": [
+          {
+            "text": "",
+            "fontSize": "13px",
+            "lineHeight": "20.15px",
+            "transform": "matrix(1, 0, 0, 1, 2, 0)",
+            "origin": "8.5px 8.5px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      },
+      {
+        "selector": ".shell__brand span",
+        "matches": [
+          {
+            "text": "Rescue Reports",
+            "fontSize": "17px",
+            "lineHeight": "26.35px",
+            "transform": "none",
+            "origin": "81.8516px 16px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "",
+            "fontSize": "17px",
+            "lineHeight": "26.35px",
+            "transform": "none",
+            "origin": "16px 16px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Rescue Reports",
+            "fontSize": "17px",
+            "lineHeight": "26.35px",
+            "transform": "none",
+            "origin": "61.3516px 13.1719px",
+            "animation": "none",
+            "easing": "ease"
+          },
+          {
+            "text": "Reports",
+            "fontSize": "17px",
+            "lineHeight": "26.35px",
+            "transform": "none",
+            "origin": "0px 0px",
+            "animation": "none",
+            "easing": "ease"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "name": "pointer-media",
+    "fine": true
+  }
+]

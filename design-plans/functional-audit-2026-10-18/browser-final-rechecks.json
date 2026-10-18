@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "name": "public landing navigation, FAQ and film controls",
+      "pass": true
+    },
+    {
+      "name": "report sends once through real API and detail survives reload",
+      "pass": false,
+      "detail": "Expected values to be strictly equal:\n\n429 !== 201\n"
+    },
+    {
+      "name": "resident Cancel persists and updates the page",
+      "pass": false,
+      "detail": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Cancel report', exact: true })\u001b[22m\n"
+    }
+  ],
+  "routeChecks": [],
+  "dialogs": [],
+  "unexpectedHosts": [],
+  "pageErrors": [],
+  "summary": {
+    "checks": 3,
+    "passed": 1,
+    "failed": 2,
+    "routeCases": 0,
+    "unexpectedHosts": 0,
+    "pageErrors": 0
+  }
+}

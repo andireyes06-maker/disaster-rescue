@@ -1,0 +1,38 @@
+[
+  {
+    "engine": "chromium",
+    "enterOpens": true,
+    "spaceCloses": true,
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "chevron": "matrix(-1, 0, 0, -1, 0, 0)"
+    },
+    "reducedAnimations": 0,
+    "closingOpensRegistration": true
+  },
+  {
+    "engine": "firefox",
+    "enterOpens": true,
+    "spaceCloses": true,
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "chevron": "matrix(-1, 0, 0, -1, 0, 0)"
+    },
+    "reducedAnimations": 0,
+    "closingOpensRegistration": true
+  },
+  {
+    "engine": "webkit",
+    "enterOpens": true,
+    "spaceCloses": true,
+    "focus": {
+      "active": true,
+      "outline": "solid",
+      "chevron": "matrix(-1, 0, 0, -1, 0, 0)"
+    },
+    "reducedAnimations": 0,
+    "closingOpensRegistration": true
+  }
+]

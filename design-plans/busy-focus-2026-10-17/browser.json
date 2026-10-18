@@ -1,0 +1,41 @@
+{
+  "environment": {
+    "project": "demo-disaster-rescue",
+    "emulator": true
+  },
+  "engine": "Chromium",
+  "viewport": 1440,
+  "mutationResponses": "intercepted 503; no writes persisted",
+  "results": [
+    {
+      "name": "Create team",
+      "focusDuringSave": true,
+      "requests": 1,
+      "focusAfterFailure": true
+    },
+    {
+      "name": "Rename team",
+      "focusDuringSave": true,
+      "requests": 1,
+      "focusAfterFailure": true
+    },
+    {
+      "name": "Create staff account",
+      "focusDuringSave": true,
+      "requests": 1,
+      "focusAfterFailure": true
+    },
+    {
+      "name": "Account status",
+      "focusDuringSave": true,
+      "requests": 1,
+      "focusAfterFailure": true
+    },
+    {
+      "name": "Download CSV",
+      "focusDuringSave": true,
+      "requests": 1,
+      "focusAfterFailure": true
+    }
+  ]
+}

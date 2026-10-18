@@ -49,4 +49,10 @@ describe('PublicIncidentMap', () => {
     await user.click(screen.getByRole('button', { name: 'Try again' }));
     expect(await screen.findByText('No open incidents in this area right now.')).toBeInTheDocument();
   });
+  it('does not mistake an invalid response for an incident-free area', async () => {
+    h.api.mockResolvedValue({}); render(<PublicIncidentMap />);
+    expect(await screen.findByRole('alert')).toHaveTextContent('Could not load the map.');
+    expect(screen.queryByText('No open incidents in this area right now.')).not.toBeInTheDocument();
+  });
+
 });

@@ -1,0 +1,20 @@
+{
+  "webTests": 405,
+  "apiTestsPassed": 317,
+  "apiTestsSkipped": 1,
+  "firestoreRulesTests": 128,
+  "build": "pass",
+  "typecheck": "pass",
+  "diffCheck": 0,
+  "roleGuards": {
+    "checks": 1,
+    "passed": 1,
+    "failed": 0,
+    "routeCases": 65,
+    "unexpectedHosts": 0,
+    "pageErrors": 0
+  },
+  "overlayFiles": 265,
+  "manifestFiles": 504,
+  "archiveBytes": 9764370
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Browser Back declined retains report text",
+    "pass": true
+  },
+  {
+    "name": "Header navigation declined retains text",
+    "pass": true
+  },
+  {
+    "name": "Accepted Back returns to resident hub",
+    "pass": true
+  },
+  {
+    "name": "Browser Forward declined retains report text",
+    "pass": true
+  },
+  {
+    "name": "Offline warning appears and clears on reconnect",
+    "pass": true
+  },
+  {
+    "name": "Notification open and exit animate with normal motion",
+    "pass": true
+  }
+]

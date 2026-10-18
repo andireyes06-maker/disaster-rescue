@@ -78,6 +78,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
           child: ListView(
             padding: const EdgeInsets.all(20),
             children: [
+              const Padding(padding: EdgeInsets.only(bottom: 16), child: Text('Record the latest status and what the team has done.')),
               Text('Status', style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 8),
               SegmentedButton<String>(

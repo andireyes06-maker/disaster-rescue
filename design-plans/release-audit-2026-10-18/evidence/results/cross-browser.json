@@ -1,0 +1,35 @@
+[
+  {
+    "engine": "chromium",
+    "steps": [
+      "signed in as dispatcher -> /dashboard",
+      "dashboard rows: 2",
+      "map loaded"
+    ],
+    "listenErrors": [],
+    "otherErrors": []
+  },
+  {
+    "engine": "firefox",
+    "steps": [
+      "signed in as dispatcher -> /dashboard",
+      "dashboard rows: 2",
+      "map loaded"
+    ],
+    "listenErrors": [],
+    "otherErrors": []
+  },
+  {
+    "engine": "webkit",
+    "steps": [
+      "signed in as dispatcher -> /dashboard",
+      "dashboard rows: 2",
+      "map loaded"
+    ],
+    "listenErrors": [],
+    "otherErrors": [
+      "pageerror: /localhost:8080/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-release-audit%2Fdatabases%2F(default)&RID=rpc&SID=8r7MYCSFqzGz3otNYwukIA%3D%3D&AID=16&CI=0&TYPE=xmlhttp&zx=d",
+      "pageerror: /localhost:8080/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-release-audit%2Fdatabases%2F(default)&RID=rpc&SID=8r7MYCSFqzGz3otNYwukIA%3D%3D&AID=16&CI=0&TYPE=xmlhttp&zx=2"
+    ]
+  }
+]

@@ -6,6 +6,7 @@ import '../../auth/auth_repository.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../auth/auth_widgets.dart';
+import '../../theme/product_widgets.dart';
 
 const privacyNotice =
     '$consentText Your exact location is visible only to the dispatcher, the disaster office, the responder '
@@ -45,6 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
             return ListView(
               padding: const EdgeInsets.all(20),
               children: [
+                const ProductIntro(title: 'Your account', description: 'Your contact details and account information, in one place.', icon: Icons.person_outline),
                 field('Name', p?.name),
                 field('Email', widget.user.email),
                 field('Phone', p?.phone),

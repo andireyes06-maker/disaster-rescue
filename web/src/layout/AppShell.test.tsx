@@ -9,6 +9,8 @@ const auth = vi.hoisted(() => ({
   },
 }));
 vi.mock('../auth/AuthProvider', () => ({ useAuth: () => auth.value }));
+const demo = vi.hoisted(() => ({ value: null as { label: string } | null }));
+vi.mock('../features/demo/useDemoIndicator', () => ({ useDemoIndicator: () => demo.value }));
 
 import AppShell from './AppShell';
 
@@ -67,5 +69,18 @@ describe('AppShell', () => {
     for (const label of ['Dashboard', 'Map', 'Monitor', 'Analytics', 'Audit', 'Teams', 'Users', 'Assignments', 'Admin']) {
       expect(names).toContain(label);
     }
+  });
+});
+
+describe('AppShell workspace copy', () => {
+  it('does not render an environment label in the product header', () => {
+    demo.value = { label: 'Demo workspace · Sample data' };
+    render(
+      <MemoryRouter initialEntries={['/dashboard']}>
+        <AppShell title="Dashboard"><p>body</p></AppShell>
+      </MemoryRouter>,
+    );
+    expect(screen.queryByText('Demo workspace · Sample data')).not.toBeInTheDocument();
+    demo.value = null;
   });
 });

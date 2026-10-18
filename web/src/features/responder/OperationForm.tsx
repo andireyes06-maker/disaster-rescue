@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
+import FieldError from '../../components/FieldError';
+import MotionForm from '../../components/MotionForm';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '../../api/client';
@@ -26,7 +29,7 @@ function errorText(err: unknown): string {
     if (failure.status === 403) return 'You do not have permission to do that.';
     if (failure.status === 0) return 'Network error. Check your connection and try again.';
   }
-  return 'Something went wrong. Please try again.';
+  return 'Could not confirm your response update. Check the report history before sending it again.';
 }
 
 interface OperationFormProps {
@@ -49,12 +52,15 @@ export default function OperationForm({ reportId, reportStatus, onSaved }: Opera
   const [busy, setBusy] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const pending = useRef(false);
   const { register, handleSubmit, reset, formState: { errors } } = useForm<OperationUpdate>({
     resolver: zodResolver(operationUpdateSchema),
     defaultValues: { status: statuses[0] ?? OPERATION_STATUSES[0], peopleRescued: 0, note: '' },
   });
 
   async function onValid(values: OperationUpdate) {
+    if (pending.current) return;
+    pending.current = true;
     setApiError(null);
     setBusy(true);
     try {
@@ -68,35 +74,39 @@ export default function OperationForm({ reportId, reportStatus, onSaved }: Opera
     } catch (err) {
       setApiError(errorText(err));
     } finally {
+      pending.current = false;
       setBusy(false);
     }
   }
 
-  const message = errors.peopleRescued?.message ?? errors.note?.message ?? apiError;
+  const message = apiError;
 
   return (
-    <form className="ops-form" noValidate aria-label="Rescue operation update"
+    <MotionForm className="ops-form" noValidate aria-label="Rescue operation update"
+      onChange={() => setSaved(false)}
       onSubmit={(e) => { setSaved(false); return handleSubmit(onValid)(e); }}>
-      <label htmlFor={`status-${reportId}`}>Status</label>
-      <select id={`status-${reportId}`} {...register('status')}>
+      <RequiredNote /><label htmlFor={`status-${reportId}`}>Status<RequiredMark /></label>
+      <select aria-required="true" id={`status-${reportId}`} {...register('status')}>
         {statuses.map((s) => <option key={s} value={s}>{s}</option>)}
       </select>
 
-      <label htmlFor={`count-${reportId}`}>People rescued</label>
-      <input id={`count-${reportId}`} type="text" inputMode="numeric"
-        aria-describedby={`count-help-${reportId}`}
+      <label htmlFor={`count-${reportId}`}>People rescued<RequiredMark /></label>
+      <input aria-required="true" id={`count-${reportId}`} type="text" inputMode="numeric"
+        aria-invalid={!!errors.peopleRescued} aria-describedby={[`count-help-${reportId}`, errors.peopleRescued ? `count-error-${reportId}` : null].filter(Boolean).join(' ')}
         {...register('peopleRescued', { setValueAs: parsePeopleRescued })} />
       <span id={`count-help-${reportId}`} className="ops-form__help">Whole number, 0 to 10000.</span>
 
-      <label htmlFor={`note-${reportId}`}>Notes</label>
-      <textarea id={`note-${reportId}`} rows={3} maxLength={MAX_NOTE_LENGTH} {...register('note')} />
+      {errors.peopleRescued && <FieldError role="alert" id={`count-error-${reportId}`}>{errors.peopleRescued.message}</FieldError>}
+      <label htmlFor={`note-${reportId}`}>Notes (optional)</label>
+      <textarea id={`note-${reportId}`} aria-invalid={!!errors.note} aria-describedby={errors.note ? `note-error-${reportId}` : undefined} rows={3} maxLength={MAX_NOTE_LENGTH} {...register('note')} />
 
-      {message && <Banner tone="error" role="alert"><span aria-hidden="true">✖</span> {message}</Banner>}
+      {errors.note && <FieldError role="alert" id={`note-error-${reportId}`}>{errors.note.message}</FieldError>}
+      {message && <Banner tone="error" role="alert">{message}</Banner>}
       {saved && <Banner tone="info" role="status">Update saved.</Banner>}
 
       <div className="actions__row">
-        <button type="submit" className="btn" disabled={busy}>Submit update</button>
+        <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>{busy ? 'Posting update…' : 'Submit update'}</button>
       </div>
-    </form>
+    </MotionForm>
   );
 }

@@ -1,0 +1,37 @@
+{
+  "order": [
+    {
+      "text": "Skip to content",
+      "outline": "solid"
+    },
+    {
+      "text": "Rescue Reports",
+      "outline": "solid"
+    },
+    {
+      "text": "How it works",
+      "outline": "solid"
+    },
+    {
+      "text": "For residents",
+      "outline": "solid"
+    },
+    {
+      "text": "Access",
+      "outline": "solid"
+    },
+    {
+      "text": "Staff sign in",
+      "outline": "solid"
+    },
+    {
+      "text": "Create a resident account",
+      "outline": "solid"
+    }
+  ],
+  "skip": {
+    "id": "main-content",
+    "top": 140.5,
+    "headerBottom": 140.5
+  }
+}

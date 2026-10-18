@@ -1,0 +1,98 @@
+[
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "report validation and category selection",
+    "pass": false,
+    "detail": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Latitude', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <input max=\"90\" value=\"\" min=\"-90\" step=\"any\" type=\"number\"/>\u001b[22m\n\u001b[2m    - fill(\"14.6\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    24 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "notification bell opens and Escape restores focus",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "runtimeErrors": [
+      "/localhost:8690/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-full-audit-2026-10-18%2Fdatabases%2F(default)&RID=rpc&SID=uLnlH3Ln0x0KbQXzmsgMqQ%3D%3D&AID=44&CI=0&TYPE=xmlhttp&zx=hh1n16kdymtj&t=1 due to access control checks.",
+      "/localhost:8690/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-full-audit-2026-10-18%2Fdatabases%2F(default)&RID=rpc&SID=uLnlH3Ln0x0KbQXzmsgMqQ%3D%3D&AID=44&CI=0&TYPE=xmlhttp&zx=e5ri52ucewhd&t=2 due to access control checks."
+    ]
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "CSV and PDF browser downloads",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "account search and Admin panel disclosure",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "runtimeErrors": []
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "report validation and category selection",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "notification bell opens and Escape restores focus",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "runtimeErrors": []
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "CSV and PDF browser downloads",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "account search and Admin panel disclosure",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "runtimeErrors": []
+  }
+]

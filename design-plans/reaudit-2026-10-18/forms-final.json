@@ -1,0 +1,62 @@
+[
+  {
+    "width": 390,
+    "name": "register",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 390,
+    "name": "admin-create",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 390,
+    "name": "team-create",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 390,
+    "name": "user-create",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 390,
+    "name": "responder-update",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 1440,
+    "name": "register",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 1440,
+    "name": "admin-create",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 1440,
+    "name": "team-create",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 1440,
+    "name": "user-create",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "width": 1440,
+    "name": "responder-update",
+    "axe": [],
+    "overflow": 0
+  }
+]

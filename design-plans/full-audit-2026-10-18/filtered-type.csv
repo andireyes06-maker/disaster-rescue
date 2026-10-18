@@ -1,0 +1,13 @@
+reference,type,status,priority,verified,createdAt,assignedTeamId,lat,lng,addressText,description
+DR-MC8M2E,flood,Submitted,medium,false,2026-10-18T10:36:14.312Z,,14.64,121.04,,Integration lost response report with real server receipt 1792319773845
+DR-9N7EUY,flood,Submitted,medium,false,2026-10-18T10:24:46.758Z,,14.64,121.04,,Integration lost response report with real server receipt
+DR-HQKMH3,flood,Cancelled,medium,false,2026-10-18T10:20:44.742Z,,14.63,121.04,,Browser functional audit: residents need help near Harbor lane.
+RR-260001,flood,Submitted,critical,false,2026-10-18T08:13:27.066Z,,14.5997,120.9997,Riverside District,Water has entered the ground floor. Three residents need help reaching higher ground.
+RR-260005,flood,Team Assigned,high,true,2026-10-17T08:13:27.066Z,demo-team-kilo,14.6012,121.0012,Riverside District,A household reports rapidly rising water and an older resident who needs assistance.
+RR-260007,flood,Verified,critical,true,2026-10-16T18:13:27.066Z,,14.6043,121.0093,Riverbend District,Four residents are waiting on an upper floor. The location has been confirmed.
+RR-260011,flood,Awaiting Assignment,medium,true,2026-10-14T16:13:27.066Z,,14.5795,120.9885,South District,Two households need assistance moving to the designated meeting point.
+RR-260012,flood,Closed,critical,true,2026-10-13T20:13:27.066Z,demo-team-alpha,14.5997,120.9997,Riverside District,A family is waiting for assistance near the footbridge approach.
+RR-260023,flood,Duplicate,medium,false,2026-10-11T12:13:27.066Z,,14.604099999999999,121.0091,Riverbend District,This report describes the same incident as RR-260015.
+RR-260015,flood,Resolved,critical,true,2026-10-11T08:13:27.066Z,demo-team-delta,14.604,121.009,Riverbend District,Responders have reached the area and are helping residents leave safely.
+RR-260018,flood,Resolved,medium,true,2026-10-07T14:13:27.066Z,demo-team-golf,14.5813,120.9903,South District,The reported residents have reached the meeting point. Staff closure is pending.
+RR-260021,flood,Closed,low,true,2026-10-04T16:13:27.066Z,demo-team-juliet,14.6006,121.0006,Riverside District,The response is complete. Staff have reviewed the final update.

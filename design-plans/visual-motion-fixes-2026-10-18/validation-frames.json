@@ -1,0 +1,838 @@
+[
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "route": "register",
+    "samples": [
+      {
+        "ms": 33,
+        "collisions": []
+      },
+      {
+        "ms": 41.5,
+        "collisions": []
+      },
+      {
+        "ms": 53.69999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 70.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 86.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 103.69999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 119.5,
+        "collisions": []
+      },
+      {
+        "ms": 136.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 153.7999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 170.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 186.7999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 203.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 220.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 236.5,
+        "collisions": []
+      },
+      {
+        "ms": 253.2999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 269.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 286.69999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 303.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 319.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 335.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 353.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 369.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 386.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 403.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 420,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "route": "login",
+    "samples": [
+      {
+        "ms": 8.800000011920929,
+        "collisions": []
+      },
+      {
+        "ms": 16.69999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 32.599999994039536,
+        "collisions": []
+      },
+      {
+        "ms": 49.5,
+        "collisions": []
+      },
+      {
+        "ms": 66.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 83.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 99.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 116.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 133,
+        "collisions": []
+      },
+      {
+        "ms": 150,
+        "collisions": []
+      },
+      {
+        "ms": 166.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 182.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 199.80000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 215.69999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 233.30000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 249.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 265.5,
+        "collisions": []
+      },
+      {
+        "ms": 283.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 299.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 316.5,
+        "collisions": []
+      },
+      {
+        "ms": 332.30000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 349.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 366.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 382.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 399.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 416.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 433,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "route": "register",
+    "samples": [
+      {
+        "ms": 20.099999994039536,
+        "collisions": []
+      },
+      {
+        "ms": 21.400000005960464,
+        "collisions": []
+      },
+      {
+        "ms": 38.099999994039536,
+        "collisions": []
+      },
+      {
+        "ms": 45.400000005960464,
+        "collisions": []
+      },
+      {
+        "ms": 62.099999994039536,
+        "collisions": []
+      },
+      {
+        "ms": 78.80000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 95.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 112.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 128.80000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 145.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 162.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 178.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 195.30000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 212.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 228.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 245.5,
+        "collisions": []
+      },
+      {
+        "ms": 261.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 278.5,
+        "collisions": []
+      },
+      {
+        "ms": 295.30000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 311.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 328.69999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 345.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 361.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 378.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 395.30000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 411.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 428.59999999403954,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "route": "login",
+    "samples": [
+      {
+        "ms": 11.099999994039536,
+        "collisions": []
+      },
+      {
+        "ms": 15.699999988079071,
+        "collisions": []
+      },
+      {
+        "ms": 32,
+        "collisions": []
+      },
+      {
+        "ms": 48.599999994039536,
+        "collisions": []
+      },
+      {
+        "ms": 65.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 82.7999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 98.7999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 115.19999998807907,
+        "collisions": []
+      },
+      {
+        "ms": 132,
+        "collisions": []
+      },
+      {
+        "ms": 148.5,
+        "collisions": []
+      },
+      {
+        "ms": 166.2999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 181.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 198.59999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 215.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 233,
+        "collisions": []
+      },
+      {
+        "ms": 248.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 266,
+        "collisions": []
+      },
+      {
+        "ms": 281.7999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 299.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 315,
+        "collisions": []
+      },
+      {
+        "ms": 332.7999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 348.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 366,
+        "collisions": []
+      },
+      {
+        "ms": 381.7999999821186,
+        "collisions": []
+      },
+      {
+        "ms": 399.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 415.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 432.69999998807907,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "route": "register",
+    "samples": [
+      {
+        "ms": 21,
+        "collisions": []
+      },
+      {
+        "ms": 122,
+        "collisions": []
+      },
+      {
+        "ms": 140,
+        "collisions": []
+      },
+      {
+        "ms": 155,
+        "collisions": []
+      },
+      {
+        "ms": 172,
+        "collisions": []
+      },
+      {
+        "ms": 188,
+        "collisions": []
+      },
+      {
+        "ms": 204,
+        "collisions": []
+      },
+      {
+        "ms": 222,
+        "collisions": []
+      },
+      {
+        "ms": 239,
+        "collisions": []
+      },
+      {
+        "ms": 254,
+        "collisions": []
+      },
+      {
+        "ms": 270,
+        "collisions": []
+      },
+      {
+        "ms": 288,
+        "collisions": []
+      },
+      {
+        "ms": 304,
+        "collisions": []
+      },
+      {
+        "ms": 320,
+        "collisions": []
+      },
+      {
+        "ms": 337,
+        "collisions": []
+      },
+      {
+        "ms": 354,
+        "collisions": []
+      },
+      {
+        "ms": 371,
+        "collisions": []
+      },
+      {
+        "ms": 387,
+        "collisions": []
+      },
+      {
+        "ms": 403,
+        "collisions": []
+      },
+      {
+        "ms": 420,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "route": "login",
+    "samples": [
+      {
+        "ms": 36,
+        "collisions": []
+      },
+      {
+        "ms": 84,
+        "collisions": []
+      },
+      {
+        "ms": 100,
+        "collisions": []
+      },
+      {
+        "ms": 118,
+        "collisions": []
+      },
+      {
+        "ms": 135,
+        "collisions": []
+      },
+      {
+        "ms": 151,
+        "collisions": []
+      },
+      {
+        "ms": 167,
+        "collisions": []
+      },
+      {
+        "ms": 185,
+        "collisions": []
+      },
+      {
+        "ms": 201,
+        "collisions": []
+      },
+      {
+        "ms": 217,
+        "collisions": []
+      },
+      {
+        "ms": 234,
+        "collisions": []
+      },
+      {
+        "ms": 252,
+        "collisions": []
+      },
+      {
+        "ms": 268,
+        "collisions": []
+      },
+      {
+        "ms": 283,
+        "collisions": []
+      },
+      {
+        "ms": 301,
+        "collisions": []
+      },
+      {
+        "ms": 317,
+        "collisions": []
+      },
+      {
+        "ms": 333,
+        "collisions": []
+      },
+      {
+        "ms": 351,
+        "collisions": []
+      },
+      {
+        "ms": 366,
+        "collisions": []
+      },
+      {
+        "ms": 384,
+        "collisions": []
+      },
+      {
+        "ms": 400,
+        "collisions": []
+      },
+      {
+        "ms": 417,
+        "collisions": []
+      },
+      {
+        "ms": 433,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "route": "register",
+    "samples": [
+      {
+        "ms": 16,
+        "collisions": []
+      },
+      {
+        "ms": 39,
+        "collisions": []
+      },
+      {
+        "ms": 58,
+        "collisions": []
+      },
+      {
+        "ms": 73,
+        "collisions": []
+      },
+      {
+        "ms": 89,
+        "collisions": []
+      },
+      {
+        "ms": 106,
+        "collisions": []
+      },
+      {
+        "ms": 124,
+        "collisions": []
+      },
+      {
+        "ms": 140,
+        "collisions": []
+      },
+      {
+        "ms": 156,
+        "collisions": []
+      },
+      {
+        "ms": 174,
+        "collisions": []
+      },
+      {
+        "ms": 188,
+        "collisions": []
+      },
+      {
+        "ms": 205,
+        "collisions": []
+      },
+      {
+        "ms": 222,
+        "collisions": []
+      },
+      {
+        "ms": 240,
+        "collisions": []
+      },
+      {
+        "ms": 256,
+        "collisions": []
+      },
+      {
+        "ms": 272,
+        "collisions": []
+      },
+      {
+        "ms": 288,
+        "collisions": []
+      },
+      {
+        "ms": 306,
+        "collisions": []
+      },
+      {
+        "ms": 322,
+        "collisions": []
+      },
+      {
+        "ms": 338,
+        "collisions": []
+      },
+      {
+        "ms": 355,
+        "collisions": []
+      },
+      {
+        "ms": 372,
+        "collisions": []
+      },
+      {
+        "ms": 389,
+        "collisions": []
+      },
+      {
+        "ms": 405,
+        "collisions": []
+      },
+      {
+        "ms": 422,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "route": "login",
+    "samples": [
+      {
+        "ms": 43,
+        "collisions": []
+      },
+      {
+        "ms": 105,
+        "collisions": []
+      },
+      {
+        "ms": 122,
+        "collisions": []
+      },
+      {
+        "ms": 139,
+        "collisions": []
+      },
+      {
+        "ms": 155,
+        "collisions": []
+      },
+      {
+        "ms": 172,
+        "collisions": []
+      },
+      {
+        "ms": 190,
+        "collisions": []
+      },
+      {
+        "ms": 204,
+        "collisions": []
+      },
+      {
+        "ms": 222,
+        "collisions": []
+      },
+      {
+        "ms": 239,
+        "collisions": []
+      },
+      {
+        "ms": 256,
+        "collisions": []
+      },
+      {
+        "ms": 271,
+        "collisions": []
+      },
+      {
+        "ms": 287,
+        "collisions": []
+      },
+      {
+        "ms": 305,
+        "collisions": []
+      },
+      {
+        "ms": 322,
+        "collisions": []
+      },
+      {
+        "ms": 338,
+        "collisions": []
+      },
+      {
+        "ms": 355,
+        "collisions": []
+      },
+      {
+        "ms": 371,
+        "collisions": []
+      },
+      {
+        "ms": 388,
+        "collisions": []
+      },
+      {
+        "ms": 404,
+        "collisions": []
+      },
+      {
+        "ms": 421,
+        "collisions": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+import { spawn } from 'node:child_process';
+const root='/private/tmp/rescue-release-integration-2026-10-18';
+const env={...process.env, FIREBASE_PROJECT_ID:'demo-full-audit-2026-10-18',GCLOUD_PROJECT:'demo-full-audit-2026-10-18',FIRESTORE_EMULATOR_HOST:'127.0.0.1:8690',FIREBASE_AUTH_EMULATOR_HOST:'127.0.0.1:9799',PORT:'3110',CORS_ORIGINS:'http://localhost:5182',VITE_API_BASE_URL:'http://localhost:3110/api',VITE_FIREBASE_API_KEY:'harbor-local-key',VITE_FIREBASE_AUTH_DOMAIN:'demo-full-audit-2026-10-18.firebaseapp.com',VITE_FIREBASE_PROJECT_ID:'demo-full-audit-2026-10-18',VITE_FIREBASE_APP_ID:'harbor-presentation',VITE_USE_EMULATORS:'true',VITE_AUTH_EMULATOR_PORT:'9799',VITE_FIRESTORE_EMULATOR_PORT:'8690'};
+for (const k of Object.keys(env)) if (/GOOGLE_APPLICATION_CREDENTIALS|CLOUDINARY|^FIREBASE_CONFIG$/.test(k)) delete env[k];
+const build=spawn(process.execPath,['node_modules/vite/bin/vite.js','build','--config',root+'/design-plans/completion-verification-2026-10-18/emulator-preview.config.mjs','--outDir',root+'/design-plans/completion-verification-2026-10-18/preview-dist'],{cwd:root+'/web',env,stdio:'inherit'});
+const code=await new Promise(resolve=>build.once('exit',resolve)); if(code!==0) process.exit(code||1);
+const children=[spawn(process.execPath,['src/server.js'],{cwd:root+'/api',env,stdio:'inherit'}),spawn(process.execPath,['node_modules/vite/bin/vite.js','preview','--outDir',root+'/design-plans/completion-verification-2026-10-18/preview-dist','--host','localhost','--port','5182','--strictPort'],{cwd:root+'/web',env,stdio:'inherit'})];
+const stop=()=>{for(const child of children)child.kill('SIGTERM')};process.on('SIGTERM',stop);process.on('SIGINT',stop);for(const child of children)child.on('exit',stop);

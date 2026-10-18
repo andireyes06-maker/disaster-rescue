@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preflight:release": "node scripts/preflight-release.mjs",
+    "build:release": "npm run preflight:release && npm run build",
     "test": "npm run typecheck && vitest run",
     "typecheck": "tsc --noEmit",
     "e2e": "playwright test"

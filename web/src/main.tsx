@@ -6,16 +6,19 @@ import './components/calm/calm.css';
 import './styles.css';
 import App from './App';
 import { AuthProvider } from './auth/AuthProvider';
+import ApiConfigGate from './components/ApiConfigGate';
 
 const container = document.getElementById('root');
 if (!container) throw new Error('Missing #root element in index.html');
 
 createRoot(container).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
+    <ApiConfigGate value={import.meta.env.VITE_API_BASE_URL}>
+      <BrowserRouter>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </BrowserRouter>
+    </ApiConfigGate>
   </React.StrictMode>,
 );

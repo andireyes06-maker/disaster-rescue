@@ -1,0 +1,34 @@
+{
+  "auditedRuntime": {
+    "manifest": "design-plans/full-audit-2026-10-18/source-manifest.json",
+    "checked": 345,
+    "mismatches": []
+  },
+  "recoveryOverlay": {
+    "manifest": "design-plans/integration-2026-10-18/source-manifest.json",
+    "checked": 306,
+    "mismatches": []
+  },
+  "diffCheck": {
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "head": {
+    "exitCode": 0,
+    "stdout": "76e54ff\n",
+    "stderr": ""
+  },
+  "branch": {
+    "exitCode": 0,
+    "stdout": "integration/redesign-functional-2026-10-18\n",
+    "stderr": ""
+  },
+  "originalFixWorktreeStatus": {
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "productSourceChangedByAudit": false,
+  "auditChanges": "Only new scripts, reports and evidence in full-audit-2026-10-18; emulator-only fixtures."
+}

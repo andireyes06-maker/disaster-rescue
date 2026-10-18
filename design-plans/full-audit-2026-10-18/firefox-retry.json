@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "name": "local emulator identity and resident sign-in",
+      "pass": true
+    },
+    {
+      "name": "interception aborts the reply after a real accepted POST",
+      "pass": true
+    },
+    {
+      "name": "reload retry reuses the key and presents explicit replay choices",
+      "pass": true
+    },
+    {
+      "name": "real API readback contains exactly one report",
+      "pass": true
+    }
+  ],
+  "tooling": "1.63.0",
+  "summary": {
+    "passed": 4,
+    "failures": 0,
+    "injection": "lost reply after real API acceptance",
+    "actualProviderDelivery": false
+  }
+}

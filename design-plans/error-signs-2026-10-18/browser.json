@@ -1,0 +1,69 @@
+{
+  "scope": "Registration validation and mocked Admin GET error; no product mutations",
+  "results": [
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "register",
+      "signs": 5,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "admin-error",
+      "signs": 1,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "register",
+      "signs": 5,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "admin-error",
+      "signs": 1,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "engine": "WebKit",
+      "width": 390,
+      "name": "register",
+      "signs": 5,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "engine": "WebKit",
+      "width": 390,
+      "name": "admin-error",
+      "signs": 1,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "engine": "WebKit",
+      "width": 1440,
+      "name": "register",
+      "signs": 5,
+      "axe": [],
+      "overflow": 0
+    },
+    {
+      "engine": "WebKit",
+      "width": 1440,
+      "name": "admin-error",
+      "signs": 1,
+      "axe": [],
+      "overflow": 0
+    }
+  ]
+}

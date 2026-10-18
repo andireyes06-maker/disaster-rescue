@@ -1,0 +1,118 @@
+[
+  {
+    "page": "landing",
+    "width": 1440,
+    "height": 2324,
+    "heading": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "weight": "650",
+      "size": "57.6px",
+      "lineHeight": "59.904px",
+      "width": 544.96875
+    },
+    "sceneLabels": [
+      {
+        "text": "Report",
+        "font": "14px",
+        "scale": 0.9365885416666667
+      },
+      {
+        "text": "Verified",
+        "font": "14px",
+        "scale": 0.9365885416666667
+      },
+      {
+        "text": "Team assigned",
+        "font": "14px",
+        "scale": 0.9365885416666667
+      },
+      {
+        "text": "Resolved",
+        "font": "14px",
+        "scale": 0.9365885416666667
+      }
+    ],
+    "skipLinks": 0
+  },
+  {
+    "page": "landing",
+    "width": 768,
+    "height": 3571,
+    "heading": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "weight": "650",
+      "size": "40px",
+      "lineHeight": "41.6px",
+      "width": 550.390625
+    },
+    "sceneLabels": [
+      {
+        "text": "Report",
+        "font": "14px",
+        "scale": 1.323046875
+      },
+      {
+        "text": "Verified",
+        "font": "14px",
+        "scale": 1.323046875
+      },
+      {
+        "text": "Team assigned",
+        "font": "14px",
+        "scale": 1.323046875
+      },
+      {
+        "text": "Resolved",
+        "font": "14px",
+        "scale": 1.323046875
+      }
+    ],
+    "skipLinks": 0
+  },
+  {
+    "page": "landing",
+    "width": 390,
+    "height": 3523,
+    "heading": {
+      "font": "\"Geist Variable\", system-ui, sans-serif",
+      "weight": "650",
+      "size": "38px",
+      "lineHeight": "41.8px",
+      "width": 358
+    },
+    "sceneLabels": [
+      {
+        "text": "Report",
+        "font": "14px",
+        "scale": 0.6422743055555555
+      },
+      {
+        "text": "Verified",
+        "font": "14px",
+        "scale": 0.6422743055555555
+      },
+      {
+        "text": "Team assigned",
+        "font": "14px",
+        "scale": 0.6422743055555555
+      },
+      {
+        "text": "Resolved",
+        "font": "14px",
+        "scale": 0.6422743055555555
+      }
+    ],
+    "skipLinks": 0
+  },
+  {
+    "page": "register",
+    "firstInputY": 631.6875,
+    "submitY": 1050.4375
+  },
+  {
+    "page": "register-empty-submit",
+    "alert": "⚠ Problem: Enter your name.",
+    "active": "<button type=\"submit\" class=\"btn\">Create account</button>",
+    "invalid": 0
+  }
+]

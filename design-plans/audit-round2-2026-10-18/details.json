@@ -1,0 +1,238 @@
+[
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "audit-readable",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "audit-identifiers",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "audit-name-failure",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "admin",
+    "name": "audit-name-recovered",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "resident-activity",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "resident-long-top",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120,
+    "scope": "Browser-only history fixture, includes a 1000-character unbroken note"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "resident-long-tail",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "audit-readable",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "audit-identifiers",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "audit-name-failure",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "admin",
+    "name": "audit-name-recovered",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "resident-activity",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "resident-long-top",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120,
+    "scope": "Browser-only history fixture, includes a 1000-character unbroken note"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "resident-long-tail",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "audit-readable",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "audit-identifiers",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "audit-name-failure",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "admin",
+    "name": "audit-name-recovered",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "resident-activity",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "resident-long-top",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120,
+    "scope": "Browser-only history fixture, includes a 1000-character unbroken note"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "resident-long-tail",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "audit-readable",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "audit-identifiers",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "audit-name-failure",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "admin",
+    "name": "audit-name-recovered",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "resident-activity",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "resident-long-top",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120,
+    "scope": "Browser-only history fixture, includes a 1000-character unbroken note"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "resident-long-tail",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120
+  }
+]

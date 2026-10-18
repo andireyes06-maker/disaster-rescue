@@ -1,0 +1,29 @@
+{
+  "firestore": {
+    "rules": "/Users/rien/Documents/FINAL_PROJECT/firebase/firestore.rules",
+    "indexes": "/Users/rien/Documents/FINAL_PROJECT/firebase/firestore.indexes.json"
+  },
+  "emulators": {
+    "auth": {
+      "host": "127.0.0.1",
+      "port": 9499
+    },
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8390,
+      "websocketPort": 9176
+    },
+    "hub": {
+      "host": "127.0.0.1",
+      "port": 4426
+    },
+    "logging": {
+      "host": "127.0.0.1",
+      "port": 4526
+    },
+    "ui": {
+      "enabled": false
+    },
+    "singleProjectMode": true
+  }
+}

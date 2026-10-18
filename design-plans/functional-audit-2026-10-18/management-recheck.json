@@ -1,0 +1,16 @@
+{
+  "checks": [
+    {
+      "name": "Admin creates staff account and role change survives reload",
+      "pass": true
+    }
+  ],
+  "observations": [],
+  "pageErrors": [],
+  "unexpectedHosts": [],
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

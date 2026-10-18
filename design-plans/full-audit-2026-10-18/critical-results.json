@@ -1,0 +1,112 @@
+{
+  "checks": [
+    {
+      "name": "responder aggregate stats access is intentionally allowed",
+      "pass": true
+    },
+    {
+      "name": "exports honor Analytics filter type=flood",
+      "pass": true
+    },
+    {
+      "name": "exports honor Analytics filter status=Submitted",
+      "pass": true
+    },
+    {
+      "name": "revoked dispatcher token loses privileged access even on a same-second role change",
+      "pass": true
+    },
+    {
+      "name": "two-admin concurrent demotions leave one active admin",
+      "pass": true
+    }
+  ],
+  "observations": [
+    {
+      "kind": "export-filter",
+      "query": "type=flood",
+      "expectedTotal": 12,
+      "excludedReferencesInCsv": [],
+      "pdfTotal": "12"
+    },
+    {
+      "kind": "export-filter",
+      "query": "status=Submitted",
+      "expectedTotal": 6,
+      "excludedReferencesInCsv": [],
+      "pdfTotal": "6"
+    },
+    {
+      "kind": "revocation-granularity",
+      "details": [
+        {
+          "mode": "immediate",
+          "authTime": 1792320074,
+          "revokedAfter": "Sun, 18 Oct 2026 10:41:14 GMT",
+          "storedRole": "resident",
+          "oldTokenUsersStatus": 403
+        },
+        {
+          "mode": "delayed",
+          "authTime": 1792320075,
+          "revokedAfter": "Sun, 18 Oct 2026 10:41:17 GMT",
+          "storedRole": "resident",
+          "oldTokenUsersStatus": 401
+        }
+      ]
+    },
+    {
+      "kind": "last-admin-race",
+      "round": 1,
+      "statuses": [
+        200,
+        409
+      ],
+      "codes": [
+        null,
+        "last_admin"
+      ],
+      "roles": [
+        "admin",
+        "responder"
+      ]
+    },
+    {
+      "kind": "last-admin-race",
+      "round": 2,
+      "statuses": [
+        200,
+        409
+      ],
+      "codes": [
+        null,
+        "last_admin"
+      ],
+      "roles": [
+        "admin",
+        "responder"
+      ]
+    },
+    {
+      "kind": "last-admin-race",
+      "round": 3,
+      "statuses": [
+        409,
+        200
+      ],
+      "codes": [
+        "last_admin",
+        null
+      ],
+      "roles": [
+        "responder",
+        "admin"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0
+  }
+}

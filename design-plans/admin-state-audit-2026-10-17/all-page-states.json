@@ -1,0 +1,843 @@
+{
+  "scope": "API responses intercepted; Firestore hooks replaced only in browser; no persistence or real transport-failure claim",
+  "results": [
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/dashboard",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading incident inbox"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/map",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading incident map"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/monitor",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading incident map"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/teams",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading teams"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/users",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading accounts"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/analytics",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading analytics"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/audit",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading the audit log"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/incidents/audit-missing-report",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading incident details"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/dashboard",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No reports received yetNew reports will appear here when they arrive."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/map",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No located reports yetReports appear here once they include a location."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/monitor",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No located reports yetReports appear here once they include a location."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/teams",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No teams yetChoose Create team to add the first rescue team."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/users",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Showing 0 of 0 accounts",
+        "No accounts yetCreate a staff account to grant access to your team."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/analytics",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": []
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/audit",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No audit entries match these filtersAudit entries appear here as staff verify, assign, or change reports. Clear the filters to see more."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/incidents/audit-missing-report",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": []
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/dashboard",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load reports. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/map",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "The map could not load reports. Try again later. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/monitor",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "The map could not load reports. Try again later. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/teams",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load teams. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/users",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load users. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/analytics",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load analytics. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/audit",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load the audit log. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/incidents/audit-missing-report",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "We could not load this report. Check your connection and try again."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/teams",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load teams. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/users",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load users. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/analytics",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load analytics. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 390,
+      "route": "/audit",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load the audit log. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/dashboard",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading incident inbox"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/map",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading incident map"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/monitor",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading incident map"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/teams",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading teams"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/users",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading accounts"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/analytics",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading analytics"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/audit",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading the audit log"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/incidents/audit-missing-report",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading incident details"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/dashboard",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No reports received yetNew reports will appear here when they arrive."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/map",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No located reports yetReports appear here once they include a location."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/monitor",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No located reports yetReports appear here once they include a location."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/teams",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No teams yetChoose Create team to add the first rescue team."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/users",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Showing 0 of 0 accounts",
+        "No accounts yetCreate a staff account to grant access to your team."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/analytics",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": []
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/audit",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No audit entries match these filtersAudit entries appear here as staff verify, assign, or change reports. Clear the filters to see more."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/incidents/audit-missing-report",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": []
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/dashboard",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load reports. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/map",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "The map could not load reports. Try again later. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/monitor",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "The map could not load reports. Try again later. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/teams",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load teams. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/users",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load users. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/analytics",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load analytics. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/audit",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load the audit log. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/incidents/audit-missing-report",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "We could not load this report. Check your connection and try again."
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/teams",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load teams. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/users",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load users. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/analytics",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load analytics. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "admin",
+      "width": 1440,
+      "route": "/audit",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load the audit log. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 390,
+      "route": "/my",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading your reports",
+        "Loading the map"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 390,
+      "route": "/my/reports/audit-missing-report",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading report"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 390,
+      "route": "/my",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No reports yetReports you submit will appear here with their status and updates.Create your first report",
+        "No open incidents in this area right now.This map shows rounded areas, not exact addresses."
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 390,
+      "route": "/my/reports/audit-missing-report",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "We could not find this report.It may have been removed, or the link may belong to another account. Return to your reports to choose an available report."
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 390,
+      "route": "/my",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load your reports. Try again",
+        "Could not load the map. Try again"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 390,
+      "route": "/my/reports/audit-missing-report",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "We could not load this report. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 390,
+      "route": "/my",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No reports yetReports you submit will appear here with their status and updates.Create your first report",
+        "Could not load the map. Try again"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 1440,
+      "route": "/my",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading your reports",
+        "Loading the map"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 1440,
+      "route": "/my/reports/audit-missing-report",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading report"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 1440,
+      "route": "/my",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No reports yetReports you submit will appear here with their status and updates.Create your first report",
+        "No open incidents in this area right now.This map shows rounded areas, not exact addresses."
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 1440,
+      "route": "/my/reports/audit-missing-report",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "We could not find this report.It may have been removed, or the link may belong to another account. Return to your reports to choose an available report."
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 1440,
+      "route": "/my",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Could not load your reports. Try again",
+        "Could not load the map. Try again"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 1440,
+      "route": "/my/reports/audit-missing-report",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "We could not load this report. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "resident",
+      "width": 1440,
+      "route": "/my",
+      "state": "malformed",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No reports yetReports you submit will appear here with their status and updates.Create your first report",
+        "Could not load the map. Try again"
+      ]
+    },
+    {
+      "role": "responder",
+      "width": 390,
+      "route": "/assignments",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading assignments"
+      ]
+    },
+    {
+      "role": "responder",
+      "width": 390,
+      "route": "/assignments",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No open assignments right nowNew assignments from your dispatcher appear here."
+      ]
+    },
+    {
+      "role": "responder",
+      "width": 390,
+      "route": "/assignments",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "✖ Could not load your assignments. Check your connection and try again. Try again"
+      ]
+    },
+    {
+      "role": "responder",
+      "width": 1440,
+      "route": "/assignments",
+      "state": "loading",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "Loading assignments"
+      ]
+    },
+    {
+      "role": "responder",
+      "width": 1440,
+      "route": "/assignments",
+      "state": "empty",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "No open assignments right nowNew assignments from your dispatcher appear here."
+      ]
+    },
+    {
+      "role": "responder",
+      "width": 1440,
+      "route": "/assignments",
+      "state": "error",
+      "axe": [],
+      "overflow": 0,
+      "status": [
+        "✖ Could not load your assignments. Check your connection and try again. Try again"
+      ]
+    }
+  ]
+}

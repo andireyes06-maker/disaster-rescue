@@ -1,0 +1,85 @@
+[
+  {
+    "id": "REALTIME-resident-sees-submitted-before-change",
+    "pass": true,
+    "detail": {}
+  },
+  {
+    "id": "REALTIME-dispatcher-verify-request",
+    "pass": true,
+    "detail": {
+      "status": 200
+    }
+  },
+  {
+    "id": "REALTIME-resident-page-updates-without-reload",
+    "pass": true,
+    "detail": {
+      "statusTextVisible": true
+    }
+  },
+  {
+    "id": "KEYBOARD-signin-tab-order-reaches-controls",
+    "pass": true,
+    "detail": {
+      "order": [
+        {
+          "tag": "a",
+          "text": "DRDisaster Rescue",
+          "visibleRing": true
+        },
+        {
+          "tag": "input",
+          "text": "email",
+          "visibleRing": true
+        },
+        {
+          "tag": "input",
+          "text": "password",
+          "visibleRing": true
+        },
+        {
+          "tag": "button",
+          "text": "Sign in",
+          "visibleRing": true
+        },
+        {
+          "tag": "button",
+          "text": "Forgot password?",
+          "visibleRing": true
+        },
+        {
+          "tag": "a",
+          "text": "create a resident account",
+          "visibleRing": true
+        },
+        {
+          "tag": "body",
+          "text": "DRDisaster RescueDemo site · h",
+          "visibleRing": false
+        },
+        {
+          "tag": "a",
+          "text": "DRDisaster Rescue",
+          "visibleRing": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "KEYBOARD-signin-focus-ring-visible",
+    "pass": false,
+    "detail": {
+      "ringsVisible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true
+      ]
+    }
+  }
+]

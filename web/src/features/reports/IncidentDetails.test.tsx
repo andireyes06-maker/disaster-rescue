@@ -11,6 +11,7 @@ const h = vi.hoisted(() => ({
   api: vi.fn(),
   over: {} as Record<string, unknown>,
   updates: [] as { id: string; status: string; note: string; peopleRescued: number; at: Date | null }[],
+  updatesLoading: false,
   retry: vi.fn(),
 }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => h.auth }));
@@ -20,7 +21,7 @@ vi.mock('./useReport', () => ({
     const report = h.reports.find((r) => r.id === id) || null;
     return { report, loading: false, error: null, notFound: !report, removed: false, retry: h.retry, ...h.over };
   },
-  useReportUpdates: () => ({ updates: h.updates, error: null }),
+  useReportUpdates: () => ({ updates: h.updates, loading: h.updatesLoading, error: null }),
   useReportsByIds: (ids: string[]) => Object.fromEntries(ids.map((i) => [i, { report: h.reports.find((r) => r.id === i) || null, loading: false }])),
 }));
 vi.mock('../../api/client', async () => {
@@ -50,7 +51,33 @@ function show(reports: Report[], role = 'dispatcher', id = 'r1', over: Record<st
 }
 
 describe('IncidentDetails', () => {
-  beforeEach(() => { h.api.mockReset(); h.api.mockResolvedValue({}); });
+  beforeEach(() => { h.updatesLoading = false; h.api.mockReset(); h.api.mockResolvedValue({}); });
+
+  it('displays the public reference instead of its storage ID', () => {
+    show([makeReport({ reference: 'RR-260005' })]);
+    expect(screen.getByText(/Report RR-260005/)).toBeInTheDocument();
+    expect(screen.queryByText(/Report r1 ·/)).not.toBeInTheDocument();
+  });
+
+  it.each([
+    ['Set priority', 'Saving priority…', 'Priority updated.'],
+    ['Classify', 'Saving classification…', 'Classification saved.'],
+  ])('shows busy feedback and prevents repeat activation for %s', async (label, saving, success) => {
+    show([makeReport()]);
+    await userEvent.click(screen.getByRole('button', { name: 'Edit priority & classification' }));
+    if (label === 'Set priority') await userEvent.selectOptions(screen.getByLabelText(/priority/i), 'high');
+    else await userEvent.type(screen.getByLabelText(/classification/i), 'River flooding');
+    let finish!: (value: unknown) => void;
+    h.api.mockImplementation(() => new Promise(resolve => { finish = resolve; }));
+    await userEvent.click(screen.getByRole('button', { name: label }));
+    const pending = screen.getByRole('button', { name: saving });
+    expect(pending).toHaveFocus();
+    expect(pending).toHaveAttribute('aria-busy', 'true');
+    await userEvent.click(pending);
+    expect(h.api).toHaveBeenCalledTimes(1);
+    finish({});
+    expect(await screen.findByText(success)).toBeInTheDocument();
+  });
 
   it.each(['Submitted', 'Under Verification'] as const)('shows Verify for %s', (status) => {
     show([makeReport({ status })]);
@@ -146,6 +173,13 @@ describe('IncidentDetails', () => {
   it('says so when there are no rescue updates', () => {
     show([makeReport({ id: 'r1' })]);
     expect(screen.getByText('No rescue updates yet.')).toBeInTheDocument();
+  });
+
+  it('does not claim there are no rescue updates before their read finishes', () => {
+    h.updatesLoading = true;
+    show([makeReport({ id: 'r1' })]);
+    expect(screen.getByRole('status')).toHaveTextContent('Loading rescue updates');
+    expect(screen.queryByText('No rescue updates yet.')).not.toBeInTheDocument();
   });
 
   it('shows loading state', () => {

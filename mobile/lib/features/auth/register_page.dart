@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../auth/auth_controller.dart';
 import 'auth_widgets.dart';
+import '../../theme/product_widgets.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -61,10 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text('Join as a resident', style: Theme.of(context).textTheme.headlineMedium),
-                    const SizedBox(height: 16),
-                    const DisclaimerBox(),
-                    const SizedBox(height: 24),
+                    const ProductIntro(title: 'Join as a resident', description: 'Share the situation. Pin the location. Stay connected to the response.', icon: Icons.person_add_alt_outlined),
                     TextFormField(
                       controller: _name,
                       textCapitalization: TextCapitalization.words,
@@ -113,6 +111,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       onPressed: (_consent && !auth.busy) ? _submit : null,
                       child: Text(auth.busy ? 'Creating account...' : 'Create account'),
                     ),
+                    const SizedBox(height: 24),
+                    const DisclaimerBox(),
                   ],
                 ),
               ),

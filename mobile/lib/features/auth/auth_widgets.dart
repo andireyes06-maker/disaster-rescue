@@ -66,7 +66,7 @@ class DisclaimerBox extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.primarySoft,
+            color: const Color(0xFFFFF7E8),
           borderRadius: BorderRadius.circular(AppRadius.md),
         ),
         child: const Row(

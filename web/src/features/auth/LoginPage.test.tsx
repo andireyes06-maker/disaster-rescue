@@ -26,9 +26,27 @@ describe('LoginPage', () => {
     login.mockRejectedValueOnce(new Error('bad'));
     renderPage();
     await userEvent.type(screen.getByLabelText(/email/i), 'a@b.c');
-    await userEvent.type(screen.getByLabelText(/password/i), 'wrong');
+    await userEvent.type(screen.getByLabelText('Password', { exact: true }), 'wrong');
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
     expect(await screen.findByRole('alert')).toHaveTextContent(/could not sign in/i);
+  });
+
+  it('returns focus to the password field after a failed sign-in', async () => {
+    login.mockRejectedValueOnce(new Error('bad'));
+    renderPage();
+    await userEvent.type(screen.getByLabelText(/email/i), 'a@b.c');
+    await userEvent.type(screen.getByLabelText('Password', { exact: true }), 'wrong');
+    await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    await screen.findByRole('alert');
+    expect(screen.getByLabelText('Password', { exact: true })).toHaveFocus();
+    expect(screen.getByLabelText(/email/i)).toHaveValue('a@b.c');
+  });
+
+  it('places the skip link before the header so it is the first stop', () => {
+    renderPage();
+    const skip = screen.getByRole('link', { name: 'Skip to content' });
+    const header = document.querySelector('.public-header');
+    expect(skip.compareDocumentPosition(header!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it('shows a clear message for auth_failed', () => {
@@ -39,10 +57,40 @@ describe('LoginPage', () => {
     authState.error = null;
   });
 
-  it('prefixes errors with Problem so they are not color only', async () => {
+  it('pairs a decorative error sign with the readable account error', async () => {
     authState.error = 'account_disabled';
     renderPage();
-    expect(screen.getByRole('alert')).toHaveTextContent(/^.*Problem:/);
+    expect(screen.getByRole('alert')).not.toBeEmptyDOMElement();
+    expect(screen.getByRole('alert').querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
     authState.error = null;
+  });
+
+  it('marks empty fields invalid and focuses the first one without calling sign in', async () => {
+    login.mockClear();
+    renderPage();
+    await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByText('Enter your email.')).toBeInTheDocument();
+    expect(screen.getByLabelText(/email/i)).toHaveFocus();
+    expect(login).not.toHaveBeenCalled();
+  });
+
+  it('tells residents and staff which door to use', () => {
+    renderPage();
+    expect(screen.getByText('Residents', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.getByText('Staff', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Create a resident account' })).toHaveAttribute('href', '/register');
+  });
+
+  it('treats a malformed email as a field error and does not try to sign in', async () => {
+    login.mockClear();
+    renderPage();
+    await userEvent.type(screen.getByLabelText(/email/i), 'not-an-email');
+    await userEvent.type(screen.getByLabelText('Password', { exact: true }), 'whatever');
+    await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    expect(screen.getByText('Enter an email in the form name@example.com.')).toBeInTheDocument();
+    expect(screen.getByLabelText(/email/i)).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByLabelText(/email/i)).toHaveFocus();
+    expect(login).not.toHaveBeenCalled();
   });
 });

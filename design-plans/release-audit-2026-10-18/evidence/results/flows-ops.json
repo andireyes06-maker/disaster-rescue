@@ -1,0 +1,89 @@
+[
+  {
+    "id": "SETUP-resident-submits-two-reports",
+    "pass": true,
+    "detail": {
+      "a": 201,
+      "b": 201
+    }
+  },
+  {
+    "id": "VERIFY-shows-success",
+    "pass": true,
+    "detail": {}
+  },
+  {
+    "id": "VERIFY-persisted",
+    "pass": true,
+    "detail": {
+      "status": "Awaiting Assignment",
+      "verified": true
+    }
+  },
+  {
+    "id": "ASSIGN-persisted",
+    "pass": true,
+    "detail": {
+      "status": "Team Assigned",
+      "team": "team-bravo"
+    }
+  },
+  {
+    "id": "RESPONDER-sees-assignment",
+    "pass": true,
+    "detail": {
+      "found": true
+    }
+  },
+  {
+    "id": "RESPONDER-acknowledge-shown",
+    "pass": true,
+    "detail": {}
+  },
+  {
+    "id": "RESPONDER-progress-persisted",
+    "pass": true,
+    "detail": {
+      "status": "Rescue in Progress"
+    }
+  },
+  {
+    "id": "RESPONDER-resolve-persisted",
+    "pass": true,
+    "detail": {
+      "status": "Resolved"
+    }
+  },
+  {
+    "id": "CLOSE-report-and-release-team",
+    "pass": true,
+    "detail": {
+      "status": "Closed",
+      "teamBusy": false
+    }
+  },
+  {
+    "id": "REJECT-persisted",
+    "pass": true,
+    "detail": {
+      "status": "Rejected"
+    }
+  },
+  {
+    "id": "ANALYTICS-csv-rows-match-stats-total",
+    "pass": true,
+    "detail": {
+      "csvRows": 11,
+      "statsTotal": 11,
+      "filename": "incidents.csv"
+    }
+  },
+  {
+    "id": "ADMIN-settings-empty-hotline-blocked",
+    "pass": true,
+    "detail": {
+      "uiMessage": true,
+      "storedHotline": ""
+    }
+  }
+]

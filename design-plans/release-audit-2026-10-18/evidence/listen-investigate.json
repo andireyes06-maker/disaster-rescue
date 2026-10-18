@@ -1,0 +1,110 @@
+[
+  {
+    "engine": "chromium",
+    "step": "sign-in and dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "chromium",
+    "step": "idle on dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "chromium",
+    "step": "client-side nav to map",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "chromium",
+    "step": "client-side nav back to dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "chromium",
+    "step": "full reload",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "chromium",
+    "step": "full navigation to map",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "firefox",
+    "step": "sign-in and dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "firefox",
+    "step": "idle on dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "firefox",
+    "step": "client-side nav to map",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "firefox",
+    "step": "client-side nav back to dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "firefox",
+    "step": "full reload",
+    "newErrors": 0,
+    "cancelled": 1
+  },
+  {
+    "engine": "firefox",
+    "step": "full navigation to map",
+    "newErrors": 0,
+    "cancelled": 2
+  },
+  {
+    "engine": "webkit",
+    "step": "sign-in and dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "webkit",
+    "step": "idle on dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "webkit",
+    "step": "client-side nav to map",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "webkit",
+    "step": "client-side nav back to dashboard",
+    "newErrors": 0,
+    "cancelled": 0
+  },
+  {
+    "engine": "webkit",
+    "step": "full reload",
+    "newErrors": 2,
+    "cancelled": 1
+  },
+  {
+    "engine": "webkit",
+    "step": "full navigation to map",
+    "newErrors": 2,
+    "cancelled": 1
+  }
+]

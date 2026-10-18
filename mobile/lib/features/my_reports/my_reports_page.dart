@@ -8,6 +8,7 @@ import '../../theme/app_theme.dart';
 import '../auth/auth_widgets.dart';
 import '../report/report_flow_page.dart' show reportTypeInfo;
 import 'status_timeline.dart';
+import '../../theme/product_widgets.dart';
 
 String formatWhen(DateTime? t) {
   if (t == null) return 'Time not known';
@@ -73,7 +74,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
                 child: InlineError('Could not load your reports. Check your connection and try again later.'),
               );
             }
-            if (!snap.hasData) return const Center(child: CircularProgressIndicator());
+            if (!snap.hasData) return const ProductLoading();
             final all = sortNewestFirst(snap.data!);
             return TabBarView(children: [
               _ReportList(
@@ -103,9 +104,7 @@ class _ReportList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) {
-      return Center(
-        child: Padding(padding: const EdgeInsets.all(24), child: Text(empty, textAlign: TextAlign.center)),
-      );
+      return ProductEmpty(title: empty, description: 'Reports you send appear here, with their latest status and response updates.');
     }
     return ListView.separated(
       padding: const EdgeInsets.all(16),
@@ -130,7 +129,7 @@ class _ReportList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(children: [
-                    Icon(info.icon, color: AppColors.primary),
+                    Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primarySoft, borderRadius: BorderRadius.circular(12)), child: Icon(info.icon, color: AppColors.primary)),
                     const SizedBox(width: 8),
                     Expanded(child: Text(info.label, style: const TextStyle(fontWeight: FontWeight.w700))),
                   ]),

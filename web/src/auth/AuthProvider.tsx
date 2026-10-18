@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState, useCallback, type ReactNode } from 'react';
 import { onIdTokenChanged, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth';
-import { getFirebaseAuth } from '../firebase';
+import { getFirebaseAuth } from '../firebase-auth';
 import type { Role } from '../types/domain';
+import { isProvisioning } from './provisioning';
 
 export type AuthError = 'account_disabled' | 'auth_failed';
 
@@ -42,6 +43,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         refreshedUid.current = fbUser.uid;
         const claims: Record<string, unknown> = (await fbUser.getIdTokenResult(force)).claims;
         if (stale()) return;
+        // A new resident account has no claims until the API writes its profile. Keep loading instead
+        // of signing out; the claims check runs again when the token refreshes after provisioning.
+        if ((claims.active !== true || !claims.role) && isProvisioning()) {
+          setState((s) => ({ ...s, user: null, role: null, loading: true, error: null }));
+          return;
+        }
         // Fail closed: the active claim must be exactly true.
         if (claims.active !== true || !claims.role) {
           // Set the error first: signOut fires a null event that bumps seq.

@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "name": "report sends once through real API and detail survives reload",
+      "pass": true
+    },
+    {
+      "name": "resident Cancel persists and updates the page",
+      "pass": true
+    }
+  ],
+  "routeChecks": [],
+  "dialogs": [
+    {
+      "type": "beforeunload",
+      "message": ""
+    }
+  ],
+  "unexpectedHosts": [],
+  "pageErrors": [],
+  "browserReport": {
+    "id": "EVERir9rsSU3r7h3kS7j",
+    "status": "Submitted",
+    "reference": "DR-EXO83A"
+  },
+  "summary": {
+    "checks": 2,
+    "passed": 2,
+    "failed": 0,
+    "routeCases": 0,
+    "unexpectedHosts": 0,
+    "pageErrors": 0
+  }
+}

@@ -1,0 +1,13 @@
+stored reports: 29 distinct references: 29
+PASS dispatcher CSV 200 and row set equals stored reports status 200, type text/csv; charset=utf-8, file attachment; filename="demo-sample-incidents.csv", rows 29, stored 29, header ok true
+FAIL dispatcher PDF 200, %PDF header, lists stored references status 200, type application/pdf, bytes 2468, refs found in text 0/29
+PASS dispatcher CSV honours an empty date range status 200, data rows 0
+PASS dmo CSV 200 and row set equals stored reports status 200, type text/csv; charset=utf-8, file attachment; filename="demo-sample-incidents.csv", rows 29, stored 29, header ok true
+FAIL dmo PDF 200, %PDF header, lists stored references status 200, type application/pdf, bytes 2468, refs found in text 0/29
+PASS dmo CSV honours an empty date range status 200, data rows 0
+PASS admin CSV 200 and row set equals stored reports status 200, type text/csv; charset=utf-8, file attachment; filename="demo-sample-incidents.csv", rows 29, stored 29, header ok true
+FAIL admin PDF 200, %PDF header, lists stored references status 200, type application/pdf, bytes 2468, refs found in text 0/29
+PASS admin CSV honours an empty date range status 200, data rows 0
+PASS resident refused CSV and PDF csv 403, pdf 403
+PASS anonymous refused CSV status 401
+PASS malformed date refused status 400

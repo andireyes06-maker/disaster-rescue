@@ -1,0 +1,130 @@
+00:00 +0: loading /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart
+00:00 +0: /Users/rien/Documents/FINAL_PROJECT/mobile/test/draft_store_test.dart: save, load, clear round trip
+00:00 +1: /Users/rien/Documents/FINAL_PROJECT/mobile/test/draft_store_test.dart: a corrupt value loads as no draft
+00:00 +2: /Users/rien/Documents/FINAL_PROJECT/mobile/test/draft_store_test.dart: draft json has no photo field
+00:00 +3: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:00 +4: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:00 +5: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:00 +6: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +7: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +8: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +9: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +10: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +11: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +12: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +13: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +14: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +15: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +16: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:01 +17: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "2.5" with a message and no API call
+00:01 +18: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "many" with a message and no API call
+00:02 +19: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: blocks people rescued "10001" with a message and no API call
+00:02 +20: /Users/rien/Documents/FINAL_PROJECT/mobile/test/operation_form_test.dart: submits a valid update with status, peopleRescued and note
+00:02 +21: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: loading shows spinner
+00:03 +22: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: loading shows spinner
+00:03 +23: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: loading shows spinner
+00:03 +24: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: loading shows spinner
+00:03 +25: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: loading shows spinner
+00:03 +26: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: loading shows spinner
+00:03 +27: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: loading shows spinner
+00:03 +28: /Users/rien/Documents/FINAL_PROJECT/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:03 +29: /Users/rien/Documents/FINAL_PROJECT/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:04 +30: /Users/rien/Documents/FINAL_PROJECT/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:04 +31: /Users/rien/Documents/FINAL_PROJECT/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:04 +32: /Users/rien/Documents/FINAL_PROJECT/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:04 +33: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: empty states for both tabs
+00:04 +34: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: empty states for both tabs
+00:04 +35: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: empty states for both tabs
+00:04 +36: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: empty states for both tabs
+00:04 +37: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: empty states for both tabs
+00:04 +38: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: empty states for both tabs
+00:05 +39: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: empty states for both tabs
+00:05 +40: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: login page shows disclaimer and error message
+00:05 +41: /Users/rien/Documents/FINAL_PROJECT/mobile/test/role_gate_test.dart: login page shows disclaimer and error message
+00:05 +42: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +43: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +44: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +45: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +46: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +47: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +48: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +49: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +50: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +51: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +52: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +53: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +54: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +55: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +56: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:05 +57: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: Cancel is visible only for Submitted and calls cancel
+00:05 +58: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: Cancel is visible only for Submitted and calls cancel
+00:05 +59: /Users/rien/Documents/FINAL_PROJECT/mobile/test/semantic_actions_test.dart: each incident category exposes a semantic tap action
+00:06 +60: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: keeping the report does not cancel
+00:06 +61: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: 409 on cancel says it can no longer be cancelled
+00:06 +62: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: detail updates live when the status changes
+00:06 +63: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: renders at 200 percent text without overflow
+00:06 +64: /Users/rien/Documents/FINAL_PROJECT/mobile/test/my_reports_test.dart: profile shows name, email, phone, privacy notice and logs out
+00:06 +65: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +66: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +67: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +68: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +69: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +70: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +71: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +72: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +73: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +74: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +75: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +76: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +77: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +78: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +79: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +80: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +81: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +82: /Users/rien/Documents/FINAL_PROJECT/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:07 +83: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +84: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +85: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +86: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +87: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +88: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +89: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +90: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +91: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +92: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:07 +93: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:08 +94: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:08 +95: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:08 +96: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:08 +97: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:08 +98: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 shows five types and a progress label
+00:08 +99: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:08 +100: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:09 +101: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:09 +102: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:09 +103: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:09 +104: /Users/rien/Documents/FINAL_PROJECT/mobile/test/map_layout_test.dart: incident map lays out without overflow at 360x640
+00:09 +105: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: a photo over 5 MB or not an image is rejected before upload
+00:10 +106: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: a photo over 5 MB or not an image is rejected before upload
+00:10 +107: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: four real report stages at phone width
+00:10 +108: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: details step needs a valid description and phone
+00:10 +109: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: report list, notifications and response form
+00:10 +110: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: report list, notifications and response form
+00:11 +111: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: confirm step shows the exact disclaimer and a coral submit
+00:11 +112: /Users/rien/Documents/FINAL_PROJECT/mobile/test/redesign_visual_test.dart: assignment, incident, map and recovery layouts
+00:11 +113: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: a confirmed report is not shown as unsent when local draft cleanup fails (M03)
+00:11 +114: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: success shows the reference and clears the draft
+00:11 +115: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: ApiException 400 leads to the NOT submitted page
+00:12 +116: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: ApiException 429 leads to the NOT submitted page
+00:12 +117: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: ApiException 403 leads to the NOT submitted page
+00:12 +118: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: ApiException 0 leads to the NOT submitted page
+00:12 +119: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: a retry after a lost response sends the same submission key (M04)
+00:12 +120: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: a network failure saves a draft and opens the offline page with hotlines
+00:12 +121: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: a saved draft is offered on launch
+00:12 +122: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: discard clears the saved draft
+00:13 +123: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: hotline button dials the first hotline
+00:13 +124: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 1 renders at 200 percent text without overflow
+00:13 +125: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 2 renders at 200 percent text without overflow
+00:13 +126: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 3 renders at 200 percent text without overflow
+00:13 +127: /Users/rien/Documents/FINAL_PROJECT/mobile/test/report_flow_test.dart: step 4 renders at 200 percent text without overflow
+00:13 +128: All tests passed!

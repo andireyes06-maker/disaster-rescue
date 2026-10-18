@@ -101,6 +101,21 @@ describe('useReportsByIds', () => {
 describe('useReportUpdates', () => {
   beforeEach(() => { h.subs.length = 0; });
 
+  it('clears the previous report history immediately and ignores its late callbacks', () => {
+    const { result, rerender } = renderHook(({ id }) => useReportUpdates(id), { initialProps: { id: 'r1' } });
+    const old = h.subs[0];
+    const history = { docs: [{ id: 'old', data: () => ({ status: 'Resolved', note: 'Previous report', at: ts(1000) }) }] };
+    act(() => old.ok(history as unknown as never));
+    expect(result.current.updates).toHaveLength(1);
+    rerender({ id: 'r2' });
+    expect(result.current.updates).toEqual([]);
+    expect(result.current.loading).toBe(true);
+    act(() => old.ok(history as unknown as never));
+    expect(result.current.updates).toEqual([]);
+    act(() => h.subs[1].ok({ docs: [] } as unknown as never));
+    expect(result.current.loading).toBe(false);
+  });
+
   it('skips acknowledgements and keeps progress entries in order', () => {
     const { result } = renderHook(() => useReportUpdates('r1'));
     expect(h.subs[0].ref).toBe('reports/r1/updates');

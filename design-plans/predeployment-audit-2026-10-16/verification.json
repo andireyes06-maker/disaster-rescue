@@ -1,0 +1,25 @@
+{
+  "revision": "e9c6426",
+  "date": "2026-10-16",
+  "timezone": "Asia/Manila",
+  "source_edits": false,
+  "production_mutations": false,
+  "web_tests": 228,
+  "api_tests": 254,
+  "rules_tests": 121,
+  "flutter_tests": 107,
+  "browser_smoke_passed": 4,
+  "flutter_additional_passed": 1,
+  "flutter_additional_failed": 3,
+  "route_captures": 84,
+  "screenshot_files": 86,
+  "whole_page_overflow_cases": [],
+  "project": "demo-predeploy-rescue",
+  "ports": {
+    "auth": 9299,
+    "firestore": 8380,
+    "api": 3301,
+    "vite": 5175
+  },
+  "missing_evidence_files": []
+}

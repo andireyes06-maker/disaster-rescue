@@ -1,0 +1,22 @@
+[
+  {
+    "width": 1440,
+    "bounds": {
+      "x": 718,
+      "y": 73,
+      "width": 390,
+      "height": 600
+    },
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "bounds": {
+      "x": 12,
+      "y": 70,
+      "width": 366,
+      "height": 600
+    },
+    "overflow": false
+  }
+]

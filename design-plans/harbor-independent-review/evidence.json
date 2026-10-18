@@ -1,0 +1,55 @@
+[
+  {
+    "width": 1440,
+    "height": 2447,
+    "scrollWidth": 1440,
+    "main": "main-content",
+    "animations": [
+      "route-draw"
+    ]
+  },
+  {
+    "width": 1024,
+    "height": 2472,
+    "scrollWidth": 1024,
+    "main": "main-content",
+    "animations": [
+      "route-draw"
+    ]
+  },
+  {
+    "width": 390,
+    "height": 4002,
+    "scrollWidth": 390,
+    "main": "main-content",
+    "animations": [
+      "route-draw"
+    ]
+  },
+  {
+    "test": "first-tab",
+    "text": "Skip to content",
+    "rect": {
+      "x": 8,
+      "y": 8,
+      "width": 136.796875,
+      "height": 43.25,
+      "top": 8,
+      "right": 144.796875,
+      "bottom": 51.25,
+      "left": 8
+    },
+    "outline": "rgb(109, 40, 217) solid 3px"
+  },
+  {
+    "test": "skip-activated",
+    "active": "MAIN",
+    "id": "main-content",
+    "hash": "#main-content"
+  },
+  {
+    "test": "reduced-motion",
+    "matches": true,
+    "animations": []
+  }
+]

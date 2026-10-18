@@ -1,0 +1,9 @@
+Airen wants the next release gaps completed without changing the finished visual design. Read /Users/rien/Documents/FINAL_PROJECT/design-plans/integration-2026-10-18/HANDOFF-REFRESH-RECOVERY.md and recovery/PHOTO-CLEANUP-SPEC.md first.
+
+Work in /private/tmp/rescue-release-integration-2026-10-18, integration/redesign-functional-2026-10-18, uncommitted on 76e54ff. Codex added durable report-creation audit/bell work, worker startup/polling, strict transient push retries and compatible Firefox lost-reply/reload evidence. Review those changes and their scope before editing. Keep atomic submission, hashed claim ownership, no-eviction retry storage, explicit replay choices, all UI/motion/focus behavior and tracked legacy Flutter goldens.
+
+Next implement safe abandoned-upload reconciliation from the cleanup spec, including reserved provider IDs before upload, durable ownership/generation checks, winning-report protection and late-upload/delete races. Do not use elapsed time alone to decide deletion. Actual Cloudinary remains unconfigured, so label simulated tests honestly and do not claim provider verification.
+
+Use relevant testing/security skills and write meaningful failing regressions first. Rerun affected suites, real emulator tests and appropriate browser checks; refresh the durable patch/overlay/manifest/handoff. Claim retention needs a separate reviewed policy; do not expire claims and reopen duplicate-report windows. Other transition notifications remain best effort; don't describe creation-only recovery as universal delivery reliability.
+
+Do not stop a child API directly: the existing integration launcher shuts down all its children. Do not touch other stacks or production. No commit, push, merge or deployment is authorized. Finish with exact results, injected-versus-real evidence and remaining service/device/configuration limits.

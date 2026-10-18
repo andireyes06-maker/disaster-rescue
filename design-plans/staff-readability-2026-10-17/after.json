@@ -1,0 +1,2405 @@
+[
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-01, Flood, Critical, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-02, Fire, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-03, Landslide, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-04, Other, Medium, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-05, Flood, Critical, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-06, Earthquake, High, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-07, Flood, Critical, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-08, Other, Low, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-09, Fire, Critical, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-10, Landslide, High, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-11, Flood, Medium, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-12, Flood, Critical, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-24, Other, Low, Cancelled"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-13, Fire, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-14, Earthquake, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-23, Flood, Medium, Duplicate"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-15, Flood, Critical, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-22, Other, Low, Rejected"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-16, Landslide, High, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-17, Other, Medium, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-18, Flood, Medium, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-19, Fire, High, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-20, Earthquake, Medium, Closed"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-21, Flood, Low, Closed"
+      }
+    ],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-01, Flood, Critical, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-02, Fire, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-03, Landslide, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-04, Other, Medium, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-05, Flood, Critical, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-06, Earthquake, High, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-07, Flood, Critical, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-08, Other, Low, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-09, Fire, Critical, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-10, Landslide, High, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-11, Flood, Medium, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-12, Flood, Critical, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-24, Other, Low, Cancelled"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-13, Fire, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-14, Earthquake, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-23, Flood, Medium, Duplicate"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-15, Flood, Critical, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-22, Other, Low, Rejected"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-16, Landslide, High, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-17, Other, Medium, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-18, Flood, Medium, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-19, Fire, High, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-20, Earthquake, Medium, Closed"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-21, Flood, Low, Closed"
+      }
+    ],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "6",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "9",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "12",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "flood",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "fire",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "landslide",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "other",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "earthquake",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "1",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "2",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "4",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Submitted",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Under Verification",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Verified",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Awaiting",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Assignment",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Team Assigned",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Cancelled",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Duplicate",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Rescue in Progress",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Rejected",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Resolved",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Closed",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-03",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-06",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-08",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-10",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-12",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-14",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-16",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "1",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "2",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "4",
+        "class": {}
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-01",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 768,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-01, Flood, Critical, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-02, Fire, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-03, Landslide, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-04, Other, Medium, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-05, Flood, Critical, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-06, Earthquake, High, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-07, Flood, Critical, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-08, Other, Low, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-09, Fire, Critical, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-10, Landslide, High, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-11, Flood, Medium, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-12, Flood, Critical, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-24, Other, Low, Cancelled"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-13, Fire, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-14, Earthquake, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-23, Flood, Medium, Duplicate"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-15, Flood, Critical, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-22, Other, Low, Rejected"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-16, Landslide, High, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-17, Other, Medium, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-18, Flood, Medium, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-19, Fire, High, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-20, Earthquake, Medium, Closed"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-21, Flood, Low, Closed"
+      }
+    ],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "count": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 768,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-01, Flood, Critical, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-02, Fire, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-03, Landslide, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-04, Other, Medium, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-05, Flood, Critical, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-06, Earthquake, High, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-07, Flood, Critical, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-08, Other, Low, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-09, Fire, Critical, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-10, Landslide, High, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-11, Flood, Medium, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-12, Flood, Critical, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-24, Other, Low, Cancelled"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-13, Fire, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-14, Earthquake, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-23, Flood, Medium, Duplicate"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-15, Flood, Critical, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-22, Other, Low, Rejected"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-16, Landslide, High, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-17, Other, Medium, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-18, Flood, Medium, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-19, Fire, High, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-20, Earthquake, Medium, Closed"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-21, Flood, Low, Closed"
+      }
+    ],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 768,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "6",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "9",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "12",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "flood",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "fire",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "landslide",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "other",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "earthquake",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "1",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "2",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "4",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Submitted",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Under Verification",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Verified",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Awaiting",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Assignment",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Team Assigned",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Cancelled",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Duplicate",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Rescue in Progress",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Rejected",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Resolved",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Closed",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-03",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-04",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-06",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-07",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-08",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-09",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-10",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-11",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-12",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-13",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-14",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-15",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-16",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "1",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "2",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "4",
+        "class": {}
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-01",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      },
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-01, Flood, Critical, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-02, Fire, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-03, Landslide, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-04, Other, Medium, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-05, Flood, Critical, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-06, Earthquake, High, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-07, Flood, Critical, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-08, Other, Low, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-09, Fire, Critical, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-10, Landslide, High, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-11, Flood, Medium, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-12, Flood, Critical, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-24, Other, Low, Cancelled"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-13, Fire, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-14, Earthquake, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-23, Flood, Medium, Duplicate"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-15, Flood, Critical, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-22, Other, Low, Rejected"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-16, Landslide, High, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-17, Other, Medium, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-18, Flood, Medium, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-19, Fire, High, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-20, Earthquake, Medium, Closed"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-21, Flood, Low, Closed"
+      }
+    ],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      },
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-01, Flood, Critical, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-02, Fire, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-03, Landslide, High, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-04, Other, Medium, Submitted"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-05, Flood, Critical, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-06, Earthquake, High, Under Verification"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-07, Flood, Critical, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-08, Other, Low, Verified"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-09, Fire, Critical, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-10, Landslide, High, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-11, Flood, Medium, Awaiting Assignment"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-12, Flood, Critical, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-24, Other, Low, Cancelled"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-13, Fire, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-14, Earthquake, High, Team Assigned"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-23, Flood, Medium, Duplicate"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-15, Flood, Critical, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-22, Other, Low, Rejected"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-16, Landslide, High, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-17, Other, Medium, Rescue in Progress"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-18, Flood, Medium, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-19, Fire, High, Resolved"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-20, Earthquake, Medium, Closed"
+      },
+      {
+        "width": 44,
+        "height": 44,
+        "tabIndex": 0,
+        "title": "Report demo-report-21, Flood, Low, Closed"
+      }
+    ],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      },
+      {
+        "size": "12px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "6",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "9",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "12",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "flood",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "fire",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "landslide",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "other",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "earthquake",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "1",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "2",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "12px",
+        "text": "4",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Submitted",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Under Verification",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Verified",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Awaiting",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Assignment",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Team Assigned",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Cancelled",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Duplicate",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Rescue in Progress",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Rejected",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Resolved",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "Closed",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-03",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-04",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-06",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-07",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-08",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-09",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-10",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-11",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-12",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-13",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-14",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-15",
+        "class": {}
+      },
+      {
+        "size": "10px",
+        "text": "10-16",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "0",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "1",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "2",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "3",
+        "class": {}
+      },
+      {
+        "size": "11px",
+        "text": "4",
+        "class": {}
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-01",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 768,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 768,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 1440,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  }
+]

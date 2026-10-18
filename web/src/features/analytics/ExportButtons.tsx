@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { apiBlob } from '../../api/client';
+import { useRef, useState } from 'react';
+import { apiFile } from '../../api/client';
 import Banner from '../../components/calm/Banner';
 
 export interface ExportFilters {
@@ -24,34 +24,39 @@ interface ExportButtonsProps {
 
 export default function ExportButtons({ filters }: ExportButtonsProps) {
   const [busy, setBusy] = useState<string | null>(null);
+  const pendingRef = useRef(false);
   const [error, setError] = useState<string | null>(null);
 
   async function download(endpoint: string, filename: string) {
+    if (pendingRef.current) return;
+    pendingRef.current = true;
     const query = buildExportQuery(filters);
     setBusy(filename);
     setError(null);
     try {
       // The token travels in the Authorization header; only the filters are in the URL.
-      const blob = await apiBlob(`/export/${endpoint}${query ? `?${query}` : ''}`);
-      const url = URL.createObjectURL(blob);
+      // The server names demo exports "demo-sample-…" so they cannot pass for operational data.
+      const file = await apiFile(`/export/${endpoint}${query ? `?${query}` : ''}`);
+      const url = URL.createObjectURL(file.blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = filename;
+      a.download = file.filename ?? filename;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 0);
     } catch {
       setError('Could not download the file. Check your connection and try again.');
     } finally {
+      pendingRef.current = false;
       setBusy(null);
     }
   }
 
   return (
     <div className="export-row">
-      <button type="button" className="btn" disabled={busy !== null} onClick={() => download('incidents.csv', 'incidents.csv')}>
+      <button type="button" className="btn" aria-disabled={busy !== null} aria-busy={busy === 'incidents.csv'} onClick={() => download('incidents.csv', 'incidents.csv')}>
         Download CSV
       </button>
-      <button type="button" className="btn" disabled={busy !== null} onClick={() => download('summary.pdf', 'summary.pdf')}>
+      <button type="button" className="btn" aria-disabled={busy !== null} aria-busy={busy === 'summary.pdf'} onClick={() => download('summary.pdf', 'summary.pdf')}>
         Download PDF
       </button>
       {error && <Banner tone="error" role="alert">{error}</Banner>}

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "REPORT-empty-submit-shows-errors",
+    "pass": true,
+    "detail": {
+      "visible": true
+    }
+  },
+  {
+    "id": "REPORT-submit-with-gps-succeeds",
+    "pass": true,
+    "detail": {
+      "url": "http://localhost:5178/my/reports/4pPXAZvvTiytPEhqO2Tg"
+    }
+  },
+  {
+    "id": "F06-declined-navigation-keeps-draft",
+    "pass": true,
+    "detail": {
+      "draftKept": true,
+      "url": "http://localhost:5178/my/report"
+    }
+  },
+  {
+    "id": "F06-accepted-navigation-leaves",
+    "pass": true,
+    "detail": {
+      "url": "http://localhost:5178/my"
+    }
+  },
+  {
+    "id": "F07-offline-notice-shown-on-detail",
+    "pass": true,
+    "detail": {
+      "visible": true
+    }
+  },
+  {
+    "id": "F07-notice-clears-after-reconnect",
+    "pass": true,
+    "detail": {
+      "cleared": true
+    }
+  },
+  {
+    "id": "DASHBOARD-lists-open-reports",
+    "pass": true,
+    "detail": {
+      "found": true
+    }
+  },
+  {
+    "id": "DISPATCH-verify-shows-success",
+    "pass": true,
+    "detail": {
+      "visible": true
+    }
+  },
+  {
+    "id": "DISPATCH-verify-persisted-readback",
+    "pass": true,
+    "detail": {
+      "status": "Awaiting Assignment",
+      "verified": true
+    }
+  },
+  {
+    "id": "F03-team-selector-visible-on-users",
+    "pass": true,
+    "detail": {
+      "visible": true
+    }
+  },
+  {
+    "id": "F03-team-change-persisted-readback",
+    "pass": true,
+    "detail": {
+      "saved": true,
+      "storedTeam": "team-bravo"
+    }
+  }
+]

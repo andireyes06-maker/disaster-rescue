@@ -1,3 +1,5 @@
+import FieldError from '../../components/FieldError';
+import MotionForm from '../../components/MotionForm';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { REPORT_TYPES, REPORT_STATUSES } from '../../types/domain';
@@ -5,6 +7,7 @@ import ChartCard, { type ChartDatum } from './ChartCard';
 import ExportButtons, { buildExportQuery, type ExportFilters } from './ExportButtons';
 import { fetchStats, type Stats } from './stats';
 import Banner from '../../components/calm/Banner';
+import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 
 const FILTER_KEYS = ['from', 'to', 'type', 'status'] as const;
 
@@ -58,7 +61,8 @@ export default function AnalyticsPage() {
 
   return (
     <div>
-      <form className="filters card" role="group" aria-label="Analytics filters" onSubmit={(e) => e.preventDefault()}>
+      {!invalidRange && stats && <dl className="analytics-summary"><div><dt>Reports in this period</dt><dd>{stats.total}</dd></div><div><dt>Open incidents</dt><dd>{stats.open}</dd></div><div><dt>Resolved</dt><dd>{stats.resolved}</dd></div></dl>}
+      <MotionForm className="filters card" aria-label="Analytics filters" onSubmit={(e) => e.preventDefault()}>
         <div className="filter">
           <label htmlFor="an-from">From</label>
           <input id="an-from" type="date" value={filters.from} aria-invalid={invalidRange} aria-describedby={invalidRange ? 'range-error' : undefined} onChange={(e) => setFilter('from', e.target.value)} />
@@ -81,12 +85,12 @@ export default function AnalyticsPage() {
             {REPORT_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
-      </form>
+      </MotionForm>
 
-      {invalidRange && <p className="range-error" role="alert" id="range-error">The end date must be on or after the start date.</p>}
+      {invalidRange && <FieldError className="range-error" role="alert" id="range-error">The end date must be on or after the start date.</FieldError>}
       {!invalidRange && <ExportButtons filters={filters} />}
 
-      {!invalidRange && loading && <p role="status" className="loading">Loading...</p>}
+      {!invalidRange && loading && <Skeleton label="Loading analytics"><SkeletonRows rows={3} height={180} /></Skeleton>}
       {!invalidRange && !loading && result?.error && (
         <Banner tone="error" role="alert">
           Could not load analytics. Check your connection and try again.{' '}
@@ -98,7 +102,7 @@ export default function AnalyticsPage() {
         <div className="analytics-grid">
           <ChartCard title="Incidents by type" labelHeader="Type" data={byType} />
           <ChartCard title="Incidents by status" labelHeader="Status" data={byStatus} />
-          <ChartCard title="Incidents per day" labelHeader="Day" data={perDay} />
+          <ChartCard title="Incidents per day" labelHeader="Day" data={perDay} chronological />
         </div>
       )}
     </div>

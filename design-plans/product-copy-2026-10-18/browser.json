@@ -1,0 +1,104 @@
+{
+  "environment": {
+    "project": "demo-disaster-rescue",
+    "emulator": true
+  },
+  "results": [
+    {
+      "route": "/",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/login",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/register",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/forbidden",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/login",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/register",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/forbidden",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/admin",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/dashboard",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/teams",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/users",
+      "width": 390,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/admin",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/dashboard",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/teams",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    },
+    {
+      "route": "/users",
+      "width": 1440,
+      "bannedCopy": false,
+      "overflow": 0
+    }
+  ]
+}

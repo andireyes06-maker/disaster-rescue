@@ -1,0 +1,14 @@
+{
+  "base": "76e54ff",
+  "patchApplies": true,
+  "restoredFileCount": 306,
+  "byteMismatches": [],
+  "restoreDirectory": "/var/folders/tq/crhpnspn19jg6m125y4gx7sh0000gn/T/rescue-recovery-restore-e98srr6h",
+  "apiPass": 351,
+  "apiSkipped": 18,
+  "webPass": 436,
+  "rulesPass": 129,
+  "emulatorPass": 17,
+  "firefoxPass": 4,
+  "startupRecoveryPass": true
+}

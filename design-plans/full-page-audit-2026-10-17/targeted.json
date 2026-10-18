@@ -1,0 +1,122 @@
+[
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 350,
+      "height": 45.6875,
+      "top": 120,
+      "right": 370,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 20,
+      "y": 120,
+      "width": 728,
+      "height": 45.6875,
+      "top": 120,
+      "right": 748,
+      "bottom": 165.6875,
+      "left": 20
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 1440,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "account": {
+      "x": 1132.203125,
+      "y": 12.65625,
+      "width": 273.796875,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1132.203125
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-01",
+    "width": 390,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-01",
+    "width": 768,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 1440,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-01",
+    "width": 1440,
+    "overflow": 0,
+    "small": [],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  }
+]

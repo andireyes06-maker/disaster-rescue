@@ -1,0 +1,415 @@
+{
+  "checks": [
+    {
+      "name": "all five roles enforce every protected web route",
+      "pass": true,
+      "detail": {
+        "guardCases": 65,
+        "signedInLoginRedirects": 5
+      }
+    }
+  ],
+  "routeChecks": [
+    {
+      "role": "admin",
+      "path": "/my",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/my/report",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/dashboard",
+      "expected": "/dashboard",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/map",
+      "expected": "/map",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/monitor",
+      "expected": "/monitor",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/teams",
+      "expected": "/teams",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/users",
+      "expected": "/users",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/analytics",
+      "expected": "/analytics",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/audit",
+      "expected": "/audit",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/assignments",
+      "expected": "/assignments",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/admin",
+      "expected": "/admin",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/incidents/demo-report-05",
+      "expected": "/incidents/demo-report-05",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/my",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/my/report",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/dashboard",
+      "expected": "/dashboard",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/map",
+      "expected": "/map",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/monitor",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/teams",
+      "expected": "/teams",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/users",
+      "expected": "/users",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/analytics",
+      "expected": "/analytics",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/audit",
+      "expected": "/audit",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/assignments",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/admin",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/incidents/demo-report-05",
+      "expected": "/incidents/demo-report-05",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/my",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/my/report",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/dashboard",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/map",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/monitor",
+      "expected": "/monitor",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/teams",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/users",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/analytics",
+      "expected": "/analytics",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/audit",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/assignments",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/admin",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/incidents/demo-report-05",
+      "expected": "/incidents/demo-report-05",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/my",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/my/report",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/dashboard",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/map",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/monitor",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/teams",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/users",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/analytics",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/audit",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/assignments",
+      "expected": "/assignments",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/admin",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/incidents/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/my",
+      "expected": "/my",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/my/report",
+      "expected": "/my/report",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/my/reports/demo-report-05",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/dashboard",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/map",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/monitor",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/teams",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/users",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/analytics",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/audit",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/assignments",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/admin",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/incidents/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    }
+  ],
+  "dialogs": [],
+  "unexpectedHosts": [],
+  "pageErrors": [],
+  "summary": {
+    "checks": 1,
+    "passed": 1,
+    "failed": 0,
+    "routeCases": 65,
+    "unexpectedHosts": 0,
+    "pageErrors": 0
+  }
+}

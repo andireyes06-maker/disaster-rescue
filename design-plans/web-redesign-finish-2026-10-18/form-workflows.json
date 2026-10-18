@@ -1,0 +1,562 @@
+[
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "empty-validation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "gps-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "gps-denied",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "file-rejected",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "submit-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "submit-failed-draft-kept",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "retry-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "resident",
+    "name": "submit-success-navigation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-validation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-failed-draft-kept",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-retry-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-success",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-edit-clears-success",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "empty-validation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "gps-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "gps-denied",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "file-rejected",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "submit-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "submit-failed-draft-kept",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "retry-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "resident",
+    "name": "submit-success-navigation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-validation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-failed-draft-kept",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-retry-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-success",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-edit-clears-success",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "empty-validation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "gps-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "gps-denied",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "file-rejected",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "submit-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "submit-failed-draft-kept",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "retry-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "resident",
+    "name": "submit-success-navigation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-validation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-failed-draft-kept",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-retry-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-success",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "role": "responder",
+    "name": "operation-edit-clears-success",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "empty-validation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "gps-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "gps-denied",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "file-rejected",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "submit-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "submit-failed-draft-kept",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "retry-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "resident",
+    "name": "submit-success-navigation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-validation",
+    "axe": [],
+    "overflow": 0,
+    "writes": 0,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-failed-draft-kept",
+    "axe": [],
+    "overflow": 0,
+    "writes": 1,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-retry-pending",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-success",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "role": "responder",
+    "name": "operation-edit-clears-success",
+    "axe": [],
+    "overflow": 0,
+    "writes": 2,
+    "scope": "GPS and API writes controlled in browser; no persistence"
+  }
+]

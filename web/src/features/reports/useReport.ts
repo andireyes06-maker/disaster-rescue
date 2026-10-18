@@ -73,15 +73,17 @@ export interface RescueUpdate {
 
 // Responder progress entries, oldest first. Firestore rules let staff read them.
 export function useReportUpdates(id: string) {
-  const [state, setState] = useState<{ updates: RescueUpdate[]; error: FirestoreError | null }>({ updates: [], error: null });
+  const [state, setState] = useState<{ reportId: string; updates: RescueUpdate[]; error: FirestoreError | null; loading: boolean }>({ reportId: id, updates: [], error: null, loading: true });
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    setState((s) => ({ ...s, error: null }));
+    let active = true;
+    setState((s) => ({ reportId: id, updates: s.reportId === id ? s.updates : [], error: null, loading: true }));
     const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'asc'));
-    return onSnapshot(
+    const unsubscribe = onSnapshot(
       q,
-      (snap) => setState({
+      (snap) => { if (active) setState({
+        reportId: id, loading: false,
         // Acknowledgements share this subcollection but carry no status; they are not progress entries.
         updates: snap.docs
           .filter((d) => typeof d.data().status === 'string' && d.data().status !== '')
@@ -97,12 +99,34 @@ export function useReportUpdates(id: string) {
             };
           }),
         error: null,
-      }),
+      }); },
       // Keep the last good history on a failed refresh; the error is shown beside it.
-      (error) => setState((s) => ({ ...s, error })),
+      (error) => { if (active) setState((s) => ({ reportId: id, updates: s.reportId === id ? s.updates : [], error, loading: false })); },
     );
+    return () => { active = false; unsubscribe(); };
   }, [id, attempt]);
 
   const retry = () => setAttempt((n) => n + 1);
-  return { ...state, retry };
+  return state.reportId === id ? { ...state, retry } : { reportId: id, updates: [], error: null, loading: true, retry };
+}
+
+// The acknowledgement read state and most recent time. Acknowledgements share the updates
+// subcollection but carry no status, so this reads the same ordered collection and keeps only those entries.
+export function useAcknowledgedAt(id: string) {
+  const initial = { id, at: null as Date | null, acknowledged: false, loading: true, error: null as FirestoreError | null };
+  const [state, setState] = useState(initial);
+  useEffect(() => {
+    setState({ id, at: null, acknowledged: false, loading: true, error: null });
+    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'asc'));
+    return onSnapshot(
+      q,
+      (snap) => {
+        const acks = snap.docs.filter((d) => d.data().kind === 'acknowledge');
+        const latest = acks[acks.length - 1]?.data().at;
+        setState({ id, at: latest && typeof latest.toDate === 'function' ? latest.toDate() : null, acknowledged: acks.length > 0, loading: false, error: null });
+      },
+      (error) => setState({ id, at: null, acknowledged: false, loading: false, error }),
+    );
+  }, [id]);
+  return state.id === id ? state : initial;
 }

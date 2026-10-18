@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "name": "Admin creates staff account and role change survives reload",
+      "pass": false,
+      "detail": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Account created.', { exact: true }) to be visible\u001b[22m\n"
+    },
+    {
+      "name": "Users deactivation and activation survive reload",
+      "pass": true
+    },
+    {
+      "name": "audit action filtering and invalid range recovery",
+      "pass": true
+    },
+    {
+      "name": "settings API rejects empty required hotline and notice consistently with UI",
+      "pass": false,
+      "detail": "API accepted both empty required fields; original values were restored\n\n200 !== 400\n"
+    }
+  ],
+  "observations": [
+    {
+      "kind": "settings-empty-values",
+      "status": 200,
+      "response": {
+        "hotline": "",
+        "residentNotice": ""
+      }
+    }
+  ],
+  "pageErrors": [],
+  "unexpectedHosts": [],
+  "summary": {
+    "total": 4,
+    "passed": 2,
+    "failed": 2
+  }
+}

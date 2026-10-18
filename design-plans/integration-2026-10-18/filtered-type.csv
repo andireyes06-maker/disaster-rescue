@@ -1,0 +1,11 @@
+reference,type,status,priority,verified,createdAt,assignedTeamId,lat,lng,addressText,description
+DR-VFGN24,flood,Awaiting Assignment,critical,true,2026-10-18T07:11:21.200Z,,14.62,121.03,Audit-only Harbor lane,Functional audit: water at a residential entrance.
+RR-260001,flood,Cancelled,critical,false,2026-10-18T05:09:05.493Z,,14.5997,120.9997,Riverside District,Water has entered the ground floor. Three residents need help reaching higher ground.
+RR-260005,flood,Under Verification,critical,false,2026-10-17T05:09:05.493Z,,14.6012,121.0012,Riverside District,A household reports rapidly rising water and an older resident who needs assistance.
+RR-260007,flood,Verified,critical,true,2026-10-16T15:09:05.493Z,,14.6043,121.0093,Riverbend District,Four residents are waiting on an upper floor. The location has been confirmed.
+RR-260011,flood,Awaiting Assignment,medium,true,2026-10-14T13:09:05.493Z,,14.5795,120.9885,South District,Two households need assistance moving to the designated meeting point.
+RR-260012,flood,Team Assigned,critical,true,2026-10-13T17:09:05.493Z,demo-team-alpha,14.5997,120.9997,Riverside District,A family is waiting for assistance near the footbridge approach.
+RR-260023,flood,Duplicate,medium,false,2026-10-11T09:09:05.493Z,,14.604099999999999,121.0091,Riverbend District,This report describes the same incident as RR-260015.
+RR-260015,flood,Rescue in Progress,critical,true,2026-10-11T05:09:05.493Z,demo-team-delta,14.604,121.009,Riverbend District,Responders have reached the area and are helping residents leave safely.
+RR-260018,flood,Resolved,medium,true,2026-10-07T11:09:05.493Z,demo-team-golf,14.5813,120.9903,South District,The reported residents have reached the meeting point. Staff closure is pending.
+RR-260021,flood,Closed,low,true,2026-10-04T13:09:05.493Z,demo-team-juliet,14.6006,121.0006,Riverside District,The response is complete. Staff have reviewed the final update.

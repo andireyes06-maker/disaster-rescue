@@ -1,0 +1,351 @@
+{
+  "environment": "demo-functional-audit",
+  "checks": [
+    {
+      "name": "local API health",
+      "pass": true
+    },
+    {
+      "name": "admin GET /reports permissions",
+      "pass": true
+    },
+    {
+      "name": "dispatcher GET /reports permissions",
+      "pass": true
+    },
+    {
+      "name": "dmo GET /reports permissions",
+      "pass": true
+    },
+    {
+      "name": "responder GET /reports permissions",
+      "pass": true
+    },
+    {
+      "name": "resident GET /reports permissions",
+      "pass": true
+    },
+    {
+      "name": "admin GET /teams permissions",
+      "pass": true
+    },
+    {
+      "name": "dispatcher GET /teams permissions",
+      "pass": true
+    },
+    {
+      "name": "dmo GET /teams permissions",
+      "pass": true
+    },
+    {
+      "name": "responder GET /teams permissions",
+      "pass": true
+    },
+    {
+      "name": "resident GET /teams permissions",
+      "pass": true
+    },
+    {
+      "name": "admin GET /users permissions",
+      "pass": true
+    },
+    {
+      "name": "dispatcher GET /users permissions",
+      "pass": true
+    },
+    {
+      "name": "dmo GET /users permissions",
+      "pass": true
+    },
+    {
+      "name": "responder GET /users permissions",
+      "pass": true
+    },
+    {
+      "name": "resident GET /users permissions",
+      "pass": true
+    },
+    {
+      "name": "admin GET /stats permissions",
+      "pass": true
+    },
+    {
+      "name": "dispatcher GET /stats permissions",
+      "pass": true
+    },
+    {
+      "name": "dmo GET /stats permissions",
+      "pass": true
+    },
+    {
+      "name": "responder GET /stats permissions",
+      "pass": false,
+      "detail": "Expected values to be strictly equal:\n\n200 !== 403\n"
+    },
+    {
+      "name": "resident GET /stats permissions",
+      "pass": true
+    },
+    {
+      "name": "admin GET /audit permissions",
+      "pass": true
+    },
+    {
+      "name": "dispatcher GET /audit permissions",
+      "pass": true
+    },
+    {
+      "name": "dmo GET /audit permissions",
+      "pass": true
+    },
+    {
+      "name": "responder GET /audit permissions",
+      "pass": true
+    },
+    {
+      "name": "resident GET /audit permissions",
+      "pass": true
+    },
+    {
+      "name": "admin GET /admin/health permissions",
+      "pass": true
+    },
+    {
+      "name": "dispatcher GET /admin/health permissions",
+      "pass": true
+    },
+    {
+      "name": "dmo GET /admin/health permissions",
+      "pass": true
+    },
+    {
+      "name": "responder GET /admin/health permissions",
+      "pass": true
+    },
+    {
+      "name": "resident GET /admin/health permissions",
+      "pass": true
+    },
+    {
+      "name": "admin GET /admin/settings permissions",
+      "pass": true
+    },
+    {
+      "name": "dispatcher GET /admin/settings permissions",
+      "pass": true
+    },
+    {
+      "name": "dmo GET /admin/settings permissions",
+      "pass": true
+    },
+    {
+      "name": "responder GET /admin/settings permissions",
+      "pass": true
+    },
+    {
+      "name": "resident GET /admin/settings permissions",
+      "pass": true
+    },
+    {
+      "name": "anonymous private API refused",
+      "pass": true
+    },
+    {
+      "name": "invalid bearer token refused",
+      "pass": true
+    },
+    {
+      "name": "resident list contains only own reports",
+      "pass": true
+    },
+    {
+      "name": "responder sees only assigned team and cannot read another team report",
+      "pass": true
+    },
+    {
+      "name": "resident cannot read another private Submitted report",
+      "pass": true
+    },
+    {
+      "name": "public incidents exclude precise locations, contacts, evidence and unverified reports",
+      "pass": true
+    },
+    {
+      "name": "resident creates report and stored values match",
+      "pass": true
+    },
+    {
+      "name": "unchanged retry returns same report without duplicate",
+      "pass": true
+    },
+    {
+      "name": "changed body with reused key must not silently discard the new report",
+      "pass": false,
+      "detail": "expected 409 mismatch, got 201; returned original=true\n\n201 !== 409\n"
+    },
+    {
+      "name": "invalid coordinates refused before write",
+      "pass": true
+    },
+    {
+      "name": "half-complete optional contact refused",
+      "pass": true
+    },
+    {
+      "name": "dispatcher cannot file resident report",
+      "pass": true
+    },
+    {
+      "name": "resident cannot verify report",
+      "pass": true
+    },
+    {
+      "name": "DMO cannot mutate incident",
+      "pass": true
+    },
+    {
+      "name": "priority and classification persist with audit entries",
+      "pass": true
+    },
+    {
+      "name": "verify persists Awaiting Assignment and blocks cancellation",
+      "pass": true
+    },
+    {
+      "name": "illegal close before rescue is refused",
+      "pass": true
+    },
+    {
+      "name": "create and rename team persist",
+      "pass": true
+    },
+    {
+      "name": "staff account creation persists profile and assigned team",
+      "pass": true
+    },
+    {
+      "name": "new staff account has a usable sign-in or delivered activation path",
+      "pass": false,
+      "detail": "created without password and without activation/reset delivery; UI supplies neither"
+    },
+    {
+      "name": "race for one free team yields one assignment and one conflict",
+      "pass": true
+    },
+    {
+      "name": "assigned responder acknowledges and stored update exists",
+      "pass": true
+    },
+    {
+      "name": "other responder cannot update assigned incident",
+      "pass": true
+    },
+    {
+      "name": "invalid rescued count refused",
+      "pass": true
+    },
+    {
+      "name": "responder progress, resolution, dispatcher closure and team release persist",
+      "pass": true
+    },
+    {
+      "name": "owner cancels Submitted report and cannot cancel someone else",
+      "pass": true
+    },
+    {
+      "name": "reject requires reason and persists rejected status and reason",
+      "pass": true
+    },
+    {
+      "name": "duplicate rejects self reference and persists valid target",
+      "pass": true
+    },
+    {
+      "name": "notifications generated by verify/assignment; read ownership and persistence",
+      "pass": true
+    },
+    {
+      "name": "account self-change and dispatcher admin creation refused",
+      "pass": true
+    },
+    {
+      "name": "deactivate blocks session and login; reactivate restores account",
+      "pass": true
+    },
+    {
+      "name": "role change persists and old session loses API access",
+      "pass": false,
+      "detail": "Expected values to be strictly equal:\n\n200 !== 401\n"
+    },
+    {
+      "name": "settings read and unchanged save work without an invented hotline",
+      "pass": true
+    },
+    {
+      "name": "account and report changes have persisted audit entries",
+      "pass": true
+    },
+    {
+      "name": "team create and rename have audit entries",
+      "pass": false,
+      "detail": "no team create/rename audit event was written"
+    },
+    {
+      "name": "stats match stored reports and filtered scope",
+      "pass": true
+    },
+    {
+      "name": "admin exports CSV/PDF with matching records and labelled filenames",
+      "pass": true
+    },
+    {
+      "name": "dispatcher exports CSV/PDF with matching records and labelled filenames",
+      "pass": true
+    },
+    {
+      "name": "dmo exports CSV/PDF with matching records and labelled filenames",
+      "pass": true
+    },
+    {
+      "name": "resident and anonymous exports refused",
+      "pass": true
+    },
+    {
+      "name": "new resident registration persists email for account search",
+      "pass": false,
+      "detail": "resident profile omits email, so Users/Admin cannot search the registered email\n+ actual - expected\n\n+ undefined\n- 'audit-new-resident@harbor.example'\n"
+    }
+  ],
+  "observations": [
+    {
+      "kind": "idempotency-body",
+      "status": 201,
+      "returnedOriginal": true,
+      "storedDescription": "Functional audit: water at a residential entrance."
+    },
+    {
+      "kind": "staff-onboarding",
+      "uid": "dWOwr9MkdsEVAjHcEVmbpqWF6fjm",
+      "hasPassword": false,
+      "hasActivation": false
+    },
+    {
+      "kind": "empty-hotline-save",
+      "accepted": true,
+      "hotlineLength": 0
+    },
+    {
+      "kind": "resident-profile-email",
+      "uid": "oPeXI5X6bgjG6keothSv3a7u2Jkf",
+      "storedEmail": null
+    }
+  ],
+  "requests": 99,
+  "raceAssignedId": "demo-report-09",
+  "summary": {
+    "total": 77,
+    "passed": 71,
+    "failed": 6,
+    "requests": 99
+  }
+}

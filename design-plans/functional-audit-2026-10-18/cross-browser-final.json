@@ -1,0 +1,97 @@
+[
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "report validation and category selection",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "name": "notification bell opens and Escape restores focus",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "resident",
+    "runtimeErrors": [
+      "/localhost:8390/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-functional-audit%2Fdatabases%2F(default)&RID=rpc&SID=e2m0SMY11S_OfJjB3-tZ9Q%3D%3D&AID=40&CI=0&TYPE=xmlhttp&zx=pv520glbosmc&t=1 due to access control checks.",
+      "/localhost:8390/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-functional-audit%2Fdatabases%2F(default)&RID=rpc&SID=e2m0SMY11S_OfJjB3-tZ9Q%3D%3D&AID=40&CI=0&TYPE=xmlhttp&zx=du4gxz58c6mb&t=2 due to access control checks."
+    ]
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "CSV and PDF browser downloads",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "name": "account search and Admin panel disclosure",
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "role": "admin",
+    "runtimeErrors": []
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "report validation and category selection",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "notification bell opens and Escape restores focus",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "runtimeErrors": []
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "CSV and PDF browser downloads",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "account search and Admin panel disclosure",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "runtimeErrors": []
+  }
+]

@@ -317,6 +317,15 @@ describe('config', () => {
     await env.withSecurityRulesDisabled(async (c) => { await c.firestore().doc('config/secret').set({ a: 1 }); });
     await assertFails(ctx.dispatcher().doc('config/secret').get());
   });
+  test('demo indicator is readable by active users and never writable', async () => {
+    await env.withSecurityRulesDisabled(async (c) => { await c.firestore().doc('config/demo').set({ active: true, label: 'Demo workspace · Sample data' }); });
+    for (const who of ['resident', 'dispatcher', 'dmo', 'responderA']) {
+      await assertSucceeds(ctx[who]().doc('config/demo').get());
+      await assertFails(ctx[who]().doc('config/demo').set({ active: false }));
+      await assertFails(ctx[who]().doc('config/demo').update({ active: false }));
+    }
+    await assertFails(ctx.anon().doc('config/demo').get());
+  });
 });
 
 describe('devices', () => {

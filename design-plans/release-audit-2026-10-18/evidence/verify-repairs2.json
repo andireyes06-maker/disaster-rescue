@@ -1,0 +1,22 @@
+[
+  {
+    "id": "F8-accounts-team-control-visible",
+    "pass": true,
+    "detail": {}
+  },
+  {
+    "id": "F8-team-change-persisted-readback",
+    "pass": true,
+    "detail": {
+      "before": "team-alpha",
+      "storedAfter": "team-bravo"
+    }
+  },
+  {
+    "id": "F8-restored-original-team",
+    "pass": true,
+    "detail": {
+      "restored": "team-alpha"
+    }
+  }
+]

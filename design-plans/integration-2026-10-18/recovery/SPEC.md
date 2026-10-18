@@ -1,0 +1,9 @@
+# Report creation recovery continuation
+
+Airen authorized continuing the next engineering items. Implement durable post-commit audit and notification recovery, then close Firefox retry coverage with compatible tooling where possible. Preserve the uncommitted integration, both original worktrees, visual/motion behavior and existing retry guarantees. No production actions or commit/push/deploy.
+
+Store a small report-created job atomically with each report (keyed and no-key). Process it immediately and through a bounded background poll after restart. A leased job is retried after failure/lease expiry. Use deterministic, create-once audit and in-app notification IDs, preserving already-read notifications. Include no report description, contact data or photo URLs in the job. Retryable push failures must propagate to the worker; push remains at-least-once across acknowledgement loss. Finish jobs only after audit and notification processing succeeds. No claim TTL or unsafe deletion.
+
+Acceptance: committed report with no service-side follow-up recovers through a new worker; retry after audit/notification failure produces exactly one audit and bell entry; concurrent workers are leased/fenced; notification read state survives retries; transient push failure keeps work pending; keyed replay preserves one report and one creation job. Test the real Firestore adapter on the local emulator plus focused service tests, then full affected suites/rules/build.
+
+Photo cleanup is a separate follow-up design: reserve upload public IDs durably before sending bytes, associate them with a generation/report, and reconcile only abandoned assets after proving no committed report references them. Never guess deletion from elapsed time alone. Actual Cloudinary remains unconfigured; no live provider success will be claimed.

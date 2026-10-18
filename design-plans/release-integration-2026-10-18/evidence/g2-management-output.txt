@@ -1,0 +1,140 @@
+PASS dispatcher creates team status 201
+PASS team create persisted in emulator doc name=Release Check Team 1792294297844
+PASS team rename persisted in emulator status 200, doc=Release Check Team 1792294297844 renamed
+PASS DMO reads renamed team via API 
+PASS DMO cannot create team (refused) status 403
+PASS admin creates temp responder and temp admin 201/201
+PASS temp accounts given passwords (emulator admin) 200/200
+PASS dispatcher changes temp responder role status 200, stored=dispatcher
+PASS deactivate persisted 
+PASS reactivate persisted 
+PASS dispatcher cannot demote an admin (refused) status 403
+PASS admin cannot change own account (refused) status 403
+PASS race round 1: one demotion succeeds, the other refused last_admin, one admin remains codes 200:ok | 409:last_admin; stored before admin/admin, after responder/admin
+PASS race round 2: one demotion succeeds, the other refused last_admin, one admin remains codes 200:ok | 409:last_admin; stored before admin/admin, after responder/admin
+PASS race round 3: one demotion succeeds, the other refused last_admin, one admin remains codes 200:ok | 409:last_admin; stored before admin/admin, after responder/admin
+PASS cleanup: temp users and team removed 
+{
+  "checks": [
+    {
+      "name": "dispatcher creates team",
+      "ok": true,
+      "detail": "status 201"
+    },
+    {
+      "name": "team create persisted in emulator",
+      "ok": true,
+      "detail": "doc name=Release Check Team 1792294297844"
+    },
+    {
+      "name": "team rename persisted in emulator",
+      "ok": true,
+      "detail": "status 200, doc=Release Check Team 1792294297844 renamed"
+    },
+    {
+      "name": "DMO reads renamed team via API",
+      "ok": true
+    },
+    {
+      "name": "DMO cannot create team (refused)",
+      "ok": true,
+      "detail": "status 403"
+    },
+    {
+      "name": "admin creates temp responder and temp admin",
+      "ok": true,
+      "detail": "201/201"
+    },
+    {
+      "name": "temp accounts given passwords (emulator admin)",
+      "ok": true,
+      "detail": "200/200"
+    },
+    {
+      "name": "dispatcher changes temp responder role",
+      "ok": true,
+      "detail": "status 200, stored=dispatcher"
+    },
+    {
+      "name": "deactivate persisted",
+      "ok": true
+    },
+    {
+      "name": "reactivate persisted",
+      "ok": true
+    },
+    {
+      "name": "dispatcher cannot demote an admin (refused)",
+      "ok": true,
+      "detail": "status 403"
+    },
+    {
+      "name": "admin cannot change own account (refused)",
+      "ok": true,
+      "detail": "status 403"
+    },
+    {
+      "name": "race round 1: one demotion succeeds, the other refused last_admin, one admin remains",
+      "ok": true,
+      "detail": "codes 200:ok | 409:last_admin; stored before admin/admin, after responder/admin"
+    },
+    {
+      "name": "race round 2: one demotion succeeds, the other refused last_admin, one admin remains",
+      "ok": true,
+      "detail": "codes 200:ok | 409:last_admin; stored before admin/admin, after responder/admin"
+    },
+    {
+      "name": "race round 3: one demotion succeeds, the other refused last_admin, one admin remains",
+      "ok": true,
+      "detail": "codes 200:ok | 409:last_admin; stored before admin/admin, after responder/admin"
+    },
+    {
+      "name": "cleanup: temp users and team removed",
+      "ok": true
+    }
+  ],
+  "rounds": [
+    {
+      "pre": [
+        "admin",
+        "admin"
+      ],
+      "codes": [
+        "200:ok",
+        "409:last_admin"
+      ],
+      "post": [
+        "responder",
+        "admin"
+      ]
+    },
+    {
+      "pre": [
+        "admin",
+        "admin"
+      ],
+      "codes": [
+        "200:ok",
+        "409:last_admin"
+      ],
+      "post": [
+        "responder",
+        "admin"
+      ]
+    },
+    {
+      "pre": [
+        "admin",
+        "admin"
+      ],
+      "codes": [
+        "200:ok",
+        "409:last_admin"
+      ],
+      "post": [
+        "responder",
+        "admin"
+      ]
+    }
+  ]
+}

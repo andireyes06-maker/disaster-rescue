@@ -1,0 +1,41 @@
+[
+  {
+    "id": "B2-no-demo-banner-on-landing",
+    "pass": true,
+    "detail": {
+      "matches": 0
+    }
+  },
+  {
+    "id": "B3-404-page-anonymous",
+    "pass": true,
+    "detail": {
+      "url": "http://localhost:5178/no-such-page-audit",
+      "visible": true
+    }
+  },
+  {
+    "id": "B3-404-page-signed-in-resident",
+    "pass": true,
+    "detail": {
+      "url": "http://localhost:5178/no-such-page-audit",
+      "visible": true
+    }
+  },
+  {
+    "id": "B4-no-number-neutral-safety-card",
+    "pass": true,
+    "detail": {
+      "neutralVisible": true,
+      "callNowCount": 0
+    }
+  },
+  {
+    "id": "B4-configured-number-shows-call-prompt",
+    "pass": true,
+    "detail": {
+      "saveStatus": 200,
+      "callPromptVisible": true
+    }
+  }
+]

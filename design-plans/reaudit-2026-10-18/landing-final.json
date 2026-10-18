@@ -1,0 +1,54 @@
+[
+  {
+    "role": "public",
+    "route": "/",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 768,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 1024,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  }
+]

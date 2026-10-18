@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import FieldError from '../FieldError';
 
 export default function Field({ label, id, error, children }: {
   label: string;
@@ -10,7 +11,7 @@ export default function Field({ label, id, error, children }: {
     <div className="calm-field">
       <label htmlFor={id} className="calm-field__label">{label}</label>
       {children}
-      {error && <p className="calm-field__error" id={`${id}-error`}>{error}</p>}
+      {error && <FieldError className="calm-field__error" id={`${id}-error`}>{error}</FieldError>}
     </div>
   );
 }

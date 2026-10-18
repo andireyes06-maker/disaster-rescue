@@ -1,0 +1,13 @@
+{
+  "caseA_staleRetryAfterCompletionFailure": {
+    "firstAttempt": "simulated completion-write failure",
+    "reportsAfterFirst": 1,
+    "retryReturned": "r3",
+    "reportsStored": 2,
+    "duplicate": true
+  },
+  "caseB_retryWhilePending": {
+    "retryOutcome": "submission_in_progress",
+    "refused": true
+  }
+}

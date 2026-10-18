@@ -5,20 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  build: {
-    rollupOptions: {
-      output: {
-        // Large third-party groups load as their own files, so the entry script stays small (W14).
-        manualChunks(id) {
-          if (id.includes('node_modules/@firebase/firestore') || id.includes('node_modules/firebase/firestore')) return 'firestore';
-          if (id.includes('node_modules/firebase') || id.includes('node_modules/@firebase')) return 'firebase';
-          if (id.includes('node_modules/leaflet') || id.includes('node_modules/react-leaflet')) return 'maps';
-          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react-router')) return 'react';
-          return undefined;
-        },
-      },
-    },
-  },
+  // Let route imports define chunk ownership. The previous manual groups placed
+  // shared React code inside the maps chunk, forcing Leaflet onto the landing page.
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

@@ -5,12 +5,10 @@ import { makeReport } from '../reports/fixtures';
 
 const h = vi.hoisted(() => ({
   reports: { reports: [] as unknown[], loading: false, error: null, retry: vi.fn() },
-  notifications: { notifications: [] as unknown[], error: null, loading: false },
   hotlines: { numbers: [{ label: 'National Emergency Hotline', number: '911' }], residentNotice: '' },
 }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'res-1', email: 'ana@example.com' }, role: 'resident' }) }));
 vi.mock('./useMyReports', () => ({ useMyReports: () => h.reports }));
-vi.mock('./useMyNotifications', () => ({ useMyNotifications: () => h.notifications }));
 vi.mock('./useHotlines', () => ({ useHotlines: () => h.hotlines }));
 vi.mock('./PublicIncidentMap', () => ({ default: () => <p>public map</p> }));
 
@@ -23,7 +21,6 @@ function renderPage() {
 describe('ResidentDashboard', () => {
   beforeEach(() => {
     h.reports = { reports: [], loading: false, error: null, retry: vi.fn() };
-    h.notifications = { notifications: [], error: null, loading: false };
     h.hotlines = { numbers: [{ label: 'National Emergency Hotline', number: '911' }], residentNotice: '' };
   });
 
@@ -48,7 +45,7 @@ describe('ResidentDashboard', () => {
 
   it('says so when there are no reports yet', () => {
     renderPage();
-    expect(screen.getByText('You have no reports yet.')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'No reports yet' })).toBeInTheDocument();
   });
 
   it('shows the public map of rounded areas', () => {
@@ -56,18 +53,8 @@ describe('ResidentDashboard', () => {
     expect(screen.getByText('public map')).toBeInTheDocument();
   });
 
-  it('shows recent notifications about the resident\'s reports', () => {
-    h.notifications.notifications = [{ id: 'n1', title: 'Report verified', body: 'Your flood report was verified.', reportId: 'r1', read: false, createdAt: new Date() }];
+  it('keeps notifications out of the dashboard content', () => {
     renderPage();
-    expect(screen.getByText('Report verified')).toBeInTheDocument();
-  });
-
-  it('does not say "no notifications" before the first answer arrives (W06)', () => {
-    const prev = h.notifications;
-    h.notifications = { notifications: [], error: null, loading: true };
-    render(<MemoryRouter><ResidentDashboard /></MemoryRouter>);
-    expect(screen.queryByText('No notifications yet.')).toBeNull();
-    expect(screen.getByText('Loading notifications')).toBeInTheDocument();
-    h.notifications = prev;
+    expect(screen.queryByRole('heading', { name: 'Notifications' })).not.toBeInTheDocument();
   });
 });

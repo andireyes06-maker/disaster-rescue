@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "projectId": "demo-recovery-runtime",
+  "reportId": "cx9JaOX3Kzvmz04bSR0K",
+  "separateServerProcess": true,
+  "port": 3107,
+  "auditEntries": 1,
+  "bellNotifications": 1,
+  "providerDelivery": false
+}

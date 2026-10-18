@@ -1,0 +1,2302 @@
+[
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Demo Admin ( admin )",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "All reports",
+        "class": "summary__label"
+      },
+      {
+        "size": "12px",
+        "text": "Active reports",
+        "class": "summary__label"
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": "summary__label"
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": "summary__label"
+      },
+      {
+        "size": "12px",
+        "text": "All reports",
+        "class": "quick__chip"
+      },
+      {
+        "size": "12px",
+        "text": "( 24 )",
+        "class": "quick__count"
+      },
+      {
+        "size": "12px",
+        "text": "Needs verification",
+        "class": "quick__chip"
+      },
+      {
+        "size": "12px",
+        "text": "( 6 )",
+        "class": "quick__count"
+      },
+      {
+        "size": "12px",
+        "text": "Active",
+        "class": "quick__chip"
+      },
+      {
+        "size": "12px",
+        "text": "( 17 )",
+        "class": "quick__count"
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Water has entered the ground floor. Three residents need hel",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Smoke is coming from a storage area. Residents have moved to",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Soil and branches are blocking an access road after heavy ra",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A fallen tree blocks the entrance to a residential lane.",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A household reports rapidly rising water and an older reside",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Under Verification",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Cracks and fallen ceiling panels have been reported near a m",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Under Verification",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Four residents are waiting on an upper floor. The location h",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Debris partly blocks a walkway. No trapped residents have be",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A fire report has been verified. Nearby residents are waitin",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Awaiting Assignment",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Road access is blocked. A team is needed to assess a safe ap",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Awaiting Assignment",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Two households need assistance moving to the designated meet",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Awaiting Assignment",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A family is waiting for assistance near the footbridge appro",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Team Assigned",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The resident cancelled the sample report before verification",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Cancelled",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The assigned team is preparing to assess the reported smoke.",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Team Assigned",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A team has been assigned to assess reported structural damag",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Team Assigned",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "This sample report describes the same incident as demo-repor",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Duplicate",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Responders have reached the area and are helping residents l",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Rescue in Progress",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A submitted sample report was rejected after its location co",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Rejected",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The team is assisting residents around the blocked access ro",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Rescue in Progress",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Responders are assisting a household affected by fallen debr",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Rescue in Progress",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The reported residents have reached the meeting point. Staff",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Resolved",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The assigned team has completed the requested assistance. St",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Resolved",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The response has been completed and the report reviewed and ",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Closed",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The response is complete. Staff have reviewed the final upda",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Closed",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 168.15625,
+      "y": 82,
+      "width": 201.84375,
+      "height": 90.6875,
+      "top": 82,
+      "right": 370,
+      "bottom": 172.6875,
+      "left": 168.15625
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Demo Admin ( admin )",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "24 located report s shown",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": "badge badge--low"
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": "badge badge--medium"
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": "badge badge--high"
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": "badge badge--critical"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Low",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Low",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Low",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Low",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-01, Flood, Critical, Submitted"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-02, Fire, High, Submitted"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-03, Landslide, High, Submitted"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-04, Other, Medium, Submitted"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-05, Flood, Critical, Under Verification"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-06, Earthquake, High, Under Verification"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-07, Flood, Critical, Verified"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-08, Other, Low, Verified"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-09, Fire, Critical, Awaiting Assignment"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-10, Landslide, High, Awaiting Assignment"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-11, Flood, Medium, Awaiting Assignment"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-12, Flood, Critical, Team Assigned"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-24, Other, Low, Cancelled"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-13, Fire, High, Team Assigned"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-14, Earthquake, High, Team Assigned"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-23, Flood, Medium, Duplicate"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-15, Flood, Critical, Rescue in Progress"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-22, Other, Low, Rejected"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-16, Landslide, High, Rescue in Progress"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-17, Other, Medium, Rescue in Progress"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-18, Flood, Medium, Resolved"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-19, Fire, High, Resolved"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-20, Earthquake, Medium, Closed"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-21, Flood, Low, Closed"
+      }
+    ],
+    "account": {
+      "x": 168.15625,
+      "y": 82,
+      "width": 201.84375,
+      "height": 90.6875,
+      "top": 82,
+      "right": 370,
+      "bottom": 172.6875,
+      "left": 168.15625
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Response coordination",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      },
+      {
+        "size": "12px",
+        "text": "Response coordination / Dashboard",
+        "class": "shell__section"
+      },
+      {
+        "size": "12px",
+        "text": "Demo Admin ( admin )",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "All reports",
+        "class": "summary__label"
+      },
+      {
+        "size": "12px",
+        "text": "Active reports",
+        "class": "summary__label"
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": "summary__label"
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": "summary__label"
+      },
+      {
+        "size": "12px",
+        "text": "All reports",
+        "class": "quick__chip"
+      },
+      {
+        "size": "12px",
+        "text": "( 24 )",
+        "class": "quick__count"
+      },
+      {
+        "size": "12px",
+        "text": "Needs verification",
+        "class": "quick__chip"
+      },
+      {
+        "size": "12px",
+        "text": "( 6 )",
+        "class": "quick__count"
+      },
+      {
+        "size": "12px",
+        "text": "Active",
+        "class": "quick__chip"
+      },
+      {
+        "size": "12px",
+        "text": "( 17 )",
+        "class": "quick__count"
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Water has entered the ground floor. Three residents need hel",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Smoke is coming from a storage area. Residents have moved to",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Soil and branches are blocking an access road after heavy ra",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A fallen tree blocks the entrance to a residential lane.",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A household reports rapidly rising water and an older reside",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Under Verification",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Cracks and fallen ceiling panels have been reported near a m",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Under Verification",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Four residents are waiting on an upper floor. The location h",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Debris partly blocks a walkway. No trapped residents have be",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A fire report has been verified. Nearby residents are waitin",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Awaiting Assignment",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Road access is blocked. A team is needed to assess a safe ap",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Awaiting Assignment",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Two households need assistance moving to the designated meet",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Awaiting Assignment",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A family is waiting for assistance near the footbridge appro",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Team Assigned",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The resident cancelled the sample report before verification",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Cancelled",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The assigned team is preparing to assess the reported smoke.",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Team Assigned",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A team has been assigned to assess reported structural damag",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Team Assigned",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "This sample report describes the same incident as demo-repor",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Duplicate",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Responders have reached the area and are helping residents l",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Rescue in Progress",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "A submitted sample report was rejected after its location co",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Rejected",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The team is assisting residents around the blocked access ro",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Rescue in Progress",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Responders are assisting a household affected by fallen debr",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Rescue in Progress",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The reported residents have reached the meeting point. Staff",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Resolved",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The assigned team has completed the requested assistance. St",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Resolved",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The response has been completed and the report reviewed and ",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Closed",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "The response is complete. Staff have reviewed the final upda",
+        "class": "inbox__desc"
+      },
+      {
+        "size": "12px",
+        "text": "Closed",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Verified",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Pending",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "account": {
+      "x": 1141.71875,
+      "y": 12.65625,
+      "width": 264.28125,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1141.71875
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Response coordination",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Disaster reporting & monitoring",
+        "class": "shell__side-note"
+      },
+      {
+        "size": "12px",
+        "text": "Response coordination / Map",
+        "class": "shell__section"
+      },
+      {
+        "size": "12px",
+        "text": "Demo Admin ( admin )",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "24 located report s shown",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Low",
+        "class": "badge badge--low"
+      },
+      {
+        "size": "12px",
+        "text": "Medium",
+        "class": "badge badge--medium"
+      },
+      {
+        "size": "12px",
+        "text": "High",
+        "class": "badge badge--high"
+      },
+      {
+        "size": "12px",
+        "text": "Critical",
+        "class": "badge badge--critical"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Low",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Low",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Critical",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Low",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "High",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Medium",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "11px",
+        "text": "Low",
+        "class": "map-marker__label"
+      },
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      }
+    ],
+    "markers": [
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-01, Flood, Critical, Submitted"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-02, Fire, High, Submitted"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-03, Landslide, High, Submitted"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-04, Other, Medium, Submitted"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-05, Flood, Critical, Under Verification"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-06, Earthquake, High, Under Verification"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-07, Flood, Critical, Verified"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-08, Other, Low, Verified"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-09, Fire, Critical, Awaiting Assignment"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-10, Landslide, High, Awaiting Assignment"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-11, Flood, Medium, Awaiting Assignment"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-12, Flood, Critical, Team Assigned"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-24, Other, Low, Cancelled"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-13, Fire, High, Team Assigned"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-14, Earthquake, High, Team Assigned"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-23, Flood, Medium, Duplicate"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-15, Flood, Critical, Rescue in Progress"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-22, Other, Low, Rejected"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-16, Landslide, High, Rescue in Progress"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-17, Other, Medium, Rescue in Progress"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-18, Flood, Medium, Resolved"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-19, Fire, High, Resolved"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-20, Earthquake, Medium, Closed"
+      },
+      {
+        "width": 24,
+        "height": 24,
+        "tabIndex": 0,
+        "title": "Report demo-report-21, Flood, Low, Closed"
+      }
+    ],
+    "account": {
+      "x": 1141.71875,
+      "y": 12.65625,
+      "width": 264.28125,
+      "height": 45.6875,
+      "top": 12.65625,
+      "right": 1406,
+      "bottom": 58.34375,
+      "left": 1141.71875
+    },
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "My reports",
+        "class": "active"
+      },
+      {
+        "size": "12px",
+        "text": "Report an emergency",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Sign out",
+        "class": "btn btn--ghost"
+      },
+      {
+        "size": "12px",
+        "text": "Submitting a report does not guarantee immediate rescue. If ",
+        "class": ""
+      },
+      {
+        "size": "10px",
+        "text": "DR-DEMO01 · 10/17/2026, 6:00:00 AM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "10px",
+        "text": "DR-DEMO05 · 10/16/2026, 6:00:00 AM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Under Verification",
+        "class": ""
+      },
+      {
+        "size": "10px",
+        "text": "DR-DEMO09 · 10/14/2026, 8:00:00 PM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Awaiting Assignment",
+        "class": ""
+      },
+      {
+        "size": "10px",
+        "text": "DR-DEMO12 · 10/12/2026, 6:00:00 PM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Team Assigned",
+        "class": ""
+      },
+      {
+        "size": "10px",
+        "text": "DR-DEMO15 · 10/10/2026, 6:00:00 AM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Rescue in Progress",
+        "class": ""
+      },
+      {
+        "size": "10px",
+        "text": "DR-DEMO18 · 10/6/2026, 12:00:00 PM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Resolved",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      },
+      {
+        "size": "10px",
+        "text": "Rescue Reports · Incident reporting and response coordinatio",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "My reports",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Report an emergency",
+        "class": "active"
+      },
+      {
+        "size": "12px",
+        "text": "Sign out",
+        "class": "btn btn--ghost"
+      },
+      {
+        "size": "12px",
+        "text": "Submitting a report does not guarantee immediate rescue. If ",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Select the emergency and describe the situation.",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Flood",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Fire",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Earthquake",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Landslide",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Other",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Help the response team find the incident.",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "No location set yet.",
+        "class": "location-status"
+      },
+      {
+        "size": "12px",
+        "text": "Enter coordinates instead",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Optional · Only take photos if it is safe.",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Up to 5 images · JPEG, PNG or WebP · 5 MB each",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Optional · Enter both fields or leave both empty.",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Your entries stay on this page until you submit or leave it.",
+        "class": "report-form__note"
+      },
+      {
+        "size": "10px",
+        "text": "Rescue Reports · Incident reporting and response coordinatio",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 390,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "My reports",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Report an emergency",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Sign out",
+        "class": "btn btn--ghost"
+      },
+      {
+        "size": "12px",
+        "text": "Under Verification",
+        "class": ""
+      },
+      {
+        "size": "10px",
+        "text": "Rescue Reports · Incident reporting and response coordinatio",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Demo Resident A",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Submitting a report does not guarantee immediate rescue. If ",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "DR-DEMO01 · 10/17/2026, 6:00:00 AM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Submitted",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "DR-DEMO05 · 10/16/2026, 6:00:00 AM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Under Verification",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "DR-DEMO09 · 10/14/2026, 8:00:00 PM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Awaiting Assignment",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "DR-DEMO12 · 10/12/2026, 6:00:00 PM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Team Assigned",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "DR-DEMO15 · 10/10/2026, 6:00:00 AM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Rescue in Progress",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "DR-DEMO18 · 10/6/2026, 12:00:00 PM",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Resolved",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Rescue Reports · Incident reporting and response coordinatio",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Demo Resident A",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Submitting a report does not guarantee immediate rescue. If ",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Select the emergency and describe the situation.",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Flood",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Fire",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Earthquake",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Landslide",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Other",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Help the response team find the incident.",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "© OpenStreetMap contributors",
+        "class": "leaflet-control-attribution leaflet-control"
+      },
+      {
+        "size": "12px",
+        "text": "Leaflet",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "No location set yet.",
+        "class": "location-status"
+      },
+      {
+        "size": "12px",
+        "text": "Enter coordinates instead",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Optional · Only take photos if it is safe.",
+        "class": ""
+      },
+      {
+        "size": "11px",
+        "text": "Up to 5 images · JPEG, PNG or WebP · 5 MB each",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Optional · Enter both fields or leave both empty.",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Your entries stay on this page until you submit or leave it.",
+        "class": "report-form__note"
+      },
+      {
+        "size": "12px",
+        "text": "Rescue Reports · Incident reporting and response coordinatio",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 1440,
+    "overflow": 0,
+    "small": [
+      {
+        "size": "12px",
+        "text": "Demo Resident A",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Under Verification",
+        "class": ""
+      },
+      {
+        "size": "12px",
+        "text": "Rescue Reports · Incident reporting and response coordinatio",
+        "class": ""
+      }
+    ],
+    "markers": [],
+    "axe": [],
+    "errors": []
+  }
+]

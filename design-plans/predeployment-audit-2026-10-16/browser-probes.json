@@ -1,0 +1,47 @@
+{
+  "mobileSelection": {
+    "scrollY": 154,
+    "viewportHeight": 900,
+    "previewTop": 2039.765625,
+    "selected": "Fire\nHigh\nBarangay Sto. Rosario, Malolos, Bulacan\nSmoke is coming from a residential building near the market. Residents have moved to the street.\n10/16/2026, 8:49:54 PM\nAwaiting Assignment\nVerified",
+    "active": "inbox__row is-selected"
+  },
+  "backState": {
+    "url": "http://127.0.0.1:5175/dashboard",
+    "filterVisible": false,
+    "selectedCount": 0
+  },
+  "assignmentFailure": {
+    "text": "Assign a rescue team\n✖ Could not load rescue teams.",
+    "buttons": [],
+    "state": "open",
+    "dataOpen": false,
+    "animation": "enter",
+    "transform": "none"
+  },
+  "assignmentEscape": {
+    "dialogCount": 0,
+    "focused": "\n    Skip to contentRescue ReportsResponse coordinationMenuDashboardMapAnalyticsAuditTeamsUsersDisaster reporting & monitoringResponse coordination / Incident detailsJose Reyes (dispatcher)Sign outIncident detailsReview the report, its evidence, and the response history.Back to the queuefire reportHighAwaiting AssignmentVerifiedReport audit-2 · 10/16/2026, 8:49:54 PMReported incidentSmoke is coming from a residential building near the market. Residents have moved to the street.ClassificationNot classifiedAddressBarangay Sto. Rosario, Malolos, BulacanLocation14.85300, 120.81200 (gps)ContactMaria Santos 09170000000Rescue updatesNo rescue updates yet.Next stepAssign a rescue teamThe report is verified and waiting for a team.Assign teamEdit priority & classification\n    \n  \n\n"
+  },
+  "menuEscape": {
+    "expanded": "true"
+  },
+  "reducedDialog": {
+    "animation": "enter",
+    "state": "open"
+  },
+  "publicMap": {
+    "emptyText": 1
+  },
+  "residentDraft": {
+    "description": ""
+  },
+  "delayedMap": {
+    "height": 189.046875,
+    "text": "Incidents near you\n\nAreas are rounded to protect exact locations.\n\nLoading the map..."
+  },
+  "adminPreview": {
+    "canSeeVerify": 0,
+    "body": "Flood report\n\nBarangay San Pablo, Malolos, Bulacan\n\nCritical\nSubmitted\nPending\nREPORTED SITUATION\n\nFlood water has reached the first floor. Three residents need assistance, including an older person with limited mobility.\n\nReported\n10/16/2026, 9:49:54 PM\nVerification\nPending\nEvidence\n1 photo\nNEXT STEP\n\nVerify the report\n\nCheck the report before assigning a rescue team.\n\nOpen full report\nRESPONSE HISTORY\nReport submitted\n10/16/2026, 9:49:54 PM"
+  }
+}

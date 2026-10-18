@@ -1,0 +1,330 @@
+[
+  {
+    "label": "localhost",
+    "name": "landing",
+    "width": 1440,
+    "url": "http://localhost:5174/",
+    "errors": [],
+    "title": "Disaster Rescue Reporting",
+    "text": "Skip to content\nDR\nDisaster Rescue\nStaff sign in\nHow it works\nWho it is for\nAccess\nDemo site · hotline not configured\nReport an incident.\nCoordinate the response.\n\nOne place for residents, dispatchers, responders, and the DMO to move a report from submission to closure.\n\nCreate a resident account\nStaff sign in\nCritical\nRescue in Progress\n\nFlood report\n\nRiverside Demo Zone (sample area)\n\nSample evidence\n\nTeam reached the access point.\n\nTwo residents are being helped to the meeting point.\n\nSample update\n\nReport received\nVerified by dispatch\nTeam assigned\nResponse in progress\nIllustrative sample. Not live data.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report usually moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when. Reports can also be rejected, marked as duplicates, or cancelled.\n\nWho it is for\nResidents\nSend a report with photos and your location, then follow its status until it is closed.\nNew here? Create an account\nAlready a resident? Sign in\nResponders\nAcknowledge assignments and post rescue updates from the field.\nDispatchers\nVerify, prioritize, and assign reports to a team.\nDMO\nMonitor incident trends and export summaries.\nAccess and privacy\nWebsite\nOpen to staff with an account, and to residents who register.\nMobile app\nNot publicly released. Ask your team lead for a demo build.\nPrivacy\nPrivacy notice: pending review.\nDR\nDisaster Rescue\nStaff sign in\nResidents\nAccess\nPrivacy\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nDemonstration site. A local emergency hotline has not been configured.",
+    "scrollWidth": 1440,
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "#main-content"
+      },
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "Staff sign in",
+        "href": "/login"
+      },
+      {
+        "text": "How it works",
+        "href": "#how-it-works"
+      },
+      {
+        "text": "Who it is for",
+        "href": "#who-it-is-for"
+      },
+      {
+        "text": "Access",
+        "href": "#access"
+      },
+      {
+        "text": "Create a resident account",
+        "href": "/register"
+      },
+      {
+        "text": "Staff sign in",
+        "href": "/login"
+      },
+      {
+        "text": "New here? Create an account",
+        "href": "/register"
+      },
+      {
+        "text": "Already a resident? Sign in",
+        "href": "/login"
+      },
+      {
+        "text": "Staff sign in",
+        "href": "/login"
+      },
+      {
+        "text": "Residents",
+        "href": "#residents"
+      },
+      {
+        "text": "Access",
+        "href": "#access"
+      },
+      {
+        "text": "Privacy",
+        "href": "#privacy"
+      }
+    ],
+    "headings": [
+      {
+        "text": "Report an incident.\nCoordinate the response.",
+        "tag": "H1",
+        "size": "56px"
+      },
+      {
+        "text": "How a report usually moves",
+        "tag": "H2",
+        "size": "40px"
+      },
+      {
+        "text": "Who it is for",
+        "tag": "H2",
+        "size": "40px"
+      },
+      {
+        "text": "Access and privacy",
+        "tag": "H2",
+        "size": "32px"
+      }
+    ],
+    "buttons": []
+  },
+  {
+    "label": "localhost",
+    "name": "landing",
+    "width": 390,
+    "url": "http://localhost:5174/",
+    "errors": [],
+    "title": "Disaster Rescue Reporting",
+    "text": "Skip to content\nDR\nDisaster Rescue\nStaff sign in\nHow it works\nWho it is for\nAccess\nDemo site · hotline not configured\nReport an incident.\nCoordinate the response.\n\nOne place for residents, dispatchers, responders, and the DMO to move a report from submission to closure.\n\nCreate a resident account\nStaff sign in\nCritical\nRescue in Progress\n\nFlood report\n\nRiverside Demo Zone (sample area)\n\nSample evidence\n\nTeam reached the access point.\n\nTwo residents are being helped to the meeting point.\n\nSample update\n\nReport received\nVerified by dispatch\nTeam assigned\nResponse in progress\nIllustrative sample. Not live data.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report usually moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when. Reports can also be rejected, marked as duplicates, or cancelled.\n\nWho it is for\nResidents\nSend a report with photos and your location, then follow its status until it is closed.\nNew here? Create an account\nAlready a resident? Sign in\nResponders\nAcknowledge assignments and post rescue updates from the field.\nDispatchers\nVerify, prioritize, and assign reports to a team.\nDMO\nMonitor incident trends and export summaries.\nAccess and privacy\nWebsite\nOpen to staff with an account, and to residents who register.\nMobile app\nNot publicly released. Ask your team lead for a demo build.\nPrivacy\nPrivacy notice: pending review.\nDR\nDisaster Rescue\nStaff sign in\nResidents\nAccess\nPrivacy\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nDemonstration site. A local emergency hotline has not been configured.",
+    "scrollWidth": 390,
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "#main-content"
+      },
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "Staff sign in",
+        "href": "/login"
+      },
+      {
+        "text": "How it works",
+        "href": "#how-it-works"
+      },
+      {
+        "text": "Who it is for",
+        "href": "#who-it-is-for"
+      },
+      {
+        "text": "Access",
+        "href": "#access"
+      },
+      {
+        "text": "Create a resident account",
+        "href": "/register"
+      },
+      {
+        "text": "Staff sign in",
+        "href": "/login"
+      },
+      {
+        "text": "New here? Create an account",
+        "href": "/register"
+      },
+      {
+        "text": "Already a resident? Sign in",
+        "href": "/login"
+      },
+      {
+        "text": "Staff sign in",
+        "href": "/login"
+      },
+      {
+        "text": "Residents",
+        "href": "#residents"
+      },
+      {
+        "text": "Access",
+        "href": "#access"
+      },
+      {
+        "text": "Privacy",
+        "href": "#privacy"
+      }
+    ],
+    "headings": [
+      {
+        "text": "Report an incident.\nCoordinate the response.",
+        "tag": "H1",
+        "size": "38px"
+      },
+      {
+        "text": "How a report usually moves",
+        "tag": "H2",
+        "size": "28px"
+      },
+      {
+        "text": "Who it is for",
+        "tag": "H2",
+        "size": "28px"
+      },
+      {
+        "text": "Access and privacy",
+        "tag": "H2",
+        "size": "24px"
+      }
+    ],
+    "buttons": []
+  },
+  {
+    "label": "localhost",
+    "name": "login",
+    "width": 1440,
+    "url": "http://localhost:5174/login",
+    "errors": [],
+    "title": "Disaster Rescue Reporting",
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nSign in\n\nStaff access for dispatchers, responders, and disaster management officers.\n\nEmail\nPassword\nSign in\n\nNeed an account or help signing in? Contact your team’s dispatcher.\n\nResidents: create a resident account.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "scrollWidth": 1440,
+    "links": [
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "create a resident account",
+        "href": "/register"
+      }
+    ],
+    "headings": [
+      {
+        "text": "Sign in",
+        "tag": "H1",
+        "size": "28px"
+      }
+    ],
+    "buttons": [
+      "Sign in"
+    ]
+  },
+  {
+    "label": "localhost",
+    "name": "login",
+    "width": 390,
+    "url": "http://localhost:5174/login",
+    "errors": [],
+    "title": "Disaster Rescue Reporting",
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nSign in\n\nStaff access for dispatchers, responders, and disaster management officers.\n\nEmail\nPassword\nSign in\n\nNeed an account or help signing in? Contact your team’s dispatcher.\n\nResidents: create a resident account.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.",
+    "scrollWidth": 390,
+    "links": [
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "create a resident account",
+        "href": "/register"
+      }
+    ],
+    "headings": [
+      {
+        "text": "Sign in",
+        "tag": "H1",
+        "size": "28px"
+      }
+    ],
+    "buttons": [
+      "Sign in"
+    ]
+  },
+  {
+    "label": "localhost",
+    "name": "register",
+    "width": 1440,
+    "url": "http://localhost:5174/register",
+    "errors": [],
+    "title": "Disaster Rescue Reporting",
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nCreate a resident account\n\nReport an emergency and follow your reports from one place.\n\nSend a report with photos and your location.\nFollow each status change on your reports.\nSee rounded incident areas near you.\n\nIf you are in danger, call your local emergency number now. A report does not guarantee immediate rescue.\n\nName\nEmail\nPhone\nPassword\nConfirm password\nCreate account\n\nAlready registered? Sign in",
+    "scrollWidth": 1440,
+    "links": [
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "Sign in",
+        "href": "/login"
+      }
+    ],
+    "headings": [
+      {
+        "text": "Create a resident account",
+        "tag": "H1",
+        "size": "28px"
+      }
+    ],
+    "buttons": [
+      "Create account"
+    ]
+  },
+  {
+    "label": "localhost",
+    "name": "register",
+    "width": 390,
+    "url": "http://localhost:5174/register",
+    "errors": [],
+    "title": "Disaster Rescue Reporting",
+    "text": "DR\nDisaster Rescue\nDemo site · hotline not configured\nCreate a resident account\n\nReport an emergency and follow your reports from one place.\n\nSend a report with photos and your location.\nFollow each status change on your reports.\nSee rounded incident areas near you.\n\nIf you are in danger, call your local emergency number now. A report does not guarantee immediate rescue.\n\nName\nEmail\nPhone\nPassword\nConfirm password\nCreate account\n\nAlready registered? Sign in",
+    "scrollWidth": 390,
+    "links": [
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "Sign in",
+        "href": "/login"
+      }
+    ],
+    "headings": [
+      {
+        "text": "Create a resident account",
+        "tag": "H1",
+        "size": "28px"
+      }
+    ],
+    "buttons": [
+      "Create account"
+    ]
+  },
+  {
+    "label": "ipv4",
+    "name": "landing",
+    "width": 1440,
+    "url": "http://127.0.0.1:5174/",
+    "errors": [],
+    "title": "disaster_rescue",
+    "text": "",
+    "scrollWidth": 1440,
+    "links": [],
+    "headings": [],
+    "buttons": []
+  },
+  {
+    "label": "ipv4",
+    "name": "landing",
+    "width": 390,
+    "url": "http://127.0.0.1:5174/",
+    "errors": [],
+    "title": "disaster_rescue",
+    "text": "",
+    "scrollWidth": 390,
+    "links": [],
+    "headings": [],
+    "buttons": []
+  }
+]

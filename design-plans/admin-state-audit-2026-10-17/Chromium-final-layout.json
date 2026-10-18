@@ -1,0 +1,177 @@
+{
+  "environment": {
+    "project": "demo-disaster-rescue",
+    "emulator": true
+  },
+  "requests": "All API writes mocked; no persisted changes",
+  "results": [
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "final-long-content",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "controls": [
+        {
+          "id": "admin-role-filter",
+          "height": 46.796875
+        },
+        {
+          "id": "role-demo-admin",
+          "height": 46.796875
+        },
+        {
+          "id": "role-audit-staff-fixture",
+          "height": 46.796875
+        },
+        {
+          "id": "role-long-fixture",
+          "height": 46.796875
+        },
+        {
+          "id": "new-role",
+          "height": 46.796875
+        },
+        {
+          "id": "new-team",
+          "height": 46.796875
+        }
+      ]
+    },
+    {
+      "engine": "Chromium",
+      "width": 390,
+      "name": "final-system-layout",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 768,
+      "name": "final-long-content",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "controls": [
+        {
+          "id": "admin-role-filter",
+          "height": 46.796875
+        },
+        {
+          "id": "role-demo-admin",
+          "height": 46.796875
+        },
+        {
+          "id": "role-audit-staff-fixture",
+          "height": 46.796875
+        },
+        {
+          "id": "role-long-fixture",
+          "height": 46.796875
+        },
+        {
+          "id": "new-role",
+          "height": 46.796875
+        },
+        {
+          "id": "new-team",
+          "height": 46.796875
+        }
+      ]
+    },
+    {
+      "engine": "Chromium",
+      "width": 768,
+      "name": "final-system-layout",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1024,
+      "name": "final-long-content",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "controls": [
+        {
+          "id": "admin-role-filter",
+          "height": 45.25
+        },
+        {
+          "id": "role-demo-admin",
+          "height": 44
+        },
+        {
+          "id": "role-audit-staff-fixture",
+          "height": 44
+        },
+        {
+          "id": "role-long-fixture",
+          "height": 44
+        },
+        {
+          "id": "new-role",
+          "height": 45.25
+        },
+        {
+          "id": "new-team",
+          "height": 45.25
+        }
+      ]
+    },
+    {
+      "engine": "Chromium",
+      "width": 1024,
+      "name": "final-system-layout",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "final-long-content",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": [],
+      "controls": [
+        {
+          "id": "admin-role-filter",
+          "height": 45.25
+        },
+        {
+          "id": "role-demo-admin",
+          "height": 44
+        },
+        {
+          "id": "role-audit-staff-fixture",
+          "height": 44
+        },
+        {
+          "id": "role-long-fixture",
+          "height": 44
+        },
+        {
+          "id": "new-role",
+          "height": 45.25
+        },
+        {
+          "id": "new-team",
+          "height": 45.25
+        }
+      ]
+    },
+    {
+      "engine": "Chromium",
+      "width": 1440,
+      "name": "final-system-layout",
+      "axe": [],
+      "overflow": 0,
+      "emulatorTransportErrors": []
+    }
+  ]
+}

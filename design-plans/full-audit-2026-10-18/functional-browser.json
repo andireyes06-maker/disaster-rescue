@@ -1,0 +1,127 @@
+{
+  "checks": [
+    {
+      "name": "public landing navigation, FAQ and film controls",
+      "pass": true
+    },
+    {
+      "name": "sign-in empty validation and wrong-password recovery",
+      "pass": true
+    },
+    {
+      "name": "registration validation, real creation, role redirect and session restore",
+      "pass": true
+    },
+    {
+      "name": "interrupted profile setup resumes with same credentials",
+      "pass": true,
+      "detail": {
+        "failure": "mocked 503 on profile call",
+        "retry": "real API/emulator"
+      }
+    },
+    {
+      "name": "report empty-submit validation focuses emergency type",
+      "pass": true
+    },
+    {
+      "name": "denied GPS and invalid attachment preserve typed description",
+      "pass": true
+    },
+    {
+      "name": "report sends once through real API and detail survives reload",
+      "pass": true
+    },
+    {
+      "name": "resident Cancel persists and updates the page",
+      "pass": true
+    },
+    {
+      "name": "in-app navigation protects unsaved report entries",
+      "pass": true
+    },
+    {
+      "name": "dispatcher queue search, no-match recovery and selected incident navigation",
+      "pass": true
+    },
+    {
+      "name": "dispatcher real metadata saves, verify and resident realtime status",
+      "pass": true
+    },
+    {
+      "name": "dispatcher assignment dialog saves to a real available team",
+      "pass": true
+    },
+    {
+      "name": "notification mark-read persists after reload",
+      "pass": true
+    },
+    {
+      "name": "responder real progress and resolution reach resident and dispatcher; close releases team",
+      "pass": false,
+      "detail": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Close report', exact: true }) to be visible\u001b[22m\n"
+    },
+    {
+      "name": "map filtering and keyboard marker navigation",
+      "pass": true
+    },
+    {
+      "name": "DMO monitor marker opens read-only incident",
+      "pass": true
+    },
+    {
+      "name": "Teams create, search and rename persist through the browser",
+      "pass": true
+    },
+    {
+      "name": "Analytics browser downloads keep server names and surface failures",
+      "pass": true,
+      "detail": {
+        "success": "real emulator/API",
+        "failure": "mocked HTTP 503"
+      }
+    },
+    {
+      "name": "Analytics filters update URL and totals; invalid date range blocks export",
+      "pass": true
+    },
+    {
+      "name": "fresh resident email can be found in Admin accounts",
+      "pass": true
+    },
+    {
+      "name": "offline resident status is labelled stale and catches up on reconnect",
+      "pass": true
+    }
+  ],
+  "routeChecks": [],
+  "dialogs": [
+    {
+      "type": "beforeunload",
+      "message": ""
+    },
+    {
+      "type": "beforeunload",
+      "message": ""
+    },
+    {
+      "type": "confirm",
+      "message": "You have an unsent report. Leave this page and lose what you entered?"
+    }
+  ],
+  "unexpectedHosts": [],
+  "pageErrors": [],
+  "browserReport": {
+    "id": "WrwHUjbXMD8fKKC6FUKi",
+    "status": "Submitted",
+    "reference": "DR-HQKMH3"
+  },
+  "summary": {
+    "checks": 21,
+    "passed": 20,
+    "failed": 1,
+    "routeCases": 0,
+    "unexpectedHosts": 0,
+    "pageErrors": 0
+  }
+}

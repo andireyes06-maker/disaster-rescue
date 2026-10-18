@@ -1,0 +1,6 @@
+e9c6426 2026-10-16 21:35:04 +0800 feat(web): indigo/violet system, dispatcher inbox, masthead and resident/admin layout
+b9d6246 2026-10-16 19:00:21 +0800 feat(web): resident dashboard, notifications, and hotline notice
+1273c1c 2026-10-16 18:15:42 +0800 feat(web): website UI/UX pass with retry controls and handoff
+22bae48 2026-10-16 10:41:05 +0800 style(web): bold public-safety palette and landing remake
+
+Landing difference since e9c6426:

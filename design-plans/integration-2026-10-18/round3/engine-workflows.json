@@ -1,0 +1,185 @@
+[
+  {
+    "engine": "chromium",
+    "checks": [
+      {
+        "id": "resident submits a report through the API",
+        "pass": true,
+        "detail": {
+          "id": "kfvlhEQKkr7ensSBuGOF"
+        }
+      },
+      {
+        "id": "dispatcher verifies a report (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Awaiting Assignment"
+        }
+      },
+      {
+        "id": "dispatcher assigns the responder team (persisted)",
+        "pass": true,
+        "detail": {
+          "team": "Harbor India",
+          "status": "Team Assigned"
+        }
+      },
+      {
+        "id": "dispatcher rejects a second report with a reason (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Rejected"
+        }
+      },
+      {
+        "id": "responder sees the assignment and posts progress (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Rescue in Progress"
+        }
+      },
+      {
+        "id": "admin creates a team (persisted)",
+        "pass": true,
+        "detail": {
+          "team": "Engine team chromium 51741"
+        }
+      }
+    ],
+    "runtimeErrors": [
+      "dispatcher @resident submits a report through the API: Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "dispatcher @dispatcher verifies a report (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "dispatcher @dispatcher rejects a second report with a reason (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "responder @dispatcher rejects a second report with a reason (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "responder @responder sees the assignment and posts progress (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "admin @responder sees the assignment and posts progress (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "admin @admin creates a team (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)"
+    ],
+    "launchError": null,
+    "currentCheck": "admin creates a team (persisted)"
+  },
+  {
+    "engine": "firefox",
+    "checks": [
+      {
+        "id": "resident submits a report through the API",
+        "pass": true,
+        "detail": {
+          "id": "V1eLBslziwtM1bjyspLc"
+        }
+      },
+      {
+        "id": "dispatcher verifies a report (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Awaiting Assignment"
+        }
+      },
+      {
+        "id": "dispatcher assigns the responder team (persisted)",
+        "pass": true,
+        "detail": {
+          "team": "Engine team chromium 51741",
+          "status": "Team Assigned"
+        }
+      },
+      {
+        "id": "dispatcher rejects a second report with a reason (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Rejected"
+        }
+      },
+      {
+        "id": "responder sees the assignment and posts progress (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Rescue in Progress"
+        }
+      },
+      {
+        "id": "admin creates a team (persisted)",
+        "pass": true,
+        "detail": {
+          "team": "Engine team firefox 76446"
+        }
+      }
+    ],
+    "runtimeErrors": [
+      "dispatcher @resident submits a report through the API: [JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" style:normal weight:100..900 width:100 src index:0): status=2147746065 sou",
+      "dispatcher @dispatcher verifies a report (persisted): [JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" style:normal weight:100..900 width:100 src index:0): status=2147746065 sou",
+      "dispatcher @dispatcher rejects a second report with a reason (persisted): [JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" style:normal weight:100..900 width:100 src index:0): status=2147746065 sou",
+      "responder @dispatcher rejects a second report with a reason (persisted): [JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" style:normal weight:100..900 width:100 src index:0): status=2147746065 sou",
+      "responder @responder sees the assignment and posts progress (persisted): [JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" style:normal weight:100..900 width:100 src index:0): status=2147746065 sou",
+      "admin @responder sees the assignment and posts progress (persisted): [JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" style:normal weight:100..900 width:100 src index:0): status=2147746065 sou",
+      "admin @admin creates a team (persisted): [JavaScript Error: \"downloadable font: download failed (font-family: \"Geist Variable\" style:normal weight:100..900 width:100 src index:0): status=2147746065 sou"
+    ],
+    "launchError": null,
+    "currentCheck": "admin creates a team (persisted)"
+  },
+  {
+    "engine": "webkit",
+    "checks": [
+      {
+        "id": "resident submits a report through the API",
+        "pass": true,
+        "detail": {
+          "id": "O5bVFMpzICQgqqXAgGRD"
+        }
+      },
+      {
+        "id": "dispatcher verifies a report (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Awaiting Assignment"
+        }
+      },
+      {
+        "id": "dispatcher assigns the responder team (persisted)",
+        "pass": true,
+        "detail": {
+          "team": "Engine team firefox 76446",
+          "status": "Team Assigned"
+        }
+      },
+      {
+        "id": "dispatcher rejects a second report with a reason (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Rejected"
+        }
+      },
+      {
+        "id": "responder sees the assignment and posts progress (persisted)",
+        "pass": true,
+        "detail": {
+          "status": "Rescue in Progress"
+        }
+      },
+      {
+        "id": "admin creates a team (persisted)",
+        "pass": true,
+        "detail": {
+          "team": "Engine team webkit 99647"
+        }
+      }
+    ],
+    "runtimeErrors": [
+      "dispatcher @resident submits a report through the API: Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "dispatcher @dispatcher verifies a report (persisted): /localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-integrated-release%2Fdatabases%2F(default)&RID=rpc&SID=3IvxqNrTtLTBD",
+      "dispatcher @dispatcher verifies a report (persisted): /localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-integrated-release%2Fdatabases%2F(default)&RID=rpc&SID=3IvxqNrTtLTBD",
+      "dispatcher @dispatcher verifies a report (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "dispatcher @dispatcher rejects a second report with a reason (persisted): /localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-integrated-release%2Fdatabases%2F(default)&RID=rpc&SID=9aLoHOU4x5s5a",
+      "dispatcher @dispatcher rejects a second report with a reason (persisted): /localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-integrated-release%2Fdatabases%2F(default)&RID=rpc&SID=9aLoHOU4x5s5a",
+      "dispatcher @dispatcher rejects a second report with a reason (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "responder @dispatcher rejects a second report with a reason (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "responder @responder sees the assignment and posts progress (persisted): /localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-integrated-release%2Fdatabases%2F(default)&RID=rpc&SID=8AnR64MxWwDvN",
+      "responder @responder sees the assignment and posts progress (persisted): /localhost:8490/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-integrated-release%2Fdatabases%2F(default)&RID=rpc&SID=8AnR64MxWwDvN",
+      "responder @responder sees the assignment and posts progress (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "admin @responder sees the assignment and posts progress (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)",
+      "admin @admin creates a team (persisted): Failed to load resource: the server responded with a status of 403 (Forbidden)"
+    ],
+    "launchError": null,
+    "currentCheck": "admin creates a team (persisted)"
+  }
+]

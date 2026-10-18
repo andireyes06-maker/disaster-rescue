@@ -1,0 +1,46 @@
+[
+  {
+    "engine": "Firefox",
+    "width": 390,
+    "route": "/dashboard",
+    "interaction": {
+      "searchRecovered": true,
+      "focused": true
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Firefox",
+    "width": 1440,
+    "route": "/dashboard",
+    "interaction": {
+      "searchRecovered": true,
+      "focused": true
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "route": "/dashboard",
+    "interaction": {
+      "searchRecovered": true,
+      "focused": true
+    },
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "route": "/dashboard",
+    "interaction": {
+      "searchRecovered": true,
+      "focused": true
+    },
+    "axe": [],
+    "overflow": 0
+  }
+]

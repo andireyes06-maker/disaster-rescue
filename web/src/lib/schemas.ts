@@ -37,7 +37,7 @@ export const teamNameSchema = z.object({
 export type TeamName = z.infer<typeof teamNameSchema>;
 
 export const staffAccountSchema = z.object({
-  email: z.string().trim().min(1, { error: 'Enter an email address.' }),
+  email: z.string().trim().email({ error: 'Enter a valid email address.' }),
   name: z.string().trim().min(1, { error: 'Enter a name.' }).max(100, { error: 'Names must be 100 characters or fewer.' }),
   role: z.enum(STAFF_ROLE_OPTIONS),
   team: z.string(),
@@ -54,7 +54,7 @@ export const residentSignUpSchema = z
     email: z.string().trim().email({ error: 'Enter a valid email.' }),
     phone: z.string().trim().regex(PHONE_PATTERN, { error: 'Enter a valid phone number.' }),
     password: z.string().min(8, { error: 'Password must be at least 8 characters.' }).max(128, { error: 'Password is too long.' }),
-    confirmPassword: z.string(),
+    confirmPassword: z.string().min(1, { error: 'Confirm your password.' }),
   })
   .refine((d) => d.password === d.confirmPassword, { error: 'Passwords do not match', path: ['confirmPassword'] });
 

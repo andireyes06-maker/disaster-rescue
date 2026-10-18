@@ -1,0 +1,6 @@
+[
+  {
+    "name": "landing skip link is visible on focus and reaches main",
+    "pass": true
+  }
+]

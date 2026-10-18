@@ -1,0 +1,51 @@
+{
+  "app": "http://127.0.0.1:4183",
+  "emulators": {
+    "auth": 9393,
+    "firestore": 8393
+  },
+  "pass": 7,
+  "fail": 0,
+  "results": [
+    {
+      "name": "sign-in lands on /assignments and listener renders the team report",
+      "pass": true,
+      "detail": "http://127.0.0.1:4183/assignments"
+    },
+    {
+      "name": "session restore after reload stays signed in and renders data",
+      "pass": true,
+      "detail": "http://127.0.0.1:4183/assignments"
+    },
+    {
+      "name": "permission denial shows recovery banner with Try again (no crash)",
+      "pass": true,
+      "detail": "banner=true retry=true crash=false"
+    },
+    {
+      "name": "after restoring access, Try again recovers the listener",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "offline shows the offline notice and keeps the last data",
+      "pass": true,
+      "detail": "notice=true cached=true"
+    },
+    {
+      "name": "online clears the offline notice",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "listener recovers after offline and receives a new report without reload",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrorCount": 5,
+  "consoleErrorSamples": [
+    "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+  ]
+}

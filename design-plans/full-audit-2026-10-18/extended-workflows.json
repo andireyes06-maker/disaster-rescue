@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "name": "lost response retry uses the same key and creates one report",
+      "pass": false,
+      "detail": "page.waitForURL: Timeout 12000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"**/my/reports/zVw9AYJFqL0ZzgWPG7LS\" until \"load\"\n============================================================"
+    },
+    {
+      "name": "429 submit uses plain copy and retains entries",
+      "pass": true,
+      "detail": {
+        "response": "mocked 429; actual API rate limiter was separately reached by audit traffic"
+      }
+    },
+    {
+      "name": "team events render in the audit log",
+      "pass": true
+    },
+    {
+      "name": "resident offline update catches up after reconnect",
+      "pass": true
+    },
+    {
+      "name": "dispatcher and responder offline updates catch up after reconnect",
+      "pass": false,
+      "detail": "Expected values to be strictly equal:\n\n409 !== 200\n"
+    }
+  ],
+  "observations": [],
+  "pageErrors": [],
+  "unexpectedHosts": [],
+  "reconnectId": "V7gz5WDiBU4BqmvdUMhq",
+  "summary": {
+    "total": 5,
+    "passed": 3,
+    "failed": 2
+  }
+}

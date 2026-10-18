@@ -1,0 +1,83 @@
+{
+  "app": "http://127.0.0.1:4183",
+  "emulators": {
+    "auth": 9393,
+    "firestore": 8393
+  },
+  "pass": 7,
+  "fail": 0,
+  "results": [
+    {
+      "name": "sign-in lands on /assignments and listener renders the team report",
+      "pass": true,
+      "detail": "http://127.0.0.1:4183/assignments"
+    },
+    {
+      "name": "session restore after reload stays signed in and renders data",
+      "pass": true,
+      "detail": "http://127.0.0.1:4183/assignments"
+    },
+    {
+      "name": "permission denial shows recovery banner with Try again (no crash)",
+      "pass": true,
+      "detail": "banner=true retry=true crash=false"
+    },
+    {
+      "name": "after restoring access, Try again recovers the listener",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "offline shows the offline notice and keeps the last data",
+      "pass": true,
+      "detail": "notice=true cached=true"
+    },
+    {
+      "name": "online clears the offline notice",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "listener recovers after offline and receives a new report without reload",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrorCount": 5,
+  "consoleErrorEvents": [
+    {
+      "text": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "url": "http://localhost:8393/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-rescue-grpc%2Fdatabases%2F(default)&SID=v78_glKpCEk52S0JZLXv8g%3D%3D&RID=48473&TYPE=terminate&zx=k0lwkk3iw7ea",
+      "at": "2026-10-18T16:19:38.156Z",
+      "phase": "offline"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "url": "http://localhost:8393/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-rescue-grpc%2Fdatabases%2F(default)&RID=82143&CVER=22&X-HTTP-Session-Id=gsessionid&zx=52ipeo8eol2&t=1",
+      "at": "2026-10-18T16:19:38.166Z",
+      "phase": "offline"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "url": "https://www.google.com/images/cleardot.gif?zx=ldlnyffifgh6",
+      "at": "2026-10-18T16:19:38.168Z",
+      "phase": "offline"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "url": "http://localhost:8393/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-rescue-grpc%2Fdatabases%2F(default)&RID=86984&CVER=22&X-HTTP-Session-Id=gsessionid&zx=pnxg9c3zn5j1&t=1",
+      "at": "2026-10-18T16:19:38.168Z",
+      "phase": "offline"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "url": "https://www.google.com/images/cleardot.gif?zx=6j1e0m9twuio",
+      "at": "2026-10-18T16:19:38.168Z",
+      "phase": "offline"
+    }
+  ],
+  "consoleErrorSamples": [
+    "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+  ]
+}

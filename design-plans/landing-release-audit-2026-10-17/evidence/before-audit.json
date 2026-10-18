@@ -1,0 +1,1030 @@
+[
+  {
+    "width": 320,
+    "axe": {
+      "violations": [],
+      "incomplete": [],
+      "passes": 42
+    },
+    "geometry": {
+      "width": 320,
+      "scrollWidth": 320,
+      "title": "Disaster Rescue Reporting",
+      "mainCount": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "text": "Report clearly.Respond together.",
+          "level": "H1"
+        },
+        {
+          "text": "One report.A connected response.",
+          "level": "H2"
+        },
+        {
+          "text": "Show what happened",
+          "level": "H3"
+        },
+        {
+          "text": "Connect the response",
+          "level": "H3"
+        },
+        {
+          "text": "Stay informed",
+          "level": "H3"
+        },
+        {
+          "text": "Your report doesn'tend at “Submit”.",
+          "level": "H2"
+        },
+        {
+          "text": "Built for the peoplebehind the response.",
+          "level": "H2"
+        },
+        {
+          "text": "Mobile availability",
+          "level": "H3"
+        },
+        {
+          "text": "Privacy",
+          "level": "H3"
+        },
+        {
+          "text": "A demonstration workspace",
+          "level": "H3"
+        }
+      ],
+      "smallText": [
+        {
+          "selector": "",
+          "text": "How it works",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "For residents",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Access",
+          "size": "12px"
+        },
+        {
+          "selector": "btn btn--ghost",
+          "text": "Staff sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "service-text-link",
+          "text": "Already a resident? Sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "01",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "02",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "03",
+          "size": "9px"
+        },
+        {
+          "selector": "response-film__chapter-description",
+          "text": "Share the situation. Pin the location.",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Submitting a report through this app does not automatically guara",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Describe the emergency. Add photos if it is safe, and pinpoint wh",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Dispatchers review the report, verify the situation, and assign a",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Follow status changes and updates from the field through to resol",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Illustrative resident view",
+          "size": "9px"
+        },
+        {
+          "selector": "btn",
+          "text": "New here? Create an account",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Not publicly released. Ask your team lead for a demo build.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Privacy notice: pending review.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Sample scenes show how the product works. They do not show live i",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Residents",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Staff sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Access and privacy",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "IT 305 Advance Web Development, BSIT 3J, Bulacan State University",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Demonstration site. A local emergency hotline has not been config",
+          "size": "10px"
+        }
+      ],
+      "shortTargets": [
+        {
+          "text": "Skip to content",
+          "height": 43.25
+        }
+      ],
+      "brokenImages": []
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 187.71875,
+        "headerBottom": 139
+      },
+      {
+        "id": "residents",
+        "top": 187.90625,
+        "headerBottom": 139
+      },
+      {
+        "id": "access",
+        "top": 282.71875,
+        "headerBottom": 139
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "axe": {
+      "violations": [],
+      "incomplete": [],
+      "passes": 42
+    },
+    "geometry": {
+      "width": 390,
+      "scrollWidth": 390,
+      "title": "Disaster Rescue Reporting",
+      "mainCount": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "text": "Report clearly.Respond together.",
+          "level": "H1"
+        },
+        {
+          "text": "One report.A connected response.",
+          "level": "H2"
+        },
+        {
+          "text": "Show what happened",
+          "level": "H3"
+        },
+        {
+          "text": "Connect the response",
+          "level": "H3"
+        },
+        {
+          "text": "Stay informed",
+          "level": "H3"
+        },
+        {
+          "text": "Your report doesn'tend at “Submit”.",
+          "level": "H2"
+        },
+        {
+          "text": "Built for the peoplebehind the response.",
+          "level": "H2"
+        },
+        {
+          "text": "Mobile availability",
+          "level": "H3"
+        },
+        {
+          "text": "Privacy",
+          "level": "H3"
+        },
+        {
+          "text": "A demonstration workspace",
+          "level": "H3"
+        }
+      ],
+      "smallText": [
+        {
+          "selector": "",
+          "text": "How it works",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "For residents",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Access",
+          "size": "12px"
+        },
+        {
+          "selector": "btn btn--ghost",
+          "text": "Staff sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "service-text-link",
+          "text": "Already a resident? Sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "01",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "02",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "03",
+          "size": "9px"
+        },
+        {
+          "selector": "response-film__chapter-description",
+          "text": "Share the situation. Pin the location.",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Submitting a report through this app does not automatically guara",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Describe the emergency. Add photos if it is safe, and pinpoint wh",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Dispatchers review the report, verify the situation, and assign a",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Follow status changes and updates from the field through to resol",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Illustrative resident view",
+          "size": "9px"
+        },
+        {
+          "selector": "btn",
+          "text": "New here? Create an account",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Not publicly released. Ask your team lead for a demo build.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Privacy notice: pending review.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Sample scenes show how the product works. They do not show live i",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Residents",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Staff sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Access and privacy",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "IT 305 Advance Web Development, BSIT 3J, Bulacan State University",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Demonstration site. A local emergency hotline has not been config",
+          "size": "10px"
+        }
+      ],
+      "shortTargets": [
+        {
+          "text": "Skip to content",
+          "height": 43.25
+        }
+      ],
+      "brokenImages": []
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 187.96875,
+        "headerBottom": 140.5
+      },
+      {
+        "id": "residents",
+        "top": 187.9375,
+        "headerBottom": 140.5
+      },
+      {
+        "id": "access",
+        "top": 340.75,
+        "headerBottom": 140.5
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "axe": {
+      "violations": [],
+      "incomplete": [],
+      "passes": 42
+    },
+    "geometry": {
+      "width": 768,
+      "scrollWidth": 768,
+      "title": "Disaster Rescue Reporting",
+      "mainCount": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "text": "Report clearly.Respond together.",
+          "level": "H1"
+        },
+        {
+          "text": "One report.A connected response.",
+          "level": "H2"
+        },
+        {
+          "text": "Show what happened",
+          "level": "H3"
+        },
+        {
+          "text": "Connect the response",
+          "level": "H3"
+        },
+        {
+          "text": "Stay informed",
+          "level": "H3"
+        },
+        {
+          "text": "Your report doesn'tend at “Submit”.",
+          "level": "H2"
+        },
+        {
+          "text": "Built for the peoplebehind the response.",
+          "level": "H2"
+        },
+        {
+          "text": "Mobile availability",
+          "level": "H3"
+        },
+        {
+          "text": "Privacy",
+          "level": "H3"
+        },
+        {
+          "text": "A demonstration workspace",
+          "level": "H3"
+        }
+      ],
+      "smallText": [
+        {
+          "selector": "",
+          "text": "01",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "02",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "03",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "Pin an incident. Connect a team. Follow the response.",
+          "size": "11px"
+        },
+        {
+          "selector": "response-film__chapter-description",
+          "text": "Share the situation. Pin the location.",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Submitting a report through this app does not automatically guara",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Illustrative resident view",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "Not publicly released. Ask your team lead for a demo build.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Privacy notice: pending review.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Sample scenes show how the product works. They do not show live i",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Residents",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Staff sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Access and privacy",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "IT 305 Advance Web Development, BSIT 3J, Bulacan State University",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Demonstration site. A local emergency hotline has not been config",
+          "size": "10px"
+        }
+      ],
+      "shortTargets": [
+        {
+          "text": "Skip to content",
+          "height": 43.25
+        }
+      ],
+      "brokenImages": []
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 156.125,
+        "headerBottom": 108.5
+      },
+      {
+        "id": "residents",
+        "top": 156.1875,
+        "headerBottom": 108.5
+      },
+      {
+        "id": "access",
+        "top": 602.703125,
+        "headerBottom": 108.5
+      }
+    ]
+  },
+  {
+    "width": 1024,
+    "axe": {
+      "violations": [],
+      "incomplete": [],
+      "passes": 42
+    },
+    "geometry": {
+      "width": 1024,
+      "scrollWidth": 1024,
+      "title": "Disaster Rescue Reporting",
+      "mainCount": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "text": "Report clearly.Respond together.",
+          "level": "H1"
+        },
+        {
+          "text": "One report.A connected response.",
+          "level": "H2"
+        },
+        {
+          "text": "Show what happened",
+          "level": "H3"
+        },
+        {
+          "text": "Connect the response",
+          "level": "H3"
+        },
+        {
+          "text": "Stay informed",
+          "level": "H3"
+        },
+        {
+          "text": "Your report doesn'tend at “Submit”.",
+          "level": "H2"
+        },
+        {
+          "text": "Built for the peoplebehind the response.",
+          "level": "H2"
+        },
+        {
+          "text": "Mobile availability",
+          "level": "H3"
+        },
+        {
+          "text": "Privacy",
+          "level": "H3"
+        },
+        {
+          "text": "A demonstration workspace",
+          "level": "H3"
+        }
+      ],
+      "smallText": [
+        {
+          "selector": "",
+          "text": "01",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "02",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "03",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "Pin an incident. Connect a team. Follow the response.",
+          "size": "11px"
+        },
+        {
+          "selector": "response-film__chapter-description",
+          "text": "Share the situation. Pin the location.",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Submitting a report through this app does not automatically guara",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Illustrative resident view",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "Not publicly released. Ask your team lead for a demo build.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Privacy notice: pending review.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Sample scenes show how the product works. They do not show live i",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Residents",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Staff sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Access and privacy",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "IT 305 Advance Web Development, BSIT 3J, Bulacan State University",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Demonstration site. A local emergency hotline has not been config",
+          "size": "10px"
+        }
+      ],
+      "shortTargets": [
+        {
+          "text": "Skip to content",
+          "height": 43.25
+        }
+      ],
+      "brokenImages": []
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 155.796875,
+        "headerBottom": 108.5
+      },
+      {
+        "id": "residents",
+        "top": 155.9375,
+        "headerBottom": 108.5
+      },
+      {
+        "id": "access",
+        "top": 619.28125,
+        "headerBottom": 108.5
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "axe": {
+      "violations": [],
+      "incomplete": [],
+      "passes": 42
+    },
+    "geometry": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "title": "Disaster Rescue Reporting",
+      "mainCount": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "text": "Report clearly.Respond together.",
+          "level": "H1"
+        },
+        {
+          "text": "One report.A connected response.",
+          "level": "H2"
+        },
+        {
+          "text": "Show what happened",
+          "level": "H3"
+        },
+        {
+          "text": "Connect the response",
+          "level": "H3"
+        },
+        {
+          "text": "Stay informed",
+          "level": "H3"
+        },
+        {
+          "text": "Your report doesn'tend at “Submit”.",
+          "level": "H2"
+        },
+        {
+          "text": "Built for the peoplebehind the response.",
+          "level": "H2"
+        },
+        {
+          "text": "Mobile availability",
+          "level": "H3"
+        },
+        {
+          "text": "Privacy",
+          "level": "H3"
+        },
+        {
+          "text": "A demonstration workspace",
+          "level": "H3"
+        }
+      ],
+      "smallText": [
+        {
+          "selector": "",
+          "text": "01",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "02",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "03",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "Pin an incident. Connect a team. Follow the response.",
+          "size": "11px"
+        },
+        {
+          "selector": "response-film__chapter-description",
+          "text": "Share the situation. Pin the location.",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Submitting a report through this app does not automatically guara",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Illustrative resident view",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "Not publicly released. Ask your team lead for a demo build.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Privacy notice: pending review.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Sample scenes show how the product works. They do not show live i",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Residents",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Staff sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Access and privacy",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "IT 305 Advance Web Development, BSIT 3J, Bulacan State University",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Demonstration site. A local emergency hotline has not been config",
+          "size": "10px"
+        }
+      ],
+      "shortTargets": [
+        {
+          "text": "Skip to content",
+          "height": 43.25
+        }
+      ],
+      "brokenImages": []
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 156.046875,
+        "headerBottom": 108.5
+      },
+      {
+        "id": "residents",
+        "top": 155.71875,
+        "headerBottom": 108.5
+      },
+      {
+        "id": "access",
+        "top": 641.0625,
+        "headerBottom": 108.5
+      }
+    ]
+  },
+  {
+    "width": 1920,
+    "axe": {
+      "violations": [],
+      "incomplete": [],
+      "passes": 42
+    },
+    "geometry": {
+      "width": 1920,
+      "scrollWidth": 1920,
+      "title": "Disaster Rescue Reporting",
+      "mainCount": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "text": "Report clearly.Respond together.",
+          "level": "H1"
+        },
+        {
+          "text": "One report.A connected response.",
+          "level": "H2"
+        },
+        {
+          "text": "Show what happened",
+          "level": "H3"
+        },
+        {
+          "text": "Connect the response",
+          "level": "H3"
+        },
+        {
+          "text": "Stay informed",
+          "level": "H3"
+        },
+        {
+          "text": "Your report doesn'tend at “Submit”.",
+          "level": "H2"
+        },
+        {
+          "text": "Built for the peoplebehind the response.",
+          "level": "H2"
+        },
+        {
+          "text": "Mobile availability",
+          "level": "H3"
+        },
+        {
+          "text": "Privacy",
+          "level": "H3"
+        },
+        {
+          "text": "A demonstration workspace",
+          "level": "H3"
+        }
+      ],
+      "smallText": [
+        {
+          "selector": "",
+          "text": "01",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "02",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "03",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "Pin an incident. Connect a team. Follow the response.",
+          "size": "11px"
+        },
+        {
+          "selector": "response-film__chapter-description",
+          "text": "Share the situation. Pin the location.",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Submitting a report through this app does not automatically guara",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Illustrative resident view",
+          "size": "9px"
+        },
+        {
+          "selector": "",
+          "text": "Not publicly released. Ask your team lead for a demo build.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Privacy notice: pending review.",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Sample scenes show how the product works. They do not show live i",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Residents",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Staff sign in",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "Access and privacy",
+          "size": "12px"
+        },
+        {
+          "selector": "",
+          "text": "IT 305 Advance Web Development, BSIT 3J, Bulacan State University",
+          "size": "11px"
+        },
+        {
+          "selector": "",
+          "text": "Demonstration site. A local emergency hotline has not been config",
+          "size": "10px"
+        }
+      ],
+      "shortTargets": [
+        {
+          "text": "Skip to content",
+          "height": 43.25
+        }
+      ],
+      "brokenImages": []
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 156.03125,
+        "headerBottom": 108.5
+      },
+      {
+        "id": "residents",
+        "top": 155.703125,
+        "headerBottom": 108.5
+      },
+      {
+        "id": "access",
+        "top": 641.046875,
+        "headerBottom": 108.5
+      }
+    ]
+  }
+]

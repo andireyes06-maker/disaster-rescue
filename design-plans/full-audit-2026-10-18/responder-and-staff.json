@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "name": "real responder resolution after previous save completes",
+      "pass": true
+    },
+    {
+      "name": "dispatcher closes resolved report",
+      "pass": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "BUSY-EDIT-LOSS",
+      "observed": true,
+      "during": "An edit typed while the save is still pending",
+      "after": "",
+      "kind": "injected delayed successful response; no real progress write"
+    },
+    {
+      "id": "STAFF-NOTIFICATIONS",
+      "receivedNotifications": 4,
+      "bellCount": 0,
+      "notificationLinks": 0
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "name": "landing skip link is visible on focus and reaches main",
+    "pass": false,
+    "detail": "The expression evaluated to a falsy value:\n\n  assert(await p.locator('.skip-link').evaluate(e=>e===document.activeElement&&e.getBoundingClientRect().top>=0))\n"
+  },
+  {
+    "name": "film chapter controls seek actual media and offscreen playback pauses",
+    "pass": true
+  },
+  {
+    "name": "film failure keeps an illustrated fallback and working resident action",
+    "pass": true
+  }
+]

@@ -4,7 +4,7 @@ const copy = (v) => structuredClone(v);
 const byCreatedDesc = (a, b) => b.createdAt - a.createdAt || (b._seq - a._seq);
 const strip = ({ _seq, ...rest }) => rest;
 
-export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
+export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {}) {
   let seq = 0;
   const nextId = (p) => `${p}${++seq}`;
   const reports = new Map();
@@ -150,6 +150,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
 
     async getHotlines() { return copy(hotlines); },
     async saveHotlines(doc) { hotlines = copy(doc); },
+    async getDemoConfig() { return demo ? copy(demo) : null; },
 
     // Test helper: backdate a report.
     _setCreatedAt(id, date) { reports.get(id).createdAt = date; },

@@ -1,0 +1,45 @@
+{
+  "environment": {
+    "project": "demo-disaster-rescue",
+    "emulator": true
+  },
+  "results": [
+    {
+      "check": "real session restore, token response held",
+      "mainCount": 1,
+      "status": "Checking your account…",
+      "skeleton": 3
+    },
+    {
+      "check": "real map marker keyboard activation",
+      "title": "Report demo-report-01, Flood, Critical, Submitted",
+      "destination": "/incidents/demo-report-01"
+    },
+    {
+      "check": "hook harness loading",
+      "route": "/dashboard",
+      "status": "Loading incident inbox"
+    },
+    {
+      "check": "hook harness error and retry to empty",
+      "route": "/dashboard",
+      "retries": 1
+    },
+    {
+      "check": "hook harness loading",
+      "route": "/map",
+      "status": "Loading incident map"
+    },
+    {
+      "check": "hook harness error and retry to empty",
+      "route": "/map",
+      "retries": 1
+    },
+    {
+      "check": "real demo search recovery",
+      "focused": true,
+      "value": "",
+      "rows": 24
+    }
+  ]
+}

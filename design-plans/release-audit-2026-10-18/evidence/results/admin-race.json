@@ -1,0 +1,40 @@
+[
+  {
+    "id": "ADMIN-create-second-admin",
+    "pass": true,
+    "detail": {
+      "status": 201
+    }
+  },
+  {
+    "id": "RACE-last-admin-two-deactivations-one-succeeds",
+    "pass": true,
+    "detail": {
+      "statuses": [
+        200,
+        409
+      ],
+      "errors": [
+        "last_admin",
+        null
+      ]
+    }
+  },
+  {
+    "id": "RACE-at-least-one-active-admin-remains",
+    "pass": true,
+    "detail": {
+      "activeAdmins": [
+        "second.admin.1792304112429@harbor.example"
+      ]
+    }
+  },
+  {
+    "id": "AUTHZ-dispatcher-cannot-change-admin",
+    "pass": true,
+    "detail": {
+      "status": 403,
+      "error": "forbidden"
+    }
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "LOGIN-wrong-password-message",
+    "pass": true,
+    "detail": {
+      "visible": true
+    }
+  },
+  {
+    "id": "F02-staff-created-via-api",
+    "pass": true,
+    "detail": {
+      "status": 201
+    }
+  },
+  {
+    "id": "F02-forgot-password-confirmation-shown",
+    "pass": true,
+    "detail": {
+      "visible": true
+    }
+  },
+  {
+    "id": "F02-reset-code-issued-by-auth",
+    "pass": true,
+    "detail": {
+      "issued": true
+    }
+  },
+  {
+    "id": "F02-reset-applied",
+    "pass": true,
+    "detail": {
+      "status": 200
+    }
+  },
+  {
+    "id": "F02-new-staff-reaches-role-page",
+    "pass": true,
+    "detail": {
+      "url": "http://localhost:5178/assignments"
+    }
+  },
+  {
+    "id": "REGISTER-lands-on-my-reports",
+    "pass": true,
+    "detail": {
+      "url": "http://localhost:5178/my"
+    }
+  },
+  {
+    "id": "F08-new-resident-has-email-in-accounts",
+    "pass": true,
+    "detail": {
+      "found": true,
+      "emailStored": "new.resident.1792303126497@harbor.example"
+    }
+  },
+  {
+    "id": "ROUTE-resident-denied-dashboard",
+    "pass": true,
+    "detail": {
+      "url": "http://localhost:5178/forbidden",
+      "forbiddenText": false
+    }
+  },
+  {
+    "id": "NOT-FOUND-page-shown",
+    "pass": false,
+    "detail": {
+      "visible": false
+    }
+  }
+]

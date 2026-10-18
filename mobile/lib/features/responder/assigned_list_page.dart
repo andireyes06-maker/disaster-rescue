@@ -9,6 +9,7 @@ import '../auth/auth_widgets.dart';
 import '../map/incident_map_page.dart';
 import '../my_reports/my_reports_page.dart' show StatusChip, formatWhen;
 import 'incident_detail_page.dart';
+import '../../theme/product_widgets.dart';
 
 class AssignedListPage extends StatefulWidget {
   const AssignedListPage({super.key});
@@ -79,7 +80,7 @@ class _AssignedListPageState extends State<AssignedListPage> {
                   );
                 }
                 if (!snap.hasData) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const ProductLoading();
                 }
                 final active =
                     snap.data!.where((r) => !isHistoryStatus(r.status)).toList()
@@ -91,9 +92,7 @@ class _AssignedListPageState extends State<AssignedListPage> {
                         return y.compareTo(x);
                       });
                 if (active.isEmpty) {
-                  return const Center(
-                    child: Text('No assigned reports right now.'),
-                  );
+                  return const ProductEmpty(title: 'No assigned reports right now.', description: 'New assignments from dispatch will appear here.', icon: Icons.assignment_turned_in_outlined);
                 }
                 return ListView.separated(
                   padding: const EdgeInsets.all(16),

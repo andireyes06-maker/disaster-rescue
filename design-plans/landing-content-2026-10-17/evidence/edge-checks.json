@@ -1,0 +1,572 @@
+[
+  {
+    "engine": "chromium",
+    "scenario": "normal",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 200.28125,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.90625,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 253.40625,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "scenario": "text-200",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 343.296875,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 477
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 391.765625,
+        "headerBottom": 343.296875
+      },
+      {
+        "id": "residents",
+        "top": 391.546875,
+        "headerBottom": 343.296875
+      },
+      {
+        "id": "access",
+        "top": 391.453125,
+        "headerBottom": 343.296875
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "scenario": "landscape",
+    "metrics": {
+      "width": 844,
+      "scroll": 844,
+      "headerHeight": 128,
+      "sticky": "static",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 47.671875,
+        "headerBottom": -1111
+      },
+      {
+        "id": "residents",
+        "top": 47.5625,
+        "headerBottom": -1593
+      },
+      {
+        "id": "access",
+        "top": 47.765625,
+        "headerBottom": -3806
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "scenario": "media-failed",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 200.1875,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.8125,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 253.3125,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "scenario": "forced-colors",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 200.15625,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.78125,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 251.28125,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "scenario": "normal",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 200.28334045410156,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.5,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 253.51666259765625,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "scenario": "text-200",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 343.29998779296875,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 477
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 391.29998779296875,
+        "headerBottom": 343.29998779296875
+      },
+      {
+        "id": "residents",
+        "top": 391.29998779296875,
+        "headerBottom": 343.29998779296875
+      },
+      {
+        "id": "access",
+        "top": 391.29998779296875,
+        "headerBottom": 343.29998779296875
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "scenario": "landscape",
+    "metrics": {
+      "width": 844,
+      "scroll": 844,
+      "headerHeight": 128,
+      "sticky": "static",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 48,
+        "headerBottom": -1110.699951171875
+      },
+      {
+        "id": "residents",
+        "top": 48,
+        "headerBottom": -1592.5999755859375
+      },
+      {
+        "id": "access",
+        "top": 48.83332824707031,
+        "headerBottom": -3805
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "scenario": "media-failed",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 201.1999969482422,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.5,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 253.43333435058594,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "scenario": "forced-colors",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 201.14999389648438,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.5,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 251.38333129882812,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "scenario": "normal",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 200.25,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.875,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 253.375,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "scenario": "text-200",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 343.296875,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 477
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 391.765625,
+        "headerBottom": 343.296875
+      },
+      {
+        "id": "residents",
+        "top": 391.546875,
+        "headerBottom": 343.296875
+      },
+      {
+        "id": "access",
+        "top": 391.453125,
+        "headerBottom": 343.296875
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "scenario": "landscape",
+    "metrics": {
+      "width": 844,
+      "scroll": 844,
+      "headerHeight": 128,
+      "sticky": "static",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 47.640625,
+        "headerBottom": -1111
+      },
+      {
+        "id": "residents",
+        "top": 47.53125,
+        "headerBottom": -1593
+      },
+      {
+        "id": "access",
+        "top": 47.734375,
+        "headerBottom": -3806
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "scenario": "media-failed",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 200.15625,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.78125,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 253.28125,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "scenario": "forced-colors",
+    "metrics": {
+      "width": 390,
+      "scroll": 390,
+      "headerHeight": 152.5,
+      "sticky": "sticky",
+      "broken": [],
+      "textOverflow": [
+        {
+          "tag": "H2",
+          "text": "Access and privacy",
+          "width": 1,
+          "scroll": 239
+        }
+      ]
+    },
+    "anchors": [
+      {
+        "id": "how-it-works",
+        "top": 200.125,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "residents",
+        "top": 200.75,
+        "headerBottom": 152.5
+      },
+      {
+        "id": "access",
+        "top": 251.25,
+        "headerBottom": 152.5
+      }
+    ],
+    "violations": [],
+    "errors": []
+  }
+]

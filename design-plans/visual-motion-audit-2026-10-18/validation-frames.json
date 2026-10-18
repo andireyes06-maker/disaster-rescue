@@ -1,0 +1,621 @@
+[
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "samples": [
+      {
+        "ms": 33.70000001788139,
+        "collisions": [
+          {
+            "error": "name-error",
+            "control": "Email",
+            "overlap": 7.9375
+          },
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 5.953125
+          }
+        ]
+      },
+      {
+        "ms": 43,
+        "collisions": [
+          {
+            "error": "name-error",
+            "control": "Email",
+            "overlap": 7.9375
+          },
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 5.953125
+          }
+        ]
+      },
+      {
+        "ms": 44.70000001788139,
+        "collisions": [
+          {
+            "error": "name-error",
+            "control": "Email",
+            "overlap": 7.9375
+          },
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 5.953125
+          }
+        ]
+      },
+      {
+        "ms": 62.10000002384186,
+        "collisions": [
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 15.2216796875
+          },
+          {
+            "error": "phone-error",
+            "control": "Password",
+            "overlap": 9.7918701171875
+          },
+          {
+            "error": "confirmPassword-error",
+            "control": "Create account",
+            "overlap": 10.47528076171875
+          }
+        ]
+      },
+      {
+        "ms": 77.30000001192093,
+        "collisions": [
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 2.16302490234375
+          },
+          {
+            "error": "phone-error",
+            "control": "Password",
+            "overlap": 11.94482421875
+          },
+          {
+            "error": "password-error",
+            "control": "Confirm password",
+            "overlap": 20.1015625
+          },
+          {
+            "error": "confirmPassword-error",
+            "control": "Create account",
+            "overlap": 20.140625
+          }
+        ]
+      },
+      {
+        "ms": 94.60000002384186,
+        "collisions": [
+          {
+            "error": "phone-error",
+            "control": "Password",
+            "overlap": 0.32305908203125
+          },
+          {
+            "error": "password-error",
+            "control": "Confirm password",
+            "overlap": 6.0367431640625
+          },
+          {
+            "error": "confirmPassword-error",
+            "control": "Create account",
+            "overlap": 3.75042724609375
+          }
+        ]
+      },
+      {
+        "ms": 110.80000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 127.80000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 144.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 161,
+        "collisions": []
+      },
+      {
+        "ms": 177.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 194.5,
+        "collisions": []
+      },
+      {
+        "ms": 211.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 227.30000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 243.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 261,
+        "collisions": []
+      },
+      {
+        "ms": 277.80000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 294.10000002384186,
+        "collisions": []
+      },
+      {
+        "ms": 310.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 327.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 343.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 359.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 376.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 394.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 410.10000002384186,
+        "collisions": []
+      },
+      {
+        "ms": 427,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "samples": [
+      {
+        "ms": 26.200000017881393,
+        "collisions": [
+          {
+            "error": "name-error",
+            "control": "Email",
+            "overlap": 7.140625
+          },
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 7.546875
+          }
+        ]
+      },
+      {
+        "ms": 28.30000001192093,
+        "collisions": [
+          {
+            "error": "name-error",
+            "control": "Email",
+            "overlap": 7.140625
+          },
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 7.546875
+          }
+        ]
+      },
+      {
+        "ms": 35.5,
+        "collisions": [
+          {
+            "error": "name-error",
+            "control": "Email",
+            "overlap": 7.140625
+          },
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 7.546875
+          }
+        ]
+      },
+      {
+        "ms": 51.30000001192093,
+        "collisions": [
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 14.2449951171875
+          },
+          {
+            "error": "phone-error",
+            "control": "Password",
+            "overlap": 11.25762939453125
+          },
+          {
+            "error": "confirmPassword-error",
+            "control": "Create account",
+            "overlap": 12.9190673828125
+          }
+        ]
+      },
+      {
+        "ms": 67.7000000178814,
+        "collisions": [
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 1.59466552734375
+          },
+          {
+            "error": "phone-error",
+            "control": "Password",
+            "overlap": 11.0919189453125
+          },
+          {
+            "error": "password-error",
+            "control": "Confirm password",
+            "overlap": 20.140625
+          },
+          {
+            "error": "confirmPassword-error",
+            "control": "Create account",
+            "overlap": 20.140625
+          }
+        ]
+      },
+      {
+        "ms": 83.7000000178814,
+        "collisions": [
+          {
+            "error": "password-error",
+            "control": "Confirm password",
+            "overlap": 5.37249755859375
+          },
+          {
+            "error": "confirmPassword-error",
+            "control": "Create account",
+            "overlap": 2.9200439453125
+          }
+        ]
+      },
+      {
+        "ms": 101.5,
+        "collisions": []
+      },
+      {
+        "ms": 117.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 134.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 152.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 167.80000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 184.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 200.80000001192093,
+        "collisions": []
+      },
+      {
+        "ms": 218.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 233.5,
+        "collisions": []
+      },
+      {
+        "ms": 251.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 267.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 284.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 300.90000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 316.7000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 334.40000000596046,
+        "collisions": []
+      },
+      {
+        "ms": 350,
+        "collisions": []
+      },
+      {
+        "ms": 367.5,
+        "collisions": []
+      },
+      {
+        "ms": 384.09999999403954,
+        "collisions": []
+      },
+      {
+        "ms": 400.2000000178814,
+        "collisions": []
+      },
+      {
+        "ms": 417.5,
+        "collisions": []
+      },
+      {
+        "ms": 434.2000000178814,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "samples": [
+      {
+        "ms": 51,
+        "collisions": [
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 9.390655517578125
+          },
+          {
+            "error": "phone-error",
+            "control": "Password",
+            "overlap": 18.76318359375
+          },
+          {
+            "error": "password-error",
+            "control": "Confirm password",
+            "overlap": 5.08892822265625
+          },
+          {
+            "error": "confirmPassword-error",
+            "control": "Create account",
+            "overlap": 20.140625
+          }
+        ]
+      },
+      {
+        "ms": 163,
+        "collisions": []
+      },
+      {
+        "ms": 180,
+        "collisions": []
+      },
+      {
+        "ms": 196,
+        "collisions": []
+      },
+      {
+        "ms": 211,
+        "collisions": []
+      },
+      {
+        "ms": 229,
+        "collisions": []
+      },
+      {
+        "ms": 247,
+        "collisions": []
+      },
+      {
+        "ms": 262,
+        "collisions": []
+      },
+      {
+        "ms": 279,
+        "collisions": []
+      },
+      {
+        "ms": 295,
+        "collisions": []
+      },
+      {
+        "ms": 312,
+        "collisions": []
+      },
+      {
+        "ms": 328,
+        "collisions": []
+      },
+      {
+        "ms": 344,
+        "collisions": []
+      },
+      {
+        "ms": 361,
+        "collisions": []
+      },
+      {
+        "ms": 378,
+        "collisions": []
+      },
+      {
+        "ms": 395,
+        "collisions": []
+      },
+      {
+        "ms": 411,
+        "collisions": []
+      },
+      {
+        "ms": 428,
+        "collisions": []
+      }
+    ]
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "samples": [
+      {
+        "ms": 23,
+        "collisions": [
+          {
+            "error": "name-error",
+            "control": "Email",
+            "overlap": 2.258392333984375
+          },
+          {
+            "error": "email-error",
+            "control": "Phone",
+            "overlap": 18.1552734375
+          }
+        ]
+      },
+      {
+        "ms": 58,
+        "collisions": [
+          {
+            "error": "phone-error",
+            "control": "Password",
+            "overlap": 2.5845947265625
+          },
+          {
+            "error": "password-error",
+            "control": "Confirm password",
+            "overlap": 9.09954833984375
+          },
+          {
+            "error": "confirmPassword-error",
+            "control": "Create account",
+            "overlap": 7.61444091796875
+          }
+        ]
+      },
+      {
+        "ms": 74,
+        "collisions": []
+      },
+      {
+        "ms": 92,
+        "collisions": []
+      },
+      {
+        "ms": 107,
+        "collisions": []
+      },
+      {
+        "ms": 124,
+        "collisions": []
+      },
+      {
+        "ms": 143,
+        "collisions": []
+      },
+      {
+        "ms": 157,
+        "collisions": []
+      },
+      {
+        "ms": 174,
+        "collisions": []
+      },
+      {
+        "ms": 190,
+        "collisions": []
+      },
+      {
+        "ms": 207,
+        "collisions": []
+      },
+      {
+        "ms": 224,
+        "collisions": []
+      },
+      {
+        "ms": 242,
+        "collisions": []
+      },
+      {
+        "ms": 257,
+        "collisions": []
+      },
+      {
+        "ms": 273,
+        "collisions": []
+      },
+      {
+        "ms": 289,
+        "collisions": []
+      },
+      {
+        "ms": 307,
+        "collisions": []
+      },
+      {
+        "ms": 323,
+        "collisions": []
+      },
+      {
+        "ms": 340,
+        "collisions": []
+      },
+      {
+        "ms": 357,
+        "collisions": []
+      },
+      {
+        "ms": 373,
+        "collisions": []
+      },
+      {
+        "ms": 390,
+        "collisions": []
+      },
+      {
+        "ms": 407,
+        "collisions": []
+      },
+      {
+        "ms": 423,
+        "collisions": []
+      }
+    ]
+  }
+]

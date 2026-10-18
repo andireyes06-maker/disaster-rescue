@@ -1,0 +1,92 @@
+[
+  {
+    "id": "F01-demotion",
+    "pass": true,
+    "detail": {
+      "before": 200,
+      "afterDemote": 403
+    }
+  },
+  {
+    "id": "F01-deactivation",
+    "pass": false,
+    "detail": {
+      "afterDeactivate": 401,
+      "error": "invalid_token"
+    }
+  },
+  {
+    "id": "F03-team-assign",
+    "pass": true,
+    "detail": {
+      "link": 200,
+      "unlink": 200
+    }
+  },
+  {
+    "id": "F03-invalid-team-refused",
+    "pass": true,
+    "detail": {
+      "status": 400,
+      "error": "invalid_team"
+    }
+  },
+  {
+    "id": "F04-csv-matches-stats",
+    "pass": true,
+    "detail": {
+      "statsTotal": 1,
+      "csvRows": 1,
+      "csvStatus": 200
+    }
+  },
+  {
+    "id": "F04-pdf-responds",
+    "pass": true,
+    "detail": {
+      "status": 200,
+      "note": "PDF totals are not parsed in this script"
+    }
+  },
+  {
+    "id": "F05-body-mismatch-refused",
+    "pass": true,
+    "detail": {
+      "first": 201,
+      "second": 409,
+      "error": "idempotency_conflict"
+    }
+  },
+  {
+    "id": "F09-team-audit",
+    "pass": true,
+    "detail": {
+      "create": 201,
+      "rename": 200,
+      "hasCreate": true,
+      "hasUpdate": true
+    }
+  },
+  {
+    "id": "F10-empty-settings-refused",
+    "pass": true,
+    "detail": {
+      "status": 400,
+      "error": "validation_failed"
+    }
+  },
+  {
+    "id": "AUTHZ-resident-cannot-list-users",
+    "pass": true,
+    "detail": {
+      "status": 403
+    }
+  },
+  {
+    "id": "AUTHZ-responder-cannot-export",
+    "pass": true,
+    "detail": {
+      "status": 403
+    }
+  }
+]

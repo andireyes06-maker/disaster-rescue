@@ -1,0 +1,21 @@
+import {createMemoryRepo} from '/private/tmp/rescue-release-integration-2026-10-18/api/test/fakes/memoryRepo.js';
+import {createCloudProviderFake} from '/private/tmp/rescue-release-integration-2026-10-18/api/test/fakes/cloudProviderFake.js';
+import {drainPhotoCleanup} from '/private/tmp/rescue-release-integration-2026-10-18/api/src/services/photoCleanupService.js';
+import {UPLOAD_DEADLINE_MS,LATE_UPLOAD_GRACE_MS} from '/private/tmp/rescue-release-integration-2026-10-18/api/src/domain/photoLedger.js';
+import {writeFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+const repo=createMemoryRepo(), uploader=createCloudProviderFake(), t=1000000, assetId='disaster-rescue/review-late-fixture', uid='review-resident', key='review-late-key-0001', reportId='review-report';
+const claim=await repo.claimSubmission(uid,key,{fingerprint:'review-fingerprint',now:t,reportId,reference:'REVIEW',leaseMs:120000});
+const reserved=await repo.reservePhotoAssets(uid,key,{generation:claim.generation,reportId,assetIds:[assetId],now:t});assert.equal(reserved.mode,'reserve');
+uploader.faults.holdNext=1;
+const upload=uploader.upload([{buffer:Buffer.from([0xff,0xd8,0xff,0xe0]),mimetype:'image/jpeg'}],{publicIds:[assetId]});
+assert(uploader.held.has(assetId));
+const first=t+UPLOAD_DEADLINE_MS;await drainPhotoCleanup({repo,uploader},{now:first});
+await drainPhotoCleanup({repo,uploader},{now:first+LATE_UPLOAD_GRACE_MS+1});
+const before=(await repo.listPhotoAssets())[0];assert.equal(before.state,'reconciling');
+// Simulated API process death: no continuation remains to remove an eventual provider result.
+uploader.land(assetId);await upload;
+const afterDrain=await drainPhotoCleanup({repo,uploader},{now:first+LATE_UPLOAD_GRACE_MS+3600000});
+const row=(await repo.listPhotoAssets())[0];
+const result={evidence:'Existing in-memory repo and fake provider; controlled late completion after terminal not-found grace. No Cloudinary request, no real process crash.',terminalBeforeUploadLanded:before.state,assetPresentAfterLateCompletion:uploader.accepted.has(assetId),nextAttemptAtMs:row.nextAttemptAtMs,subsequentDrain:afterDrain,orphanPersists:uploader.accepted.has(assetId)&&row.nextAttemptAtMs===null};assert.equal(result.orphanPersists,false);assert.equal(result.assetPresentAfterLateCompletion,false);assert.equal(afterDrain.destroyed,1);
+writeFileSync(new URL('./late-upload-fixed.json',import.meta.url),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));

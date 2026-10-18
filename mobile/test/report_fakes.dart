@@ -233,6 +233,7 @@ class Env {
       ChangeNotifierProvider<AuthController>.value(value: auth),
     ],
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       builder: (context, c) => MediaQuery(
         data: MediaQuery.of(

@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "name": "existing responder without a team can be linked later",
+      "pass": false,
+      "detail": "team-only update rejected; the API accepts only role/active and the UI has no later team-assignment control\n\n400 !== 200\n"
+    },
+    {
+      "name": "fresh assignment dialog persists and reaches the resident without reload",
+      "pass": true,
+      "detail": {
+        "id": "mfndIXGeMiXOW1qzZE6r",
+        "teamId": "PvUZHOuxV3FrYrMaNum2"
+      }
+    },
+    {
+      "name": "fresh responder acknowledgement persists and reconnect applies a changed priority",
+      "pass": true,
+      "detail": {
+        "transport": "real Firestore reconnect, browser offline toggle"
+      }
+    },
+    {
+      "name": "browser report network failure retains values and real retry creates one report",
+      "pass": true,
+      "detail": {
+        "failure": "mocked connection refusal before send",
+        "retry": "real API write; same key; one stored report"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "kind": "responder-team-link",
+      "uid": "vxduB2mhqE5a8FaCvy034jcODukl",
+      "status": 400,
+      "response": {
+        "error": "nothing_to_update",
+        "message": "Send role and/or active"
+      }
+    }
+  ],
+  "pageErrors": [],
+  "unexpectedHosts": [],
+  "summary": {
+    "total": 4,
+    "passed": 3,
+    "failed": 1
+  }
+}

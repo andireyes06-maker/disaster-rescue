@@ -1,0 +1,256 @@
+[
+  {
+    "label": "local",
+    "status": 200,
+    "width": 1440,
+    "errors": [],
+    "url": "http://127.0.0.1:5173/",
+    "title": "Disaster Rescue Reporting",
+    "scrollWidth": 1440,
+    "h1": [
+      "Report an incident.\nCoordinate the response."
+    ],
+    "h2": [
+      "Staff workspace",
+      "Residents",
+      "How a report moves",
+      "Who it is for",
+      "The resident app",
+      "Privacy"
+    ],
+    "body": "DR\nDisaster Rescue\nDemo site · hotline not configured\nReport an incident.\nCoordinate the response.\n\nOne place for response teams to review reports, assign rescue teams, and follow each incident through to resolution.\n\nStaff workspace\n\nDispatchers, responders, and the DMO sign in to the staff web.\n\nSign in to the staff web\nResidents\n\nReport an emergency with photos and location, and follow its status on the website or in the mobile app.\n\nCreate a resident account\n\nMobile app: not publicly released. Ask your team lead for a demo build.\n\nResident app availability\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when.\n\nWho it is for\nResidents\n\nReport an emergency with photos and location, and follow its status.\n\nDispatchers\n\nVerify, prioritize, and assign reports.\n\nResponders\n\nAcknowledge assignments and post rescue updates.\n\nDMO\n\nMonitor trends and export summaries.\n\nThe resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.\n\nPrivacy\n\nPrivacy notice (pending review).\n\nDR\nDisaster Rescue\n\nStaff\n\nSign in to the staff web\n\nCredits\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nDemonstration site. A local emergency hotline has not been configured.",
+    "links": [
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "Sign in to the staff web",
+        "href": "/login"
+      },
+      {
+        "text": "Create a resident account",
+        "href": "/register"
+      },
+      {
+        "text": "Resident app availability",
+        "href": "#resident-app"
+      },
+      {
+        "text": "Sign in to the staff web",
+        "href": "/login"
+      }
+    ],
+    "hero": {
+      "height": 349.78125,
+      "background": "rgba(0, 0, 0, 0)",
+      "headingFont": "\"Geist Variable\", system-ui, sans-serif",
+      "headingSize": "60px"
+    },
+    "images": 0,
+    "svg": 0,
+    "animations": 0,
+    "stylesheets": [],
+    "scripts": [
+      "http://127.0.0.1:5173/@vite/client",
+      "http://127.0.0.1:5173/src/main.tsx?t=1792169662025"
+    ]
+  },
+  {
+    "label": "local",
+    "status": 200,
+    "width": 390,
+    "errors": [],
+    "url": "http://127.0.0.1:5173/",
+    "title": "Disaster Rescue Reporting",
+    "scrollWidth": 390,
+    "h1": [
+      "Report an incident.\nCoordinate the response."
+    ],
+    "h2": [
+      "Staff workspace",
+      "Residents",
+      "How a report moves",
+      "Who it is for",
+      "The resident app",
+      "Privacy"
+    ],
+    "body": "DR\nDisaster Rescue\nDemo site · hotline not configured\nReport an incident.\nCoordinate the response.\n\nOne place for response teams to review reports, assign rescue teams, and follow each incident through to resolution.\n\nStaff workspace\n\nDispatchers, responders, and the DMO sign in to the staff web.\n\nSign in to the staff web\nResidents\n\nReport an emergency with photos and location, and follow its status on the website or in the mobile app.\n\nCreate a resident account\n\nMobile app: not publicly released. Ask your team lead for a demo build.\n\nResident app availability\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when.\n\nWho it is for\nResidents\n\nReport an emergency with photos and location, and follow its status.\n\nDispatchers\n\nVerify, prioritize, and assign reports.\n\nResponders\n\nAcknowledge assignments and post rescue updates.\n\nDMO\n\nMonitor trends and export summaries.\n\nThe resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.\n\nPrivacy\n\nPrivacy notice (pending review).\n\nDR\nDisaster Rescue\n\nStaff\n\nSign in to the staff web\n\nCredits\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nDemonstration site. A local emergency hotline has not been configured.",
+    "links": [
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "Sign in to the staff web",
+        "href": "/login"
+      },
+      {
+        "text": "Create a resident account",
+        "href": "/register"
+      },
+      {
+        "text": "Resident app availability",
+        "href": "#resident-app"
+      },
+      {
+        "text": "Sign in to the staff web",
+        "href": "/login"
+      }
+    ],
+    "hero": {
+      "height": 307.953125,
+      "background": "rgba(0, 0, 0, 0)",
+      "headingFont": "\"Geist Variable\", system-ui, sans-serif",
+      "headingSize": "34px"
+    },
+    "images": 0,
+    "svg": 0,
+    "animations": 0,
+    "stylesheets": [],
+    "scripts": [
+      "http://127.0.0.1:5173/@vite/client",
+      "http://127.0.0.1:5173/src/main.tsx?t=1792169662025"
+    ]
+  },
+  {
+    "label": "local",
+    "asset": "http://127.0.0.1:5173/src/main.tsx?t=1792169662025",
+    "hash": "8d6e1842a2384f300fa3be4ad2a58ffb5ff7b7237b5f8e4feecc5cedb5008d00",
+    "flags": {
+      "incidentInbox": false,
+      "indigoToken": false,
+      "residentRegister": false,
+      "demoLabel": false
+    }
+  },
+  {
+    "label": "live",
+    "status": 200,
+    "width": 1440,
+    "errors": [],
+    "url": "https://disaster-rescue-web.vercel.app/",
+    "title": "Disaster Rescue Reporting",
+    "scrollWidth": 1440,
+    "h1": [
+      "Report an incident.\nCoordinate the response."
+    ],
+    "h2": [
+      "Staff workspace",
+      "Residents",
+      "How a report moves",
+      "Who it is for",
+      "The resident app",
+      "Privacy"
+    ],
+    "body": "DR\nDisaster Rescue\nDemo site · hotline not configured\nReport an incident.\nCoordinate the response.\n\nOne place for response teams to review reports, assign rescue teams, and follow each incident through to resolution.\n\nStaff workspace\n\nDispatchers, responders, and the DMO sign in to the staff web.\n\nSign in to the staff web\nResidents\n\nReport an emergency with photos and location, and follow its status on the website or in the mobile app.\n\nCreate a resident account\n\nMobile app: not publicly released. Ask your team lead for a demo build.\n\nResident app availability\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when.\n\nWho it is for\nResidents\n\nReport an emergency with photos and location, and follow its status.\n\nDispatchers\n\nVerify, prioritize, and assign reports.\n\nResponders\n\nAcknowledge assignments and post rescue updates.\n\nDMO\n\nMonitor trends and export summaries.\n\nThe resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.\n\nPrivacy\n\nPrivacy notice (pending review).\n\nDR\nDisaster Rescue\n\nStaff\n\nSign in to the staff web\n\nCredits\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nDemonstration site. A local emergency hotline has not been configured.",
+    "links": [
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "Sign in to the staff web",
+        "href": "/login"
+      },
+      {
+        "text": "Create a resident account",
+        "href": "/register"
+      },
+      {
+        "text": "Resident app availability",
+        "href": "#resident-app"
+      },
+      {
+        "text": "Sign in to the staff web",
+        "href": "/login"
+      }
+    ],
+    "hero": {
+      "height": 349.78125,
+      "background": "rgba(0, 0, 0, 0)",
+      "headingFont": "\"Geist Variable\", system-ui, sans-serif",
+      "headingSize": "60px"
+    },
+    "images": 0,
+    "svg": 0,
+    "animations": 0,
+    "stylesheets": [
+      "https://disaster-rescue-web.vercel.app/assets/maps-vh-t_kPv.css",
+      "https://disaster-rescue-web.vercel.app/assets/index-DZvdYun_.css"
+    ],
+    "scripts": [
+      "https://disaster-rescue-web.vercel.app/assets/index-DUNwqLz7.js"
+    ]
+  },
+  {
+    "label": "live",
+    "status": 200,
+    "width": 390,
+    "errors": [],
+    "url": "https://disaster-rescue-web.vercel.app/",
+    "title": "Disaster Rescue Reporting",
+    "scrollWidth": 390,
+    "h1": [
+      "Report an incident.\nCoordinate the response."
+    ],
+    "h2": [
+      "Staff workspace",
+      "Residents",
+      "How a report moves",
+      "Who it is for",
+      "The resident app",
+      "Privacy"
+    ],
+    "body": "DR\nDisaster Rescue\nDemo site · hotline not configured\nReport an incident.\nCoordinate the response.\n\nOne place for response teams to review reports, assign rescue teams, and follow each incident through to resolution.\n\nStaff workspace\n\nDispatchers, responders, and the DMO sign in to the staff web.\n\nSign in to the staff web\nResidents\n\nReport an emergency with photos and location, and follow its status on the website or in the mobile app.\n\nCreate a resident account\n\nMobile app: not publicly released. Ask your team lead for a demo build.\n\nResident app availability\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nHow a report moves\nSubmitted\nVerified\nAssigned\nIn progress\nResolved\nClosed\n\nEvery status change is recorded, so staff and the resident can see what happened and when.\n\nWho it is for\nResidents\n\nReport an emergency with photos and location, and follow its status.\n\nDispatchers\n\nVerify, prioritize, and assign reports.\n\nResponders\n\nAcknowledge assignments and post rescue updates.\n\nDMO\n\nMonitor trends and export summaries.\n\nThe resident app\n\nResidents can report an emergency, add photos and location, and follow each report until it is closed.\n\nNot published yet. Ask your team lead for the demo build.\n\nPrivacy\n\nPrivacy notice (pending review).\n\nDR\nDisaster Rescue\n\nStaff\n\nSign in to the staff web\n\nCredits\n\nIT 305 Advance Web Development, BSIT 3J, Bulacan State University\n\nDemonstration site. A local emergency hotline has not been configured.",
+    "links": [
+      {
+        "text": "DR\nDisaster Rescue",
+        "href": "/"
+      },
+      {
+        "text": "Sign in to the staff web",
+        "href": "/login"
+      },
+      {
+        "text": "Create a resident account",
+        "href": "/register"
+      },
+      {
+        "text": "Resident app availability",
+        "href": "#resident-app"
+      },
+      {
+        "text": "Sign in to the staff web",
+        "href": "/login"
+      }
+    ],
+    "hero": {
+      "height": 307.953125,
+      "background": "rgba(0, 0, 0, 0)",
+      "headingFont": "\"Geist Variable\", system-ui, sans-serif",
+      "headingSize": "34px"
+    },
+    "images": 0,
+    "svg": 0,
+    "animations": 0,
+    "stylesheets": [
+      "https://disaster-rescue-web.vercel.app/assets/maps-vh-t_kPv.css",
+      "https://disaster-rescue-web.vercel.app/assets/index-DZvdYun_.css"
+    ],
+    "scripts": [
+      "https://disaster-rescue-web.vercel.app/assets/index-DUNwqLz7.js"
+    ]
+  },
+  {
+    "label": "live",
+    "asset": "https://disaster-rescue-web.vercel.app/assets/index-DUNwqLz7.js",
+    "hash": "ab059f5e9d56e72fe9e13ec92baee8becfe474d7404161636b0cb552795661a2",
+    "flags": {
+      "incidentInbox": false,
+      "indigoToken": false,
+      "residentRegister": true,
+      "demoLabel": false
+    }
+  }
+]

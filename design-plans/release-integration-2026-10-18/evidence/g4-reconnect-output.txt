@@ -1,0 +1,39 @@
+dispatcher target: RR-260003 demo-report-03 | resident target: DR-1JYAPB tOBjGJO85eTSP8OUFEyh
+PASS dispatcher: sign-in via emulator (Auth 9299, Firestore 8190), no production hosts hosts localhost:5174, localhost:9299, localhost:8190; non-local none
+PASS dispatcher: target row visible before offline Landslide High Hillside District Soil and branches are blocking an access road after heavy rain. 10/16/2026, 11:00:00 PM
+PASS API write while browser offline stored api 200, stored now Awaiting Assignment
+FAIL dispatcher: offline indicator shown to user words found: none
+PASS dispatcher: missed update appears after reconnect without reload status shown "Awaiting Assignment" after 527 ms; row: Landslide High Hillside District Soil and branches are blocking an access road after heavy rain. 10/16/2026, 11:00:00 PM Awaiting Assignment
+PASS dispatcher: no uncaught page errors during offline window uncaught 0; network-disconnect console entries 15
+PASS resident: sign-in via emulator (Auth 9299, Firestore 8190), no production hosts hosts localhost:5174, localhost:9299, localhost:8190; non-local none
+PASS resident: detail shows reference before offline 
+PASS API status change while resident offline stored api 200, stored Awaiting Assignment
+PASS resident: page still shows previous status while offline (stale, no cue) previous Submitted, stored Awaiting Assignment
+PASS resident: change appears after reconnect without reload after 6 ms
+{
+  "dispatcherOffline": {
+    "indicatorWords": [],
+    "rowWhileOffline": "Landslide High Hillside District Soil and branches are blocking an access road after heavy rain. 10/16/2026, 11:00:00 PM Submitted Pending"
+  },
+  "dispatcherReconnect": {
+    "ms": 527,
+    "statusShown": true,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    ]
+  },
+  "resident": {
+    "ok": true,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    ]
+  }
+}

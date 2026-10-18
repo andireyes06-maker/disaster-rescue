@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const h = vi.hoisted(() => ({ api: vi.fn() }));
@@ -42,6 +42,21 @@ describe('OperationForm', () => {
       method: 'POST',
       body: { status: 'Resolved', peopleRescued: 12, note: 'Family moved to the shelter' },
     });
+  });
+
+  it('keeps focus and blocks repeat posts, then clears saved feedback when a new draft starts', async () => {
+    let finish!: () => void;
+    h.api.mockImplementation(() => new Promise<void>(resolve => { finish = resolve; }));
+    render(<OperationForm reportId="r1" />);
+    await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+    const posting = await screen.findByRole('button', { name: 'Posting update…' });
+    expect(posting).toHaveFocus();
+    await userEvent.click(posting);
+    expect(h.api).toHaveBeenCalledTimes(1);
+    await act(async () => { finish(); });
+    expect(await screen.findByRole('status')).toHaveTextContent('Update saved.');
+    await userEvent.type(screen.getByLabelText(/notes/i), 'New draft');
+    expect(screen.queryByText('Update saved.')).not.toBeInTheDocument();
   });
 });
 

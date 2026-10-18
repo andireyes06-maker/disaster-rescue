@@ -1,0 +1,29 @@
+[
+  {
+    "check": "invalid-focus",
+    "value": "type"
+  },
+  {
+    "check": "radio-arrow-key",
+    "value": true
+  },
+  {
+    "check": "incomplete-coordinate-disabled",
+    "value": true
+  },
+  {
+    "check": "manual-source-multipart",
+    "value": true
+  },
+  {
+    "check": "failed-submit-retains-description",
+    "value": "Sample: smoke is rising near the access road."
+  },
+  {
+    "check": "reduced-motion",
+    "value": {
+      "matches": true,
+      "activeAnimations": 0
+    }
+  }
+]

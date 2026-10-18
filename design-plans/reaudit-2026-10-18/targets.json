@@ -1,0 +1,214 @@
+[
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "register-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "admin-account-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "admin-new-team-name-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "admin-hotline-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "priority-busy",
+    "axe": [],
+    "overflow": 0,
+    "duplicatePrevented": true
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "classify-busy",
+    "axe": [],
+    "overflow": 0,
+    "duplicatePrevented": true
+  },
+  {
+    "engine": "Chromium",
+    "width": 390,
+    "name": "long-history",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120,
+    "scope": "Browser-only hook fixture; no stored history changed"
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "register-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "admin-account-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "admin-new-team-name-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "admin-hotline-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "priority-busy",
+    "axe": [],
+    "overflow": 0,
+    "duplicatePrevented": true
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "classify-busy",
+    "axe": [],
+    "overflow": 0,
+    "duplicatePrevented": true
+  },
+  {
+    "engine": "Chromium",
+    "width": 1440,
+    "name": "long-history",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120,
+    "scope": "Browser-only hook fixture; no stored history changed"
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "register-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "admin-account-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "admin-new-team-name-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "admin-hotline-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "priority-busy",
+    "axe": [],
+    "overflow": 0,
+    "duplicatePrevented": true
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "classify-busy",
+    "axe": [],
+    "overflow": 0,
+    "duplicatePrevented": true
+  },
+  {
+    "engine": "WebKit",
+    "width": 390,
+    "name": "long-history",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120,
+    "scope": "Browser-only hook fixture; no stored history changed"
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "register-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "admin-account-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "admin-new-team-name-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "admin-hotline-required",
+    "axe": [],
+    "overflow": 0
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "priority-busy",
+    "axe": [],
+    "overflow": 0,
+    "duplicatePrevented": true
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "classify-busy",
+    "axe": [],
+    "overflow": 0,
+    "duplicatePrevented": true
+  },
+  {
+    "engine": "WebKit",
+    "width": 1440,
+    "name": "long-history",
+    "axe": [],
+    "overflow": 0,
+    "updates": 120,
+    "scope": "Browser-only hook fixture; no stored history changed"
+  }
+]

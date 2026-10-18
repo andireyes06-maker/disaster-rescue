@@ -1,5 +1,7 @@
 export function loadConfig(env = process.env) {
   return {
+    // Set only by the local emulator demo. Production never sets FIRESTORE_EMULATOR_HOST.
+    emulator: Boolean(env.FIRESTORE_EMULATOR_HOST),
     port: Number(env.PORT) || 3000,
     // Number of proxy hops in front of the API (0 when serving directly).
     trustProxy: Number(env.TRUST_PROXY) || 0,
@@ -16,6 +18,8 @@ export function loadConfig(env = process.env) {
 }
 
 export function validateConfig(config) {
+  // The emulator needs no Cloudinary or service account. Photo uploads will fail there, which the demo does not use.
+  if (config.emulator) return config;
   const required = [
     ['CLOUDINARY_CLOUD_NAME', config.cloudinary.cloudName],
     ['CLOUDINARY_API_KEY', config.cloudinary.apiKey],

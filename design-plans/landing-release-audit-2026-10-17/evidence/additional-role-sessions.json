@@ -1,0 +1,17 @@
+[
+  {
+    "role": "dispatcher",
+    "restored": true,
+    "title": "Dashboard · Rescue Reports"
+  },
+  {
+    "role": "dmo",
+    "restored": true,
+    "title": "Monitor · Rescue Reports"
+  },
+  {
+    "role": "responder",
+    "restored": true,
+    "title": "Assignments · Rescue Reports"
+  }
+]

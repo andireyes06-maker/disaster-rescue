@@ -123,7 +123,7 @@ class _LocationStepState extends State<LocationStep> {
           maxLength: 200,
           decoration: const InputDecoration(
             labelText: 'Address or landmark (optional)',
-            hintText: 'For example: near the school gate',
+            hintText: 'For example: beside the community hall',
           ),
         ),
       ],

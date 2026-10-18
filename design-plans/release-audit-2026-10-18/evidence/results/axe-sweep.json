@@ -1,0 +1,240 @@
+[
+  {
+    "who": "anonymous",
+    "path": "/",
+    "width": 390,
+    "violations": [],
+    "passes": 17
+  },
+  {
+    "who": "anonymous",
+    "path": "/login",
+    "width": 390,
+    "violations": [],
+    "passes": 15
+  },
+  {
+    "who": "anonymous",
+    "path": "/register",
+    "width": 390,
+    "violations": [],
+    "passes": 23
+  },
+  {
+    "who": "anonymous",
+    "path": "/forbidden",
+    "width": 390,
+    "violations": [],
+    "passes": 9
+  },
+  {
+    "who": "anonymous",
+    "path": "/",
+    "width": 1440,
+    "violations": [],
+    "passes": 17
+  },
+  {
+    "who": "anonymous",
+    "path": "/login",
+    "width": 1440,
+    "violations": [],
+    "passes": 15
+  },
+  {
+    "who": "anonymous",
+    "path": "/register",
+    "width": 1440,
+    "violations": [],
+    "passes": 23
+  },
+  {
+    "who": "anonymous",
+    "path": "/forbidden",
+    "width": 1440,
+    "violations": [],
+    "passes": 9
+  },
+  {
+    "who": "resident",
+    "path": "/my",
+    "width": 390,
+    "violations": [],
+    "passes": 24
+  },
+  {
+    "who": "resident",
+    "path": "/my/report",
+    "width": 390,
+    "violations": [],
+    "passes": 21
+  },
+  {
+    "who": "resident",
+    "path": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "width": 390,
+    "violations": [],
+    "passes": 18
+  },
+  {
+    "who": "resident",
+    "path": "/my",
+    "width": 1440,
+    "violations": [],
+    "passes": 24
+  },
+  {
+    "who": "resident",
+    "path": "/my/report",
+    "width": 1440,
+    "violations": [],
+    "passes": 21
+  },
+  {
+    "who": "resident",
+    "path": "/my/reports/4pPXAZvvTiytPEhqO2Tg",
+    "width": 1440,
+    "violations": [],
+    "passes": 18
+  },
+  {
+    "who": "dispatcher",
+    "path": "/dashboard",
+    "width": 390,
+    "violations": [],
+    "passes": 26
+  },
+  {
+    "who": "dispatcher",
+    "path": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "width": 390,
+    "violations": [],
+    "passes": 19
+  },
+  {
+    "who": "dispatcher",
+    "path": "/map",
+    "width": 390,
+    "violations": [],
+    "passes": 24
+  },
+  {
+    "who": "dispatcher",
+    "path": "/analytics",
+    "width": 390,
+    "violations": [],
+    "passes": 27
+  },
+  {
+    "who": "dispatcher",
+    "path": "/audit",
+    "width": 390,
+    "violations": [],
+    "passes": 27
+  },
+  {
+    "who": "dispatcher",
+    "path": "/teams",
+    "width": 390,
+    "violations": [],
+    "passes": 20
+  },
+  {
+    "who": "dispatcher",
+    "path": "/users",
+    "width": 390,
+    "violations": [],
+    "passes": 23
+  },
+  {
+    "who": "dispatcher",
+    "path": "/dashboard",
+    "width": 1440,
+    "violations": [],
+    "passes": 26
+  },
+  {
+    "who": "dispatcher",
+    "path": "/incidents/4pPXAZvvTiytPEhqO2Tg",
+    "width": 1440,
+    "violations": [],
+    "passes": 19
+  },
+  {
+    "who": "dispatcher",
+    "path": "/map",
+    "width": 1440,
+    "violations": [],
+    "passes": 24
+  },
+  {
+    "who": "dispatcher",
+    "path": "/analytics",
+    "width": 1440,
+    "violations": [],
+    "passes": 27
+  },
+  {
+    "who": "dispatcher",
+    "path": "/audit",
+    "width": 1440,
+    "violations": [],
+    "passes": 26
+  },
+  {
+    "who": "dispatcher",
+    "path": "/teams",
+    "width": 1440,
+    "violations": [],
+    "passes": 20
+  },
+  {
+    "who": "dispatcher",
+    "path": "/users",
+    "width": 1440,
+    "violations": [],
+    "passes": 23
+  },
+  {
+    "who": "responder",
+    "path": "/assignments",
+    "width": 390,
+    "violations": [],
+    "passes": 17
+  },
+  {
+    "who": "responder",
+    "path": "/assignments",
+    "width": 1440,
+    "violations": [],
+    "passes": 17
+  },
+  {
+    "who": "dmo",
+    "path": "/monitor",
+    "width": 390,
+    "violations": [],
+    "passes": 24
+  },
+  {
+    "who": "dmo",
+    "path": "/monitor",
+    "width": 1440,
+    "violations": [],
+    "passes": 24
+  },
+  {
+    "who": "admin",
+    "path": "/admin",
+    "width": 390,
+    "violations": [],
+    "passes": 29
+  },
+  {
+    "who": "admin",
+    "path": "/admin",
+    "width": 1440,
+    "violations": [],
+    "passes": 28
+  }
+]

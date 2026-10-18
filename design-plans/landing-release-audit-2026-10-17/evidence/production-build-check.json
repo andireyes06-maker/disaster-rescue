@@ -1,0 +1,16 @@
+{
+  "title": "Rescue Reports · Report clearly. Respond together.",
+  "landing": 1,
+  "configurationError": 0,
+  "javascript": [
+    "http://localhost:5180/assets/createLucideIcon-iAjGl61D.js",
+    "http://localhost:5180/assets/jsx-runtime-Wy9s6hX0.js",
+    "http://localhost:5180/assets/index-DL1f0JHC.js"
+  ],
+  "firestoreRequested": false,
+  "mapsRequested": false,
+  "robots": {
+    "status": 200,
+    "body": "User-agent: *\nAllow: /\n"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "firestore": {
+    "rules": "/private/tmp/rescue-release-integration-2026-10-18/firebase/firestore.rules",
+    "indexes": "/private/tmp/rescue-release-integration-2026-10-18/firebase/firestore.indexes.json"
+  },
+  "emulators": {
+    "auth": {
+      "host": "127.0.0.1",
+      "port": 9599
+    },
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8490,
+      "websocketPort": 9186
+    },
+    "hub": {
+      "host": "127.0.0.1",
+      "port": 4436
+    },
+    "logging": {
+      "host": "127.0.0.1",
+      "port": 4536
+    },
+    "ui": {
+      "enabled": false
+    },
+    "singleProjectMode": true
+  }
+}

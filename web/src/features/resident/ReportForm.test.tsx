@@ -4,7 +4,9 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 const h = vi.hoisted(() => ({ api: vi.fn() }));
-vi.mock('../../api/client', () => ({ api: h.api }));
+vi.mock('../../api/client', async (importOriginal) => ({
+  ...await importOriginal<typeof import('../../api/client')>(), api: h.api,
+}));
 
 import ReportForm from './ReportForm';
 
@@ -27,14 +29,46 @@ function giveGps() {
 }
 
 async function fillBasics(user: ReturnType<typeof userEvent.setup>) {
-  await user.selectOptions(screen.getByLabelText('Type of emergency'), 'flood');
+  await user.click(screen.getByRole('radio', { name: 'Flood' }));
   await user.type(screen.getByLabelText('What is happening?'), 'Water is rising fast');
 }
 
 describe('ReportForm', () => {
+  it('changes the retry key when a replacement photo has identical metadata', async () => {
+    h.api.mockRejectedValue({ status: 500 });
+    giveGps();
+    const user = userEvent.setup();
+    renderForm();
+    await fillBasics(user);
+    await user.click(screen.getByRole('button', { name: 'Use my location' }));
+    const photo = screen.getByLabelText('Photos (up to 5)');
+    await user.upload(photo, new File(['a'], 'incident.jpg', { type: 'image/jpeg', lastModified: 100 }));
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    const first = h.api.mock.calls[0][1].headers['Idempotency-Key'];
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    expect(h.api.mock.calls[1][1].headers['Idempotency-Key']).toBe(first);
+    await user.upload(photo, new File(['b'], 'incident.jpg', { type: 'image/jpeg', lastModified: 100 }));
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    expect(h.api.mock.calls[2][1].headers['Idempotency-Key']).not.toBe(first);
+  });
+
   beforeEach(() => {
     h.api.mockReset().mockResolvedValue({ id: 'r9', status: 'Submitted', reference: 'DR-AB12CD' });
     Object.defineProperty(navigator, 'geolocation', { configurable: true, value: undefined });
+  });
+
+  it.each([0, 500])('keeps the draft and treats a %s failure as an unconfirmed submission', async (status) => {
+    h.api.mockRejectedValue({ status });
+    giveGps();
+    const user = userEvent.setup();
+    renderForm();
+    await fillBasics(user);
+    await user.click(screen.getByRole('button', { name: 'Use my location' }));
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    expect(await screen.findByText(/Check My reports before sending again\./)).toBeInTheDocument();
+    expect(screen.getByLabelText('What is happening?')).toHaveValue('Water is rising fast');
+    expect(screen.queryByText(/report (was not|has not been) sent/i)).not.toBeInTheDocument();
+    expect(h.api).toHaveBeenCalledTimes(1);
   });
 
   it('refuses to submit without a location (review focus 1)', async () => {
@@ -44,6 +78,22 @@ describe('ReportForm', () => {
     await user.click(screen.getByRole('button', { name: 'Submit report' }));
     expect(await screen.findByText('Pick a location or use GPS before you submit.')).toBeInTheDocument();
     expect(h.api).not.toHaveBeenCalled();
+  });
+
+  it('requires both manual coordinates and sends the confirmed pair as a manual location', async () => {
+    const user = userEvent.setup();
+    renderForm();
+    await fillBasics(user);
+    await user.click(screen.getByText('Enter coordinates instead'));
+    await user.type(screen.getByLabelText('Latitude'), '14.6');
+    expect(screen.getByRole('button', { name: 'Set coordinates' })).toBeDisabled();
+    await user.type(screen.getByLabelText('Longitude'), '121');
+    await user.click(screen.getByRole('button', { name: 'Set coordinates' }));
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    const form = h.api.mock.calls[0][1].formData as FormData;
+    expect(form.get('source')).toBe('manual');
+    expect(form.get('lat')).toBe('14.6');
+    expect(form.get('lng')).toBe('121');
   });
 
   it('refuses more than 5 photos', async () => {
@@ -97,10 +147,10 @@ describe('ReportForm', () => {
     const user = userEvent.setup();
     renderForm();
     await user.click(screen.getByRole('button', { name: 'Submit report' }));
-    expect(screen.getByLabelText('Type of emergency')).toHaveAttribute('aria-invalid', 'true');
-    expect(screen.getByLabelText('Type of emergency')).toHaveAccessibleDescription(/choose|type|emergency/i);
+    expect(screen.getByRole('group', { name: 'Type of emergency' })).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByRole('group', { name: 'Type of emergency' })).toHaveAccessibleDescription(/choose|type|emergency/i);
     expect(screen.getByRole('link', { name: 'Type of emergency' })).toHaveAttribute('href', '#type');
-    expect(screen.getByLabelText('Type of emergency')).toHaveFocus();
+    expect(screen.getByRole('group', { name: 'Type of emergency' })).toHaveFocus();
     expect(h.api).not.toHaveBeenCalled();
   });
 
@@ -127,5 +177,38 @@ describe('ReportForm', () => {
     const dirty = new Event('beforeunload', { cancelable: true });
     window.dispatchEvent(dirty);
     expect(dirty.defaultPrevented).toBe(true);
+  });
+
+  it('sends the same Idempotency-Key on an unchanged retry', async () => {
+    h.api.mockRejectedValueOnce({ status: 500 }).mockRejectedValueOnce({ status: 0 });
+    giveGps();
+    const user = userEvent.setup();
+    renderForm();
+    await fillBasics(user);
+    await user.click(screen.getByRole('button', { name: 'Use my location' }));
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    await screen.findByText(/Check My reports before sending again\./);
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    await screen.findByText(/Check My reports before sending again\./);
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    const keys = h.api.mock.calls.map((c) => c[1].headers['Idempotency-Key'] as string);
+    expect(keys).toHaveLength(3);
+    expect(keys[0]).toMatch(/^[A-Za-z0-9_-]{16,100}$/);
+    expect(new Set(keys).size).toBe(1);
+  });
+
+  it('uses a new Idempotency-Key when the report changes after a failed attempt', async () => {
+    h.api.mockRejectedValueOnce({ status: 500 });
+    giveGps();
+    const user = userEvent.setup();
+    renderForm();
+    await fillBasics(user);
+    await user.click(screen.getByRole('button', { name: 'Use my location' }));
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    await screen.findByText(/Check My reports before sending again\./);
+    await user.type(screen.getByLabelText('What is happening?'), ' Water has reached the second floor.');
+    await user.click(screen.getByRole('button', { name: 'Submit report' }));
+    const [first, second] = h.api.mock.calls.map((c) => c[1].headers['Idempotency-Key'] as string);
+    expect(second).not.toBe(first);
   });
 });

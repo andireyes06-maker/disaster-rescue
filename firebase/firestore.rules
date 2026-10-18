@@ -64,6 +64,12 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Demo indicator: tells every active screen that the workspace shows sample data. Written only by the demo seed.
+    match /config/demo {
+      allow read: if isActive();
+      allow write: if false;
+    }
+
     match /devices/{token} {
       allow read, write: if false;
     }

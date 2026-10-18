@@ -1,0 +1,10 @@
+{
+  "base": "76e54ff",
+  "patchApplied": true,
+  "filesChecked": 345,
+  "byteMismatches": [],
+  "missing": [],
+  "deletedPathsStillPresent": [],
+  "cleanBaseArchiveUsed": true,
+  "note": "Clean git archive of 76e54ff in a new directory; applied integration.patch with git apply --binary; extracted integration-overlay.tar.gz; compared every source-manifest.json hash. No dependency installation or tests were run in the reconstruction directory."
+}

@@ -1,0 +1,127 @@
+{
+  "dialog-no-preference": {
+    "state": "open",
+    "animationName": "enter",
+    "animationDuration": "0.1s",
+    "animationFillMode": "none",
+    "enterScale": ".95",
+    "enterScaleX": "",
+    "enterScaleY": "",
+    "keyframes": [
+      [
+        {
+          "offset": 0,
+          "easing": "ease",
+          "composite": "auto",
+          "transform": "translate3d(0px, 0px, 0px) scale3d(0.95, 0.95, 0.95) rotate(0deg)",
+          "filter": "blur(0px)",
+          "opacity": "0",
+          "computedOffset": 0
+        },
+        {
+          "offset": 1,
+          "easing": "ease",
+          "composite": "replace",
+          "transform": "none",
+          "filter": "none",
+          "opacity": "1",
+          "computedOffset": 1
+        }
+      ]
+    ]
+  },
+  "dialog-focus-no-preference": {
+    "tag": "BUTTON",
+    "text": "Assign team",
+    "class": "btn"
+  },
+  "dialog-reduce": {
+    "state": "open",
+    "animationName": "enter",
+    "animationDuration": "0.1s",
+    "animationFillMode": "none",
+    "enterScale": ".95",
+    "enterScaleX": "",
+    "enterScaleY": "",
+    "keyframes": [
+      [
+        {
+          "offset": 0,
+          "easing": "ease",
+          "composite": "auto",
+          "transform": "translate3d(0px, 0px, 0px) scale3d(0.95, 0.95, 0.95) rotate(0deg)",
+          "filter": "blur(0px)",
+          "opacity": "0",
+          "computedOffset": 0
+        },
+        {
+          "offset": 1,
+          "easing": "ease",
+          "composite": "replace",
+          "transform": "none",
+          "filter": "none",
+          "opacity": "1",
+          "computedOffset": 1
+        }
+      ]
+    ]
+  },
+  "dialog-focus-reduce": {
+    "tag": "BUTTON",
+    "text": "Assign team",
+    "class": "btn"
+  },
+  "beforeBack": {
+    "count": 1,
+    "selection": "Fire\nHigh\nBarangay Sto. Rosario, Malolos, Bulacan\nSmoke is coming from a residential building near the market. Residents have moved to the street.\n10/16/2026, 8:49:54 PM\nAwaiting Assignment\nVerified"
+  },
+  "afterBack": {
+    "count": 8,
+    "filterVisible": false,
+    "selection": "Flood\nCritical\nBarangay San Pablo, Malolos, Bulacan\nFlood water has re",
+    "url": "http://127.0.0.1:5175/dashboard"
+  },
+  "resolvedNext": "NEXT STEP\n\nNo action needed\n\nThis report is closed or has no staff action at this stage.\n\nEdit priority & classification",
+  "invalidReport": {
+    "focused": "",
+    "tag": "BUTTON",
+    "alerts": [
+      "Problem: Choose the type of emergency."
+    ],
+    "invalid": []
+  },
+  "residentLandmarks": {
+    "main": 1,
+    "title": "Disaster Rescue Reporting",
+    "skip": 0,
+    "activeNav": [
+      {
+        "text": "My reports",
+        "current": null
+      },
+      {
+        "text": "Report an emergency",
+        "current": null
+      }
+    ]
+  },
+  "residentRoleControl": {
+    "value": "responder",
+    "selectedIndex": 0,
+    "visible": "responder",
+    "options": [
+      "responder",
+      "dispatcher",
+      "dmo",
+      "admin"
+    ]
+  },
+  "adminIncident": {
+    "actionRail": 0,
+    "assign": 0
+  },
+  "zoom": {
+    "width": 1280,
+    "scrollWidth": 1280
+  }
+}

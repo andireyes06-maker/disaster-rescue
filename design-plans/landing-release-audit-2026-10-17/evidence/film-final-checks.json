@@ -1,0 +1,380 @@
+[
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "autoplay": {
+      "time": 0.1901,
+      "autoplay": true,
+      "muted": true,
+      "inline": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 48
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 48
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 48
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "autoplay": {
+      "time": 0.1645,
+      "autoplay": true,
+      "muted": true,
+      "inline": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 48
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 48
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 48
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "width": 320,
+    "autoplay": {
+      "time": 0.1658,
+      "autoplay": true,
+      "muted": true,
+      "inline": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 52.640625
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 52.640625
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 52.640625
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "reducedMotion": {
+      "posterOnly": true,
+      "chapterStartsRequestedScene": true
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "autoplay": {
+      "time": 0.166466,
+      "autoplay": true,
+      "muted": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 48
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 48
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 48
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "autoplay": {
+      "time": 0.166666,
+      "autoplay": true,
+      "muted": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 48
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 48
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 48
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "width": 320,
+    "autoplay": {
+      "time": 0.166666,
+      "autoplay": true,
+      "muted": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 52.649993896484375
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 52.649993896484375
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 52.649993896484375
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "reducedMotion": {
+      "posterOnly": true,
+      "chapterStartsRequestedScene": true
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "autoplay": {
+      "time": 0.17694775034755525,
+      "autoplay": true,
+      "muted": true,
+      "inline": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 48
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 48
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 48
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "autoplay": {
+      "time": 0.17249591634262668,
+      "autoplay": true,
+      "muted": true,
+      "inline": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 48
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 48
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 48
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 320,
+    "autoplay": {
+      "time": 0.16168099967402164,
+      "autoplay": true,
+      "muted": true,
+      "inline": true
+    },
+    "coordinate": true,
+    "keyboardSeek": true,
+    "chapterResumes": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "progress": {
+      "first": "1",
+      "second": "1",
+      "third": "0.6000000000000001"
+    },
+    "controls": [
+      {
+        "label": "Watch: Report",
+        "height": 52.640625
+      },
+      {
+        "label": "Watch: Coordinate",
+        "height": 52.640625
+      },
+      {
+        "label": "Watch: Stay informed",
+        "height": 52.640625
+      },
+      {
+        "label": "Pause product demo",
+        "height": 44
+      }
+    ],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "reducedMotion": {
+      "posterOnly": true,
+      "chapterStartsRequestedScene": true
+    }
+  }
+]

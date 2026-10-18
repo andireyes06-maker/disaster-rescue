@@ -39,6 +39,7 @@
  * @property {(filter?: object) => Promise<object[]>} listAudit
  * @property {() => Promise<object>} getHotlines
  * @property {(doc: object) => Promise<void>} saveHotlines
+ * @property {() => Promise<object|null>} getDemoConfig null unless the demo seed has written config/demo
  */
 
 export const REPO_METHODS = [
@@ -50,4 +51,5 @@ export const REPO_METHODS = [
   'addDevice', 'listDevices', 'removeDevice',
   'addAudit', 'listAudit',
   'getHotlines', 'saveHotlines',
+  'getDemoConfig',
 ];

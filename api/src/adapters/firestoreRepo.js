@@ -211,5 +211,10 @@ export function createFirestoreRepo(db) {
     async saveHotlines(doc) {
       await col('config').doc('hotlines').set(doc);
     },
+
+    async getDemoConfig() {
+      const snap = await col('config').doc('demo').get();
+      return snap.exists ? fromFs(snap.data()) : null;
+    },
   };
 }

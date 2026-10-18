@@ -31,7 +31,7 @@ export function toCsv(reports) {
   return [CSV_COLUMNS, ...rows].map((row) => row.map(cell).join(',')).join('\r\n') + '\r\n';
 }
 
-export function toPdf(stats, reports) {
+export function toPdf(stats, reports, { sampleLabel = null } = {}) {
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({ size: 'A4', margin: 50 });
     const chunks = [];
@@ -41,6 +41,7 @@ export function toPdf(stats, reports) {
 
     const list = (obj) => Object.entries(obj).map(([k, v]) => `${k}: ${v}`).join(', ') || 'none';
     doc.fontSize(18).text('Incident summary');
+    if (sampleLabel) doc.fontSize(10).text(sampleLabel);
     doc.moveDown();
     doc.fontSize(11)
       .text(`Total: ${stats.total}   Open: ${stats.open}   Resolved: ${stats.resolved}`)

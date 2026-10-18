@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "name": "lost response retry uses the same key and creates one report",
+      "pass": true,
+      "detail": {
+        "responseLoss": "mocked after real API acceptance",
+        "retry": "real API; exactly one report"
+      }
+    },
+    {
+      "name": "429 submit uses plain copy and retains entries",
+      "pass": true,
+      "detail": {
+        "response": "mocked 429; actual API rate limiter was separately reached by audit traffic"
+      }
+    },
+    {
+      "name": "team events render in the audit log",
+      "pass": true
+    },
+    {
+      "name": "resident offline update catches up after reconnect",
+      "pass": true
+    },
+    {
+      "name": "dispatcher and responder offline updates catch up after reconnect",
+      "pass": true
+    }
+  ],
+  "observations": [],
+  "pageErrors": [],
+  "unexpectedHosts": [],
+  "reconnectId": "94xWNSq7mlKp8PSPnC8G",
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0
+  }
+}

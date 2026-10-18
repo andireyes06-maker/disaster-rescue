@@ -1,0 +1,1 @@
+{"firestore":{"rules":"/Users/rien/Documents/FINAL_PROJECT/firebase/firestore.rules"},"emulators":{"auth":{"host":"127.0.0.1","port":9299},"firestore":{"host":"127.0.0.1","port":8380},"hub":{"host":"127.0.0.1","port":4551},"logging":{"host":"127.0.0.1","port":4651},"ui":{"enabled":false},"singleProjectMode":true}}

@@ -1,0 +1,177 @@
+[
+  {
+    "engine": "chromium",
+    "id": "01",
+    "entry": [
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "veil-arrive",
+      "dialog-arrive"
+    ],
+    "exit": {
+      "animations": [
+        "CSSTransition",
+        "CSSTransition",
+        "CSSTransition",
+        "CSSTransition",
+        "veil-leave",
+        "dialog-leave"
+      ],
+      "focus": "Reject"
+    },
+    "reopen": {
+      "dialogs": 1,
+      "focusInside": true
+    }
+  },
+  {
+    "engine": "chromium",
+    "id": "09",
+    "entry": [
+      "veil-arrive",
+      "dialog-arrive",
+      "feedback-arrive"
+    ],
+    "exit": {
+      "animations": [
+        "veil-leave",
+        "dialog-leave"
+      ],
+      "focus": "Assign team"
+    },
+    "reopen": {
+      "dialogs": 1,
+      "focusInside": true
+    }
+  },
+  {
+    "engine": "firefox",
+    "id": "01",
+    "entry": [
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "veil-arrive",
+      "dialog-arrive"
+    ],
+    "exit": {
+      "animations": [
+        "CSSTransition",
+        "CSSTransition",
+        "CSSTransition",
+        "CSSTransition",
+        "veil-leave",
+        "dialog-leave"
+      ],
+      "focus": "Reject"
+    },
+    "reopen": {
+      "dialogs": 1,
+      "focusInside": true
+    }
+  },
+  {
+    "engine": "firefox",
+    "id": "09",
+    "entry": [
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "veil-arrive",
+      "dialog-arrive",
+      "feedback-arrive"
+    ],
+    "exit": {
+      "animations": [
+        "veil-leave",
+        "dialog-leave",
+        "Animation",
+        "Animation",
+        "Animation"
+      ],
+      "focus": "Assign team"
+    },
+    "reopen": {
+      "dialogs": 1,
+      "focusInside": true
+    }
+  },
+  {
+    "engine": "webkit",
+    "id": "01",
+    "entry": [
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "veil-arrive",
+      "dialog-arrive"
+    ],
+    "exit": {
+      "animations": [
+        "CSSTransition",
+        "CSSTransition",
+        "CSSTransition",
+        "CSSTransition",
+        "veil-leave",
+        "dialog-leave"
+      ],
+      "focus": "Reject"
+    },
+    "reopen": {
+      "dialogs": 1,
+      "focusInside": true
+    }
+  },
+  {
+    "engine": "webkit",
+    "id": "09",
+    "entry": [
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "CSSTransition",
+      "veil-arrive",
+      "dialog-arrive",
+      "feedback-arrive"
+    ],
+    "exit": {
+      "animations": [
+        "veil-leave",
+        "dialog-leave",
+        "Animation",
+        "Animation",
+        "Animation"
+      ],
+      "focus": "Assign team"
+    },
+    "reopen": {
+      "dialogs": 1,
+      "focusInside": true
+    }
+  }
+]

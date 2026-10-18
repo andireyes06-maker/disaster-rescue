@@ -6,6 +6,7 @@ import '../../data/services.dart';
 import '../../theme/app_theme.dart';
 import '../auth/auth_widgets.dart';
 import '../my_reports/my_reports_page.dart' show formatWhen;
+import '../../theme/product_widgets.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key, required this.uid});
@@ -51,11 +52,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
             );
           }
           if (!snap.hasData) {
-            return const Center(child: CircularProgressIndicator());
+            return const ProductLoading();
           }
           final items = snap.data!;
           if (items.isEmpty) {
-            return const Center(child: Text('No notifications yet.'));
+            return const ProductEmpty(title: 'No notifications yet.', description: 'Updates from your response team will appear here.', icon: Icons.notifications_none_outlined);
           }
           return ListView.separated(
             padding: const EdgeInsets.all(16),
@@ -83,8 +84,8 @@ class _NotificationRow extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.lg),
         side: BorderSide(
-          color: unread ? AppColors.primary : AppColors.muted,
-          width: unread ? 2 : 1,
+          color: unread ? AppColors.primary.withValues(alpha: 0.35) : AppColors.border,
+          width: 1,
         ),
       ),
       child: InkWell(

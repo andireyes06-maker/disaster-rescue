@@ -76,7 +76,7 @@ Future<void> main() async {
         Provider<PushRegistration>.value(value: push),
       ],
       child: MaterialApp(
-        title: 'Disaster Rescue',
+        title: 'Rescue Reports',
         theme: AppTheme.light,
         home: const RoleGate(),
       ),

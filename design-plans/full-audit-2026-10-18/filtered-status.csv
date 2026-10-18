@@ -1,0 +1,7 @@
+reference,type,status,priority,verified,createdAt,assignedTeamId,lat,lng,addressText,description
+DR-MC8M2E,flood,Submitted,medium,false,2026-10-18T10:36:14.312Z,,14.64,121.04,,Integration lost response report with real server receipt 1792319773845
+DR-9N7EUY,flood,Submitted,medium,false,2026-10-18T10:24:46.758Z,,14.64,121.04,,Integration lost response report with real server receipt
+RR-260001,flood,Submitted,critical,false,2026-10-18T08:13:27.066Z,,14.5997,120.9997,Riverside District,Water has entered the ground floor. Three residents need help reaching higher ground.
+RR-260002,fire,Submitted,high,false,2026-10-18T05:13:27.066Z,,14.6099,121.0119,Market District,Smoke is coming from a storage area. Residents have moved to an open space.
+RR-260003,landslide,Submitted,high,false,2026-10-18T01:13:27.066Z,,14.6168,120.9868,Hillside District,Soil and branches are blocking an access road after heavy rain.
+RR-260004,other,Submitted,medium,false,2026-10-17T20:13:27.066Z,,14.593,121.006,Central District,A fallen tree blocks the entrance to a residential lane.

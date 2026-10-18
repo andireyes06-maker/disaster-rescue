@@ -1,0 +1,165 @@
+{
+  "build": "Optimized local bundle; import.meta.env.DEV=true override only to enable local emulators. Not deployment certification.",
+  "checks": [
+    {
+      "name": "Users readable layout 390",
+      "pass": true,
+      "identityWidth": 316,
+      "rowHeight": 306.234375,
+      "fontReady": true,
+      "outOfBounds": false
+    },
+    {
+      "name": "Password target 390",
+      "pass": true,
+      "width": 44,
+      "height": 44
+    },
+    {
+      "name": "History progressive disclosure resident 390",
+      "pass": true,
+      "height": 2526,
+      "rows": 5,
+      "previews": [
+        69.75,
+        69.75,
+        69.75,
+        69.75,
+        69.75
+      ]
+    },
+    {
+      "name": "History progressive disclosure admin 390",
+      "pass": true,
+      "height": 2319,
+      "rows": 5,
+      "previews": [
+        69.75,
+        69.75,
+        69.75,
+        69.75,
+        69.75
+      ]
+    },
+    {
+      "name": "Staff notification access admin 390",
+      "pass": true,
+      "href": "/incidents/completion-history-50",
+      "entry": {
+        "duration": "0.3s",
+        "animation": "notification-open"
+      }
+    },
+    {
+      "name": "Staff notification access dispatcher 390",
+      "pass": true,
+      "href": "/incidents/MxRGNN4Fzha6b31x7gFb",
+      "entry": {
+        "duration": "0.3s",
+        "animation": "notification-open"
+      }
+    },
+    {
+      "name": "Staff notification access dmo 390",
+      "pass": true,
+      "href": "/incidents/completion-history-50",
+      "entry": {
+        "duration": "0.3s",
+        "animation": "notification-open"
+      }
+    },
+    {
+      "name": "Staff notification access responder 390",
+      "pass": true,
+      "href": "/assignments",
+      "entry": {
+        "duration": "0.3s",
+        "animation": "notification-open"
+      }
+    },
+    {
+      "name": "Admin navigation omits Assignments 390",
+      "pass": true
+    },
+    {
+      "name": "Users readable layout 1440",
+      "pass": true,
+      "identityWidth": 587.65625,
+      "rowHeight": 123.140625,
+      "fontReady": true,
+      "outOfBounds": false
+    },
+    {
+      "name": "Password target 1440",
+      "pass": true,
+      "width": 44,
+      "height": 46
+    },
+    {
+      "name": "History progressive disclosure resident 1440",
+      "pass": true,
+      "height": 1966,
+      "rows": 5,
+      "previews": [
+        69.75,
+        69.75,
+        69.75,
+        69.75,
+        69.75
+      ]
+    },
+    {
+      "name": "History progressive disclosure admin 1440",
+      "pass": true,
+      "height": 1903,
+      "rows": 5,
+      "previews": [
+        69.75,
+        69.75,
+        69.75,
+        69.75,
+        69.75
+      ]
+    },
+    {
+      "name": "Staff notification access admin 1440",
+      "pass": true,
+      "href": "/incidents/completion-history-50",
+      "entry": {
+        "duration": "0.3s",
+        "animation": "notification-open"
+      }
+    },
+    {
+      "name": "Staff notification access dispatcher 1440",
+      "pass": true,
+      "href": "/incidents/MxRGNN4Fzha6b31x7gFb",
+      "entry": {
+        "duration": "0.3s",
+        "animation": "notification-open"
+      }
+    },
+    {
+      "name": "Staff notification access dmo 1440",
+      "pass": true,
+      "href": "/incidents/completion-history-50",
+      "entry": {
+        "duration": "0.3s",
+        "animation": "notification-open"
+      }
+    },
+    {
+      "name": "Staff notification access responder 1440",
+      "pass": true,
+      "href": "/assignments",
+      "entry": {
+        "duration": "0.3s",
+        "animation": "notification-open"
+      }
+    },
+    {
+      "name": "Admin navigation omits Assignments 1440",
+      "pass": true
+    }
+  ]
+}

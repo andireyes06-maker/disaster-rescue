@@ -1,0 +1,6729 @@
+[
+  {
+    "role": "public",
+    "route": "/",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__title",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__line",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__line",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__action",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__scene",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "service-opening__copy",
+          "frames": [
+            {
+              "transform": "translateY(18px)"
+            },
+            {
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 550,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "response-scene response-film",
+          "frames": [
+            {
+              "opacity": 0.2,
+              "clipPath": "inset(0 0 12% 0 round 16px)",
+              "transform": "translateY(20px)"
+            },
+            {
+              "opacity": 1,
+              "clipPath": "inset(0 0 0% 0 round 16px)",
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 680,
+            "delay": 100,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": [
+        {
+          "name": "WAAPI",
+          "target": ""
+        }
+      ]
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "login auth-split",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "login auth-split",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "name",
+        "marked": true
+      },
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "phone",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      },
+      {
+        "id": "confirmPassword",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "WAAPI",
+          "target": "login",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/audit-address-not-found",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "WAAPI",
+          "target": "login",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__title",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__line",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__line",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__action",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block landing-loading__scene",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "service-opening__copy",
+          "frames": [
+            {
+              "transform": "translateY(18px)"
+            },
+            {
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 550,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "response-scene response-film",
+          "frames": [
+            {
+              "opacity": 0.2,
+              "clipPath": "inset(0 0 12% 0 round 16px)",
+              "transform": "translateY(20px)"
+            },
+            {
+              "opacity": 1,
+              "clipPath": "inset(0 0 0% 0 round 16px)",
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 680,
+            "delay": 100,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "service-journey",
+          "frames": [
+            {
+              "opacity": 0.35,
+              "transform": "translateY(24px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 520,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "login auth-split",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "login auth-split",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "name",
+        "marked": true
+      },
+      {
+        "id": "email",
+        "marked": true
+      },
+      {
+        "id": "phone",
+        "marked": true
+      },
+      {
+        "id": "password",
+        "marked": true
+      },
+      {
+        "id": "confirmPassword",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "WAAPI",
+          "target": "login",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "public",
+    "route": "/audit-address-not-found",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "WAAPI",
+          "target": "login",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "preview",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "management-result-count",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-team",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-alpha",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-bravo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-charlie",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-delta",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-echo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-foxtrot",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-golf",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-hotel",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-india",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-juliet",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-kilo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-lima",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "management-result-count",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "staff-email",
+        "marked": true
+      },
+      {
+        "id": "staff-name",
+        "marked": true
+      },
+      {
+        "id": "staff-role",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "calm-empty",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "admin-section__body",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "field-hint",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "btn",
+          "frames": [
+            {
+              "transform": "translate(0px, 74.5px)"
+            },
+            {
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 220,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+          }
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-name",
+        "marked": true
+      },
+      {
+        "id": "new-email",
+        "marked": true
+      },
+      {
+        "id": "new-role",
+        "marked": true
+      },
+      {
+        "id": "new-team-name",
+        "marked": true
+      },
+      {
+        "id": "hotline",
+        "marked": true
+      },
+      {
+        "id": "notice",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-05",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "preview",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/monitor",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "management-result-count",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-team",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-alpha",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-bravo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-charlie",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-delta",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-echo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-foxtrot",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-golf",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-hotel",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-india",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-juliet",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-kilo",
+        "marked": true
+      },
+      {
+        "id": "team-name-demo-team-lima",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "management-result-count",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "staff-email",
+        "marked": true
+      },
+      {
+        "id": "staff-name",
+        "marked": true
+      },
+      {
+        "id": "staff-role",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/assignments",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "calm-empty",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "admin-section__body",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "btn",
+          "frames": [
+            {
+              "transform": "translate(0px, 55px)"
+            },
+            {
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 220,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "field-hint",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "new-name",
+        "marked": true
+      },
+      {
+        "id": "new-email",
+        "marked": true
+      },
+      {
+        "id": "new-role",
+        "marked": true
+      },
+      {
+        "id": "new-team-name",
+        "marked": true
+      },
+      {
+        "id": "hotline",
+        "marked": true
+      },
+      {
+        "id": "notice",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-05",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident__body",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident-band",
+          "frames": [
+            {
+              "opacity": 0.4,
+              "transform": "translateY(6px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 280,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "unread-arrive",
+          "target": "notification-bell__count",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "resident__list",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident__body",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident-band",
+          "frames": [
+            {
+              "opacity": 0.4,
+              "transform": "translateY(6px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 280,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "location-status",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "unread-arrive",
+          "target": "notification-bell__count",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "description",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident__body",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident-band",
+          "frames": [
+            {
+              "opacity": 0.4,
+              "transform": "translateY(6px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 280,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "unread-arrive",
+          "target": "notification-bell__count",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "resident__list",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident__body",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident-band",
+          "frames": [
+            {
+              "opacity": 0.4,
+              "transform": "translateY(6px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 280,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "unread-arrive",
+          "target": "notification-bell__count",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "resident__list",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/report",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident__body",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident-band",
+          "frames": [
+            {
+              "opacity": 0.4,
+              "transform": "translateY(6px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 280,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "location-status",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "unread-arrive",
+          "target": "notification-bell__count",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "emergency-type",
+        "marked": true
+      },
+      {
+        "id": "description",
+        "marked": true
+      }
+    ],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "resident",
+    "route": "/my/reports/demo-report-05",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident__body",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "WAAPI",
+          "target": "resident-band",
+          "frames": [
+            {
+              "opacity": 0.4,
+              "transform": "translateY(6px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 280,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "resident__list",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "unread-arrive",
+          "target": "notification-bell__count",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dispatcher",
+    "route": "/dashboard",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "preview",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dispatcher",
+    "route": "/incidents/demo-report-05",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dispatcher",
+    "route": "/dashboard",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.22s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "preview",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dispatcher",
+    "route": "/incidents/demo-report-05",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dmo",
+    "route": "/monitor",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dmo",
+    "route": "/incidents/demo-report-05",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dmo",
+    "route": "/monitor",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "dmo",
+    "route": "/incidents/demo-report-05",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "responder",
+    "route": "/assignments",
+    "width": 390,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  },
+  {
+    "role": "responder",
+    "route": "/assignments",
+    "width": 1440,
+    "settled": true,
+    "axe": [],
+    "motion": {
+      "normal": true,
+      "recorded": [
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "WAAPI",
+          "target": "shell__main",
+          "frames": [
+            {
+              "opacity": 0.25,
+              "transform": "translateY(-10px)"
+            },
+            {
+              "opacity": 1,
+              "transform": "none"
+            }
+          ],
+          "options": {
+            "duration": 320,
+            "delay": 0,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "fill": "backwards"
+          }
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "skeleton-sweep",
+          "target": "skeleton-block",
+          "duration": "0s",
+          "easing": "ease"
+        },
+        {
+          "kind": "CSS",
+          "name": "surface-arrive",
+          "target": "skeleton",
+          "duration": "0.26s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.18s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        },
+        {
+          "kind": "CSS",
+          "name": "feedback-arrive",
+          "target": "",
+          "duration": "0.24s",
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+        }
+      ],
+      "running": []
+    },
+    "overflow": 0,
+    "mains": 1,
+    "required": [],
+    "badCopy": false,
+    "errors": [],
+    "writes": 0
+  }
+]

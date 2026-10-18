@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/product_widgets.dart';
 
 const offlineInstructions =
     'Call the hotline, or send an SMS to your local disaster office, then try again when you have a signal.';
@@ -29,6 +30,7 @@ class _OfflineHelpPageState extends State<OfflineHelpPage> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
+            const ProductIntro(title: 'Your report is still here.', description: 'Reconnect to send it, or use another way to reach your local response team.', icon: Icons.wifi_off_outlined),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

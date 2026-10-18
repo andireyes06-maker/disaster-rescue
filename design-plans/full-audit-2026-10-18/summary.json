@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-18",
+  "verdict": "Not release-ready",
+  "findings": {
+    "high": [
+      "F01",
+      "F02",
+      "F03"
+    ],
+    "medium": [
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F08",
+      "F09",
+      "F10"
+    ]
+  },
+  "checks": {
+    "webTestsPassed": 436,
+    "apiTestsPassed": 351,
+    "apiTestsSkipped": 18,
+    "emulatorAdapterCasesPassed": 17,
+    "rulesTestsPassed": 129,
+    "flutterTestsPassed": 128,
+    "responsiveCases": 82,
+    "webSurfaces": 18,
+    "expandedAdminCases": 16,
+    "roleGuardCasesPassed": 65,
+    "nativeLegacyGoldenSurfacesInspected": 15
+  },
+  "motion": "Normal motion inspected; no reduced-motion audit run. Headless timing is not device certification.",
+  "evidenceLimits": [
+    "Native retry defect observed using injected HTTP500; not a native live duplicate reproduction.",
+    "Responder edit loss observed with delayed mocked successful response.",
+    "Responsive captures reuse role-scoped real GET reads across widths.",
+    "One WebKit coordinate interaction failed once; three focused rechecks passed; cause unresolved.",
+    "Raw harness failures and their corrections retained."
+  ],
+  "externalGates": [
+    "non-production Cloudinary upload/lifecycle",
+    "real email and push delivery",
+    "hosted Firebase/WebKit",
+    "native physical/simulator rendering and permissions",
+    "approved hotline/privacy/retention wording",
+    "reviewed release scope/configuration"
+  ],
+  "productSourceChanges": false,
+  "committed": false,
+  "pushed": false,
+  "merged": false,
+  "deployed": false
+}

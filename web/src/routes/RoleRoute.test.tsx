@@ -29,7 +29,8 @@ function renderAt(auth: Record<string, unknown>) {
 describe('RoleRoute', () => {
   it('shows loading while loading', () => {
     renderAt({ user: null, role: null, loading: true });
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('Checking your account');
+    expect(screen.getByRole('main')).toBeInTheDocument();
   });
   it('redirects signed out to /login', () => {
     renderAt({ user: null, role: null, loading: false });

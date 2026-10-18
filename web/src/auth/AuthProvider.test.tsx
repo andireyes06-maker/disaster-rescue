@@ -13,7 +13,7 @@ vi.mock('firebase/auth', () => ({
   signInWithEmailAndPassword: (...a: unknown[]) => signIn(...a),
   signOut: (...a: unknown[]) => signOutFn(...a),
 }));
-vi.mock('../firebase', () => ({ getFirebaseAuth: () => ({}) }));
+vi.mock('../firebase-auth', () => ({ getFirebaseAuth: () => ({}) }));
 import { AuthProvider, useAuth } from './AuthProvider';
 
 function Probe() {

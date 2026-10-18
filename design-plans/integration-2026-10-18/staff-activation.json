@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "createdUid": "I9PDnERXCWbX0NyAEefobygWVPVQ",
+  "role": "dispatcher",
+  "browserForgotPassword": true,
+  "emulatorCodeConsumed": true,
+  "assignedRoute": "/dashboard",
+  "realEmailDelivery": false
+}

@@ -1,0 +1,1395 @@
+[
+  {
+    "email": "demo-resident-a",
+    "route": "/my",
+    "viewport": "phone",
+    "path": "/my",
+    "title": "My reports · Rescue Reports",
+    "h1": "My reports",
+    "overflowPx": 0,
+    "smallText": 19,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "My reports"
+      },
+      {
+        "fs": 12,
+        "text": "Report an emergency"
+      },
+      {
+        "fs": 12,
+        "text": "Sign out"
+      },
+      {
+        "fs": 12,
+        "text": "Submitting a report does not guarantee i"
+      },
+      {
+        "fs": 10,
+        "text": "DR-DEMO01 · 10/17/2026, 6:00:00 AM"
+      }
+    ],
+    "targets": 1,
+    "targetSamples": [
+      {
+        "t": "A",
+        "w": 51,
+        "h": 14,
+        "l": "Leaflet"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-resident-a",
+    "route": "/my/report",
+    "viewport": "phone",
+    "path": "/my/report",
+    "title": "Report an emergency · Rescue Reports",
+    "h1": "Report an emergency",
+    "overflowPx": 0,
+    "smallText": 20,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "My reports"
+      },
+      {
+        "fs": 12,
+        "text": "Report an emergency"
+      },
+      {
+        "fs": 12,
+        "text": "Sign out"
+      },
+      {
+        "fs": 12,
+        "text": "Submitting a report does not guarantee i"
+      },
+      {
+        "fs": 12,
+        "text": "Select the emergency and describe the si"
+      }
+    ],
+    "targets": 1,
+    "targetSamples": [
+      {
+        "t": "A",
+        "w": 51,
+        "h": 14,
+        "l": "Leaflet"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-resident-a",
+    "route": "/my/reports/demo-report-05",
+    "viewport": "phone",
+    "path": "/my/reports/demo-report-05",
+    "title": "Report details · Rescue Reports",
+    "h1": "Report details",
+    "overflowPx": 0,
+    "smallText": 5,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "My reports"
+      },
+      {
+        "fs": 12,
+        "text": "Report an emergency"
+      },
+      {
+        "fs": 12,
+        "text": "Sign out"
+      },
+      {
+        "fs": 12,
+        "text": "Under Verification"
+      },
+      {
+        "fs": 10,
+        "text": "Rescue Reports · Incident reporting and "
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-resident-a",
+    "route": "/my",
+    "viewport": "desktop",
+    "path": "/my",
+    "title": "My reports · Rescue Reports",
+    "h1": "My reports",
+    "overflowPx": 0,
+    "smallText": 17,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Resident A"
+      },
+      {
+        "fs": 12,
+        "text": "Submitting a report does not guarantee i"
+      },
+      {
+        "fs": 11,
+        "text": "DR-DEMO01 · 10/17/2026, 6:00:00 AM"
+      },
+      {
+        "fs": 12,
+        "text": "Submitted"
+      },
+      {
+        "fs": 11,
+        "text": "DR-DEMO05 · 10/16/2026, 6:00:00 AM"
+      }
+    ],
+    "targets": 1,
+    "targetSamples": [
+      {
+        "t": "A",
+        "w": 51,
+        "h": 14,
+        "l": "Leaflet"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-resident-a",
+    "route": "/my/report",
+    "viewport": "desktop",
+    "path": "/my/report",
+    "title": "Report an emergency · Rescue Reports",
+    "h1": "Report an emergency",
+    "overflowPx": 0,
+    "smallText": 18,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Resident A"
+      },
+      {
+        "fs": 12,
+        "text": "Submitting a report does not guarantee i"
+      },
+      {
+        "fs": 12,
+        "text": "Select the emergency and describe the si"
+      },
+      {
+        "fs": 11,
+        "text": "Flood"
+      },
+      {
+        "fs": 11,
+        "text": "Fire"
+      }
+    ],
+    "targets": 2,
+    "targetSamples": [
+      {
+        "t": "A",
+        "w": 51,
+        "h": 14,
+        "l": "Leaflet"
+      },
+      {
+        "t": "INPUT",
+        "w": 622,
+        "h": 43,
+        "l": ""
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-resident-a",
+    "route": "/my/reports/demo-report-05",
+    "viewport": "desktop",
+    "path": "/my/reports/demo-report-05",
+    "title": "Report details · Rescue Reports",
+    "h1": "Report details",
+    "overflowPx": 0,
+    "smallText": 3,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Resident A"
+      },
+      {
+        "fs": 12,
+        "text": "Under Verification"
+      },
+      {
+        "fs": 12,
+        "text": "Rescue Reports · Incident reporting and "
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/dashboard",
+    "viewport": "phone",
+    "path": "/dashboard",
+    "title": "Dashboard · Rescue Reports",
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallText": 110,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "All reports"
+      },
+      {
+        "fs": 12,
+        "text": "Active reports"
+      },
+      {
+        "fs": 12,
+        "text": "Critical"
+      },
+      {
+        "fs": 12,
+        "text": "Verified"
+      }
+    ],
+    "targets": 3,
+    "targetSamples": [
+      {
+        "t": "BUTTON",
+        "w": 112,
+        "h": 36,
+        "l": "All reports (24)"
+      },
+      {
+        "t": "BUTTON",
+        "w": 146,
+        "h": 36,
+        "l": "Needs verification (6)"
+      },
+      {
+        "t": "BUTTON",
+        "w": 87,
+        "h": 36,
+        "l": "Active (17)"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/map",
+    "viewport": "phone",
+    "path": "/map",
+    "title": "Map · Rescue Reports",
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallText": 32,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "24 located report s shown"
+      },
+      {
+        "fs": 12,
+        "text": "Low"
+      },
+      {
+        "fs": 12,
+        "text": "Medium"
+      },
+      {
+        "fs": 12,
+        "text": "High"
+      }
+    ],
+    "targets": 25,
+    "targetSamples": [
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Critical"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Medium"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Critical"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/teams",
+    "viewport": "phone",
+    "path": "/teams",
+    "title": "Teams · Rescue Reports",
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallText": 28,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "Rescue teams"
+      },
+      {
+        "fs": 12,
+        "text": "Available"
+      },
+      {
+        "fs": 12,
+        "text": "On assignment"
+      },
+      {
+        "fs": 12,
+        "text": "Assigned to an active rescue"
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/users",
+    "viewport": "phone",
+    "path": "/users",
+    "title": "Users · Rescue Reports",
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallText": 33,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "resident"
+      },
+      {
+        "fs": 12,
+        "text": "Deactivate"
+      },
+      {
+        "fs": 12,
+        "text": "resident"
+      },
+      {
+        "fs": 12,
+        "text": "Deactivate"
+      }
+    ],
+    "targets": 16,
+    "targetSamples": [
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/audit",
+    "viewport": "phone",
+    "path": "/audit",
+    "title": "Audit log · Rescue Reports",
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallText": 11,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "Report ID"
+      },
+      {
+        "fs": 12,
+        "text": "Actor UID"
+      },
+      {
+        "fs": 12,
+        "text": "Action"
+      },
+      {
+        "fs": 12,
+        "text": "From"
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/analytics",
+    "viewport": "phone",
+    "path": "/analytics",
+    "title": "Analytics · Rescue Reports",
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallText": 53,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "Reports in this period"
+      },
+      {
+        "fs": 12,
+        "text": "Open incidents"
+      },
+      {
+        "fs": 12,
+        "text": "Resolved"
+      },
+      {
+        "fs": 12,
+        "text": "From"
+      }
+    ],
+    "targets": 2,
+    "targetSamples": [
+      {
+        "t": "SELECT",
+        "w": 316,
+        "h": 40,
+        "l": "All\nflood\nfire\nearthquake\nland"
+      },
+      {
+        "t": "SELECT",
+        "w": 316,
+        "h": 40,
+        "l": "All\nSubmitted\nUnder Verificati"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/dashboard",
+    "viewport": "desktop",
+    "path": "/dashboard",
+    "title": "Dashboard · Rescue Reports",
+    "h1": "Dashboard",
+    "overflowPx": 0,
+    "smallText": 113,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Dashboard"
+      },
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "All reports"
+      }
+    ],
+    "targets": 3,
+    "targetSamples": [
+      {
+        "t": "BUTTON",
+        "w": 112,
+        "h": 36,
+        "l": "All reports (24)"
+      },
+      {
+        "t": "BUTTON",
+        "w": 146,
+        "h": 36,
+        "l": "Needs verification (6)"
+      },
+      {
+        "t": "BUTTON",
+        "w": 87,
+        "h": 36,
+        "l": "Active (17)"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/map",
+    "viewport": "desktop",
+    "path": "/map",
+    "title": "Map · Rescue Reports",
+    "h1": "Map",
+    "overflowPx": 0,
+    "smallText": 35,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Map"
+      },
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "24 located report s shown"
+      }
+    ],
+    "targets": 25,
+    "targetSamples": [
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Critical"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Medium"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Critical"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/teams",
+    "viewport": "desktop",
+    "path": "/teams",
+    "title": "Teams · Rescue Reports",
+    "h1": "Teams",
+    "overflowPx": 0,
+    "smallText": 31,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Teams"
+      },
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "Rescue teams"
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/users",
+    "viewport": "desktop",
+    "path": "/users",
+    "title": "Users · Rescue Reports",
+    "h1": "Users",
+    "overflowPx": 0,
+    "smallText": 36,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Users"
+      },
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "resident"
+      }
+    ],
+    "targets": 16,
+    "targetSamples": [
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      },
+      {
+        "t": "BUTTON",
+        "w": 99,
+        "h": 43,
+        "l": "Deactivate"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/audit",
+    "viewport": "desktop",
+    "path": "/audit",
+    "title": "Audit log · Rescue Reports",
+    "h1": "Audit log",
+    "overflowPx": 0,
+    "smallText": 14,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Audit log"
+      },
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "Report ID"
+      }
+    ],
+    "targets": 5,
+    "targetSamples": [
+      {
+        "t": "INPUT",
+        "w": 208,
+        "h": 40,
+        "l": ""
+      },
+      {
+        "t": "INPUT",
+        "w": 208,
+        "h": 40,
+        "l": ""
+      },
+      {
+        "t": "INPUT",
+        "w": 208,
+        "h": 40,
+        "l": ""
+      },
+      {
+        "t": "INPUT",
+        "w": 208,
+        "h": 40,
+        "l": ""
+      },
+      {
+        "t": "INPUT",
+        "w": 208,
+        "h": 40,
+        "l": ""
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dispatcher-a",
+    "route": "/analytics",
+    "viewport": "desktop",
+    "path": "/analytics",
+    "title": "Analytics · Rescue Reports",
+    "h1": "Analytics",
+    "overflowPx": 0,
+    "smallText": 62,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Analytics"
+      },
+      {
+        "fs": 12,
+        "text": "Demo Dispatcher A ( dispatcher )"
+      },
+      {
+        "fs": 12,
+        "text": "Reports in this period"
+      }
+    ],
+    "targets": 4,
+    "targetSamples": [
+      {
+        "t": "INPUT",
+        "w": 265,
+        "h": 40,
+        "l": ""
+      },
+      {
+        "t": "INPUT",
+        "w": 265,
+        "h": 40,
+        "l": ""
+      },
+      {
+        "t": "SELECT",
+        "w": 265,
+        "h": 40,
+        "l": "All\nflood\nfire\nearthquake\nland"
+      },
+      {
+        "t": "SELECT",
+        "w": 265,
+        "h": 40,
+        "l": "All\nSubmitted\nUnder Verificati"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dmo",
+    "route": "/monitor",
+    "viewport": "phone",
+    "path": "/monitor",
+    "title": "Monitor · Rescue Reports",
+    "h1": "Monitor",
+    "overflowPx": 0,
+    "smallText": 33,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo DMO ( dmo )"
+      },
+      {
+        "fs": 12,
+        "text": "Read-only view. Select a marker to open "
+      },
+      {
+        "fs": 12,
+        "text": "24 located report s shown"
+      },
+      {
+        "fs": 12,
+        "text": "Low"
+      },
+      {
+        "fs": 12,
+        "text": "Medium"
+      }
+    ],
+    "targets": 25,
+    "targetSamples": [
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Critical"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Medium"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Critical"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dmo",
+    "route": "/incidents/demo-report-01",
+    "viewport": "phone",
+    "path": "/incidents/demo-report-01",
+    "title": "Incident details · Rescue Reports",
+    "h1": "Incident details",
+    "overflowPx": 0,
+    "smallText": 4,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo DMO ( dmo )"
+      },
+      {
+        "fs": 12,
+        "text": "Critical"
+      },
+      {
+        "fs": 12,
+        "text": "Submitted"
+      },
+      {
+        "fs": 12,
+        "text": "Pending"
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dmo",
+    "route": "/monitor",
+    "viewport": "desktop",
+    "path": "/monitor",
+    "title": "Monitor · Rescue Reports",
+    "h1": "Monitor",
+    "overflowPx": 0,
+    "smallText": 36,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Monitor"
+      },
+      {
+        "fs": 12,
+        "text": "Demo DMO ( dmo )"
+      },
+      {
+        "fs": 12,
+        "text": "Read-only view. Select a marker to open "
+      }
+    ],
+    "targets": 25,
+    "targetSamples": [
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Critical"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Medium"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "Critical"
+      },
+      {
+        "t": "DIV",
+        "w": 24,
+        "h": 24,
+        "l": "High"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-dmo",
+    "route": "/incidents/demo-report-01",
+    "viewport": "desktop",
+    "path": "/incidents/demo-report-01",
+    "title": "Incident details · Rescue Reports",
+    "h1": "Incident details",
+    "overflowPx": 0,
+    "smallText": 7,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Incident details"
+      },
+      {
+        "fs": 12,
+        "text": "Demo DMO ( dmo )"
+      },
+      {
+        "fs": 12,
+        "text": "Critical"
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-responder-a",
+    "route": "/assignments",
+    "viewport": "phone",
+    "path": "/assignments",
+    "title": "Assignments · Rescue Reports",
+    "h1": "Assignments",
+    "overflowPx": 0,
+    "smallText": 3,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Responder A ( responder )"
+      },
+      {
+        "fs": 12,
+        "text": "Critical"
+      },
+      {
+        "fs": 12,
+        "text": "Team Assigned"
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-responder-a",
+    "route": "/assignments",
+    "viewport": "desktop",
+    "path": "/assignments",
+    "title": "Assignments · Rescue Reports",
+    "h1": "Assignments",
+    "overflowPx": 0,
+    "smallText": 6,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Assignments"
+      },
+      {
+        "fs": 12,
+        "text": "Demo Responder A ( responder )"
+      },
+      {
+        "fs": 12,
+        "text": "Critical"
+      }
+    ],
+    "targets": 0,
+    "targetSamples": [],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-admin",
+    "route": "/admin",
+    "viewport": "phone",
+    "path": "/admin",
+    "title": "Admin · Rescue Reports",
+    "h1": "Admin",
+    "overflowPx": 0,
+    "smallText": 19,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Demo Admin ( admin )"
+      },
+      {
+        "fs": 12,
+        "text": "Accounts and roles"
+      },
+      {
+        "fs": 12,
+        "text": "Teams"
+      },
+      {
+        "fs": 12,
+        "text": "System settings"
+      },
+      {
+        "fs": 12,
+        "text": "Audit trail"
+      }
+    ],
+    "targets": 4,
+    "targetSamples": [
+      {
+        "t": "A",
+        "w": 139,
+        "h": 42,
+        "l": "Accounts and roles"
+      },
+      {
+        "t": "A",
+        "w": 70,
+        "h": 42,
+        "l": "Teams"
+      },
+      {
+        "t": "A",
+        "w": 122,
+        "h": 42,
+        "l": "System settings"
+      },
+      {
+        "t": "A",
+        "w": 87,
+        "h": 42,
+        "l": "Audit trail"
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  },
+  {
+    "email": "demo-admin",
+    "route": "/admin",
+    "viewport": "desktop",
+    "path": "/admin",
+    "title": "Admin · Rescue Reports",
+    "h1": "Admin",
+    "overflowPx": 0,
+    "smallText": 22,
+    "smallSamples": [
+      {
+        "fs": 12,
+        "text": "Response coordination"
+      },
+      {
+        "fs": 12,
+        "text": "Disaster reporting & monitoring"
+      },
+      {
+        "fs": 12,
+        "text": "Response coordination / Admin"
+      },
+      {
+        "fs": 12,
+        "text": "Demo Admin ( admin )"
+      },
+      {
+        "fs": 12,
+        "text": "Accounts and roles"
+      }
+    ],
+    "targets": 9,
+    "targetSamples": [
+      {
+        "t": "A",
+        "w": 139,
+        "h": 42,
+        "l": "Accounts and roles"
+      },
+      {
+        "t": "A",
+        "w": 70,
+        "h": 42,
+        "l": "Teams"
+      },
+      {
+        "t": "A",
+        "w": 122,
+        "h": 42,
+        "l": "System settings"
+      },
+      {
+        "t": "A",
+        "w": 87,
+        "h": 42,
+        "l": "Audit trail"
+      },
+      {
+        "t": "INPUT",
+        "w": 198,
+        "h": 40,
+        "l": ""
+      },
+      {
+        "t": "INPUT",
+        "w": 198,
+        "h": 40,
+        "l": ""
+      }
+    ],
+    "hasMainLandmark": true,
+    "skipLink": true,
+    "axe": [],
+    "errors": []
+  }
+]

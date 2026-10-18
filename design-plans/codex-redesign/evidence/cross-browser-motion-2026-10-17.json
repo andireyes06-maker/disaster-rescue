@@ -1,0 +1,1601 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": "desktop",
+    "version": "156.0.8078.4",
+    "checks": {
+      "landingAnimations": [
+        {
+          "name": "Animation",
+          "cls": "service-opening__copy",
+          "pseudo": null,
+          "durationMs": 550,
+          "delayMs": 0
+        },
+        {
+          "name": "Animation",
+          "cls": "response-scene",
+          "pseudo": null,
+          "durationMs": 680,
+          "delayMs": 100
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident is-selected",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 200
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 270
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 340
+        },
+        {
+          "name": "Animation",
+          "cls": "console__map-route",
+          "pseudo": null,
+          "durationMs": 850,
+          "delayMs": 420
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-update",
+          "pseudo": null,
+          "durationMs": 420,
+          "delayMs": 650
+        },
+        {
+          "name": "Animation",
+          "cls": "service-journey",
+          "pseudo": null,
+          "durationMs": 520,
+          "delayMs": 0
+        }
+      ],
+      "landingStuck": [
+        "1",
+        "1",
+        "1"
+      ],
+      "overflow": 0,
+      "bellLabel": "Notifications, 16 unread",
+      "openAnimations": [
+        {
+          "name": "transition:background-color",
+          "cls": "notification-bell",
+          "startMs": 17,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "transition:color",
+          "cls": "notification-bell",
+          "startMs": 17,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-ring",
+          "cls": "lucide lucide-bell",
+          "startMs": 17,
+          "durationMs": 420,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-open",
+          "cls": "notification-panel",
+          "startMs": 17,
+          "durationMs": 300,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 35
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 70
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 105
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 140
+        }
+      ],
+      "rowStagger": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "focusInPanelAfterOpen": true,
+      "scrollInPanel": {
+        "before": 0,
+        "max": 2226,
+        "after": 400,
+        "pageScrollY": 0
+      },
+      "interruption": {
+        "panels": 1,
+        "state": "open",
+        "pointerEvents": "auto",
+        "focusInPanel": true,
+        "running": 0
+      },
+      "reopenedBeforeClose": true,
+      "closeAnimations": [
+        {
+          "name": "notification-open",
+          "durationMs": 300
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "transition:background-color",
+          "durationMs": 150
+        },
+        {
+          "name": "transition:color",
+          "durationMs": 150
+        },
+        {
+          "name": "notification-close",
+          "durationMs": 160
+        }
+      ],
+      "removedAfterExit": true,
+      "focusReturnedToBell": true,
+      "forwardTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "persistentNavAnimated": false,
+      "backTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "urlAfterBack": "/my",
+      "overflowAfterNav": 0,
+      "bellAfterNav": "Notifications, 16 unread"
+    }
+  },
+  {
+    "engine": "chromium",
+    "viewport": "desktop",
+    "reduced": true,
+    "checks": {
+      "landingAnimations": 0,
+      "landingVisible": "1",
+      "routeEntranceAnims": 0,
+      "openNotificationAnims": 0,
+      "panelOpen": true,
+      "smoothScroll": "auto"
+    }
+  },
+  {
+    "engine": "chromium",
+    "viewport": "phone",
+    "version": "156.0.8078.4",
+    "checks": {
+      "landingAnimations": [
+        {
+          "name": "Animation",
+          "cls": "service-opening__copy",
+          "pseudo": null,
+          "durationMs": 550,
+          "delayMs": 0
+        },
+        {
+          "name": "Animation",
+          "cls": "response-scene",
+          "pseudo": null,
+          "durationMs": 680,
+          "delayMs": 100
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident is-selected",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 200
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 270
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 340
+        },
+        {
+          "name": "Animation",
+          "cls": "console__map-route",
+          "pseudo": null,
+          "durationMs": 850,
+          "delayMs": 420
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-update",
+          "pseudo": null,
+          "durationMs": 420,
+          "delayMs": 650
+        }
+      ],
+      "landingStuck": [
+        "1",
+        "1",
+        "1"
+      ],
+      "overflow": 0,
+      "bellLabel": "Notifications, 16 unread",
+      "openAnimations": [
+        {
+          "name": "transition:background-color",
+          "cls": "notification-bell",
+          "startMs": 17,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "transition:color",
+          "cls": "notification-bell",
+          "startMs": 17,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-ring",
+          "cls": "lucide lucide-bell",
+          "startMs": 17,
+          "durationMs": 420,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-open",
+          "cls": "notification-panel",
+          "startMs": 17,
+          "durationMs": 300,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 35
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 70
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 105
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 17,
+          "durationMs": 280,
+          "delayMs": 140
+        }
+      ],
+      "rowStagger": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "focusInPanelAfterOpen": true,
+      "scrollInPanel": {
+        "before": 0,
+        "max": 2226,
+        "after": 400,
+        "pageScrollY": 0
+      },
+      "interruption": {
+        "panels": 1,
+        "state": "open",
+        "pointerEvents": "auto",
+        "focusInPanel": true,
+        "running": 0
+      },
+      "reopenedBeforeClose": true,
+      "closeAnimations": [
+        {
+          "name": "notification-open",
+          "durationMs": 300
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "transition:background-color",
+          "durationMs": 150
+        },
+        {
+          "name": "transition:color",
+          "durationMs": 150
+        },
+        {
+          "name": "notification-close",
+          "durationMs": 160
+        }
+      ],
+      "removedAfterExit": true,
+      "focusReturnedToBell": true,
+      "forwardTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "persistentNavAnimated": false,
+      "backTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "urlAfterBack": "/my",
+      "overflowAfterNav": 0,
+      "bellAfterNav": "Notifications, 16 unread"
+    }
+  },
+  {
+    "engine": "chromium",
+    "viewport": "phone",
+    "reduced": true,
+    "checks": {
+      "landingAnimations": 0,
+      "landingVisible": "1",
+      "routeEntranceAnims": 0,
+      "openNotificationAnims": 0,
+      "panelOpen": true,
+      "smoothScroll": "auto"
+    }
+  },
+  {
+    "engine": "firefox",
+    "viewport": "desktop",
+    "version": "155.0",
+    "checks": {
+      "landingAnimations": [
+        {
+          "name": "Animation",
+          "cls": "service-opening__copy",
+          "pseudo": null,
+          "durationMs": 550,
+          "delayMs": 0
+        },
+        {
+          "name": "Animation",
+          "cls": "response-scene",
+          "pseudo": null,
+          "durationMs": 680,
+          "delayMs": 100
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident is-selected",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 200
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 270
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 340
+        },
+        {
+          "name": "Animation",
+          "cls": "console__map-route",
+          "pseudo": null,
+          "durationMs": 850,
+          "delayMs": 420
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-update",
+          "pseudo": null,
+          "durationMs": 420,
+          "delayMs": 650
+        },
+        {
+          "name": "Animation",
+          "cls": "service-journey",
+          "pseudo": null,
+          "durationMs": 520,
+          "delayMs": 0
+        }
+      ],
+      "landingStuck": [
+        "1",
+        "1",
+        "1"
+      ],
+      "overflow": 0,
+      "bellLabel": "Notifications, 16 unread",
+      "openAnimations": [
+        {
+          "name": "transition:background-color",
+          "cls": "notification-bell",
+          "startMs": 100,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "transition:color",
+          "cls": "notification-bell",
+          "startMs": 100,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-ring",
+          "cls": "lucide lucide-bell",
+          "startMs": 100,
+          "durationMs": 420,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-open",
+          "cls": "notification-panel",
+          "startMs": 100,
+          "durationMs": 300,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "",
+          "startMs": 100,
+          "durationMs": 280,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 100,
+          "durationMs": 280,
+          "delayMs": 35
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 100,
+          "durationMs": 280,
+          "delayMs": 70
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 100,
+          "durationMs": 280,
+          "delayMs": 105
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 100,
+          "durationMs": 280,
+          "delayMs": 140
+        }
+      ],
+      "rowStagger": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "focusInPanelAfterOpen": true,
+      "scrollInPanel": {
+        "before": 0,
+        "max": 2226,
+        "after": 400,
+        "pageScrollY": 0
+      },
+      "interruption": {
+        "panels": 1,
+        "state": "open",
+        "pointerEvents": "auto",
+        "focusInPanel": true,
+        "running": 0
+      },
+      "reopenedBeforeClose": true,
+      "closeAnimations": [
+        {
+          "name": "notification-open",
+          "durationMs": 300
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "transition:color",
+          "durationMs": 150
+        },
+        {
+          "name": "transition:background-color",
+          "durationMs": 150
+        },
+        {
+          "name": "notification-close",
+          "durationMs": 160
+        }
+      ],
+      "removedAfterExit": true,
+      "focusReturnedToBell": true,
+      "forwardTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "persistentNavAnimated": false,
+      "backTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "urlAfterBack": "/my",
+      "overflowAfterNav": 0,
+      "bellAfterNav": "Notifications, 16 unread"
+    }
+  },
+  {
+    "engine": "firefox",
+    "viewport": "desktop",
+    "reduced": true,
+    "checks": {
+      "landingAnimations": 0,
+      "landingVisible": "1",
+      "routeEntranceAnims": 0,
+      "openNotificationAnims": 0,
+      "panelOpen": true,
+      "smoothScroll": "auto"
+    }
+  },
+  {
+    "engine": "firefox",
+    "viewport": "phone",
+    "version": "155.0",
+    "checks": {
+      "landingAnimations": [
+        {
+          "name": "Animation",
+          "cls": "service-opening__copy",
+          "pseudo": null,
+          "durationMs": 550,
+          "delayMs": 0
+        },
+        {
+          "name": "Animation",
+          "cls": "response-scene",
+          "pseudo": null,
+          "durationMs": 680,
+          "delayMs": 100
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident is-selected",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 200
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 270
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 340
+        },
+        {
+          "name": "Animation",
+          "cls": "console__map-route",
+          "pseudo": null,
+          "durationMs": 850,
+          "delayMs": 420
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-update",
+          "pseudo": null,
+          "durationMs": 420,
+          "delayMs": 650
+        }
+      ],
+      "landingStuck": [
+        "1",
+        "1",
+        "1"
+      ],
+      "overflow": 0,
+      "bellLabel": "Notifications, 16 unread",
+      "openAnimations": [
+        {
+          "name": "transition:background-color",
+          "cls": "notification-bell",
+          "startMs": 33,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "transition:color",
+          "cls": "notification-bell",
+          "startMs": 33,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-ring",
+          "cls": "lucide lucide-bell",
+          "startMs": 33,
+          "durationMs": 420,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-open",
+          "cls": "notification-panel",
+          "startMs": 1618,
+          "durationMs": 300,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "",
+          "startMs": 33,
+          "durationMs": 280,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 33,
+          "durationMs": 280,
+          "delayMs": 35
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 33,
+          "durationMs": 280,
+          "delayMs": 70
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 33,
+          "durationMs": 280,
+          "delayMs": 105
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 33,
+          "durationMs": 280,
+          "delayMs": 140
+        }
+      ],
+      "rowStagger": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "focusInPanelAfterOpen": true,
+      "scrollInPanel": {
+        "before": 0,
+        "max": 2226,
+        "after": 400,
+        "pageScrollY": 0
+      },
+      "interruption": {
+        "panels": 1,
+        "state": "open",
+        "pointerEvents": "auto",
+        "focusInPanel": true,
+        "running": 0
+      },
+      "reopenedBeforeClose": true,
+      "closeAnimations": [
+        {
+          "name": "notification-open",
+          "durationMs": 300
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "transition:color",
+          "durationMs": 150
+        },
+        {
+          "name": "transition:background-color",
+          "durationMs": 150
+        },
+        {
+          "name": "notification-close",
+          "durationMs": 160
+        }
+      ],
+      "removedAfterExit": true,
+      "focusReturnedToBell": true,
+      "forwardTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "persistentNavAnimated": false,
+      "backTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "urlAfterBack": "/my",
+      "overflowAfterNav": 0,
+      "bellAfterNav": "Notifications, 16 unread"
+    }
+  },
+  {
+    "engine": "firefox",
+    "viewport": "phone",
+    "reduced": true,
+    "checks": {
+      "landingAnimations": 0,
+      "landingVisible": "1",
+      "routeEntranceAnims": 0,
+      "openNotificationAnims": 0,
+      "panelOpen": true,
+      "smoothScroll": "auto"
+    }
+  },
+  {
+    "engine": "webkit",
+    "viewport": "desktop",
+    "version": "27.2",
+    "checks": {
+      "landingAnimations": [
+        {
+          "name": "Animation",
+          "cls": "service-opening__copy",
+          "pseudo": null,
+          "durationMs": 550,
+          "delayMs": 0
+        },
+        {
+          "name": "Animation",
+          "cls": "response-scene",
+          "pseudo": null,
+          "durationMs": 680,
+          "delayMs": 100
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident is-selected",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 200
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 270
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 340
+        },
+        {
+          "name": "Animation",
+          "cls": "console__map-route",
+          "pseudo": null,
+          "durationMs": 850,
+          "delayMs": 420
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-update",
+          "pseudo": null,
+          "durationMs": 420,
+          "delayMs": 650
+        },
+        {
+          "name": "Animation",
+          "cls": "service-journey",
+          "pseudo": null,
+          "durationMs": 520,
+          "delayMs": 0
+        }
+      ],
+      "landingStuck": [
+        "1",
+        "1",
+        "1"
+      ],
+      "overflow": 0,
+      "bellLabel": "Notifications, 16 unread",
+      "openAnimations": [
+        {
+          "name": "transition:background-color",
+          "cls": "notification-bell",
+          "startMs": 1518,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "transition:color",
+          "cls": "notification-bell",
+          "startMs": 1518,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-ring",
+          "cls": "lucide lucide-bell",
+          "startMs": 1518,
+          "durationMs": 420,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-open",
+          "cls": "notification-panel",
+          "startMs": 1518,
+          "durationMs": 300,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "",
+          "startMs": 1518,
+          "durationMs": 280,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 1518,
+          "durationMs": 280,
+          "delayMs": 35
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 1518,
+          "durationMs": 280,
+          "delayMs": 70
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 1518,
+          "durationMs": 280,
+          "delayMs": 105
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 1518,
+          "durationMs": 280,
+          "delayMs": 140
+        }
+      ],
+      "rowStagger": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "focusInPanelAfterOpen": true,
+      "scrollInPanel": {
+        "before": 0,
+        "max": 2226,
+        "after": 400,
+        "pageScrollY": 0
+      },
+      "interruption": {
+        "panels": 1,
+        "state": "open",
+        "pointerEvents": "auto",
+        "focusInPanel": true,
+        "running": 0
+      },
+      "reopenedBeforeClose": true,
+      "closeAnimations": [
+        {
+          "name": "notification-open",
+          "durationMs": 300
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "notification-row",
+          "durationMs": 280
+        },
+        {
+          "name": "transition:background-color",
+          "durationMs": 150
+        },
+        {
+          "name": "transition:color",
+          "durationMs": 150
+        },
+        {
+          "name": "notification-close",
+          "durationMs": 160
+        }
+      ],
+      "removedAfterExit": true,
+      "focusReturnedToBell": true,
+      "forwardTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "persistentNavAnimated": false,
+      "backTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "urlAfterBack": "/my",
+      "overflowAfterNav": 0,
+      "bellAfterNav": "Notifications, 16 unread"
+    }
+  },
+  {
+    "engine": "webkit",
+    "viewport": "desktop",
+    "reduced": true,
+    "checks": {
+      "landingAnimations": 0,
+      "landingVisible": "1",
+      "routeEntranceAnims": 0,
+      "openNotificationAnims": 0,
+      "panelOpen": true,
+      "smoothScroll": "auto"
+    }
+  },
+  {
+    "engine": "webkit",
+    "viewport": "phone",
+    "version": "27.2",
+    "checks": {
+      "landingAnimations": [
+        {
+          "name": "Animation",
+          "cls": "service-opening__copy",
+          "pseudo": null,
+          "durationMs": 550,
+          "delayMs": 0
+        },
+        {
+          "name": "Animation",
+          "cls": "response-scene",
+          "pseudo": null,
+          "durationMs": 680,
+          "delayMs": 100
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident is-selected",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 200
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 270
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-incident",
+          "pseudo": null,
+          "durationMs": 360,
+          "delayMs": 340
+        },
+        {
+          "name": "Animation",
+          "cls": "console__map-route",
+          "pseudo": null,
+          "durationMs": 850,
+          "delayMs": 420
+        },
+        {
+          "name": "Animation",
+          "cls": "sample-update",
+          "pseudo": null,
+          "durationMs": 420,
+          "delayMs": 650
+        }
+      ],
+      "landingStuck": [
+        "1",
+        "1",
+        "1"
+      ],
+      "overflow": 0,
+      "bellLabel": "Notifications, 16 unread",
+      "openAnimations": [
+        {
+          "name": "transition:background-color",
+          "cls": "notification-bell",
+          "startMs": 1519,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "transition:color",
+          "cls": "notification-bell",
+          "startMs": 1519,
+          "durationMs": 150,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-ring",
+          "cls": "lucide lucide-bell",
+          "startMs": 1519,
+          "durationMs": 420,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-open",
+          "cls": "notification-panel",
+          "startMs": 1519,
+          "durationMs": 300,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "",
+          "startMs": 1519,
+          "durationMs": 280,
+          "delayMs": 0
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 1519,
+          "durationMs": 280,
+          "delayMs": 35
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 1519,
+          "durationMs": 280,
+          "delayMs": 70
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 1519,
+          "durationMs": 280,
+          "delayMs": 105
+        },
+        {
+          "name": "notification-row",
+          "cls": "is-unread",
+          "startMs": 1519,
+          "durationMs": 280,
+          "delayMs": 140
+        }
+      ],
+      "rowStagger": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "focusInPanelAfterOpen": true,
+      "scrollInPanel": {
+        "before": 0,
+        "max": 2226,
+        "after": 400,
+        "pageScrollY": 0
+      },
+      "interruption": {
+        "panels": 1,
+        "state": "open",
+        "pointerEvents": "auto",
+        "focusInPanel": true,
+        "running": 0
+      },
+      "reopenedBeforeClose": true,
+      "closeAnimations": [
+        {
+          "name": "transition:background-color",
+          "durationMs": 150
+        },
+        {
+          "name": "transition:color",
+          "durationMs": 150
+        },
+        {
+          "name": "notification-close",
+          "durationMs": 160
+        }
+      ],
+      "removedAfterExit": true,
+      "focusReturnedToBell": true,
+      "forwardTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "persistentNavAnimated": false,
+      "backTransition": [
+        {
+          "name": "transition:transform",
+          "cls": "active",
+          "durationMs": 220
+        },
+        {
+          "name": "transition:transform",
+          "cls": "",
+          "durationMs": 220
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "skeleton-sweep",
+          "cls": "skeleton-block",
+          "durationMs": 1400
+        },
+        {
+          "name": "Animation",
+          "cls": "resident__body",
+          "durationMs": 320
+        },
+        {
+          "name": "Animation",
+          "cls": "resident-band",
+          "durationMs": 280
+        }
+      ],
+      "urlAfterBack": "/my",
+      "overflowAfterNav": 0,
+      "bellAfterNav": "Notifications, 16 unread"
+    }
+  },
+  {
+    "engine": "webkit",
+    "viewport": "phone",
+    "reduced": true,
+    "checks": {
+      "landingAnimations": 0,
+      "landingVisible": "1",
+      "routeEntranceAnims": 0,
+      "openNotificationAnims": 0,
+      "panelOpen": true,
+      "smoothScroll": "auto"
+    }
+  }
+]

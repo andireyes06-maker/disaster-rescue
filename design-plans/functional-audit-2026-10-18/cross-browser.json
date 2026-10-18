@@ -1,0 +1,54 @@
+[
+  {
+    "engine": "webkit",
+    "blocked": "browserType.launch: Executable doesn't exist at /Users/rien/Library/Caches/ms-playwright/webkit-2370/pw_run.sh\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "report validation and category selection",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "name": "notification bell opens and Escape restores focus",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "resident",
+    "runtimeErrors": []
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "sign-in and session restore",
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "CSV and PDF browser downloads",
+    "pass": false,
+    "detail": "page.waitForEvent: Timeout 12000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================"
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "name": "account search and Admin panel disclosure",
+    "pass": false,
+    "detail": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Find an account', { exact: true })\u001b[22m\n"
+  },
+  {
+    "engine": "firefox",
+    "role": "admin",
+    "runtimeErrors": []
+  }
+]

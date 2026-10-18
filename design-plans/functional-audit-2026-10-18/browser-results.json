@@ -1,0 +1,532 @@
+{
+  "checks": [
+    {
+      "name": "public landing navigation, FAQ and film controls",
+      "pass": false,
+      "detail": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Pause/ })\u001b[22m\n"
+    },
+    {
+      "name": "sign-in empty validation and wrong-password recovery",
+      "pass": true
+    },
+    {
+      "name": "registration validation, real creation, role redirect and session restore",
+      "pass": false,
+      "detail": "locator.waitFor: Error: strict mode violation: getByRole('heading', { name: 'My reports', exact: true }) resolved to 2 elements:\n    1) <h1>My reports</h1> aka locator('h1')\n    2) <h2 id=\"my-reports-title\">My reports</h2> aka locator('#my-reports-title')\n\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'My reports', exact: true }) to be visible\u001b[22m\n"
+    },
+    {
+      "name": "interrupted profile setup resumes with same credentials",
+      "pass": true,
+      "detail": {
+        "failure": "mocked 503 on profile call",
+        "retry": "real API/emulator"
+      }
+    },
+    {
+      "name": "all five roles enforce every protected web route",
+      "pass": true,
+      "detail": {
+        "guardCases": 65,
+        "signedInLoginRedirects": 5
+      }
+    },
+    {
+      "name": "report empty-submit validation focuses emergency type",
+      "pass": true
+    },
+    {
+      "name": "denied GPS and invalid attachment preserve typed description",
+      "pass": true
+    },
+    {
+      "name": "report sends once through real API and detail survives reload",
+      "pass": false,
+      "detail": "locator.check: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Flood', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <input required=\"\" type=\"radio\" value=\"flood\" class=\"sr-only\" name=\"emergency-type\"/>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <label class=\"emergency-type emergency-type--flood\">…</label> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <label class=\"emergency-type emergency-type--flood\">…</label> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    23 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <label class=\"emergency-type emergency-type--flood\">…</label> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    {
+      "name": "resident Cancel persists and updates the page",
+      "pass": false,
+      "detail": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Cancel report', exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "in-app navigation protects unsaved report entries",
+      "pass": true
+    },
+    {
+      "name": "dispatcher queue search, no-match recovery and selected incident navigation",
+      "pass": false,
+      "detail": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.inbox-row').first()\u001b[22m\n"
+    },
+    {
+      "name": "dispatcher real metadata saves, verify and resident realtime status",
+      "pass": true
+    },
+    {
+      "name": "dispatcher assignment dialog saves to a real available team",
+      "pass": false,
+      "detail": "locator.selectOption: Error: Element is not a <select> element\nCall log:\n\u001b[2m  - waiting for getByLabel('Rescue team')\u001b[22m\n\u001b[2m    - locator resolved to <div role=\"dialog\" tabindex=\"-1\" id=\"radix-_r_0_\" data-state=\"open\" aria-modal=\"true\" data-slot=\"dialog-content\" aria-labelledby=\"radix-_r_1_\" class=\"fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none sm:max-w-sm data-open:animate-in data-open:fade-in-0 motion-safe:data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 motion…>…</div>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m    - waiting for element to be visible and enabled\u001b[22m\n"
+    },
+    {
+      "name": "notification mark-read persists after reload",
+      "pass": true
+    },
+    {
+      "name": "responder real progress and resolution reach resident and dispatcher; close releases team",
+      "pass": true
+    },
+    {
+      "name": "map filtering and keyboard marker navigation",
+      "pass": true
+    },
+    {
+      "name": "DMO monitor marker opens read-only incident",
+      "pass": true
+    },
+    {
+      "name": "Teams create, search and rename persist through the browser",
+      "pass": false,
+      "detail": "locator.click: Error: strict mode violation: getByText('Create team', { exact: true }) resolved to 2 elements:\n    1) <summary class=\"btn\">Create team</summary> aka locator('summary').filter({ hasText: 'Create team' })\n    2) <button class=\"btn\" type=\"submit\" aria-busy=\"false\" aria-disabled=\"true\">Create team</button> aka getByLabel('Create team').getByText('Create team')\n\nCall log:\n\u001b[2m  - waiting for getByText('Create team', { exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "Analytics browser downloads keep server names and surface failures",
+      "pass": true,
+      "detail": {
+        "success": "real emulator/API",
+        "failure": "mocked HTTP 503"
+      }
+    },
+    {
+      "name": "Analytics filters update URL and totals; invalid date range blocks export",
+      "pass": true
+    },
+    {
+      "name": "fresh resident email can be found in Admin accounts",
+      "pass": false,
+      "detail": "real new resident cannot be found by registered email\n\n1 !== 0\n"
+    },
+    {
+      "name": "offline resident status is labelled stale and catches up on reconnect",
+      "pass": false,
+      "detail": "status was stale without any offline/stale warning; reconnect did recover"
+    },
+    {
+      "name": "responder reconnect receives an external update without reload",
+      "pass": true,
+      "detail": {
+        "note": "basic resubscription only; assignment already belongs to Kilo so this does not prove a new responder report"
+      }
+    }
+  ],
+  "routeChecks": [
+    {
+      "role": "admin",
+      "path": "/my",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/my/report",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/dashboard",
+      "expected": "/dashboard",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/map",
+      "expected": "/map",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/monitor",
+      "expected": "/monitor",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/teams",
+      "expected": "/teams",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/users",
+      "expected": "/users",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/analytics",
+      "expected": "/analytics",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/audit",
+      "expected": "/audit",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/assignments",
+      "expected": "/assignments",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/admin",
+      "expected": "/admin",
+      "pass": true
+    },
+    {
+      "role": "admin",
+      "path": "/incidents/demo-report-05",
+      "expected": "/incidents/demo-report-05",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/my",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/my/report",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/dashboard",
+      "expected": "/dashboard",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/map",
+      "expected": "/map",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/monitor",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/teams",
+      "expected": "/teams",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/users",
+      "expected": "/users",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/analytics",
+      "expected": "/analytics",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/audit",
+      "expected": "/audit",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/assignments",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/admin",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dispatcher",
+      "path": "/incidents/demo-report-05",
+      "expected": "/incidents/demo-report-05",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/my",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/my/report",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/dashboard",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/map",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/monitor",
+      "expected": "/monitor",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/teams",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/users",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/analytics",
+      "expected": "/analytics",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/audit",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/assignments",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/admin",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "dmo",
+      "path": "/incidents/demo-report-05",
+      "expected": "/incidents/demo-report-05",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/my",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/my/report",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/dashboard",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/map",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/monitor",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/teams",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/users",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/analytics",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/audit",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/assignments",
+      "expected": "/assignments",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/admin",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "responder",
+      "path": "/incidents/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/my",
+      "expected": "/my",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/my/report",
+      "expected": "/my/report",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/my/reports/demo-report-05",
+      "expected": "/my/reports/demo-report-05",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/dashboard",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/map",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/monitor",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/teams",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/users",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/analytics",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/audit",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/assignments",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/admin",
+      "expected": "/forbidden",
+      "pass": true
+    },
+    {
+      "role": "resident",
+      "path": "/incidents/demo-report-05",
+      "expected": "/forbidden",
+      "pass": true
+    }
+  ],
+  "dialogs": [
+    {
+      "type": "beforeunload",
+      "message": ""
+    },
+    {
+      "type": "beforeunload",
+      "message": ""
+    }
+  ],
+  "unexpectedHosts": [],
+  "pageErrors": [],
+  "summary": {
+    "checks": 23,
+    "passed": 14,
+    "failed": 9,
+    "routeCases": 65,
+    "unexpectedHosts": 0,
+    "pageErrors": 0
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "Exact isolated web installation, Node Firestore SDK, explicit local emulators; no integration changes",
+  "firebase": "13.0.0",
+  "firestore": "4.18.0",
+  "grpc": "1.14.5",
+  "grpcCalls": [],
+  "checks": [
+    "emulator sign-in",
+    "own profile server read",
+    "other-account permission denied",
+    "server query listener",
+    "read after network disable/enable"
+  ],
+  "pass": false,
+  "error": "No instrumented grpc Client calls: wrong transport test"
+}

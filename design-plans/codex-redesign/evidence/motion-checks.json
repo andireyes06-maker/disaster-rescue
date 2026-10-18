@@ -1,0 +1,283 @@
+[
+  {
+    "check": "landing-introduction",
+    "animations": [
+      {
+        "name": "page-sequence",
+        "target": "service-opening__copy",
+        "duration": 550
+      },
+      {
+        "name": "page-sequence",
+        "target": "response-scene",
+        "duration": 680
+      },
+      {
+        "name": "page-sequence",
+        "target": "sample-incident is-selected",
+        "duration": 360
+      },
+      {
+        "name": "page-sequence",
+        "target": "sample-incident",
+        "duration": 360
+      },
+      {
+        "name": "page-sequence",
+        "target": "sample-incident",
+        "duration": 360
+      },
+      {
+        "name": "page-sequence",
+        "target": {},
+        "duration": 850
+      },
+      {
+        "name": "page-sequence",
+        "target": "sample-update",
+        "duration": 420
+      },
+      {
+        "name": "page-sequence",
+        "target": "service-journey",
+        "duration": 520
+      }
+    ]
+  },
+  {
+    "check": "landing-scroll-reveal",
+    "animations": [
+      {
+        "name": "page-sequence",
+        "target": "service-resident",
+        "duration": 520
+      },
+      {
+        "name": "page-sequence",
+        "target": "service-team",
+        "duration": 520
+      },
+      {
+        "name": "page-sequence",
+        "target": "service-access",
+        "duration": 520
+      }
+    ]
+  },
+  {
+    "check": "notification-entry",
+    "width": 1440,
+    "animations": [
+      {
+        "name": "page-sequence",
+        "target": "notification-bell",
+        "duration": 150
+      },
+      {
+        "name": "page-sequence",
+        "target": "notification-bell",
+        "duration": 150
+      },
+      {
+        "name": "page-sequence",
+        "target": "",
+        "duration": 150
+      },
+      {
+        "name": "notification-ring",
+        "target": {},
+        "duration": 420
+      },
+      {
+        "name": "notification-open",
+        "target": "notification-panel",
+        "duration": 300
+      },
+      {
+        "name": "notification-row",
+        "target": "",
+        "duration": 280
+      },
+      {
+        "name": "notification-row",
+        "target": "is-unread",
+        "duration": 280
+      },
+      {
+        "name": "notification-row",
+        "target": "is-unread",
+        "duration": 280
+      },
+      {
+        "name": "notification-row",
+        "target": "is-unread",
+        "duration": 280
+      },
+      {
+        "name": "notification-row",
+        "target": "is-unread",
+        "duration": 280
+      }
+    ]
+  },
+  {
+    "check": "notification-exit",
+    "width": 1440,
+    "animations": [
+      {
+        "name": "notification-close",
+        "target": "notification-panel",
+        "duration": 160
+      }
+    ]
+  },
+  {
+    "check": "page-transition",
+    "width": 1440,
+    "animations": [
+      {
+        "name": "page-sequence",
+        "target": "",
+        "duration": 220
+      },
+      {
+        "name": "page-sequence",
+        "target": "active",
+        "duration": 220
+      },
+      {
+        "name": "page-sequence",
+        "target": "notification-bell",
+        "duration": 150
+      },
+      {
+        "name": "page-sequence",
+        "target": "notification-bell",
+        "duration": 150
+      },
+      {
+        "name": "page-sequence",
+        "target": "resident__body",
+        "duration": 320
+      },
+      {
+        "name": "page-sequence",
+        "target": "resident-band",
+        "duration": 280
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "check": "notification-entry",
+    "width": 390,
+    "animations": [
+      {
+        "name": "page-sequence",
+        "target": "notification-bell",
+        "duration": 150
+      },
+      {
+        "name": "page-sequence",
+        "target": "notification-bell",
+        "duration": 150
+      },
+      {
+        "name": "notification-ring",
+        "target": {},
+        "duration": 420
+      },
+      {
+        "name": "notification-open",
+        "target": "notification-panel",
+        "duration": 300
+      },
+      {
+        "name": "notification-row",
+        "target": "",
+        "duration": 280
+      },
+      {
+        "name": "notification-row",
+        "target": "is-unread",
+        "duration": 280
+      },
+      {
+        "name": "notification-row",
+        "target": "is-unread",
+        "duration": 280
+      },
+      {
+        "name": "notification-row",
+        "target": "is-unread",
+        "duration": 280
+      },
+      {
+        "name": "notification-row",
+        "target": "is-unread",
+        "duration": 280
+      }
+    ]
+  },
+  {
+    "check": "notification-exit",
+    "width": 390,
+    "animations": [
+      {
+        "name": "notification-close",
+        "target": "notification-panel",
+        "duration": 160
+      }
+    ]
+  },
+  {
+    "check": "page-transition",
+    "width": 390,
+    "animations": [
+      {
+        "name": "page-sequence",
+        "target": "",
+        "duration": 220
+      },
+      {
+        "name": "page-sequence",
+        "target": "active",
+        "duration": 220
+      },
+      {
+        "name": "page-sequence",
+        "target": "notification-bell",
+        "duration": 150
+      },
+      {
+        "name": "page-sequence",
+        "target": "notification-bell",
+        "duration": 150
+      },
+      {
+        "name": "page-sequence",
+        "target": "resident__body",
+        "duration": 320
+      },
+      {
+        "name": "page-sequence",
+        "target": "resident-band",
+        "duration": 280
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "check": "reduced-notifications",
+    "animations": []
+  },
+  {
+    "check": "reduced-navigation",
+    "animations": []
+  },
+  {
+    "check": "reduced-landing",
+    "running": 0,
+    "headingVisible": true
+  }
+]
