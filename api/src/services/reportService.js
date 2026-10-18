@@ -1,4 +1,4 @@
-import { randomInt } from 'node:crypto';
+import { createHash, randomInt } from 'node:crypto';
 import { parseReportInput, validatePhotos } from '../domain/validation.js';
 import { coarsen } from '../domain/privacy.js';
 import { findPossibleDuplicates } from '../domain/duplicates.js';
@@ -16,6 +16,18 @@ export function makeReference() {
   return `DR-${s}`;
 }
 
+// Canonical JSON (keys sorted at every level) so the same submission always gives the same fingerprint.
+const stable = (v) => {
+  if (Array.isArray(v)) return v.map(stable);
+  if (v && typeof v === 'object') return Object.fromEntries(Object.keys(v).sort().map((k) => [k, stable(v[k])]));
+  return v;
+};
+// What a key is bound to: the validated report fields and each photo's type and size. Upload bytes are not hashed.
+export function submissionFingerprint(data, files = []) {
+  const body = JSON.stringify(stable({ data, photos: files.map((f) => [f.mimetype, f.size]) }));
+  return createHash('sha256').update(body).digest('hex');
+}
+
 export async function create({ repo, uploader, notifier }, user, input, files, idempotencyKey) {
   // Validate everything before any side effect.
   const data = parseReportInput(input);
@@ -24,7 +36,12 @@ export async function create({ repo, uploader, notifier }, user, input, files, i
   if (idempotencyKey !== undefined && !KEY_RE.test(idempotencyKey)) {
     throw new HttpError(400, 'invalid_idempotency_key', 'Idempotency-Key must be 16 to 100 letters, digits, hyphens, or underscores');
   }
-  const claim = idempotencyKey ? await repo.claimSubmission(user.uid, idempotencyKey, { staleAfterMs: STALE_MS }) : null;
+  const fingerprint = idempotencyKey ? submissionFingerprint(data, files) : undefined;
+  const claim = idempotencyKey ? await repo.claimSubmission(user.uid, idempotencyKey, { staleAfterMs: STALE_MS, fingerprint }) : null;
+  // A key is bound to the submission it was first used for. Reusing it for a different report is refused, not replayed.
+  if (claim && (claim.state === 'done' || claim.state === 'pending') && claim.fingerprint !== fingerprint) {
+    throw new HttpError(409, 'idempotency_conflict', 'This Idempotency-Key was already used for a different report. Send the report again with a new key.');
+  }
   if (claim?.state === 'done') return claim.result;
   if (claim?.state === 'pending') {
     throw new HttpError(409, 'submission_in_progress', 'This report is already being sent. Wait a moment, then check My reports before sending again.');

@@ -20,7 +20,7 @@ initializeApp({
 
 const verifyToken = async (token) => {
   const claims = await getAuth().verifyIdToken(token, true);
-  return { uid: claims.uid, role: claims.role, active: claims.active };
+  return { uid: claims.uid, role: claims.role, active: claims.active, email: claims.email, emailVerified: claims.email_verified === true };
 };
 
 const app = buildApp({

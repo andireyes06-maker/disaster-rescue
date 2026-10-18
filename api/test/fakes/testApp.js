@@ -21,6 +21,12 @@ export function makeTestApp({ notifier, sender = createFakeSender(), corsOrigins
       if (!auth.users.has(uid)) auth.users.set(uid, { uid, email, disabled: false, customClaims: undefined });
       return { uid, ...(email ? { email } : {}) };
     }
+    // The API reads role and active from the users document, so a verified token gets one on first use,
+    // as sign-in would create it. An existing document is never overwritten, so a demotion made in a test sticks.
+    if (!(await repo.getUser(uid))) {
+      const active = role !== 'off';
+      await repo.createUser(uid, { name: uid, role: role === 'off' ? 'resident' : role, active, team: null, createdAt: new Date() });
+    }
     if (role === 'off') return { uid, role: 'resident', active: false };
     return { uid, role, active: true };
   };

@@ -21,10 +21,11 @@ export async function getSettings({ repo }) {
 export async function saveSettings({ repo }, actorUid, body = {}) {
   const hotline = typeof body.hotline === 'string' ? body.hotline.trim() : null;
   const residentNotice = typeof body.residentNotice === 'string' ? body.residentNotice.trim() : null;
-  if (hotline === null || hotline.length > HOTLINE_MAX) {
+  // Both fields are required, matching the settings form. Empty is refused, never stored as "unset".
+  if (!hotline || hotline.length > HOTLINE_MAX) {
     throw new HttpError(400, 'validation_failed', `Hotline is required and at most ${HOTLINE_MAX} characters`);
   }
-  if (residentNotice === null || residentNotice.length > NOTICE_MAX) {
+  if (!residentNotice || residentNotice.length > NOTICE_MAX) {
     throw new HttpError(400, 'validation_failed', `Resident notice is required and at most ${NOTICE_MAX} characters`);
   }
   const doc = await repo.getHotlines();

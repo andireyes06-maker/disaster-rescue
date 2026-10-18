@@ -70,17 +70,19 @@ export function createMemoryRepo({ hotlines = { numbers: [] } } = {}) {
       }
       return { ok: true };
     },
-    async claimSubmission(uid, key, { staleAfterMs }) {
+    async claimSubmission(uid, key, { staleAfterMs, fingerprint }) {
       const k = `${uid}__${key}`;
       const now = Date.now();
       const d = submissions.get(k);
-      if (d?.state === 'done') return { state: 'done', result: copy(d.result) };
-      if (d?.state === 'pending' && now - d.startedAtMs < staleAfterMs) return { state: 'pending' };
-      submissions.set(k, { state: 'pending', startedAtMs: now });
+      if (d?.state === 'done') return { state: 'done', result: copy(d.result), fingerprint: d.fingerprint };
+      if (d?.state === 'pending' && now - d.startedAtMs < staleAfterMs) return { state: 'pending', fingerprint: d.fingerprint };
+      submissions.set(k, { state: 'pending', startedAtMs: now, fingerprint });
       return { state: 'new' };
     },
+    // Keeps the fingerprint the key was claimed with, as the Firestore merge does.
     async completeSubmission(uid, key, result) {
-      submissions.set(`${uid}__${key}`, { state: 'done', result: copy(result) });
+      const k = `${uid}__${key}`;
+      submissions.set(k, { state: 'done', result: copy(result), fingerprint: submissions.get(k)?.fingerprint });
     },
     async addUpdate(reportId, update) {
       const id = nextId('u');

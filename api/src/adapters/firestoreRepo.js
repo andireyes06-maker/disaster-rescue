@@ -103,17 +103,18 @@ export function createFirestoreRepo(db) {
     },
     // Idempotent report submission: one document per (account, key). A completed key replays its result;
     // a fresh in-flight key refuses a second attempt; an abandoned one (older than staleAfterMs) can be retried.
-    async claimSubmission(uid, key, { staleAfterMs }) {
+    // The key is bound to the fingerprint of the submission that first claimed it; the caller compares them.
+    async claimSubmission(uid, key, { staleAfterMs, fingerprint }) {
       const ref = col('submissions').doc(`${uid}__${key}`);
       return db.runTransaction(async (tx) => {
         const snap = await tx.get(ref);
         const now = Date.now();
         if (snap.exists) {
           const d = snap.data();
-          if (d.state === 'done') return { state: 'done', result: d.result };
-          if (d.state === 'pending' && now - d.startedAtMs < staleAfterMs) return { state: 'pending' };
+          if (d.state === 'done') return { state: 'done', result: d.result, fingerprint: d.fingerprint };
+          if (d.state === 'pending' && now - d.startedAtMs < staleAfterMs) return { state: 'pending', fingerprint: d.fingerprint };
         }
-        tx.set(ref, { state: 'pending', startedAtMs: now, uid });
+        tx.set(ref, { state: 'pending', startedAtMs: now, uid, fingerprint });
         return { state: 'new' };
       });
     },

@@ -32,9 +32,26 @@ describe('admin account management', () => {
     expect(await t.repo.getUser('adm-2')).toMatchObject({ active: false });
   });
 
+  it('an admin can be deactivated while another active admin remains', async () => {
+    const t = makeTestApp();
+    await seedAdmin(t, 'adm-1', 'One');
+    await seedAdmin(t, 'adm-2', 'Two');
+    const res = await patch(t, t.as('admin', 'adm-1'), 'adm-2', { active: false });
+    expect(res.status).toBe(200);
+    expect(await t.repo.getUser('adm-2')).toMatchObject({ active: false });
+  });
+
   it('admin cannot remove the last active admin (409 last_admin)', async () => {
     const t = makeTestApp();
+    await seedAdmin(t, 'adm-1', 'Caller');
     await seedAdmin(t, 'adm-2', 'Only');
+    // Deterministic race: the caller passes the token check as active, then is deactivated
+    // inside the transaction, so the guard sees no other active admin and must refuse.
+    const setStaffGuarded = t.repo.setStaffGuarded;
+    t.repo.setStaffGuarded = async (uid, patch, guard) => {
+      await t.repo.updateUser('adm-1', { active: false });
+      return setStaffGuarded(uid, patch, guard);
+    };
     const res = await patch(t, t.as('admin', 'adm-1'), 'adm-2', { active: false });
     expect(res.status).toBe(409);
     expect(res.body.error).toBe('last_admin');
@@ -49,7 +66,11 @@ describe('admin account management', () => {
       patch(t, t.as('admin', 'adm-1'), 'adm-2', { active: false }),
       patch(t, t.as('admin', 'adm-2'), 'adm-1', { active: false }),
     ]);
-    expect([a.status, b.status].sort()).toEqual([200, 409]);
+    // The winner's commit deactivates the other caller, so the loser is refused at the token check (403)
+    // or, if it had already passed that check, by the transactional guard (409). Either way one admin remains.
+    const statuses = [a.status, b.status].sort();
+    expect(statuses[0]).toBe(200);
+    expect([403, 409]).toContain(statuses[1]);
     const active = (await t.repo.listUsers()).filter((u) => u.role === 'admin' && u.active === true);
     expect(active).toHaveLength(1);
   });
