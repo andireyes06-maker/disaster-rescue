@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { apiBlob } from '../../api/client';
+import { apiFile } from '../../api/client';
 import Banner from '../../components/calm/Banner';
 
 export interface ExportFilters {
@@ -32,11 +32,12 @@ export default function ExportButtons({ filters }: ExportButtonsProps) {
     setError(null);
     try {
       // The token travels in the Authorization header; only the filters are in the URL.
-      const blob = await apiBlob(`/export/${endpoint}${query ? `?${query}` : ''}`);
-      const url = URL.createObjectURL(blob);
+      // The server names demo exports "demo-sample-…" so they cannot pass for operational data.
+      const file = await apiFile(`/export/${endpoint}${query ? `?${query}` : ''}`);
+      const url = URL.createObjectURL(file.blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = filename;
+      a.download = file.filename ?? filename;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 0);
     } catch {

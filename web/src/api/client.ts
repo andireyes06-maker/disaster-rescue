@@ -88,8 +88,17 @@ export async function api(
 // Binary downloads (CSV, PDF). Same sign-in token and error mapping as api(), but returns a Blob.
 export async function apiBlob(
   path: string,
-  { getToken = defaultGetToken }: Pick<ApiOptions, 'getToken'> = {},
+  options: Pick<ApiOptions, 'getToken'> = {},
 ): Promise<Blob> {
+  return (await apiFile(path, options)).blob;
+}
+
+// Same request as apiBlob, plus the filename the server chose (Content-Disposition), so a demo
+// export keeps its "demo-sample" name instead of the client's default.
+export async function apiFile(
+  path: string,
+  { getToken = defaultGetToken }: Pick<ApiOptions, 'getToken'> = {},
+): Promise<{ blob: Blob; filename: string | null }> {
   const headers: Record<string, string> = {};
   let token: string | null;
   try {
@@ -108,5 +117,7 @@ export async function apiBlob(
   if (!res.ok) {
     throw new ApiError({ status: res.status, code: `http_${res.status}`, message: `Request failed (${res.status})` });
   }
-  return res.blob();
+  const disposition = res.headers?.get?.('content-disposition') ?? '';
+  const filename = /filename="([^"]+)"/.exec(disposition)?.[1] ?? null;
+  return { blob: await res.blob(), filename };
 }

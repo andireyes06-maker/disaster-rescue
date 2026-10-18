@@ -30,7 +30,8 @@ export function buildApp({
   app.set('trust proxy', trustProxy);
   app.use(helmet());
   // Only configured origins may call the API from a browser. Others get no CORS header.
-  app.use(cors({ origin: corsOrigins.length ? corsOrigins : false }));
+  // Content-Disposition is exposed so the browser can keep the server's export filename (demo exports say so).
+  app.use(cors({ origin: corsOrigins.length ? corsOrigins : false, exposedHeaders: ['Content-Disposition'] }));
   app.use(rateLimit({ ...rateOptions, standardHeaders: 'draft-7', legacyHeaders: false }));
   app.use(express.json({ limit: '100kb' }));
   // Public liveness check for the host. Reveals nothing about data.

@@ -18,6 +18,23 @@ describe('ExportButtons', () => {
     })) as unknown as typeof fetch;
   });
 
+  it('saves a demo export under the server filename, not the default', async () => {
+    globalThis.fetch = vi.fn(async () => ({
+      ok: true,
+      status: 200,
+      headers: new Headers({ 'content-disposition': 'attachment; filename="demo-sample-incidents.csv"' }),
+      blob: async () => new Blob(['reference']),
+    })) as unknown as typeof fetch;
+    const clicks: string[] = [];
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (this: HTMLAnchorElement) {
+      clicks.push(this.download);
+    });
+    render(<ExportButtons filters={{ from: '', to: '', type: '', status: '' }} />);
+    await userEvent.click(screen.getByRole('button', { name: /download csv/i }));
+    await screen.findByRole('button', { name: /download csv/i });
+    expect(clicks).toEqual(['demo-sample-incidents.csv']);
+  });
+
   it('requests the CSV with the current filters and a Bearer token', async () => {
     render(<ExportButtons filters={{ from: '2026-01-01', to: '2026-01-31', type: 'flood', status: '' }} />);
     await userEvent.click(screen.getByRole('button', { name: /download csv/i }));
