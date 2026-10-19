@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, onSnapshot, type FirestoreError } from 'firebase/firestore';
+import { collection, query, limit, orderBy, where, onSnapshot, type FirestoreError } from 'firebase/firestore';
 import { getFirebaseDb } from '../../firebase';
 import { convertReport } from '../reports/useReports';
 import type { Report } from '../../types/domain';
@@ -13,13 +13,16 @@ export interface MyReportsState {
   // True when the last result came from the local cache, so statuses may be out of date (F07).
   fromCache: boolean;
   retry: () => void;
+  windowSize?: number;
+  loadMore?: () => void;
 }
 
 // Live list of one resident's reports. The rules allow this read only for the reporter's own reports.
-// Sorted on the client so no composite index is needed.
+// Newest-first server window; the reporterId/createdAt index is versioned with the app.
 export function useMyReports(uid: string): MyReportsState {
   const [state, setState] = useState<Omit<MyReportsState, 'retry'>>({ reports: [], loading: Boolean(uid), error: null, fromCache: false });
   const [attempt, setAttempt] = useState(0);
+  const [windowSize, setWindowSize] = useState(50);
 
   useEffect(() => {
     if (!uid) {
@@ -27,7 +30,7 @@ export function useMyReports(uid: string): MyReportsState {
       return undefined;
     }
     setState((s) => (s.error ? { ...s, loading: true, error: null } : s));
-    const q = query(collection(getFirebaseDb(), 'reports'), where('reporterId', '==', uid));
+    const q = query(collection(getFirebaseDb(), 'reports'), where('reporterId', '==', uid), orderBy('createdAt', 'desc'), limit(windowSize));
     return onSnapshot(
       q,
       { includeMetadataChanges: true },
@@ -39,8 +42,8 @@ export function useMyReports(uid: string): MyReportsState {
       },
       (error) => setState((s) => ({ ...s, loading: false, error })),
     );
-  }, [uid, attempt]);
+  }, [uid, attempt, windowSize]);
 
   const retry = () => setAttempt((n) => n + 1);
-  return { ...state, retry };
+  return { ...state, retry, windowSize, loadMore: () => setWindowSize(n => n + 50) };
 }

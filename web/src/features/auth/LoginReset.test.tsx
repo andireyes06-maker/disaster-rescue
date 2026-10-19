@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 const h = vi.hoisted(() => ({ sendPasswordResetEmail: vi.fn() }));
 vi.mock('firebase/auth', () => ({ sendPasswordResetEmail: h.sendPasswordResetEmail }));
-vi.mock('../../firebase', () => ({ getFirebaseAuth: () => ({ app: 'test-auth' }) }));
+vi.mock('../../firebase-auth', () => ({ getFirebaseAuth: () => ({ app: 'test-auth' }) }));
 vi.mock('../../auth/AuthProvider', () => ({
   useAuth: () => ({ user: null, role: null, error: null, login: vi.fn() }),
 }));
@@ -17,6 +17,14 @@ function renderLogin() {
 
 describe('staff password setup from sign-in (F02)', () => {
   beforeEach(() => { h.sendPasswordResetEmail.mockReset().mockResolvedValue(undefined); });
+
+  it('places the recovery section below Sign in with setup guidance', () => {
+    renderLogin();
+    const section = screen.getByRole('region', { name: 'Need a password?' });
+    expect(section).toHaveTextContent(/Staff accounts are created without a password/);
+    expect(section).toContainElement(screen.getByRole('button', { name: 'Forgot password?' }));
+    expect(section.compareDocumentPosition(screen.getByRole('button', { name: 'Sign in' })) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
+  });
 
   it('asks for an email before sending anything', () => {
     renderLogin();

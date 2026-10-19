@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/styles.css"
+        ],
+        "createdAt": "2026-10-17T04:21:53.826Z",
+        "reason": "Claude triage, Oct 17 2026: styles.css:205 is the .history timeline rail (2px neutral --color-mist line with dot markers on a list), not a colored accent on a card. Not a user decision."
+      }
+    ]
+  }
+}

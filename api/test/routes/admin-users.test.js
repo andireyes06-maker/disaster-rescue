@@ -136,7 +136,8 @@ describe('admin account management', () => {
     const update = audit.find((a) => a.action === 'user.update');
     expect(create_).toMatchObject({ actorUid: 'adm-1', after: { target: made.body.uid, role: 'dispatcher', active: true } });
     expect(update).toMatchObject({ actorUid: 'adm-1', before: { role: 'dispatcher', active: true }, after: { target: made.body.uid, role: 'responder', active: true } });
-    expect(JSON.stringify(audit)).not.toMatch(/password|token|09/i);
+    // Phone numbers are 11 digits starting 09. A bare "09" also matches the audit timestamp hour (time-dependent), so it is not used.
+    expect(JSON.stringify(audit)).not.toMatch(/password|token|\b09\d{9}\b/i);
   });
 
   it('a retry after a failed Auth step revokes the old tokens even though the role already changed (review)', async () => {

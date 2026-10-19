@@ -1,0 +1,3 @@
+import {it,expect} from 'vitest';
+import {loadReports,buildStats} from '../../src/services/statsService.js';
+it('statistics preserve historical sums and bound concurrent aggregate reads to four',async()=>{let active=0,peak=0;const rows=Array.from({length:31},(_,i)=>({id:String(i),createdAt:new Date(),status:'Closed'}));const reports=await loadReports({listReports:async()=>rows,sumPeopleRescued:async()=>{active++;peak=Math.max(peak,active);await new Promise(r=>setTimeout(r,1));active--;return 3;},listUpdates:()=>{throw Error('must not download history')}});expect(peak).toBe(4);expect(buildStats(reports).peopleRescued).toBe(93);});

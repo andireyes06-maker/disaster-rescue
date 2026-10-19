@@ -5,6 +5,9 @@ import 'package:disaster_rescue/auth/auth_repository.dart';
 class FakeAuthRepository implements AuthRepository {
   final StreamController<AuthUser?> events = StreamController<AuthUser?>.broadcast();
   int logoutCalls = 0;
+  final resetEmails = <String>[];
+  @override
+  Future<void> requestPasswordReset(String email) async { resetEmails.add(email); }
   AuthException? loginError;
   Completer<void>? logoutGate;
   bool emitOnLogout = true;

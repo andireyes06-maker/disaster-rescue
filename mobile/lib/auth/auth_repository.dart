@@ -49,6 +49,7 @@ abstract class AuthRepository {
     String? phone,
   });
   Future<void> logout();
+  Future<void> requestPasswordReset(String email);
 }
 
 class FirebaseAuthRepository implements AuthRepository {
@@ -226,6 +227,9 @@ class FirebaseAuthRepository implements AuthRepository {
     } catch (_) {}
     await _backend.signOut();
   }
+
+  @override
+  Future<void> requestPasswordReset(String email) => _backend.sendPasswordReset(email.trim());
 
   Future<void> dispose() async {
     await _sub?.cancel();

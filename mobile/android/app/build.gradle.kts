@@ -4,8 +4,29 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val releaseRequested = gradle.startParameter.taskNames.any { it.contains("release", ignoreCase = true) }
+val ownedApplicationId = providers.gradleProperty("rescueApplicationId").orNull
+val releaseStore = System.getenv("RESCUE_KEYSTORE_PATH")
+val releaseAlias = System.getenv("RESCUE_KEY_ALIAS")
+val releaseStorePassword = System.getenv("RESCUE_STORE_PASSWORD")
+val releaseKeyPassword = System.getenv("RESCUE_KEY_PASSWORD")
+val validateReleaseConfiguration = {
+    require(!ownedApplicationId.isNullOrBlank() && !ownedApplicationId.startsWith("local.")) {
+        "Release requires -PrescueApplicationId with the service-owned application ID."
+    }
+    require(listOf(releaseStore, releaseAlias, releaseStorePassword, releaseKeyPassword).all { !it.isNullOrBlank() }) {
+        "Release requires RESCUE_KEYSTORE_PATH, RESCUE_KEY_ALIAS, RESCUE_STORE_PASSWORD and RESCUE_KEY_PASSWORD."
+    }
+    require(file(releaseStore!!).exists()) { "Release keystore was not found." }
+}
+
+if (releaseRequested) validateReleaseConfiguration()
+gradle.taskGraph.whenReady {
+    if (allTasks.any { it.name.contains("release", ignoreCase = true) }) validateReleaseConfiguration()
+}
+
 android {
-    namespace = "edu.bulsu.disaster_rescue"
+    namespace = "local.rescuereports.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -15,8 +36,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "edu.bulsu.disaster_rescue"
+        applicationId = ownedApplicationId ?: "local.rescuereports.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -25,11 +45,17 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            if (!releaseStore.isNullOrBlank()) storeFile = file(releaseStore)
+            storePassword = releaseStorePassword
+            keyAlias = releaseAlias
+            keyPassword = releaseKeyPassword
+        }
+    }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }

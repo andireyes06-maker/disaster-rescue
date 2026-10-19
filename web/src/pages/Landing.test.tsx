@@ -1,9 +1,14 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Landing from './Landing';
 
 const renderLanding = () => render(<MemoryRouter><Landing /></MemoryRouter>);
+beforeEach(() => {
+  vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue();
+  vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {});
+});
+afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
 describe('Landing', () => {
   it('shows the safety text exactly', () => {
@@ -13,22 +18,50 @@ describe('Landing', () => {
     )).toBeInTheDocument();
   });
 
-  it('shows no demo or development banner, and no dialable placeholder hotline', () => {
+  it('restores the landing title and puts safety guidance before the film', () => {
+    document.title = 'Sign in · Rescue Reports';
     renderLanding();
-    expect(screen.queryByText(/demo site/i)).toBeNull();
-    expect(screen.queryByText(/hotline not configured/i)).toBeNull();
-    expect(document.querySelector('a[href="tel:000-0000"]')).toBeNull();
+    expect(document.title).toBe('Rescue Reports · Report clearly. Respond together.');
+    const safety = document.querySelector('.service-safety')!;
+    const film = document.querySelector('.response-film')!;
+    expect(safety.compareDocumentPosition(film) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
-  it('sends the staff door to /login', () => {
+  it('shows service guidance without inventing a dialable hotline', () => {
     renderLanding();
-    for (const link of screen.getAllByRole('link', { name: 'Sign in to the staff web' })) {
+    expect(screen.getByText('Report incidents. Follow response updates.')).toBeInTheDocument();
+    expect(screen.queryByText(/demo site|hotline not configured/i)).toBeNull();
+    expect(document.querySelector('a[href^="tel:"]')).toBeNull();
+  });
+
+  it('sends the staff entries to /login', () => {
+    renderLanding();
+    for (const link of screen.getAllByRole('link', { name: 'Staff sign in' })) {
       expect(link).toHaveAttribute('href', '/login');
     }
   });
 
-  it('sends the resident door to the resident app section', () => {
+  it('keeps returning residents inside the resident path, with their own sign-in', () => {
     renderLanding();
-    expect(screen.getByRole('link', { name: 'Resident app availability' })).toHaveAttribute('href', '#resident-app');
+    const path = document.getElementById('residents');
+    expect(path).not.toBeNull();
+    expect(within(path!).getByRole('link', { name: 'Already a resident? Sign in' })).toHaveAttribute('href', '/login');
+    expect(within(path!).getByRole('link', { name: 'New here? Create an account' })).toHaveAttribute('href', '/register');
+  });
+
+  it('explains browser access without implying a store release', () => {
+    renderLanding();
+    expect(screen.getByText('Use Rescue Reports in your browser to submit an incident, add a location, and check updates.')).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /app store|google play/i })).toBeNull();
+  });
+
+  it('describes the report-to-response sequence', () => {
+    renderLanding();
+    expect(screen.getByText('From first report to field update')).toBeInTheDocument();
+  });
+
+  it('provides practical privacy guidance', () => {
+    renderLanding();
+    expect(screen.getByText('Share only the details needed to explain the incident. Avoid sensitive personal information in photos and descriptions.')).toBeInTheDocument();
   });
 });

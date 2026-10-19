@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth/auth_controller.dart';
+import '../../data/photo_identity.dart';
 import '../../data/submission_key.dart';
 import '../../data/api_client.dart';
 import '../../data/report_models.dart';
@@ -68,17 +67,30 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   String? _submitKey;
   String? _submitKeySignature;
   ReportDraft? _savedDraft;
+  // Set on restart when the last send was uncertain (F02, D2). Submit waits for the explicit new-report action.
+  bool _blockedByUncertain = false;
 
   @override
   void initState() {
     super.initState();
     _loadDraft();
+    _loadUncertain();
     _loadProfile();
   }
 
   Future<void> _loadDraft() async {
     final d = await context.read<DraftStore>().load();
     if (mounted && d != null) setState(() => _savedDraft = d);
+  }
+
+  Future<void> _loadUncertain() async {
+    // If the flag cannot be read, the state is unknown, so the form stays blocked. The explicit
+    // new-report action remains available, so a broken store cannot lock the resident out for good.
+    var uncertain = true;
+    try {
+      uncertain = await context.read<DraftStore>().loadUncertainSend();
+    } catch (_) {}
+    if (mounted && uncertain) setState(() => _blockedByUncertain = true);
   }
 
   Future<void> _loadProfile() async {
@@ -143,8 +155,18 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   }
 
   Future<void> _discardDraft() async {
-    await context.read<DraftStore>().clear();
-    if (mounted) setState(() => _savedDraft = null);
+    final drafts = context.read<DraftStore>();
+    await drafts.clear();
+    // Discarding the saved report also ends the uncertain-send block (F02).
+    try {
+      await drafts.setUncertainSend(false);
+    } catch (_) {}
+    if (mounted) {
+      setState(() {
+        _savedDraft = null;
+        _blockedByUncertain = false;
+      });
+    }
   }
 
   void _reset() {
@@ -176,15 +198,26 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     setState(() => _step++);
   }
 
+  /// The explicit replay resolution (D2): the user checked My reports and chose to send as a new report.
+  Future<void> _sendAsNewReport() async {
+    try {
+      await context.read<DraftStore>().setUncertainSend(false);
+    } catch (_) {}
+    _submitKey = null;
+    _submitKeySignature = null;
+    setState(() => _blockedByUncertain = false);
+    await _submit();
+  }
+
   Future<void> _submit() async {
-    if (_submitting) return;
+    if (_submitting || _blockedByUncertain) return;
     setState(() => _submitting = true);
     final nav = Navigator.of(context);
     final reports = context.read<ReportsRepository>();
     final drafts = context.read<DraftStore>();
     var retry = false;
     SubmitResult? created;
-    final signature = jsonEncode({..._currentDraft().toJson(), 'photos': _photos.length});
+    final signature = submissionSignature(_currentDraft(), _photos);
     if (_submitKey == null || _submitKeySignature != signature) {
       _submitKey = newSubmissionKey();
       _submitKeySignature = signature;
@@ -203,14 +236,43 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
         idempotencyKey: _submitKey,
       ));
     } catch (e) {
-      final network = e is ApiException && e.status == 0 && e.code != 'auth';
-      if (network) {
+      if (isUncertainSubmission(e)) {
         // The outcome is uncertain, so the key stays: a retry cannot create a second report.
-        await drafts.save(_currentDraft());
+        // The flag and draft survive a restart, so the app does not silently send again (F02, D2).
+        // A storage failure must not hide the uncertain outcome, so each write is guarded on its own.
+        // The pages say when a write failed, rather than claiming the warning survives a restart.
+        var draftNotSaved = false;
+        var warningNotSaved = false;
+        try {
+          await drafts.save(_currentDraft());
+        } catch (_) {
+          draftNotSaved = true;
+        }
+        try {
+          await drafts.setUncertainSend(true);
+        } catch (_) {
+          warningNotSaved = true;
+        }
         if (!mounted) return;
-        retry = (await nav.push<bool>(MaterialPageRoute(builder: (_) => const OfflineHelpPage()))) ?? false;
+        if (e is ApiException && e.status == 0) {
+          retry = (await nav.push<bool>(MaterialPageRoute(
+                builder: (_) => OfflineHelpPage(draftNotSaved: draftNotSaved, warningNotSaved: warningNotSaved),
+              ))) ??
+              false;
+        } else {
+          await nav.push(MaterialPageRoute(
+            builder: (_) => SubmissionFailurePage(
+              reason: submitFailureReason(e),
+              uncertain: true,
+              draftNotSaved: draftNotSaved,
+              warningNotSaved: warningNotSaved,
+            ),
+          ));
+        }
       } else {
+        // A definite refusal: no report was made, so the key is dropped and the next attempt is new.
         _submitKey = null;
+        _submitKeySignature = null;
         if (!mounted) return;
         await nav.push(MaterialPageRoute(
           builder: (_) => SubmissionFailurePage(reason: submitFailureReason(e)),
@@ -230,6 +292,10 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     try {
       await drafts.clear();
     } catch (_) {}
+    try {
+      await drafts.setUncertainSend(false);
+    } catch (_) {}
+    _blockedByUncertain = false;
     if (!mounted) return;
     _reset();
     await nav.push(MaterialPageRoute(
@@ -244,7 +310,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   Widget build(BuildContext context) {
     final scale = MediaQuery.textScalerOf(context).scale(1);
     return Scaffold(
-      appBar: AppBar(title: const Text('Report an emergency')),
+      appBar: AppBar(title: const Text('Report an emergency'), leading: Padding(padding: const EdgeInsets.all(14), child: DecoratedBox(decoration: BoxDecoration(color: AppColors.primarySoft, borderRadius: BorderRadius.circular(9)), child: const Icon(Icons.add, color: AppColors.primary, size: 19)))),
       body: SafeArea(
         child: Column(
           children: [
@@ -267,7 +333,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                     label: 'Step ${_step + 1} of 4',
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: LinearProgressIndicator(value: (_step + 1) / 4, minHeight: 8),
+                      child: Row(children: List.generate(4, (index) => Expanded(child: Container(height: 5, margin: EdgeInsets.only(right: index == 3 ? 0 : 5), decoration: BoxDecoration(color: index <= _step ? AppColors.primary : AppColors.border, borderRadius: BorderRadius.circular(4)))))),
                     ),
                   ),
                 ],
@@ -280,9 +346,16 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (_step == 0 && _savedDraft != null) _draftCard(),
-                    Text(_stepTitles[_step], style: Theme.of(context).textTheme.titleLarge),
+                    Text(_stepTitles[_step], style: Theme.of(context).textTheme.headlineMedium),
+                    const SizedBox(height: 8),
+                    Text(const ['Choose the situation that best describes the emergency.', 'A precise location helps the response team find you.', 'Share useful details and a way to reach you.', 'Make sure the information is right before you send.'][_step], style: const TextStyle(color: AppColors.muted, height: 1.5)),
                     const SizedBox(height: 16),
-                    _body(scale),
+                    if (_step <= 1) ...[
+                      const Text('* Required', semanticsLabel: 'Required', style: TextStyle(color: AppColors.muted)),
+                      const SizedBox(height: 12),
+                      Semantics(container: true, explicitChildNodes: true, label: '${_stepTitles[_step]}, required', child: _body(scale)),
+                    ] else
+                      _body(scale),
                   ],
                 ),
               ),
@@ -343,7 +416,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
-      childAspectRatio: cols == 1 ? 4 : 1.5,
+      childAspectRatio: cols == 1 ? 4 : 1.4,
       children: [
         for (final e in reportTypeInfo.entries)
           _TypeTile(
@@ -369,8 +442,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             maxLength: 1000,
             textCapitalization: TextCapitalization.sentences,
             validator: validateDescription,
-            decoration: const InputDecoration(
-              labelText: 'What is happening?',
+            decoration: InputDecoration(
+              label: requiredFieldLabel('What is happening?'),
               hintText: 'Who is in danger, and what do they need?',
             ),
           ),
@@ -388,7 +461,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             controller: _name,
             textCapitalization: TextCapitalization.words,
             validator: (v) => (v ?? '').trim().isEmpty ? 'Enter your name.' : null,
-            decoration: const InputDecoration(labelText: 'Your name'),
+            decoration: InputDecoration(label: requiredFieldLabel('Your name')),
           ),
           const SizedBox(height: 16),
           TextFormField(
@@ -396,7 +469,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             controller: _phone,
             keyboardType: TextInputType.phone,
             validator: validatePhone,
-            decoration: const InputDecoration(labelText: 'Phone number'),
+            decoration: InputDecoration(label: requiredFieldLabel('Phone number')),
           ),
         ],
       ),
@@ -458,10 +531,19 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
               padding: EdgeInsets.only(bottom: 8),
               child: Text('Choose a location to continue.', textAlign: TextAlign.center),
             ),
+          if (last && _blockedByUncertain) ...[
+            Text(uncertainCopy, textAlign: TextAlign.center),
+            const SizedBox(height: 8),
+            OutlinedButton(
+              onPressed: _submitting ? null : _sendAsNewReport,
+              child: const Text('I checked, send as a new report'),
+            ),
+            const SizedBox(height: 8),
+          ],
           if (last)
             FilledButton(
               onPressed: _submitting ? null : _submit,
-              style: FilledButton.styleFrom(backgroundColor: AppColors.critical, foregroundColor: Colors.white),
+              style: FilledButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white),
               child: _submitting
                   ? const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)),
@@ -506,7 +588,7 @@ class _TypeTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected ? AppColors.primarySoft : AppColors.surface,
             borderRadius: BorderRadius.circular(AppRadius.lg),
-            border: Border.all(color: selected ? AppColors.primary : AppColors.muted.withValues(alpha: 0.5), width: selected ? 3 : 1),
+            border: Border.all(color: selected ? AppColors.primary : AppColors.border, width: selected ? 2 : 1),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),

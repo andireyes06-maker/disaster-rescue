@@ -103,7 +103,7 @@ class ApiClient {
           msg is String && msg.isNotEmpty ? msg : 'The request failed (${res.statusCode}).',
         );
       }
-      throw ApiException(res.statusCode, 'http_error', 'Something went wrong (${res.statusCode}). Please try again.');
+      throw ApiException(res.statusCode, 'http_error', 'The service could not complete this request. Please try again.');
     }
     if (res.statusCode == 204 || text.isEmpty) return null;
     if (!isJson) {

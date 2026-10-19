@@ -22,7 +22,7 @@ String failureMessage(AuthFailure f, String? detail) {
     case AuthFailure.emailInUse:
       return 'That email already has an account. Try logging in.';
     case AuthFailure.weakPassword:
-      return 'Choose a longer password (at least 6 characters).';
+      return 'Choose a longer password (at least 8 characters).';
     case AuthFailure.registrationUncertain:
       return 'Your account may have been created. Try signing in.';
     case AuthFailure.registrationIncomplete:
@@ -50,7 +50,7 @@ class InlineError extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.info_outline, color: AppColors.high),
+              const Icon(Icons.error_outline, color: AppColors.high),
               const SizedBox(width: 8),
               Expanded(child: Text(message, style: const TextStyle(color: AppColors.text))),
             ],
@@ -66,7 +66,7 @@ class DisclaimerBox extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.primarySoft,
+            color: const Color(0xFFFFF7E8),
           borderRadius: BorderRadius.circular(AppRadius.md),
         ),
         child: const Row(
@@ -80,11 +80,15 @@ class DisclaimerBox extends StatelessWidget {
       );
 }
 
+/// Label for a required field (C6): a visible " *" and a screen-reader "required".
+Widget requiredFieldLabel(String text) => Text('$text *', semanticsLabel: '$text, required');
+
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key, required this.controller, this.validator, this.autofillHints});
+  const PasswordField({super.key, required this.controller, this.validator, this.autofillHints, this.required = false});
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final Iterable<String>? autofillHints;
+  final bool required;
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -100,7 +104,8 @@ class _PasswordFieldState extends State<PasswordField> {
         validator: widget.validator,
         autofillHints: widget.autofillHints,
         decoration: InputDecoration(
-          labelText: 'Password',
+          label: widget.required ? requiredFieldLabel('Password') : null,
+          labelText: widget.required ? null : 'Password',
           suffixIcon: IconButton(
             tooltip: _hidden ? 'Show password' : 'Hide password',
             icon: Icon(_hidden ? Icons.visibility_outlined : Icons.visibility_off_outlined),

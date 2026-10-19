@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 
 const auth = vi.hoisted(() => ({
@@ -27,19 +27,23 @@ const renderAt = () =>
 describe('Home at /', () => {
   beforeEach(() => {
     auth.value = { user: null, role: null, loading: false };
+    vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }));
   });
+  afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 
   it('shows the landing page to a signed-out visitor without redirecting', () => {
     renderAt();
-    expect(screen.getByRole('heading', { level: 1, name: /Report an incident/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: /Report clearly/ })).toBeInTheDocument();
     expect(screen.queryByTestId('at')).toBeNull();
   });
 
-  it('shows Loading while auth is still resolving, not the landing page', () => {
+  it('reserves the public opening while the saved session resolves', () => {
     auth.value = { user: null, role: null, loading: true };
     renderAt();
-    expect(screen.getByRole('status')).toHaveTextContent('Loading...');
-    expect(screen.queryByRole('heading', { level: 1 })).toBeNull();
+    expect(screen.getByRole('status')).toHaveTextContent('Loading your session…');
+    expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content');
+    expect(screen.queryByRole('heading', { name: /Report clearly/ })).toBeNull();
+    expect(screen.queryByRole('link', { name: /Create a resident account/ })).toBeNull();
   });
 
   it.each([

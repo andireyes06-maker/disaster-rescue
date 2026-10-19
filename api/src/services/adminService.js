@@ -1,5 +1,5 @@
 import { HttpError } from '../errors.js';
-import { auditService } from './auditService.js';
+import { HOTLINE_RE } from '../domain/validation.js';
 
 const HOTLINE_MAX = 40;
 const NOTICE_MAX = 500;
@@ -22,8 +22,8 @@ export async function saveSettings({ repo }, actorUid, body = {}) {
   const hotline = typeof body.hotline === 'string' ? body.hotline.trim() : null;
   const residentNotice = typeof body.residentNotice === 'string' ? body.residentNotice.trim() : null;
   // Both fields are required, matching the settings form. Empty is refused, never stored as "unset".
-  if (!hotline || hotline.length > HOTLINE_MAX) {
-    throw new HttpError(400, 'validation_failed', `Hotline is required and at most ${HOTLINE_MAX} characters`);
+  if (!hotline || hotline.length > HOTLINE_MAX || !HOTLINE_RE.test(hotline)) {
+    throw new HttpError(400, 'validation_failed', 'Enter a valid hotline number with 3 to 15 digits');
   }
   if (!residentNotice || residentNotice.length > NOTICE_MAX) {
     throw new HttpError(400, 'validation_failed', `Resident notice is required and at most ${NOTICE_MAX} characters`);
@@ -32,8 +32,7 @@ export async function saveSettings({ repo }, actorUid, body = {}) {
   const before = await getSettings({ repo });
   const numbers = (doc.numbers ?? []).filter((n) => !n.editable);
   numbers.push({ label: editableEntry(doc)?.label ?? 'LDRRMO', number: hotline, editable: true });
-  await repo.saveHotlines({ ...doc, numbers, residentNotice });
   const after = { hotline, residentNotice };
-  await auditService.record(repo, { actorUid, action: 'settings.update', before, after });
+  await repo.saveSettingsWithAudit({ ...doc, numbers, residentNotice }, { actorUid, action: 'settings.update', before, after, at: new Date() });
   return after;
 }

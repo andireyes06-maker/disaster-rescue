@@ -92,6 +92,7 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<void> logout() => _repo.logout();
+  Future<void> requestPasswordReset(String email) => _repo.requestPasswordReset(email);
 
   @override
   void dispose() {

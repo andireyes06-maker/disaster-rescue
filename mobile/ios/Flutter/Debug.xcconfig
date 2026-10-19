@@ -1,1 +1,2 @@
+#include "Identity.xcconfig"
 #include "Generated.xcconfig"

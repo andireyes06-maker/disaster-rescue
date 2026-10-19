@@ -44,7 +44,7 @@ void main() {
   test('a draft saved by one account is not visible to another account on the same phone (M02)', () async {
     String? who = 'res-a';
     final store = ReportDraftStore(currentUid: () => who);
-    await store.save(const ReportDraft(type: 'fire', description: 'Smoke near the market', lat: 14.5, lng: 120.9, source: 'gps', addressText: '', contactName: 'Ana', contactPhone: '09171234567'));
+    await store.save(const ReportDraft(type: 'fire', description: 'Smoke near the market', lat: 14.5, lng: 120.9, source: 'gps', addressText: '', contactName: 'Ana', contactPhone: '09170000001'));
     who = 'res-b';
     expect(await store.load(), isNull);
     who = 'res-a';

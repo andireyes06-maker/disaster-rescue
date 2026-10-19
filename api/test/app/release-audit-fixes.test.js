@@ -14,6 +14,16 @@ function submit(t, over = {}) {
 }
 
 describe('F05: an idempotency key is bound to one submission', () => {
+  it('refuses different photo bytes with the same type, size and filename', async () => {
+    const t = makeTestApp();
+    const header = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+    const first = await submit(t).attach('photos', Buffer.concat([header, Buffer.from([1])]), { filename: 'photo.png', contentType: 'image/png' });
+    expect(first.status).toBe(201);
+    const retry = await submit(t).attach('photos', Buffer.concat([header, Buffer.from([2])]), { filename: 'photo.png', contentType: 'image/png' });
+    expect(retry.status).toBe(409);
+    expect(retry.body.error).toBe('idempotency_conflict');
+    expect(await t.repo.listReports({})).toHaveLength(1);
+  });
   it('reusing a key for a different description is refused, and only the first report exists', async () => {
     const t = makeTestApp();
     const first = await submit(t);

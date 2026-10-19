@@ -109,16 +109,25 @@ void main() {
     await t.pumpWidget(host(c, const LoginPage()));
     expect(find.text(disclaimer), findsOneWidget);
     repo.loginError = const AuthException(AuthFailure.invalidCredentials);
-    await t.enterText(find.widgetWithText(TextFormField, 'Email'), 'a@b.c');
+    await t.enterText(find.widgetWithText(TextFormField, 'Email *'), 'a@b.c');
     await t.enterText(
-      find.widgetWithText(TextFormField, 'Password'),
+      find.widgetWithText(TextFormField, 'Password *'),
       'wrongpass',
     );
     await t.tap(find.widgetWithText(FilledButton, 'Log in'));
     await t.pump();
     await t.pump();
     expect(find.textContaining('email or password'), findsOneWidget);
-    expect(find.byIcon(Icons.info_outline), findsOneWidget);
+    expect(find.byIcon(Icons.error_outline), findsOneWidget);
+  });
+
+  testWidgets('register marks name, email and password as required, phone as optional (F08)', (t) async {
+    await t.pumpWidget(host(c, const RegisterPage()));
+    expect(find.bySemanticsLabel('Full name, required'), findsOneWidget);
+    expect(find.bySemanticsLabel('Email, required'), findsOneWidget);
+    expect(find.bySemanticsLabel('Password, required'), findsOneWidget);
+    expect(find.bySemanticsLabel(RegExp('Phone.*required')), findsNothing);
+    expect(find.widgetWithText(TextFormField, 'Full name *'), findsOneWidget);
   });
 
   testWidgets('password visibility toggle has accessible label', (t) async {
@@ -141,10 +150,10 @@ void main() {
     FilledButton button() => t.widget<FilledButton>(
       find.widgetWithText(FilledButton, 'Create account'),
     );
-    await t.enterText(find.widgetWithText(TextFormField, 'Full name'), 'Ana');
-    await t.enterText(find.widgetWithText(TextFormField, 'Email'), 'a@b.c');
+    await t.enterText(find.widgetWithText(TextFormField, 'Full name *'), 'Ana');
+    await t.enterText(find.widgetWithText(TextFormField, 'Email *'), 'a@b.c');
     await t.enterText(
-      find.widgetWithText(TextFormField, 'Password'),
+      find.widgetWithText(TextFormField, 'Password *'),
       'longenough1',
     );
     await t.pump();

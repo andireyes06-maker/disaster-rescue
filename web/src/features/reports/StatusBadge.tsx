@@ -25,7 +25,7 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
   return (
     <span className={`badge badge--status${complete ? ' badge--complete' : ''}`}>
       <Icon aria-hidden="true" />
-      <span>{status}</span>
+      <span key={status} data-motion="status">{status}</span>
     </span>
   );
 }

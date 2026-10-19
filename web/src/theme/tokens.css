@@ -1,6 +1,6 @@
 /* Design tokens. Source of truth: docs/design-tokens/tokens.json (keep in sync). Indigo and violet identity, Oct 16, 2026 (STRONG-PALETTE-PROPOSAL). Priority and status meaning stays in text and shape, not colour alone. */
 :root {
-  --color-bg: #EDEDF7;
+  --color-bg: #F5F6FA;
   --color-surface: #FFFFFF;
   --color-primary: #6D28D9;
   --color-primary-soft: #EFE8FF;
@@ -10,12 +10,12 @@
   --color-high-soft: #FFF4DC;
   --color-medium: #4338CA;
   --color-low: #55516B;
-  --color-text: #19162A;
-  --color-muted: #55516B;
+  --color-text: #211D35;
+  --color-muted: #625E73;
   --color-overlay: rgba(25, 22, 42, 0.55);
-  --color-harbor: #21134D;
-  --color-paper: #EDEDF7;
-  --color-mist: #DCD6EC;
+  --color-harbor: #241747;
+  --color-paper: #F5F6FA;
+  --color-mist: #E5E3ED;
   --color-notice: #8A5100;
   --color-on-harbor: #CFC6EE;
   --color-complete-soft: #E6E4F0;
@@ -28,8 +28,8 @@
   --color-slide: #7C5A12;
   --color-slide-soft: #F1E6CC;
 
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
 
   --space-touch: 44px;
 

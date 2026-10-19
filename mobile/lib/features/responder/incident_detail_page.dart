@@ -27,6 +27,8 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   bool _busy = false;
   String? _error;
   StreamSubscription<AssignedReport?>? _sub;
+  // The status the update form validates against. Empty once the report is removed, so no update is offered.
+  final _liveStatus = ValueNotifier<String?>(null);
 
   static const _closedStatuses = {'Resolved', 'Closed', 'Rejected', 'Duplicate', 'Cancelled'};
 
@@ -34,6 +36,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   void initState() {
     super.initState();
     _current = widget.report;
+    _liveStatus.value = widget.report.status;
   }
 
   @override
@@ -42,15 +45,20 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     _sub ??= context.read<ResponderRepository>().watchReport(widget.report.id).listen(
       (r) => setState(() {
         _current = r;
+        _liveStatus.value = r?.status ?? '';
         _error = null;
       }),
-      onError: (_) => setState(() => _current = null),
+      onError: (_) => setState(() {
+        _current = null;
+        _liveStatus.value = '';
+      }),
     );
   }
 
   @override
   void dispose() {
     _sub?.cancel();
+    _liveStatus.dispose();
     super.dispose();
   }
 
@@ -80,7 +88,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     // The live subscription shows the new status once the server confirms it.
     await Navigator.of(context).push<OperationUpdate>(
       MaterialPageRoute(
-        builder: (_) => OperationFormPage(reportId: widget.report.id),
+        builder: (_) => OperationFormPage(reportId: widget.report.id, reportStatus: _liveStatus),
       ),
     );
   }
@@ -144,6 +152,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
           padding: const EdgeInsets.all(20),
           children: [
             Row(children: [StatusChip(r.status)]),
+            if (closed) const Padding(padding: EdgeInsets.only(top: 12), child: Text('Completed report · Read only.')),
             const SizedBox(height: 16),
             Text(
               'What is happening',
@@ -175,7 +184,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
               InlineError(_error!),
               const SizedBox(height: 16),
             ],
-            FilledButton.icon(
+            if (!closed) FilledButton.icon(
               onPressed: _acknowledged || _busy || closed ? null : _acknowledge,
               icon: Icon(
                 _acknowledged ? Icons.check : Icons.thumb_up_alt_outlined,

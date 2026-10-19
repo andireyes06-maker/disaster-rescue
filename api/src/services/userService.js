@@ -1,5 +1,6 @@
+import { randomUUID } from 'node:crypto';
 import { HttpError } from '../errors.js';
-import { record } from './auditService.js';
+import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js';
 import { PHONE_RE, sanitizeText } from '../domain/validation.js';
 
 const STAFF_ROLES = ['resident', 'responder', 'dispatcher', 'dmo'];
@@ -13,16 +14,6 @@ const cleanName = (v) => {
   if (!n || n.length > 100) throw badName();
   return n;
 };
-
-// Dispatcher creates staff. Dispatchers may never create admins.
-// Account changes are audited by actor and target. Passwords, tokens, and contact details are never recorded.
-async function auditAccount(repo, caller, action, target, after, before) {
-  try {
-    await record(repo, { actorUid: caller?.uid ?? null, action, reportId: undefined, before: before ?? undefined, after: { target: target.uid, ...after } });
-  } catch (e) {
-    console.error('account audit write failed', e);
-  }
-}
 
 export async function createStaff({ repo, auth }, body, caller = { role: 'dispatcher' }) {
   const email = typeof body?.email === 'string' ? body.email.trim() : '';
@@ -44,15 +35,30 @@ export async function createStaff({ repo, auth }, body, caller = { role: 'dispat
     throw e;
   }
   const { uid } = account;
+  const provisioningId = randomUUID();
+  const effects = mutationEffects([{ actorUid: caller.uid, action: 'user.create', after: { target: uid, role, active: true, team } }]);
   try {
-    await repo.createUser(uid, { name, email, role, team, active: true, createdAt: new Date() });
+    await repo.createUser(uid, { name, email, role, team, active: false, provisioningId, createdAt: new Date() });
     await auth.setCustomUserClaims(uid, { role, active: true, ...(team ? { team } : {}) });
+    if (!(await repo.completeUserProvisioning(uid, provisioningId, effects))) {
+      throw new HttpError(409, 'provisioning_changed', 'Account setup changed. Reload before trying again.');
+    }
   } catch (e) {
-    // Do not leave an account that has no matching users doc or claims.
-    try { await auth.deleteUser(uid); } catch (de) { console.error('orphan account cleanup failed', de); }
-    throw e;
+    // A completion can commit even if its reply is lost. Never delete Auth until
+    // the canonical marker proves this attempt is still incomplete.
+    let state;
+    try { state = await repo.getUser(uid); }
+    catch { throw new HttpError(503, 'provisioning_uncertain', 'Could not confirm account setup. Refresh Accounts before trying again.'); }
+    if (state?.provisioningCompletedId !== provisioningId) {
+      if (state && (state.provisioningId !== provisioningId || state.active !== false)) {
+        throw new HttpError(503, 'provisioning_uncertain', 'Account setup changed. Refresh Accounts before trying again.');
+      }
+      try { await auth.deleteUser(uid); await repo.discardUserProvisioning(uid, provisioningId); }
+      catch (de) { console.error('inactive provisioning cleanup pending', de?.code ?? de?.name ?? 'Error'); }
+      throw e;
+    }
   }
-  await auditAccount(repo, caller, 'user.create', { uid }, { role, active: true, team });
+  await tryMutationEffects({ repo }, effects);
   return { uid, role, team };
 }
 
@@ -60,6 +66,7 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   const isAdmin = caller.role === 'admin';
   const user = await repo.getUser(id);
   if (!user) throw new HttpError(404, 'not_found', 'User not found');
+  if (user.provisioningId) throw new HttpError(409, 'account_provisioning', 'Account setup has not finished.');
   // Dispatchers cannot touch admins. Nobody can change their own account, so nobody can lock themselves out.
   if (user.role === 'admin' && !isAdmin) throw new HttpError(403, 'forbidden', 'Dispatchers cannot modify admins');
   if (id === caller.uid) throw new HttpError(403, 'forbidden', 'You cannot change your own account');
@@ -95,7 +102,8 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   };
   // The users document is canonical: rules read it, so the old access stops here first. Auth follows.
   // authSyncPending stays true until Auth is updated; a retry of the same change completes it.
-  const result = await repo.setStaffGuarded(id, { role, active, team, authSyncPending: true }, guard);
+  const effects = mutationEffects([{ actorUid: caller.uid, action: 'user.update', before: { role: user.role, active: user.active === true, team: user.team ?? null }, after: { target: id, role, active, team } }]);
+  const result = await repo.setStaffGuarded(id, { role, active, team, authSyncPending: true }, guard, effects);
   if (!result.ok) {
     const refused = {
       not_found: [404, 'not_found', 'User not found'],
@@ -106,7 +114,7 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
     throw new HttpError(refused[0], refused[1], refused[2]);
   }
   // Recorded as soon as the canonical change commits, so a later Auth failure is still visible in the log.
-  await auditAccount(repo, caller, 'user.update', { uid: id }, { role, active, team }, { role: prior.role, active: prior.active, team: prior.team });
+  await tryMutationEffects({ repo }, effects);
 
   // Claims are never cleared. Deactivation keeps the role and sets active:false.
   const claims = active
@@ -119,7 +127,7 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   await auth.updateUser(id, { disabled: !active });
   await repo.updateUser(id, { authSyncPending: false });
   // A deactivated account must stop receiving pushes, so its device tokens go too.
-  if (!active) for (const token of await repo.listDevices(id)) await repo.removeDevice(token);
+  if (!active) for (const token of await repo.listDevices(id)) await repo.removeDeviceOwned(id, token);
   return { uid: id, role, active, team };
 }
 

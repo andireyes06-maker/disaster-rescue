@@ -9,6 +9,7 @@ import '../auth/auth_widgets.dart';
 import '../map/incident_map_page.dart';
 import '../my_reports/my_reports_page.dart' show StatusChip, formatWhen;
 import 'incident_detail_page.dart';
+import '../../theme/product_widgets.dart';
 
 class AssignedListPage extends StatefulWidget {
   const AssignedListPage({super.key});
@@ -20,6 +21,8 @@ class AssignedListPage extends StatefulWidget {
 class _AssignedListPageState extends State<AssignedListPage> {
   Stream<List<AssignedReport>>? _stream;
   String? _teamId;
+  int _windowSize = 50;
+  Stream<List<AssignedReport>>? _closed;
 
   @override
   void didChangeDependencies() {
@@ -27,6 +30,7 @@ class _AssignedListPageState extends State<AssignedListPage> {
     final team = context.watch<AuthController>().user?.team;
     if (team != _teamId) {
       _teamId = team;
+      _closed = team == null ? null : context.read<ResponderRepository>().watchRecentlyClosed(team);
       _stream = team == null
           ? null
           : context.read<ResponderRepository>().watchAssigned(team);
@@ -37,9 +41,10 @@ class _AssignedListPageState extends State<AssignedListPage> {
   Widget build(BuildContext context) {
     final auth = context.read<AuthController>();
     final team = _teamId;
-    return Scaffold(
+    return DefaultTabController(length: 2, child: Scaffold(
       appBar: AppBar(
         title: const Text('Assigned'),
+        bottom: const TabBar(tabs: [Tab(text: 'Active'), Tab(text: 'Recently closed')]),
         actions: [
           if (team != null)
             IconButton(
@@ -67,7 +72,7 @@ class _AssignedListPageState extends State<AssignedListPage> {
                 'No team is assigned to your account. Ask your dispatcher.',
               ),
             )
-          : StreamBuilder<List<AssignedReport>>(
+          : TabBarView(children: [StreamBuilder<List<AssignedReport>>(
               stream: _stream,
               builder: (context, snap) {
                 if (snap.hasError) {
@@ -79,7 +84,7 @@ class _AssignedListPageState extends State<AssignedListPage> {
                   );
                 }
                 if (!snap.hasData) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const ProductLoading();
                 }
                 final active =
                     snap.data!.where((r) => !isHistoryStatus(r.status)).toList()
@@ -91,20 +96,26 @@ class _AssignedListPageState extends State<AssignedListPage> {
                         return y.compareTo(x);
                       });
                 if (active.isEmpty) {
-                  return const Center(
-                    child: Text('No assigned reports right now.'),
-                  );
+                  return const ProductEmpty(title: 'No assigned reports right now.', description: 'New assignments from dispatch will appear here.', icon: Icons.assignment_turned_in_outlined);
                 }
-                return ListView.separated(
+                return Column(children: [if (active.length >= _windowSize) Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: Row(children: [Expanded(child: Text('Showing ${active.length} newest active reports.')), if(active.length >= _windowSize) TextButton(onPressed: () => setState(() { _windowSize += 50; _stream = context.read<ResponderRepository>().watchAssigned(team!, windowSize: _windowSize); }), child: const Text('Load older'))])), Expanded(child: ListView.separated(
                   padding: const EdgeInsets.all(16),
                   itemCount: active.length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 12),
                   itemBuilder: (context, i) => _AssignedTile(report: active[i]),
-                );
+                ))]);
               },
             ),
-    );
+            StreamBuilder<List<AssignedReport>>(stream: _closed, builder: (context, snap) {
+              if (snap.hasError) return const ProductEmpty(title: 'Could not load closed reports.', description: 'Check your connection and return to this tab.');
+              if (!snap.hasData) return const ProductLoading();
+              final reports = snap.data!;
+              if (reports.isEmpty) return const ProductEmpty(title: 'No recently closed reports.', description: 'The ten most recent completed reports for your team appear here.');
+              return ListView.separated(padding: const EdgeInsets.all(16), itemCount: reports.length, separatorBuilder: (_, _) => const SizedBox(height: 12), itemBuilder: (context, index) => _AssignedTile(report: reports[index]));
+            }),
+            ]),
+    ));
   }
 }
 

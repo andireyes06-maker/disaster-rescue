@@ -47,13 +47,14 @@ describe('AdminPage', () => {
 
   it('shows the API and database status', async () => {
     renderPage();
-    expect(await screen.findByText('API: ok')).toBeInTheDocument();
-    expect(screen.getByText('Database: ok')).toBeInTheDocument();
+    expect(await screen.findByText('API: Available')).toBeInTheDocument();
+    expect(screen.getByText('Database: Available')).toBeInTheDocument();
   });
 
   it('loads the hotline and notice, and refuses a notice over 500 characters before saving', async () => {
     const user = userEvent.setup();
     renderPage();
+    await user.click(screen.getByText('System health and settings', { selector: 'h2' }));
     const notice = await screen.findByLabelText('Resident notice');
     expect(notice).toHaveValue('A report does not guarantee rescue.');
     await user.clear(notice);
@@ -74,6 +75,7 @@ describe('AdminPage', () => {
     const user = userEvent.setup();
     renderPage();
     await screen.findByText('Ana Cruz');
+    await user.click(screen.getByText('Create a staff account', { selector: 'summary' }));
     await user.type(screen.getByLabelText('New account name'), 'Second Admin');
     await user.type(screen.getByLabelText('New account email'), 'second@x.test');
     await user.selectOptions(screen.getByLabelText('New account role'), 'admin');
@@ -87,7 +89,7 @@ describe('AdminPage', () => {
   it('lists teams and creates a new one', async () => {
     const user = userEvent.setup();
     renderPage();
-    // The team name is shown in its rename field (the team list also appears in account team selectors).
+    await user.click(screen.getByText('Teams', { selector: 'h2' }));
     expect(await screen.findByRole('textbox', { name: 'Name of Team Alpha' })).toBeInTheDocument();
     await user.type(screen.getByLabelText('New team name'), 'Team Bravo');
     await user.click(screen.getByRole('button', { name: 'Create team' }));
@@ -114,6 +116,7 @@ describe('AdminPage', () => {
   it('renames a team from its row', async () => {
     const user = userEvent.setup();
     renderPage();
+    await user.click(screen.getByText('Teams', { selector: 'h2' }));
     const input = await screen.findByLabelText('Name of Team Alpha');
     await user.clear(input);
     await user.type(input, 'Team Alfa');
@@ -126,4 +129,16 @@ describe('AdminPage', () => {
     expect(screen.getByText('audit entries')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Download summary (PDF)' })).toBeNull();
   });
+  it('recovers a failed health check without reloading the page', async () => {
+    let failed = false;
+    h.api.mockImplementation(async (path: string, opts?: { method?: string; body?: unknown }) => {
+      if (path === '/admin/health' && !failed) { failed = true; throw new Error('offline'); }
+      return routeTo(path, opts);
+    });
+    const user = userEvent.setup(); renderPage();
+    await user.click(screen.getByText('System health and settings', { selector: 'h2' }));
+    await user.click(await screen.findByRole('button', { name: 'Retry health check' }));
+    expect(await screen.findByText('API: Available')).toBeInTheDocument();
+  });
+
 });

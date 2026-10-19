@@ -16,6 +16,11 @@ import 'package:provider/provider.dart';
 import 'fakes.dart';
 
 class FakeReportsRepository implements ReportsRepository {
+  @override
+  Stream<ReportSummary?> watchReport(String id) => controller.stream.map((rows) {
+    for (final row in rows) { if (row.id == id) return row; }
+    return null;
+  });
   Object? createError;
   final List<NewReport> created = [];
   // Every attempt's key, including attempts that failed (M04).
@@ -38,7 +43,7 @@ class FakeReportsRepository implements ReportsRepository {
   }
 
   @override
-  Stream<List<ReportSummary>> watchMyReports(String uid) => controller.stream;
+  Stream<List<ReportSummary>> watchMyReports(String uid, {int windowSize = 50}) => controller.stream;
 
   @override
   Future<void> cancel(String id) async {
@@ -95,14 +100,33 @@ class MemoryDraftStore implements DraftStore {
   ReportDraft? draft;
   // Set to simulate local storage failing after a successful send (M03).
   bool failClear = false;
+  // Storage-write denial and read failure for the uncertain-send path (F02 review).
+  bool failSave = false;
+  bool failSetUncertain = false;
+  bool failLoadUncertain = false;
   @override
-  Future<void> save(ReportDraft d) async => draft = d;
+  Future<void> save(ReportDraft d) async {
+    if (failSave) throw StateError('storage unavailable');
+    draft = d;
+  }
   @override
   Future<ReportDraft?> load() async => draft;
   @override
   Future<void> clear() async {
     if (failClear) throw StateError('storage unavailable');
     draft = null;
+  }
+  // Mirrors the persisted per-account uncertain-send flag (F02).
+  bool uncertain = false;
+  @override
+  Future<bool> loadUncertainSend() async {
+    if (failLoadUncertain) throw StateError('storage unavailable');
+    return uncertain;
+  }
+  @override
+  Future<void> setUncertainSend(bool value) async {
+    if (failSetUncertain) throw StateError('storage unavailable');
+    uncertain = value;
   }
 }
 
@@ -127,6 +151,9 @@ PickedPhoto photo(String name) =>
     PickedPhoto(name: name, bytes: jpegBytes(), mime: 'image/jpeg');
 
 class FakeResponderRepository implements ResponderRepository {
+  final closed = StreamController<List<AssignedReport>>.broadcast();
+  @override
+  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) => closed.stream;
   final StreamController<List<AssignedReport>> assigned =
       StreamController.broadcast();
   final List<String> acknowledged = [];
@@ -134,7 +161,7 @@ class FakeResponderRepository implements ResponderRepository {
   Object? updateError;
 
   @override
-  Stream<List<AssignedReport>> watchAssigned(String teamId) => assigned.stream;
+  Stream<List<AssignedReport>> watchAssigned(String teamId, {int windowSize = 50}) => assigned.stream;
 
   final StreamController<AssignedReport?> single = StreamController.broadcast();
   @override
@@ -156,7 +183,7 @@ class FakeNotificationsRepository implements NotificationsRepository {
   final List<String> marked = [];
 
   @override
-  Stream<List<AppNotification>> watch(String uid) => controller.stream;
+  Stream<List<AppNotification>> watch(String uid, {int windowSize = 50}) => controller.stream;
 
   @override
   Future<void> markRead(String id) async => marked.add(id);
@@ -165,17 +192,19 @@ class FakeNotificationsRepository implements NotificationsRepository {
 class FakePushMessaging implements PushMessaging {
   String? token = 'tok-1';
   bool grant = true;
+  Future<bool>? permissionResult;
+  Object? tokenError;
   int permissionRequests = 0;
   final StreamController<String> refresh = StreamController.broadcast();
 
   @override
   Future<bool> requestPermission() async {
     permissionRequests++;
-    return grant;
+    return permissionResult ?? grant;
   }
 
   @override
-  Future<String?> getToken() async => token;
+  Future<String?> getToken() async { if (tokenError != null) throw tokenError!; return token; }
 
   @override
   Stream<String> get onTokenRefresh => refresh.stream;
@@ -190,6 +219,7 @@ class FakeApi extends ApiClient {
         client: MockClient((_) async => http.Response('', 204)),
       );
 
+  Object? sendError;
   final List<(String, String, Map<String, dynamic>?)> calls = [];
 
   @override
@@ -199,6 +229,7 @@ class FakeApi extends ApiClient {
     Map<String, dynamic>? body,
   }) async {
     calls.add((method, path, body));
+    if (sendError != null) throw sendError!;
     return null;
   }
 }
@@ -233,6 +264,7 @@ class Env {
       ChangeNotifierProvider<AuthController>.value(value: auth),
     ],
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       builder: (context, c) => MediaQuery(
         data: MediaQuery.of(
@@ -248,6 +280,7 @@ class Env {
     auth.dispose();
     reports.controller.close();
     responder.assigned.close();
+    responder.closed.close();
     notifications.controller.close();
   }
 }

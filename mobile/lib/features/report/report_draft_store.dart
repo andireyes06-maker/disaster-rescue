@@ -9,6 +9,9 @@ abstract class DraftStore {
   Future<void> save(ReportDraft draft);
   Future<ReportDraft?> load();
   Future<void> clear();
+  /// True after an uncertain send, until a confirmed send, a discard, or an explicit new-report action.
+  Future<bool> loadUncertainSend();
+  Future<void> setUncertainSend(bool value);
 }
 
 /// Drafts belong to one signed-in account. Each account's draft has its own key, so a draft saved
@@ -63,5 +66,31 @@ class ReportDraftStore implements DraftStore {
     if (key == null) return;
     final prefs = await _prefs();
     await prefs.remove(key);
+  }
+
+  // Stores only a boolean per account: no submission key, report text or photo bytes (F02, C2).
+  String? get _uncertainKey {
+    final key = _key;
+    return key == null ? null : '$key:uncertain';
+  }
+
+  @override
+  Future<bool> loadUncertainSend() async {
+    final key = _uncertainKey;
+    if (key == null) return false;
+    final prefs = await _prefs();
+    return prefs.getBool(key) ?? false;
+  }
+
+  @override
+  Future<void> setUncertainSend(bool value) async {
+    final key = _uncertainKey;
+    if (key == null) return;
+    final prefs = await _prefs();
+    if (value) {
+      await prefs.setBool(key, true);
+    } else {
+      await prefs.remove(key);
+    }
   }
 }

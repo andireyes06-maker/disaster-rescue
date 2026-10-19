@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, doc, onSnapshot, orderBy, query, type FirestoreError } from 'firebase/firestore';
+import { collection, doc, limit, onSnapshot, orderBy, query, where, type FirestoreError } from 'firebase/firestore';
 import { getFirebaseDb } from '../../firebase';
 import type { Report } from '../../types/domain';
 import { convertReport } from './useReports';
@@ -74,17 +74,33 @@ export interface RescueUpdate {
   at: Date | null;
 }
 
-// Responder progress entries, oldest first. Firestore rules let staff read them.
-export function useReportUpdates(id: string) {
-  const [state, setState] = useState<{ updates: RescueUpdate[]; error: FirestoreError | null }>({ updates: [], error: null });
+// Updates fetched per window: the newest 20 first, then 20 more for each loadOlder() call.
+export const UPDATES_PAGE_SIZE = 20;
+
+// Responder progress entries, oldest first. The listener reads only the newest `size` entries
+// (orderBy at desc, limit size) and reverses them for display. hasMore is true when the window came back full.
+// Firestore rules let staff read them.
+// `scope` names the signed-in identity (account, role, team). When it changes, the old listener is unsubscribed,
+// the rendered history is dropped at once (see the return value), and late callbacks from the old listener are ignored.
+export function useReportUpdates(id: string, scope = '') {
+  const [state, setState] = useState<{ reportId: string; scope: string; updates: RescueUpdate[]; error: FirestoreError | null; loading: boolean; hasMore: boolean }>({ reportId: id, scope, updates: [], error: null, loading: true, hasMore: false });
   const [attempt, setAttempt] = useState(0);
+  // The window size belongs to one report: a different id starts again at one page.
+  const [pageState, setPageState] = useState({ reportId: id, size: UPDATES_PAGE_SIZE });
+  const size = pageState.reportId === id ? pageState.size : UPDATES_PAGE_SIZE;
 
   useEffect(() => {
-    setState((s) => ({ ...s, error: null }));
-    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'asc'));
-    return onSnapshot(
+    let active = true;
+    setState((s) => {
+      const same = s.reportId === id && s.scope === scope;
+      return { reportId: id, scope, updates: same ? s.updates : [], error: null, loading: true, hasMore: same ? s.hasMore : false };
+    });
+    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'desc'), limit(size));
+    const unsubscribe = onSnapshot(
       q,
-      (snap) => setState({
+      (snap) => { if (active) setState({
+        reportId: id, scope, loading: false,
+        hasMore: snap.docs.length === size,
         // Acknowledgements share this subcollection but carry no status; they are not progress entries.
         updates: snap.docs
           .filter((d) => typeof d.data().status === 'string' && d.data().status !== '')
@@ -98,14 +114,46 @@ export function useReportUpdates(id: string) {
               peopleRescued: typeof data.peopleRescued === 'number' ? data.peopleRescued : 0,
               at,
             };
-          }),
+          })
+          // The query returns newest first; display stays oldest first.
+          .reverse(),
         error: null,
-      }),
+      }); },
       // Keep the last good history on a failed refresh; the error is shown beside it.
-      (error) => setState((s) => ({ ...s, error })),
+      (error) => { if (active) setState((s) => { const same = s.reportId === id && s.scope === scope; return { reportId: id, scope, updates: same ? s.updates : [], error, loading: false, hasMore: same ? s.hasMore : false }; }); },
     );
-  }, [id, attempt]);
+    return () => { active = false; unsubscribe(); };
+  }, [id, scope, attempt, size]);
 
   const retry = () => setAttempt((n) => n + 1);
-  return { ...state, retry };
+  const loadOlder = () => setPageState((p) => ({ reportId: id, size: (p.reportId === id ? p.size : UPDATES_PAGE_SIZE) + UPDATES_PAGE_SIZE }));
+  // Rendered from the current scope only: an entry from a previous identity is never shown, even for one render.
+  return state.reportId === id && state.scope === scope
+    ? { ...state, retry, loadOlder }
+    : { reportId: id, updates: [], error: null, loading: true, hasMore: false, retry, loadOlder };
+}
+
+// The acknowledgement read state and most recent time. Acknowledgements share the updates
+// subcollection but carry no status, so this reads the same ordered collection and keeps only those entries.
+export function useAcknowledgedAt(id: string) {
+  const initial = { id, at: null as Date | null, acknowledged: false, loading: true, error: null as FirestoreError | null };
+  const [state, setState] = useState(initial);
+  useEffect(() => {
+    setState({ id, at: null, acknowledged: false, loading: true, error: null });
+    // Only acknowledgement rows are read (an equality filter needs no composite index). The latest is picked in memory.
+    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), where('kind', '==', 'acknowledge'));
+    return onSnapshot(
+      q,
+      (snap) => {
+        const times = snap.docs
+          .map((d) => d.data().at)
+          .filter((t) => t && typeof t.toDate === 'function')
+          .map((t) => t.toDate() as Date);
+        const latest = times.length ? new Date(Math.max(...times.map((t) => t.getTime()))) : null;
+        setState({ id, at: latest, acknowledged: snap.docs.length > 0, loading: false, error: null });
+      },
+      (error) => setState({ id, at: null, acknowledged: false, loading: false, error }),
+    );
+  }, [id]);
+  return state.id === id ? state : initial;
 }

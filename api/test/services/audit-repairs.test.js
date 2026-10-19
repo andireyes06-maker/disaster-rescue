@@ -1,0 +1,20 @@
+import {describe,it,expect} from 'vitest';
+import request from 'supertest';
+import {makeTestApp} from '../fakes/testApp.js';
+import {createStaff,updateStaff} from '../../src/services/userService.js';
+import {addUpdate,acknowledge} from '../../src/services/assignmentService.js';
+import {saveSettings} from '../../src/services/adminService.js';
+import {parseReportInput} from '../../src/domain/validation.js';
+const fixture=async()=>{const d=makeTestApp();await d.repo.createUser('responder',{role:'responder',active:true,team:'team'});const id=await d.repo.createReport({status:'Rescue in Progress',assignedTeamId:'team',reporterId:'resident',createdAt:new Date()});return{...d,id};};
+describe('independent audit repairs',()=>{
+ it('failed claims leave no orphan staff profile',async()=>{const d=makeTestApp();d.auth.failOnce.setCustomUserClaims=true;await expect(createStaff(d,{email:'audit@harbor.example',name:'Audit',role:'admin'},{uid:'owner',role:'admin'})).rejects.toThrow();expect(d.auth.users.size).toBe(0);expect(await d.repo.listUsers()).toEqual([]);});
+ it('failed provisioning cleanup is inactive and cannot be activated',async()=>{const d=makeTestApp();d.auth.failOnce.setCustomUserClaims=true;d.auth.deleteUser=async()=>{throw Error('delete unavailable')};await expect(createStaff(d,{email:'audit@harbor.example',name:'Audit',role:'admin'},{uid:'owner',role:'admin'})).rejects.toThrow();const [u]=await d.repo.listUsers();expect(u.active).toBe(false);await expect(updateStaff(d,u.uid,{active:true},{uid:'owner',role:'admin'})).rejects.toMatchObject({status:409});});
+ it('one device has one owner under simultaneous registrations',async()=>{const d=makeTestApp();const rs=await Promise.all(['a','b'].map(uid=>request(d.app).post('/api/devices').set('Authorization',d.as('resident',uid)).send({token:'audit-device'})));expect(rs.map(r=>r.status).sort()).toEqual([200,409]);});
+ it('conditional device removal cannot delete another owner',async()=>{const d=makeTestApp();await d.repo.addDevice('a','audit-device');expect(await d.repo.removeDeviceOwned('b','audit-device')).toBe(false);expect(await d.repo.getDeviceOwner('audit-device')).toBe('a');});
+ it('closure before atomic responder write refuses stale note',async()=>{const d=await fixture();const apply=d.repo.applyReportChange;d.repo.applyReportChange=async(...args)=>{await d.repo.updateReportIf(d.id,'Rescue in Progress',{status:'Closed'});return apply(...args)};await expect(addUpdate(d,{uid:'responder',role:'responder'},d.id,{status:'Rescue in Progress',note:'late'})).rejects.toMatchObject({status:409});expect(await d.repo.listUpdates(d.id)).toEqual([]);});
+ it('repeat acknowledgements produce one entry and audit',async()=>{const d=await fixture();await Promise.all([acknowledge(d,{uid:'responder'},d.id),acknowledge(d,{uid:'responder'},d.id)]);expect(await d.repo.listUpdates(d.id)).toHaveLength(1);expect(await d.repo.listAudit({action:'report.acknowledge'})).toHaveLength(1);});
+ it('multipart excess metadata is refused before creation',async()=>{const d=makeTestApp();let q=request(d.app).post('/api/reports').set('Authorization',d.as('resident','u')).field('type','flood').field('description','Audit test').field('lat','14.6').field('lng','121').field('source','manual');for(let i=0;i<17;i++)q=q.field('extra'+i,'x');expect((await q).status).toBe(400);expect(await d.repo.listReports()).toEqual([]);});
+ it('hotline cannot be plain text',async()=>{const d=makeTestApp();await expect(saveSettings(d,'owner',{hotline:'not-a-phone',residentNotice:'Safety notice'})).rejects.toMatchObject({status:400});});
+ it('audit failure rolls back settings too',async()=>{const d=makeTestApp();const before=await d.repo.getHotlines();d.repo.addAudit=async()=>{throw Error('audit unavailable')};await expect(saveSettings(d,'owner',{hotline:'000-0000',residentNotice:'New notice'})).rejects.toThrow();expect(await d.repo.getHotlines()).toEqual(before);});
+ it('punctuation-only phones cannot be contact data',()=>{expect(()=>parseReportInput({type:'flood',description:'Audit contact',lat:14.6,lng:121,source:'manual',contact:{name:'Audit',phone:'-------'}})).toThrow();});
+});

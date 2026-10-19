@@ -3,6 +3,8 @@ import { renderHook, act } from '@testing-library/react';
 
 const h = vi.hoisted(() => ({
   where: vi.fn(),
+  limit: vi.fn(() => "limit-clause"),
+  orderBy: vi.fn(() => "order-clause"),
   onSnapshot: vi.fn(),
   collection: vi.fn(),
   query: vi.fn(),
@@ -11,6 +13,7 @@ vi.mock('firebase/firestore', () => ({
   collection: h.collection,
   query: h.query,
   where: h.where,
+  limit: h.limit, orderBy: h.orderBy,
   onSnapshot: h.onSnapshot,
 }));
 vi.mock('../../firebase', () => ({ getFirebaseDb: () => ({}) }));
@@ -34,7 +37,8 @@ describe('useMyReports', () => {
     h.onSnapshot.mockReturnValue(() => {});
     renderHook(() => useMyReports('uid-1'));
     expect(h.where).toHaveBeenCalledWith('reporterId', '==', 'uid-1');
-    expect(h.query).toHaveBeenCalledWith('reports-col', 'where-clause');
+    expect(h.query).toHaveBeenCalledWith('reports-col', 'where-clause', 'order-clause', 'limit-clause');
+    expect(h.limit).toHaveBeenCalledWith(50);
   });
 
   it('returns the reports newest first and listens with metadata changes', () => {

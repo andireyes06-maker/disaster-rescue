@@ -21,7 +21,7 @@ export function createFakeFirestore() {
 
   const snap = (path) => {
     const has = store.has(path);
-    return { id: path.split('/').pop(), exists: has, data: () => (has ? store.get(path) : undefined) };
+    return { id: path.split('/').pop(), ref: {path}, exists: has, data: () => (has ? store.get(path) : undefined) };
   };
 
   function docRef(path) {
@@ -42,13 +42,14 @@ export function createFakeFirestore() {
     };
   }
 
-  function colRef(path, wheres = [], order = null, lim = null) {
+  function colRef(path, wheres = [], order = null, lim = null, cursor = null) {
     const q = {
       doc: (id) => docRef(`${path}/${id ?? `auto${++auto}`}`),
       async add(data) { const r = q.doc(); await r.set(data); return r; },
-      where: (f, op, v) => colRef(path, [...wheres, [f, op, v]], order, lim),
-      orderBy: (f, dir = 'asc') => colRef(path, wheres, [f, dir], lim),
-      limit: (n) => colRef(path, wheres, order, n),
+      where: (f, op, v) => colRef(path, [...wheres, [f, op, v]], order, lim, cursor),
+      orderBy: (f, dir = 'asc') => colRef(path, wheres, [f, dir], lim, cursor),
+      limit: (n) => colRef(path, wheres, order, n, cursor),
+      startAfter: (snapshot) => colRef(path, wheres, order, lim, snapshot.ref.path),
       async get() {
         calls.queries.push({ path, wheres, order, limit: lim });
         const depth = path.split('/').length + 1;
@@ -62,8 +63,9 @@ export function createFakeFirestore() {
           const [f, dir] = order;
           rows.sort(([, a], [, b]) => (raw(a[f]) < raw(b[f]) ? -1 : raw(a[f]) > raw(b[f]) ? 1 : 0) * (dir === 'desc' ? -1 : 1));
         }
+        if (cursor) rows = rows.slice(rows.findIndex(([p]) => p === cursor) + 1);
         if (lim != null) rows = rows.slice(0, lim);
-        return { docs: rows.map(([p]) => snap(p)), empty: rows.length === 0 };
+        return { size: rows.length, docs: rows.map(([p]) => snap(p)), empty: rows.length === 0 };
       },
     };
     return q;
@@ -73,12 +75,25 @@ export function createFakeFirestore() {
     calls,
     store,
     collection: (n) => colRef(n),
+    batch() {
+      const writes = [];
+      const batch = {
+        set(ref, data, options) { writes.push({ ref, data, options }); return batch; },
+        async commit() {
+          // Validate every write before applying any, as an atomic batch would.
+          for (const { data } of writes) encode(data);
+          await Promise.all(writes.map(({ ref, data, options }) => ref.set(data, options)));
+        },
+      };
+      return batch;
+    },
     async runTransaction(fn) {
       calls.runTransaction++;
       const tx = {
         get: (ref) => ref.get(),
         set: (ref, d, o) => ref.set(d, o),
         update: (ref, p) => ref.update(p),
+        delete: (ref) => ref.delete(),
       };
       return fn(tx);
     },

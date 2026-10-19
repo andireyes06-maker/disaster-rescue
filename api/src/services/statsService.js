@@ -28,7 +28,19 @@ export function parseFilters(query = {}) {
 // Reports in range, each with its updates attached (needed for peopleRescued).
 export async function loadReports(repo, { from, to, type, status } = {}) {
   const reports = await repo.listReports({ from, to, type, status });
-  return Promise.all(reports.map(async (r) => ({ ...r, updates: await repo.listUpdates(r.id) })));
+  // Four concurrent aggregates at most. Existing histories are summed directly,
+  // so no backfill or guessed zero can undercount older rescues.
+  const rows = new Array(reports.length); let next = 0;
+  await Promise.all(Array.from({length: Math.min(4, reports.length)}, async () => {
+    while (next < reports.length) {
+      const index = next++; const report = reports[index];
+      const updates = repo.sumPeopleRescued
+        ? [{peopleRescued: await repo.sumPeopleRescued(report.id)}]
+        : await repo.listUpdates(report.id);
+      rows[index] = {...report, updates};
+    }
+  }));
+  return rows;
 }
 
 const countBy = (rows, key) => rows.reduce((acc, r) => {

@@ -1,0 +1,91 @@
+/* Product motion: reveal a response, preserve navigation, acknowledge the action. */
+@keyframes notification-open {
+  from { opacity: 0; transform: translateY(-9px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes notification-close {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-6px) scale(.97); }
+}
+@keyframes notification-row {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes notification-ring {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(12deg); }
+  65% { transform: rotate(-8deg); }
+}
+@keyframes unread-arrive {
+  from { transform: scale(.55); opacity: .3; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes feedback-arrive {
+  from { opacity: 1; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes surface-arrive {
+  from { opacity: .35; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes dialog-arrive {
+  from { opacity: 0; transform: scale(.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes dialog-leave {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(.98); }
+}
+@keyframes veil-arrive { from { opacity: 0; } to { opacity: 1; } }
+@keyframes veil-leave { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .route-hold__panel { animation: surface-arrive 260ms cubic-bezier(.16,1,.3,1); }
+  .notification-panel { transform-origin: var(--radix-popover-content-transform-origin); }
+  .notification-panel[data-state="open"] { animation: notification-open 300ms cubic-bezier(.16,1,.3,1) both; }
+  .notification-panel[data-state="closed"] { animation: notification-close 160ms cubic-bezier(.16,1,.3,1) both; pointer-events: none; }
+  .notification-panel[data-state="open"] .notification-panel__list > li:nth-child(-n+5) { animation: notification-row 280ms cubic-bezier(.16,1,.3,1) both; }
+  /* Same selector weight as the shorthand above, so these delays are not reset to 0 (the stagger was not applied before). */
+  .notification-panel[data-state="open"] .notification-panel__list > li:nth-child(2) { animation-delay: 35ms; }
+  .notification-panel[data-state="open"] .notification-panel__list > li:nth-child(3) { animation-delay: 70ms; }
+  .notification-panel[data-state="open"] .notification-panel__list > li:nth-child(4) { animation-delay: 105ms; }
+  .notification-panel[data-state="open"] .notification-panel__list > li:nth-child(5) { animation-delay: 140ms; }
+  .notification-bell[data-state="open"] > svg { animation: notification-ring 420ms ease-out; transform-origin: 50% 15%; }
+  .notification-bell__count { animation: unread-arrive 220ms cubic-bezier(.16,1,.3,1); }
+  body .btn, body .notification-bell, body .emergency-type { transition: transform 160ms cubic-bezier(.16,1,.3,1), background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
+  .btn:active:not(:disabled), .notification-bell:active, .emergency-type:active { transform: scale(.97); }
+  .btn > svg, .service-text-link > svg, .navlink > svg { transition: transform 200ms cubic-bezier(.16,1,.3,1); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover > svg:last-child, .service-text-link:hover > svg:last-child { transform: translateX(3px); }
+    .navlink:hover > svg { transform: translateX(2px); }
+  }
+  .resident-layout__nav a { position: relative; }
+  .resident-layout__nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--color-primary); transform: scaleX(0); transform-origin: left; transition: transform 220ms cubic-bezier(.16,1,.3,1); }
+  .resident-layout__nav a.active::after { transform: scaleX(1); }
+  /* Shared state changes across public, resident, staff, and admin surfaces. */
+  body :is(.field-error, .calm-field__error) { animation: feedback-arrive 220ms cubic-bezier(.16,1,.3,1); }
+  body :is(.calm-banner, .range-error, .notification-panel__message, .error[role="alert"], p[role="alert"], p[role="status"]) { animation: feedback-arrive 240ms cubic-bezier(.16,1,.3,1); }
+  body :is(.calm-empty, .empty, .preview__empty, .location-empty, .notification-panel__empty, .skeleton) { animation: surface-arrive 260ms cubic-bezier(.16,1,.3,1); }
+  body details[open] > :not(summary) { animation: feedback-arrive 220ms cubic-bezier(.16,1,.3,1); }
+  body details > summary { transition: color 150ms ease, background-color 150ms ease; }
+  body :is(input, textarea, select, [data-slot="select-trigger"]) { transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease; }
+  body :is(.badge, .emergency-type, .notification-panel__list li) { transition: transform 160ms cubic-bezier(.16,1,.3,1), background-color 180ms ease, border-color 180ms ease, color 180ms ease; }
+  body [data-motion="status"] { display: inline-block; animation: feedback-arrive 180ms cubic-bezier(.16,1,.3,1); }
+  body :is(.calm-table-wrap, .resident__list, .preview, #report-metadata) { animation: surface-arrive 260ms cubic-bezier(.16,1,.3,1); }
+  body .history > li, body .updates > li, body .response-updates > li { animation: feedback-arrive 220ms cubic-bezier(.16,1,.3,1); }
+  body button[aria-busy="true"] { animation: veil-arrive 160ms ease-out; }
+  body .emergency-type__check { animation: unread-arrive 180ms cubic-bezier(.16,1,.3,1); }
+  body .photo-attachments > li { animation: feedback-arrive 220ms cubic-bezier(.16,1,.3,1); }
+  body [data-slot="dialog-overlay"][data-state="open"] { animation: veil-arrive 200ms ease-out; }
+  body [data-slot="dialog-overlay"][data-state="closed"] { animation: veil-leave 140ms cubic-bezier(.16,1,.3,1); }
+  body [data-slot="dialog-content"][data-state="open"] { animation: dialog-arrive 260ms cubic-bezier(.16,1,.3,1); }
+  body [data-slot="dialog-content"][data-state="closed"] { animation: dialog-leave 140ms cubic-bezier(.16,1,.3,1); pointer-events: none; }
+  body [data-slot="select-content"][data-state="open"] { animation: surface-arrive 180ms cubic-bezier(.16,1,.3,1); }
+  body [data-slot="select-content"][data-state="closed"] { animation: veil-leave 120ms cubic-bezier(.16,1,.3,1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .notification-panel, .notification-panel *, .notification-bell, .notification-bell * { animation: none !important; transition: none !important; }
+  body :is(.field-error, .calm-field__error, .calm-banner, .range-error, .error, .calm-empty, .empty, .preview__empty, .preview, #report-metadata, .history > li, .updates > li, .response-updates > li, .location-empty, .skeleton, .calm-table-wrap, .resident__list, .photo-attachments > li, .emergency-type__check, [data-motion="status"], button[aria-busy="true"], [role="alert"], [role="status"], [data-slot="dialog-overlay"], [data-slot="dialog-content"], [data-slot="select-content"]), body details[open] > :not(summary) { animation: none !important; }
+  body :is(input, textarea, select, [data-slot="select-trigger"], .badge, .btn, .emergency-type) { transition: none !important; }
+}

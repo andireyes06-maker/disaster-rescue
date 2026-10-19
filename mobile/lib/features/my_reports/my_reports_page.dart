@@ -8,6 +8,7 @@ import '../../theme/app_theme.dart';
 import '../auth/auth_widgets.dart';
 import '../report/report_flow_page.dart' show reportTypeInfo;
 import 'status_timeline.dart';
+import '../../theme/product_widgets.dart';
 
 String formatWhen(DateTime? t) {
   if (t == null) return 'Time not known';
@@ -52,7 +53,8 @@ class MyReportsPage extends StatefulWidget {
 }
 
 class _MyReportsPageState extends State<MyReportsPage> {
-  late final Stream<List<ReportSummary>> _stream =
+  int _windowSize = 50;
+  late Stream<List<ReportSummary>> _stream =
       context.read<ReportsRepository>().watchMyReports(widget.uid);
 
   @override
@@ -73,9 +75,9 @@ class _MyReportsPageState extends State<MyReportsPage> {
                 child: InlineError('Could not load your reports. Check your connection and try again later.'),
               );
             }
-            if (!snap.hasData) return const Center(child: CircularProgressIndicator());
+            if (!snap.hasData) return const ProductLoading();
             final all = sortNewestFirst(snap.data!);
-            return TabBarView(children: [
+            return Column(children: [if (all.length >= _windowSize) Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: Row(children: [Expanded(child: Text('Showing ${all.length} newest reports.')), if(all.length >= _windowSize) TextButton(onPressed: () => setState(() { _windowSize += 50; _stream = context.read<ReportsRepository>().watchMyReports(widget.uid, windowSize: _windowSize); }), child: const Text('Load older'))])), Expanded(child: TabBarView(children: [
               _ReportList(
                 items: all.where((r) => !isHistoryStatus(r.status)).toList(),
                 empty: 'No active reports.',
@@ -86,7 +88,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
                 empty: 'No past reports yet.',
                 stream: _stream,
               ),
-            ]);
+            ]))]);
           },
         ),
       ),
@@ -103,9 +105,7 @@ class _ReportList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) {
-      return Center(
-        child: Padding(padding: const EdgeInsets.all(24), child: Text(empty, textAlign: TextAlign.center)),
-      );
+      return ProductEmpty(title: empty, description: 'Reports you send appear here, with their latest status and response updates.');
     }
     return ListView.separated(
       padding: const EdgeInsets.all(16),
@@ -120,7 +120,7 @@ class _ReportList extends StatelessWidget {
             onTap: () async {
               final messenger = ScaffoldMessenger.of(context);
               final result = await Navigator.of(context).push<String>(
-                MaterialPageRoute(builder: (_) => ReportDetailPage(initial: r, updates: stream)),
+                MaterialPageRoute(builder: (_) => ReportDetailPage(initial: r, updates: context.read<ReportsRepository>().watchReport(r.id).map((row) => row == null ? <ReportSummary>[] : [row]))),
               );
               if (result != null) messenger.showSnackBar(SnackBar(content: Text(result)));
             },
@@ -130,7 +130,7 @@ class _ReportList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(children: [
-                    Icon(info.icon, color: AppColors.primary),
+                    Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primarySoft, borderRadius: BorderRadius.circular(12)), child: Icon(info.icon, color: AppColors.primary)),
                     const SizedBox(width: 8),
                     Expanded(child: Text(info.label, style: const TextStyle(fontWeight: FontWeight.w700))),
                   ]),
