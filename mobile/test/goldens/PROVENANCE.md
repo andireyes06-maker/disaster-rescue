@@ -16,7 +16,7 @@ Changing a reference requires a reviewed visual decision, recorded here, and mus
 ## Test setup these references assume
 
 - Test file: `mobile/test/redesign_visual_test.dart`. Each capture uses a 390 by 844 logical viewport at device pixel ratio 1.
-- Flutter 3.44.8 (stable), Dart as bundled, macOS arm64 test host. Fonts: the app's bundled Geist font assets.
+- Flutter 3.44.8 (stable), Dart as bundled, macOS arm64 test host. Fonts: the test loads Roboto from the Flutter SDK material fonts. The app declares no bundled font assets (the font section of pubspec.yaml is commented out), so these references do not show the website's Geist typography.
 - Fixture data: fictional, defined in the test file (for example `sample@demo.test`, Harbor sample teams). No real person, address or
   phone number. A draft-store fixture was changed from a realistic number to `09170000001` on 18 October 2026, outside these images.
 
@@ -52,3 +52,11 @@ not a content change. Checksums: `SHA256SUMS.txt` (four lines changed, fifteen e
 ## Reviewed repair references, 19 October 2026
 
 The owner authorized completing the local repair pass. Reviewed the changed phone captures before accepting their references: `login.png` adds required labels and the neutral password-recovery section; `assignments.png` adds Active/Recently closed tabs. The list-window notices appear only when a window is full; their small-list references remain unchanged. Text, controls, spacing and contrast remain legible at 390px, with no clipped content in these fixtures. Exactly two references changed; the other thirteen match the previous reference bytes. This is a reviewed local widget rendering decision, not a physical-device approval or a signed release. SHA256SUMS.txt records all fifteen references.
+
+## Reviewed change: response form required markers, 19 October 2026
+
+Reason: the response form's "Status" and "People rescued" fields are required, so they now show the required asterisk (kept on purpose; do not revert). Regenerated with `flutter test --update-goldens test/redesign_visual_test.dart`. Only `response-update.png` changed; the other fourteen references were byte-identical. The isolated diff contains only the two asterisks (`Status *`, `People rescued *`). Reference SHA-256 is now `48104a67...b750` (was `92feed2d...bf1bb6f4`). This is a reviewed marker change, not a layout or content change.
+
+## Reviewed change: incident detail progress history section, 19 October 2026
+
+Reason: the responder incident detail now has a bounded "Progress history" section below the actions. The golden test's fake repository never emits history, so the captured reference shows the section in its loading state ("Loading progress history"). The rest of the page is unchanged. Regenerated with `flutter test --update-goldens test/redesign_visual_test.dart`. Only `incident-detail.png` changed in this round, and the visual check of the old and new images confirmed that the only difference is the added section. Reference SHA-256 is now `4c35f584...068aeb` (was `1b1d3681c8664b048ef87ee992046e11a882211ebe6ec5e58dad08a85dcfaaa3`). The populated states (entries, empty, error) are covered by `test/progress_history_test.dart` and are not pixel-captured.

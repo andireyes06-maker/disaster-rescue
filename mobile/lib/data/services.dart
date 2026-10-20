@@ -288,8 +288,11 @@ abstract class ResponderRepository {
   Stream<List<AssignedReport>> watchRecentlyClosed(String teamId);
   /// Live state of one report. Emits null when the record no longer exists, and errors when access is refused.
   Stream<AssignedReport?> watchReport(String id);
+  /// Newest progress entries first, at most [limit]. Acknowledgements are not included. Errors when access is refused.
+  Stream<List<ProgressEntry>> watchUpdates(String id, {int limit = 20});
   Future<void> acknowledge(String id);
-  Future<void> postUpdate(String id, OperationUpdate update);
+  /// [idempotencyKey] makes a retried update replay the first result instead of recording it again.
+  Future<void> postUpdate(String id, OperationUpdate update, {String? idempotencyKey});
 }
 
 class ApiResponderRepository implements ResponderRepository {
@@ -329,20 +332,69 @@ class ApiResponderRepository implements ResponderRepository {
   }
 
   @override
+  Stream<List<ProgressEntry>> watchUpdates(String id, {int limit = 20}) {
+    return _db
+        .collection('reports')
+        .doc(id)
+        .collection('updates')
+        .orderBy('at', descending: true)
+        .limit(limit)
+        .snapshots()
+        // Acknowledgements share this subcollection but carry no status. They are not progress entries.
+        .map((snap) => snap.docs
+            .map((d) => ProgressEntry.fromMap(d.id, d.data()))
+            .whereType<ProgressEntry>()
+            .toList());
+  }
+
+  @override
   Future<void> acknowledge(String id) async {
     await _api.send('POST', '/reports/$id/acknowledge');
   }
 
   @override
-  Future<void> postUpdate(String id, OperationUpdate update) async {
+  Future<void> postUpdate(String id, OperationUpdate update, {String? idempotencyKey}) async {
     await _api.send(
       'POST',
       '/reports/$id/updates',
+      headers: {'Idempotency-Key': ?idempotencyKey},
       body: {
         'status': update.status,
         'peopleRescued': update.peopleRescued,
         'note': update.note,
       },
+    );
+  }
+}
+
+/// One progress entry on a report, as the responder history shows it.
+class ProgressEntry {
+  const ProgressEntry({
+    required this.id,
+    required this.status,
+    required this.peopleRescued,
+    this.note = '',
+    this.at,
+  });
+
+  final String id;
+  final String status;
+  final int peopleRescued;
+  final String note;
+  final DateTime? at;
+
+  /// Null for records without a status (acknowledgements), so they are left out of the history.
+  static ProgressEntry? fromMap(String id, Map<String, dynamic> data) {
+    final status = data['status'];
+    if (status is! String || status.isEmpty) return null;
+    final rescued = data['peopleRescued'];
+    final at = data['at'];
+    return ProgressEntry(
+      id: id,
+      status: status,
+      peopleRescued: rescued is int ? rescued : 0,
+      note: data['note'] is String ? data['note'] as String : '',
+      at: at is Timestamp ? at.toDate() : null,
     );
   }
 }

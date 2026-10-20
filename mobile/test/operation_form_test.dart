@@ -61,7 +61,7 @@ void main() {
       reportStatus: ValueNotifier<String?>('Resolved'),
     )));
     await t.pump();
-    expect(find.text('No status update is available for this report yet'), findsOneWidget);
+    expect(find.text('This report is closed, so no more updates can be added.'), findsOneWidget);
     expect(find.text('Save update'), findsNothing);
   });
 

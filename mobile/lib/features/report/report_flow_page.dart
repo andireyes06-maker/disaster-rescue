@@ -1,3 +1,4 @@
+import '../notifications/notification_action.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +9,7 @@ import '../../data/api_client.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/product_widgets.dart';
 import '../auth/auth_widgets.dart';
 import '../offline/offline_help_page.dart';
 import 'hotline_button.dart';
@@ -16,7 +18,8 @@ import 'photo_picker.dart';
 import 'report_draft_store.dart';
 import 'submission_result_page.dart';
 
-export '../../data/report_models.dart' show validatePhone, validatePhoto, validateDescription;
+export '../../data/report_models.dart'
+    show validatePhone, validatePhoto, validateDescription;
 
 class ReportTypeInfo {
   final String label;
@@ -98,7 +101,9 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     final p = await context.read<ProfileRepository>().load(uid);
     if (!mounted || p == null) return;
     if (_name.text.isEmpty && (p.name ?? '').isNotEmpty) _name.text = p.name!;
-    if (_phone.text.isEmpty && (p.phone ?? '').isNotEmpty) _phone.text = p.phone!;
+    if (_phone.text.isEmpty && (p.phone ?? '').isNotEmpty) {
+      _phone.text = p.phone!;
+    }
   }
 
   @override
@@ -113,15 +118,15 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   bool get _hasLocation => _lat != null && _lng != null && _source != null;
 
   ReportDraft _currentDraft() => ReportDraft(
-        type: _type,
-        description: _description.text,
-        lat: _lat,
-        lng: _lng,
-        source: _source,
-        addressText: _address.text,
-        contactName: _name.text,
-        contactPhone: _phone.text,
-      );
+    type: _type,
+    description: _description.text,
+    lat: _lat,
+    lng: _lng,
+    source: _source,
+    addressText: _address.text,
+    contactName: _name.text,
+    contactPhone: _phone.text,
+  );
 
   bool _complete(ReportDraft d) =>
       d.type != null &&
@@ -223,18 +228,20 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _submitKeySignature = signature;
     }
     try {
-      created = await reports.create(NewReport(
-        type: _type!,
-        description: _description.text.trim(),
-        lat: _lat!,
-        lng: _lng!,
-        source: _source!,
-        addressText: _address.text.trim(),
-        contactName: _name.text.trim(),
-        contactPhone: _phone.text.trim(),
-        photos: _photos,
-        idempotencyKey: _submitKey,
-      ));
+      created = await reports.create(
+        NewReport(
+          type: _type!,
+          description: _description.text.trim(),
+          lat: _lat!,
+          lng: _lng!,
+          source: _source!,
+          addressText: _address.text.trim(),
+          contactName: _name.text.trim(),
+          contactPhone: _phone.text.trim(),
+          photos: _photos,
+          idempotencyKey: _submitKey,
+        ),
+      );
     } catch (e) {
       if (isUncertainSubmission(e)) {
         // The outcome is uncertain, so the key stays: a retry cannot create a second report.
@@ -255,28 +262,39 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
         }
         if (!mounted) return;
         if (e is ApiException && e.status == 0) {
-          retry = (await nav.push<bool>(MaterialPageRoute(
-                builder: (_) => OfflineHelpPage(draftNotSaved: draftNotSaved, warningNotSaved: warningNotSaved),
-              ))) ??
+          retry =
+              (await nav.push<bool>(
+                MaterialPageRoute(
+                  builder: (_) => OfflineHelpPage(
+                    draftNotSaved: draftNotSaved,
+                    warningNotSaved: warningNotSaved,
+                  ),
+                ),
+              )) ??
               false;
         } else {
-          await nav.push(MaterialPageRoute(
-            builder: (_) => SubmissionFailurePage(
-              reason: submitFailureReason(e),
-              uncertain: true,
-              draftNotSaved: draftNotSaved,
-              warningNotSaved: warningNotSaved,
+          await nav.push(
+            MaterialPageRoute(
+              builder: (_) => SubmissionFailurePage(
+                reason: submitFailureReason(e),
+                uncertain: true,
+                draftNotSaved: draftNotSaved,
+                warningNotSaved: warningNotSaved,
+              ),
             ),
-          ));
+          );
         }
       } else {
         // A definite refusal: no report was made, so the key is dropped and the next attempt is new.
         _submitKey = null;
         _submitKeySignature = null;
         if (!mounted) return;
-        await nav.push(MaterialPageRoute(
-          builder: (_) => SubmissionFailurePage(reason: submitFailureReason(e)),
-        ));
+        await nav.push(
+          MaterialPageRoute(
+            builder: (_) =>
+                SubmissionFailurePage(reason: submitFailureReason(e)),
+          ),
+        );
       }
     } finally {
       if (mounted) setState(() => _submitting = false);
@@ -298,20 +316,35 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     _blockedByUncertain = false;
     if (!mounted) return;
     _reset();
-    await nav.push(MaterialPageRoute(
-      builder: (_) => SubmissionSuccessPage(
-        reference: created!.reference,
-        onViewReports: widget.onViewReports ?? () {},
+    await nav.push(
+      MaterialPageRoute(
+        builder: (_) => SubmissionSuccessPage(
+          reference: created!.reference,
+          onViewReports: widget.onViewReports ?? () {},
+        ),
       ),
-    ));
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final scale = MediaQuery.textScalerOf(context).scale(1);
     return Scaffold(
-      appBar: AppBar(title: const Text('Report an emergency'), leading: Padding(padding: const EdgeInsets.all(14), child: DecoratedBox(decoration: BoxDecoration(color: AppColors.primarySoft, borderRadius: BorderRadius.circular(9)), child: const Icon(Icons.add, color: AppColors.primary, size: 19)))),
-      body: SafeArea(
+      appBar: AppBar(
+        actions: const [NotificationAction()],
+        title: const Text('Report an emergency'),
+        leading: Padding(
+          padding: const EdgeInsets.all(14),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: AppColors.primarySoft,
+              borderRadius: BorderRadius.circular(9),
+            ),
+            child: const Icon(Icons.add, color: AppColors.primary, size: 19),
+          ),
+        ),
+      ),
+      body: ProductViewport(
         child: Column(
           children: [
             Padding(
@@ -324,7 +357,10 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                     crossAxisAlignment: WrapCrossAlignment.center,
                     spacing: 8,
                     children: [
-                      Text('Step ${_step + 1} of 4', style: const TextStyle(fontWeight: FontWeight.w600)),
+                      Text(
+                        'Step ${_step + 1} of 4',
+                        style: const TextStyle(fontWeight: FontWeight.w600),
+                      ),
                       const HotlineButton(),
                     ],
                   ),
@@ -333,7 +369,25 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                     label: 'Step ${_step + 1} of 4',
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: Row(children: List.generate(4, (index) => Expanded(child: Container(height: 5, margin: EdgeInsets.only(right: index == 3 ? 0 : 5), decoration: BoxDecoration(color: index <= _step ? AppColors.primary : AppColors.border, borderRadius: BorderRadius.circular(4)))))),
+                      child: Row(
+                        children: List.generate(
+                          4,
+                          (index) => Expanded(
+                            child: Container(
+                              height: 5,
+                              margin: EdgeInsets.only(
+                                right: index == 3 ? 0 : 5,
+                              ),
+                              decoration: BoxDecoration(
+                                color: index <= _step
+                                    ? AppColors.primary
+                                    : AppColors.border,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -346,14 +400,37 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (_step == 0 && _savedDraft != null) _draftCard(),
-                    Text(_stepTitles[_step], style: Theme.of(context).textTheme.headlineMedium),
+                    Text(
+                      _stepTitles[_step],
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
                     const SizedBox(height: 8),
-                    Text(const ['Choose the situation that best describes the emergency.', 'A precise location helps the response team find you.', 'Share useful details and a way to reach you.', 'Make sure the information is right before you send.'][_step], style: const TextStyle(color: AppColors.muted, height: 1.5)),
+                    Text(
+                      const [
+                        'Choose the situation that best describes the emergency.',
+                        'A precise location helps the response team find you.',
+                        'Share useful details and a way to reach you.',
+                        'Make sure the information is right before you send.',
+                      ][_step],
+                      style: const TextStyle(
+                        color: AppColors.muted,
+                        height: 1.5,
+                      ),
+                    ),
                     const SizedBox(height: 16),
                     if (_step <= 1) ...[
-                      const Text('* Required', semanticsLabel: 'Required', style: TextStyle(color: AppColors.muted)),
+                      const Text(
+                        '* Required',
+                        semanticsLabel: 'Required',
+                        style: TextStyle(color: AppColors.muted),
+                      ),
                       const SizedBox(height: 12),
-                      Semantics(container: true, explicitChildNodes: true, label: '${_stepTitles[_step]}, required', child: _body(scale)),
+                      Semantics(
+                        container: true,
+                        explicitChildNodes: true,
+                        label: '${_stepTitles[_step]}, required',
+                        child: _body(scale),
+                      ),
                     ] else
                       _body(scale),
                   ],
@@ -368,21 +445,27 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   }
 
   Widget _draftCard() => Card(
-        margin: const EdgeInsets.only(bottom: 16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text('You have a report that was not sent.'),
-              const SizedBox(height: 12),
-              FilledButton(onPressed: _continueDraft, child: const Text('Continue your saved report')),
-              const SizedBox(height: 8),
-              OutlinedButton(onPressed: _discardDraft, child: const Text('Discard')),
-            ],
+    margin: const EdgeInsets.only(bottom: 16),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text('You have a report that was not sent.'),
+          const SizedBox(height: 12),
+          FilledButton(
+            onPressed: _continueDraft,
+            child: const Text('Continue your saved report'),
           ),
-        ),
-      );
+          const SizedBox(height: 8),
+          OutlinedButton(
+            onPressed: _discardDraft,
+            child: const Text('Discard'),
+          ),
+        ],
+      ),
+    ),
+  );
 
   Widget _body(double scale) {
     switch (_step) {
@@ -454,13 +537,17 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             onChanged: (p) => setState(() => _photos = p),
           ),
           const SizedBox(height: 24),
-          Text('Who can we call?', style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            'Who can we call?',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 8),
           TextFormField(
             key: const Key('contactName'),
             controller: _name,
             textCapitalization: TextCapitalization.words,
-            validator: (v) => (v ?? '').trim().isEmpty ? 'Enter your name.' : null,
+            validator: (v) =>
+                (v ?? '').trim().isEmpty ? 'Enter your name.' : null,
             decoration: InputDecoration(label: requiredFieldLabel('Your name')),
           ),
           const SizedBox(height: 16),
@@ -469,7 +556,9 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             controller: _phone,
             keyboardType: TextInputType.phone,
             validator: validatePhone,
-            decoration: InputDecoration(label: requiredFieldLabel('Phone number')),
+            decoration: InputDecoration(
+              label: requiredFieldLabel('Phone number'),
+            ),
           ),
         ],
       ),
@@ -479,15 +568,15 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   Widget _confirmStep() {
     final info = reportTypeInfo[_type] ?? reportTypeInfo['other']!;
     Widget row(String k, String v) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(k, style: const TextStyle(color: AppColors.muted, fontSize: 13)),
-              Text(v),
-            ],
-          ),
-        );
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(k, style: const TextStyle(color: AppColors.muted, fontSize: 13)),
+          Text(v),
+        ],
+      ),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -497,16 +586,29 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(children: [
-                  Icon(info.icon, color: AppColors.primary),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text(info.label, style: const TextStyle(fontWeight: FontWeight.w700))),
-                ]),
-                row('Location',
-                    '${_lat!.toStringAsFixed(5)}, ${_lng!.toStringAsFixed(5)} (${_source == 'gps' ? 'from GPS' : 'picked on map'})'),
-                if (_address.text.trim().isNotEmpty) row('Address or landmark', _address.text.trim()),
+                Row(
+                  children: [
+                    Icon(info.icon, color: AppColors.primary),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        info.label,
+                        style: const TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ],
+                ),
+                row(
+                  'Location',
+                  '${_lat!.toStringAsFixed(5)}, ${_lng!.toStringAsFixed(5)} (${_source == 'gps' ? 'from GPS' : 'picked on map'})',
+                ),
+                if (_address.text.trim().isNotEmpty)
+                  row('Address or landmark', _address.text.trim()),
                 row('Description', _description.text.trim()),
-                row('Photos', _photos.isEmpty ? 'None' : '${_photos.length} attached'),
+                row(
+                  'Photos',
+                  _photos.isEmpty ? 'None' : '${_photos.length} attached',
+                ),
                 row('Contact', '${_name.text.trim()}, ${_phone.text.trim()}'),
               ],
             ),
@@ -529,7 +631,10 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           if (_step == 1 && !_hasLocation)
             const Padding(
               padding: EdgeInsets.only(bottom: 8),
-              child: Text('Choose a location to continue.', textAlign: TextAlign.center),
+              child: Text(
+                'Choose a location to continue.',
+                textAlign: TextAlign.center,
+              ),
             ),
           if (last && _blockedByUncertain) ...[
             Text(uncertainCopy, textAlign: TextAlign.center),
@@ -543,17 +648,33 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           if (last)
             FilledButton(
               onPressed: _submitting ? null : _submit,
-              style: FilledButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white),
+              style: FilledButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+              ),
               child: _submitting
-                  ? const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)),
-                      SizedBox(width: 12),
-                      Text('Sending'),
-                    ])
+                  ? const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Text('Sending'),
+                      ],
+                    )
                   : const Text('Submit report'),
             )
           else
-            FilledButton(onPressed: _canNext ? _next : null, child: const Text('Next')),
+            FilledButton(
+              onPressed: _canNext ? _next : null,
+              child: const Text('Next'),
+            ),
           if (_step > 0) ...[
             const SizedBox(height: 8),
             TextButton(
@@ -568,7 +689,11 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
 }
 
 class _TypeTile extends StatelessWidget {
-  const _TypeTile({required this.info, required this.selected, required this.onTap});
+  const _TypeTile({
+    required this.info,
+    required this.selected,
+    required this.onTap,
+  });
   final ReportTypeInfo info;
   final bool selected;
   final VoidCallback onTap;
@@ -588,7 +713,10 @@ class _TypeTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected ? AppColors.primarySoft : AppColors.surface,
             borderRadius: BorderRadius.circular(AppRadius.lg),
-            border: Border.all(color: selected ? AppColors.primary : AppColors.border, width: selected ? 2 : 1),
+            border: Border.all(
+              color: selected ? AppColors.primary : AppColors.border,
+              width: selected ? 2 : 1,
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),
@@ -597,10 +725,19 @@ class _TypeTile extends StatelessWidget {
               children: [
                 Icon(info.icon, size: 28, color: AppColors.primary),
                 const SizedBox(width: 8),
-                Flexible(child: Text(info.label, style: const TextStyle(fontWeight: FontWeight.w600))),
+                Flexible(
+                  child: Text(
+                    info.label,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
                 if (selected) ...[
                   const SizedBox(width: 6),
-                  const Icon(Icons.check_circle, color: AppColors.primary, size: 20),
+                  const Icon(
+                    Icons.check_circle,
+                    color: AppColors.primary,
+                    size: 20,
+                  ),
                 ],
               ],
             ),

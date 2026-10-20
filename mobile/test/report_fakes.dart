@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:disaster_rescue/auth/auth_controller.dart';
 import 'package:disaster_rescue/data/api_client.dart';
+import 'package:disaster_rescue/data/responder_attempts.dart';
 import 'package:disaster_rescue/data/report_models.dart';
 import 'package:disaster_rescue/data/services.dart';
 import 'package:disaster_rescue/features/notifications/push_registration.dart';
@@ -159,6 +160,8 @@ class FakeResponderRepository implements ResponderRepository {
   final List<String> acknowledged = [];
   final List<(String, OperationUpdate)> updates = [];
   Object? updateError;
+  /// Per-update outcome: returns an error to throw, or null to succeed. Takes precedence over [updateError].
+  Object? Function(OperationUpdate update)? updateOutcome;
 
   @override
   Stream<List<AssignedReport>> watchAssigned(String teamId, {int windowSize = 50}) => assigned.stream;
@@ -167,12 +170,26 @@ class FakeResponderRepository implements ResponderRepository {
   @override
   Stream<AssignedReport?> watchReport(String id) => single.stream;
 
+  /// Progress history. Each subscription records its limit, so a test can check the bounded page size.
+  final StreamController<List<ProgressEntry>> progress = StreamController.broadcast();
+  final List<int> progressLimits = [];
+  @override
+  Stream<List<ProgressEntry>> watchUpdates(String id, {int limit = 20}) {
+    progressLimits.add(limit);
+    return progress.stream;
+  }
+
   @override
   Future<void> acknowledge(String id) async => acknowledged.add(id);
 
+  /// Idempotency-Key of each postUpdate call, in order (null when none was sent).
+  final List<String?> updateKeys = [];
+
   @override
-  Future<void> postUpdate(String id, OperationUpdate update) async {
-    if (updateError != null) throw updateError!;
+  Future<void> postUpdate(String id, OperationUpdate update, {String? idempotencyKey}) async {
+    updateKeys.add(idempotencyKey);
+    final outcome = updateOutcome != null ? updateOutcome!(update) : updateError;
+    if (outcome != null) throw outcome;
     updates.add((id, update));
   }
 }
@@ -221,14 +238,18 @@ class FakeApi extends ApiClient {
 
   Object? sendError;
   final List<(String, String, Map<String, dynamic>?)> calls = [];
+  /// Headers of each send call, in order.
+  final List<Map<String, String>> sendHeaders = [];
 
   @override
   Future<Map<String, dynamic>?> send(
     String method,
     String path, {
     Map<String, dynamic>? body,
+    Map<String, String> headers = const {},
   }) async {
     calls.add((method, path, body));
+    sendHeaders.add(headers);
     if (sendError != null) throw sendError!;
     return null;
   }
@@ -243,6 +264,7 @@ class Env {
   final profiles = FakeProfiles();
   final drafts = MemoryDraftStore();
   final responder = FakeResponderRepository();
+  final attempts = ResponderAttemptStore(currentUid: () => 'test-user');
   final notifications = FakeNotificationsRepository();
   final messaging = FakePushMessaging();
   late final PushRegistration push = PushRegistration(FakeApi(), messaging);
@@ -259,6 +281,7 @@ class Env {
       Provider<ProfileRepository>.value(value: profiles),
       Provider<DraftStore>.value(value: drafts),
       Provider<ResponderRepository>.value(value: responder),
+      Provider<ResponderAttemptStore>.value(value: attempts),
       Provider<NotificationsRepository>.value(value: notifications),
       Provider<PushRegistration>.value(value: push),
       ChangeNotifierProvider<AuthController>.value(value: auth),

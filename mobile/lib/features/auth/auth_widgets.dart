@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../auth/auth_repository.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/product_motion.dart';
 
 const disclaimerText =
     'Submitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.';
@@ -29,6 +30,8 @@ String failureMessage(AuthFailure f, String? detail) {
       return 'We could not finish creating your account. Try signing in, or contact support.';
     case AuthFailure.registrationFailed:
       return detail ?? 'We could not create your account. Please try again.';
+    case AuthFailure.sessionEnded:
+      return 'Your session has ended. Please sign in again.';
   }
 }
 
@@ -39,24 +42,34 @@ class InlineError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Semantics(
-        liveRegion: true,
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(AppRadius.md),
-            border: Border.all(color: AppColors.high, width: 2),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(Icons.error_outline, color: AppColors.high),
-              const SizedBox(width: 8),
-              Expanded(child: Text(message, style: const TextStyle(color: AppColors.text))),
-            ],
-          ),
+    liveRegion: true,
+    child: ProductArrival(
+      key: ValueKey(message),
+      duration: const Duration(milliseconds: 160),
+      distance: 4,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(AppRadius.md),
+          border: Border.all(color: AppColors.high, width: 2),
         ),
-      );
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Icon(Icons.error_outline, color: AppColors.high),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(color: AppColors.text),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 class DisclaimerBox extends StatelessWidget {
@@ -64,27 +77,34 @@ class DisclaimerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            color: const Color(0xFFFFF7E8),
-          borderRadius: BorderRadius.circular(AppRadius.md),
-        ),
-        child: const Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(Icons.warning_amber_outlined, color: AppColors.text),
-            SizedBox(width: 8),
-            Expanded(child: Text(disclaimerText)),
-          ],
-        ),
-      );
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: const Color(0xFFFFF7E8),
+      borderRadius: BorderRadius.circular(AppRadius.md),
+    ),
+    child: const Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(Icons.warning_amber_outlined, color: AppColors.text),
+        SizedBox(width: 8),
+        Expanded(child: Text(disclaimerText)),
+      ],
+    ),
+  );
 }
 
 /// Label for a required field (C6): a visible " *" and a screen-reader "required".
-Widget requiredFieldLabel(String text) => Text('$text *', semanticsLabel: '$text, required');
+Widget requiredFieldLabel(String text) =>
+    Text('$text *', semanticsLabel: '$text, required');
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key, required this.controller, this.validator, this.autofillHints, this.required = false});
+  const PasswordField({
+    super.key,
+    required this.controller,
+    this.validator,
+    this.autofillHints,
+    this.required = false,
+  });
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final Iterable<String>? autofillHints;
@@ -99,18 +119,20 @@ class _PasswordFieldState extends State<PasswordField> {
 
   @override
   Widget build(BuildContext context) => TextFormField(
-        controller: widget.controller,
-        obscureText: _hidden,
-        validator: widget.validator,
-        autofillHints: widget.autofillHints,
-        decoration: InputDecoration(
-          label: widget.required ? requiredFieldLabel('Password') : null,
-          labelText: widget.required ? null : 'Password',
-          suffixIcon: IconButton(
-            tooltip: _hidden ? 'Show password' : 'Hide password',
-            icon: Icon(_hidden ? Icons.visibility_outlined : Icons.visibility_off_outlined),
-            onPressed: () => setState(() => _hidden = !_hidden),
-          ),
+    controller: widget.controller,
+    obscureText: _hidden,
+    validator: widget.validator,
+    autofillHints: widget.autofillHints,
+    decoration: InputDecoration(
+      label: widget.required ? requiredFieldLabel('Password') : null,
+      labelText: widget.required ? null : 'Password',
+      suffixIcon: IconButton(
+        tooltip: _hidden ? 'Show password' : 'Hide password',
+        icon: Icon(
+          _hidden ? Icons.visibility_outlined : Icons.visibility_off_outlined,
         ),
-      );
+        onPressed: () => setState(() => _hidden = !_hidden),
+      ),
+    ),
+  );
 }

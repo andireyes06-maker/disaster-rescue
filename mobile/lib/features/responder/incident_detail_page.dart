@@ -1,3 +1,4 @@
+import '../../theme/product_widgets.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -30,7 +31,23 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   // The status the update form validates against. Empty once the report is removed, so no update is offered.
   final _liveStatus = ValueNotifier<String?>(null);
 
-  static const _closedStatuses = {'Resolved', 'Closed', 'Rejected', 'Duplicate', 'Cancelled'};
+  // Progress history, newest first. It is bounded: a page of entries is fetched, five are shown at first, and the
+  // next page is fetched only when the person asks for older entries. It clears with the report's access.
+  static const _historyStep = 5;
+  static const _historyPage = 20;
+  StreamSubscription<List<ProgressEntry>>? _progressSub;
+  List<ProgressEntry>? _progress;
+  bool _progressFailed = false;
+  int _progressLimit = _historyPage;
+  int _progressShown = _historyStep;
+
+  static const _closedStatuses = {
+    'Resolved',
+    'Closed',
+    'Rejected',
+    'Duplicate',
+    'Cancelled',
+  };
 
   @override
   void initState() {
@@ -42,24 +59,70 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _sub ??= context.read<ResponderRepository>().watchReport(widget.report.id).listen(
-      (r) => setState(() {
-        _current = r;
-        _liveStatus.value = r?.status ?? '';
-        _error = null;
-      }),
-      onError: (_) => setState(() {
-        _current = null;
-        _liveStatus.value = '';
-      }),
-    );
+    _sub ??= context
+        .read<ResponderRepository>()
+        .watchReport(widget.report.id)
+        .listen(
+          (r) {
+            setState(() {
+              _current = r;
+              _liveStatus.value = r?.status ?? '';
+              _error = null;
+              if (r == null) _clearProgress();
+            });
+            // Access came back (or the first answer arrived): the history starts again.
+            if (r != null && _progressSub == null) _watchProgress();
+          },
+          onError: (_) => setState(() {
+            _current = null;
+            _liveStatus.value = '';
+            _clearProgress();
+          }),
+        );
+    if (_progressSub == null && _current != null) _watchProgress();
   }
 
   @override
   void dispose() {
     _sub?.cancel();
+    _progressSub?.cancel();
     _liveStatus.dispose();
     super.dispose();
+  }
+
+  void _watchProgress() {
+    _progressSub?.cancel();
+    _progressFailed = false;
+    _progressSub = context
+        .read<ResponderRepository>()
+        .watchUpdates(widget.report.id, limit: _progressLimit)
+        .listen(
+          (entries) => setState(() {
+            _progress = entries;
+            _progressFailed = false;
+          }),
+          onError: (_) => setState(() => _progressFailed = true),
+        );
+  }
+
+  /// Drops the history and stops its listener. Used when the team loses access to the report.
+  void _clearProgress() {
+    _progressSub?.cancel();
+    _progressSub = null;
+    _progress = null;
+    _progressFailed = false;
+    _progressLimit = _historyPage;
+    _progressShown = _historyStep;
+  }
+
+  void _showMoreProgress() => setState(() => _progressShown += _historyStep);
+
+  void _loadOlderProgress() {
+    setState(() {
+      _progressLimit += _historyPage;
+      _progressShown += _historyStep;
+    });
+    _watchProgress();
   }
 
   Future<void> _acknowledge() async {
@@ -88,7 +151,10 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     // The live subscription shows the new status once the server confirms it.
     await Navigator.of(context).push<OperationUpdate>(
       MaterialPageRoute(
-        builder: (_) => OperationFormPage(reportId: widget.report.id, reportStatus: _liveStatus),
+        builder: (_) => OperationFormPage(
+          reportId: widget.report.id,
+          reportStatus: _liveStatus,
+        ),
       ),
     );
   }
@@ -123,7 +189,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     if (r == null) {
       return Scaffold(
         appBar: AppBar(title: Text(widget.report.reference ?? 'Incident')),
-        body: SafeArea(
+        body: ProductViewport(
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -147,12 +213,16 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     final closed = _closedStatuses.contains(r.status);
     return Scaffold(
       appBar: AppBar(title: Text(r.reference ?? 'Incident')),
-      body: SafeArea(
+      body: ProductViewport(
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
             Row(children: [StatusChip(r.status)]),
-            if (closed) const Padding(padding: EdgeInsets.only(top: 12), child: Text('Completed report · Read only.')),
+            if (closed)
+              const Padding(
+                padding: EdgeInsets.only(top: 12),
+                child: Text('Completed report · Read only.'),
+              ),
             const SizedBox(height: 16),
             Text(
               'What is happening',
@@ -184,13 +254,16 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
               InlineError(_error!),
               const SizedBox(height: 16),
             ],
-            if (!closed) FilledButton.icon(
-              onPressed: _acknowledged || _busy || closed ? null : _acknowledge,
-              icon: Icon(
-                _acknowledged ? Icons.check : Icons.thumb_up_alt_outlined,
+            if (!closed)
+              FilledButton.icon(
+                onPressed: _acknowledged || _busy || closed
+                    ? null
+                    : _acknowledge,
+                icon: Icon(
+                  _acknowledged ? Icons.check : Icons.thumb_up_alt_outlined,
+                ),
+                label: Text(_acknowledged ? 'Acknowledged' : 'Acknowledge'),
               ),
-              label: Text(_acknowledged ? 'Acknowledged' : 'Acknowledge'),
-            ),
             if (!closed) ...[
               const SizedBox(height: 12),
               OutlinedButton.icon(
@@ -199,8 +272,97 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                 label: const Text('Add operation update'),
               ),
             ],
+            const SizedBox(height: 28),
+            _progressSection(context),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _progressSection(BuildContext context) {
+    final heading = Semantics(
+      header: true,
+      child: Text(
+        'Progress history',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+    );
+    if (_progressFailed) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          heading,
+          const SizedBox(height: 8),
+          const InlineError('Could not load the progress history. Try again.'),
+          const SizedBox(height: 8),
+          OutlinedButton(
+            onPressed: () => setState(_watchProgress),
+            child: const Text('Try again'),
+          ),
+        ],
+      );
+    }
+    final entries = _progress;
+    if (entries == null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          heading,
+          const SizedBox(height: 8),
+          const Text('Loading progress history'),
+        ],
+      );
+    }
+    if (entries.isEmpty) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          heading,
+          const SizedBox(height: 8),
+          const Text('No progress entries have been recorded yet.'),
+        ],
+      );
+    }
+    final shown = entries.take(_progressShown).toList();
+    final moreLoaded = entries.length > shown.length;
+    // A full page means older entries may exist on the server.
+    final mayHaveOlder = entries.length >= _progressLimit;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        heading,
+        const SizedBox(height: 8),
+        for (final e in shown) _progressTile(context, e),
+        if (moreLoaded)
+          OutlinedButton(
+            onPressed: _showMoreProgress,
+            child: const Text('Show more entries'),
+          )
+        else if (mayHaveOlder)
+          OutlinedButton(
+            onPressed: _loadOlderProgress,
+            child: const Text('Load older entries'),
+          ),
+      ],
+    );
+  }
+
+  Widget _progressTile(BuildContext context, ProgressEntry e) {
+    final note = e.note.trim();
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(e.status, style: const TextStyle(fontWeight: FontWeight.w600)),
+          if (e.peopleRescued > 0) Text('${e.peopleRescued} rescued'),
+          if (note.isNotEmpty) Text(note),
+          Text(
+            formatWhen(e.at),
+            style: const TextStyle(color: AppColors.muted),
+          ),
+        ],
       ),
     );
   }

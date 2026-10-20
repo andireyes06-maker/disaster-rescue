@@ -1,3 +1,4 @@
+import '../notifications/notification_action.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,32 +22,70 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late final Future<Profile?> _profile = context.read<ProfileRepository>().load(widget.user.uid);
+  late Future<Profile?> _profile = context.read<ProfileRepository>().load(
+    widget.user.uid,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
-      body: SafeArea(
+      appBar: AppBar(
+        title: const Text('Profile'),
+        actions: const [NotificationAction()],
+      ),
+      body: ProductViewport(
         child: FutureBuilder<Profile?>(
           future: _profile,
           builder: (context, snap) {
+            if (snap.connectionState == ConnectionState.waiting) {
+              return const ProductLoading();
+            }
+            if (snap.hasError) {
+              return ListView(
+                padding: const EdgeInsets.all(24),
+                children: [
+                  const InlineError(
+                    'Could not load your profile. Your account details have not been changed.',
+                  ),
+                  const SizedBox(height: 16),
+                  OutlinedButton.icon(
+                    onPressed: () => setState(() {
+                      _profile = context.read<ProfileRepository>().load(
+                        widget.user.uid,
+                      );
+                    }),
+                    icon: const Icon(Icons.refresh),
+                    label: const Text('Try again'),
+                  ),
+                ],
+              );
+            }
             final p = snap.data;
             Widget field(String label, String? value) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(label, style: const TextStyle(fontSize: 13)),
-                      Text(value == null || value.isEmpty ? 'Not set' : value,
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                    ],
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(label, style: const TextStyle(fontSize: 13)),
+                  Text(
+                    value == null || value.isEmpty ? 'Not set' : value,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                );
+                ],
+              ),
+            );
             return ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                const ProductIntro(title: 'Your account', description: 'Your contact details and account information, in one place.', icon: Icons.person_outline),
+                const ProductIntro(
+                  title: 'Your account',
+                  description:
+                      'Your contact details and account information, in one place.',
+                  icon: Icons.person_outline,
+                ),
                 field('Name', p?.name),
                 field('Email', widget.user.email),
                 field('Phone', p?.phone),

@@ -8,6 +8,9 @@ class FakeAuthRepository implements AuthRepository {
   final resetEmails = <String>[];
   @override
   Future<void> requestPasswordReset(String email) async { resetEmails.add(email); }
+  int retryCalls = 0;
+  @override
+  void retryAccessCheck() => retryCalls++;
   AuthException? loginError;
   Completer<void>? logoutGate;
   bool emitOnLogout = true;
