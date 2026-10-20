@@ -76,3 +76,9 @@ Current evidence:222 widget tests and clean analysis, reviewed390/1440 Chrome ca
 ## Harbor redesign,20 October2026
 
 The current native visual system is documented in [DESIGN.md](DESIGN.md). It uses a light workspace, dark harbor headers, bundled Geist (OFL license in assets/fonts),48dp targets and compact-to-rail navigation. Residents/responders are native; other staff roles use the web. The reviewed redesign is checkpointed on the design/flutter-harbor-2026-10-20 branch. Test references in test/goldens were intentionally reviewed and replaced; see PROVENANCE.md. Chrome and widget evidence does not certify physical-device behavior. Submission media is refreshed separately; see docs/presentation/README.md.
+
+## Submission demo APK (20 October 2026)
+
+Use [LOCAL-DEMO.md](../docs/submission/LOCAL-DEMO.md) for the dedicated Auth9407/Firestore8407/API3407 stack and the USB-forwarded test APK. The explicit EMULATOR_HOST is honored without Firebase's automatic Android loopback remapping. `127.0.0.1` therefore works with adb reverse on an emulator or USB phone. For an unforwarded Android emulator, explicitly set `10.0.2.2` instead. Chrome remains on localhost for reliable emulator Auth restoration.
+
+The current native design passed 222 Flutter tests and clean analysis. Android API35 AOSP emulator coverage is recorded in FINAL-VERIFICATION; it does not establish physical-phone, Play Services push, iOS or signed-release behavior.

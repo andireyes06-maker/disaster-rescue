@@ -2,16 +2,16 @@
 
 Purpose: the contribution report (spec deliverable 6, 5 percent of the grade). Each member fills in one row. Keep the entries factual: what the person did, with a link to a commit, pull request, file, or screen where possible.
 
-The team has not yet confirmed the member list, roles, or who did which task. Leave every cell as `[fill in]` until the team agrees. Do not copy names or roles from another document into this table without that agreement.
+The owner supplied the three names below on 20 October 2026 and asked for other entries to be marked for now. The owner’s full submission name, assigned roles and individual work remain unconfirmed. Do not treat this sheet as a completed contribution declaration or invent claims.
 
 ## Member table
 
 | Member | Assigned role | Tasks | Actual contributions |
 |---|---|---|---|
-| [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | [fill in] | [fill in] | [fill in] |
-| [fill in] | [fill in] | [fill in] | [fill in] |
+| Lopez, Raymond DG | To confirm | To confirm | To confirm with evidence |
+| De Leon, Justine | To confirm | To confirm | To confirm with evidence |
+| Cabuguang, Liam | To confirm | To confirm | To confirm with evidence |
+| Owner’s submission name to confirm | To confirm | To confirm | To confirm with evidence |
 
 Add or remove rows to match the group size. Group size and the project leader are open items (`X-SPEC.md` section 14).
 

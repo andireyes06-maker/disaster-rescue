@@ -1,7 +1,11 @@
-# Flutter Chrome preview footage
+# Technical walkthrough
 
-Flutter-Chrome-Preview.mp4 is an 18-second silent supporting clip from the local debug Flutter build, captured in Chromium at 390×844 on 20 October 2026. It shows the welcome/sign-in and responder detail/update preview using fictional emulator data. It is not a marketing promise, physical-phone recording, performance benchmark or the complete required group video.
+The final delivery includes `Rescue-Reports-Technical-Walkthrough.mp4` and matching SRT captions. Narration uses the macOS Samantha synthetic voice, explicitly disclosed in the video and script. Fictional accounts and incidents run against the dedicated local API/Auth/Firestore stack. No real resident data or production credentials appear.
 
-The API, Auth and Firestore were local emulators. Push was not connected. No new operation was submitted in this recording; the displayed history came from an earlier explicit local test save. Password input is obscured. The SDK emulator warning remains visible, with pointer events disabled only by the capture harness so bottom navigation was reachable.
+`NARRATION.md` contains the spoken explanation. It covers technologies, all five roles, the resident-to-dispatcher-to-responder workflow, live updates, closure, monitoring/admin, Flutter scope, database relationships, reliability/access challenges, verification limits and submission requirements. Real member participation and contribution confirmation remain owner tasks.
 
-Source: Playwright context video; first 18 seconds after a 0.5-second trim, encoded as H.264 with ffmpeg at 25fps, no audio. The raw recorder continued during an automation locator timeout; the long idle tail was omitted. Do not use this clip to assert exact animation duration. See ../video-script.md to record the complete web/mobile, architecture and narrated group demonstration.
+`capture-workflow.cjs` records actual web interactions and verifies the final Closed result through the API. The complete local rehearsal passed with no page exceptions. Source footage includes actual submit, verify, assign, acknowledge, progress, resolve and close operations on fictional data. Video segments are edited excerpts; static scenes explain architecture and limits. Phrase captions use approximate boundaries.
+
+`build-walkthrough.py` is the rendering source retained from the preparation environment; its absolute scratch paths identify the evidence inputs and must be adjusted to re-render elsewhere. The delivery MP4 is standalone. The older `Flutter-Chrome-Preview.mp4` is historical silent support footage, not the narrated final.
+
+The user guide uses current Flutter Chrome screenshots; its notification image is an explicitly identified widget fixture. Android emulator checks and physical-phone limits are documented in the final verification record.

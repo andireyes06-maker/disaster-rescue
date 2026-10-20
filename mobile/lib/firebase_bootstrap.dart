@@ -22,8 +22,14 @@ const _projectId = String.fromEnvironment('FIREBASE_PROJECT_ID');
 // Local demo only: --dart-define=USE_EMULATORS=true points Auth and Firestore at the emulators.
 // Off by default, so a normal build never talks to an emulator.
 const _useEmulators = bool.fromEnvironment('USE_EMULATORS');
-const _emulatorHost = String.fromEnvironment('EMULATOR_HOST', defaultValue: 'localhost');
-const _firestorePort = int.fromEnvironment('FIRESTORE_EMULATOR_PORT', defaultValue: 8080);
+const _emulatorHost = String.fromEnvironment(
+  'EMULATOR_HOST',
+  defaultValue: 'localhost',
+);
+const _firestorePort = int.fromEnvironment(
+  'FIRESTORE_EMULATOR_PORT',
+  defaultValue: 8080,
+);
 const _authPort = int.fromEnvironment('AUTH_EMULATOR_PORT', defaultValue: 9099);
 
 bool get usingEmulators => _useEmulators;
@@ -41,7 +47,10 @@ final releaseErrors = releaseConfigErrors(
 
 bool get firebaseConfigured =>
     usingEmulators ||
-    (_apiKey.isNotEmpty && _appId.isNotEmpty && _senderId.isNotEmpty && _projectId.isNotEmpty);
+    (_apiKey.isNotEmpty &&
+        _appId.isNotEmpty &&
+        _senderId.isNotEmpty &&
+        _projectId.isNotEmpty);
 
 Future<void> initFirebase() async {
   await Firebase.initializeApp(
@@ -60,7 +69,16 @@ Future<void> initFirebase() async {
           ),
   );
   if (usingEmulators) {
-    FirebaseFirestore.instance.useFirestoreEmulator(_emulatorHost, _firestorePort);
-    await FirebaseAuth.instance.useAuthEmulator(_emulatorHost, _authPort);
+    // Honor the explicit host, including USB adb reverse on a physical phone.
+    FirebaseFirestore.instance.useFirestoreEmulator(
+      _emulatorHost,
+      _firestorePort,
+      automaticHostMapping: false,
+    );
+    await FirebaseAuth.instance.useAuthEmulator(
+      _emulatorHost,
+      _authPort,
+      automaticHostMapping: false,
+    );
   }
 }

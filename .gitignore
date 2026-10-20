@@ -9,3 +9,7 @@ web/dist/
 mobile/android/app/google-services.json
 mobile/ios/Runner/GoogleService-Info.plist
 **/firebase_options.dart
+
+# Generated submission binaries and assembled delivery folders
+/artifacts/
+/submission-output/

@@ -1,13 +1,11 @@
-# Submission package
+# Submission checklist, 20 October 2026
 
-The supplied brief requires one functional web and mobile system, source, database/schema, PowerPoint user guide, a video presentation and individual contributions. It does not explicitly require all web workspaces in Flutter.
+- Source archive: clean paths and SHA-256 manifest; dependencies, credentials and build caches excluded.
+- Database: docs/schema.md, Firestore rules and composite indexes included.
+- User guide: refreshed 12-slide PowerPoint and PDF, rendered and visually checked.
+- Technical video: complete walkthrough with disclosed synthetic narration and matching captions; local fictional workflow recorded.
+- Android: local-only debug APK plus USB forwarding and computer demo instructions. Not a signed standalone production release.
+- Contribution sheet: three supplied names recorded; owner name, roles and actual contributions remain marked for confirmation.
+- Interim assignment: one October 12–30 Gantt chart and one October 12–19 progress report, with editable originals and PDFs.
 
-| Deliverable | Artifact | Remaining owner work |
-|---|---|---|
-| System and source | Authoritative integration and recovery bundle in handoff | Hosted/device checks and release scope |
-| Database | schema.md, Firestore rules and indexes | Use isolated test fixtures for presentation |
-| PowerPoint | user-guide/Rescue-Reports-User-Guide.pptx, generator and actual screenshots | Open in PowerPoint/LibreOffice and review rendering |
-| Video | video-script.md and presentation/Flutter-Chrome-Preview.mp4 | Record/combine full web, architecture and group narration segments |
-| Contributions | contributions.md | Real members confirm their actual work and evidence |
-
-The silent Chrome preview is not the final narrated group video. The debug APK is a local-emulator development build, not a signed production release or phone evidence. Xcode, owned app IDs and signing assets are required for native release. Keep school context in submission records, not product branding. Do not invent official hotline, privacy/retention approval, support contact or member work.
+Before submission, confirm marked identity/contribution entries and ensure each member can explain their work. The course brief requires member participation or explanation; synthetic narration is disclosed and does not establish participation. Provider delivery, physical devices, iOS/signing and official service policy remain outside the local verification scope.

@@ -1,6 +1,6 @@
 # Rescue Reports user guide
 
-Updated 20 October 2026 from the authoritative integration. Companion: Rescue-Reports-User-Guide.pptx, generated from generate.cjs and actual local Flutter Chrome captures. Screenshots use fictional emulator accounts, not physical phones.
+Updated 20 October 2026 from the authoritative integration. Companion: Rescue-Reports-User-Guide.pptx, generated from generate.cjs and current local Flutter Chrome captures and one explicitly identified notification widget fixture. A rendered PDF accompanies the PowerPoint. Screenshots use fictional emulator accounts, not physical phones.
 
 ## Workspaces
 
