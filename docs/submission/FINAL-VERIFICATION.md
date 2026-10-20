@@ -15,3 +15,7 @@ Source: design/flutter-harbor-2026-10-20 in the authoritative integration. Revie
 ## Remaining limits
 
 Physical Android/iOS, TalkBack/VoiceOver, camera/GPS permissions on hardware, signed native/store release and real Cloudinary/email/push delivery remain unverified. Local immediate-reload Firestore/WebKit Listen errors remain a recorded limitation. Hotline, authority, privacy/retention and support policy must not be invented. Member identities and contributions remain explicitly marked where unknown. Synthetic narration does not satisfy member participation by itself.
+
+## Output/contribution document follow-up
+
+The progress report now includes a separate October20 output appendix, eight full-resolution screenshots and a delivery-artifact inventory. Proposed work areas and member statements are drafts pending confirmation, not verified contribution attestations. Visual inspection caught earlier loading-only monitor/admin/analytics captures. The harness now waits for actual route/data content and assignment-modal exit; a fresh complete workflow passed with zero page exceptions. Those screenshots and matching video excerpts were replaced. No product source changed in this follow-up.

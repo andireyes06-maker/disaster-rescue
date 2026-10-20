@@ -1,8 +1,8 @@
 from pathlib import Path
-import json,subprocess,math
+import json,subprocess,math,os
 from PIL import Image,ImageDraw,ImageFont
-root=Path('/private/tmp/rescue-release-integration-2026-10-18'); work=Path('/private/tmp/rescue-submission-finish-2026-10-20'); out=root/'artifacts/presentation';out.mkdir(parents=True,exist_ok=True)
-slides=work/'slides'; shots=work/'rehearsal'; result=json.loads((shots/'RESULT.json').read_text()); font='/System/Library/Fonts/Supplemental/Arial.ttf'; bold='/System/Library/Fonts/Supplemental/Arial Bold.ttf'
+root=Path(__file__).resolve().parents[2]; work=Path(os.environ.get('RESCUE_MEDIA_WORK','/private/tmp/rescue-submission-finish-2026-10-20'));  out=root/'artifacts/presentation';out.mkdir(parents=True,exist_ok=True)
+slides=work/'slides'; shots=Path(os.environ.get('RESCUE_REHEARSAL_DIR',str(work/'rehearsal'))); result=json.loads((shots/'RESULT.json').read_text()); font='/System/Library/Fonts/Supplemental/Arial.ttf'; bold='/System/Library/Fonts/Supplemental/Arial Bold.ttf'
 scenes=[
 ('Rescue Reports', slides/'slide-01.png', None, 'Welcome to Rescue Reports, a web and mobile system for reporting emergencies and coordinating a response. This presentation uses clearly disclosed synthetic narration. All accounts, incidents, locations and rescued-person counts shown in the local demonstration are fictional. The recording explains the system and its tested behavior; it does not represent an official emergency service. The members must still confirm their own contributions and be ready to explain their work.'),
 ('Architecture and roles',None,None,'The website uses React, TypeScript and Vite. The mobile application uses Flutter with Provider. An Express API handles operational changes. Firebase Authentication identifies the caller, and Firestore stores reports, teams, updates, notifications and audit records. Clients receive authorized live reads, while operational writes go through the API. Cloudinary and Firebase Cloud Messaging are integrations for photos and push. Their real delivery is a separate verification gate. Residents and responders use Flutter; dispatchers, monitoring officers and administrators have web workspaces.'),

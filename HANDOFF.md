@@ -14,8 +14,8 @@ Authoritative source: /private/tmp/rescue-release-integration-2026-10-18, branch
 - docs/presentation: narration, actual workflow capture harness and rendering source. Delivery video and SRT are under artifacts/presentation (excluded from git).
 - docs/submission/LOCAL-DEMO.md: dedicated local stack, USB APK setup, fictional account details.
 - docs/submission/FINAL-VERIFICATION.md: exact evidence scope and limits.
-- docs/contributions.md: three supplied names; owner name and actual contributions remain marked, never invented.
-- Interim assignment: October12–30 Gantt and October12–19 progress report prepared separately; newer native design work is not backdated.
+- docs/contributions.md: proposed work areas and draft statements for confirmation; owner name and actual work remain unverified.
+- Interim assignment: October12–30 Gantt and October12–19 progress report, with an October20 output appendix and eight full-resolution images. Newer work is not backdated.
 
 ## Existing production release
 PR1 merged to default build/disaster-rescue at 418a615f48caec7c835322d8f3efc1753f77e325 before this branch. Web https://disaster-rescue-web.vercel.app and API https://disaster-rescue-api.onrender.com use production Firebase flutter-5094e. Do not confuse this earlier release with the current native redesign.

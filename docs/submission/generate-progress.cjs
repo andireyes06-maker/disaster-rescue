@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path');
-const {Document,Packer,Paragraph,TextRun,HeadingLevel,Table,TableRow,TableCell,WidthType,ShadingType,PageBreak,Footer,PageNumber,AlignmentType}=require(process.env.RESCUE_DOCX_MODULE||'docx');
+const {Document,Packer,Paragraph,TextRun,HeadingLevel,Table,TableRow,TableCell,WidthType,ShadingType,PageBreak,Footer,PageNumber,AlignmentType,ImageRun}=require(process.env.RESCUE_DOCX_MODULE||'docx');
 const out=process.env.RESCUE_ASSIGNMENT_OUT||'submission-output/Progress-Update';fs.mkdirSync(out,{recursive:true});
 const p=(text,opts={})=>new Paragraph({spacing:{after:130,line:270},children:[new TextRun({text,size:21,color:'292438'})],...opts});
 const h=(text)=>p(text,{heading:HeadingLevel.HEADING_1,spacing:{before:190,after:140},children:[new TextRun({text,size:26,bold:true,color:'241747'})]});
@@ -12,8 +12,8 @@ const children=[
  p('Prepared October 20, 2026 • Status is reported as of October 19, 2026.'),
  h('Project and group'),
  p('Rescue Reports is a web and mobile emergency-reporting and response-coordination system. Residents submit and track reports; dispatchers verify and assign teams; responders provide field updates; monitoring officers and administrators use authorized web workspaces.'),
- table(['Group members','Confirmation'],group.map((n,i)=>[n,i===3?'Full submission name to confirm':'Name supplied by the project owner']),[6000,4080]),
- p('Assigned roles and individual contributions remain unconfirmed. This report describes the system’s aggregate progress and does not attribute unverified work to a member.'),
+ table(['Group members','Proposed work area','Confirmation'],group.map((n,i)=>[n,['Backend and database','Web/mobile interface','QA and documentation','Coordination and integration'][i],i===3?'Full name and work to confirm':'Actual work to confirm']),[3600,4000,2480]),
+ p('Individual contribution statements remain unconfirmed. A proposed allocation is supplied separately for member review; it is not an attestation of actual work. This report describes aggregate system progress.'),
  h('Overall status at the cutoff'),
  p('The core web workflows and resident/responder mobile features were implemented and under final integration testing. Web and API release records exist by October 19. Local automated and browser checks supported substantial functional progress, while hosted/provider, device, accessibility and native release gates remained open. The system was not certified for public emergency-service operation.'),
  p('The October 20 Flutter visual redesign, Android emulator checks and final presentation preparation are subsequent work. They are not counted as accomplishments during October 12–19.'),
@@ -49,5 +49,29 @@ const children=[
  p('Sources: repository commits dated October 16 (including 47252c3, 6439330, 52e8156 and e9c6426); October 18 release-audit commits; design-plans/full-repair-2026-10-19/RELEASE-LEDGER.md; NATIVE-FOLLOWUP-2026-10-19.md and NATIVE-INDEPENDENT-REVIEW-2026-10-19.md. The accompanying Gantt distinguishes verified activity, work in progress, proposed future work and reconstructed early baseline planning.'),
  p('Owner review required before upload: replace the marked full submission name and confirm actual individual roles/contributions. A system progress report does not substitute for the final individual contribution declaration.')
 ];
+const outputImage=(name,width,height)=>new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:90,after:60},children:[new ImageRun({type:'png',data:fs.readFileSync(path.join(__dirname,'outputs',name)),transformation:{width,height}})]});
+children.push(new Paragraph({children:[new PageBreak()]}),h('5. Project outputs and current evidence'),p('The main progress report covers October 12–19. The following appendix identifies the delivered files and shows actual local outputs captured on October 20. These newer screenshots illustrate the current system; they are not backdated accomplishments.'),table(['Output','Delivered artifact'],[
+['Web system','Resident, dispatcher, responder, DMO and admin workspaces; screenshots in the Outputs folder.'],
+['Mobile system','Flutter resident/responder app; Android local-test APK and computer-based demo instructions.'],
+['Source and database','Rescue-Reports-Source.zip; schema.md; firestore.rules; firestore.indexes.json; SHA-256 manifest.'],
+['Guide and presentation','Twelve-slide PowerPoint + PDF; approximately seven-minute narrated technical walkthrough + SRT captions. Synthetic narration is disclosed.'],
+['Planning and progress','October 12–30 Gantt chart (PDF/XLSX) and this October 12–19 progress report (PDF/DOCX), with a dated output appendix.'],
+['Contributions','Proposed member allocation and draft statements, pending confirmation of actual work and owner name.']
+],[2400,7680]),h('Output evidence scope'),p('Web screenshots come from a completed local workflow: resident submission, dispatcher verification/assignment, responder progress/resolution and dispatcher closure. The resident saw a live update without reloading. All accounts/incidents are fictional. Flutter screenshots are from an Android API35 AOSP emulator, not a physical device.'),p('The updated delivery includes the full-resolution images separately. Real Cloudinary, email/push delivery, physical devices, assistive-technology behavior and signed native releases remain separate verification gates.'));
+for(const [title,figures] of [
+['A. Resident reporting and dispatcher assignment',[
+['resident-confirmed.png','Figure 1. Resident confirmation and report reference after submission.'],
+['dispatcher-assigned.png','Figure 2. Dispatcher incident view after verification and Team Alpha assignment.']]],
+['B. Responder history and monitoring',[
+['responder-history.png','Figure 3. Responder progress history after the local operation update.'],
+['dmo-monitor.png','Figure 4. DMO Monitor with fictional incidents. Map data © OpenStreetMap contributors.']]],
+['C. Administration and analytics',[
+['admin-accounts.png','Figure 5. Administrator account-management workspace.'],
+['dmo-analytics.png','Figure 6. DMO Analytics workspace and aggregate displays.']]]]) {
+children.push(new Paragraph({children:[new PageBreak()]}),h(title),p('Actual local capture • October 20, 2026 • Fictional emulator data', {spacing:{after:70},children:[new TextRun({text:'Actual local capture • October 20, 2026 • Fictional emulator data',size:19,color:'6F687F'})]}));
+for(const [file,caption] of figures) children.push(outputImage(file,600,375),p(caption,{spacing:{after:140},children:[new TextRun({text:caption,size:19,color:'51495F'})]}));
+}
+children.push(new Paragraph({children:[new PageBreak()]}),h('D. Flutter Android outputs'),p('Native Android API35 emulator captures, October 20. The welcome uses the revised harbor theme; My Reports loads fictional resident records. These images do not establish physical-phone or push-delivery behavior.'),new Paragraph({alignment:AlignmentType.CENTER,children:[new ImageRun({type:'png',data:fs.readFileSync(path.join(__dirname,'outputs','flutter-welcome.png')),transformation:{width:280,height:622}}),new TextRun('  '),new ImageRun({type:'png',data:fs.readFileSync(path.join(__dirname,'outputs','flutter-reports.png')),transformation:{width:280,height:622}})]}),p('Figures 7–8. Flutter welcome (left) and populated resident reports (right). Full-resolution PNGs are included in Outputs.'));
+
 const doc=new Document({creator:'Rescue Reports project',title:'Rescue Reports — System Progress Update, October 12–19, 2026',styles:{default:{document:{run:{font:'Arial',size:21},paragraph:{spacing:{line:270}}}},heading1:{run:{font:'Arial',size:26,bold:true,color:'241747'}},title:{run:{font:'Arial',size:40,bold:true,color:'241747'}}},sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:850,bottom:850,left:913,right:913}}},footers:{default:new Footer({children:[new Paragraph({alignment:AlignmentType.RIGHT,children:[new TextRun({text:'Rescue Reports • October 12–19, 2026   |   ',size:18,color:'6F687F'}),new TextRun({children:[PageNumber.CURRENT],size:18})]})]})},children}]});
 Packer.toBuffer(doc).then(b=>fs.writeFileSync(path.join(out,'Rescue-Reports-Progress-October-12-19.docx'),b));

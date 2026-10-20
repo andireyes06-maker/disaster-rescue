@@ -1,36 +1,23 @@
-# Individual contributions
+# Proposed individual contribution allocation
 
-Purpose: the contribution report (spec deliverable 6, 5 percent of the grade). Each member fills in one row. Keep the entries factual: what the person did, with a link to a commit, pull request, file, or screen where possible.
+**Draft for member confirmation.** The owner requested a balanced breakdown. The roles and work below are suggested allocations, not verified statements that a member performed them. Each member must revise the wording to match their actual work and attach evidence before submitting an individual contribution declaration. No participation percentage is invented.
 
-The owner supplied the three names below on 20 October 2026 and asked for other entries to be marked for now. The owner’s full submission name, assigned roles and individual work remain unconfirmed. Do not treat this sheet as a completed contribution declaration or invent claims.
-
-## Member table
-
-| Member | Assigned role | Tasks | Actual contributions |
+| Member | Proposed role | Suggested work to confirm | Relevant project outputs |
 |---|---|---|---|
-| Lopez, Raymond DG | To confirm | To confirm | To confirm with evidence |
-| De Leon, Justine | To confirm | To confirm | To confirm with evidence |
-| Cabuguang, Liam | To confirm | To confirm | To confirm with evidence |
-| Owner’s submission name to confirm | To confirm | To confirm | To confirm with evidence |
+| Lopez, Raymond DG | Backend and database | API endpoints and validation; Firestore schema/rules/indexes; workflow permissions; retry-safety and data-integrity checks | api/src/, firebase/firestore.rules, firebase/firestore.indexes.json, docs/schema.md |
+| De Leon, Justine | Frontend and mobile interface | Responsive web layouts; shared UI styling; resident and responder Flutter screens; form validation, required markers and error presentation | web/src/, mobile/lib/features/, mobile/lib/theme/, docs/user-guide/images/ |
+| Cabuguang, Liam | Quality assurance and documentation | Test-case execution; defect reproduction and retesting; user guide, output screenshots, presentation preparation and documentation review | web/e2e/, mobile/test/, docs/user-guide/, docs/presentation/, docs/submission/outputs/ |
+| [Owner’s submission name to confirm] | Coordination and integration | Scope and design decisions; integration and source reconciliation; end-to-end workflow review; release/submission packaging and team review | HANDOFF.md, source manifest, submission archive, release and verification records |
 
-Add or remove rows to match the group size. Group size and the project leader are open items (`X-SPEC.md` section 14).
+## Draft statements to adapt, only if accurate
 
-## Build work areas (reference only)
+- **Lopez, Raymond DG:** “I contributed to the backend and database work, including API validation, data relationships and permission checks. I helped check the report workflow and retry safety.”
+- **De Leon, Justine:** “I contributed to the web and mobile interface, including responsive layouts, resident/responder screens and clearer form feedback.”
+- **Cabuguang, Liam:** “I contributed to testing and documentation, including reproducing defects, checking fixes, organizing screenshots and preparing the user guide and presentation materials.”
+- **Owner:** “I coordinated the project scope and integration, reviewed the complete report-to-response workflow and prepared the final delivery package with the group.”
 
-These are the build phases from `X-SPEC.md` section 11 and the task list in `X-PLAN.md`. Use them to fill the "Tasks" column. Do not assume who did what.
+Every statement above is a **proposed draft, pending confirmation**, not a completed attestation. Repository authorship has not been mapped to these members. Group members should explain the parts they actually understand and performed.
 
-| Phase | Work |
-|---|---|
-| 1. Foundation | Repo layout, Firebase project setup, Express skeleton, auth with role claims, design tokens, security rules, seed data |
-| 2. Core report flow | Report creation with GPS and photos, resident tracking, dispatcher queue, verify, priority, status workflow, audit logging |
-| 3. Dispatch and field | Teams, assignment, responder mode on Flutter and web, rescue records, notifications |
-| 4. Map and monitoring | Live incident map on web and Flutter, DMO view |
-| 5. Analytics and extras | Stats, charts, CSV and PDF export, duplicate detection, audit viewer |
-| 6. Hardening and polish | Validation, rate limits, offline hotline screen, privacy notice, design review, QA pass, backup note |
-| 7. Deliverables | User guide slides, video, contribution report, device test |
+## Confirmation record
 
-## Evidence to attach
-
-- Git: `git log --author=<name>` for each member, once the team has agreed how names appear in commits. The commit author names in the repo are not yet matched to team members (UNVERIFIED).
-- Test runs: each member lists which tests they wrote and where they live.
-- Screens: each member lists the screens they built, using the names in `docs/user-guide/outline.md`.
+For each member, add: actual assigned role; exact tasks completed; file/commit/test or document evidence; dates; member approval. Shared work can be recorded for more than one person when that reflects what happened. Do not treat suggested output paths as proof of authorship.

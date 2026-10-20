@@ -9,3 +9,5 @@ The final delivery includes `Rescue-Reports-Technical-Walkthrough.mp4` and match
 `build-walkthrough.py` is the rendering source retained from the preparation environment; its absolute scratch paths identify the evidence inputs and must be adjusted to re-render elsewhere. The delivery MP4 is standalone. The older `Flutter-Chrome-Preview.mp4` is historical silent support footage, not the narrated final.
 
 The user guide uses current Flutter Chrome screenshots; its notification image is an explicitly identified widget fixture. Android emulator checks and physical-phone limits are documented in the final verification record.
+
+Output follow-up: earlier monitor/admin/analytics screenshots caught loading states. The capture harness now waits for content and visible skeleton dismissal, then specific data controls. A full local workflow rerun passed, and the affected screenshots and video excerpts were replaced. Current report screenshots come from the dated output appendix. Set RESCUE_REHEARSAL_DIR and RESCUE_MEDIA_WORK when rebuilding the video.
