@@ -5,6 +5,7 @@ import 'package:disaster_rescue/data/report_models.dart';
 import 'package:disaster_rescue/data/services.dart';
 import 'package:disaster_rescue/features/offline/offline_help_page.dart';
 import 'package:disaster_rescue/features/report/report_flow_page.dart';
+import 'package:disaster_rescue/features/report/submission_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -162,7 +163,7 @@ void main() {
     await t.pumpAndSettle();
     expect(find.text('Step 3 of 4'), findsOneWidget);
     expect(find.textContaining('at least 3'), findsOneWidget);
-    expect(find.textContaining('7 to 20 digits'), findsOneWidget);
+    expect(find.textContaining('7 to 15 digits'), findsOneWidget);
   });
 
   testWidgets('contact is prefilled from the profile', (t) async {
@@ -209,9 +210,26 @@ void main() {
     expect(env.reports.created.single.source, 'gps');
   });
 
+  testWidgets('ApiException 429 is uncertain: the page says it could not be confirmed, and the key is kept', (t) async {
+    await open(t);
+    env.reports.createError = const ApiException(429, 'rate_limited', 'Slow down');
+    await toStep4(t);
+    await tapText(t, 'Submit report');
+    expect(find.text(uncertainCopy), findsOneWidget);
+    expect(find.textContaining('NOT submitted'), findsNothing);
+    expect(find.textContaining('too many reports'), findsOneWidget);
+    expect(env.drafts.uncertain, isTrue);
+    expect(env.drafts.draft, isNotNull);
+    env.reports.createError = null;
+    await tapText(t, 'Try again');
+    await tapText(t, 'Submit report');
+    expect(env.reports.keysSeen, hasLength(2));
+    expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
+    expect(env.reports.keysSeen.first, matches(RegExp(r'^[0-9a-f]{32}$')));
+  });
+
   for (final e in {
     400: const ApiException(400, 'validation_error', 'Description is too short.'),
-    429: const ApiException(429, 'rate_limited', 'Slow down'),
     403: const ApiException(403, 'account_disabled', 'Off'),
     0: const ApiException(0, 'auth', 'You are signed out. Please log in again.'),
   }.entries) {
@@ -225,7 +243,6 @@ void main() {
       expect(find.text('Call hotline'), findsWidgets);
       expect(find.textContaining('SMS'), findsOneWidget);
       expect(env.drafts.draft, isNull);
-      if (e.key == 429) expect(find.textContaining('too many reports'), findsOneWidget);
       if (e.key == 400) expect(find.textContaining('Description is too short.'), findsOneWidget);
       if (e.key == 403 || e.key == 0) expect(find.textContaining('session'), findsOneWidget);
     });
@@ -300,6 +317,8 @@ void main() {
       await t.pumpAndSettle();
       if (step >= 2) await toStep2(t);
       if (step >= 3) {
+        // At 200% text the required line pushes the location choices below the fold; a user scrolls to them.
+        await t.ensureVisible(find.text('Use my current location'));
         await tapText(t, 'Use my current location');
         await t.tap(nextBtn());
         await t.pumpAndSettle();

@@ -28,7 +28,10 @@ export function reportsRouter(deps) {
       if (b.contactName !== undefined || b.contactPhone !== undefined) {
         input.contact = { name: b.contactName ?? '', phone: b.contactPhone };
       }
-      const out = await create(deps, req.user, input, req.files ?? [], req.get('Idempotency-Key'));
+      const observed = {};
+      const out = await create(deps, req.user, input, req.files ?? [], req.get('Idempotency-Key'), observed);
+      // The body keeps its shape. A replay of an already completed key says so in a header the browser is allowed to read.
+      if (observed.replayed) res.set('Idempotent-Replayed', '1');
       res.status(201).json(out);
     } catch (e) { next(e); }
   });
@@ -56,7 +59,14 @@ export function reportsRouter(deps) {
   });
   post('assign', 'dispatcher', assignment.assign);
   post('acknowledge', 'responder', assignment.acknowledge);
-  post('updates', 'responder', assignment.addUpdate);
+  // Read-only: did the server record the update sent under this key? Never creates an update.
+  r.get('/:id/updates/receipt', auth, requireRole('responder'), async (req, res, next) => {
+    try { res.json(await assignment.findUpdateReceipt(deps, req.user, req.params.id, req.get('Idempotency-Key'))); } catch (e) { next(e); }
+  });
+  // The optional Idempotency-Key header lets a retried update after an uncertain reply replay its first result.
+  r.post('/:id/updates', auth, requireRole('responder'), async (req, res, next) => {
+    try { res.json(await assignment.addUpdate(deps, req.user, req.params.id, req.body ?? {}, req.get('Idempotency-Key'))); } catch (e) { next(e); }
+  });
 
   return r;
 }

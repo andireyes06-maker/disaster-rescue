@@ -1,13 +1,21 @@
-import { test, expect, type Page } from '@playwright/test';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { type Page } from '@playwright/test';
+import { test, expect } from './fixtures';
 
-// Captures full-page login screenshots of the current app and of the pre-Tailwind
-// baseline (set BASELINE_URL to a dev server running the f30db64 code).
-// Skipped unless BASELINE_URL is set, so the default smoke run stays fast.
+// Current references are reviewed local visual regressions. The animated film is masked here
+// and tested separately with normal motion. Historical captures remain evidence only.
+//
+// Current pages use Playwright's configured baseURL, never a hardcoded host. Before capturing, the spec checks that the
+// server fingerprint matches every hashed web source/asset/config input, through the shared fixture.
+// Captures live in the test output directory, never over tracked source images.
+//
+// The pre-Tailwind baseline is historical. It is captured only when BASELINE_URL is set, to an owner-verified dev server
+// for the baseline code. It is not an approval of the current design.
 const BASELINE_URL = process.env.BASELINE_URL;
-const here = path.dirname(fileURLToPath(import.meta.url));
 const WIDTHS = [1280, 375];
+const PAGES = [
+  { name: 'login', route: '/login', heading: 'Sign in' },
+  { name: 'landing', route: '/', heading: null },
+] as const;
 
 async function blockExternal(page: Page) {
   await page.route('**/*', (route) => {
@@ -17,25 +25,40 @@ async function blockExternal(page: Page) {
   });
 }
 
-test.describe('visual comparison', () => {
-  test.skip(!BASELINE_URL, 'Set BASELINE_URL to capture the baseline');
-
-  for (const [label, url] of [
-    ['baseline', BASELINE_URL ?? ''],
-    ['current', 'http://localhost:5173/login'],
-  ] as const) {
+test.describe('current pages (reviewed visual regression, configured baseURL)', () => {
+  for (const page of PAGES) {
     for (const width of WIDTHS) {
-      test(`${label} login at ${width}px`, async ({ page }) => {
-        await blockExternal(page);
-        await page.setViewportSize({ width, height: 800 });
-        await page.goto(url);
-        await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
-        await page.waitForLoadState('networkidle');
-        await page.screenshot({
-          path: path.join(here, '__screenshots__', label, `login-${width}.png`),
+      test(`${page.name} at ${width}px`, async ({ page: p, baseURL }, testInfo) => {
+        expect(baseURL, 'Playwright baseURL must be configured').toBeTruthy();
+        await blockExternal(p);
+        await p.setViewportSize({ width, height: 800 });
+        await p.goto(page.route);
+        if (page.heading) await expect(p.getByRole('heading', { name: page.heading })).toBeVisible();
+        await p.waitForLoadState('networkidle');
+        await expect(p).toHaveScreenshot(`${page.name}-${width}.png`, {fullPage: true, animations: 'allow', mask: page.name === 'landing' ? [p.locator('.response-film')] : [], maxDiffPixelRatio: 0.002});
+        await p.screenshot({
+          path: testInfo.outputPath(`${page.name}-${width}.png`),
           fullPage: true,
         });
       });
     }
+  }
+});
+
+test.describe('historical pre-Tailwind baseline (capture only, not an approval)', () => {
+  test.skip(!BASELINE_URL, 'BASELINE_URL not set: the historical pre-Tailwind capture is skipped, not passed');
+
+  for (const width of WIDTHS) {
+    test(`historical login at ${width}px`, async ({ page }, testInfo) => {
+      await blockExternal(page);
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(BASELINE_URL!);
+      await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible();
+      await page.waitForLoadState('networkidle');
+      await page.screenshot({
+        path: testInfo.outputPath(`historical-login-${width}.png`),
+        fullPage: true,
+      });
+    });
   }
 });

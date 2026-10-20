@@ -1,3 +1,5 @@
+**Current copy direction (October 18):** `design-plans/product-copy-2026-10-18/HANDOFF.md` supersedes historical placeholder, environment-label and access-copy requirements below. Airen removed academic credits and requested a finished product voice.
+
 # LANDING-SPEC: public landing page at the web app root
 
 Status: built and checked (Oct 16, 2026). Awaiting Airen's review. Source notes: `LANDING-NOTES.md`.
@@ -40,8 +42,8 @@ Buttons:
 - **How a report moves:** Submitted, Verified, Assigned, In progress, Resolved, Closed. Horizontal on desktop, vertical on phone.
 - **Safety:** exact text, no edits: "Submitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
 - **Privacy:** one short paragraph and a link placeholder "Privacy notice (pending review)". No link target until legal review is done.
-- **Credits:** placeholder text "Team names and roles: to be added" plus the course line "IT 305 Advance Web Development, BSIT 3J, Bulacan State University".
-- **Footer:** sign-in link and the course line. No repository link (private repo).
+- **Brand footer:** "Rescue Reports · Community incident reporting and response coordination."
+- **Footer:** sign-in link, product identity and immediate-danger guidance.
 
 ## Design
 - Direction change (Oct 16, 2026, Airen): the design limits below are lifted. Gradients and imagery are allowed. The hotline button stays the only coral element, so emergency contact is never confused with decoration.

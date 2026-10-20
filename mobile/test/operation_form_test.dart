@@ -30,6 +30,41 @@ void main() {
     });
   }
 
+  testWidgets('Team Assigned offers no Resolved segment', (t) async {
+    await t.pumpWidget(env.host(OperationFormPage(
+      reportId: 'r1',
+      reportStatus: ValueNotifier<String?>('Team Assigned'),
+    )));
+    await t.pump();
+    expect(find.text('Resolved'), findsNothing);
+    expect(find.text('Rescue in Progress'), findsOneWidget);
+  });
+
+  testWidgets('a live change to Team Assigned moves a Resolved selection to a valid status', (t) async {
+    final status = ValueNotifier<String?>('Rescue in Progress');
+    await t.pumpWidget(env.host(OperationFormPage(reportId: 'r1', reportStatus: status)));
+    await t.pump();
+    await t.tap(find.text('Resolved'));
+    await t.pump();
+    status.value = 'Team Assigned';
+    await t.pumpAndSettle();
+    expect(find.text('Resolved'), findsNothing);
+    await t.enterText(find.byKey(const Key('peopleRescued')), '3');
+    await t.tap(find.text('Save update'));
+    await t.pumpAndSettle();
+    expect(env.responder.updates.single.$2.status, 'Rescue in Progress');
+  });
+
+  testWidgets('a status with no valid transition shows a notice and no form', (t) async {
+    await t.pumpWidget(env.host(OperationFormPage(
+      reportId: 'r1',
+      reportStatus: ValueNotifier<String?>('Resolved'),
+    )));
+    await t.pump();
+    expect(find.text('This report is closed, so no more updates can be added.'), findsOneWidget);
+    expect(find.text('Save update'), findsNothing);
+  });
+
   testWidgets('submits a valid update with status, peopleRescued and note', (
     t,
   ) async {

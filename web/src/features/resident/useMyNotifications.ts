@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, onSnapshot, type FirestoreError } from 'firebase/firestore';
+import { collection, query, limit, orderBy, where, onSnapshot, type FirestoreError } from 'firebase/firestore';
 import { getFirebaseDb } from '../../firebase';
 
 export interface MyNotification {
@@ -14,13 +14,15 @@ export interface MyNotification {
 const time = (n: MyNotification) => n.createdAt.getTime();
 
 // Notifications addressed to this resident, newest first. The rules allow this read only for recipientUid == uid.
-export function useMyNotifications(uid: string): { notifications: MyNotification[]; error: FirestoreError | null; loading: boolean } {
+export function useMyNotifications(uid: string): { notifications: MyNotification[]; error: FirestoreError | null; loading: boolean; windowSize?: number; loadMore?: () => void } {
+  const [windowSize, setWindowSize] = useState(50);
   // loading stays true until the first answer, so an empty list is not shown as "none" before the read finishes (W06).
   const [state, setState] = useState<{ notifications: MyNotification[]; error: FirestoreError | null; loading: boolean }>({ notifications: [], error: null, loading: true });
 
   useEffect(() => {
-    if (!uid) return undefined;
-    const q = query(collection(getFirebaseDb(), 'notifications'), where('recipientUid', '==', uid));
+    if (!uid) { setState({notifications: [], error: null, loading: false}); return undefined; }
+    setState({notifications: [], error: null, loading: true});
+    const q = query(collection(getFirebaseDb(), 'notifications'), where('recipientUid', '==', uid), orderBy('createdAt', 'desc'), limit(windowSize));
     return onSnapshot(
       q,
       (snap) => {
@@ -35,7 +37,7 @@ export function useMyNotifications(uid: string): { notifications: MyNotification
       },
       (error) => setState((s) => ({ ...s, error, loading: false })),
     );
-  }, [uid]);
+  }, [uid, windowSize]);
 
-  return state;
+  return { ...state, windowSize, loadMore: () => setWindowSize(n => n + 50) };
 }

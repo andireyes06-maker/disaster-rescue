@@ -123,7 +123,7 @@ class _LocationStepState extends State<LocationStep> {
           maxLength: 200,
           decoration: const InputDecoration(
             labelText: 'Address or landmark (optional)',
-            hintText: 'For example: near the school gate',
+            hintText: 'For example: beside the community hall',
           ),
         ),
       ],
@@ -165,7 +165,7 @@ class _MapPickerPageState extends State<MapPickerPage> {
               children: [
                 TileLayer(
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'edu.bulsu.disaster_rescue',
+                  userAgentPackageName: const String.fromEnvironment('RESCUE_APPLICATION_ID', defaultValue: 'local.rescuereports.app'),
                 ),
                 if (_point != null)
                   MarkerLayer(markers: [

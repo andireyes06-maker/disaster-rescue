@@ -3,7 +3,7 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, useLocation } from 'react-router-dom';
 
-vi.mock('../../firebase', () => ({ getFirebaseAuth: () => ({ currentUser: { getIdToken: async () => 'tok' } }) }));
+vi.mock('../../firebase-auth', () => ({ getFirebaseAuth: () => ({ currentUser: { getIdToken: async () => 'tok' } }) }));
 import AnalyticsPage from './AnalyticsPage';
 
 const STATS = {
@@ -85,4 +85,10 @@ describe('AnalyticsPage', () => {
     expect(within(perDay).getByText('2026-01-02')).toBeInTheDocument();
     expect(perDay.querySelectorAll('tbody tr')).toHaveLength(2);
   });
+  it('does not present a malformed response as zero incidents', async () => {
+    serveStats({}); renderPage();
+    expect(await screen.findByRole('alert')).toHaveTextContent('Could not load analytics.');
+    expect(screen.queryByText('Reports in this period')).not.toBeInTheDocument();
+  });
+
 });

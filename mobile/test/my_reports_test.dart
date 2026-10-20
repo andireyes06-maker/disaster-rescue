@@ -18,7 +18,7 @@ Future<void> open(WidgetTester t, {double scale = 1.0}) async {
   t.view.devicePixelRatio = 1;
   addTearDown(t.view.reset);
   await t.pumpWidget(env.host(const MyReportsPage(uid: 'u1'), textScale: scale));
-  await t.pump();
+  await t.pumpAndSettle();
 }
 
 void main() {
@@ -28,7 +28,7 @@ void main() {
   testWidgets('empty states for both tabs', (t) async {
     await open(t);
     env.reports.controller.add([]);
-    await t.pump();
+    await t.pumpAndSettle();
     expect(find.text('No active reports.'), findsOneWidget);
     await t.tap(find.text('History'));
     await t.pumpAndSettle();
@@ -44,7 +44,7 @@ void main() {
       rep('d', 'Cancelled', desc: 'cancelled one'),
       rep('e', 'Rejected', desc: 'rejected one'),
     ]);
-    await t.pump();
+    await t.pumpAndSettle();
     expect(find.text('newer active'), findsOneWidget);
     expect(find.text('older active'), findsOneWidget);
     expect(find.text('done one'), findsNothing);
@@ -62,7 +62,7 @@ void main() {
   testWidgets('Cancel is visible only for Submitted and calls cancel', (t) async {
     await open(t);
     env.reports.controller.add([rep('a', 'Submitted'), rep('b', 'Verified')]);
-    await t.pump();
+    await t.pumpAndSettle();
     await t.tap(find.text('Verified'));
     await t.pumpAndSettle();
     expect(find.text('Cancel report'), findsNothing);
@@ -83,7 +83,7 @@ void main() {
   testWidgets('keeping the report does not cancel', (t) async {
     await open(t);
     env.reports.controller.add([rep('a', 'Submitted')]);
-    await t.pump();
+    await t.pumpAndSettle();
     await t.tap(find.text('Submitted'));
     await t.pumpAndSettle();
     await t.tap(find.widgetWithText(OutlinedButton, 'Cancel report'));
@@ -97,7 +97,7 @@ void main() {
     await open(t);
     env.reports.cancelError = const ApiException(409, 'illegal_transition', 'x');
     env.reports.controller.add([rep('a', 'Submitted')]);
-    await t.pump();
+    await t.pumpAndSettle();
     await t.tap(find.text('Submitted'));
     await t.pumpAndSettle();
     await t.tap(find.widgetWithText(OutlinedButton, 'Cancel report'));
@@ -110,7 +110,7 @@ void main() {
   testWidgets('detail updates live when the status changes', (t) async {
     await open(t);
     env.reports.controller.add([rep('a', 'Submitted')]);
-    await t.pump();
+    await t.pumpAndSettle();
     await t.tap(find.text('Submitted'));
     await t.pumpAndSettle();
     expect(find.text('Cancel report'), findsOneWidget);
@@ -124,9 +124,9 @@ void main() {
     t.view.devicePixelRatio = 1;
     addTearDown(t.view.reset);
     await t.pumpWidget(env.host(const MyReportsPage(uid: 'u1'), textScale: 2.0));
-    await t.pump();
+    await t.pumpAndSettle();
     env.reports.controller.add([rep('a', 'Rescue in Progress', desc: 'A long description ' * 6)]);
-    await t.pump();
+    await t.pumpAndSettle();
     await t.tap(find.textContaining('A long description'));
     await t.pumpAndSettle();
     expect(t.takeException(), isNull);
@@ -144,7 +144,7 @@ void main() {
     expect(find.text('0917 123 4567'), findsOneWidget);
     expect(find.textContaining('only to coordinate rescue'), findsOneWidget);
     await t.tap(find.text('Log out'));
-    await t.pump();
+    await t.pumpAndSettle();
     expect(env.authRepo.logoutCalls, 1);
   });
 }

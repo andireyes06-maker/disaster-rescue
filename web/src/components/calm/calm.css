@@ -36,7 +36,8 @@
 .calm-banner { padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--color-mist); background: var(--color-surface); }
 .calm-banner--info { color: var(--color-primary); background: var(--color-primary-soft); }
 .calm-banner--notice { color: var(--color-notice); background: var(--color-surface); }
-.calm-banner--error { color: var(--color-text); border-left-color: var(--color-notice); background: var(--color-surface); }
+.calm-banner--error { position: relative; padding-left: 48px; color: var(--color-text); border-color: var(--color-critical); background: var(--color-surface); }
+.calm-banner__error-icon { position: absolute; left: 16px; top: 14px; color: var(--color-critical); }
 .calm-banner__title { margin: 0 0 4px; font-weight: 700; }
 
 .calm-empty { padding: 32px 24px; text-align: left; border: 1px dashed var(--color-muted); border-radius: var(--radius-lg); background: var(--color-surface); }

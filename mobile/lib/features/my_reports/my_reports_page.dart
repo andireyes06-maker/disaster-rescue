@@ -1,3 +1,4 @@
+import '../notifications/notification_action.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,10 +9,24 @@ import '../../theme/app_theme.dart';
 import '../auth/auth_widgets.dart';
 import '../report/report_flow_page.dart' show reportTypeInfo;
 import 'status_timeline.dart';
+import '../../theme/product_widgets.dart';
 
 String formatWhen(DateTime? t) {
   if (t == null) return 'Time not known';
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   final l = t.toLocal();
   final hh = l.hour.toString().padLeft(2, '0');
   final mm = l.minute.toString().padLeft(2, '0');
@@ -36,7 +51,12 @@ class StatusChip extends StatelessWidget {
         children: [
           Icon(s.icon, size: 16, color: AppColors.text),
           const SizedBox(width: 6),
-          Flexible(child: Text(s.label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600))),
+          Flexible(
+            child: Text(
+              s.label,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            ),
+          ),
         ],
       ),
     );
@@ -52,8 +72,10 @@ class MyReportsPage extends StatefulWidget {
 }
 
 class _MyReportsPageState extends State<MyReportsPage> {
-  late final Stream<List<ReportSummary>> _stream =
-      context.read<ReportsRepository>().watchMyReports(widget.uid);
+  int _windowSize = 50;
+  late Stream<List<ReportSummary>> _stream = context
+      .read<ReportsRepository>()
+      .watchMyReports(widget.uid);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +84,13 @@ class _MyReportsPageState extends State<MyReportsPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('My reports'),
-          bottom: const TabBar(tabs: [Tab(text: 'Active'), Tab(text: 'History')]),
+          actions: const [NotificationAction()],
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: 'Active'),
+              Tab(text: 'History'),
+            ],
+          ),
         ),
         body: StreamBuilder<List<ReportSummary>>(
           stream: _stream,
@@ -70,23 +98,61 @@ class _MyReportsPageState extends State<MyReportsPage> {
             if (snap.hasError) {
               return const Padding(
                 padding: EdgeInsets.all(16),
-                child: InlineError('Could not load your reports. Check your connection and try again later.'),
+                child: InlineError(
+                  'Could not load your reports. Check your connection and try again later.',
+                ),
               );
             }
-            if (!snap.hasData) return const Center(child: CircularProgressIndicator());
+            if (!snap.hasData) return const ProductLoading();
             final all = sortNewestFirst(snap.data!);
-            return TabBarView(children: [
-              _ReportList(
-                items: all.where((r) => !isHistoryStatus(r.status)).toList(),
-                empty: 'No active reports.',
-                stream: _stream,
-              ),
-              _ReportList(
-                items: all.where((r) => isHistoryStatus(r.status)).toList(),
-                empty: 'No past reports yet.',
-                stream: _stream,
-              ),
-            ]);
+            return Column(
+              children: [
+                if (all.length >= _windowSize)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text('Showing ${all.length} newest reports.'),
+                        ),
+                        if (all.length >= _windowSize)
+                          TextButton(
+                            onPressed: () => setState(() {
+                              _windowSize += 50;
+                              _stream = context
+                                  .read<ReportsRepository>()
+                                  .watchMyReports(
+                                    widget.uid,
+                                    windowSize: _windowSize,
+                                  );
+                            }),
+                            child: const Text('Load older'),
+                          ),
+                      ],
+                    ),
+                  ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      _ReportList(
+                        items: all
+                            .where((r) => !isHistoryStatus(r.status))
+                            .toList(),
+                        empty: 'No active reports.',
+                        stream: _stream,
+                      ),
+                      _ReportList(
+                        items: all
+                            .where((r) => isHistoryStatus(r.status))
+                            .toList(),
+                        empty: 'No past reports yet.',
+                        stream: _stream,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
           },
         ),
       ),
@@ -95,7 +161,11 @@ class _MyReportsPageState extends State<MyReportsPage> {
 }
 
 class _ReportList extends StatelessWidget {
-  const _ReportList({required this.items, required this.empty, required this.stream});
+  const _ReportList({
+    required this.items,
+    required this.empty,
+    required this.stream,
+  });
   final List<ReportSummary> items;
   final String empty;
   final Stream<List<ReportSummary>> stream;
@@ -103,8 +173,10 @@ class _ReportList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) {
-      return Center(
-        child: Padding(padding: const EdgeInsets.all(24), child: Text(empty, textAlign: TextAlign.center)),
+      return ProductEmpty(
+        title: empty,
+        description:
+            'Reports you send appear here, with their latest status and response updates.',
       );
     }
     return ListView.separated(
@@ -120,24 +192,58 @@ class _ReportList extends StatelessWidget {
             onTap: () async {
               final messenger = ScaffoldMessenger.of(context);
               final result = await Navigator.of(context).push<String>(
-                MaterialPageRoute(builder: (_) => ReportDetailPage(initial: r, updates: stream)),
+                MaterialPageRoute(
+                  builder: (_) => ReportDetailPage(
+                    initial: r,
+                    updates: context
+                        .read<ReportsRepository>()
+                        .watchReport(r.id)
+                        .map((row) => row == null ? <ReportSummary>[] : [row]),
+                  ),
+                ),
               );
-              if (result != null) messenger.showSnackBar(SnackBar(content: Text(result)));
+              if (result != null) {
+                messenger.showSnackBar(SnackBar(content: Text(result)));
+              }
             },
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(children: [
-                    Icon(info.icon, color: AppColors.primary),
-                    const SizedBox(width: 8),
-                    Expanded(child: Text(info.label, style: const TextStyle(fontWeight: FontWeight.w700))),
-                  ]),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: AppColors.primarySoft,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(info.icon, color: AppColors.primary),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          info.label,
+                          style: const TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 8),
-                  Text(r.description, maxLines: 2, overflow: TextOverflow.ellipsis),
+                  Text(
+                    r.description,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   const SizedBox(height: 8),
-                  Text(formatWhen(r.createdAt), style: const TextStyle(color: AppColors.muted, fontSize: 13)),
+                  Text(
+                    formatWhen(r.createdAt),
+                    style: const TextStyle(
+                      color: AppColors.muted,
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   StatusChip(r.status),
                 ],
@@ -151,7 +257,11 @@ class _ReportList extends StatelessWidget {
 }
 
 class ReportDetailPage extends StatefulWidget {
-  const ReportDetailPage({super.key, required this.initial, required this.updates});
+  const ReportDetailPage({
+    super.key,
+    required this.initial,
+    required this.updates,
+  });
   final ReportSummary initial;
   final Stream<List<ReportSummary>> updates;
 
@@ -168,10 +278,18 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
       context: context,
       builder: (c) => AlertDialog(
         title: const Text('Cancel this report?'),
-        content: const Text('Responders will not act on it. You can send a new report at any time.'),
+        content: const Text(
+          'Responders will not act on it. You can send a new report at any time.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(c, false), child: const Text('Keep report')),
-          TextButton(onPressed: () => Navigator.pop(c, true), child: const Text('Yes, cancel it')),
+          TextButton(
+            onPressed: () => Navigator.pop(c, false),
+            child: const Text('Keep report'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(c, true),
+            child: const Text('Yes, cancel it'),
+          ),
         ],
       ),
     );
@@ -189,7 +307,9 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
       if (!mounted) return;
       setState(() {
         _busy = false;
-        _error = e.status == 409 ? 'This report can no longer be cancelled.' : e.message;
+        _error = e.status == 409
+            ? 'This report can no longer be cancelled.'
+            : e.message;
       });
     } catch (_) {
       if (!mounted) return;
@@ -206,31 +326,48 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
       stream: widget.updates,
       initialData: [widget.initial],
       builder: (context, snap) {
-        final r = (snap.data ?? const <ReportSummary>[])
+        final r =
+            (snap.data ?? const <ReportSummary>[])
                 .where((x) => x.id == widget.initial.id)
                 .firstOrNull ??
             widget.initial;
         final info = reportTypeInfo[r.type] ?? reportTypeInfo['other']!;
         return Scaffold(
           appBar: AppBar(title: const Text('Report details')),
-          body: SafeArea(
+          body: ProductViewport(
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                Row(children: [
-                  Icon(info.icon, color: AppColors.primary),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text(info.label, style: Theme.of(context).textTheme.titleLarge)),
-                ]),
+                Row(
+                  children: [
+                    Icon(info.icon, color: AppColors.primary),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        info.label,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 8),
-                Text(formatWhen(r.createdAt), style: const TextStyle(color: AppColors.muted)),
+                Text(
+                  formatWhen(r.createdAt),
+                  style: const TextStyle(color: AppColors.muted),
+                ),
                 if (r.reference != null) Text('Reference: ${r.reference}'),
                 const SizedBox(height: 12),
                 Text(r.description),
                 const SizedBox(height: 12),
-                Align(alignment: Alignment.centerLeft, child: StatusChip(r.status)),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: StatusChip(r.status),
+                ),
                 const SizedBox(height: 20),
-                Text('Progress', style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  'Progress',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
                 const SizedBox(height: 12),
                 StatusTimeline(status: r.status),
                 if (r.status == 'Submitted') ...[

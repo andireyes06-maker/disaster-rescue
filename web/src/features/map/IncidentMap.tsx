@@ -1,4 +1,7 @@
+import ReportWindow from '../../components/ReportWindow';
+import { ConnectionNotice } from '../../components/ConnectionStatus';
 import EmptyState from '../../components/calm/EmptyState';
+import MapTileNotice, { useMapTiles } from '../../components/MapTileNotice';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
@@ -8,6 +11,7 @@ import { useReports } from '../reports/useReports';
 import { markerStyle } from './markerStyle';
 import { PRIORITIES, REPORT_STATUSES, REPORT_TYPES, type Report } from '../../types/domain';
 import Banner from '../../components/calm/Banner';
+import { Skeleton } from '../../components/calm/Skeleton';
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
@@ -42,8 +46,8 @@ function iconFor(report: Report): L.DivIcon {
   const { color, shape, label } = markerStyle(report);
   return L.divIcon({
     className: 'map-marker-wrap',
-    iconSize: [24, 24],
-    iconAnchor: [12, 12],
+    iconSize: [44, 44],
+    iconAnchor: [22, 22],
     html: `<span class="map-marker map-marker--${shape}" style="--marker-color: ${color}"></span>`
       + `<span class="map-marker__label">${label}</span>`,
   });
@@ -63,7 +67,8 @@ function FitReports({ reports }: { reports: Report[] }) {
 }
 
 export default function IncidentMap() {
-  const { reports, loading, error, retry } = useReports();
+  const tiles = useMapTiles();
+  const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useReports();
   const navigate = useNavigate();
   const [filters, setFilters] = useState<Filters>({ type: '', priority: '', status: '' });
   const set = (key: keyof Filters) => (value: string) => setFilters((f) => ({ ...f, [key]: value }));
@@ -89,10 +94,12 @@ export default function IncidentMap() {
       </Banner>
     );
   }
-  if (loading) return <p role="status" className="loading">Loading...</p>;
+  if (loading) return <Skeleton label="Loading incident map"><div className="skeleton-map" /></Skeleton>;
 
   return (
-    <div className="incident-map-page">
+    <div data-map-tile-surface className="incident-map-page">
+      <ConnectionNotice fromCache={fromCache} />
+      {!loading && !error && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
       <div className="card map-filters" role="group" aria-label="Map filters">
         <FilterSelect label="Type" value={filters.type} onChange={set('type')} options={REPORT_TYPES} />
         <FilterSelect label="Priority" value={filters.priority} onChange={set('priority')} options={PRIORITIES} />
@@ -104,14 +111,17 @@ export default function IncidentMap() {
       </div>
       {visible.length === 0 && (
         <EmptyState
-          title="No located reports yet"
-          body="Reports appear here once they include a location. Clear the filters to see all located reports."
+          title={located.length ? 'No reports match these filters' : 'No located reports yet'}
+          body={located.length ? 'Clear the filters to see all located reports.' : 'Reports appear here once they include a location.'}
+          action={Object.values(filters).some(Boolean) && <button type="button" className="btn btn--ghost" onClick={() => setFilters({ type: '', priority: '', status: '' })}>Clear map filters</button>}
         />
       )}
+      {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
       <div className="incident-map">
         <MapContainer center={center} zoom={located.length ? 13 : 2} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
           <FitReports reports={visible} />
           <TileLayer
+            key={tiles.key} eventHandlers={tiles.events}
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution="&copy; OpenStreetMap contributors"
           />
@@ -121,7 +131,15 @@ export default function IncidentMap() {
               position={[r.location!.lat, r.location!.lng]}
               icon={iconFor(r)}
               title={`Report ${r.id}, ${cap(r.type)}, ${markerStyle(r).label}, ${r.status}`}
-              eventHandlers={{ click: () => navigate(`/incidents/${r.id}`) }}
+              eventHandlers={{
+                click: () => navigate(`/incidents/${r.id}`),
+                keydown: (event) => {
+                  const key = (event as L.LeafletKeyboardEvent).originalEvent;
+                  if (key.key !== 'Enter' && key.key !== ' ') return;
+                  L.DomEvent.stop(key);
+                  navigate(`/incidents/${r.id}`);
+                },
+              }}
             />
           ))}
         </MapContainer>

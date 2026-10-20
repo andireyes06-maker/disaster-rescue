@@ -1,3 +1,4 @@
+import MapTileNotice, { useMapTiles } from '../../components/MapTileNotice';
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -21,6 +22,7 @@ interface MapState {
 
 // Rounded areas only. The endpoint never returns an exact point, address, reporter, or photo.
 export default function PublicIncidentMap() {
+  const tiles = useMapTiles();
   const [state, setState] = useState<MapState>({ incidents: null, error: null, loading: true });
   const [attempt, setAttempt] = useState(0);
 
@@ -29,6 +31,7 @@ export default function PublicIncidentMap() {
     setState((s) => ({ ...s, loading: true, error: null }));
     api('/public/incidents')
       .then((res) => {
+        if (!res || !Array.isArray((res as { incidents?: unknown }).incidents)) throw new Error('Invalid incident map response');
         if (!cancelled) setState({ incidents: (res as { incidents: PublicIncident[] }).incidents, error: null, loading: false });
       })
       .catch((err) => {
@@ -58,9 +61,10 @@ export default function PublicIncidentMap() {
 
   const first = incidents[0].center;
   return (
-    <div className="public-map" aria-label="Incident areas (rounded)">
+    <div data-map-tile-surface className="public-map" aria-label="Incident areas (rounded)">
+      {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
       <MapContainer center={[first.lat, first.lng]} zoom={12} scrollWheelZoom={false} style={{ height: 320, width: '100%' }}>
-        <TileLayer attribution="&copy; OpenStreetMap contributors" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer key={tiles.key} eventHandlers={tiles.events} attribution="&copy; OpenStreetMap contributors" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {incidents.map((i, n) => (
           <Circle
             key={`${i.center.lat}-${i.center.lng}-${n}`}

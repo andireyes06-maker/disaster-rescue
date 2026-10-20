@@ -24,7 +24,7 @@ export function requireIdentity(verifyToken) {
     let d;
     try { d = await verifyToken(m[1]); } catch { return res.status(401).json({ error: 'invalid_token' }); }
     if (!d?.uid) return res.status(401).json({ error: 'invalid_token' });
-    req.user = { uid: d.uid, email: d.email ?? null };
+    req.user = { uid: d.uid, email: d.email ?? null, emailVerified: d.emailVerified === true };
     next();
   };
 }

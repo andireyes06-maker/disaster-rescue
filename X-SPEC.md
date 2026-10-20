@@ -1,7 +1,7 @@
 # X-SPEC: Web and Mobile-Based Disaster Rescue Reporting and Monitoring System
 
-Course: IT 305 Advance Web Development, BSIT 3J, Bulacan State University
-Build window: Oct 12 to 30, 2026. Submission: Nov 2, 2026.
+Product: Rescue Reports — incident reporting and response coordination
+Build window: Oct 12 to 30, 2026. Target completion: Nov 2, 2026.
 Status: APPROVED by Airen on 2026-10-15.
 
 ## 1. Goal and success criteria

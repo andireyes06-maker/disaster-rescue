@@ -13,7 +13,10 @@ vi.mock('firebase/auth', () => ({
   signInWithEmailAndPassword: (...a: unknown[]) => signIn(...a),
   signOut: (...a: unknown[]) => signOutFn(...a),
 }));
-vi.mock('../firebase', () => ({ getFirebaseAuth: () => ({}) }));
+vi.mock('../firebase-auth', () => ({ getFirebaseAuth: () => ({}) }));
+vi.mock('../firebase', () => ({ getFirebaseDb: () => ({}) }));
+// The profile listener has its own tests (AuthProfileSync.test.tsx). These tests cover the claims path only.
+vi.mock('firebase/firestore', () => ({ doc: () => ({}), onSnapshot: () => () => {} }));
 import { AuthProvider, useAuth } from './AuthProvider';
 
 function Probe() {

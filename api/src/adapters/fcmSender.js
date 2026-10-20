@@ -11,6 +11,7 @@ export function createFcmSender(messaging) {
   return {
     async send(tokens, { title, body, reportId }) {
       const failedTokens = [];
+      let retryNeeded = false;
       for (let i = 0; i < tokens.length; i += MAX_TOKENS_PER_CALL) {
         const batch = tokens.slice(i, i + MAX_TOKENS_PER_CALL);
         const res = await messaging.sendEachForMulticast({
@@ -20,8 +21,10 @@ export function createFcmSender(messaging) {
         });
         res.responses.forEach((r, idx) => {
           if (!r.success && DEAD_TOKEN_CODES.has(r.error?.code)) failedTokens.push(batch[idx]);
+          else if (!r.success) retryNeeded = true;
         });
       }
+      if (retryNeeded) throw new Error('Push delivery needs retry after a transient provider failure');
       return { failedTokens };
     },
   };

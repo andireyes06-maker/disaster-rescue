@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'package:disaster_rescue/data/report_models.dart';
+import 'package:disaster_rescue/data/api_client.dart';
+import 'package:disaster_rescue/auth/auth_repository.dart';
 import 'package:disaster_rescue/features/notifications/notifications_page.dart';
 import 'package:disaster_rescue/features/notifications/push_registration.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +54,32 @@ void main() {
     },
   );
 
+  testWidgets('read notifications still open their report without a second read write', (t) async {
+    await t.pumpWidget(env.host(const NotificationsPage(uid: 'u1')));
+    env.authRepo.events.add(const AuthUser(uid: 'u1', role: 'resident', active: true));
+    env.notifications.controller.add([note('read-note', read: true)]);
+    await t.pumpAndSettle();
+    await t.tap(find.text('New assignment'));await t.pump();
+    env.reports.controller.add([const ReportSummary(id:'r1',type:'flood',description:'Linked resident report',status:'Submitted')]);
+    await t.pumpAndSettle();
+    expect(find.text('Linked resident report'), findsOneWidget);
+    expect(env.notifications.marked, isEmpty);
+    env.authRepo.events.add(null);await t.pumpAndSettle();
+    expect(find.text('Linked resident report'), findsNothing);
+    expect(find.text('This report is not available.'), findsOneWidget);
+  });
+  testWidgets('closed responder notification is read-only and loses access on team change', (t) async {
+    await t.pumpWidget(env.host(const NotificationsPage(uid: 'u1')));
+    env.authRepo.events.add(const AuthUser(uid:'u1',role:'responder',team:'team-a',active:true));
+    env.notifications.controller.add([note('closed-note',read:false)]);await t.pumpAndSettle();
+    await t.tap(find.text('New assignment'));await t.pump();
+    env.responder.single.add(const AssignedReport(id:'r1',type:'flood',description:'Closed linked incident',status:'Closed',assignedTeamId:'team-a'));
+    await t.pumpAndSettle();expect(find.text('Closed linked incident'), findsOneWidget);
+    expect(find.text('Acknowledge'), findsNothing);expect(find.text('Add operation update'), findsNothing);
+    env.authRepo.events.add(const AuthUser(uid:'u1',role:'responder',team:'other-team',active:true));await t.pumpAndSettle();
+    expect(find.text('Closed linked incident'), findsNothing);
+  });
+
   group('PushRegistration', () {
     late FakeApi api;
     late FakePushMessaging messaging;
@@ -69,6 +98,30 @@ void main() {
       expect(api.calls.single.$1, 'POST');
       expect(api.calls.single.$2, '/devices');
       expect(api.calls.single.$3, {'token': 'tok-1'});
+    });
+
+    test('failed token refresh is caught, visible and retryable', () async {
+      await push.init();
+      api.sendError = const ApiException(503, 'unavailable', 'Try again');
+      messaging.refresh.add('tok-new');
+      await Future<void>.delayed(Duration.zero);
+      expect(push.registrationPending.value, isTrue);
+      api.sendError = null;
+      await push.retry();
+      expect(api.calls.last.$3, {'token': 'tok-new'});
+      expect(push.registrationPending.value, isFalse);
+      await push.unregister();
+    });
+
+    test('sign-out while permission is pending cannot register the next account', () async {
+      final permission = Completer<bool>(); messaging.permissionResult = permission.future;
+      final init = push.init(); await push.unregister(); permission.complete(true); await init;
+      expect(api.calls, isEmpty);
+    });
+    test('token acquisition failure is visible without escaping init', () async {
+      messaging.tokenError = StateError('provider unavailable');
+      await expectLater(push.init(), completes);
+      expect(push.registrationPending.value, isTrue); expect(api.calls, isEmpty);
     });
 
     test('a refreshed token is posted too', () async {

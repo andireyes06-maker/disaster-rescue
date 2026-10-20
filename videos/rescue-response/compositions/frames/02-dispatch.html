@@ -1,0 +1,93 @@
+<template>
+  <style>
+    @font-face{font-family:Geist;src:url('assets/geist.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:block}
+    #root{position:relative;width:100%;height:100%;overflow:hidden;container-type:size;font-family:Geist;color:#241747}
+    [data-dispatch]{box-sizing:border-box}
+    [class~="f02-dispatch-background"]{position:absolute;inset:0;background:#FFFFFF}
+    [class~="f02-dispatch-stage"]{position:absolute;inset:0}
+    [class~="f02-dispatch-header"]{position:absolute;left:96px;right:96px;top:58px;height:64px;display:flex;align-items:center;justify-content:space-between;font-size:28px;font-weight:600}
+    [class~="f02-dispatch-brand"]{display:flex;align-items:center;gap:14px}[class~="f02-dispatch-brand"] img{width:46px;height:46px}
+    [class~="f02-dispatch-phase"]{color:#625E73;font-size:25px;font-weight:450}
+    [class~="f02-dispatch-title"]{position:absolute;top:142px;left:96px;margin:0;font-size:74px;font-weight:570;line-height:1.12;letter-spacing:-2px}
+    [class~="f02-dispatch-panel"]{position:absolute;left:96px;top:280px;width:500px;height:610px;border:2px solid #E5E3ED;border-radius:24px;background:#FFFFFF;padding:36px}
+    [class~="f02-dispatch-label"]{margin:0 0 16px;font-size:29px;font-weight:550;line-height:1.35}
+    [class~="f02-dispatch-row"]{display:flex;gap:16px;align-items:center;padding-bottom:27px;border-bottom:1.5px solid #E5E3ED}
+    [class~="f02-dispatch-report-icon"]{width:52px;height:52px;border-radius:14px;background:#EFE8FF;display:grid;place-items:center;color:#6D28D9;flex:none}
+    [class~="f02-dispatch-report-title"]{font-size:30px;font-weight:600;margin-bottom:7px}[class~="f02-dispatch-small"]{font-size:25px;line-height:1.45;color:#625E73}
+    [class~="f02-dispatch-location"]{padding:26px 0;font-size:28px;line-height:1.35}
+    [class~="f02-dispatch-selection"]{padding:22px 24px;border:1.5px solid rgba(109,40,217,.2);border-radius:14px;background:rgba(109,40,217,.04);font-size:28px;line-height:1.4;display:flex;align-items:center;justify-content:space-between}
+    [class~="f02-dispatch-check"]{color:#6D28D9;font-size:29px}[class~="f02-dispatch-control"]{position:absolute;left:36px;right:36px;bottom:44px;height:78px;border-radius:12px;background:#6D28D9;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:29px;font-weight:550;transform-origin:50% 50%}
+    [class~="f02-dispatch-status"]{min-height:40px;margin-top:22px;color:#6D28D9;font-size:26px;line-height:1.4}
+    [class~="f02-dispatch-map"]{position:absolute;left:656px;top:280px;width:1168px;height:610px;border-radius:24px;overflow:hidden;background:#F5F3FC}
+    [class~="f02-dispatch-map-image"]{display:block;width:100%;height:100%;object-fit:cover}[class~="f02-dispatch-overlay"]{position:absolute;inset:0;width:1168px;height:610px}
+    [class~="f02-dispatch-route"]{fill:none;stroke:#6D28D9;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+    [class~="f02-dispatch-map-note"]{position:absolute;left:30px;bottom:28px;background:#FFFFFF;border-radius:14px;padding:18px 24px;font-size:27px;line-height:1.35}
+    [class~="f02-dispatch-footer"]{position:absolute;bottom:62px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:center;font-size:23px;color:#625E73}[class~="f02-dispatch-flow"]{display:flex;gap:28px;align-items:center}[class~="f02-dispatch-active"]{color:#6D28D9;font-weight:650}
+  
+    .f02-dispatch-title{font-size:88px;font-weight:600;letter-spacing:-3.5px;line-height:1.12;white-space:nowrap}
+    .promo-word{display:inline-block}
+    #f02-dispatch-camera{transform-origin:50% 52%}
+    #f02-promo-cursor{position:absolute;left:0;top:0;width:50px;height:60px;z-index:10;pointer-events:none}
+  </style>
+  <div data-hf-id="hf-duou" id="root" data-composition-id="02-dispatch" data-duration="5.5" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-hxlv" id="f02-dispatch-ground" class="clip f02-dispatch-background" data-start="0" data-duration="5.5" data-track-index="0"></div>
+    <div data-hf-id="hf-5ome" id="f02-dispatch-content" class="clip f02-dispatch-stage" data-start="0" data-duration="5.5" data-track-index="1" data-dispatch><div id="f02-dispatch-camera" style="position:absolute;inset:0">
+      <header data-hf-id="hf-dx0r" class="f02-dispatch-header"><div data-hf-id="hf-ttc1" class="f02-dispatch-brand"><img data-hf-id="hf-661n" src="assets/brand.svg" alt="">Rescue Reports</div><div data-hf-id="hf-uah0" class="f02-dispatch-phase">Dispatch / Coordinate</div></header>
+      <h1 data-hf-id="hf-ufd2" class="f02-dispatch-title"><span class="promo-word">Turn</span> <span class="promo-word">reports</span> <span class="promo-word">into</span> <span class="promo-word">action.</span></h1>
+      <section data-hf-id="hf-eqgi" class="f02-dispatch-panel" data-dispatch>
+        <div data-hf-id="hf-jx5c" class="f02-dispatch-row"><span data-hf-id="hf-3i8p" class="f02-dispatch-report-icon"><svg data-hf-id="hf-176h" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path data-hf-id="hf-30m7" d="M3 20Q7 15 11 20T19 20T27 20M3 26Q7 21 11 26T19 26T27 26M15 3L23 15H7Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div data-hf-id="hf-yeow"><div data-hf-id="hf-52e1" class="f02-dispatch-report-title">Flood report</div><div data-hf-id="hf-czjt" class="f02-dispatch-small">Reviewed by dispatch</div></div></div>
+        <div data-hf-id="hf-4o3x" class="f02-dispatch-location">Riverside District</div>
+        <div data-hf-id="hf-vb9m" id="f02-dispatch-selection" class="f02-dispatch-selection"><span data-hf-id="hf-2by1">Harbor Rescue Unit</span><span data-hf-id="hf-cw9i" class="f02-dispatch-check">✓</span></div>
+        <div data-hf-id="hf-feg2" id="f02-dispatch-status" class="f02-dispatch-status"></div>
+        <div data-hf-id="hf-it7f" id="f02-dispatch-button" class="f02-dispatch-control">Assign team</div>
+      </section>
+      <div data-hf-id="hf-uicm" class="f02-dispatch-map">
+        <img data-hf-id="hf-aw3p" class="f02-dispatch-map-image" src="assets/district-map.svg" alt="Illustrated district map">
+        <svg data-hf-id="hf-7484" class="f02-dispatch-overlay" viewBox="0 0 1168 610" aria-hidden="true">
+          <path data-hf-id="hf-gg4o" id="f02-dispatch-route" class="f02-dispatch-route" d="M454 365 L454 386 H865 V169"/>
+          <circle data-hf-id="hf-l8gc" cx="454" cy="365" r="18" fill="#6D28D9"/><circle data-hf-id="hf-dune" cx="454" cy="365" r="6" fill="#FFFFFF"/>
+          <g data-hf-id="hf-w8r2" id="f02-dispatch-team"><rect data-hf-id="hf-zdk1" x="843" y="147" width="44" height="44" rx="10" fill="#6D28D9"/><path data-hf-id="hf-fs5g" d="M861 156H869V165H878V173H869V182H861V173H852V165H861Z" fill="#FFFFFF"/></g>
+        </svg>
+        <div data-hf-id="hf-knb7" id="f02-dispatch-map-note" class="f02-dispatch-map-note">Team assigned</div>
+      </div>
+      <svg id="f02-promo-cursor" viewBox="0 0 50 60" aria-hidden="true"><path d="M5 4L5 46L17 35L27 55L37 50L27 31L44 30Z" fill="#241747" stroke="white" stroke-width="3" stroke-linejoin="round"/></svg>
+      <footer data-hf-id="hf-drrb" class="f02-dispatch-footer"><div data-hf-id="hf-l2sk" class="f02-dispatch-flow"><span data-hf-id="hf-jvm7">Report</span><span data-hf-id="hf-p70p">→</span><span data-hf-id="hf-zs8v" class="f02-dispatch-active">Coordinate</span><span data-hf-id="hf-v3ct">→</span><span data-hf-id="hf-xjnc">Stay informed</span></div><span data-hf-id="hf-qk5m">Rescue Reports · Response coordination</span></footer>
+    </div></div>
+  </div>
+  <script>
+    (()=>{
+      const tl=gsap.timeline({paused:true});
+      const el=id=>document.getElementById(id);
+      const route=document.getElementById('f02-dispatch-route');
+      const length=route.getTotalLength();
+      route.style.strokeDasharray=String(length);
+      route.style.strokeDashoffset=String(length);
+      tl.fromTo(el('f02-dispatch-selection'),{opacity:0,y:16},{opacity:1,y:0,duration:.45,ease:'power2.out'},1.5);
+      tl.fromTo(el('f02-dispatch-button'),{opacity:0,y:16},{opacity:1,y:0,duration:.4,ease:'power2.out'},1.75);
+      tl.to(el('f02-dispatch-button'),{scale:.94,duration:.2,ease:'none'},2.5);
+      tl.to(el('f02-dispatch-button'),{scale:1,duration:.5,ease:'back.out(1.4)'},2.7);
+      const content=[{title:'Assign team',body:'Harbor Rescue Unit',hold:.35},{title:'Team assigned',body:'Team assigned',hold:1.1}];
+      let cumulative=1.5;
+      const sequence=content.map(entry=>{const start=cumulative; cumulative+=.4+entry.body.length*.025+entry.hold;return {...entry,start,end:cumulative};});
+      const driver={time:0};let lastTitle='';
+      const button=document.getElementById('f02-dispatch-button');
+      const status=document.getElementById('f02-dispatch-status');
+      tl.to(driver,{time:5.5,duration:5.5,ease:'none',onUpdate:()=>{let entry=sequence[0];for(let i=sequence.length-1;i>=0;i--){if(driver.time>=sequence[i].start){entry=sequence[i];break;}}if(lastTitle!==entry.title){button.textContent=entry.title;status.textContent=entry.title==='Team assigned'?'Team assigned':'';lastTitle=entry.title;}}},0);
+      tl.fromTo(el('f02-dispatch-status'),{opacity:0,y:8},{opacity:1,y:0,duration:.4,ease:'power2.out'},2.7);
+      tl.fromTo(el('f02-dispatch-team'),{opacity:0},{opacity:1,duration:.3,ease:'power1.out'},3.3);
+      tl.fromTo(route,{strokeDashoffset:length},{strokeDashoffset:0,duration:1.25,ease:'none'},3.3);
+      tl.fromTo(el('f02-dispatch-map-note'),{opacity:0,y:10},{opacity:1,y:0,duration:.4,ease:'power1.out'},4.55);
+      window.__timelines=window.__timelines||{};window.__timelines['02-dispatch']=tl;
+
+      tl.fromTo('#f02-dispatch-camera',{scale:1},{scale:1.025,duration:1.8,ease:'power2.inOut'},0)
+        .to('#f02-dispatch-camera',{scale:1,duration:.8,ease:'power2.inOut'},4.7);
+      tl.fromTo('.f02-dispatch-title .promo-word',{opacity:0,y:28},{opacity:1,y:0,duration:.6,stagger:.075,ease:'power3.out'},.05);
+      tl.fromTo('[id="f02-promo-cursor"]',{opacity:0,x:650,y:570},{opacity:1,x:390,y:595,duration:.8,ease:'power3.inOut'},.7)
+        .to('[id="f02-promo-cursor"]',{x:350,y:807,duration:.7,ease:'power3.inOut'},1.65)
+        .to('[id="f02-promo-cursor"]',{scale:.82,duration:.2},2.5)
+        .to('[id="f02-promo-cursor"]',{scale:1,duration:.25,ease:'back.out(1.8)'},2.7)
+        .to('[id="f02-promo-cursor"]',{opacity:0,x:410,y:845,duration:.4},3.1);
+      window.__timelines['02-dispatch'] = tl;
+    })();
+  </script>
+</template>

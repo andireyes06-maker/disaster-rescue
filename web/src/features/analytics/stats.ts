@@ -39,5 +39,7 @@ export function toStats(data: unknown): Stats {
 }
 
 export async function fetchStats(query = ''): Promise<Stats> {
-  return toStats(await api(`/stats${query ? `?${query}` : ''}`));
+  const data = await api(`/stats${query ? `?${query}` : ''}`);
+  if (!isRecord(data) || !['total', 'open', 'resolved'].every(key => typeof data[key] === 'number' && Number.isFinite(data[key]) && data[key] >= 0) || !isRecord(data.byType) || !isRecord(data.byStatus) || !Array.isArray(data.perDay)) throw new Error('Invalid analytics response');
+  return toStats(data);
 }

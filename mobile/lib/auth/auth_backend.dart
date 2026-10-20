@@ -17,6 +17,7 @@ abstract class AuthBackend {
   Future<BackendUser> signIn(String email, String password);
   Future<BackendUser> createUser(String email, String password);
   Future<void> signOut();
+  Future<void> sendPasswordReset(String email);
 }
 
 class _FirebaseUser implements BackendUser {
@@ -77,6 +78,16 @@ class FirebaseAuthBackend implements AuthBackend {
 
   @override
   Future<void> signOut() => _auth.signOut();
+
+  @override
+  Future<void> sendPasswordReset(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email.trim());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') return;
+      throw AuthException(_map(e));
+    }
+  }
 
   AuthFailure _map(FirebaseAuthException e) {
     switch (e.code) {

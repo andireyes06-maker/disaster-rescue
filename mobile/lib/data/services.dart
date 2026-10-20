@@ -17,8 +17,9 @@ abstract class ReportsRepository {
 
   /// Live list of the signed-in resident's own reports. The query always
   /// filters on reporterId, which the Firestore rules require.
-  Stream<List<ReportSummary>> watchMyReports(String uid);
+  Stream<List<ReportSummary>> watchMyReports(String uid, {int windowSize = 50});
   Future<void> cancel(String id);
+  Stream<ReportSummary?> watchReport(String id);
 }
 
 class ApiReportsRepository implements ReportsRepository {
@@ -63,10 +64,11 @@ class ApiReportsRepository implements ReportsRepository {
   }
 
   @override
-  Stream<List<ReportSummary>> watchMyReports(String uid) {
+  Stream<List<ReportSummary>> watchMyReports(String uid, {int windowSize = 50}) {
     return _db
         .collection('reports')
         .where('reporterId', isEqualTo: uid)
+        .orderBy('createdAt', descending: true).limit(windowSize)
         .snapshots()
         .map(
           (snap) => sortNewestFirst(
@@ -87,6 +89,14 @@ class ApiReportsRepository implements ReportsRepository {
         )
         .asBroadcastStream();
   }
+
+  @override
+  Stream<ReportSummary?> watchReport(String id) => _db.collection('reports').doc(id).snapshots().map((doc) {
+    final data = doc.data();
+    if (data == null) return null;
+    final at = data['createdAt'];
+    return ReportSummary(id: doc.id, type: data['type'] as String? ?? 'other', description: data['description'] as String? ?? '', status: data['status'] as String? ?? 'Submitted', priority: data['priority'] as String?, reference: data['reference'] as String?, createdAt: at is Timestamp ? at.toDate() : null);
+  });
 
   @override
   Future<void> cancel(String id) async {
@@ -274,11 +284,15 @@ class FirestoreHotlineRepository implements HotlineRepository {
 abstract class ResponderRepository {
   /// Live list of reports assigned to [teamId]. The query has one equality
   /// filter; anything else is filtered in memory by the caller.
-  Stream<List<AssignedReport>> watchAssigned(String teamId);
+  Stream<List<AssignedReport>> watchAssigned(String teamId, {int windowSize = 50});
+  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId);
   /// Live state of one report. Emits null when the record no longer exists, and errors when access is refused.
   Stream<AssignedReport?> watchReport(String id);
+  /// Newest progress entries first, at most [limit]. Acknowledgements are not included. Errors when access is refused.
+  Stream<List<ProgressEntry>> watchUpdates(String id, {int limit = 20});
   Future<void> acknowledge(String id);
-  Future<void> postUpdate(String id, OperationUpdate update);
+  /// [idempotencyKey] makes a retried update replay the first result instead of recording it again.
+  Future<void> postUpdate(String id, OperationUpdate update, {String? idempotencyKey});
 }
 
 class ApiResponderRepository implements ResponderRepository {
@@ -287,10 +301,13 @@ class ApiResponderRepository implements ResponderRepository {
   final FirebaseFirestore _db;
 
   @override
-  Stream<List<AssignedReport>> watchAssigned(String teamId) {
+  Stream<List<AssignedReport>> watchAssigned(String teamId, {int windowSize = 50}) {
     return _db
         .collection('reports')
         .where('assignedTeamId', isEqualTo: teamId)
+        .where('status', whereIn: const ['Team Assigned', 'Rescue in Progress'])
+        .orderBy('createdAt', descending: true)
+        .limit(50)
         .snapshots()
         .map(
           (snap) => snap.docs.map((d) {
@@ -298,6 +315,13 @@ class ApiResponderRepository implements ResponderRepository {
           }).toList(),
         );
   }
+
+  @override
+  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) => _db.collection('reports')
+    .where('assignedTeamId', isEqualTo: teamId)
+    .where('status', whereIn: historyStatuses)
+    .orderBy('updatedAt', descending: true).limit(10).snapshots()
+    .map((snap) => snap.docs.map((d) => _assignedFrom(d.id, d.data())).toList());
 
   @override
   Stream<AssignedReport?> watchReport(String id) {
@@ -308,15 +332,32 @@ class ApiResponderRepository implements ResponderRepository {
   }
 
   @override
+  Stream<List<ProgressEntry>> watchUpdates(String id, {int limit = 20}) {
+    return _db
+        .collection('reports')
+        .doc(id)
+        .collection('updates')
+        .orderBy('at', descending: true)
+        .limit(limit)
+        .snapshots()
+        // Acknowledgements share this subcollection but carry no status. They are not progress entries.
+        .map((snap) => snap.docs
+            .map((d) => ProgressEntry.fromMap(d.id, d.data()))
+            .whereType<ProgressEntry>()
+            .toList());
+  }
+
+  @override
   Future<void> acknowledge(String id) async {
     await _api.send('POST', '/reports/$id/acknowledge');
   }
 
   @override
-  Future<void> postUpdate(String id, OperationUpdate update) async {
+  Future<void> postUpdate(String id, OperationUpdate update, {String? idempotencyKey}) async {
     await _api.send(
       'POST',
       '/reports/$id/updates',
+      headers: {'Idempotency-Key': ?idempotencyKey},
       body: {
         'status': update.status,
         'peopleRescued': update.peopleRescued,
@@ -326,11 +367,43 @@ class ApiResponderRepository implements ResponderRepository {
   }
 }
 
+/// One progress entry on a report, as the responder history shows it.
+class ProgressEntry {
+  const ProgressEntry({
+    required this.id,
+    required this.status,
+    required this.peopleRescued,
+    this.note = '',
+    this.at,
+  });
+
+  final String id;
+  final String status;
+  final int peopleRescued;
+  final String note;
+  final DateTime? at;
+
+  /// Null for records without a status (acknowledgements), so they are left out of the history.
+  static ProgressEntry? fromMap(String id, Map<String, dynamic> data) {
+    final status = data['status'];
+    if (status is! String || status.isEmpty) return null;
+    final rescued = data['peopleRescued'];
+    final at = data['at'];
+    return ProgressEntry(
+      id: id,
+      status: status,
+      peopleRescued: rescued is int ? rescued : 0,
+      note: data['note'] is String ? data['note'] as String : '',
+      at: at is Timestamp ? at.toDate() : null,
+    );
+  }
+}
+
 // ---------- Notifications ----------
 
 abstract class NotificationsRepository {
   /// Live list of notifications addressed to [uid], newest first.
-  Stream<List<AppNotification>> watch(String uid);
+  Stream<List<AppNotification>> watch(String uid, {int windowSize = 50});
   Future<void> markRead(String id);
 }
 
@@ -340,10 +413,11 @@ class ApiNotificationsRepository implements NotificationsRepository {
   final FirebaseFirestore _db;
 
   @override
-  Stream<List<AppNotification>> watch(String uid) {
+  Stream<List<AppNotification>> watch(String uid, {int windowSize = 50}) {
     return _db
         .collection('notifications')
         .where('recipientUid', isEqualTo: uid)
+        .orderBy('createdAt', descending: true).limit(windowSize)
         .snapshots()
         .map((snap) {
           final list = snap.docs.map((d) {

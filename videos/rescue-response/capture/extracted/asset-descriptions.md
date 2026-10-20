@@ -1,0 +1,1 @@
+No website capture was requested: supplied local source and accepted illustrative-video brief are the design input. Assets: local Geist variable font and existing geometric Rescue Reports cross mark. No fetched media.

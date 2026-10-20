@@ -31,6 +31,16 @@ function show(teams = TEAMS) {
 describe('AssignTeamDialog', () => {
   beforeEach(() => { h.api.mockReset(); });
 
+  it('does not fetch teams while closed and loads them when opened', async () => {
+    h.api.mockResolvedValue(TEAMS);
+    const view = render(<AssignTeamDialog open={false} reportId="r1" onClose={vi.fn()} />);
+    expect(h.api).not.toHaveBeenCalled();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    view.rerender(<AssignTeamDialog open reportId="r1" onClose={vi.fn()} />);
+    expect(await screen.findByRole('combobox', { name: /rescue team/i })).toBeInTheDocument();
+    expect(h.api).toHaveBeenCalledWith('/teams');
+  });
+
   it('lists only non-busy teams', async () => {
     show();
     const select = await screen.findByRole('combobox', { name: /rescue team/i });
@@ -56,6 +66,8 @@ describe('AssignTeamDialog', () => {
     (select as HTMLSelectElement).value = teamId;
     await userEvent.click(screen.getByRole('button', { name: /assign team/i }));
     expect(screen.getByRole('alert')).toHaveTextContent(/choose a free rescue team/i);
+    expect(select).toHaveAttribute('aria-invalid', 'true');
+    expect(select).toHaveAttribute('aria-describedby', 'assign-error');
     expect(h.api).not.toHaveBeenCalledWith('/reports/r1/assign', expect.anything());
   });
 

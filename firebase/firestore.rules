@@ -55,7 +55,7 @@ service cloud.firestore {
     }
 
     match /auditLogs/{id} {
-      allow read: if isStaff();
+      allow read: if isActive() && (role() == 'dispatcher' || role() == 'admin');
       allow write: if false;
     }
 
@@ -64,9 +64,23 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Demo indicator: tells every active screen that the workspace shows sample data. Written only by the demo seed.
+    match /config/demo {
+      allow read: if isActive();
+      allow write: if false;
+    }
+
     match /devices/{token} {
       allow read, write: if false;
     }
+
+    // Photo cleanup ledger: upload ids and states only. Server-only (Admin SDK), never readable by any client role.
+    match /photoAssets/{id} {
+      allow read, write: if false;
+    }
+
+    // Durable operational recovery plans are server-only.
+    match /mutationEffects/{id} { allow read, write: if false; }
 
     match /{document=**} {
       allow read, write: if false;

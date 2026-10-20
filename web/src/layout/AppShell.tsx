@@ -3,6 +3,8 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, ClipboardList, Settings, type LucideIcon } from 'lucide-react';
 import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
+import Brand from '../components/Brand';
+import NotificationBell from '../features/resident/NotificationBell';
 
 interface NavItem {
   to: string;
@@ -33,7 +35,6 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
     { to: '/audit', label: 'Audit', icon: History },
     { to: '/teams', label: 'Teams', icon: ShieldCheck },
     { to: '/users', label: 'Users', icon: Users },
-    { to: '/assignments', label: 'Assignments', icon: ClipboardList },
     { to: '/admin', label: 'Admin', icon: Settings },
   ],
 };
@@ -67,7 +68,7 @@ export default function AppShell({ title, children }: AppShellProps) {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <aside className={`shell__side${menuOpen ? ' is-open' : ''}`}>
         <div className="shell__sidehead">
-          <p className="shell__brand">Rescue Reports<span>Response coordination</span></p>
+          <div className="shell__brand"><Brand /><small>Response coordination</small></div>
           <button
             type="button"
             className="shell__menu-toggle"
@@ -94,6 +95,8 @@ export default function AppShell({ title, children }: AppShellProps) {
         <header className="shell__top">
           <span className="shell__section">Response coordination / {title}</span>
           <div className="shell__account">
+          {user && <NotificationBell key={user.uid} uid={user.uid} reportHref={(id) => role === 'responder' ? `/assignments/${encodeURIComponent(id)}` : `/incidents/${encodeURIComponent(id)}`} />}
+          <span className="account-avatar" aria-hidden="true">{(user?.displayName || user?.email || 'R').slice(0, 1).toUpperCase()}</span>
           <span>{user?.displayName || user?.email} ({role})</span>
           <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>
           </div>

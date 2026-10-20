@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-vi.mock('../firebase', () => ({ getFirebaseAuth: () => ({ currentUser: null }) }));
+vi.mock('../firebase-auth', () => ({ getFirebaseAuth: () => ({ currentUser: null }) }));
 import { api, ApiError } from './client';
 
 // The fields these tests read from the fetch init. Headers are always a plain record in this app.
@@ -18,7 +18,21 @@ function mockFetch(status: number, body: unknown, isJson = true) {
 }
 
 describe('api()', () => {
-  beforeEach(() => vi.restoreAllMocks());
+  beforeEach(() => {
+    vi.restoreAllMocks();
+    vi.stubEnv('VITE_API_BASE_URL', 'http://api.test/api');
+  });
+  afterEach(() => vi.unstubAllEnvs());
+
+  it('refuses to send a request when VITE_API_BASE_URL is missing, with no localhost fallback', async () => {
+    vi.stubEnv('VITE_API_BASE_URL', '');
+    mockFetch(200, {});
+    const err = await api('/reports', { getToken }).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(ApiError);
+    expect(err).toMatchObject({ status: 0, code: 'config' });
+    expect((err as Error).message).toMatch(/VITE_API_BASE_URL is not set/);
+    expect(fetch).not.toHaveBeenCalled();
+  });
 
   it('adds the Bearer header and sends a JSON body', async () => {
     mockFetch(200, { ok: true });

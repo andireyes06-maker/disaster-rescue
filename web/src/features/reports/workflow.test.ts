@@ -24,6 +24,11 @@ describe('workflow predicates', () => {
     expect(nextStep({ status: 'Closed' }).action).toBeNull();
   });
 
+  it('does not describe assignment alone as a rescue already in progress', () => {
+    expect(nextStep({ status: 'Team Assigned' }).title).toBe('Team assigned');
+    expect(nextStep({ status: 'Rescue in Progress' }).title).toBe('Rescue in progress');
+  });
+
   it('offers close for a resolved report and frees the team with it', () => {
     expect(nextStep({ status: 'Resolved' }).action).toBe('close');
   });

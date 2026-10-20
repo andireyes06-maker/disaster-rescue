@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../../data/report_models.dart';
 import '../../data/services.dart';
+import '../report/submission_result_page.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/product_widgets.dart';
 
 const offlineInstructions =
     'Call the hotline, or send an SMS to your local disaster office, then try again when you have a signal.';
@@ -11,37 +13,62 @@ const offlineInstructions =
 /// Shown when a report cannot be sent for lack of a connection. Pops with
 /// true when the user asks to try again.
 class OfflineHelpPage extends StatefulWidget {
-  const OfflineHelpPage({super.key});
+  const OfflineHelpPage({
+    super.key,
+    this.draftNotSaved = false,
+    this.warningNotSaved = false,
+  });
+
+  /// Set when this phone could not save the draft or the warning. The page then names only that item
+  /// and does not say the report was saved on the phone.
+  final bool draftNotSaved;
+  final bool warningNotSaved;
 
   @override
   State<OfflineHelpPage> createState() => _OfflineHelpPageState();
 }
 
 class _OfflineHelpPageState extends State<OfflineHelpPage> {
-  late final Future<List<Hotline>> _hotlines = context.read<HotlineRepository>().load();
+  late final Future<List<Hotline>> _hotlines = context
+      .read<HotlineRepository>()
+      .load();
 
   @override
   Widget build(BuildContext context) {
     final dialer = context.read<PhoneDialer>();
     return Scaffold(
       appBar: AppBar(title: const Text('No connection')),
-      body: SafeArea(
+      body: ProductViewport(
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
+            const ProductIntro(
+              title: 'Your report is still here.',
+              description:
+                  'Reconnect to send it, or use another way to reach your local response team.',
+              icon: Icons.wifi_off_outlined,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(Icons.wifi_off, size: 32),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text('We could not confirm that your report reached us.',
-                      style: Theme.of(context).textTheme.titleLarge),
+                  child: Text(
+                    'We could not confirm that your report reached us.',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            const Text('We saved it on this phone so you do not have to type it again. Tap Try again to send it. The app uses the same submission key, so a report that did reach us is not sent twice.'),
+            Text(
+              storageFailureCopy(
+                    draftNotSaved: widget.draftNotSaved,
+                    warningNotSaved: widget.warningNotSaved,
+                  ) ??
+                  'We saved it on this phone so you do not have to type it again. Tap Try again to send it. The app uses the same submission key, so a report that did reach us is not sent twice.',
+            ),
             const SizedBox(height: 16),
             const Text(offlineInstructions),
             const SizedBox(height: 20),
@@ -55,7 +82,9 @@ class _OfflineHelpPageState extends State<OfflineHelpPage> {
                 }
                 final list = snap.data ?? const [];
                 if (list.isEmpty) {
-                  return const Text('No hotline numbers are saved on this phone. Call your local emergency number.');
+                  return const Text(
+                    'No hotline numbers are saved on this phone. Call your local emergency number.',
+                  );
                 }
                 return Column(
                   children: [
@@ -69,7 +98,12 @@ class _OfflineHelpPageState extends State<OfflineHelpPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(h.label, style: const TextStyle(fontWeight: FontWeight.w600)),
+                                    Text(
+                                      h.label,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                                     Text(h.number),
                                   ],
                                 ),
@@ -96,7 +130,10 @@ class _OfflineHelpPageState extends State<OfflineHelpPage> {
             const SizedBox(height: 8),
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Back to my report', style: TextStyle(color: AppColors.primary)),
+              child: const Text(
+                'Back to my report',
+                style: TextStyle(color: AppColors.primary),
+              ),
             ),
           ],
         ),

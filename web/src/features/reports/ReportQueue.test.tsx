@@ -33,7 +33,7 @@ describe('ReportQueue', () => {
   it('shows the empty state', () => {
     h.role = 'dispatcher';
     show([]);
-    expect(screen.getByText(/no reports match/i)).toBeInTheDocument();
+    expect(screen.getByText(/no reports received yet/i)).toBeInTheDocument();
   });
 
   it('shows an error and no empty state when the listener failed', () => {
@@ -182,4 +182,15 @@ describe('ReportQueue', () => {
     expect(within(inbox()).getByText('Flood A')).toBeInTheDocument();
     expect(within(inbox()).queryByText('Fire B')).toBeNull();
   });
+  it('clears a search with no matches and returns focus to search', async () => {
+    show(data());
+    const search = screen.getByRole('searchbox', { name: 'Search incidents' });
+    await userEvent.type(search, 'nothing-matches-this');
+    expect(screen.getByText('No reports match this view')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Clear search and filters' }));
+    expect(search).toHaveValue('');
+    expect(search).toHaveFocus();
+    expect(within(inbox()).getAllByRole('button')).toHaveLength(2);
+  });
+
 });

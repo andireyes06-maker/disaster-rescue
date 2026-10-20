@@ -41,11 +41,17 @@ class ApiClient {
     throw const ApiException(0, 'auth', 'You are signed out. Please log in again.');
   }
 
-  Future<Map<String, dynamic>?> send(String method, String path, {Map<String, dynamic>? body}) async {
+  Future<Map<String, dynamic>?> send(
+    String method,
+    String path, {
+    Map<String, dynamic>? body,
+    Map<String, String> headers = const {},
+  }) async {
     final token = await _token();
     final req = http.Request(method, _uri(path))
       ..headers['Authorization'] = 'Bearer $token'
-      ..headers['Accept'] = 'application/json';
+      ..headers['Accept'] = 'application/json'
+      ..headers.addAll(headers);
     if (body != null) {
       req.headers['Content-Type'] = 'application/json';
       req.body = jsonEncode(body);
@@ -103,7 +109,7 @@ class ApiClient {
           msg is String && msg.isNotEmpty ? msg : 'The request failed (${res.statusCode}).',
         );
       }
-      throw ApiException(res.statusCode, 'http_error', 'Something went wrong (${res.statusCode}). Please try again.');
+      throw ApiException(res.statusCode, 'http_error', 'The service could not complete this request. Please try again.');
     }
     if (res.statusCode == 204 || text.isEmpty) return null;
     if (!isJson) {

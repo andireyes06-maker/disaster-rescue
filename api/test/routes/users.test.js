@@ -45,8 +45,10 @@ describe('POST /api/users (dispatcher creates staff)', () => {
 describe('GET /api/users', () => {
   it('dispatcher and admin can list; responder gets 403', async () => {
     const t = makeTestApp();
-    await makeStaff(t);
-    expect((await request(t.app).get('/api/users').set('Authorization', t.as('dispatcher'))).body).toHaveLength(1);
+    const uid = await makeStaff(t);
+    // The caller's own users document is also listed, so check for the new account rather than a count.
+    const list = (await request(t.app).get('/api/users').set('Authorization', t.as('dispatcher'))).body;
+    expect(list.map((u) => u.uid)).toContain(uid);
     expect((await request(t.app).get('/api/users').set('Authorization', t.as('admin'))).status).toBe(200);
     expect((await request(t.app).get('/api/users').set('Authorization', t.as('responder'))).status).toBe(403);
   });

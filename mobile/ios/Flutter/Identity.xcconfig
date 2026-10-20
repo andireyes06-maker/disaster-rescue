@@ -1,0 +1,2 @@
+// Development identifier only. Override with a service-owned RESCUE_BUNDLE_ID for release.
+RESCUE_BUNDLE_ID = local.rescuereports.app

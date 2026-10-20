@@ -1,5 +1,6 @@
+import { randomUUID } from 'node:crypto';
 import { HttpError } from '../errors.js';
-import { record } from './auditService.js';
+import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js';
 import { PHONE_RE, sanitizeText } from '../domain/validation.js';
 
 const STAFF_ROLES = ['resident', 'responder', 'dispatcher', 'dmo'];
@@ -13,16 +14,6 @@ const cleanName = (v) => {
   if (!n || n.length > 100) throw badName();
   return n;
 };
-
-// Dispatcher creates staff. Dispatchers may never create admins.
-// Account changes are audited by actor and target. Passwords, tokens, and contact details are never recorded.
-async function auditAccount(repo, caller, action, target, after, before) {
-  try {
-    await record(repo, { actorUid: caller?.uid ?? null, action, reportId: undefined, before: before ?? undefined, after: { target: target.uid, ...after } });
-  } catch (e) {
-    console.error('account audit write failed', e);
-  }
-}
 
 export async function createStaff({ repo, auth }, body, caller = { role: 'dispatcher' }) {
   const email = typeof body?.email === 'string' ? body.email.trim() : '';
@@ -44,15 +35,30 @@ export async function createStaff({ repo, auth }, body, caller = { role: 'dispat
     throw e;
   }
   const { uid } = account;
+  const provisioningId = randomUUID();
+  const effects = mutationEffects([{ actorUid: caller.uid, action: 'user.create', after: { target: uid, role, active: true, team } }]);
   try {
-    await repo.createUser(uid, { name, email, role, team, active: true, createdAt: new Date() });
+    await repo.createUser(uid, { name, email, role, team, active: false, provisioningId, createdAt: new Date() });
     await auth.setCustomUserClaims(uid, { role, active: true, ...(team ? { team } : {}) });
+    if (!(await repo.completeUserProvisioning(uid, provisioningId, effects))) {
+      throw new HttpError(409, 'provisioning_changed', 'Account setup changed. Reload before trying again.');
+    }
   } catch (e) {
-    // Do not leave an account that has no matching users doc or claims.
-    try { await auth.deleteUser(uid); } catch (de) { console.error('orphan account cleanup failed', de); }
-    throw e;
+    // A completion can commit even if its reply is lost. Never delete Auth until
+    // the canonical marker proves this attempt is still incomplete.
+    let state;
+    try { state = await repo.getUser(uid); }
+    catch { throw new HttpError(503, 'provisioning_uncertain', 'Could not confirm account setup. Refresh Accounts before trying again.'); }
+    if (state?.provisioningCompletedId !== provisioningId) {
+      if (state && (state.provisioningId !== provisioningId || state.active !== false)) {
+        throw new HttpError(503, 'provisioning_uncertain', 'Account setup changed. Refresh Accounts before trying again.');
+      }
+      try { await auth.deleteUser(uid); await repo.discardUserProvisioning(uid, provisioningId); }
+      catch (de) { console.error('inactive provisioning cleanup pending', de?.code ?? de?.name ?? 'Error'); }
+      throw e;
+    }
   }
-  await auditAccount(repo, caller, 'user.create', { uid }, { role, active: true, team });
+  await tryMutationEffects({ repo }, effects);
   return { uid, role, team };
 }
 
@@ -60,18 +66,25 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   const isAdmin = caller.role === 'admin';
   const user = await repo.getUser(id);
   if (!user) throw new HttpError(404, 'not_found', 'User not found');
+  if (user.provisioningId) throw new HttpError(409, 'account_provisioning', 'Account setup has not finished.');
   // Dispatchers cannot touch admins. Nobody can change their own account, so nobody can lock themselves out.
   if (user.role === 'admin' && !isAdmin) throw new HttpError(403, 'forbidden', 'Dispatchers cannot modify admins');
   if (id === caller.uid) throw new HttpError(403, 'forbidden', 'You cannot change your own account');
   const hasRole = body?.role !== undefined;
   const hasActive = body?.active !== undefined;
-  if (!hasRole && !hasActive) throw new HttpError(400, 'nothing_to_update', 'Send role and/or active');
+  const hasTeam = body?.team !== undefined;
+  if (!hasRole && !hasActive && !hasTeam) throw new HttpError(400, 'nothing_to_update', 'Send role, active, and/or team');
   if (hasRole && body.role === 'admin' && !isAdmin) throw new HttpError(400, 'role_not_allowed', 'Dispatchers cannot assign admins');
   if (hasRole && !(isAdmin ? ADMIN_ROLES : STAFF_ROLES).includes(body.role)) throw new HttpError(400, 'invalid_role', 'Unknown role');
   if (hasActive && typeof body.active !== 'boolean') throw new HttpError(400, 'invalid_active', 'active must be true or false');
+  // A team is an existing team id, or null to remove the account from its team. The same rule as creation applies.
+  if (hasTeam && body.team !== null && (typeof body.team !== 'string' || !(await repo.getTeam(body.team)))) {
+    throw new HttpError(400, 'invalid_team', 'Team does not exist');
+  }
 
   const role = hasRole ? body.role : user.role;
   const active = hasActive ? body.active : user.active === true;
+  const team = hasTeam ? body.team : (user.team ?? null);
 
   // Every decision that depends on the target's current state is made inside the same transaction that
   // writes it. The guard receives the target and the other active admins as read in that transaction (review).
@@ -81,15 +94,16 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
     if (!target) return 'not_found';
     const targetActive = target.active === true;
     if (target.role === 'admin' && !isAdmin) return 'forbidden';
-    if (target.role !== user.role || targetActive !== (user.active === true)) return 'changed';
+    if (target.role !== user.role || targetActive !== (user.active === true) || (target.team ?? null) !== (user.team ?? null)) return 'changed';
     const removesAdmin = target.role === 'admin' && targetActive && (role !== 'admin' || !active);
     if (removesAdmin && otherActiveAdmins.length === 0) return 'last_admin';
-    prior = { role: target.role, active: targetActive, authSyncPending: target.authSyncPending === true };
+    prior = { role: target.role, active: targetActive, team: target.team ?? null, authSyncPending: target.authSyncPending === true };
     return null;
   };
   // The users document is canonical: rules read it, so the old access stops here first. Auth follows.
   // authSyncPending stays true until Auth is updated; a retry of the same change completes it.
-  const result = await repo.setStaffGuarded(id, { role, active, authSyncPending: true }, guard);
+  const effects = mutationEffects([{ actorUid: caller.uid, action: 'user.update', before: { role: user.role, active: user.active === true, team: user.team ?? null }, after: { target: id, role, active, team } }]);
+  const result = await repo.setStaffGuarded(id, { role, active, team, authSyncPending: true }, guard, effects);
   if (!result.ok) {
     const refused = {
       not_found: [404, 'not_found', 'User not found'],
@@ -100,11 +114,11 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
     throw new HttpError(refused[0], refused[1], refused[2]);
   }
   // Recorded as soon as the canonical change commits, so a later Auth failure is still visible in the log.
-  await auditAccount(repo, caller, 'user.update', { uid: id }, { role, active }, { role: prior.role, active: prior.active });
+  await tryMutationEffects({ repo }, effects);
 
   // Claims are never cleared. Deactivation keeps the role and sets active:false.
   const claims = active
-    ? { role, active: true, ...(user.team ? { team: user.team } : {}) }
+    ? { role, active: true, ...(team ? { team } : {}) }
     : { role, active: false };
   await auth.setCustomUserClaims(id, claims);
   // Revoke on deactivation, on any role change, and whenever an earlier Auth step failed. The last case matters:
@@ -113,8 +127,8 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   await auth.updateUser(id, { disabled: !active });
   await repo.updateUser(id, { authSyncPending: false });
   // A deactivated account must stop receiving pushes, so its device tokens go too.
-  if (!active) for (const token of await repo.listDevices(id)) await repo.removeDevice(token);
-  return { uid: id, role, active };
+  if (!active) for (const token of await repo.listDevices(id)) await repo.removeDeviceOwned(id, token);
+  return { uid: id, role, active, team };
 }
 
 // Any signed-in account with no staff claims becomes a resident. A disabled account or
@@ -136,9 +150,16 @@ export async function registerSelf({ repo, auth }, identity, body) {
     phone = body.phone.trim();
   }
 
+  // The email comes from the verified Firebase token, never from the request body, so admins can find the account by it.
+  const contact = typeof identity.email === 'string' && identity.email
+    ? { email: identity.email, emailVerified: identity.emailVerified === true }
+    : {};
+
   const existing = await repo.getUser(uid);
   if (existing) {
     if (existing.role === 'resident' && existing.active === true) {
+      // Accounts made before this field existed get their verified email on the next sign-in.
+      if (contact.email && existing.email !== contact.email) await repo.updateUser(uid, contact);
       await auth.setCustomUserClaims(uid, { role: 'resident', active: true });
       return { created: false, uid, role: 'resident' };
     }
@@ -146,7 +167,7 @@ export async function registerSelf({ repo, auth }, identity, body) {
     throw new HttpError(409, 'account_conflict', 'This account already has a different role');
   }
 
-  await repo.createUser(uid, { name, phone, role: 'resident', active: true, createdAt: new Date() });
+  await repo.createUser(uid, { name, phone, ...contact, role: 'resident', active: true, createdAt: new Date() });
   await auth.setCustomUserClaims(uid, { role: 'resident', active: true });
   return { created: true, uid, role: 'resident' };
 }
