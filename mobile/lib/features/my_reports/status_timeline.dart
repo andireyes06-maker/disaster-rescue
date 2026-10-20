@@ -38,7 +38,9 @@ class StatusTimeline extends StatelessWidget {
           _Step(
             key: Key('timeline-${workflowStatuses[i]}'),
             status: workflowStatuses[i],
-            marker: i < current ? 'Done' : (i == current ? 'Current' : 'Pending'),
+            marker: i < current
+                ? 'Done'
+                : (i == current ? 'Current' : 'Pending'),
             last: i == workflowStatuses.length - 1,
           ),
       ],
@@ -58,7 +60,12 @@ class StatusTimeline extends StatelessWidget {
 }
 
 class _Step extends StatelessWidget {
-  const _Step({super.key, required this.status, required this.marker, required this.last});
+  const _Step({
+    super.key,
+    required this.status,
+    required this.marker,
+    required this.last,
+  });
   final String status;
   final String marker;
   final bool last;
@@ -69,8 +76,8 @@ class _Step extends StatelessWidget {
     final done = marker == 'Done';
     final style = StatusStyle.of(status);
     final dotIcon = done
-        ? Icons.check_circle
-        : (isCurrent ? Icons.radio_button_checked : Icons.radio_button_unchecked);
+        ? Icons.check_rounded
+        : (isCurrent ? style.icon : Icons.circle_outlined);
     final color = done || isCurrent ? AppColors.primary : AppColors.muted;
     return Semantics(
       label: 'Status $status, $marker',
@@ -83,8 +90,34 @@ class _Step extends StatelessWidget {
               width: 32,
               child: Column(
                 children: [
-                  Icon(dotIcon, color: color, size: 24),
-                  if (!last) Expanded(child: Container(width: 2, color: done ? AppColors.primary : AppColors.muted.withValues(alpha: 0.4))),
+                  Container(
+                    width: 28,
+                    height: 28,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: isCurrent
+                          ? AppColors.primary
+                          : (done ? AppColors.primarySoft : AppColors.surface),
+                      shape: BoxShape.circle,
+                      border: isCurrent || done
+                          ? null
+                          : Border.all(color: AppColors.border),
+                    ),
+                    child: Icon(
+                      dotIcon,
+                      color: isCurrent ? Colors.white : color,
+                      size: isCurrent || done ? 16 : 10,
+                    ),
+                  ),
+                  if (!last)
+                    Expanded(
+                      child: Container(
+                        width: 2,
+                        color: done
+                            ? AppColors.primary
+                            : AppColors.muted.withValues(alpha: 0.4),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -97,22 +130,36 @@ class _Step extends StatelessWidget {
                   spacing: 8,
                   runSpacing: 2,
                   children: [
-                    Icon(style.icon, size: 18, color: color),
-                    Text(status,
-                        style: TextStyle(
-                            fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500,
-                            color: isCurrent || done ? AppColors.text : AppColors.muted)),
+                    Text(
+                      status,
+                      style: TextStyle(
+                        fontWeight: isCurrent
+                            ? FontWeight.w700
+                            : FontWeight.w500,
+                        color: isCurrent || done
+                            ? AppColors.text
+                            : AppColors.muted,
+                      ),
+                    ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
-                        color: isCurrent ? AppColors.primary : AppColors.primarySoft,
+                        color: isCurrent
+                            ? AppColors.primary
+                            : AppColors.primarySoft,
                         borderRadius: BorderRadius.circular(AppRadius.md),
                       ),
-                      child: Text(marker,
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: isCurrent ? Colors.white : AppColors.text)),
+                      child: Text(
+                        marker,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: isCurrent ? Colors.white : AppColors.muted,
+                        ),
+                      ),
                     ),
                   ],
                 ),

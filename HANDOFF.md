@@ -1,32 +1,28 @@
-# Release handoff, 20 October 2026
+# Current handoff, 20 October 2026
 
-Authoritative tree: `/private/tmp/rescue-release-integration-2026-10-18`, branch `integration/redesign-functional-2026-10-18`. Preserve other sessions' work. Do not overwrite this source from the older product tree.
+## Active Flutter redesign
+Authoritative source: `/private/tmp/rescue-release-integration-2026-10-18`, branch `design/flutter-harbor-2026-10-20`, base `8ef9a4c`. The reviewed redesign is checkpointed on this design branch; submission preparation continues here. Preserve other sessions and the older project tree.
 
-## Current status (20 Oct 2026, Flutter finish)
-- Web/API were deployed at b834c03 before this publication. Current source is committed in release PR #1: https://github.com/andireyes06-maker/disaster-rescue/pull/1 . Its merge status and resulting commit are authoritative; earlier no-commit statements describe historical passes.
-- Flutter now has a public welcome, resident notification bell, bounded detail/notification layouts and finite route/tab/error motion. Residents/responders remain native; staff/admin remain web.
-- Final analysis is clean, 219 Flutter tests pass, all 15 golden checksums verify without regeneration. Chrome debug and Android debug builds succeed. Chrome visual reviewer scored its desktop-notification fix resolved; native hardware remains unverified.
-- User-guide PowerPoint, source screenshots/generator, schema, video script and supporting silent preview are in docs/. Actual group narration/contributions and Office rendering review remain owner work.
-- Flutter product checkpoint: 6734ccc. Publish to the existing default branch build/disaster-rescue. Keep the integration branch because it owns this live worktree. No signed native/store release is implied by a source merge.
-- Start with durable DEFAULT-BRANCH-RELEASE-2026-10-20.md, then FLUTTER-FINISH-2026-10-20.md and the current recovery manifest. Earlier 777/787 recovery records are historical; current scope is 805 paths.
+Owner selected **light workspace, dark header**, retaining purple/harbor branding. Residents and responders remain native; staff/admin remain web. No new native staff workspaces.
 
-## Production release
-The user requested a direct release instead of waiting for staging. The verified product commit `b834c038055db76438858abdb95aadffbd5fd32d` is now deployed:
-- Web: https://disaster-rescue-web.vercel.app , Vercel deployment `dpl_7BL9kvvriSF4fB5f9wxpu74w8kfa`.
-- API: https://disaster-rescue-api.onrender.com , Render deployment `dep-dbb1o6k9v7es73acih9g`.
-- Production Firebase: explicit project `flutter-5094e`. Reviewed rules deployed and all 11 composite indexes READY.
-- Remote CI on b834c03 passes web/API, Firestore and Flutter: https://github.com/andireyes06-maker/disaster-rescue/actions/runs/39256572821 . No default-branch merge occurred.
+- Redesigned welcome, access/reset/registration, resident report stages and summaries, profile, responder assignments/detail/update/history, map/filter/list, notifications and recovery/access states.
+- Shared Geist font,48dp targets, measured white surfaces, harbor app bars, compact dock and wide rail; finite route/tab/error motion retained, finite report-step arrivals added.
+- Source guide: `mobile/DESIGN.md`, `mobile/.impeccable/design.json`; task contract: `design-plans/flutter-redesign-2026-10-20/SPEC.md`.
+- Verification:222 Flutter tests pass; analyze clean; debug web and Android debug APK compile.15 reviewed golden references/checksums updated for the intentional redesign.
+- Fresh Impeccable review requested stronger control contrast; correction scored resolved on phone/desktop/form recaptures. Scope is Chrome/widget, not physical devices.
+- Local preview: `http://localhost:5403/`, dedicated demo Auth9393/Firestore8393/API3403. No production writes. Emulator/debug notices are local tooling. Some evidence hides the SDK warning only through the capture harness to expose the dock.
+- Durable current record and separate source snapshot: `/Users/rien/Documents/FINAL_PROJECT/design-plans/flutter-redesign-2026-10-20/`. Earlier805-file bundle describes the previous released source and is preserved.
 
-## Production checks and limits
-API health and a browser cross-origin health request return 200. The landing video autoplays muted. Public login/register/Forbidden and signed-out protected-route redirects were checked in Chromium at 390 and 1440 px: no horizontal overflow, one main landmark, correct titles; empty forms show field errors and focus the first invalid field. No console errors occurred during those checks.
-This is a production smoke pass, not a production role-workflow, photo-provider, email/push, device or screen-reader certification. Native signing/release builds and owner hotline/support/privacy/retention details remain open. The local WebKit reload issue remains unresolved; this Chromium pass does not clear it.
+## Existing production release
+PR#1 merged into actual default branch `build/disaster-rescue` at `418a615f48caec7c835322d8f3efc1753f77e325` before this design branch. Its tree matches the prior local base.
+- Web: https://disaster-rescue-web.vercel.app , deployment `dpl_Ah7s4h2nPe1jcM3KHx1Dm4j5dmRe` READY.
+- API: https://disaster-rescue-api.onrender.com , deployment `dep-dbbgvhpsrm7s7386u880` live.
+- Production Firebase: `flutter-5094e`. Existing reviewed rules/indexes were deployed earlier.
+- CI: https://github.com/andireyes06-maker/disaster-rescue/actions/runs/39382986619 . Vercel production branch is build/disaster-rescue.
+- Read durable `full-repair-2026-10-19/DEFAULT-BRANCH-RELEASE-2026-10-20.md` for release evidence. The Flutter redesign is a design-branch checkpoint; it has not been merged into the default branch or deployed.
 
-## Rollback
-Previous API commit `effd53f9a6239154604ff48cec05214b1b27f098`, deployment `dep-db93li3rjlhs73bjvur0`. Previous web deployment: `https://disaster-rescue-k8xpfnmsw-personalfranz.vercel.app`. Prior rules/indexes and service settings are saved in secure local release scratch as `live-rollback.json`.
+## Limits and next work
+Review the local redesign before publishing. Hardware Android/iOS, gestures, camera/push, TalkBack/VoiceOver, native performance and signed releases remain unverified. Provider/hosted gates and owner hotline/privacy/retention/support decisions from the release ledger remain open. No new backend or permission policy was introduced.
+Existing presentation screenshots and silent preview under docs describe the prior UI; refresh that media before presenting this redesign. Do not call Chrome/widget results a phone certification.
 
-## Staging and records
-Separate Firebase `aclon-franz2`, Vercel `rescue-reports-staging` and Render `rescue-reports-staging-api` were created during the earlier authorized staging work. The staging web is unpublished and the API lacks staging Cloudinary configuration. Do not present them as a verified full staging stack. Render CLI is authenticated; the connector OAuth callback failed, so do not repeat that flow.
-Durable records, recovery bundle and release evidence: `/Users/rien/Documents/FINAL_PROJECT/design-plans/full-repair-2026-10-19/`. Read the latest section of `RELEASE-EXECUTION.md`; older no-deploy statements are historical. Never archive scratch credentials, CLI tokens or local OIDC environment files.
-
-## Emulator reload follow-up, 20 October 2026
-The installed firebase_auth_web 6.3.0 debug emulator reconnect is gated to browser hostname localhost. Reproduced the failed Google account lookup on 127.0.0.1, then verified three same-tab reloads each for resident and responder on localhost, with all captured Auth requests going only to the dedicated local emulator. No bootstrap logic changed. See mobile/README.md for the explicit Chrome launch command and durable FLUTTER-RESTORE-REVIEW-2026-10-20.md for evidence and limits. Hosted restore, fresh tabs and device restarts remain unverified.
+Debug emulator Auth restore requires browser hostname localhost with installed firebase_auth_web6.3.0. Use the explicit commands in mobile/README.md. Do not use live credentials in the emulator preview or touch other sessions’ processes.

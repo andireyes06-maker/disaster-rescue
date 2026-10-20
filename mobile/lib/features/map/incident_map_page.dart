@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../data/report_models.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/product_widgets.dart';
 import '../report/report_flow_page.dart' show reportTypeInfo;
 import '../responder/incident_detail_page.dart';
 import 'map_markers.dart';
@@ -41,15 +42,15 @@ class _IncidentMapPageState extends State<IncidentMapPage> {
         stream: widget.reports,
         builder: (context, snap) {
           if (snap.hasError) {
-            return const Padding(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                'Could not load the map. Check your connection and try again.',
-              ),
+            return const ProductEmpty(
+              icon: Icons.wifi_off_rounded,
+              title: 'The map could not be loaded',
+              description:
+                  'Check your connection and reopen the map to try again.',
             );
           }
           if (!snap.hasData) {
-            return const Center(child: CircularProgressIndicator());
+            return const ProductLoading();
           }
           final all = snap.data!;
           final shown = _type == null
@@ -106,37 +107,46 @@ class _IncidentMapPageState extends State<IncidentMapPage> {
     final center = points.isEmpty
         ? _defaultCenter
         : LatLng(points.first.point.lat, points.first.point.lng);
-    return FlutterMap(
-      options: MapOptions(initialCenter: center, initialZoom: 12),
-      children: [
-        if (widget.showTiles)
-          TileLayer(
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'disaster_rescue',
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: FlutterMap(
+        options: MapOptions(initialCenter: center, initialZoom: 12),
+        children: [
+          if (widget.showTiles)
+            TileLayer(
+              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              userAgentPackageName: 'disaster_rescue',
+            ),
+          MarkerLayer(
+            markers: [
+              for (final p in points)
+                Marker(
+                  point: LatLng(p.point.lat, p.point.lng),
+                  width: 110,
+                  height: 60,
+                  child: _MapMarker(report: p.report),
+                ),
+            ],
           ),
-        MarkerLayer(
-          markers: [
-            for (final p in points)
-              Marker(
-                point: LatLng(p.point.lat, p.point.lng),
-                width: 110,
-                height: 60,
-                child: _MapMarker(report: p.report),
-              ),
-          ],
-        ),
-        RichAttributionWidget(
-          attributions: const [
-            TextSourceAttribution('OpenStreetMap contributors'),
-          ],
-        ),
-      ],
+          RichAttributionWidget(
+            attributions: const [
+              TextSourceAttribution('OpenStreetMap contributors'),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildList(List<AssignedReport> shown) {
     if (shown.isEmpty) {
-      return const Center(child: Text('No incidents match this filter.'));
+      return const SingleChildScrollView(
+        child: ProductEmpty(
+          icon: Icons.map_outlined,
+          title: 'No incidents match this filter.',
+          description: 'Choose another type or check back for new assignments.',
+        ),
+      );
     }
     return ListView.separated(
       padding: const EdgeInsets.all(16),

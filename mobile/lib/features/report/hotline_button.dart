@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../data/services.dart';
 
-const noHotlineMessage = 'Hotline numbers are not available on this phone yet. Call your local emergency number.';
+const noHotlineMessage =
+    'Hotline numbers are not available on this phone yet. Call your local emergency number.';
 
 /// Calls the first hotline. Shown on every step of the report flow.
 class HotlineButton extends StatelessWidget {
@@ -21,7 +22,13 @@ class HotlineButton extends StatelessWidget {
     }
     final ok = await dialer.dial(list.first.number);
     if (!ok) {
-      messenger.showSnackBar(SnackBar(content: Text('Could not start the call. Dial ${list.first.number} yourself.')));
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            'Could not start the call. Dial ${list.first.number} yourself.',
+          ),
+        ),
+      );
     }
   }
 
@@ -36,8 +43,16 @@ class HotlineButton extends StatelessWidget {
       onTap: () => _call(context),
       excludeSemantics: true,
       child: filled
-          ? FilledButton.icon(onPressed: () => _call(context), icon: icon, label: label)
-          : OutlinedButton.icon(onPressed: () => _call(context), icon: icon, label: label),
+          ? FilledButton.icon(
+              onPressed: () => _call(context),
+              icon: icon,
+              label: label,
+            )
+          : OutlinedButton.icon(
+              onPressed: () => _call(context),
+              icon: icon,
+              label: label,
+            ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/product_widgets.dart';
 import '../auth/auth_widgets.dart';
 
 String locationProblemMessage(LocationStatus s) {
@@ -63,11 +64,15 @@ class _LocationStepState extends State<LocationStep> {
   }
 
   Future<void> _pickOnMap() async {
-    final start = (widget.lat != null && widget.lng != null) ? LatLng(widget.lat!, widget.lng!) : null;
+    final start = (widget.lat != null && widget.lng != null)
+        ? LatLng(widget.lat!, widget.lng!)
+        : null;
     final picked = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(builder: (_) => MapPickerPage(initial: start)),
     );
-    if (picked != null) widget.onPicked(picked.latitude, picked.longitude, 'manual');
+    if (picked != null) {
+      widget.onPicked(picked.latitude, picked.longitude, 'manual');
+    }
   }
 
   @override
@@ -79,7 +84,11 @@ class _LocationStepState extends State<LocationStep> {
         FilledButton.icon(
           onPressed: _busy ? null : _useGps,
           icon: _busy
-              ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+              ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
               : const Icon(Icons.my_location),
           label: const Text('Use my current location'),
         ),
@@ -94,28 +103,40 @@ class _LocationStepState extends State<LocationStep> {
           InlineError(_problem!),
         ],
         const SizedBox(height: 16),
-        if (has)
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: AppColors.primarySoft,
-              borderRadius: BorderRadius.circular(AppRadius.md),
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.check_circle_outline, color: AppColors.primary),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Location chosen: ${widget.lat!.toStringAsFixed(5)}, ${widget.lng!.toStringAsFixed(5)} '
-                    '(${widget.source == 'gps' ? 'from GPS' : 'picked on map'})',
-                  ),
+        ProductSurface(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                has
+                    ? Icons.check_circle_outline_rounded
+                    : Icons.location_searching_rounded,
+                color: AppColors.primary,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      has ? 'Location selected' : 'Choose your location',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      has
+                          ? 'Location chosen: ${widget.lat!.toStringAsFixed(5)}, ${widget.lng!.toStringAsFixed(5)} (${widget.source == 'gps' ? 'from GPS' : 'picked on map'})'
+                          : 'No location chosen yet. Choose one to continue.',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
-        else
-          const Text('No location chosen yet. Choose one to continue.'),
+              ),
+            ],
+          ),
+        ),
         const SizedBox(height: 16),
         TextField(
           key: const Key('addressText'),
@@ -165,18 +186,29 @@ class _MapPickerPageState extends State<MapPickerPage> {
               children: [
                 TileLayer(
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: const String.fromEnvironment('RESCUE_APPLICATION_ID', defaultValue: 'local.rescuereports.app'),
+                  userAgentPackageName: const String.fromEnvironment(
+                    'RESCUE_APPLICATION_ID',
+                    defaultValue: 'local.rescuereports.app',
+                  ),
                 ),
                 if (_point != null)
-                  MarkerLayer(markers: [
-                    Marker(
-                      point: _point!,
-                      width: 48,
-                      height: 48,
-                      child: const Icon(Icons.location_on, size: 44, color: AppColors.primary),
-                    ),
-                  ]),
-                const SimpleAttributionWidget(source: Text('OpenStreetMap contributors')),
+                  MarkerLayer(
+                    markers: [
+                      Marker(
+                        point: _point!,
+                        width: 48,
+                        height: 48,
+                        child: const Icon(
+                          Icons.location_on,
+                          size: 44,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                const SimpleAttributionWidget(
+                  source: Text('OpenStreetMap contributors'),
+                ),
               ],
             ),
           ),
@@ -185,8 +217,12 @@ class _MapPickerPageState extends State<MapPickerPage> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: FilledButton(
-                onPressed: _point == null ? null : () => Navigator.of(context).pop(_point),
-                child: Text(_point == null ? 'Tap the map to choose' : 'Use this place'),
+                onPressed: _point == null
+                    ? null
+                    : () => Navigator.of(context).pop(_point),
+                child: Text(
+                  _point == null ? 'Tap the map to choose' : 'Use this place',
+                ),
               ),
             ),
           ),

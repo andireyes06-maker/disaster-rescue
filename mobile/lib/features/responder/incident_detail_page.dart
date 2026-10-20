@@ -217,37 +217,54 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            Row(children: [StatusChip(r.status)]),
-            if (closed)
-              const Padding(
-                padding: EdgeInsets.only(top: 12),
-                child: Text('Completed report · Read only.'),
+            ProductSurface(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      StatusChip(r.status),
+                      if (r.priority != null) ProductPriority(r.priority!),
+                    ],
+                  ),
+                  if (closed)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 12),
+                      child: Text('Completed report · Read only.'),
+                    ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'What is happening',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(r.description),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Location',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  if (r.addressText != null && r.addressText!.trim().isNotEmpty)
+                    Text(r.addressText!.trim()),
+                  if (hasLocation) Text('${r.lat}, ${r.lng}'),
+                  if (!hasLocation) const Text('No exact location was given.'),
+                  const SizedBox(height: 8),
+                  if (hasLocation)
+                    OutlinedButton.icon(
+                      onPressed: _openMap,
+                      icon: const Icon(Icons.map_outlined),
+                      label: const Text('Open in maps'),
+                    ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Reported ${formatWhen(r.createdAt)}',
+                    style: const TextStyle(color: AppColors.muted),
+                  ),
+                ],
               ),
-            const SizedBox(height: 16),
-            Text(
-              'What is happening',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 4),
-            Text(r.description),
-            const SizedBox(height: 16),
-            Text('Location', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 4),
-            if (r.addressText != null && r.addressText!.trim().isNotEmpty)
-              Text(r.addressText!.trim()),
-            if (hasLocation) Text('${r.lat}, ${r.lng}'),
-            if (!hasLocation) const Text('No exact location was given.'),
-            const SizedBox(height: 8),
-            if (hasLocation)
-              OutlinedButton.icon(
-                onPressed: _openMap,
-                icon: const Icon(Icons.map_outlined),
-                label: const Text('Open in maps'),
-              ),
-            const SizedBox(height: 16),
-            Text(
-              'Reported ${formatWhen(r.createdAt)}',
-              style: const TextStyle(color: AppColors.muted),
             ),
             const SizedBox(height: 24),
             if (_error != null) ...[
@@ -273,7 +290,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
               ),
             ],
             const SizedBox(height: 28),
-            _progressSection(context),
+            ProductSurface(child: _progressSection(context)),
           ],
         ),
       ),
@@ -351,16 +368,43 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   Widget _progressTile(BuildContext context, ProgressEntry e) {
     final note = e.note.trim();
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(e.status, style: const TextStyle(fontWeight: FontWeight.w600)),
-          if (e.peopleRescued > 0) Text('${e.peopleRescued} rescued'),
-          if (note.isNotEmpty) Text(note),
-          Text(
-            formatWhen(e.at),
-            style: const TextStyle(color: AppColors.muted),
+          Container(
+            width: 9,
+            height: 9,
+            margin: const EdgeInsets.only(top: 7),
+            decoration: const BoxDecoration(
+              color: AppColors.primary,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(e.status, style: Theme.of(context).textTheme.titleMedium),
+                if (e.peopleRescued > 0) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    '${e.peopleRescued} rescued',
+                    style: const TextStyle(
+                      color: AppColors.success,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+                if (note.isNotEmpty) ...[const SizedBox(height: 6), Text(note)],
+                const SizedBox(height: 6),
+                Text(
+                  formatWhen(e.at),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
           ),
         ],
       ),

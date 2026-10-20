@@ -9,6 +9,7 @@ abstract class DraftStore {
   Future<void> save(ReportDraft draft);
   Future<ReportDraft?> load();
   Future<void> clear();
+
   /// True after an uncertain send, until a confirmed send, a discard, or an explicit new-report action.
   Future<bool> loadUncertainSend();
   Future<void> setUncertainSend(bool value);

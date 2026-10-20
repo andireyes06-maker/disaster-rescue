@@ -187,39 +187,48 @@ class _OperationFormPageState extends State<OperationFormPage> {
                         'Record the latest status and what the team has done.',
                       ),
                     ),
-                    Text(
-                      'Status *',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    SegmentedButton<String>(
-                      segments: [
-                        for (final s in offered)
-                          ButtonSegment(value: s, label: Text(s)),
-                      ],
-                      selected: {selected},
-                      onSelectionChanged: _busy
-                          ? null
-                          : (s) => setState(() => _status = s.first),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      key: const Key('peopleRescued'),
-                      controller: _people,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: 'People rescued *',
-                      ),
-                      validator: validatePeopleRescued,
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      key: const Key('note'),
-                      controller: _note,
-                      maxLines: 4,
-                      maxLength: 500,
-                      decoration: const InputDecoration(
-                        labelText: 'Note (optional)',
+                    ProductSurface(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'Status *',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 8),
+                          SegmentedButton<String>(
+                            segments: [
+                              for (final s in offered)
+                                ButtonSegment(value: s, label: Text(s)),
+                            ],
+                            selected: {selected},
+                            onSelectionChanged: _busy
+                                ? null
+                                : (s) => setState(() => _status = s.first),
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            errorBuilder: fieldErrorBuilder,
+                            key: const Key('peopleRescued'),
+                            controller: _people,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              labelText: 'People rescued *',
+                            ),
+                            validator: validatePeopleRescued,
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            errorBuilder: fieldErrorBuilder,
+                            key: const Key('note'),
+                            controller: _note,
+                            maxLines: 4,
+                            maxLength: 500,
+                            decoration: const InputDecoration(
+                              labelText: 'Note (optional)',
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     if (_error != null) ...[

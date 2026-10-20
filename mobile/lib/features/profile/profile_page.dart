@@ -8,6 +8,7 @@ import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../auth/auth_widgets.dart';
 import '../../theme/product_widgets.dart';
+import '../../theme/app_theme.dart';
 
 const privacyNotice =
     '$consentText Your exact location is visible only to the dispatcher, the disaster office, the responder '
@@ -61,38 +62,98 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             }
             final p = snap.data;
-            Widget field(String label, String? value) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(label, style: const TextStyle(fontSize: 13)),
-                  Text(
-                    value == null || value.isEmpty ? 'Not set' : value,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            );
             return ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                const ProductIntro(
-                  title: 'Your account',
-                  description:
-                      'Your contact details and account information, in one place.',
-                  icon: Icons.person_outline,
+                ProductSurface(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 54,
+                            height: 54,
+                            decoration: BoxDecoration(
+                              color: AppColors.primarySoft,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Icon(
+                              Icons.person_outline_rounded,
+                              color: AppColors.primary,
+                              size: 28,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Your account',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.headlineSmall,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  widget.user.role == 'responder'
+                                      ? 'Responder profile'
+                                      : 'Resident profile',
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(),
+                      ProductDatum(
+                        label: 'Name',
+                        value: p?.name?.isNotEmpty == true
+                            ? p!.name!
+                            : 'Not set',
+                        icon: Icons.person_outline_rounded,
+                      ),
+                      ProductDatum(
+                        label: 'Email',
+                        value: widget.user.email ?? 'Not set',
+                        icon: Icons.alternate_email_rounded,
+                      ),
+                      ProductDatum(
+                        label: 'Phone',
+                        value: p?.phone?.isNotEmpty == true
+                            ? p!.phone!
+                            : 'Not set',
+                        icon: Icons.phone_outlined,
+                      ),
+                    ],
+                  ),
                 ),
-                field('Name', p?.name),
-                field('Email', widget.user.email),
-                field('Phone', p?.phone),
-                const SizedBox(height: 16),
-                Text('Privacy', style: Theme.of(context).textTheme.titleMedium),
-                const SizedBox(height: 8),
-                const Text(privacyNotice),
+                const SizedBox(height: 20),
+                ProductSurface(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.shield_outlined,
+                            color: AppColors.primary,
+                            size: 21,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Privacy',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(privacyNotice),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 24),
                 OutlinedButton.icon(
                   onPressed: () => context.read<AuthController>().logout(),

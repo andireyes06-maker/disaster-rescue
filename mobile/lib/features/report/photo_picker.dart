@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../auth/auth_widgets.dart';
+import '../../theme/app_theme.dart';
 
 /// Up to five photos. Each is checked for size and file signature on the
 /// phone before it is kept, so a bad file never reaches the upload.
 class PhotoPickerSection extends StatefulWidget {
-  const PhotoPickerSection({super.key, required this.service, required this.photos, required this.onChanged});
+  const PhotoPickerSection({
+    super.key,
+    required this.service,
+    required this.photos,
+    required this.onChanged,
+  });
   final PhotoService service;
   final List<PickedPhoto> photos;
   final ValueChanged<List<PickedPhoto>> onChanged;
@@ -22,9 +28,11 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
 
   Future<void> _add() async {
     if (widget.photos.length >= maxPhotos) {
-      setState(() => _messages
-        ..clear()
-        ..add('You can add up to 5 photos. Remove one to add another.'));
+      setState(
+        () => _messages
+          ..clear()
+          ..add('You can add up to 5 photos. Remove one to add another.'),
+      );
       return;
     }
     setState(() => _busy = true);
@@ -45,7 +53,9 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
         }
       }
     } catch (_) {
-      msgs.add('Could not open your photos. You can still send the report without them.');
+      msgs.add(
+        'Could not open your photos. You can still send the report without them.',
+      );
     }
     if (!mounted) return;
     setState(() {
@@ -68,7 +78,10 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Photos (optional, up to 5)', style: Theme.of(context).textTheme.titleMedium),
+        Text(
+          'Photos (optional, up to 5)',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -80,17 +93,24 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
                 padding: const EdgeInsets.only(left: 12),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: Colors.black26),
+                  border: Border.all(color: AppColors.border),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.image_outlined, size: 20),
+                    const Icon(
+                      Icons.image_outlined,
+                      size: 20,
+                      color: AppColors.primary,
+                    ),
                     const SizedBox(width: 6),
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 140),
-                      child: Text(widget.photos[i].name, overflow: TextOverflow.ellipsis),
+                      child: Text(
+                        widget.photos[i].name,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     IconButton(
                       tooltip: 'Remove photo ${widget.photos[i].name}',

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'product_motion.dart';
 
-/// Values copied from docs/design-tokens/tokens.json.
+/// Native palette aligned with the website brand; see mobile/DESIGN.md.
 class AppColors {
   static const bg = Color(0xFFF5F6FA);
   static const surface = Color(0xFFFFFFFF);
@@ -15,6 +16,9 @@ class AppColors {
   static const muted = Color(0xFF625E73);
   static const harbor = Color(0xFF241747);
   static const border = Color(0xFFE5E3ED);
+  static const controlOutline = Color(0xFF8B849D);
+  static const success = Color(0xFF176747);
+  static const onHarbor = Color(0xFFDAD2EE);
 }
 
 class AppRadius {
@@ -23,7 +27,7 @@ class AppRadius {
 }
 
 class AppSpace {
-  static const double touch = 44;
+  static const double touch = 48;
 }
 
 class PriorityStyle {
@@ -96,7 +100,7 @@ class StatusStyle {
         return const StatusStyle(
           'Resolved',
           Icons.check_circle_outline,
-          AppColors.primary,
+          AppColors.success,
         );
       case 'Closed':
         return const StatusStyle('Closed', Icons.lock_outline, AppColors.low);
@@ -122,26 +126,108 @@ class StatusStyle {
 
 class AppTheme {
   static ThemeData get light {
-    final scheme = ColorScheme.fromSeed(seedColor: AppColors.primary).copyWith(
+    const scheme = ColorScheme.light(
       primary: AppColors.primary,
       onPrimary: Colors.white,
-      secondary: AppColors.primary,
+      primaryContainer: AppColors.primarySoft,
+      onPrimaryContainer: AppColors.harbor,
+      secondary: AppColors.harbor,
+      onSecondary: Colors.white,
+      secondaryContainer: AppColors.primarySoft,
+      onSecondaryContainer: AppColors.harbor,
       surface: AppColors.surface,
       onSurface: AppColors.text,
+      onSurfaceVariant: AppColors.muted,
+      outline: AppColors.muted,
+      outlineVariant: AppColors.border,
       error: AppColors.critical,
+      onError: Colors.white,
+      surfaceContainerLowest: AppColors.surface,
+      surfaceContainerLow: AppColors.bg,
     );
+    final base = ThemeData(
+      useMaterial3: true,
+      colorScheme: scheme,
+      fontFamily: 'Geist',
+    );
+    final type = base.textTheme
+        .apply(bodyColor: AppColors.text, displayColor: AppColors.text)
+        .copyWith(
+          headlineLarge: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 36,
+            height: 1.1,
+            letterSpacing: -1.1,
+            fontWeight: FontWeight.w700,
+            color: AppColors.text,
+          ),
+          headlineMedium: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 28,
+            height: 1.15,
+            letterSpacing: -.7,
+            fontWeight: FontWeight.w700,
+            color: AppColors.text,
+          ),
+          headlineSmall: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 24,
+            height: 1.2,
+            letterSpacing: -.5,
+            fontWeight: FontWeight.w700,
+            color: AppColors.text,
+          ),
+          titleLarge: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 21,
+            height: 1.25,
+            letterSpacing: -.4,
+            fontWeight: FontWeight.w600,
+            color: AppColors.text,
+          ),
+          titleMedium: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 16,
+            height: 1.4,
+            fontWeight: FontWeight.w600,
+            color: AppColors.text,
+          ),
+          bodyLarge: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 16,
+            height: 1.5,
+            color: AppColors.text,
+          ),
+          bodyMedium: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 14,
+            height: 1.5,
+            color: AppColors.text,
+          ),
+          bodySmall: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 13,
+            height: 1.45,
+            color: AppColors.muted,
+          ),
+          labelLarge: const TextStyle(
+            fontFamily: 'Geist',
+            fontSize: 15,
+            height: 1.3,
+            fontWeight: FontWeight.w600,
+          ),
+        );
     final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppRadius.md),
+      borderRadius: BorderRadius.circular(12),
     );
-    const minSize = Size(AppSpace.touch, AppSpace.touch);
     OutlineInputBorder border(Color c, double w) => OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppRadius.md),
+      borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(color: c, width: w),
     );
-    final base = ThemeData(useMaterial3: true, colorScheme: scheme);
     return base.copyWith(
+      textTheme: type,
       scaffoldBackgroundColor: AppColors.bg,
-      focusColor: AppColors.primary.withValues(alpha: 0.16),
+      focusColor: AppColors.primary.withValues(alpha: .16),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: ProductPageTransitions(),
@@ -151,99 +237,115 @@ class AppTheme {
           TargetPlatform.fuchsia: ProductPageTransitions(),
         },
       ),
-      textTheme: base.textTheme
-          .apply(bodyColor: AppColors.text, displayColor: AppColors.text)
-          .copyWith(
-            headlineMedium: base.textTheme.headlineMedium?.copyWith(
-              fontSize: 30,
-              height: 1.15,
-              letterSpacing: -0.8,
-              fontWeight: FontWeight.w600,
-              color: AppColors.text,
-            ),
-            titleLarge: base.textTheme.titleLarge?.copyWith(
-              fontSize: 22,
-              letterSpacing: -0.5,
-              fontWeight: FontWeight.w600,
-              color: AppColors.text,
-            ),
-          ),
-      appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.surface,
-        foregroundColor: AppColors.text,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.harbor,
+        foregroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
         titleSpacing: 20,
-        titleTextStyle: base.textTheme.titleLarge?.copyWith(
+        toolbarHeight: 68,
+        titleTextStyle: TextStyle(
+          fontFamily: 'Geist',
           fontSize: 18,
+          height: 1.25,
           fontWeight: FontWeight.w600,
-          color: AppColors.text,
-          letterSpacing: -0.4,
+          color: Colors.white,
+          letterSpacing: -.3,
+        ),
+        iconTheme: IconThemeData(color: Colors.white, size: 23),
+        actionsIconTheme: IconThemeData(color: Colors.white, size: 23),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: AppColors.harbor,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
         ),
       ),
       cardTheme: CardThemeData(
         color: AppColors.surface,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
-        shadowColor: AppColors.text.withValues(alpha: 0.12),
-        margin: const EdgeInsets.symmetric(vertical: 5),
+        margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.lg),
+          borderRadius: BorderRadius.circular(16),
           side: const BorderSide(color: AppColors.border),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          minimumSize: const Size(AppSpace.touch, 52),
+          minimumSize: const Size(48, 54),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
           shape: shape,
-          textStyle: base.textTheme.labelLarge?.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: type.labelLarge,
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          minimumSize: minSize,
+          minimumSize: const Size(48, 50),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           shape: shape,
-          foregroundColor: AppColors.primary,
-          side: const BorderSide(color: AppColors.primary),
+          foregroundColor: AppColors.text,
+          backgroundColor: AppColors.surface,
+          textStyle: type.labelLarge,
+          side: const BorderSide(color: Color(0xFFD3CEDF)),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(minimumSize: minSize, shape: shape),
+        style: TextButton.styleFrom(
+          minimumSize: const Size(48, 48),
+          shape: shape,
+          textStyle: type.labelLarge,
+        ),
       ),
       iconButtonTheme: IconButtonThemeData(
-        style: IconButton.styleFrom(minimumSize: minSize),
+        style: IconButton.styleFrom(minimumSize: const Size(48, 48)),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelStyle: const TextStyle(color: AppColors.muted),
-        border: border(AppColors.muted, 1),
-        enabledBorder: border(AppColors.border, 1),
+        labelStyle: const TextStyle(
+          fontFamily: 'Geist',
+          color: AppColors.muted,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        hintStyle: const TextStyle(
+          fontFamily: 'Geist',
+          color: AppColors.muted,
+          fontSize: 14,
+        ),
+        helperStyle: type.bodySmall,
+        errorStyle: type.bodySmall?.copyWith(color: AppColors.critical),
+        border: border(AppColors.controlOutline, 1),
+        enabledBorder: border(AppColors.controlOutline, 1),
         focusedBorder: border(AppColors.primary, 2),
         errorBorder: border(AppColors.critical, 1.5),
         focusedErrorBorder: border(AppColors.critical, 2),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
-          vertical: 16,
+          vertical: 18,
         ),
+        errorMaxLines: 5,
       ),
       materialTapTargetSize: MaterialTapTargetSize.padded,
       visualDensity: VisualDensity.standard,
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.surface,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
-        height: 76,
+        height: 74,
         indicatorColor: AppColors.primarySoft,
         labelTextStyle: WidgetStateProperty.resolveWith(
           (states) => TextStyle(
+            fontFamily: 'Geist',
             fontSize: 12,
             fontWeight: states.contains(WidgetState.selected)
-                ? FontWeight.w600
-                : FontWeight.w400,
+                ? FontWeight.w700
+                : FontWeight.w500,
             color: states.contains(WidgetState.selected)
                 ? AppColors.primary
                 : AppColors.muted,
@@ -259,18 +361,57 @@ class AppTheme {
         ),
       ),
       tabBarTheme: const TabBarThemeData(
-        labelColor: AppColors.primary,
-        unselectedLabelColor: AppColors.muted,
-        indicatorColor: AppColors.primary,
-        dividerColor: AppColors.border,
-        labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        labelColor: Colors.white,
+        unselectedLabelColor: AppColors.onHarbor,
+        indicatorColor: Color(0xFFC0A2FF),
+        dividerColor: Color(0xFF493963),
+        labelStyle: TextStyle(
+          fontFamily: 'Geist',
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontFamily: 'Geist',
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
+        indicatorSize: TabBarIndicatorSize.label,
       ),
-      dividerTheme: const DividerThemeData(color: AppColors.border, space: 28),
+      segmentedButtonTheme: SegmentedButtonThemeData(
+        style: ButtonStyle(
+          shape: WidgetStatePropertyAll(shape),
+          side: const WidgetStatePropertyAll(
+            BorderSide(color: AppColors.border),
+          ),
+          textStyle: WidgetStatePropertyAll(type.labelLarge),
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (s) => s.contains(WidgetState.selected)
+                ? AppColors.primarySoft
+                : AppColors.surface,
+          ),
+          foregroundColor: WidgetStateProperty.resolveWith(
+            (s) => s.contains(WidgetState.selected)
+                ? AppColors.primary
+                : AppColors.muted,
+          ),
+        ),
+      ),
+      dividerTheme: const DividerThemeData(
+        color: AppColors.border,
+        space: 28,
+        thickness: 1,
+      ),
       chipTheme: base.chipTheme.copyWith(
         backgroundColor: AppColors.surface,
         selectedColor: AppColors.primarySoft,
         side: const BorderSide(color: AppColors.border),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: shape,
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: AppColors.harbor,
+        contentTextStyle: type.bodyMedium?.copyWith(color: Colors.white),
+        behavior: SnackBarBehavior.floating,
+        shape: shape,
       ),
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: AppColors.surface,

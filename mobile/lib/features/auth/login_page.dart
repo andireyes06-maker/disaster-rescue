@@ -82,112 +82,99 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthController>();
     return Scaffold(
-      appBar: Navigator.of(context).canPop()
-          ? AppBar(title: const Text('Sign in'))
-          : null,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480),
-              child: Form(
-                key: _form,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const ProductIntro(
-                      title: 'Welcome back',
-                      description:
-                          'Your reports, your updates, and the next step. Log in to report an incident or see your assignments.',
-                    ),
-                    TextFormField(
-                      controller: _email,
-                      keyboardType: TextInputType.emailAddress,
-                      autofillHints: const [AutofillHints.email],
-                      focusNode: _emailFocus,
-                      forceErrorText: _emailResetError,
-                      onChanged: (_) {
-                        if (_emailResetError != null) {
-                          setState(() => _emailResetError = null);
-                        }
-                      },
-                      decoration: InputDecoration(
-                        label: requiredFieldLabel('Email'),
-                      ),
-                      validator: (v) =>
-                          !RegExp(
-                            r'^[^\s@]+@[^\s@]+\.[^\s@]+$',
-                          ).hasMatch((v ?? '').trim())
-                          ? 'Enter your email address.'
-                          : null,
-                    ),
-                    const SizedBox(height: 16),
-                    PasswordField(
-                      controller: _password,
-                      required: true,
-                      autofillHints: const [AutofillHints.password],
-                      validator: (v) => (v == null || v.isEmpty)
-                          ? 'Enter your password.'
-                          : null,
-                    ),
-                    if (auth.error != null) ...[
-                      const SizedBox(height: 16),
-                      InlineError(
-                        failureMessage(auth.error!, auth.errorDetail),
-                      ),
-                    ],
-                    const SizedBox(height: 24),
-                    FilledButton(
-                      onPressed: auth.busy ? null : _submit,
-                      child: Text(auth.busy ? 'Logging in…' : 'Log in'),
-                    ),
-                    const SizedBox(height: 24),
-                    const Divider(),
-                    const SizedBox(height: 12),
-                    Text(
-                      'Need a password?',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Enter your email above to set or reset your password.',
-                    ),
-                    if (_resetError != null) InlineError(_resetError!),
-                    if (_resetNotice != null)
-                      Semantics(
-                        liveRegion: true,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: Text(_resetNotice!),
-                        ),
-                      ),
-                    const SizedBox(height: 12),
-                    OutlinedButton(
-                      onPressed: _resetting || auth.busy
-                          ? null
-                          : _resetPassword,
-                      child: Text(
-                        _resetting ? 'Requesting link…' : 'Forgot password?',
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    TextButton(
-                      onPressed: auth.busy
-                          ? null
-                          : () => Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (_) => const RegisterPage(),
-                              ),
-                            ),
-                      child: const Text('Create an account'),
-                    ),
-                    const SizedBox(height: 24),
-                    const DisclaimerBox(),
-                  ],
+      appBar: AppBar(title: const Text('Sign in')),
+      body: ProductFormBody(
+        child: Form(
+          key: _form,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const ProductIntro(
+                title: 'Welcome back',
+                description:
+                    'Your reports, your updates, and the next step. Log in to report an incident or see your assignments.',
+              ),
+              TextFormField(
+                errorBuilder: fieldErrorBuilder,
+                controller: _email,
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: const [AutofillHints.email],
+                focusNode: _emailFocus,
+                forceErrorText: _emailResetError,
+                onChanged: (_) {
+                  if (_emailResetError != null) {
+                    setState(() => _emailResetError = null);
+                  }
+                },
+                decoration: InputDecoration(
+                  label: requiredFieldLabel('Email'),
+                  prefixIcon: const Icon(Icons.alternate_email_rounded),
+                ),
+                validator: (v) =>
+                    !RegExp(
+                      r'^[^\s@]+@[^\s@]+\.[^\s@]+$',
+                    ).hasMatch((v ?? '').trim())
+                    ? 'Enter your email address.'
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              PasswordField(
+                controller: _password,
+                required: true,
+                autofillHints: const [AutofillHints.password],
+                validator: (v) =>
+                    (v == null || v.isEmpty) ? 'Enter your password.' : null,
+              ),
+              if (auth.error != null) ...[
+                const SizedBox(height: 16),
+                InlineError(failureMessage(auth.error!, auth.errorDetail)),
+              ],
+              const SizedBox(height: 24),
+              FilledButton(
+                onPressed: auth.busy ? null : _submit,
+                child: Text(auth.busy ? 'Logging in…' : 'Log in'),
+              ),
+              const SizedBox(height: 24),
+              const Divider(),
+              const SizedBox(height: 12),
+              Text(
+                'Need a password?',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Enter your email above to set or reset your password.',
+              ),
+              if (_resetError != null) InlineError(_resetError!),
+              if (_resetNotice != null)
+                Semantics(
+                  liveRegion: true,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Text(_resetNotice!),
+                  ),
+                ),
+              const SizedBox(height: 12),
+              OutlinedButton(
+                onPressed: _resetting || auth.busy ? null : _resetPassword,
+                child: Text(
+                  _resetting ? 'Requesting link…' : 'Forgot password?',
                 ),
               ),
-            ),
+              const SizedBox(height: 8),
+              TextButton(
+                onPressed: auth.busy
+                    ? null
+                    : () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const RegisterPage(),
+                        ),
+                      ),
+                child: const Text('Create an account'),
+              ),
+              const SizedBox(height: 24),
+              const DisclaimerBox(),
+            ],
           ),
         ),
       ),

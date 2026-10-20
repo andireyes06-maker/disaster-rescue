@@ -198,18 +198,42 @@ class _NotificationRow extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (unread)
-                Padding(
-                  key: ValueKey('unread-${item.id}'),
-                  padding: const EdgeInsets.only(top: 6, right: 10),
-                  child: const Icon(
-                    Icons.circle,
-                    size: 10,
-                    color: AppColors.primary,
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: AppColors.primarySoft,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      item.title.toLowerCase().contains('assign')
+                          ? Icons.groups_outlined
+                          : Icons.notifications_outlined,
+                      color: AppColors.primary,
+                      size: 21,
+                    ),
                   ),
-                )
-              else
-                const SizedBox(width: 20),
+                  if (unread)
+                    Positioned(
+                      right: -2,
+                      top: -2,
+                      child: Container(
+                        key: ValueKey('unread-${item.id}'),
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
