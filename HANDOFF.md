@@ -1,13 +1,14 @@
-# Release handoff, 19 October 2026
+# Release handoff, 20 October 2026
 
 Authoritative tree: `/private/tmp/rescue-release-integration-2026-10-18`, branch `integration/redesign-functional-2026-10-18`. Preserve other sessions' work. Do not overwrite this source from the older product tree.
 
 ## Current status (20 Oct 2026, Flutter finish)
-- Web/API deployment remains b834c03. This local pass changes Flutter and submission documents only; nothing committed, pushed, merged or deployed.
+- Web/API were deployed at b834c03 before this publication. Current source is committed in release PR #1: https://github.com/andireyes06-maker/disaster-rescue/pull/1 . Its merge status and resulting commit are authoritative; earlier no-commit statements describe historical passes.
 - Flutter now has a public welcome, resident notification bell, bounded detail/notification layouts and finite route/tab/error motion. Residents/responders remain native; staff/admin remain web.
 - Final analysis is clean, 219 Flutter tests pass, all 15 golden checksums verify without regeneration. Chrome debug and Android debug builds succeed. Chrome visual reviewer scored its desktop-notification fix resolved; native hardware remains unverified.
 - User-guide PowerPoint, source screenshots/generator, schema, video script and supporting silent preview are in docs/. Actual group narration/contributions and Office rendering review remain owner work.
-- Start with durable FLUTTER-FINISH-2026-10-20.md and the current recovery manifest. Preserve the earlier 787-file checkpoint as historical; use the current 805-file bundle after this finish.
+- Flutter product checkpoint: 6734ccc. Publish to the existing default branch build/disaster-rescue. Keep the integration branch because it owns this live worktree. No signed native/store release is implied by a source merge.
+- Start with durable DEFAULT-BRANCH-RELEASE-2026-10-20.md, then FLUTTER-FINISH-2026-10-20.md and the current recovery manifest. Earlier 777/787 recovery records are historical; current scope is 805 paths.
 
 ## Production release
 The user requested a direct release instead of waiting for staging. The verified product commit `b834c038055db76438858abdb95aadffbd5fd32d` is now deployed:
