@@ -94,6 +94,7 @@ Future<void> main() async {
         Provider<PushRegistration>.value(value: push),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         title: 'Rescue Reports',
         theme: AppTheme.light,
@@ -109,6 +110,7 @@ class _ConfigErrorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+    debugShowCheckedModeBanner: false,
     theme: AppTheme.light,
     home: Scaffold(
       body: Center(

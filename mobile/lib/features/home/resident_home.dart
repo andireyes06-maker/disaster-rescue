@@ -7,6 +7,7 @@ import '../profile/profile_page.dart';
 import '../report/report_flow_page.dart';
 import '../notifications/push_registration.dart';
 import '../../theme/product_motion.dart';
+import '../../theme/product_navigation.dart';
 
 class ResidentHome extends StatefulWidget {
   const ResidentHome({super.key});
@@ -32,7 +33,9 @@ class _ResidentHomeState extends State<ResidentHome> {
   Widget build(BuildContext context) {
     final user = context.watch<AuthController>().user;
     if (user == null) return const SizedBox.shrink();
-    return Scaffold(
+    return ProductNavigation(
+      index: _index,
+      onChanged: (i) => setState(() => _index = i),
       body: ProductTabHost(
         index: _index,
         children: [
@@ -41,27 +44,23 @@ class _ResidentHomeState extends State<ResidentHome> {
           ProfilePage(user: user),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _index,
-        onDestinationSelected: (i) => setState(() => _index = i),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.add_alert_outlined),
-            selectedIcon: Icon(Icons.add_alert),
-            label: 'Report',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.list_alt_outlined),
-            selectedIcon: Icon(Icons.list_alt),
-            label: 'My Reports',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-      ),
+      destinations: const [
+        NavigationDestination(
+          icon: Icon(Icons.add_alert_outlined),
+          selectedIcon: Icon(Icons.add_alert),
+          label: 'Report',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.list_alt_outlined),
+          selectedIcon: Icon(Icons.list_alt),
+          label: 'My Reports',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.person_outline),
+          selectedIcon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }

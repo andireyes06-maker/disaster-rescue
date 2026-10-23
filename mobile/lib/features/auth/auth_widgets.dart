@@ -50,9 +50,9 @@ class InlineError extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: const Color(0xFFFFF8ED),
           borderRadius: BorderRadius.circular(AppRadius.md),
-          border: Border.all(color: AppColors.high, width: 2),
+          border: Border.all(color: const Color(0xFFE3C8A0), width: 1),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,6 +93,33 @@ class DisclaimerBox extends StatelessWidget {
   );
 }
 
+/// Error content keeps an icon, clear text and the field's error semantics.
+Widget fieldErrorBuilder(BuildContext context, String message) => Semantics(
+  liveRegion: true,
+  child: Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Padding(
+        padding: EdgeInsets.only(top: 1),
+        child: Icon(
+          Icons.error_outline_rounded,
+          size: 16,
+          color: AppColors.critical,
+        ),
+      ),
+      const SizedBox(width: 6),
+      Expanded(
+        child: Text(
+          message,
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(color: AppColors.critical),
+        ),
+      ),
+    ],
+  ),
+);
+
 /// Label for a required field (C6): a visible " *" and a screen-reader "required".
 Widget requiredFieldLabel(String text) =>
     Text('$text *', semanticsLabel: '$text, required');
@@ -119,6 +146,7 @@ class _PasswordFieldState extends State<PasswordField> {
 
   @override
   Widget build(BuildContext context) => TextFormField(
+    errorBuilder: fieldErrorBuilder,
     controller: widget.controller,
     obscureText: _hidden,
     validator: widget.validator,
@@ -126,6 +154,7 @@ class _PasswordFieldState extends State<PasswordField> {
     decoration: InputDecoration(
       label: widget.required ? requiredFieldLabel('Password') : null,
       labelText: widget.required ? null : 'Password',
+      prefixIcon: const Icon(Icons.lock_outline_rounded),
       suffixIcon: IconButton(
         tooltip: _hidden ? 'Show password' : 'Hide password',
         icon: Icon(

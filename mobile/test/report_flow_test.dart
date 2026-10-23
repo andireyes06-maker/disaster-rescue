@@ -31,10 +31,14 @@ Future<void> open(WidgetTester t, {double scale = 1.0}) async {
 }
 
 Finder photoChips() => find.byWidgetPredicate(
-      (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith('photo-chip-'),
-    );
+  (w) =>
+      w.key is ValueKey<String> &&
+      (w.key! as ValueKey<String>).value.startsWith('photo-chip-'),
+);
 Finder nextBtn() => find.widgetWithText(FilledButton, 'Next');
 Future<void> tapText(WidgetTester t, String s) async {
+  await t.ensureVisible(find.text(s));
+  await t.pumpAndSettle();
   await t.tap(find.text(s));
   await t.pumpAndSettle();
 }
@@ -53,7 +57,10 @@ Future<void> toStep3(WidgetTester t) async {
 }
 
 Future<void> fillDetails(WidgetTester t) async {
-  await t.enterText(find.byKey(const Key('description')), 'Water up to the roof');
+  await t.enterText(
+    find.byKey(const Key('description')),
+    'Water up to the roof',
+  );
   await t.enterText(find.byKey(const Key('contactName')), 'Ana Reyes');
   await t.enterText(find.byKey(const Key('contactPhone')), '0917 123 4567');
   await t.pump();
@@ -81,12 +88,36 @@ void main() {
     });
     test('photo', () {
       expect(validatePhoto(photo('a.jpg')), isNull);
-      expect(validatePhoto(PickedPhoto(name: 'a.png', bytes: pngBytes(), mime: 'image/png')), isNull);
-      expect(validatePhoto(PickedPhoto(name: 'fake.jpg', bytes: Uint8List.fromList([1, 2, 3, 4]), mime: 'image/jpeg')),
-          contains('not a JPEG'));
-      expect(validatePhoto(PickedPhoto(name: 'e.jpg', bytes: Uint8List(0), mime: 'image/jpeg')), isNotNull);
-      final big = Uint8List(maxPhotoBytes + 1)..setRange(0, 3, [0xFF, 0xD8, 0xFF]);
-      expect(validatePhoto(PickedPhoto(name: 'big.jpg', bytes: big, mime: 'image/jpeg')), contains('5 MB'));
+      expect(
+        validatePhoto(
+          PickedPhoto(name: 'a.png', bytes: pngBytes(), mime: 'image/png'),
+        ),
+        isNull,
+      );
+      expect(
+        validatePhoto(
+          PickedPhoto(
+            name: 'fake.jpg',
+            bytes: Uint8List.fromList([1, 2, 3, 4]),
+            mime: 'image/jpeg',
+          ),
+        ),
+        contains('not a JPEG'),
+      );
+      expect(
+        validatePhoto(
+          PickedPhoto(name: 'e.jpg', bytes: Uint8List(0), mime: 'image/jpeg'),
+        ),
+        isNotNull,
+      );
+      final big = Uint8List(maxPhotoBytes + 1)
+        ..setRange(0, 3, [0xFF, 0xD8, 0xFF]);
+      expect(
+        validatePhoto(
+          PickedPhoto(name: 'big.jpg', bytes: big, mime: 'image/jpeg'),
+        ),
+        contains('5 MB'),
+      );
     });
   });
 
@@ -113,18 +144,21 @@ void main() {
     expect(find.textContaining('14.59950'), findsOneWidget);
   });
 
-  testWidgets('permission denied and GPS off show a message and the map fallback', (t) async {
-    await open(t);
-    await toStep2(t);
-    env.location.result = const LocationResult(LocationStatus.denied);
-    await tapText(t, 'Use my current location');
-    expect(find.textContaining('permission'), findsWidgets);
-    expect(find.text('Pick on a map'), findsOneWidget);
-    env.location.result = const LocationResult(LocationStatus.serviceOff);
-    await tapText(t, 'Use my current location');
-    expect(find.textContaining('turned off'), findsWidgets);
-    expect(tester(nextBtn(), t).onPressed, isNull);
-  });
+  testWidgets(
+    'permission denied and GPS off show a message and the map fallback',
+    (t) async {
+      await open(t);
+      await toStep2(t);
+      env.location.result = const LocationResult(LocationStatus.denied);
+      await tapText(t, 'Use my current location');
+      expect(find.textContaining('permission'), findsWidgets);
+      expect(find.text('Pick on a map'), findsOneWidget);
+      env.location.result = const LocationResult(LocationStatus.serviceOff);
+      await tapText(t, 'Use my current location');
+      expect(find.textContaining('turned off'), findsWidgets);
+      expect(tester(nextBtn(), t).onPressed, isNull);
+    },
+  );
 
   testWidgets('the sixth photo is blocked with a message', (t) async {
     await open(t);
@@ -139,13 +173,20 @@ void main() {
     expect(photoChips(), findsNWidgets(5));
   });
 
-  testWidgets('a photo over 5 MB or not an image is rejected before upload', (t) async {
+  testWidgets('a photo over 5 MB or not an image is rejected before upload', (
+    t,
+  ) async {
     await open(t);
     await toStep3(t);
-    final big = Uint8List(maxPhotoBytes + 1)..setRange(0, 3, [0xFF, 0xD8, 0xFF]);
+    final big = Uint8List(maxPhotoBytes + 1)
+      ..setRange(0, 3, [0xFF, 0xD8, 0xFF]);
     env.photos.next = [
       PickedPhoto(name: 'big.jpg', bytes: big, mime: 'image/jpeg'),
-      PickedPhoto(name: 'notes.jpg', bytes: Uint8List.fromList([9, 9, 9, 9]), mime: 'image/jpeg'),
+      PickedPhoto(
+        name: 'notes.jpg',
+        bytes: Uint8List.fromList([9, 9, 9, 9]),
+        mime: 'image/jpeg',
+      ),
     ];
     await tapText(t, 'Add photos');
     expect(photoChips(), findsNothing);
@@ -173,7 +214,9 @@ void main() {
     expect(find.text('0917 123 4567'), findsOneWidget);
   });
 
-  testWidgets('confirm step shows the exact disclaimer and a coral submit', (t) async {
+  testWidgets('confirm step shows the exact disclaimer and a coral submit', (
+    t,
+  ) async {
     await open(t);
     await toStep4(t);
     expect(find.text('Step 4 of 4'), findsOneWidget);
@@ -182,19 +225,22 @@ void main() {
     expect(find.text('Submit report'), findsOneWidget);
   });
 
-  testWidgets('a confirmed report is not shown as unsent when local draft cleanup fails (M03)', (t) async {
-    env.drafts.draft = const ReportDraft(type: 'fire');
-    await open(t);
-    await tapText(t, 'Discard');
-    await toStep4(t);
-    // Fail only the cleanup that runs after the send, not the discard above.
-    env.drafts.failClear = true;
-    await tapText(t, 'Submit report');
-    expect(env.reports.created, hasLength(1));
-    expect(find.text('DR-AB12CD'), findsOneWidget);
-    expect(find.textContaining('not sent'), findsNothing);
-    env.drafts.failClear = false;
-  });
+  testWidgets(
+    'a confirmed report is not shown as unsent when local draft cleanup fails (M03)',
+    (t) async {
+      env.drafts.draft = const ReportDraft(type: 'fire');
+      await open(t);
+      await tapText(t, 'Discard');
+      await toStep4(t);
+      // Fail only the cleanup that runs after the send, not the discard above.
+      env.drafts.failClear = true;
+      await tapText(t, 'Submit report');
+      expect(env.reports.created, hasLength(1));
+      expect(find.text('DR-AB12CD'), findsOneWidget);
+      expect(find.textContaining('not sent'), findsNothing);
+      env.drafts.failClear = false;
+    },
+  );
 
   testWidgets('success shows the reference and clears the draft', (t) async {
     env.drafts.draft = const ReportDraft(type: 'fire');
@@ -203,37 +249,57 @@ void main() {
     await toStep4(t);
     await tapText(t, 'Submit report');
     expect(find.text('DR-AB12CD'), findsOneWidget);
-    expect(find.text('Your report was submitted. Status: Submitted.'), findsOneWidget);
+    expect(
+      find.text('Your report was submitted. Status: Submitted.'),
+      findsOneWidget,
+    );
     expect(find.text('View my reports'), findsOneWidget);
     expect(env.drafts.draft, isNull);
     expect(env.reports.created.single.type, 'flood');
     expect(env.reports.created.single.source, 'gps');
   });
 
-  testWidgets('ApiException 429 is uncertain: the page says it could not be confirmed, and the key is kept', (t) async {
-    await open(t);
-    env.reports.createError = const ApiException(429, 'rate_limited', 'Slow down');
-    await toStep4(t);
-    await tapText(t, 'Submit report');
-    expect(find.text(uncertainCopy), findsOneWidget);
-    expect(find.textContaining('NOT submitted'), findsNothing);
-    expect(find.textContaining('too many reports'), findsOneWidget);
-    expect(env.drafts.uncertain, isTrue);
-    expect(env.drafts.draft, isNotNull);
-    env.reports.createError = null;
-    await tapText(t, 'Try again');
-    await tapText(t, 'Submit report');
-    expect(env.reports.keysSeen, hasLength(2));
-    expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
-    expect(env.reports.keysSeen.first, matches(RegExp(r'^[0-9a-f]{32}$')));
-  });
+  testWidgets(
+    'ApiException 429 is uncertain: the page says it could not be confirmed, and the key is kept',
+    (t) async {
+      await open(t);
+      env.reports.createError = const ApiException(
+        429,
+        'rate_limited',
+        'Slow down',
+      );
+      await toStep4(t);
+      await tapText(t, 'Submit report');
+      expect(find.text(uncertainCopy), findsOneWidget);
+      expect(find.textContaining('NOT submitted'), findsNothing);
+      expect(find.textContaining('too many reports'), findsOneWidget);
+      expect(env.drafts.uncertain, isTrue);
+      expect(env.drafts.draft, isNotNull);
+      env.reports.createError = null;
+      await tapText(t, 'Try again');
+      await tapText(t, 'Submit report');
+      expect(env.reports.keysSeen, hasLength(2));
+      expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
+      expect(env.reports.keysSeen.first, matches(RegExp(r'^[0-9a-f]{32}$')));
+    },
+  );
 
   for (final e in {
-    400: const ApiException(400, 'validation_error', 'Description is too short.'),
+    400: const ApiException(
+      400,
+      'validation_error',
+      'Description is too short.',
+    ),
     403: const ApiException(403, 'account_disabled', 'Off'),
-    0: const ApiException(0, 'auth', 'You are signed out. Please log in again.'),
+    0: const ApiException(
+      0,
+      'auth',
+      'You are signed out. Please log in again.',
+    ),
   }.entries) {
-    testWidgets('ApiException ${e.key} leads to the NOT submitted page', (t) async {
+    testWidgets('ApiException ${e.key} leads to the NOT submitted page', (
+      t,
+    ) async {
       await open(t);
       env.reports.createError = e.value;
       await toStep4(t);
@@ -243,49 +309,83 @@ void main() {
       expect(find.text('Call hotline'), findsWidgets);
       expect(find.textContaining('SMS'), findsOneWidget);
       expect(env.drafts.draft, isNull);
-      if (e.key == 400) expect(find.textContaining('Description is too short.'), findsOneWidget);
-      if (e.key == 403 || e.key == 0) expect(find.textContaining('session'), findsOneWidget);
+      if (e.key == 400) {
+        expect(
+          find.textContaining('Description is too short.'),
+          findsOneWidget,
+        );
+      }
+      if (e.key == 403 || e.key == 0) {
+        expect(find.textContaining('session'), findsOneWidget);
+      }
     });
   }
 
-  testWidgets('a retry after a lost response sends the same submission key (M04)', (t) async {
-    await open(t);
-    env.reports.createError = const ApiException(0, 'network', 'Cannot reach the server.');
-    await toStep4(t);
-    await tapText(t, 'Submit report');
-    expect(find.text('We could not confirm that your report reached us.'), findsOneWidget);
-    expect(find.textContaining('has not been sent'), findsNothing);
-    env.reports.createError = null;
-    await tapText(t, 'Try again');
-    expect(env.reports.keysSeen, hasLength(2));
-    expect(env.reports.keysSeen.first, isNotNull);
-    expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
-    expect(env.reports.keysSeen.first, matches(RegExp(r'^[0-9a-f]{32}$')));
-  });
+  testWidgets(
+    'a retry after a lost response sends the same submission key (M04)',
+    (t) async {
+      await open(t);
+      env.reports.createError = const ApiException(
+        0,
+        'network',
+        'Cannot reach the server.',
+      );
+      await toStep4(t);
+      await tapText(t, 'Submit report');
+      expect(
+        find.text('We could not confirm that your report reached us.'),
+        findsOneWidget,
+      );
+      expect(find.textContaining('has not been sent'), findsNothing);
+      env.reports.createError = null;
+      await tapText(t, 'Try again');
+      expect(env.reports.keysSeen, hasLength(2));
+      expect(env.reports.keysSeen.first, isNotNull);
+      expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
+      expect(env.reports.keysSeen.first, matches(RegExp(r'^[0-9a-f]{32}$')));
+    },
+  );
 
-  testWidgets('a network failure saves a draft and opens the offline page with hotlines', (t) async {
-    await open(t);
-    env.reports.createError = const ApiException(0, 'network', 'Cannot reach the server.');
-    await toStep4(t);
-    await tapText(t, 'Submit report');
-    expect(find.byType(OfflineHelpPage), findsOneWidget);
-    expect(env.drafts.draft?.type, 'flood');
-    expect(env.drafts.draft?.description, 'Water up to the roof');
-    expect(find.text('National emergency'), findsOneWidget);
-    expect(find.text('911'), findsOneWidget);
-    expect(find.text('Call the hotline, or send an SMS to your local disaster office, then try again when you have a signal.'),
-        findsOneWidget);
-    // Retry succeeds this time.
-    env.reports.createError = null;
-    await tapText(t, 'Try again');
-    expect(find.text('DR-AB12CD'), findsOneWidget);
-    expect(env.drafts.draft, isNull);
-  });
+  testWidgets(
+    'a network failure saves a draft and opens the offline page with hotlines',
+    (t) async {
+      await open(t);
+      env.reports.createError = const ApiException(
+        0,
+        'network',
+        'Cannot reach the server.',
+      );
+      await toStep4(t);
+      await tapText(t, 'Submit report');
+      expect(find.byType(OfflineHelpPage), findsOneWidget);
+      expect(env.drafts.draft?.type, 'flood');
+      expect(env.drafts.draft?.description, 'Water up to the roof');
+      expect(find.text('National emergency'), findsOneWidget);
+      expect(find.text('911'), findsOneWidget);
+      expect(
+        find.text(
+          'Call the hotline, or send an SMS to your local disaster office, then try again when you have a signal.',
+        ),
+        findsOneWidget,
+      );
+      // Retry succeeds this time.
+      env.reports.createError = null;
+      await tapText(t, 'Try again');
+      expect(find.text('DR-AB12CD'), findsOneWidget);
+      expect(env.drafts.draft, isNull);
+    },
+  );
 
   testWidgets('a saved draft is offered on launch', (t) async {
     env.drafts.draft = const ReportDraft(
-      type: 'fire', description: 'Smoke everywhere', lat: 1, lng: 2, source: 'manual',
-      contactName: 'Ben', contactPhone: '0917 000 1111');
+      type: 'fire',
+      description: 'Smoke everywhere',
+      lat: 1,
+      lng: 2,
+      source: 'manual',
+      contactName: 'Ben',
+      contactPhone: '0917 000 1111',
+    );
     await open(t);
     expect(find.text('Continue your saved report'), findsOneWidget);
     await tapText(t, 'Continue your saved report');
@@ -308,14 +408,18 @@ void main() {
   });
 
   for (final step in [1, 2, 3, 4]) {
-    testWidgets('step $step renders at 200 percent text without overflow', (t) async {
+    testWidgets('step $step renders at 200 percent text without overflow', (
+      t,
+    ) async {
       t.view.physicalSize = const Size(400, 900);
       t.view.devicePixelRatio = 1;
       addTearDown(t.view.reset);
       env.authRepo.events.add(residentUser);
       await t.pumpWidget(env.host(const ReportFlowPage(), textScale: 2.0));
       await t.pumpAndSettle();
-      if (step >= 2) await toStep2(t);
+      if (step >= 2) {
+        await toStep2(t);
+      }
       if (step >= 3) {
         // At 200% text the required line pushes the location choices below the fold; a user scrolls to them.
         await t.ensureVisible(find.text('Use my current location'));

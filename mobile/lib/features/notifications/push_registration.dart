@@ -8,16 +8,20 @@ abstract class PushMessaging {
   Future<String?> getToken();
   Stream<String> get onTokenRefresh;
 }
+
 class FirebasePushMessaging implements PushMessaging {
   @override
   Future<bool> requestPermission() async {
     final s = await FirebaseMessaging.instance.requestPermission();
-    return s.authorizationStatus == AuthorizationStatus.authorized || s.authorizationStatus == AuthorizationStatus.provisional;
+    return s.authorizationStatus == AuthorizationStatus.authorized ||
+        s.authorizationStatus == AuthorizationStatus.provisional;
   }
+
   @override
   Future<String?> getToken() => FirebaseMessaging.instance.getToken();
   @override
-  Stream<String> get onTokenRefresh => FirebaseMessaging.instance.onTokenRefresh;
+  Stream<String> get onTokenRefresh =>
+      FirebaseMessaging.instance.onTokenRefresh;
 }
 
 /// Serializes registration and sign-out. A failed refresh stays visible and can be
@@ -37,20 +41,30 @@ class PushRegistration {
   Future<void> init() async {
     final generation = _generation;
     try {
-    final permitted = await _messaging.requestPermission();
-    if (generation != _generation) return;
-    if (!permitted) { registrationPending.value = true; return; }
-    _stopped = false;
-    _refreshSub ??= _messaging.onTokenRefresh.listen((token) {
-      if (_stopped || token.isEmpty) return;
-      _pendingToken = token;
-      unawaited(retry());
-    }, onError: (Object _) { registrationPending.value = true; });
-    final token = await _messaging.getToken();
-    if (generation != _generation || _stopped) return;
-    if (token != null && token.isNotEmpty) _pendingToken = token;
-    await retry();
-    } catch (_) { if (generation == _generation) registrationPending.value = true; }
+      final permitted = await _messaging.requestPermission();
+      if (generation != _generation) return;
+      if (!permitted) {
+        registrationPending.value = true;
+        return;
+      }
+      _stopped = false;
+      _refreshSub ??= _messaging.onTokenRefresh.listen(
+        (token) {
+          if (_stopped || token.isEmpty) return;
+          _pendingToken = token;
+          unawaited(retry());
+        },
+        onError: (Object _) {
+          registrationPending.value = true;
+        },
+      );
+      final token = await _messaging.getToken();
+      if (generation != _generation || _stopped) return;
+      if (token != null && token.isNotEmpty) _pendingToken = token;
+      await retry();
+    } catch (_) {
+      if (generation == _generation) registrationPending.value = true;
+    }
   }
 
   Future<void> retry() {

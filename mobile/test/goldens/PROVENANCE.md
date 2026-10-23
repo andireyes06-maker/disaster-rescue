@@ -1,8 +1,6 @@
 # Golden references (Flutter native visual tests)
 
-Status: **legacy reference set, not approval of the current mobile design.** These images were captured earlier by the Codex
-native review and are tracked here so the golden tests run from a clean checkout. The tests passing against them confirms
-that the current screens still match these references. It does not certify that the current design is the approved design.
+Status: **reviewed Harbor redesign widget references, 20 October 2026.** The owner selected a light workspace with dark header and authorized the full Flutter redesign. These are reviewed widget renders, not physical-device approval. Historical origin and earlier reviews remain below.
 Changing a reference requires a reviewed visual decision, recorded here, and must not be done merely to make a regression pass.
 
 ## Origin
@@ -16,7 +14,7 @@ Changing a reference requires a reviewed visual decision, recorded here, and mus
 ## Test setup these references assume
 
 - Test file: `mobile/test/redesign_visual_test.dart`. Each capture uses a 390 by 844 logical viewport at device pixel ratio 1.
-- Flutter 3.44.8 (stable), Dart as bundled, macOS arm64 test host. Fonts: the test loads Roboto from the Flutter SDK material fonts. The app declares no bundled font assets (the font section of pubspec.yaml is commented out), so these references do not show the website's Geist typography.
+- Flutter 3.44.8 (stable), Dart as bundled, macOS arm64 test host. Current font: bundled Geist variable TTF declared in pubspec.yaml and loaded explicitly by the visual harness. SDK Roboto and MaterialIcons remain test fallbacks. Earlier historical references used SDK Roboto.
 - Fixture data: fictional, defined in the test file (for example `sample@demo.test`, Harbor sample teams). No real person, address or
   phone number. A draft-store fixture was changed from a realistic number to `09170000001` on 18 October 2026, outside these images.
 
@@ -60,3 +58,28 @@ Reason: the response form's "Status" and "People rescued" fields are required, s
 ## Reviewed change: incident detail progress history section, 19 October 2026
 
 Reason: the responder incident detail now has a bounded "Progress history" section below the actions. The golden test's fake repository never emits history, so the captured reference shows the section in its loading state ("Loading progress history"). The rest of the page is unchanged. Regenerated with `flutter test --update-goldens test/redesign_visual_test.dart`. Only `incident-detail.png` changed in this round, and the visual check of the old and new images confirmed that the only difference is the added section. Reference SHA-256 is now `4c35f584...068aeb` (was `1b1d3681c8664b048ef87ee992046e11a882211ebe6ec5e58dad08a85dcfaaa3`). The populated states (entries, empty, error) are covered by `test/progress_history_test.dart` and are not pixel-captured.
+
+## Reviewed redesign: Harbor light workspace, 20 October 2026
+
+Owner direction: “Light workspace, dark header (Recommended)”, preserving the website’s purple/harbor identity. Full design replacement was requested, including resident and responder screens. No staff native workspaces were added.
+
+Generated into a separate candidate directory with `GOLDEN_REVIEW_DIR=/private/tmp/flutter-redesign-2026-10-20/candidate-goldens flutter test --no-pub test/redesign_visual_test.dart --update-goldens`. All 15 candidate images were viewed individually before copying them to this reference set. Earlier 15 images remain in the redesign evidence backup. This is an intentional new design reference, not an attempt to clear an unexplained regression.
+
+Reviewed changes, every image:
+
+- login and register: dark app bars, measured white form sheet, Geist hierarchy, stronger field boundaries, required labels and preserved reset/consent controls.
+- profile: actual account data rows, separate privacy panel and logout.
+- report-type: compact descriptive situation rows, explicit progress steps and radio indicators.
+- report-location: grouped honest selection state, GPS/map controls and optional landmark field.
+- report-details: clear description/photo/contact hierarchy and stronger field boundaries.
+- report-review: grouped real report data, safety notice and primary submission action.
+- my-reports and assignments: structured incident cards with status, reference when available, location and time.
+- notifications: unread icon tile and readable message hierarchy.
+- response-update: grouped status and input controls; required markers retained.
+- incident-detail: grouped incident/location, operational actions, progress history loading state. The fixture does not emit progress history; this reference does not verify populated history.
+- map-tile-free: shaped map viewport, existing filter/marker/list. Tiles deliberately disabled in the harness; gray field is intentional and does not prove live tile loading.
+- offline-recovery and submission-result: coherent recovery/receipt panels and preserved truthful copy.
+
+Independent Impeccable review found faint input outlines/radio glyphs; candidates were rerendered after the dedicated control-outline token was added. Actual Chrome phone/desktop captures supplement these standalone widget references and exercise the navigation dock/rail. No Android/iOS hardware, release-signing or device-performance approval is implied.
+
+Font source: Google Fonts `ofl/geist/Geist[wght].ttf`, upstream Geist by Vercel, SIL Open Font License. Bundled license `assets/fonts/OFL-Geist.txt`. Font SHA-256: 73894e0448cae90a92b6c2f8732b7bb9acb7b94c418bff559dad4a18e1de9659.

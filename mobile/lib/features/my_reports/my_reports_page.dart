@@ -43,18 +43,22 @@ class StatusChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: AppColors.primarySoft,
-        borderRadius: BorderRadius.circular(AppRadius.md),
+        color: s.color.withValues(alpha: .09),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(s.icon, size: 16, color: AppColors.text),
+          Icon(s.icon, size: 16, color: s.color),
           const SizedBox(width: 6),
           Flexible(
             child: Text(
               s.label,
-              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: s.color,
+              ),
             ),
           ),
         ],
@@ -92,68 +96,72 @@ class _MyReportsPageState extends State<MyReportsPage> {
             ],
           ),
         ),
-        body: StreamBuilder<List<ReportSummary>>(
-          stream: _stream,
-          builder: (context, snap) {
-            if (snap.hasError) {
-              return const Padding(
-                padding: EdgeInsets.all(16),
-                child: InlineError(
-                  'Could not load your reports. Check your connection and try again later.',
-                ),
-              );
-            }
-            if (!snap.hasData) return const ProductLoading();
-            final all = sortNewestFirst(snap.data!);
-            return Column(
-              children: [
-                if (all.length >= _windowSize)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text('Showing ${all.length} newest reports.'),
-                        ),
-                        if (all.length >= _windowSize)
-                          TextButton(
-                            onPressed: () => setState(() {
-                              _windowSize += 50;
-                              _stream = context
-                                  .read<ReportsRepository>()
-                                  .watchMyReports(
-                                    widget.uid,
-                                    windowSize: _windowSize,
-                                  );
-                            }),
-                            child: const Text('Load older'),
+        body: ProductViewport(
+          child: StreamBuilder<List<ReportSummary>>(
+            stream: _stream,
+            builder: (context, snap) {
+              if (snap.hasError) {
+                return const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: InlineError(
+                    'Could not load your reports. Check your connection and try again later.',
+                  ),
+                );
+              }
+              if (!snap.hasData) return const ProductLoading();
+              final all = sortNewestFirst(snap.data!);
+              return Column(
+                children: [
+                  if (all.length >= _windowSize)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Showing ${all.length} newest reports.',
+                            ),
                           ),
+                          if (all.length >= _windowSize)
+                            TextButton(
+                              onPressed: () => setState(() {
+                                _windowSize += 50;
+                                _stream = context
+                                    .read<ReportsRepository>()
+                                    .watchMyReports(
+                                      widget.uid,
+                                      windowSize: _windowSize,
+                                    );
+                              }),
+                              child: const Text('Load older'),
+                            ),
+                        ],
+                      ),
+                    ),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        _ReportList(
+                          items: all
+                              .where((r) => !isHistoryStatus(r.status))
+                              .toList(),
+                          empty: 'No active reports.',
+                          stream: _stream,
+                        ),
+                        _ReportList(
+                          items: all
+                              .where((r) => isHistoryStatus(r.status))
+                              .toList(),
+                          empty: 'No past reports yet.',
+                          stream: _stream,
+                        ),
                       ],
                     ),
                   ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      _ReportList(
-                        items: all
-                            .where((r) => !isHistoryStatus(r.status))
-                            .toList(),
-                        empty: 'No active reports.',
-                        stream: _stream,
-                      ),
-                      _ReportList(
-                        items: all
-                            .where((r) => isHistoryStatus(r.status))
-                            .toList(),
-                        empty: 'No past reports yet.',
-                        stream: _stream,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -185,7 +193,6 @@ class _ReportList extends StatelessWidget {
       separatorBuilder: (_, _) => const SizedBox(height: 12),
       itemBuilder: (context, i) {
         final r = items[i];
-        final info = reportTypeInfo[r.type] ?? reportTypeInfo['other']!;
         return Card(
           child: InkWell(
             borderRadius: BorderRadius.circular(AppRadius.lg),
@@ -206,49 +213,7 @@ class _ReportList extends StatelessWidget {
                 messenger.showSnackBar(SnackBar(content: Text(result)));
               }
             },
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: AppColors.primarySoft,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Icon(info.icon, color: AppColors.primary),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          info.label,
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    r.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    formatWhen(r.createdAt),
-                    style: const TextStyle(
-                      color: AppColors.muted,
-                      fontSize: 13,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  StatusChip(r.status),
-                ],
-              ),
-            ),
+            child: _ResidentReportContent(report: r),
           ),
         );
       },
@@ -338,38 +303,53 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                Row(
-                  children: [
-                    Icon(info.icon, color: AppColors.primary),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        info.label,
-                        style: Theme.of(context).textTheme.titleLarge,
+                ProductSurface(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(info.icon, color: AppColors.primary),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              info.label,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  formatWhen(r.createdAt),
-                  style: const TextStyle(color: AppColors.muted),
-                ),
-                if (r.reference != null) Text('Reference: ${r.reference}'),
-                const SizedBox(height: 12),
-                Text(r.description),
-                const SizedBox(height: 12),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: StatusChip(r.status),
+                      const SizedBox(height: 8),
+                      Text(
+                        formatWhen(r.createdAt),
+                        style: const TextStyle(color: AppColors.muted),
+                      ),
+                      if (r.reference != null)
+                        Text('Reference: ${r.reference}'),
+                      const SizedBox(height: 12),
+                      Text(r.description),
+                      const SizedBox(height: 12),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: StatusChip(r.status),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 20),
-                Text(
-                  'Progress',
-                  style: Theme.of(context).textTheme.titleMedium,
+                ProductSurface(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        'Progress',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 12),
+                      StatusTimeline(status: r.status),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 12),
-                StatusTimeline(status: r.status),
                 if (r.status == 'Submitted') ...[
                   const SizedBox(height: 16),
                   OutlinedButton(
@@ -386,6 +366,88 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
           ),
         );
       },
+    );
+  }
+}
+
+class _ResidentReportContent extends StatelessWidget {
+  const _ResidentReportContent({required this.report});
+  final ReportSummary report;
+  @override
+  Widget build(BuildContext context) {
+    final info = reportTypeInfo[report.type] ?? reportTypeInfo['other']!;
+    return Padding(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: AppColors.primarySoft,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(info.icon, color: AppColors.primary, size: 23),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      info.label,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    if (report.reference != null) ...[
+                      const SizedBox(height: 3),
+                      Text(
+                        report.reference!,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: AppColors.muted,
+                size: 20,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            report.description,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 16),
+          StatusChip(report.status),
+          const SizedBox(height: 16),
+          const Divider(height: 1),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              const Icon(
+                Icons.schedule_rounded,
+                size: 16,
+                color: AppColors.muted,
+              ),
+              const SizedBox(width: 7),
+              Expanded(
+                child: Text(
+                  formatWhen(report.createdAt),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

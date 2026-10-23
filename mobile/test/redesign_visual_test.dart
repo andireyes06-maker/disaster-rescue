@@ -24,12 +24,29 @@ import 'report_fakes.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() async {
+    await (FontLoader(
+      'Geist',
+    )..addFont(rootBundle.load('assets/fonts/Geist-Variable.ttf'))).load();
     final root = Platform.environment['FLUTTER_ROOT'];
     if (root != null) {
-      final font = File('$root/bin/cache/artifacts/material_fonts/Roboto-Regular.ttf');
-      if (font.existsSync()) await (FontLoader('Roboto')..addFont(Future.value(ByteData.sublistView(font.readAsBytesSync())))).load();
-      final icons = File('$root/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf');
-      if (icons.existsSync()) await (FontLoader('MaterialIcons')..addFont(Future.value(ByteData.sublistView(icons.readAsBytesSync())))).load();
+      final font = File(
+        '$root/bin/cache/artifacts/material_fonts/Roboto-Regular.ttf',
+      );
+      if (font.existsSync()) {
+        await (FontLoader('Roboto')..addFont(
+              Future.value(ByteData.sublistView(font.readAsBytesSync())),
+            ))
+            .load();
+      }
+      final icons = File(
+        '$root/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf',
+      );
+      if (icons.existsSync()) {
+        await (FontLoader('MaterialIcons')..addFont(
+              Future.value(ByteData.sublistView(icons.readAsBytesSync())),
+            ))
+            .load();
+      }
     }
   });
   const key = Key('native-capture');
@@ -43,11 +60,18 @@ void main() {
     await t.pumpWidget(RepaintBoundary(key: key, child: env.host(page)));
     await t.pumpAndSettle();
   }
+
   Future<void> capture(WidgetTester t, String name) async {
     expect(t.takeException(), isNull);
     // Reviewed references tracked in test/goldens (see test/goldens/PROVENANCE.md). They are not regenerated to pass a regression.
-    await expectLater(find.byKey(key), matchesGoldenFile('goldens/$name.png'));
+    await expectLater(
+      find.byKey(key),
+      matchesGoldenFile(
+        "${Platform.environment['GOLDEN_REVIEW_DIR'] ?? 'goldens'}/$name.png",
+      ),
+    );
   }
+
   testWidgets('access and account layouts at phone width', (t) async {
     await host(t, const LoginPage());
     await capture(t, 'login');
@@ -72,32 +96,74 @@ void main() {
     await t.tap(find.text('Next'));
     await t.pumpAndSettle();
     await capture(t, 'report-details');
-    await t.enterText(find.byKey(const Key('description')), 'Sample flood report. Water is rising near the access road.');
+    await t.enterText(
+      find.byKey(const Key('description')),
+      'Sample flood report. Water is rising near the access road.',
+    );
     await t.tap(find.text('Next'));
     await t.pumpAndSettle();
     await capture(t, 'report-review');
   });
   testWidgets('report list, notifications and response form', (t) async {
     await host(t, const MyReportsPage(uid: 'u1'));
-    env.reports.controller.add([ReportSummary(id: 'sample', type: 'flood', description: 'Sample report: water is rising near the access road.', status: 'Team Assigned', createdAt: DateTime(2026, 10, 17, 8, 30))]);
+    env.reports.controller.add([
+      ReportSummary(
+        id: 'sample',
+        type: 'flood',
+        description: 'Sample report: water is rising near the access road.',
+        status: 'Team Assigned',
+        createdAt: DateTime(2026, 10, 17, 8, 30),
+      ),
+    ]);
     await t.pumpAndSettle();
     await capture(t, 'my-reports');
     await t.pumpWidget(const SizedBox());
     await host(t, const NotificationsPage(uid: 'u1'));
-    env.notifications.controller.add([AppNotification(id: 'sample', title: 'Team assigned', body: 'A sample rescue team has been assigned to your report.', reportId: 'sample', read: false, createdAt: DateTime(2026, 10, 17, 9))]);
+    env.notifications.controller.add([
+      AppNotification(
+        id: 'sample',
+        title: 'Team assigned',
+        body: 'A sample rescue team has been assigned to your report.',
+        reportId: 'sample',
+        read: false,
+        createdAt: DateTime(2026, 10, 17, 9),
+      ),
+    ]);
     await t.pumpAndSettle();
     await capture(t, 'notifications');
     await t.pumpWidget(const SizedBox());
     await host(t, const OperationFormPage(reportId: 'sample'));
     await capture(t, 'response-update');
     await t.pumpWidget(const SizedBox());
-    await host(t, SubmissionSuccessPage(reference: 'DR-SAMPLE', onViewReports: () {}));
+    await host(
+      t,
+      SubmissionSuccessPage(reference: 'DR-SAMPLE', onViewReports: () {}),
+    );
     await capture(t, 'submission-result');
   });
   testWidgets('assignment, incident, map and recovery layouts', (t) async {
-    const report = AssignedReport(id: 'sample', reference: 'DR-SAMPLE', type: 'flood', description: 'Sample report: water is rising near the access road.', status: 'Team Assigned', priority: 'critical', assignedTeamId: 'team-sample', addressText: 'Sample access road', lat: 14.6, lng: 121);
+    const report = AssignedReport(
+      id: 'sample',
+      reference: 'DR-SAMPLE',
+      type: 'flood',
+      description: 'Sample report: water is rising near the access road.',
+      status: 'Team Assigned',
+      priority: 'critical',
+      assignedTeamId: 'team-sample',
+      addressText: 'Sample access road',
+      lat: 14.6,
+      lng: 121,
+    );
     await host(t, const AssignedListPage());
-    env.authRepo.events.add(const AuthUser(uid: 'responder-sample', email: 'sample@demo.test', role: 'responder', team: 'team-sample', active: true));
+    env.authRepo.events.add(
+      const AuthUser(
+        uid: 'responder-sample',
+        email: 'sample@demo.test',
+        role: 'responder',
+        team: 'team-sample',
+        active: true,
+      ),
+    );
     await t.pumpAndSettle();
     env.responder.assigned.add([report]);
     await t.pumpAndSettle();
@@ -106,7 +172,15 @@ void main() {
     await host(t, const IncidentDetailPage(report: report));
     await capture(t, 'incident-detail');
     await t.pumpWidget(const SizedBox());
-    await host(t, IncidentMapPage(reports: Stream.value([report]), viewerUid: 'responder-sample', viewerTeam: 'team-sample', showTiles: false));
+    await host(
+      t,
+      IncidentMapPage(
+        reports: Stream.value([report]),
+        viewerUid: 'responder-sample',
+        viewerTeam: 'team-sample',
+        showTiles: false,
+      ),
+    );
     await capture(t, 'map-tile-free');
     await t.pumpWidget(const SizedBox());
     env.hotlines.list = [];

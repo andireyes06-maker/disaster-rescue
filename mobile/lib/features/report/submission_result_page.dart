@@ -98,16 +98,26 @@ class SubmissionSuccessPage extends StatelessWidget {
                   'Keep this reference so you can follow the response.',
               icon: Icons.check_circle_outline,
             ),
-            Text('Reference ID', style: Theme.of(context).textTheme.labelLarge),
-            SelectableText(
-              reference,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 12),
-            const Text('Your report was submitted. Status: Submitted.'),
-            const SizedBox(height: 8),
-            const Text(
-              'Keep this reference ID. A dispatcher will review your report.',
+            ProductSurface(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Reference ID',
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  SelectableText(
+                    reference,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  const Text('Your report was submitted. Status: Submitted.'),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Keep this reference ID. A dispatcher will review your report.',
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 24),
             FilledButton(
@@ -159,31 +169,41 @@ class SubmissionFailurePage extends StatelessWidget {
                   'Your information is still here. Check the problem below before retrying.',
               icon: uncertain ? Icons.help_outline : Icons.error_outline,
             ),
-            if (uncertain)
-              Text(uncertainCopy, style: Theme.of(context).textTheme.titleLarge)
-            else
-              Text(
-                'Your report was NOT submitted.',
-                style: Theme.of(context).textTheme.titleLarge,
+            ProductSurface(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (uncertain)
+                    Text(
+                      uncertainCopy,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    )
+                  else
+                    Text(
+                      'Your report was NOT submitted.',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  if (uncertain &&
+                      storageFailureCopy(
+                            draftNotSaved: draftNotSaved,
+                            warningNotSaved: warningNotSaved,
+                          ) !=
+                          null) ...[
+                    const SizedBox(height: 12),
+                    Text(
+                      storageFailureCopy(
+                        draftNotSaved: draftNotSaved,
+                        warningNotSaved: warningNotSaved,
+                      )!,
+                    ),
+                  ],
+                  const SizedBox(height: 12),
+                  Text(reason),
+                  const SizedBox(height: 12),
+                  const Text(alternativeReporting),
+                ],
               ),
-            if (uncertain &&
-                storageFailureCopy(
-                      draftNotSaved: draftNotSaved,
-                      warningNotSaved: warningNotSaved,
-                    ) !=
-                    null) ...[
-              const SizedBox(height: 12),
-              Text(
-                storageFailureCopy(
-                  draftNotSaved: draftNotSaved,
-                  warningNotSaved: warningNotSaved,
-                )!,
-              ),
-            ],
-            const SizedBox(height: 12),
-            Text(reason),
-            const SizedBox(height: 12),
-            const Text(alternativeReporting),
+            ),
             const SizedBox(height: 24),
             FilledButton(
               onPressed: () => Navigator.of(context).pop(),

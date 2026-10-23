@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T07:49:54.679140+00:00",
+  "title": "Design System: Rescue Reports \u2014 Flutter",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Decisive Violet"
+      },
+      "harbor": {
+        "role": "secondary",
+        "displayName": "Harbor"
+      },
+      "control-outline": {
+        "role": "neutral",
+        "displayName": "Control Outline"
+      },
+      "decorative-border": {
+        "role": "neutral",
+        "displayName": "Decorative Border"
+      }
+    },
+    "typographyMeta": {
+      "headline-small": {
+        "displayName": "Task heading",
+        "purpose": "Shared ProductIntro task titles."
+      },
+      "body-medium": {
+        "displayName": "Body",
+        "purpose": "Task explanations and report detail copy."
+      }
+    },
+    "shadows": [
+      {
+        "name": "navigation-dock",
+        "value": "Flutter BoxShadow: harbor alpha 0.10; blurRadius 24; offset Offset(0, 6); spreadRadius 0",
+        "purpose": "Ambient separation of compact navigation from the workspace."
+      }
+    ],
+    "motion": [
+      {
+        "name": "arrival",
+        "value": "320ms; Curves.easeOutCubic; y 12\u21920; opacity 0.8\u21921",
+        "purpose": "Finite mounted content arrival; bypassed by disableAnimations."
+      },
+      {
+        "name": "welcome-arrival",
+        "value": "420ms; Curves.easeOutCubic; y 16\u21920",
+        "purpose": "Public service introduction."
+      },
+      {
+        "name": "tab-arrival",
+        "value": "240ms; Curves.easeOutCubic; x 10\u21920; opacity 0.9\u21921",
+        "purpose": "Selected tab arrival with mounted draft and scroll state retained."
+      },
+      {
+        "name": "route-transition",
+        "value": "route animation duration; Curves.easeOutCubic; x fraction 0.035\u21920; opacity 0.85\u21921",
+        "purpose": "Custom non-iOS route transition; first route and reduced motion bypass it."
+      },
+      {
+        "name": "report-step",
+        "value": "200ms; AnimatedContainer",
+        "purpose": "Report step state decoration."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "navigation-rail",
+        "value": "900 logical pixels"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "description": "Flutter FilledButton; violet action, white label, Material interaction states, 48\u00d754 minimum logical dimensions.",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "Outlined button",
+      "kind": "button",
+      "description": "Flutter OutlinedButton; white surface, ink label, subdued outline, 48\u00d750 minimum logical dimensions.",
+      "refersTo": "button-outlined"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "description": "Flutter InputDecorationTheme; persistent labels; control-outline enabled boundary, violet focus, critical errors.",
+      "refersTo": "field"
+    },
+    {
+      "name": "Task surface",
+      "kind": "card",
+      "description": "Flutter ProductSurface; quiet decorative border, zero elevation, grouped task content.",
+      "refersTo": "task-surface"
+    },
+    {
+      "name": "Navigation dock",
+      "kind": "nav",
+      "description": "Flutter NavigationBar in a clipped rounded white dock; switches to NavigationRail at 900 logical pixels.",
+      "refersTo": "navigation-dock"
+    },
+    {
+      "name": "Priority badge",
+      "kind": "chip",
+      "description": "Flutter ProductPriority; native icon and explicit priority label over a 9% semantic-color tint."
+    },
+    {
+      "name": "Report steps",
+      "kind": "custom",
+      "description": "Flutter ProductSteps; four circles with progress lines and semantic step count; labels yield at text scale 1.4."
+    },
+    {
+      "name": "Status timeline",
+      "kind": "custom",
+      "description": "Flutter StatusTimeline; current/done/pending labels plus native icons and a separate terminal notice."
+    }
+  ],
+  "narrative": {
+    "northStar": "Purple Harbor",
+    "overview": "A clear, composed response service built around a light workspace and a dark harbor header. Violet identifies deliberate actions and current progress; white task surfaces keep reports, assignments, and recovery information readable.\n\nThis is the native Flutter expression of Rescue Reports. Preserve the purple harbor identity and cross mark while using native Material controls, readable text, and finite transitions. The system describes implementation reviewed in Chrome and widget tests; physical Android and iOS behavior has not been verified.",
+    "keyCharacteristics": [
+      "Light task workspace beneath a dark service header.",
+      "Bundled Geist with compact headings and comfortable body leading.",
+      "White bordered task groups, explicit status labels, and generous control targets.",
+      "A compact navigation dock adapts to a wide-screen harbor rail."
+    ],
+    "rules": [
+      {
+        "name": "The Harbor Frame Rule",
+        "body": "Keep the task workspace light; use harbor for service context, app bars, and wide navigation.",
+        "section": "colors"
+      },
+      {
+        "name": "The Control Boundary Rule",
+        "body": "Use control-outline for editable field boundaries and unselected choice indicators; decorative-border belongs to noninteractive surface separation.",
+        "section": "colors"
+      },
+      {
+        "name": "The Finite Arrival Rule",
+        "body": "Arrivals settle once, tab changes preserve mounted task state, and reduced-motion preferences bypass the custom arrivals.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the light workspace, dark harbor context, violet actions, and existing cross mark.",
+      "Do retain visible labels and icons alongside priority and workflow color.",
+      "Do use at least 48 logical pixels for interactive targets and preserve text scaling and SafeArea behavior.",
+      "Do reuse ProductViewport, ProductSurface, and the shared theme before adding a local visual treatment.",
+      "Do distinguish Chrome and widget evidence from physical-device verification."
+    ],
+    "donts": [
+      "Don't use the pale decorative border as the sole editable-field or unselected-choice boundary.",
+      "Don't replace real task information with invented incidents, metrics, hotline claims, or response guarantees.",
+      "Don't restart an arrival on every data refresh or add ambient looping decoration."
+    ]
+  }
+}

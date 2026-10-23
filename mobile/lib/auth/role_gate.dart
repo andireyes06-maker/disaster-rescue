@@ -11,6 +11,9 @@ export '../features/home/resident_home.dart';
 import 'auth_controller.dart';
 import 'profile_sync.dart';
 import '../theme/product_motion.dart';
+import '../theme/product_navigation.dart';
+import '../features/profile/profile_page.dart';
+import '../theme/product_widgets.dart';
 
 class RoleGate extends StatelessWidget {
   const RoleGate({super.key});
@@ -73,33 +76,41 @@ class AccessHold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
+      appBar: AppBar(title: const Text('Rescue Reports')),
+      body: ProductViewport(
+        child: ListView(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Semantics(
-                header: true,
-                child: Text(
-                  'Checking your access',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
+          children: [
+            const SizedBox(height: 32),
+            ProductSurface(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const ProductIntro(
+                    title: 'Checking your access',
+                    description:
+                        'Your account is being checked before your workspace opens.',
+                    icon: Icons.shield_outlined,
+                  ),
+                  Text(_message),
+                  const SizedBox(height: 24),
+                  if (retryAvailable && onRetry != null)
+                    FilledButton(
+                      onPressed: onRetry,
+                      child: const Text('Retry access check'),
+                    )
+                  else
+                    const Center(
+                      child: SizedBox(
+                        width: 28,
+                        height: 28,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
+                ],
               ),
-              const SizedBox(height: 12),
-              Text(_message, textAlign: TextAlign.center),
-              const SizedBox(height: 24),
-              if (retryAvailable && onRetry != null)
-                FilledButton(
-                  onPressed: onRetry,
-                  child: const Text('Retry access check'),
-                )
-              else
-                const Center(child: CircularProgressIndicator()),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -130,30 +141,34 @@ class _ResponderHomeState extends State<ResponderHome> {
   Widget build(BuildContext context) {
     final user = context.watch<AuthController>().user;
     if (user == null) return const SizedBox.shrink();
-    return Scaffold(
+    return ProductNavigation(
+      index: _index,
+      onChanged: (i) => setState(() => _index = i),
       body: ProductTabHost(
         index: _index,
         children: [
           const AssignedListPage(),
           NotificationsPage(uid: user.uid),
+          ProfilePage(user: user),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _index,
-        onDestinationSelected: (i) => setState(() => _index = i),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.assignment_outlined),
-            selectedIcon: Icon(Icons.assignment),
-            label: 'Assigned',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.notifications_outlined),
-            selectedIcon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-        ],
-      ),
+      destinations: const [
+        NavigationDestination(
+          icon: Icon(Icons.assignment_outlined),
+          selectedIcon: Icon(Icons.assignment),
+          label: 'Assigned',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.notifications_outlined),
+          selectedIcon: Icon(Icons.notifications),
+          label: 'Notifications',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.person_outline),
+          selectedIcon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }
@@ -169,6 +184,7 @@ class WebDashboardNotice extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = context.read<AuthController>();
     return Scaffold(
+      appBar: AppBar(title: const Text('Rescue Reports')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),

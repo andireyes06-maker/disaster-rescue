@@ -15,7 +15,7 @@ void main() {
     expect(AppTheme.light.scaffoldBackgroundColor, AppColors.bg);
     expect(AppRadius.md, 10);
     expect(AppRadius.lg, 16);
-    expect(AppSpace.touch, 44);
+    expect(AppSpace.touch, 48);
   });
 
   test('priority and status styles carry label and icon', () {

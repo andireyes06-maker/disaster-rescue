@@ -34,10 +34,14 @@ void main() {
     addTearDown(env.dispose);
     await t.pumpWidget(env.host(const WelcomePage()));
     await t.pumpAndSettle();
+    await t.ensureVisible(find.text('Create a resident account'));
+    await t.pumpAndSettle();
     await t.tap(find.text('Create a resident account'));
     await t.pumpAndSettle();
     expect(find.byType(RegisterPage), findsOneWidget);
     await t.pageBack();
+    await t.pumpAndSettle();
+    await t.ensureVisible(find.text('I already have an account'));
     await t.pumpAndSettle();
     await t.tap(find.text('I already have an account'));
     await t.pumpAndSettle();

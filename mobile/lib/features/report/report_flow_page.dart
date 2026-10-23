@@ -10,6 +10,7 @@ import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/product_widgets.dart';
+import '../../theme/product_motion.dart';
 import '../auth/auth_widgets.dart';
 import '../offline/offline_help_page.dart';
 import 'hotline_button.dart';
@@ -24,15 +25,32 @@ export '../../data/report_models.dart'
 class ReportTypeInfo {
   final String label;
   final IconData icon;
-  const ReportTypeInfo(this.label, this.icon);
+  final String detail;
+  const ReportTypeInfo(this.label, this.icon, [this.detail = '']);
 }
 
 const reportTypeInfo = <String, ReportTypeInfo>{
-  'flood': ReportTypeInfo('Flood', Icons.water),
-  'fire': ReportTypeInfo('Fire', Icons.local_fire_department_outlined),
-  'earthquake': ReportTypeInfo('Earthquake', Icons.vibration),
-  'landslide': ReportTypeInfo('Landslide', Icons.landscape_outlined),
-  'other': ReportTypeInfo('Other', Icons.report_problem_outlined),
+  'flood': ReportTypeInfo('Flood', Icons.water, 'Rising water or flooding'),
+  'fire': ReportTypeInfo(
+    'Fire',
+    Icons.local_fire_department_outlined,
+    'Flames, smoke or a fire',
+  ),
+  'earthquake': ReportTypeInfo(
+    'Earthquake',
+    Icons.vibration,
+    'Ground shaking or damage',
+  ),
+  'landslide': ReportTypeInfo(
+    'Landslide',
+    Icons.landscape_outlined,
+    'Moving soil or blocked slopes',
+  ),
+  'other': ReportTypeInfo(
+    'Other',
+    Icons.report_problem_outlined,
+    'Another urgent situation',
+  ),
 };
 
 const _stepTitles = [
@@ -348,7 +366,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -365,75 +383,56 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Semantics(
-                    label: 'Step ${_step + 1} of 4',
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: Row(
-                        children: List.generate(
-                          4,
-                          (index) => Expanded(
-                            child: Container(
-                              height: 5,
-                              margin: EdgeInsets.only(
-                                right: index == 3 ? 0 : 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: index <= _step
-                                    ? AppColors.primary
-                                    : AppColors.border,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  ProductSteps(current: _step),
                 ],
               ),
             ),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (_step == 0 && _savedDraft != null) _draftCard(),
-                    Text(
-                      _stepTitles[_step],
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      const [
-                        'Choose the situation that best describes the emergency.',
-                        'A precise location helps the response team find you.',
-                        'Share useful details and a way to reach you.',
-                        'Make sure the information is right before you send.',
-                      ][_step],
-                      style: const TextStyle(
-                        color: AppColors.muted,
-                        height: 1.5,
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                child: ProductArrival(
+                  key: ValueKey('report-step-$_step'),
+                  duration: const Duration(milliseconds: 240),
+                  distance: 10,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (_step == 0 && _savedDraft != null) _draftCard(),
+                      Text(
+                        _stepTitles[_step],
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    if (_step <= 1) ...[
-                      const Text(
-                        '* Required',
-                        semanticsLabel: 'Required',
-                        style: TextStyle(color: AppColors.muted),
+                      const SizedBox(height: 8),
+                      Text(
+                        const [
+                          'Choose the situation that best describes the emergency.',
+                          'A precise location helps the response team find you.',
+                          'Share useful details and a way to reach you.',
+                          'Make sure the information is right before you send.',
+                        ][_step],
+                        style: const TextStyle(
+                          color: AppColors.muted,
+                          height: 1.5,
+                        ),
                       ),
-                      const SizedBox(height: 12),
-                      Semantics(
-                        container: true,
-                        explicitChildNodes: true,
-                        label: '${_stepTitles[_step]}, required',
-                        child: _body(scale),
-                      ),
-                    ] else
-                      _body(scale),
-                  ],
+                      const SizedBox(height: 16),
+                      if (_step <= 1) ...[
+                        const Text(
+                          '* Required',
+                          semanticsLabel: 'Required',
+                          style: TextStyle(color: AppColors.muted),
+                        ),
+                        const SizedBox(height: 12),
+                        Semantics(
+                          container: true,
+                          explicitChildNodes: true,
+                          label: '${_stepTitles[_step]}, required',
+                          child: _body(scale),
+                        ),
+                      ] else
+                        _body(scale),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -491,25 +490,36 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     }
   }
 
-  Widget _typeStep(double scale) {
-    final cols = scale > 1.3 ? 1 : 2;
-    return GridView.count(
-      crossAxisCount: cols,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      mainAxisSpacing: 12,
-      crossAxisSpacing: 12,
-      childAspectRatio: cols == 1 ? 4 : 1.4,
-      children: [
+  Widget _typeStep(double scale) => LayoutBuilder(
+    builder: (context, box) {
+      final tiles = [
         for (final e in reportTypeInfo.entries)
           _TypeTile(
             info: e.value,
             selected: _type == e.key,
             onTap: () => setState(() => _type = e.key),
           ),
-      ],
-    );
-  }
+      ];
+      if (box.maxWidth >= 640 && scale < 1.4) {
+        return Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: [
+            for (final tile in tiles)
+              SizedBox(width: (box.maxWidth - 12) / 2, child: tile),
+          ],
+        );
+      }
+      return Column(
+        children: [
+          for (var i = 0; i < tiles.length; i++) ...[
+            if (i > 0) const SizedBox(height: 10),
+            tiles[i],
+          ],
+        ],
+      );
+    },
+  );
 
   Widget _detailsStep() {
     return Form(
@@ -518,6 +528,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            errorBuilder: fieldErrorBuilder,
             key: const Key('description'),
             controller: _description,
             minLines: 3,
@@ -543,6 +554,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           ),
           const SizedBox(height: 8),
           TextFormField(
+            errorBuilder: fieldErrorBuilder,
             key: const Key('contactName'),
             controller: _name,
             textCapitalization: TextCapitalization.words,
@@ -552,6 +564,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           ),
           const SizedBox(height: 16),
           TextFormField(
+            errorBuilder: fieldErrorBuilder,
             key: const Key('contactPhone'),
             controller: _phone,
             keyboardType: TextInputType.phone,
@@ -697,53 +710,71 @@ class _TypeTile extends StatelessWidget {
   final ReportTypeInfo info;
   final bool selected;
   final VoidCallback onTap;
-
   @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      selected: selected,
-      label: info.label,
-      onTap: onTap,
-      excludeSemantics: true,
+  Widget build(BuildContext context) => Semantics(
+    button: true,
+    selected: selected,
+    label: info.label,
+    onTap: onTap,
+    excludeSemantics: true,
+    child: Material(
+      color: selected ? AppColors.primarySoft : AppColors.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+        side: BorderSide(
+          color: selected ? AppColors.primary : AppColors.border,
+          width: selected ? 1.5 : 1,
+        ),
+      ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(AppRadius.lg),
-        child: Ink(
-          decoration: BoxDecoration(
-            color: selected ? AppColors.primarySoft : AppColors.surface,
-            borderRadius: BorderRadius.circular(AppRadius.lg),
-            border: Border.all(
-              color: selected ? AppColors.primary : AppColors.border,
-              width: selected ? 2 : 1,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(info.icon, size: 28, color: AppColors.primary),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    info.label,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
+        borderRadius: BorderRadius.circular(14),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: selected ? AppColors.primary : AppColors.bg,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                if (selected) ...[
-                  const SizedBox(width: 6),
-                  const Icon(
-                    Icons.check_circle,
-                    color: AppColors.primary,
-                    size: 20,
-                  ),
-                ],
-              ],
-            ),
+                child: Icon(
+                  info.icon,
+                  size: 24,
+                  color: selected ? Colors.white : AppColors.primary,
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      info.label,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      info.detail,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              Icon(
+                selected
+                    ? Icons.check_circle_rounded
+                    : Icons.radio_button_unchecked_rounded,
+                size: 21,
+                color: selected ? AppColors.primary : AppColors.controlOutline,
+              ),
+            ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
 }

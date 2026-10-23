@@ -13,7 +13,7 @@ describe.skipIf(!process.env.FIRESTORE_EMULATOR_HOST)('durable report effects on
  beforeAll(()=>{const app=getApps()[0]??initializeApp({projectId:'demo-idem-test'});db=getFirestore(app);repo=createFirestoreRepo(db)});
  const record=()=>({reporterId:'recovery-'+randomUUID(),reference:'DR-RECOVER',type:'flood',status:'Submitted'});
  it('persists recovery work with a no-key report and a new worker recovers it',async()=>{
-  const report=record();const dispatcher='dispatch-'+randomUUID();await repo.createUser(dispatcher,{role:'dispatcher',active:true});
+  const report=record();const dispatcher='admin-'+randomUUID();await repo.createUser(dispatcher,{role:'admin',active:true});
   const id=await repo.createReport(report);expect((await db.collection('reportEffects').doc(id).get()).data().state).toBe('pending');
   const restarted=createFirestoreRepo(db);await deliverReportEffects({repo:restarted,notifier:createNotifier({repo:restarted})},id);
   expect((await repo.listAudit({reportId:id})).filter(a=>a.action==='report.create')).toHaveLength(1);
@@ -21,7 +21,7 @@ describe.skipIf(!process.env.FIRESTORE_EMULATOR_HOST)('durable report effects on
   expect((await db.collection('reportEffects').doc(id).get()).data().state).toBe('done');
  });
  it('[injected] a lost notification write reply retries once without resetting read state',async()=>{
-  const report=record();const dispatcher='dispatch-'+randomUUID();await repo.createUser(dispatcher,{role:'dispatcher',active:true});const id=await repo.createReport(report);
+  const report=record();const dispatcher='admin-'+randomUUID();await repo.createUser(dispatcher,{role:'admin',active:true});const id=await repo.createReport(report);
   const original=repo.addNotification;let fail=true;const faulty={...repo,addNotification:async(...args)=>{const value=await original(...args);if(fail && args[0].recipientUid===dispatcher){fail=false;throw Error('lost notification reply')}return value}};
   await expect(deliverReportEffects({repo:faulty,notifier:createNotifier({repo:faulty})},id,{now:1000,leaseMs:10})).rejects.toThrow();
   const before=(await repo.listNotifications(dispatcher)).find(n=>n.reportId===id);

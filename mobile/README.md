@@ -65,22 +65,20 @@ https://github.com/firebase/flutterfire/blob/main/packages/firebase_auth/firebas
 
 ## Welcome, navigation and motion
 
-The public welcome introduces “A clear report. A connected response.” with resident
-registration, existing-account sign-in and response-team access. Its route drawing
-is an authored schematic; the emergency disclaimer remains visible below the
-introduction. The harbor/purple theme extends the incumbent design using native
-Material/platform typography rather than the web Geist family.
+The public welcome introduces “A clear report. A connected response.” with resident registration, existing-account sign-in and response-team access. The safety notice remains visible. The current design uses a light workspace, dark harbor headers and bundled Geist typography with its OFL license in assets/fonts.
 
-Resident tabs remain Report, My Reports and Profile, with a shared notifications
-bell on those app bars. Responders retain Assigned and Notifications. Tab changes
-use a 240ms arrival while an IndexedStack preserves mounted drafts and scroll
-state. Shared content arrivals are 320ms, inline errors 160ms and the welcome route
-draw 1400ms. Custom effects honor disabled animations; iOS retains Flutter's
-default route transition. Task viewports, including notifications, are bounded at
-760 logical pixels including their child padding.
+Residents use Report, My Reports and Profile, plus the notification bell. Responders use Assigned, Notifications and Profile; staff/admin remain on the website. Compact screens use the navigation dock; expanded screens use a rail. The keyed task body preserves editable drafts during width changes. Status, priority and errors use text/icons as well as color. Required fields carry asterisks.
 
-See [the Flutter finish design snapshot](../docs/mobile-finish-design.md) for exact
-values, incumbent-token drift and evidence limits. The current visual review uses
-Flutter in Chrome with synthetic local emulator content. Native hardware/OS,
-physical usability and device-performance gates remain unverified; this pass does
-not establish dark mode or adaptive tablet navigation.
+Finite route, tab, report-step and feedback arrivals settle after each interaction. System motion preferences remain honored. The native system is documented in DESIGN.md and .impeccable/design.json.
+
+Current evidence:222 widget tests and clean analysis, reviewed390/1440 Chrome captures,15 visual references, debug web and Android debug compilation. These are separate from physical-device, signing, push and iOS evidence. See the dated completion record for later native-emulator results.
+
+## Harbor redesign,20 October2026
+
+The current native visual system is documented in [DESIGN.md](DESIGN.md). It uses a light workspace, dark harbor headers, bundled Geist (OFL license in assets/fonts),48dp targets and compact-to-rail navigation. Residents/responders are native; other staff roles use the web. The reviewed redesign is checkpointed on the design/flutter-harbor-2026-10-20 branch. Test references in test/goldens were intentionally reviewed and replaced; see PROVENANCE.md. Chrome and widget evidence does not certify physical-device behavior. Submission media is refreshed separately; see docs/presentation/README.md.
+
+## Submission demo APK (20 October 2026)
+
+Use [LOCAL-DEMO.md](../docs/submission/LOCAL-DEMO.md) for the dedicated Auth9407/Firestore8407/API3407 stack and the USB-forwarded test APK. The explicit EMULATOR_HOST is honored without Firebase's automatic Android loopback remapping. `127.0.0.1` therefore works with adb reverse on an emulator or USB phone. For an unforwarded Android emulator, explicitly set `10.0.2.2` instead. Chrome remains on localhost for reliable emulator Auth restoration.
+
+The current native design passed 222 Flutter tests and clean analysis. Android API35 AOSP emulator coverage is recorded in FINAL-VERIFICATION; it does not establish physical-phone, Play Services push, iOS or signed-release behavior.

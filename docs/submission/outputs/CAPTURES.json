@@ -1,0 +1,41 @@
+{
+  "captured": "2026-10-20",
+  "data": "Fictional local emulator fixtures",
+  "scope": "Web screenshots from successful real local workflow; Flutter screenshots from Android API35 AOSP emulator. Not physical phone evidence. These current captures do not change the October19 reporting cutoff.",
+  "images": [
+    {
+      "title": "Resident report confirmation",
+      "file": "resident-confirmed.png"
+    },
+    {
+      "title": "Dispatcher team assignment",
+      "file": "dispatcher-assigned.png"
+    },
+    {
+      "title": "Responder progress history",
+      "file": "responder-history.png"
+    },
+    {
+      "title": "DMO monitor",
+      "file": "dmo-monitor.png"
+    },
+    {
+      "title": "Admin account management",
+      "file": "admin-accounts.png"
+    },
+    {
+      "title": "DMO analytics",
+      "file": "dmo-analytics.png"
+    },
+    {
+      "title": "Flutter native welcome",
+      "file": "flutter-welcome.png"
+    },
+    {
+      "title": "Flutter native resident reports",
+      "file": "flutter-reports.png"
+    }
+  ],
+  "webRecapture": "Explicit heading, skeleton-dismissal, map-filter, analytics-chart and account-row readiness checks; assignment modal must be closed. Full local workflow rerun succeeded with zero page exceptions.",
+  "reportReference": "DR-385JXT"
+}
