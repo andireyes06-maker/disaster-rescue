@@ -1,6 +1,6 @@
 // Statuses that still need someone to act. Closed, rejected, duplicate and cancelled reports are not queued.
 export const AWAITING_ACTION = new Set([
-  'Submitted', 'Under Verification', 'Verified', 'Awaiting Assignment', 'Team Assigned', 'Rescue in Progress',
+  'Submitted', 'Under Verification', 'Verified', 'Awaiting Assignment', 'Team Assigned', 'Rescue in Progress', 'Resolved',
 ]);
 
 // Reads a Date, epoch milliseconds, an ISO string, or a Firestore Timestamp. Anything else sorts last.

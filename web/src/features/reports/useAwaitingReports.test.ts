@@ -38,7 +38,7 @@ describe('useAwaitingReports', () => {
 
   it('queries open statuses oldest first, bounded by the window', () => {
     renderHook(() => useAwaitingReports());
-    expect(h.where).toHaveBeenCalledWith('status', 'in', expect.arrayContaining(['Submitted', 'Awaiting Assignment']));
+    expect(h.where).toHaveBeenCalledWith('status', 'in', expect.arrayContaining(['Submitted', 'Awaiting Assignment', 'Resolved']));
     expect(h.orderBy).toHaveBeenCalledWith('createdAt', 'asc');
     expect(h.limit).toHaveBeenCalledWith(50);
   });

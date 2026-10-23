@@ -95,7 +95,7 @@ export async function verify({ repo, notifier }, user, id) {
   const verifiedAt = new Date();
   report = await transition(repo, user, report, STATUS.VERIFIED, { verified: true, verifiedBy, verifiedAt });
   report = await transition(repo, user, report, STATUS.AWAITING_ASSIGNMENT, {}, {
-    audits: [{ actorUid: user.uid, action: 'report.verify', reportId: id, after: { status: STATUS.AWAITING_ASSIGNMENT, verified: true, verifiedBy } }],
+    audits: [{ actorUid: user.uid, action: 'report.verify', reportId: id, after: { status: STATUS.AWAITING_ASSIGNMENT, verified: true, verifiedBy, verifiedAt } }],
     notifications: reporterIntent(report, 'Report verified', `Report ${report.reference} was verified`), notifier,
   });
   return { id, status: report.status, verified: true, verifiedBy, verifiedAt };

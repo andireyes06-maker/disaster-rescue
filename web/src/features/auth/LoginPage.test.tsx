@@ -75,10 +75,10 @@ describe('LoginPage', () => {
     expect(login).not.toHaveBeenCalled();
   });
 
-  it('tells residents and staff which door to use', () => {
+  it('tells residents and rescue teams to use the app, and administrators the website', () => {
     renderPage();
-    expect(screen.getByText('Residents', { selector: 'strong' })).toBeInTheDocument();
-    expect(screen.getByText('Staff', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.getByText('Residents and rescue teams', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.getByText('Administrators', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Create a resident account' })).toBeNull();
     expect(screen.getByText('Residents use the Rescue Reports mobile app to send and track reports.')).toBeInTheDocument();
   });

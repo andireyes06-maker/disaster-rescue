@@ -90,11 +90,12 @@ class _AssignedListPageState extends State<AssignedListPage> {
                     snap.data!.where((r) => !isHistoryStatus(r.status)).toList()
                       ..sort((a, b) {
                         final x = a.createdAt, y = b.createdAt;
-                        if (x == null && y == null) return 0;
+                        // Oldest first, ties by id so the order is the same on every load.
+                        if (x == null && y == null) return a.id.compareTo(b.id);
                         if (x == null) return 1;
                         if (y == null) return -1;
-                        // Oldest first: the order the team should work the queue.
-                        return x.compareTo(y);
+                        final c = x.compareTo(y);
+                        return c != 0 ? c : a.id.compareTo(b.id);
                       });
                 if (active.isEmpty) {
                   return const ProductEmpty(title: 'No assigned reports right now.', description: 'New assignments from dispatch will appear here.', icon: Icons.assignment_turned_in_outlined);

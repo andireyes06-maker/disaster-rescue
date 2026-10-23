@@ -302,12 +302,13 @@ class ApiResponderRepository implements ResponderRepository {
 
   @override
   Stream<List<AssignedReport>> watchAssigned(String teamId, {int windowSize = 50}) {
+    // Oldest first, from the database, so the window holds the oldest open assignments (2026-10-23).
     return _db
         .collection('reports')
         .where('assignedTeamId', isEqualTo: teamId)
         .where('status', whereIn: const ['Team Assigned', 'Rescue in Progress'])
-        .orderBy('createdAt', descending: true)
-        .limit(50)
+        .orderBy('createdAt', descending: false)
+        .limit(windowSize)
         .snapshots()
         .map(
           (snap) => snap.docs.map((d) {

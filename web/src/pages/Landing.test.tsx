@@ -34,24 +34,24 @@ describe('Landing', () => {
     expect(document.querySelector('a[href^="tel:"]')).toBeNull();
   });
 
-  it('sends the staff entries to /login', () => {
+  it('sends the administrator entries to /login', () => {
     renderLanding();
-    for (const link of screen.getAllByRole('link', { name: 'Staff sign in' })) {
+    for (const link of screen.getAllByRole('link', { name: 'Administrator sign in' })) {
       expect(link).toHaveAttribute('href', '/login');
     }
   });
 
-  it('keeps returning residents inside the resident path, with their own sign-in', () => {
+  it('sends residents to the mobile app, not to website sign-in or registration', () => {
     renderLanding();
     const path = document.getElementById('residents');
     expect(path).not.toBeNull();
-    expect(within(path!).getByRole('link', { name: 'Already a resident? Sign in' })).toHaveAttribute('href', '/login');
-    expect(within(path!).getByRole('link', { name: 'New here? Create an account' })).toHaveAttribute('href', '/register');
+    expect(within(path!).getByText('Residents send reports and follow updates in the Rescue Reports mobile app.')).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Create a resident account' })).toBeNull();
   });
 
-  it('explains browser access without implying a store release', () => {
+  it('explains that residents and rescuers use the mobile app', () => {
     renderLanding();
-    expect(screen.getByText('Use Rescue Reports in your browser to submit an incident, add a location, and check updates.')).toBeInTheDocument();
+    expect(screen.getByText('Use the Rescue Reports mobile app to submit reports, add a location and check updates. The website is for administrators.')).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /app store|google play/i })).toBeNull();
   });
 
