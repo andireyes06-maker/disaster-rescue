@@ -8,7 +8,7 @@
 - **Done (Airen, Oct 23):** old web resident and responder paths show the mobile-app notice; video script and outline rewritten for the new roles. Web 405/405 (`--maxWorkers=2`), typecheck and build OK, rules 128/128. Browser check of the notice at 390px done.
 - **Decided (B, Airen, Oct 23):** dispatcher and DMO can't sign in to the website and Firestore rules deny their staff reads. The API still accepts their tokens (cost, see `docs/role-matrix.md`). Verified: web 397/397 with `--maxWorkers=2`, rules 128/128 under the emulator.
 - **Done since:** Flutter staff notice per role; dead resident and responder web pages removed; whole-branch review run, 4 findings fixed.
-- **Not done:** push (not asked); the Flutter responder list change needs a device check; live presentation still unresolved.
+- **Not done:** push and rules deploy (blocked, above); Flutter responder list change needs a device check. Live presentation: not required for now (Airen, Oct 23).
 - **Committed locally:** `8040165` (feature), `9b9ce01` (handoff), `faac412` (review fixes) on build/disaster-rescue. **Not pushed, not deployed.** Firestore rules are not deployed. Production is untouched.
 - **Left uncommitted on purpose:** the other session's edits in `web/src/features/auth/LoginPage.tsx`, `LoginPage.test.tsx` and `web/src/pages/public.css` (password reset work), plus `design-plans/completion-verification-2026-10-18/PAGE-LEDGER.md`. This change's login edits are committed.
 - **Gotchas:** web tests time out under default workers, so use `--maxWorkers=2`. On macOS, `sed -i` needs `''`. Other sessions' uncommitted files (LoginPage, public.css, design-plans, untracked folders) are not part of this change; do not stage them.
