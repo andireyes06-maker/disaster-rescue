@@ -2,29 +2,26 @@
 
 ## Start here
 
-- **Professor clarification (Oct 23, Claude):** spec `docs/superpowers/specs/2026-10-23-professor-clarification-design.md` (approved, option A). Plan `docs/superpowers/plans/2026-10-23-professor-clarification.md`. Progress ledger `.superpowers/sdd/2026-10-23-professor-clarification/progress.md` (git-ignored, this machine only).
-- **Done, uncommitted:** Task 1 queue helpers; Task 2 oldest-first queue (API); Task 3 admin-only validation recording `verifiedBy` and `verifiedAt` (API); Task 7 oldest-first queue (web); Task 8 "Validate report" action and validator line (web); Task 9 landing copy.
-- **Verified:** API `npm test` 324 passed, 1 skipped (pre-existing). Web `npm run typecheck` clean; `npx vitest run --maxWorkers=2` 54 files, 393/393. Flutter `flutter analyze` no issues; `flutter test` 128/128. Rules tests and the emulator browser check are not run yet.
-- **Done (Airen, Oct 23):** old web resident and responder paths show the mobile-app notice; video script and outline rewritten for the new roles. Web 405/405 (`--maxWorkers=2`), typecheck and build OK, rules 128/128. Browser check of the notice at 390px done.
-- **Decided (B, Airen, Oct 23):** dispatcher and DMO can't sign in to the website and Firestore rules deny their staff reads. The API still accepts their tokens (cost, see `docs/role-matrix.md`). Verified: web 397/397 with `--maxWorkers=2`, rules 128/128 under the emulator.
-- **Done since:** Flutter staff notice per role; dead resident and responder web pages removed; whole-branch review run, 4 findings fixed.
-- **Not done:** push and rules deploy (blocked, above); Flutter responder list change needs a device check. Live presentation: not required for now (Airen, Oct 23).
-- **Committed locally:** `8040165` (feature), `9b9ce01` (handoff), `faac412` (review fixes) on build/disaster-rescue. **Not pushed, not deployed.** Firestore rules are not deployed. Production is untouched.
-- **Left uncommitted on purpose:** the other session's edits in `web/src/features/auth/LoginPage.tsx`, `LoginPage.test.tsx` and `web/src/pages/public.css` (password reset work), plus `design-plans/completion-verification-2026-10-18/PAGE-LEDGER.md`. This change's login edits are committed.
-- **Gotchas:** web tests time out under default workers, so use `--maxWorkers=2`. On macOS, `sed -i` needs `''`. Other sessions' uncommitted files (LoginPage, public.css, design-plans, untracked folders) are not part of this change; do not stage them.
+- **Status (Oct 23, Claude):** professor clarification work is complete on this branch. Spec `docs/superpowers/specs/2026-10-23-professor-clarification-design.md`, plan `docs/superpowers/plans/2026-10-23-professor-clarification.md`, ledger `.superpowers/sdd/2026-10-23-professor-clarification/progress.md` (git-ignored, this machine).
+- **Commits on `build/disaster-rescue`:** `8040165` feature, `9b9ce01` and `a091266` handoffs, `faac412` review fixes, `0b448ad` option A (API refuses dispatcher and DMO tokens), `0c1307d` handoff.
+- **Pushed:** new remote branch `build/professor-clarification-2026-10-23` at `0c1307d`. Origin's `build/disaster-rescue` was not touched. No pull request opened.
+- **Verified:** API 328 pass, 1 skipped (pre-existing). Web typecheck clean; 326 pass on the staged snapshot (`--maxWorkers=2`). Flutter analyze clean, 130 pass. Rules 128 pass under the emulator (unchanged by option A). Browser check of the mobile-app notice at 390px.
+- **Not deployed:** the Firestore rules are not deployed. Nothing is deployed from this change.
+- **BLOCKED, needs a decision:** (1) merging this branch with origin's `build/disaster-rescue`, which has 5 commits this branch lacks (merge of PR #1 and a large redesign, 496 files); a plain push is rejected. (2) deploying the Firestore rules: they apply to the whole project, and origin's code still expects dispatcher and DMO reads, so deploying now breaks live dispatcher and DMO screens.
+- **Left uncommitted on purpose:** another session's edits in `web/src/features/auth/LoginPage.tsx`, `LoginPage.test.tsx`, `web/src/pages/public.css` (password reset work) and `design-plans/completion-verification-2026-10-18/PAGE-LEDGER.md`. This change's login edits are committed.
+- **Gotchas:** run web tests with `--maxWorkers=2`; on macOS `sed -i` needs `''`. Typecheck and tests must be run separately; `sh -c 'a; b'` hides a failed `a`.
 
 ## Next step
 
-Approve or hold the commit, then decide on the final review and the dead-code cleanup. Live presentation is still unresolved; ask the professor.
+Decide the merge with origin (option A: merge and resolve conflicts, B: keep the new branch separate, C: hold) and when the rules deploy happens (after the merged code is live, which avoids breaking live dispatcher and DMO screens).
 
 ## Open questions
 
-1. Should the API also refuse dispatcher and DMO tokens (option A, about 120 test changes)? Decision B left it open (`docs/role-matrix.md`).
-2. Older unreachable web files (components/calm, components/ui, features/demo, lib/utils, pages/Placeholder) predate this change; delete in a cleanup pass?
-3. Is a live presentation required? Unresolved in the professor's message; ask the professor.
-4. Commit after each task, or once at the end?
-5. Older open items (PR to master, Render check, course docs, hotline and privacy text) are in `docs/history.md`, under "Archived handoff".
+1. Merge with origin's `build/disaster-rescue`, or keep the new branch separate?
+2. Rules deploy: wait for the merged release to be live?
+3. Other session's login work: commit it with its owner, or leave it?
+4. Older unreachable web files (`components/calm`, `components/ui`, `features/demo`, `lib/utils`, `pages/Placeholder`) predate this change; delete in a cleanup pass?
 
 ## Resume prompt
 
-"Read HANDOFF.md, docs/role-matrix.md and .superpowers/sdd/2026-10-23-professor-clarification/progress.md in /Users/rien/Documents/FINAL_PROJECT. Continue the professor clarification plan from the first task without a complete line."
+"Read HANDOFF.md and docs/role-matrix.md in /Users/rien/Documents/FINAL_PROJECT. The professor clarification work is committed and pushed to build/professor-clarification-2026-10-23. Waiting on Airen for the merge decision and the rules deploy."
