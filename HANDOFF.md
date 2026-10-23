@@ -1,3 +1,15 @@
+# HANDOFF (professor clarification integrated with origin, Oct 23)
+
+## Start here
+
+- **Integration commit `84b23d6`** (merge of origin/build/disaster-rescue `418a615` with the professor clarification, reapplied by hand). Branch `build/professor-clarification-2026-10-23`. Not deployed.
+- **Verified on this commit:** API 486 pass, 36 skipped (origin's). Rules 160 pass under the emulator. Web typecheck clean, 590 pass (82 files). Flutter analyze clean, 221 pass. Browser: the mobile-app notice on `/my` at 390px.
+- **NOT verified:** admin workflows in a browser against the demo emulator (validate, assign, exports, users). Needs `npm run demo:emulators` and seeded accounts.
+- **Deploy/migration impact (not done, needs approval):** (1) Firestore rules: staff reads admin only; dispatcher and DMO lose read access in production, and origin's live code relies on them. (2) Firestore index (status ASC, createdAt ASC) for the admin queue. (3) API (Render): dispatcher and DMO tokens refused on every route. (4) Web (Vercel): resident and responder paths show the mobile-app notice. No account, role or report is changed or deleted.
+- **Open items:** `docs/video-script.md` and `docs/user-guide/outline.md` were taken from origin in the merge (our updates lost, to re-apply). Responder web code (AssignmentsPage) and resident web pages are unreachable but kept, so origin's retry, draft and idempotency tests still run.
+
+---
+
 # Release handoff, 20 October 2026
 
 Authoritative tree: `/private/tmp/rescue-release-integration-2026-10-18`, branch `integration/redesign-functional-2026-10-18`. Preserve other sessions' work. Do not overwrite this source from the older product tree.
