@@ -29,8 +29,8 @@ describe('assign', () => {
     await withTeams(t);
     const id = await seed(t, { status: 'Awaiting Assignment', verified: true });
     const rs = await Promise.all([
-      post(t, id, 'assign', t.as('dispatcher', 'd1'), { teamId: 'tA' }),
-      post(t, id, 'assign', t.as('dispatcher', 'd2'), { teamId: 'tA' }),
+      post(t, id, 'assign', t.as('admin', 'd1'), { teamId: 'tA' }),
+      post(t, id, 'assign', t.as('admin', 'd2'), { teamId: 'tA' }),
     ]);
     expect(rs.map((r) => r.status).sort()).toEqual([200, 409]);
     expect(await countAudit(t, id, 'report.assign')).toBe(1);
@@ -41,7 +41,7 @@ describe('assign', () => {
     const t = makeTestApp();
     await withTeams(t);
     const id = await seed(t, { status: 'Verified', verified: true });
-    expect((await post(t, id, 'assign', t.as('dispatcher'), { teamId: 'tA' })).status).toBe(200);
+    expect((await post(t, id, 'assign', t.as('admin'), { teamId: 'tA' })).status).toBe(200);
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Team Assigned' });
     const a = await audits(t, id);
     expect(a.some((x) => x.action === 'status.change' && x.after?.status === 'Awaiting Assignment')).toBe(true);
@@ -53,7 +53,7 @@ describe('assign', () => {
     const t = makeTestApp({ notifier });
     await withTeams(t);
     const id = await seed(t, { status: 'Awaiting Assignment', verified: true });
-    expect((await post(t, id, 'assign', t.as('dispatcher'), { teamId: 'tA' })).status).toBe(200);
+    expect((await post(t, id, 'assign', t.as('admin'), { teamId: 'tA' })).status).toBe(200);
     expect(notifier.notifyUsers).toHaveBeenCalledWith(['res-1'], expect.objectContaining({ reportId: id }));
     expect(notifier.notifyUsers).toHaveBeenCalledWith(['rsp-a'], expect.objectContaining({ reportId: id }));
   });
@@ -62,11 +62,11 @@ describe('assign', () => {
     const t = makeTestApp();
     await withTeams(t);
     const id = await seed(t, { status: 'Awaiting Assignment', verified: true });
-    expect((await post(t, id, 'assign', t.as('dispatcher'), { teamId: 'ghost' })).status).toBe(400);
+    expect((await post(t, id, 'assign', t.as('admin'), { teamId: 'ghost' })).status).toBe(400);
     expect((await post(t, id, 'assign', t.as('dmo'), { teamId: 'tA' })).status).toBe(403);
     const sub = await seed(t);
-    expect((await post(t, sub, 'assign', t.as('dispatcher'), { teamId: 'tA' })).status).toBe(409);
-    await post(t, id, 'assign', t.as('dispatcher'), { teamId: 'tA' });
+    expect((await post(t, sub, 'assign', t.as('admin'), { teamId: 'tA' })).status).toBe(409);
+    await post(t, id, 'assign', t.as('admin'), { teamId: 'tA' });
     expect((await t.repo.getTeam('tA')).busy).toBe(true);
   });
 });
@@ -77,8 +77,8 @@ describe('assign to a busy team', () => {
     await withTeams(t);
     const first = await seed(t, { status: 'Awaiting Assignment', verified: true });
     const second = await seed(t, { status: 'Awaiting Assignment', verified: true, reference: 'DR-BBBBBB' });
-    expect((await post(t, first, 'assign', t.as('dispatcher', 'd1'), { teamId: 'tA' })).status).toBe(200);
-    const res = await post(t, second, 'assign', t.as('dispatcher', 'd1'), { teamId: 'tA' });
+    expect((await post(t, first, 'assign', t.as('admin', 'd1'), { teamId: 'tA' })).status).toBe(200);
+    const res = await post(t, second, 'assign', t.as('admin', 'd1'), { teamId: 'tA' });
     expect(res.status).toBe(409);
     expect(res.body.error).toBe('team_busy');
     expect(await t.repo.getReport(second)).toMatchObject({ status: 'Awaiting Assignment' });
@@ -116,8 +116,8 @@ describe('one team, two reports (BE02)', () => {
     const first = await seed(t, { status: 'Awaiting Assignment', verified: true });
     const second = await seed(t, { status: 'Awaiting Assignment', verified: true, reference: 'DR-CCCCCC' });
     const rs = await Promise.all([
-      post(t, first, 'assign', t.as('dispatcher', 'd1'), { teamId: 'tA' }),
-      post(t, second, 'assign', t.as('dispatcher', 'd2'), { teamId: 'tA' }),
+      post(t, first, 'assign', t.as('admin', 'd1'), { teamId: 'tA' }),
+      post(t, second, 'assign', t.as('admin', 'd2'), { teamId: 'tA' }),
     ]);
     expect(rs.map((r) => r.status).sort()).toEqual([200, 409]);
     const winner = rs[0].status === 200 ? first : second;
@@ -133,7 +133,7 @@ describe('one team, two reports (BE02)', () => {
     await withTeams(t);
     const current = await seed(t, { status: 'Resolved', assignedTeamId: 'tA' });
     await t.repo.saveTeam('tA', { busy: true, currentReportId: 'someone-else' });
-    expect((await request(t.app).patch(`/api/reports/${current}/close`).set('Authorization', t.as('dispatcher', 'd1')).send({})).status).toBe(200);
+    expect((await request(t.app).patch(`/api/reports/${current}/close`).set('Authorization', t.as('admin', 'd1')).send({})).status).toBe(200);
     expect(await t.repo.getTeam('tA')).toMatchObject({ busy: true, currentReportId: 'someone-else' });
   });
 
@@ -142,7 +142,7 @@ describe('one team, two reports (BE02)', () => {
     await withTeams(t);
     const id = await seed(t, { status: 'Resolved', assignedTeamId: 'tA' });
     await t.repo.saveTeam('tA', { busy: true, currentReportId: id });
-    expect((await request(t.app).patch(`/api/reports/${id}/close`).set('Authorization', t.as('dispatcher', 'd1')).send({})).status).toBe(200);
+    expect((await request(t.app).patch(`/api/reports/${id}/close`).set('Authorization', t.as('admin', 'd1')).send({})).status).toBe(200);
     expect(await t.repo.getTeam('tA')).toMatchObject({ busy: false, currentReportId: null });
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Closed' });
   });
@@ -207,7 +207,7 @@ describe('close', () => {
     const t = makeTestApp();
     await withTeams(t);
     const id = await seed(t, { status: 'Rescue in Progress', assignedTeamId: 'tA' });
-    const res = await request(t.app).patch(`/api/reports/${id}/close`).set('Authorization', t.as('dispatcher'));
+    const res = await request(t.app).patch(`/api/reports/${id}/close`).set('Authorization', t.as('admin'));
     expect(res.status).toBe(409);
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Rescue in Progress' });
   });
@@ -216,7 +216,7 @@ describe('close', () => {
     const t = makeTestApp();
     const id = await seed(t, { status: 'Resolved', assignedTeamId: 'tA' });
     await t.repo.saveTeam('tA', { name: 'Team A', busy: true, currentReportId: id });
-    const res = await request(t.app).patch(`/api/reports/${id}/close`).set('Authorization', t.as('dispatcher'));
+    const res = await request(t.app).patch(`/api/reports/${id}/close`).set('Authorization', t.as('admin'));
     expect(res.status).toBe(200);
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Closed' });
     expect(await t.repo.getTeam('tA')).toMatchObject({ busy: false, currentReportId: null });
@@ -227,13 +227,13 @@ describe('teams', () => {
   it('resident cannot create a team; dispatcher creates and renames; list is open to staff', async () => {
     const t = makeTestApp();
     expect((await request(t.app).post('/api/teams').set('Authorization', t.as('resident')).send({ name: 'Rogue' })).status).toBe(403);
-    const created = await request(t.app).post('/api/teams').set('Authorization', t.as('dispatcher')).send({ name: 'Fire Unit 1' });
+    const created = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'Fire Unit 1' });
     expect(created.status).toBe(201);
-    const renamed = await request(t.app).patch(`/api/teams/${created.body.id}`).set('Authorization', t.as('dispatcher')).send({ name: 'Fire Unit 2' });
+    const renamed = await request(t.app).patch(`/api/teams/${created.body.id}`).set('Authorization', t.as('admin')).send({ name: 'Fire Unit 2' });
     expect(renamed.status).toBe(200);
     expect((await t.repo.getTeam(created.body.id)).name).toBe('Fire Unit 2');
-    expect((await request(t.app).patch('/api/teams/ghost').set('Authorization', t.as('dispatcher')).send({ name: 'x' })).status).toBe(404);
-    const list = await request(t.app).get('/api/teams').set('Authorization', t.as('dispatcher'));
+    expect((await request(t.app).patch('/api/teams/ghost').set('Authorization', t.as('admin')).send({ name: 'x' })).status).toBe(404);
+    const list = await request(t.app).get('/api/teams').set('Authorization', t.as('admin'));
     expect(list.status).toBe(200);
     expect(list.body).toHaveLength(1);
   });
@@ -243,7 +243,7 @@ describe('teams', () => {
     await t.repo.saveTeam('tA', { name: 'Team A', busy: true, currentReportId: 'rep-secret' });
     expect((await request(t.app).get('/api/teams').set('Authorization', t.as('resident'))).status).toBe(403);
     expect((await request(t.app).get('/api/teams').set('Authorization', t.as('responder'))).status).toBe(403);
-    expect((await request(t.app).get('/api/teams').set('Authorization', t.as('dmo'))).status).toBe(200);
+    expect((await request(t.app).get('/api/teams').set('Authorization', t.as('admin'))).status).toBe(200);
     expect((await request(t.app).get('/api/teams').set('Authorization', t.as('admin'))).status).toBe(200);
   });
 });

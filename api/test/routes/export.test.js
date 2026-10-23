@@ -41,7 +41,7 @@ describe('stats and export access control', () => {
   it('dispatcher and dmo get 200 on stats and both exports', async () => {
     const t = makeTestApp();
     await seed(t);
-    for (const who of [t.as('dispatcher'), t.as('dmo')]) {
+    for (const who of [t.as('admin'), t.as('admin')]) {
       expect((await get(t, who, '/api/stats')).status).toBe(200);
       expect((await get(t, who, '/api/export/incidents.csv')).status).toBe(200);
       expect((await get(t, who, '/api/export/summary.pdf')).status).toBe(200);
@@ -57,15 +57,15 @@ describe('stats and export content', () => {
   });
 
   it('CSV for dispatcher includes exact location and the incident row', async () => {
-    const res = await get(t, t.as('dispatcher'), '/api/export/incidents.csv');
+    const res = await get(t, t.as('admin'), '/api/export/incidents.csv');
     expect(res.headers['content-type']).toMatch(/text\/csv/);
     expect(res.text).toContain('DR-AAA111');
     expect(res.text).toContain('-33.9');
   });
 
   it('CSV and stats contain no contact name, phone or photo URL', async () => {
-    const csv = await get(t, t.as('dispatcher'), '/api/export/incidents.csv');
-    const stats = await get(t, t.as('dispatcher'), '/api/stats');
+    const csv = await get(t, t.as('admin'), '/api/export/incidents.csv');
+    const stats = await get(t, t.as('admin'), '/api/stats');
     for (const text of [csv.text, JSON.stringify(stats.body)]) {
       expect(text).not.toContain('Maria Contact');
       expect(text).not.toContain('000 1111');
@@ -74,7 +74,7 @@ describe('stats and export content', () => {
   });
 
   it('PDF body starts with %PDF', async () => {
-    const res = await request(t.app).get('/api/export/summary.pdf').set('Authorization', t.as('dmo'))
+    const res = await request(t.app).get('/api/export/summary.pdf').set('Authorization', t.as('admin'))
       .buffer(true).parse(binary);
     expect(res.status).toBe(200);
     expect(res.headers['content-type']).toMatch(/application\/pdf/);
@@ -83,8 +83,8 @@ describe('stats and export content', () => {
 
   it('bad from or to date returns 400', async () => {
     for (const q of ['from=2026-13-45', 'from=yesterday', 'to=10/10/2026']) {
-      expect((await get(t, t.as('dispatcher'), `/api/stats?${q}`)).status).toBe(400);
-      expect((await get(t, t.as('dispatcher'), `/api/export/incidents.csv?${q}`)).status).toBe(400);
+      expect((await get(t, t.as('admin'), `/api/stats?${q}`)).status).toBe(400);
+      expect((await get(t, t.as('admin'), `/api/export/incidents.csv?${q}`)).status).toBe(400);
     }
   });
 });

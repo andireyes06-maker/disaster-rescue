@@ -19,7 +19,7 @@ describe('review endpoints', () => {
     const id = await seed(t, { reporterId: 'res-b' });
     const res = await request(t.app).get(`/api/reports/${id}`).set('Authorization', t.as('resident', 'res-a'));
     expect(res.status).toBe(404);
-    expect((await request(t.app).get('/api/reports/nope').set('Authorization', t.as('dispatcher'))).status).toBe(404);
+    expect((await request(t.app).get('/api/reports/nope').set('Authorization', t.as('admin'))).status).toBe(404);
   });
 
   it('public projection of verified reports hides contact and exact location', async () => {
@@ -37,10 +37,10 @@ describe('review endpoints', () => {
   it('list is role scoped and filterable', async () => {
     const t = makeTestApp();
     await seed(t); await seed(t, { type: 'fire', priority: 'high', reporterId: 'res-2' });
-    const d = await request(t.app).get('/api/reports?type=fire').set('Authorization', t.as('dispatcher'));
+    const d = await request(t.app).get('/api/reports?type=fire').set('Authorization', t.as('admin'));
     expect(d.body).toHaveLength(1);
-    expect((await request(t.app).get('/api/reports?priority=high').set('Authorization', t.as('dmo'))).body).toHaveLength(1);
-    expect((await request(t.app).get('/api/reports?verified=true').set('Authorization', t.as('dmo'))).body).toHaveLength(0);
+    expect((await request(t.app).get('/api/reports?priority=high').set('Authorization', t.as('admin'))).body).toHaveLength(1);
+    expect((await request(t.app).get('/api/reports?verified=true').set('Authorization', t.as('admin'))).body).toHaveLength(0);
     const r = await request(t.app).get('/api/reports').set('Authorization', t.as('resident', 'res-1'));
     expect(r.body).toHaveLength(1);
     expect(r.body[0].contact).toBeDefined();
@@ -85,16 +85,16 @@ describe('review endpoints', () => {
       expect((await patch(t, id, 'verify', t.as('admin'))).status).toBe(409);
     }
     expect((await patch(t, 'nope', 'verify', t.as('admin'))).status).toBe(404);
-    expect((await patch(t, 'nope', 'priority', t.as('dispatcher'), { priority: 'low' })).status).toBe(404);
+    expect((await patch(t, 'nope', 'priority', t.as('admin'), { priority: 'low' })).status).toBe(404);
   });
 
   it('reject: reason required, stored and audited', async () => {
     const t = makeTestApp();
     const id = await seed(t);
-    expect((await patch(t, id, 'reject', t.as('dispatcher'), {})).status).toBe(400);
-    expect((await patch(t, id, 'reject', t.as('dispatcher'), { reason: '   ' })).status).toBe(400);
-    expect((await patch(t, id, 'reject', t.as('dispatcher'), { reason: 'x'.repeat(501) })).status).toBe(400);
-    const res = await patch(t, id, 'reject', t.as('dispatcher'), { reason: '<b>Prank</b> call' });
+    expect((await patch(t, id, 'reject', t.as('admin'), {})).status).toBe(400);
+    expect((await patch(t, id, 'reject', t.as('admin'), { reason: '   ' })).status).toBe(400);
+    expect((await patch(t, id, 'reject', t.as('admin'), { reason: 'x'.repeat(501) })).status).toBe(400);
+    const res = await patch(t, id, 'reject', t.as('admin'), { reason: '<b>Prank</b> call' });
     expect(res.status).toBe(200);
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Rejected', rejectionReason: 'Prank call' });
     expect((await audits(t, id)).length).toBeGreaterThanOrEqual(2);
@@ -103,17 +103,17 @@ describe('review endpoints', () => {
   it('duplicate: self and unknown are 400; valid works', async () => {
     const t = makeTestApp();
     const id = await seed(t); const other = await seed(t);
-    expect((await patch(t, id, 'duplicate', t.as('dispatcher'), { duplicateOf: id })).status).toBe(400);
-    expect((await patch(t, id, 'duplicate', t.as('dispatcher'), { duplicateOf: 'ghost' })).status).toBe(400);
-    expect((await patch(t, id, 'duplicate', t.as('dispatcher'), { duplicateOf: other })).status).toBe(200);
+    expect((await patch(t, id, 'duplicate', t.as('admin'), { duplicateOf: id })).status).toBe(400);
+    expect((await patch(t, id, 'duplicate', t.as('admin'), { duplicateOf: 'ghost' })).status).toBe(400);
+    expect((await patch(t, id, 'duplicate', t.as('admin'), { duplicateOf: other })).status).toBe(200);
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Duplicate', duplicateOf: other });
   });
 
   it('priority change is audited with before and after; invalid is 400', async () => {
     const t = makeTestApp();
     const id = await seed(t);
-    expect((await patch(t, id, 'priority', t.as('dispatcher'), { priority: 'urgent' })).status).toBe(400);
-    expect((await patch(t, id, 'priority', t.as('dispatcher'), { priority: 'critical' })).status).toBe(200);
+    expect((await patch(t, id, 'priority', t.as('admin'), { priority: 'urgent' })).status).toBe(400);
+    expect((await patch(t, id, 'priority', t.as('admin'), { priority: 'critical' })).status).toBe(200);
     const a = (await audits(t, id)).find((x) => x.action === 'priority.change');
     expect(a.before).toEqual({ priority: 'medium' });
     expect(a.after).toEqual({ priority: 'critical' });
@@ -122,9 +122,9 @@ describe('review endpoints', () => {
   it('classify validates and audits', async () => {
     const t = makeTestApp();
     const id = await seed(t);
-    expect((await patch(t, id, 'classify', t.as('dispatcher'), { classification: '' })).status).toBe(400);
-    expect((await patch(t, id, 'classify', t.as('dispatcher'), { classification: 'x'.repeat(101) })).status).toBe(400);
-    expect((await patch(t, id, 'classify', t.as('dispatcher'), { classification: 'Flash flood' })).status).toBe(200);
+    expect((await patch(t, id, 'classify', t.as('admin'), { classification: '' })).status).toBe(400);
+    expect((await patch(t, id, 'classify', t.as('admin'), { classification: 'x'.repeat(101) })).status).toBe(400);
+    expect((await patch(t, id, 'classify', t.as('admin'), { classification: 'Flash flood' })).status).toBe(200);
     expect((await audits(t, id)).some((x) => x.action === 'report.classify')).toBe(true);
   });
 
@@ -133,7 +133,7 @@ describe('review endpoints', () => {
     const t = makeTestApp({ notifier });
     const id = await seed(t);
     expect((await patch(t, id, 'cancel', t.as('resident', 'res-2'))).status).toBe(404);
-    expect((await patch(t, id, 'cancel', t.as('dispatcher'))).status).toBe(403);
+    expect((await patch(t, id, 'cancel', t.as('admin'))).status).toBe(403);
     expect((await patch(t, id, 'cancel', t.as('resident', 'res-1'))).status).toBe(200);
     expect(notifier.notifyRole).toHaveBeenCalledWith('dispatcher', expect.any(Object));
     const id2 = await seed(t);
@@ -168,6 +168,6 @@ describe('review endpoints', () => {
     const t2 = makeTestApp();
     t2.repo.addAudit = async () => { throw new Error('audit down'); };
     const id3 = await seed(t2);
-    expect((await patch(t2, id3, 'reject', t2.as('dispatcher'), { reason: 'no' })).status).toBe(200);
+    expect((await patch(t2, id3, 'reject', t2.as('admin'), { reason: 'no' })).status).toBe(200);
   });
 });

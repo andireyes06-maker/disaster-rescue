@@ -1,3 +1,5 @@
+export const WEBSITE_RETIRED_ROLES = Object.freeze(['dispatcher', 'dmo']);
+
 export function requireAuth(verifyToken) {
   return async (req, res, next) => {
     const m = /^Bearer (.+)$/.exec(req.headers.authorization ?? '');
@@ -6,6 +8,8 @@ export function requireAuth(verifyToken) {
     try { d = await verifyToken(m[1]); } catch { return res.status(401).json({ error: 'invalid_token' }); }
     if (!d?.uid) return res.status(401).json({ error: 'invalid_token' });
     if (d.active !== true) return res.status(403).json({ error: 'account_disabled' });
+    // Professor clarification (2026-10-23): dispatcher and DMO accounts keep their records but have no API access.
+    if (WEBSITE_RETIRED_ROLES.includes(d.role)) return res.status(403).json({ error: 'website_access_disabled' });
     req.user = { uid: d.uid, role: d.role ?? null, active: true };
     next();
   };

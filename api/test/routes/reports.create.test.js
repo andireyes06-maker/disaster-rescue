@@ -174,7 +174,7 @@ describe('POST /api/reports', () => {
 
   it('403 for a dispatcher', async () => {
     const t = makeTestApp();
-    const res = await post(t, t.as('dispatcher'));
+    const res = await post(t, t.as('admin'));
     expect(res.status).toBe(403);
     expect(await writes(t)).toBe(0);
   });

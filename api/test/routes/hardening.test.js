@@ -65,7 +65,7 @@ describe('no stack traces in 500 responses', () => {
     const t = makeTestApp();
     const secret = 'db password is hunter2';
     t.repo.listReports = async () => { throw new Error(secret); };
-    const res = await request(t.app).get('/api/reports').set('Authorization', t.as('dispatcher', 'disp-1'));
+    const res = await request(t.app).get('/api/reports').set('Authorization', t.as('admin', 'disp-1'));
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: 'internal_error' });
     const text = JSON.stringify(res.body);

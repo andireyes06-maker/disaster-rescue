@@ -12,7 +12,7 @@ describe('GET /api/stats filters', () => {
   it('type filter narrows the totals, by-status, and per-day numbers together', async () => {
     const t = makeTestApp();
     await seedMixed(t);
-    const res = await request(t.app).get('/api/stats?type=flood').set('Authorization', t.as('dispatcher'));
+    const res = await request(t.app).get('/api/stats?type=flood').set('Authorization', t.as('admin'));
     expect(res.status).toBe(200);
     expect(res.body.total).toBe(2);
     expect(res.body.byType).toEqual({ flood: 2 });
@@ -23,7 +23,7 @@ describe('GET /api/stats filters', () => {
   it('status filter narrows every number, not only the status card', async () => {
     const t = makeTestApp();
     await seedMixed(t);
-    const res = await request(t.app).get('/api/stats?status=Submitted').set('Authorization', t.as('dispatcher'));
+    const res = await request(t.app).get('/api/stats?status=Submitted').set('Authorization', t.as('admin'));
     expect(res.body.total).toBe(2);
     expect(res.body.byStatus).toEqual({ Submitted: 2 });
     expect(res.body.perDay.reduce((n, d) => n + d.count, 0)).toBe(2);
@@ -32,7 +32,7 @@ describe('GET /api/stats filters', () => {
   it('with no filters, all reports are counted', async () => {
     const t = makeTestApp();
     await seedMixed(t);
-    const res = await request(t.app).get('/api/stats').set('Authorization', t.as('dispatcher'));
+    const res = await request(t.app).get('/api/stats').set('Authorization', t.as('admin'));
     expect(res.body.total).toBe(3);
   });
 });

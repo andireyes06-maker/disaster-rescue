@@ -45,12 +45,23 @@ describe('notifyRole', () => {
   it('targets only active users with that role', async () => {
     const repo = createMemoryRepo();
     const sender = createFakeSender();
-    await repo.createUser('d-active', { role: 'dispatcher', active: true });
-    await repo.createUser('d-off', { role: 'dispatcher', active: false });
     await repo.createUser('r-1', { role: 'responder', active: true });
+    await repo.createUser('r-2', { role: 'responder', active: true });
+    await notifyRole({ repo, sender }, 'responder', payload);
+    expect(await repo.listNotifications('r-1')).toHaveLength(1);
+    expect(await repo.listNotifications('r-2')).toHaveLength(1);
+  });
+
+  // Professor clarification (2026-10-23): dispatcher accounts have no API access, so only administrators get dispatcher notices.
+  it('dispatcher notices go to active administrators, never to dispatcher accounts', async () => {
+    const repo = createMemoryRepo();
+    const sender = createFakeSender();
+    await repo.createUser('d-active', { role: 'dispatcher', active: true });
+    await repo.createUser('a-active', { role: 'admin', active: true });
+    await repo.createUser('a-off', { role: 'admin', active: false });
     await notifyRole({ repo, sender }, 'dispatcher', payload);
-    expect(await repo.listNotifications('d-active')).toHaveLength(1);
-    expect(await repo.listNotifications('d-off')).toHaveLength(0);
-    expect(await repo.listNotifications('r-1')).toHaveLength(0);
+    expect(await repo.listNotifications('a-active')).toHaveLength(1);
+    expect(await repo.listNotifications('a-off')).toHaveLength(0);
+    expect(await repo.listNotifications('d-active')).toHaveLength(0);
   });
 });

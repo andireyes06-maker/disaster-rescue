@@ -18,9 +18,9 @@ describe('admin account management', () => {
     expect((await create(t, t.as('admin'), { email: 'a2@x.test', name: 'Ada', role: 'admin' })).status).toBe(201);
   });
 
-  it('dispatcher still cannot create an admin (400)', async () => {
+  it('dispatcher still cannot create an admin (refused at the website gate)', async () => {
     const t = makeTestApp();
-    expect((await create(t, t.as('dispatcher'), { email: 'a3@x.test', name: 'Ada', role: 'admin' })).status).toBe(400);
+    expect((await create(t, t.as('dispatcher'), { email: 'a3@x.test', name: 'Ada', role: 'admin' })).status).toBe(403);
   });
 
   it('admin can deactivate another admin when one other active admin remains', async () => {

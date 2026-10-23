@@ -8,17 +8,17 @@ describe('demo workspace exports are labeled as sample output', () => {
   it('names the CSV and PDF with the demo-sample prefix while the demo is active', async () => {
     const t = makeTestApp();
     t.repo.getDemoConfig = async () => demoOn;
-    const csv = await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('dispatcher'));
+    const csv = await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('admin'));
     expect(csv.status).toBe(200);
     expect(csv.headers['content-disposition']).toContain('demo-sample-incidents.csv');
-    const pdf = await request(t.app).get('/api/export/summary.pdf').set('Authorization', t.as('dispatcher'))
+    const pdf = await request(t.app).get('/api/export/summary.pdf').set('Authorization', t.as('admin'))
       .buffer(true).parse((res, cb) => { const c = []; res.on('data', (x) => c.push(x)); res.on('end', () => cb(null, Buffer.concat(c))); });
     expect(pdf.headers['content-disposition']).toContain('demo-sample-summary.pdf');
   });
 
   it('keeps the plain filenames when no demo is configured', async () => {
     const t = makeTestApp();
-    const csv = await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('dispatcher'));
+    const csv = await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('admin'));
     expect(csv.headers['content-disposition']).toContain('"incidents.csv"');
     expect(csv.headers['content-disposition']).not.toContain('demo-sample');
   });
@@ -26,7 +26,7 @@ describe('demo workspace exports are labeled as sample output', () => {
   it('keeps the plain filenames when the demo indicator is inactive', async () => {
     const t = makeTestApp();
     t.repo.getDemoConfig = async () => ({ ...demoOn, active: false });
-    const csv = await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('dmo'));
+    const csv = await request(t.app).get('/api/export/incidents.csv').set('Authorization', t.as('admin'));
     expect(csv.headers['content-disposition']).not.toContain('demo-sample');
   });
 });

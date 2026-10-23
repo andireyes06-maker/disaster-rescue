@@ -25,7 +25,10 @@ describe('auth', () => {
     expect(r.status).toBe(200); expect(r.body.role).toBe('resident');
   });
   it('403 wrong role', async () => { expect((await request(app).get('/admin').set('Authorization', 'Bearer res')).status).toBe(403); });
-  it('200 right role', async () => { expect((await request(app).get('/admin').set('Authorization', 'Bearer dis')).status).toBe(200); });
+  it('dispatcher is refused with website_access_disabled even with the right role', async () => {
+    const r = await request(app).get('/admin').set('Authorization', 'Bearer dis');
+    expect(r.status).toBe(403); expect(r.body.error).toBe('website_access_disabled');
+  });
   it('403 for deactivated user with valid token', async () => {
     const r = await request(app).get('/admin').set('Authorization', 'Bearer off');
     expect(r.status).toBe(403); expect(r.body.error).toBe('account_disabled');

@@ -88,7 +88,7 @@ describe('report operations survive a notification failure', () => {
     await t.repo.createUser('rsp-a', { name: 'Rafa', role: 'responder', team: 'tA', active: true });
     const id = await seedReport(t);
     const r = await request(t.app).post(`/api/reports/${id}/assign`)
-      .set('Authorization', t.as('dispatcher', 'd1')).send({ teamId: 'tA' });
+      .set('Authorization', t.as('admin', 'd1')).send({ teamId: 'tA' });
     expect(r.status).toBe(200);
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Team Assigned', assignedTeamId: 'tA' });
     expect(await t.repo.listNotifications('res-1')).toHaveLength(1);

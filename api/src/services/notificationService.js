@@ -20,8 +20,8 @@ export async function notifyUsers({ repo, sender }, uids, { title, body, reportI
 
 export async function notifyRole({ repo, sender }, role, payload) {
   try {
-    // Admins hold every dispatcher permission, so they also receive dispatcher notifications.
-    const wanted = (u) => u.role === role || (role === 'dispatcher' && u.role === 'admin');
+    // Dispatcher accounts have no API access (professor clarification, 2026-10-23); administrators receive these notices.
+    const wanted = (u) => (role === 'dispatcher' ? u.role === 'admin' : u.role === role);
     const uids = (await repo.listUsers()).filter((u) => wanted(u) && u.active === true).map((u) => u.uid);
     if (uids.length) await notifyUsers({ repo, sender }, uids, payload);
   } catch (e) {

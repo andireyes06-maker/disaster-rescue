@@ -8,7 +8,7 @@ const self = (t, token, body) => request(t.app).post('/api/users/self').set('Aut
 // Creates a staff account through the dispatcher route and returns its uid.
 async function makeStaff(t, body = { email: 'bea@x.test', name: 'Bea', role: 'responder', team: 'tA' }) {
   await t.repo.saveTeam('tA', { name: 'Team A', busy: false });
-  const res = await create(t, t.as('dispatcher'), body);
+  const res = await create(t, t.as('admin'), body);
   expect(res.status).toBe(201);
   return res.body.uid;
 }
@@ -20,10 +20,11 @@ describe('POST /api/users (dispatcher creates staff)', () => {
     expect(t.auth.calls.setCustomUserClaims).toHaveLength(0);
   });
 
-  it('dispatcher may not create role admin (400)', async () => {
+  it('dispatcher is refused before any account is created', async () => {
     const t = makeTestApp();
     const res = await create(t, t.as('dispatcher'), { email: 'root@x.test', name: 'Root', role: 'admin' });
-    expect(res.status).toBe(400);
+    expect(res.status).toBe(403);
+    expect(res.body.error).toBe('website_access_disabled');
     expect(t.auth.users.size).toBe(0);
   });
 
@@ -36,9 +37,9 @@ describe('POST /api/users (dispatcher creates staff)', () => {
 
   it('rejects an unknown team (400) and a duplicate email (409)', async () => {
     const t = makeTestApp();
-    expect((await create(t, t.as('dispatcher'), { email: 'a@x.test', name: 'A', role: 'responder', team: 'ghost' })).status).toBe(400);
+    expect((await create(t, t.as('admin'), { email: 'a@x.test', name: 'A', role: 'responder', team: 'ghost' })).status).toBe(400);
     await makeStaff(t, { email: 'dup@x.test', name: 'Dup', role: 'dmo' });
-    expect((await create(t, t.as('dispatcher'), { email: 'dup@x.test', name: 'Dup 2', role: 'dmo' })).status).toBe(409);
+    expect((await create(t, t.as('admin'), { email: 'dup@x.test', name: 'Dup 2', role: 'dmo' })).status).toBe(409);
   });
 });
 
@@ -46,7 +47,7 @@ describe('GET /api/users', () => {
   it('dispatcher and admin can list; responder gets 403', async () => {
     const t = makeTestApp();
     await makeStaff(t);
-    expect((await request(t.app).get('/api/users').set('Authorization', t.as('dispatcher'))).body).toHaveLength(1);
+    expect((await request(t.app).get('/api/users').set('Authorization', t.as('admin'))).body).toHaveLength(1);
     expect((await request(t.app).get('/api/users').set('Authorization', t.as('admin'))).status).toBe(200);
     expect((await request(t.app).get('/api/users').set('Authorization', t.as('responder'))).status).toBe(403);
   });
@@ -56,7 +57,7 @@ describe('PATCH /api/users/:id', () => {
   it('deactivation sets claims to {role, active:false} (never {}), revokes refresh tokens and disables the account', async () => {
     const t = makeTestApp();
     const uid = await makeStaff(t);
-    const res = await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('dispatcher')).send({ active: false });
+    const res = await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('admin')).send({ active: false });
     expect(res.status).toBe(200);
     expect(t.auth.users.get(uid).customClaims).toEqual({ role: 'responder', active: false });
     expect(t.auth.calls.revokeRefreshTokens).toEqual([uid]);
@@ -67,15 +68,15 @@ describe('PATCH /api/users/:id', () => {
   it('a role change keeps active and team in claims', async () => {
     const t = makeTestApp();
     const uid = await makeStaff(t);
-    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('dispatcher')).send({ role: 'dmo' })).status).toBe(200);
+    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('admin')).send({ role: 'dmo' })).status).toBe(200);
     expect(t.auth.users.get(uid).customClaims).toEqual({ role: 'dmo', active: true, team: 'tA' });
   });
 
-  it('cannot promote to admin (400); unknown user is 404', async () => {
+  it('dispatcher cannot promote to admin (refused); an admin unknown user is 404', async () => {
     const t = makeTestApp();
     const uid = await makeStaff(t);
-    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('dispatcher')).send({ role: 'admin' })).status).toBe(400);
-    expect((await request(t.app).patch('/api/users/ghost').set('Authorization', t.as('dispatcher')).send({ active: false })).status).toBe(404);
+    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('dispatcher')).send({ role: 'admin' })).status).toBe(403);
+    expect((await request(t.app).patch('/api/users/ghost').set('Authorization', t.as('admin')).send({ active: false })).status).toBe(404);
   });
 });
 
@@ -95,7 +96,7 @@ describe('PATCH /api/users/:id guards', () => {
     const t = makeTestApp();
     const uid = await makeStaff(t);
     await t.repo.addDevice(uid, 'tok-bea');
-    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('dispatcher')).send({ active: false })).status).toBe(200);
+    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('admin')).send({ active: false })).status).toBe(200);
     expect(await t.repo.listDevices(uid)).toEqual([]);
   });
 
@@ -103,7 +104,7 @@ describe('PATCH /api/users/:id guards', () => {
     const t = makeTestApp();
     await t.repo.createUser('d1', { name: 'Dee', role: 'dispatcher', active: true });
     t.auth.users.set('d1', { uid: 'd1', email: 'dee@x.test', disabled: false });
-    const res = await request(t.app).patch('/api/users/d1').set('Authorization', t.as('dispatcher', 'd1')).send({ active: false });
+    const res = await request(t.app).patch('/api/users/d1').set('Authorization', t.as('admin', 'd1')).send({ active: false });
     expect(res.status).toBe(403);
     expect(await t.repo.getUser('d1')).toMatchObject({ active: true });
   });
