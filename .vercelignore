@@ -1,0 +1,14 @@
+# Only web/ is built by this Vercel project. Keep native binaries, provider
+# services, local evidence and submission artifacts out of the upload.
+/mobile/
+/api/
+/firebase/
+/design-plans/
+/docs/
+/demo-data/
+/videos/
+/scripts/
+/web/node_modules/
+/web/dist/
+**/.env*
+**/*debug.log
