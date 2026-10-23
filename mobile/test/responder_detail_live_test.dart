@@ -53,6 +53,24 @@ void main() {
     expect(find.textContaining('no longer assigned to your team'), findsOneWidget);
   });
 
+  testWidgets('the update form follows a live status change from the detail page (F06)', (t) async {
+    final env = Env();
+    addTearDown(env.dispose);
+    const inProgress = AssignedReport(
+      id: 'r1', type: 'flood', description: 'Water rising near the bridge',
+      status: 'Rescue in Progress', reference: 'DR-AB12CD', addressText: 'Near the bridge',
+    );
+    await t.pumpWidget(env.host(const IncidentDetailPage(report: inProgress)));
+    await t.pumpAndSettle();
+    await t.tap(find.text('Add operation update'));
+    await t.pumpAndSettle();
+    expect(find.text('Resolved'), findsOneWidget);
+
+    env.responder.single.add(_report);
+    await t.pumpAndSettle();
+    expect(find.text('Resolved'), findsNothing);
+  });
+
   testWidgets('a resolved report offers no acknowledge or new operation update (M05)', (t) async {
     final env = Env();
     addTearDown(env.dispose);

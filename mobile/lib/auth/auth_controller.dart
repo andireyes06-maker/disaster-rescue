@@ -41,6 +41,16 @@ class AuthController extends ChangeNotifier {
       _set(user: null, loading: false, keepError: true);
       return;
     }
+    // The session must end (for example after a role change). Sign out with that reason.
+    if (u.endReason != null) {
+      await _failClosed(seq, u.endReason!);
+      return;
+    }
+    // The profile and the claims disagree. The person stays signed in, but protected views wait (see RoleGate).
+    if (u.syncing) {
+      _set(user: u, loading: false);
+      return;
+    }
     if (!u.active) {
       await _failClosed(seq, AuthFailure.accountDisabled);
       return;
@@ -92,6 +102,10 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<void> logout() => _repo.logout();
+
+  /// Asks for another access check after the automatic retries have run out.
+  void retryAccessCheck() => _repo.retryAccessCheck();
+  Future<void> requestPasswordReset(String email) => _repo.requestPasswordReset(email);
 
   @override
   void dispose() {

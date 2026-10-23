@@ -42,7 +42,9 @@ const coord = (min, max) => z.preprocess(
   z.number().finite().min(min).max(max),
 );
 
-export const PHONE_RE = /^[0-9+()\-\s]{7,20}$/;
+export const PHONE_RE = /^(?=(?:\D*\d){7,15}\D*$)[0-9+()\-\s]{7,25}$/;
+// Hotlines can be short service codes; syntax does not establish that a number is verified.
+export const HOTLINE_RE = /^(?=(?:\D*\d){3,15}\D*$)[0-9+()\-\s]{3,40}$/;
 
 const schema = z.object({
   type: z.enum(['flood', 'fire', 'earthquake', 'landslide', 'other']),

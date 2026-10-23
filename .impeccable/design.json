@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T12:00:00+08:00",
+  "title": "Design System: Rescue Reports",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Action violet" },
+      "harbor": { "role": "neutral", "displayName": "Harbor indigo" },
+      "paper": { "role": "neutral", "displayName": "Cool paper" }
+    },
+    "typographyMeta": { "display": { "purpose": "Public proposition only. Workspaces use restrained titles." } },
+    "motion": [{ "name": "control-feedback", "value": "150ms ease", "purpose": "Color and border response to interaction; removed with reduced motion." }],
+    "breakpoints": [{ "name": "phone", "value": "640px" }, { "name": "workspace", "value": "900px" }, { "name": "public-stack", "value": "1024px" }],
+    "shadows": [{ "name": "public-workspace", "value": "0 28px 60px -30px #24174755", "purpose": "Lift the illustrative public workspace, not every container." }]
+  },
+  "components": [],
+  "narrative": {
+    "northStar": "A clear civic response service",
+    "overview": "Location-led reporting and readable operational workspaces. The identity carries through public, resident, staff and native surfaces without copying one composition everywhere.",
+    "keyCharacteristics": ["Violet actions", "Indigo navigation", "Task-specific composition", "Honest demonstration content"],
+    "rules": [{ "name": "Truth before decoration", "body": "Never invent a live incident, hotline or response guarantee.", "section": "components" }],
+    "dos": ["Preserve authorization, validation and recovery", "Review real phone and desktop layouts"],
+    "donts": ["Use a title billboard on every workspace", "Animate live report rows or delay emergency actions"]
+  }
+}

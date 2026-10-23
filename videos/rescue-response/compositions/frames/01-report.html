@@ -1,0 +1,99 @@
+<template>
+  <link rel="stylesheet" href="assets/scene.css">
+  <style>
+    @font-face{font-family:Geist;src:url("assets/geist.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:block}
+    #root{position:relative;width:100%;height:100%;container-type:size;overflow:hidden;color:#241747;font-family:Geist}
+    #f01-report-background{position:absolute;inset:0;background:#FFFFFF}
+    #f01-report-stage{background:transparent}
+    #f01-report-panel{background:rgba(109,40,217,.04);border:1.5px solid rgba(109,40,217,.2)}
+    #f01-report-card-title{margin:0 0 29px;font-size:38px;line-height:1.15;font-weight:600;letter-spacing:-.7px}
+    #f01-report-location{margin-bottom:24px;min-height:80px;display:flex;align-items:center;gap:13px;font-size:28px;line-height:1.3;font-weight:500}
+    #f01-report-location svg{flex:none;width:27px;height:32px;fill:#6D28D9}
+    #f01-report-description{min-height:138px;margin:0 0 32px;font-size:29px;line-height:1.45;color:#211D35}
+    #f01-report-action-wrap{position:relative;height:76px}
+    #f01-report-submit{position:relative;z-index:2;height:76px;border-radius:100px;transform-origin:50% 50%}
+    #f01-report-burst{position:absolute;inset:0;border-radius:100px;background:rgba(109,40,217,.15);z-index:1}
+    #f01-report-receipt{display:flex;align-items:center;gap:12px;margin-top:24px;font-size:27px;font-weight:550;color:#6D28D9}
+    #f01-report-receipt .vid-check{width:34px;height:34px;font-size:22px}
+    #f01-report-pin{position:absolute;left:436px;top:347px;width:36px;height:36px;transform-origin:50% 50%}
+    #f01-report-pin svg{width:36px;height:36px;display:block}
+    #f01-report-ring{position:absolute;left:416px;top:327px;width:76px;height:76px;border:2px solid rgba(109,40,217,.2);border-radius:50%;transform-origin:center}
+    #f01-report-note-wrap{position:absolute;left:30px;bottom:28px;width:280px;height:72px}
+    #f01-report-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:white;border-radius:14px;font-size:27px;transform-origin:center}
+  
+    #f01-report-title{font-size:88px;font-weight:600;letter-spacing:-3.5px;line-height:1.12;white-space:nowrap}
+    .promo-word{display:inline-block}
+    #f01-report-stage{transform-origin:50% 52%}
+    #f01-promo-cursor{position:absolute;left:0;top:0;width:50px;height:60px;z-index:10;pointer-events:none}
+  </style>
+  <div data-hf-id="hf-vmlg" id="root" data-composition-id="01-report" data-duration="5" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-wrcw" id="f01-report-background" class="clip" data-start="0" data-duration="5" data-track-index="0"></div>
+    <div data-hf-id="hf-c40t" id="f01-report-stage" class="vid-stage" data-layout-allow-overflow>
+      <header data-hf-id="hf-7lkt" id="f01-report-header" class="vid-header">
+        <div data-hf-id="hf-zfe3" class="vid-brand"><img data-hf-id="hf-661n" src="assets/brand.svg" alt="">Rescue Reports</div>
+        <div data-hf-id="hf-cc40" class="vid-phase">Resident / Report</div>
+      </header>
+      <h1 data-hf-id="hf-lx1p" id="f01-report-title" class="vid-title"><span class="promo-word">Every</span> <span class="promo-word">detail</span> <span class="promo-word">counts.</span></h1>
+      <section data-hf-id="hf-jaep" id="f01-report-panel" class="vid-panel">
+        <h2 data-hf-id="hf-eyz2" id="f01-report-card-title">Flood report</h2>
+        <div data-hf-id="hf-bovt" id="f01-report-location"><svg data-hf-id="hf-gag7" viewBox="0 0 48 58" aria-hidden="true"><path data-hf-id="hf-lbbt" d="M24 0C10.7 0 0 10.7 0 24c0 17 24 34 24 34s24-17 24-34C48 10.7 37.3 0 24 0Z"/><circle data-hf-id="hf-1mh0" cx="24" cy="23" r="8" fill="white"/></svg><span data-hf-id="hf-iugl">Riverside District</span></div>
+        <p data-hf-id="hf-lm11" id="f01-report-description">Water is rising near the access road.</p>
+        <div data-hf-id="hf-9x43" id="f01-report-action-wrap"><div data-hf-id="hf-2iau" id="f01-report-burst"></div><div data-hf-id="hf-dp2b" id="f01-report-submit" class="vid-button">Submit report</div></div>
+        <div data-hf-id="hf-wvjj" id="f01-report-receipt"><span data-hf-id="hf-jjzq" class="vid-check">✓</span>Report submitted</div>
+      </section>
+      <div data-hf-id="hf-y0ip" id="f01-report-map" class="vid-map">
+        <img data-hf-id="hf-mbjj" src="assets/district-map.svg" alt="District map">
+        <div data-hf-id="hf-4exm" id="f01-report-ring"></div>
+        <div data-hf-id="hf-h3oh" id="f01-report-pin"><svg data-hf-id="hf-uely" viewBox="0 0 36 36" aria-hidden="true"><circle data-hf-id="hf-5jj7" cx="18" cy="18" r="18" fill="#6D28D9"/><circle data-hf-id="hf-embn" cx="18" cy="18" r="6" fill="white"/></svg></div>
+        <div data-hf-id="hf-7plx" id="f01-report-note-wrap"><div data-hf-id="hf-j0yp" id="f01-report-note">Incident location</div></div>
+      </div>
+      <svg id="f01-promo-cursor" viewBox="0 0 50 60" aria-hidden="true"><path d="M5 4L5 46L17 35L27 55L37 50L27 31L44 30Z" fill="#241747" stroke="white" stroke-width="3" stroke-linejoin="round"/></svg>
+      <footer data-hf-id="hf-cwr7" id="f01-report-footer" class="vid-footer"><div data-hf-id="hf-2v32" class="vid-flow"><span data-hf-id="hf-o55x" class="active">Report</span><span data-hf-id="hf-v68i" class="arrow">→</span><span data-hf-id="hf-eztj">Coordinate</span><span data-hf-id="hf-f1jq" class="arrow">→</span><span data-hf-id="hf-xjnc">Stay informed</span></div><span data-hf-id="hf-qk5m">Rescue Reports · Response coordination</span></footer>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const el = suffix => document.getElementById('f01-report-'+suffix);
+      const tl = gsap.timeline({paused:true});
+      window.__timelines = window.__timelines || {};
+      // Content-weighted introduction, precomputed once within the 1.3s opening.
+      const content = [
+        {id:'header',body:'Rescue Reports',hold:.03},
+        
+        {id:'panel',body:'Flood report',hold:.03},
+        {id:'map',body:'District map',hold:.06}
+      ];
+      let cursor=0;
+      const sequence=content.map(item=>{const duration=.05+item.body.length*.006+item.hold;const start=cursor;cursor+=duration;return {...item,start};});
+      sequence.forEach(item=>tl.fromTo(el(item.id),{opacity:1,y:8},{opacity:1,y:0,duration:.42,ease:'power3.out'},item.start));
+      tl.fromTo(el('footer'),{opacity:1},{opacity:1,duration:.45,ease:'power2.out'},.65);
+      tl.fromTo(el('card-title'),{opacity:0,y:8},{opacity:1,y:0,duration:.4,ease:'power2.out'},1.25);
+      tl.fromTo(el('pin'),{opacity:0,y:-55,scale:.84},{opacity:1,y:0,scale:1,duration:.52,ease:'back.out(1.4)'},1.3);
+      tl.fromTo(el('ring'),{opacity:0,scale:.32},{opacity:1,scale:1.6,duration:.65,ease:'power2.out'},1.6);
+      tl.to(el('ring'),{opacity:0,duration:.35,ease:'power2.in'},2.25);
+      tl.fromTo(el('location'),{opacity:0,y:10},{opacity:1,y:0,duration:.42,ease:'power2.out'},1.65);
+      tl.fromTo(el('description'),{opacity:0,y:10},{opacity:1,y:0,duration:.45,ease:'power2.out'},2.05);
+      // Packet calls for the small-scale incoming variant of scale-swap.
+      tl.fromTo(el('note'),{opacity:0,scale:.8},{opacity:1,scale:1,duration:.55,ease:'back.out(1.4)'},2.4);
+      tl.fromTo(el('submit'),{opacity:0,y:8},{opacity:1,y:0,duration:.35,ease:'power2.out'},2.7);
+      tl.to(el('submit'),{scale:.94,duration:.15,ease:'none'},3.3);
+      tl.to(el('submit'),{scale:1,duration:.5,ease:'back.out(1.6)'},3.45);
+      tl.fromTo(el('burst'),{opacity:0,scale:1},{opacity:.65,scale:1.15,duration:.3,ease:'power2.out'},3.45);
+      tl.to(el('burst'),{opacity:0,duration:.35,ease:'power2.in'},3.75);
+      tl.fromTo(el('receipt'),{opacity:0,y:10,scale:.96},{opacity:1,y:0,scale:1,duration:.42,ease:'back.out(1.4)'},3.55);
+      tl.to({}, {duration:1.03},3.97);
+
+      tl.fromTo('#f01-report-stage',{scale:1},{scale:1.025,duration:1.8,ease:'power2.inOut'},0)
+        .to('#f01-report-stage',{scale:1,duration:.8,ease:'power2.inOut'},4.2);
+      tl.fromTo('#f01-report-title .promo-word',{opacity:0,y:28},{opacity:1,y:0,duration:.6,stagger:.075,ease:'power3.out'},.05);
+      tl.fromTo('[id="f01-promo-cursor"]',{opacity:0,x:1350,y:490},{opacity:1,x:1110,y:645,duration:.85,ease:'power3.inOut'},.45)
+        .to('[id="f01-promo-cursor"]',{scale:.82,duration:.13},1.3)
+        .to('[id="f01-promo-cursor"]',{scale:1,duration:.22,ease:'back.out(1.8)'},1.43)
+        .to('[id="f01-promo-cursor"]',{x:340,y:700,duration:.9,ease:'power3.inOut'},2.25)
+        .to('[id="f01-promo-cursor"]',{scale:.82,duration:.15},3.3)
+        .to('[id="f01-promo-cursor"]',{scale:1,duration:.25,ease:'back.out(1.8)'},3.45)
+        .to('[id="f01-promo-cursor"]',{opacity:0,x:390,y:740,duration:.35},3.9);
+      window.__timelines['01-report'] = tl;
+    })();
+  </script>
+</template>

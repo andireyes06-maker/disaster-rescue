@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { HttpError } from '../errors.js';
 import { sanitizeText } from '../domain/validation.js';
+import { randomUUID } from 'node:crypto';
+import { mutationEffects, tryMutationEffects } from '../services/mutationEffectsService.js';
 
 const teamName = (v) => {
   const n = typeof v === 'string' ? sanitizeText(v, 10000) : '';
@@ -19,15 +21,22 @@ export function teamsRouter(deps) {
   });
   r.post('/', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
     try {
-      const id = await deps.repo.saveTeam(null, { name: teamName(req.body?.name), busy: false, currentReportId: null, createdAt: new Date() });
+      const name = teamName(req.body?.name);
+      const id = randomUUID();
+      const effects = mutationEffects([{ actorUid: req.user.uid, action: 'team.create', after: { teamId: id, name } }]);
+      await deps.repo.saveTeam(id, { name, busy: false, currentReportId: null, createdAt: new Date() }, effects);
+      await tryMutationEffects(deps, effects);
       res.status(201).json({ id });
     } catch (e) { next(e); }
   });
   r.patch('/:id', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
     try {
       const name = teamName(req.body?.name);
-      if (!(await deps.repo.getTeam(req.params.id))) throw new HttpError(404, 'not_found', 'Team not found');
-      await deps.repo.saveTeam(req.params.id, { name });
+      const before = await deps.repo.getTeam(req.params.id);
+      if (!before) throw new HttpError(404, 'not_found', 'Team not found');
+      const effects = mutationEffects([{ actorUid: req.user.uid, action: 'team.update', before: { name: before.name }, after: { teamId: req.params.id, name } }]);
+      await deps.repo.saveTeam(req.params.id, { name }, effects);
+      await tryMutationEffects(deps, effects);
       res.json({ id: req.params.id, name });
     } catch (e) { next(e); }
   });

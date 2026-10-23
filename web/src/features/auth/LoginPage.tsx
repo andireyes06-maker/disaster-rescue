@@ -4,8 +4,10 @@ import FieldError from '../../components/FieldError';
 import MotionForm from '../../components/MotionForm';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { useAuth } from '../../auth/AuthProvider';
 import { landingFor } from '../../routes/landing';
+import { getFirebaseAuth } from '../../firebase-auth';
 import PublicHeader from '../../components/PublicHeader';
 import '../../pages/public.css';
 import Banner from '../../components/calm/Banner';
@@ -13,6 +15,7 @@ import Banner from '../../components/calm/Banner';
 type LoginField = 'email' | 'password';
 const EMAIL_SHAPE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FIELD_ORDER: LoginField[] = ['email', 'password'];
+const RESET_SENT = 'If an account exists for that email, a link to set or reset its password has been sent. Check your inbox and spam folder.';
 
 export default function LoginPage() {
   const { user, role, error: authError, login } = useAuth();
@@ -22,6 +25,9 @@ export default function LoginPage() {
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<LoginField, string>>>({});
   const [busy, setBusy] = useState(false);
   const pendingRef = useRef(false);
+  const resetPending = useRef(false);
+  const [resetNote, setResetNote] = useState('');
+  const [resetBusy, setResetBusy] = useState(false);
 
   useEffect(() => { document.title = 'Sign in · Rescue Reports'; }, []);
 
@@ -36,6 +42,7 @@ export default function LoginPage() {
     if (!password) errs.password = 'Enter your password.';
     setFieldErrors(errs);
     setError('');
+    setResetNote('');
     const first = FIELD_ORDER.find((k) => errs[k]);
     if (first) {
       document.getElementById(first)?.focus();
@@ -55,6 +62,38 @@ export default function LoginPage() {
     }
   }
 
+  // Staff are created by a dispatcher or admin without a password (F02). This sends the password-setup
+  // email through Firebase Auth, so no credential is shown to anyone and no invitation is created by hand.
+  async function onForgotPassword() {
+    if (resetPending.current || pendingRef.current) return;
+    setError('');
+    setResetNote('');
+    if (!email.trim()) {
+      setError('Enter your email address first, then choose Forgot password.');
+      document.getElementById('email')?.focus();
+      return;
+    }
+    if (!EMAIL_SHAPE.test(email.trim())) { setFieldErrors({ email: 'Enter an email in the form name@example.com.' }); document.getElementById('email')?.focus(); return; }
+    resetPending.current = true;
+    setResetBusy(true);
+    try {
+      await sendPasswordResetEmail(getFirebaseAuth(), email.trim());
+      setResetNote(RESET_SENT);
+    } catch (err) {
+      const code = (err as { code?: string }).code;
+      if (code === 'auth/network-request-failed' || code === 'auth/too-many-requests') {
+        setError(code === 'auth/too-many-requests'
+          ? 'Too many requests. Wait a few minutes, then try again.'
+          : 'Could not send the email. Check your connection and try again.');
+      } else {
+        setResetNote(RESET_SENT);
+      }
+    } finally {
+      resetPending.current = false;
+      setResetBusy(false);
+    }
+  }
+
   const message =
     error ||
     (authError === 'account_disabled'
@@ -63,7 +102,9 @@ export default function LoginPage() {
         ? 'Website access is for administrators only. Ask your administrator about your access.'
       : authError === 'auth_failed'
         ? 'We could not sign you in. Check your connection and try again.'
-        : '');
+        : authError === 'session_ended'
+          ? 'Your access changed, so your session ended. Sign in again to continue.'
+          : '');
 
   return (
     <div className="login-page">
@@ -88,6 +129,12 @@ export default function LoginPage() {
           {fieldErrors.password && <FieldError id="password-error" className="field-error">{fieldErrors.password}</FieldError>}
           {message && <Banner tone="error" role="alert">{message}</Banner>}
           <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
+          <section className="login__recovery" aria-labelledby="login-recovery-title">
+            <h2 id="login-recovery-title">Need a password?</h2>
+            <p className="login__recovery-help">Staff accounts are created without a password. Enter your email above, then choose Forgot password to receive a setup link. Residents can use it to reset a forgotten password.</p>
+            <button type="button" className="btn btn--ghost login__recovery-button" onClick={onForgotPassword} aria-disabled={resetBusy || busy} aria-busy={resetBusy}>{resetBusy ? 'Sending…' : 'Forgot password?'}</button>
+            {resetNote && <Banner tone="info" role="status">{resetNote}</Banner>}
+          </section>
           <p className="login__help">Residents use the Rescue Reports mobile app to send and track reports.</p>
         </MotionForm>
         <aside className="auth-split__intro" aria-labelledby="login-aside-title">

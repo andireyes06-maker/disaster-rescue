@@ -3,22 +3,8 @@ import { STATUS, assertTransition, isOpen } from '../domain/workflow.js';
 import { projectReportForRole } from '../domain/privacy.js';
 import { sanitizeText } from '../domain/validation.js';
 import { record } from './auditService.js';
+import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js';
 import { AWAITING_ACTION, compareOldestFirst, toMillis } from '../domain/queueOrder.js';
-
-// Newest first; reports with no readable time go last.
-const newestFirst = (a, b) => {
-  const x = toMillis(a.createdAt);
-  const y = toMillis(b.createdAt);
-  if (x === y) return 0;
-  if (x === Number.POSITIVE_INFINITY) return 1;
-  if (y === Number.POSITIVE_INFINITY) return -1;
-  return y - x;
-};
-// Open reports oldest first (the queue), then everything else newest first.
-const queueFirst = (rows) => [
-  ...rows.filter((r) => AWAITING_ACTION.has(r.status)).sort(compareOldestFirst),
-  ...rows.filter((r) => !AWAITING_ACTION.has(r.status)).sort(newestFirst),
-];
 
 const PRIORITIES = ['low', 'medium', 'high', 'critical'];
 export const notFound = () => new HttpError(404, 'not_found', 'Report not found');
@@ -30,9 +16,7 @@ export async function safeAudit(repo, entry) {
 export async function safeNotify(fn) {
   try { await fn(); } catch (e) { console.error('notify failed', e); }
 }
-const notifyReporter = (notifier, report, title, body) => safeNotify(async () => {
-  if (report.reporterId) await notifier?.notifyUsers?.([report.reporterId], { title, body, reportId: report.id });
-});
+const reporterIntent = (report, title, body) => report.reporterId ? [{ target: { uid: report.reporterId }, payload: { title, body, reportId: report.id } }] : [];
 
 export async function load(repo, id) {
   const report = await repo.getReport(id);
@@ -41,14 +25,15 @@ export async function load(repo, id) {
 }
 
 // One guarded status change: workflow check, atomic write, then audit.
-export async function transition(repo, user, report, to, patch = {}) {
+export async function transition(repo, user, report, to, patch = {}, extra = {}) {
   assertTransition(report.status, to, user.role);
-  const ok = await repo.updateReportIf(report.id, report.status, { ...patch, status: to });
+  const effects = mutationEffects([
+    { actorUid: user.uid, action: 'status.change', reportId: report.id, before: { status: report.status }, after: { status: to } },
+    ...(extra.audits ?? []),
+  ], extra.notifications ?? []);
+  const ok = await repo.updateReportIf(report.id, report.status, { ...patch, status: to }, effects);
   if (!ok) throw conflict();
-  await safeAudit(repo, {
-    actorUid: user.uid, action: 'status.change', reportId: report.id,
-    before: { status: report.status }, after: { status: to },
-  });
+  await tryMutationEffects({ repo, notifier: extra.notifier }, effects);
   return { ...report, ...patch, status: to };
 }
 
@@ -69,10 +54,26 @@ export async function list({ repo }, user, query = {}) {
   if (query.verified === 'true' || query.verified === 'false') {
     rows = rows.filter((r) => Boolean(r.verified) === (query.verified === 'true'));
   }
+  // Professor clarification (2026-10-23): the staff queue is oldest first; priority does not reorder it.
   if (user.role === 'admin' || user.role === 'responder') rows = queueFirst(rows);
   else if (user.role === 'resident') rows = [...rows].sort(newestFirst);
   return rows.map((r) => projectReportForRole(r, user.role, user.uid, teamId)).filter(Boolean);
 }
+
+// Newest first; reports with no readable time go last.
+const newestFirst = (a, b) => {
+  const x = toMillis(a.createdAt);
+  const y = toMillis(b.createdAt);
+  if (x === y) return 0;
+  if (x === Number.POSITIVE_INFINITY) return 1;
+  if (y === Number.POSITIVE_INFINITY) return -1;
+  return y - x;
+};
+// Open reports oldest first (the queue), then everything else newest first.
+const queueFirst = (rows) => [
+  ...rows.filter((r) => AWAITING_ACTION.has(r.status)).sort(compareOldestFirst),
+  ...rows.filter((r) => !AWAITING_ACTION.has(r.status)).sort(newestFirst),
+];
 
 export async function get({ repo }, user, id) {
   const report = await repo.getReport(id);
@@ -89,21 +90,24 @@ export async function verify({ repo, notifier }, user, id) {
     throw new HttpError(409, 'illegal_transition', `Cannot verify a report that is ${report.status}`);
   }
   if (report.status === STATUS.SUBMITTED) report = await transition(repo, user, report, STATUS.UNDER_VERIFICATION);
+  // The validator and time are recorded on the report and in the audit trail (manual admin review, not a photo check).
   const verifiedBy = { uid: user.uid, name: (await repo.getUser(user.uid))?.name ?? null };
   const verifiedAt = new Date();
   report = await transition(repo, user, report, STATUS.VERIFIED, { verified: true, verifiedBy, verifiedAt });
-  report = await transition(repo, user, report, STATUS.AWAITING_ASSIGNMENT);
-  await safeAudit(repo, { actorUid: user.uid, action: 'report.verify', reportId: id, after: { status: report.status, verified: true, verifiedBy } });
-  await notifyReporter(notifier, report, 'Report verified', `Report ${report.reference} was verified`);
+  report = await transition(repo, user, report, STATUS.AWAITING_ASSIGNMENT, {}, {
+    audits: [{ actorUid: user.uid, action: 'report.verify', reportId: id, after: { status: STATUS.AWAITING_ASSIGNMENT, verified: true, verifiedBy } }],
+    notifications: reporterIntent(report, 'Report verified', `Report ${report.reference} was verified`), notifier,
+  });
   return { id, status: report.status, verified: true, verifiedBy, verifiedAt };
 }
 
 async function simpleEdit(repo, user, id, patch, action, pick) {
   const report = await load(repo, id);
   if (!isOpen(report.status)) throw new HttpError(409, 'report_closed', 'Report is closed');
-  const ok = await repo.updateReportIf(id, report.status, patch);
+  const effects = mutationEffects([{ actorUid: user.uid, action, reportId: id, before: pick(report), after: pick({ ...report, ...patch }) }]);
+  const ok = await repo.updateReportIf(id, report.status, patch, effects);
   if (!ok) throw conflict();
-  await safeAudit(repo, { actorUid: user.uid, action, reportId: id, before: pick(report), after: pick({ ...report, ...patch }) });
+  await tryMutationEffects({ repo }, effects);
   return { id, ...patch };
 }
 
@@ -125,9 +129,10 @@ export async function reject({ repo, notifier }, user, id, body) {
   if (!reason) throw new HttpError(400, 'reason_required', 'A reason is required');
   if (reason.length > 500) throw new HttpError(400, 'reason_too_long', 'Reason must be 500 characters or fewer');
   const report = await load(repo, id);
-  const after = await transition(repo, user, report, STATUS.REJECTED, { rejectionReason: reason });
-  await safeAudit(repo, { actorUid: user.uid, action: 'report.reject', reportId: id, after: { status: STATUS.REJECTED, reason } });
-  await notifyReporter(notifier, after, 'Report rejected', `Report ${after.reference} was rejected: ${reason}`);
+  await transition(repo, user, report, STATUS.REJECTED, { rejectionReason: reason }, {
+    audits: [{ actorUid: user.uid, action: 'report.reject', reportId: id, after: { status: STATUS.REJECTED, reason } }],
+    notifications: reporterIntent(report, 'Report rejected', `Report ${report.reference} was rejected. Open the report to read the reason.`), notifier,
+  });
   return { id, status: STATUS.REJECTED };
 }
 
@@ -137,19 +142,19 @@ export async function markDuplicate({ repo, notifier }, user, id, body) {
   const original = await repo.getReport(dup);
   if (!original) throw new HttpError(400, 'invalid_duplicate', 'duplicateOf report does not exist');
   const report = await load(repo, id);
-  const after = await transition(repo, user, report, STATUS.DUPLICATE, { duplicateOf: dup });
-  await safeAudit(repo, { actorUid: user.uid, action: 'report.duplicate', reportId: id, after: { status: STATUS.DUPLICATE, duplicateOf: dup } });
-  await notifyReporter(notifier, after, 'Report marked duplicate', `Report ${after.reference} duplicates an existing report`);
+  await transition(repo, user, report, STATUS.DUPLICATE, { duplicateOf: dup }, {
+    audits: [{ actorUid: user.uid, action: 'report.duplicate', reportId: id, after: { status: STATUS.DUPLICATE, duplicateOf: dup } }],
+    notifications: reporterIntent(report, 'Report marked duplicate', `Report ${report.reference} duplicates an existing report`), notifier,
+  });
   return { id, status: STATUS.DUPLICATE };
 }
 
 export async function cancel({ repo, notifier }, user, id) {
   const report = await load(repo, id);
   if (report.reporterId !== user.uid) throw notFound();
-  const after = await transition(repo, user, report, STATUS.CANCELLED);
-  await safeAudit(repo, { actorUid: user.uid, action: 'report.cancel', reportId: id, after: { status: STATUS.CANCELLED } });
-  await safeNotify(() => notifier?.notifyRole?.('dispatcher', {
-    title: 'Report cancelled', body: `Report ${after.reference} was cancelled by the reporter`, reportId: id,
-  }));
+  await transition(repo, user, report, STATUS.CANCELLED, {}, {
+    audits: [{ actorUid: user.uid, action: 'report.cancel', reportId: id, after: { status: STATUS.CANCELLED } }],
+    notifications: [{ target: { role: 'dispatcher' }, payload: { title: 'Report cancelled', body: `Report ${report.reference} was cancelled by the reporter`, reportId: id } }], notifier,
+  });
   return { id, status: STATUS.CANCELLED };
 }

@@ -1,6 +1,8 @@
+import ReportWindow from '../../components/ReportWindow';
+import { ConnectionNotice } from '../../components/ConnectionStatus';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useReports } from './useReports';
+import { useAwaitingReports } from './useAwaitingReports';
 import StatusBadge from './StatusBadge';
 import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
@@ -16,7 +18,7 @@ import Banner from '../../components/calm/Banner';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import { MapPin, Waves, Flame, Building2, Mountain, CircleHelp, SlidersHorizontal, Search } from 'lucide-react';
 
-type Report = ReturnType<typeof useReports>['reports'][number];
+type Report = ReturnType<typeof useAwaitingReports>['reports'][number];
 
 interface SelectProps {
   label: string;
@@ -97,7 +99,7 @@ function InboxRow({ r, selected, onSelect }: { r: Report; selected: boolean; onS
 
 export default function ReportQueue() {
   const { role } = useAuth();
-  const { reports, loading, error, retry } = useReports();
+  const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useAwaitingReports();
   // Filters, quick view, and selection live in the URL (W08): Back, reload, and shared links restore the same list.
   const [params, setParams] = useSearchParams();
   const f: Filters = {
@@ -174,6 +176,8 @@ export default function ReportQueue() {
         ))}
       </div>
 
+      <ConnectionNotice fromCache={fromCache} />
+      {!loading && !error && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
       <div className="inbox-layout">
       <section className="inbox-panel" aria-labelledby="queue-heading">
         <div className="queue-toolbar">

@@ -21,6 +21,7 @@ export default function Forbidden() {
   const signOut = <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>;
 
   let body: React.ReactNode;
+  // Professor clarification (2026-10-23): residents and rescuers use the mobile app; dispatchers and DMO have no website access.
   if (role === 'resident' || role === 'responder') {
     body = (
       <>

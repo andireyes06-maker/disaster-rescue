@@ -45,7 +45,8 @@ void main() {
   }
   Future<void> capture(WidgetTester t, String name) async {
     expect(t.takeException(), isNull);
-    await expectLater(find.byKey(key), matchesGoldenFile('../../design-plans/codex-redesign/native/$name.png'));
+    // Reviewed references tracked in test/goldens (see test/goldens/PROVENANCE.md). They are not regenerated to pass a regression.
+    await expectLater(find.byKey(key), matchesGoldenFile('goldens/$name.png'));
   }
   testWidgets('access and account layouts at phone width', (t) async {
     await host(t, const LoginPage());

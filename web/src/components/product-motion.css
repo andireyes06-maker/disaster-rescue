@@ -40,6 +40,7 @@
 @keyframes veil-leave { from { opacity: 1; } to { opacity: 0; } }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
+  .route-hold__panel { animation: surface-arrive 260ms cubic-bezier(.16,1,.3,1); }
   .notification-panel { transform-origin: var(--radix-popover-content-transform-origin); }
   .notification-panel[data-state="open"] { animation: notification-open 300ms cubic-bezier(.16,1,.3,1) both; }
   .notification-panel[data-state="closed"] { animation: notification-close 160ms cubic-bezier(.16,1,.3,1) both; pointer-events: none; }
@@ -54,8 +55,10 @@
   body .btn, body .notification-bell, body .emergency-type { transition: transform 160ms cubic-bezier(.16,1,.3,1), background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
   .btn:active:not(:disabled), .notification-bell:active, .emergency-type:active { transform: scale(.97); }
   .btn > svg, .service-text-link > svg, .navlink > svg { transition: transform 200ms cubic-bezier(.16,1,.3,1); }
-  .btn:hover > svg:last-child, .service-text-link:hover > svg:last-child { transform: translateX(3px); }
-  .navlink:hover > svg { transform: translateX(2px); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover > svg:last-child, .service-text-link:hover > svg:last-child { transform: translateX(3px); }
+    .navlink:hover > svg { transform: translateX(2px); }
+  }
   .resident-layout__nav a { position: relative; }
   .resident-layout__nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--color-primary); transform: scaleX(0); transform-origin: left; transition: transform 220ms cubic-bezier(.16,1,.3,1); }
   .resident-layout__nav a.active::after { transform: scaleX(1); }

@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _name,
                       textCapitalization: TextCapitalization.words,
                       autofillHints: const [AutofillHints.name],
-                      decoration: const InputDecoration(labelText: 'Full name'),
+                      decoration: InputDecoration(label: requiredFieldLabel('Full name')),
                       onChanged: (_) => setState(() {}),
                       validator: (v) => (v == null || v.trim().isEmpty) ? 'Enter your name.' : null,
                     ),
@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _email,
                       keyboardType: TextInputType.emailAddress,
                       autofillHints: const [AutofillHints.email],
-                      decoration: const InputDecoration(labelText: 'Email'),
+                      decoration: InputDecoration(label: requiredFieldLabel('Email')),
                       onChanged: (_) => setState(() {}),
                       validator: (v) => (v == null || !v.contains('@')) ? 'Enter a valid email address.' : null,
                     ),
@@ -90,8 +90,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(height: 16),
                     PasswordField(
                       controller: _password,
+                      required: true,
                       autofillHints: const [AutofillHints.newPassword],
-                      validator: (v) => (v == null || v.length < 6) ? 'Use at least 6 characters.' : null,
+                      validator: (v) => (v == null || v.length < 8) ? 'Use at least 8 characters.' : null,
                     ),
                     const SizedBox(height: 16),
                     CheckboxListTile(

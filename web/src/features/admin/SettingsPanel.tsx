@@ -1,3 +1,4 @@
+import { HOTLINE_PATTERN } from '../../lib/schemas';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import MotionForm from '../../components/MotionForm';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
@@ -51,7 +52,7 @@ export default function SettingsPanel() {
     const h = hotline.trim();
     const n = notice.trim();
     const errors = {
-      hotline: !h || h.length > HOTLINE_MAX ? `Hotline is required and at most ${HOTLINE_MAX} characters.` : '',
+      hotline: !h || h.length > HOTLINE_MAX || !HOTLINE_PATTERN.test(h) ? 'Enter a valid hotline number with 3 to 15 digits.' : '',
       notice: !n || n.length > NOTICE_MAX ? `Resident notice is required and at most ${NOTICE_MAX} characters.` : '',
     };
     setFieldErrors(errors);
@@ -63,7 +64,7 @@ export default function SettingsPanel() {
       await api('/admin/settings', { method: 'PUT', body: { hotline: h, residentNotice: n } });
       setSaved(true);
     } catch {
-      setError('Could not save the settings. Try again.');
+      setError('Could not confirm the settings change. Reload settings to check before saving again.');
     } finally {
       pending.current = false;
       setBusy(false);
@@ -81,6 +82,7 @@ export default function SettingsPanel() {
       <textarea id="notice" aria-required="true" readOnly={busy} aria-invalid={!!fieldErrors.notice} aria-describedby={fieldErrors.notice ? 'notice-error' : undefined} rows={3} value={notice} disabled={!loaded} onChange={(e) => { setNotice(e.target.value); setSaved(false); }} />
       {fieldErrors.notice && <FieldError id="notice-error">{fieldErrors.notice}</FieldError>}
       {error && <Banner tone="error" role="alert"><span>{error}</span></Banner>}
+      {loaded && error && <button type="button" className="btn btn--ghost" onClick={() => { retryFocus.current = true; setAttempt(value => value + 1); }}>Reload settings</button>}
       {!loaded && error && <button id="admin-settings-retry" type="button" className="btn btn--ghost" onClick={() => { retryFocus.current = true; setAttempt(value => value + 1); }}>Retry settings</button>}
       {saved && <p role="status">Settings saved.</p>}
       <button type="submit" className="btn" disabled={!loaded} aria-disabled={busy} aria-busy={busy}>Save settings</button>

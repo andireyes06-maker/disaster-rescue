@@ -1,3 +1,5 @@
+import ReportWindow from '../../components/ReportWindow';
+import { ConnectionNotice } from '../../components/ConnectionStatus';
 import EmptyState from '../../components/calm/EmptyState';
 import MapTileNotice, { useMapTiles } from '../../components/MapTileNotice';
 import { useEffect, useMemo, useState } from 'react';
@@ -66,7 +68,7 @@ function FitReports({ reports }: { reports: Report[] }) {
 
 export default function IncidentMap() {
   const tiles = useMapTiles();
-  const { reports, loading, error, retry } = useReports();
+  const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useReports();
   const navigate = useNavigate();
   const [filters, setFilters] = useState<Filters>({ type: '', priority: '', status: '' });
   const set = (key: keyof Filters) => (value: string) => setFilters((f) => ({ ...f, [key]: value }));
@@ -96,6 +98,8 @@ export default function IncidentMap() {
 
   return (
     <div data-map-tile-surface className="incident-map-page">
+      <ConnectionNotice fromCache={fromCache} />
+      {!loading && !error && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
       <div className="card map-filters" role="group" aria-label="Map filters">
         <FilterSelect label="Type" value={filters.type} onChange={set('type')} options={REPORT_TYPES} />
         <FilterSelect label="Priority" value={filters.priority} onChange={set('priority')} options={PRIORITIES} />

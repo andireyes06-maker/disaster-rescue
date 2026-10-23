@@ -1,3 +1,5 @@
+> Historical record. Read HANDOFF.md for the current source, repair status and recovery bundle. Older counts and recovery instructions below are superseded.
+
 # Claude handoff: website UI/UX implementation pass
 
 For Airen. October 16, 2026. Working directory: `/Users/rien/Documents/FINAL_PROJECT`. Branch: `build/disaster-rescue`. Starting commit: `3a2ea076dd6bd08f808f582c2f97072128bf032a`. Changes are local and uncommitted; nothing was deployed or pushed.

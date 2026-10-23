@@ -13,3 +13,4 @@ it('reveals and conceals the same password without submitting or losing its valu
   expect(input).toHaveAttribute('type', 'password');
   expect(submit).not.toHaveBeenCalled();
 });
+

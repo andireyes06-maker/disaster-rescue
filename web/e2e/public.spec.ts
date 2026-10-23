@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test('the public front door explains reporting and fits narrow screens', async ({ page }) => {
   await page.route('**/*', (route) => {
@@ -7,7 +7,7 @@ test('the public front door explains reporting and fits narrow screens', async (
   });
   for (const width of [320, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto('/');
+    await page.goto('/', {waitUntil: 'domcontentloaded'});
     await expect(page.getByRole('heading', { level: 1, name: /Report clearly/ })).toBeVisible();
     await expect(page.getByText('Report incidents. Follow response updates.')).toBeVisible();
     await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);

@@ -90,7 +90,7 @@ describe('AdminPage', () => {
     const user = userEvent.setup();
     renderPage();
     await user.click(screen.getByText('Teams', { selector: 'h2' }));
-    expect(await screen.findByText('Team Alpha')).toBeInTheDocument();
+    expect(await screen.findByRole('textbox', { name: 'Name of Team Alpha' })).toBeInTheDocument();
     await user.type(screen.getByLabelText('New team name'), 'Team Bravo');
     await user.click(screen.getByRole('button', { name: 'Create team' }));
     await waitFor(() => expect(h.api).toHaveBeenCalledWith('/teams', expect.objectContaining({ method: 'POST', body: { name: 'Team Bravo' } })));

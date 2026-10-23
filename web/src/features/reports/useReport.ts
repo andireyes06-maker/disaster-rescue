@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, doc, onSnapshot, orderBy, query, type FirestoreError } from 'firebase/firestore';
+import { collection, doc, limit, onSnapshot, orderBy, query, where, type FirestoreError } from 'firebase/firestore';
 import { getFirebaseDb } from '../../firebase';
 import type { Report } from '../../types/domain';
 import { convertReport } from './useReports';
@@ -12,6 +12,8 @@ export interface ReportState {
   error: FirestoreError | null;
   notFound: boolean;
   removed: boolean;
+  // True when the last snapshot came from the local cache (offline or not yet confirmed by the server), so the status may be out of date (F07).
+  fromCache: boolean;
 }
 
 export interface ReportEntry {
@@ -21,22 +23,23 @@ export interface ReportEntry {
 
 export function useReport(id: string) {
   const [attempt, setAttempt] = useState(0);
-  const [state, setState] = useState<ReportState>({ report: null, loading: true, error: null, notFound: false, removed: false });
+  const [state, setState] = useState<ReportState>({ report: null, loading: true, error: null, notFound: false, removed: false, fromCache: false });
 
   useEffect(() => {
     let seen = false;
-    setState({ report: null, loading: true, error: null, notFound: false, removed: false });
+    setState({ report: null, loading: true, error: null, notFound: false, removed: false, fromCache: false });
     const unsubscribe = onSnapshot(
       doc(getFirebaseDb(), 'reports', id),
+      { includeMetadataChanges: true },
       (snap) => {
         if (snap.exists()) {
           seen = true;
-          setState({ report: convertReport(snap.id, snap.data()), loading: false, error: null, notFound: false, removed: false });
+          setState({ report: convertReport(snap.id, snap.data()), loading: false, error: null, notFound: false, removed: false, fromCache: snap.metadata.fromCache });
         } else {
-          setState({ report: null, loading: false, error: null, notFound: !seen, removed: seen });
+          setState({ report: null, loading: false, error: null, notFound: !seen, removed: seen, fromCache: snap.metadata.fromCache });
         }
       },
-      (error) => setState({ report: null, loading: false, error, notFound: false, removed: false }),
+      (error) => setState({ report: null, loading: false, error, notFound: false, removed: false, fromCache: false }),
     );
     return unsubscribe;
   }, [id, attempt]);
@@ -71,19 +74,33 @@ export interface RescueUpdate {
   at: Date | null;
 }
 
-// Responder progress entries, oldest first. Firestore rules let staff read them.
-export function useReportUpdates(id: string) {
-  const [state, setState] = useState<{ reportId: string; updates: RescueUpdate[]; error: FirestoreError | null; loading: boolean }>({ reportId: id, updates: [], error: null, loading: true });
+// Updates fetched per window: the newest 20 first, then 20 more for each loadOlder() call.
+export const UPDATES_PAGE_SIZE = 20;
+
+// Responder progress entries, oldest first. The listener reads only the newest `size` entries
+// (orderBy at desc, limit size) and reverses them for display. hasMore is true when the window came back full.
+// Firestore rules let staff read them.
+// `scope` names the signed-in identity (account, role, team). When it changes, the old listener is unsubscribed,
+// the rendered history is dropped at once (see the return value), and late callbacks from the old listener are ignored.
+export function useReportUpdates(id: string, scope = '') {
+  const [state, setState] = useState<{ reportId: string; scope: string; updates: RescueUpdate[]; error: FirestoreError | null; loading: boolean; hasMore: boolean }>({ reportId: id, scope, updates: [], error: null, loading: true, hasMore: false });
   const [attempt, setAttempt] = useState(0);
+  // The window size belongs to one report: a different id starts again at one page.
+  const [pageState, setPageState] = useState({ reportId: id, size: UPDATES_PAGE_SIZE });
+  const size = pageState.reportId === id ? pageState.size : UPDATES_PAGE_SIZE;
 
   useEffect(() => {
     let active = true;
-    setState((s) => ({ reportId: id, updates: s.reportId === id ? s.updates : [], error: null, loading: true }));
-    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'asc'));
+    setState((s) => {
+      const same = s.reportId === id && s.scope === scope;
+      return { reportId: id, scope, updates: same ? s.updates : [], error: null, loading: true, hasMore: same ? s.hasMore : false };
+    });
+    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'desc'), limit(size));
     const unsubscribe = onSnapshot(
       q,
       (snap) => { if (active) setState({
-        reportId: id, loading: false,
+        reportId: id, scope, loading: false,
+        hasMore: snap.docs.length === size,
         // Acknowledgements share this subcollection but carry no status; they are not progress entries.
         updates: snap.docs
           .filter((d) => typeof d.data().status === 'string' && d.data().status !== '')
@@ -97,17 +114,23 @@ export function useReportUpdates(id: string) {
               peopleRescued: typeof data.peopleRescued === 'number' ? data.peopleRescued : 0,
               at,
             };
-          }),
+          })
+          // The query returns newest first; display stays oldest first.
+          .reverse(),
         error: null,
       }); },
       // Keep the last good history on a failed refresh; the error is shown beside it.
-      (error) => { if (active) setState((s) => ({ reportId: id, updates: s.reportId === id ? s.updates : [], error, loading: false })); },
+      (error) => { if (active) setState((s) => { const same = s.reportId === id && s.scope === scope; return { reportId: id, scope, updates: same ? s.updates : [], error, loading: false, hasMore: same ? s.hasMore : false }; }); },
     );
     return () => { active = false; unsubscribe(); };
-  }, [id, attempt]);
+  }, [id, scope, attempt, size]);
 
   const retry = () => setAttempt((n) => n + 1);
-  return state.reportId === id ? { ...state, retry } : { reportId: id, updates: [], error: null, loading: true, retry };
+  const loadOlder = () => setPageState((p) => ({ reportId: id, size: (p.reportId === id ? p.size : UPDATES_PAGE_SIZE) + UPDATES_PAGE_SIZE }));
+  // Rendered from the current scope only: an entry from a previous identity is never shown, even for one render.
+  return state.reportId === id && state.scope === scope
+    ? { ...state, retry, loadOlder }
+    : { reportId: id, updates: [], error: null, loading: true, hasMore: false, retry, loadOlder };
 }
 
 // The acknowledgement read state and most recent time. Acknowledgements share the updates
@@ -117,13 +140,17 @@ export function useAcknowledgedAt(id: string) {
   const [state, setState] = useState(initial);
   useEffect(() => {
     setState({ id, at: null, acknowledged: false, loading: true, error: null });
-    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), orderBy('at', 'asc'));
+    // Only acknowledgement rows are read (an equality filter needs no composite index). The latest is picked in memory.
+    const q = query(collection(getFirebaseDb(), 'reports', id, 'updates'), where('kind', '==', 'acknowledge'));
     return onSnapshot(
       q,
       (snap) => {
-        const acks = snap.docs.filter((d) => d.data().kind === 'acknowledge');
-        const latest = acks[acks.length - 1]?.data().at;
-        setState({ id, at: latest && typeof latest.toDate === 'function' ? latest.toDate() : null, acknowledged: acks.length > 0, loading: false, error: null });
+        const times = snap.docs
+          .map((d) => d.data().at)
+          .filter((t) => t && typeof t.toDate === 'function')
+          .map((t) => t.toDate() as Date);
+        const latest = times.length ? new Date(Math.max(...times.map((t) => t.getTime()))) : null;
+        setState({ id, at: latest, acknowledged: snap.docs.length > 0, loading: false, error: null });
       },
       (error) => setState({ id, at: null, acknowledged: false, loading: false, error }),
     );

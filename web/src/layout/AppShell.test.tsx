@@ -4,11 +4,17 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 const auth = vi.hoisted(() => ({
-  value: { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() } as {
-    user: { email: string } | null; role: string | null; logout: () => Promise<void>;
+  value: { user: { uid: 'd-1', email: 'd@test.dev' }, role: 'admin', logout: vi.fn() } as {
+    user: { uid?: string; email: string } | null; role: string | null; logout: () => Promise<void>;
   },
 }));
 vi.mock('../auth/AuthProvider', () => ({ useAuth: () => auth.value }));
+const demo = vi.hoisted(() => ({ value: null as { label: string } | null }));
+vi.mock('../features/demo/useDemoIndicator', () => ({ useDemoIndicator: () => demo.value }));
+const notifications = vi.hoisted(() => ({ value: [] as { id: string; title: string; body: string; reportId: string; read: boolean; createdAt: Date }[] }));
+vi.mock('../features/resident/useMyNotifications', () => ({
+  useMyNotifications: () => ({ notifications: notifications.value, loading: false, error: null }),
+}));
 
 import AppShell from './AppShell';
 
@@ -21,10 +27,11 @@ const renderAt = (path: string) =>
 
 describe('AppShell', () => {
   beforeEach(() => {
-    auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
+    auth.value = { user: { uid: 'd-1', email: 'd@test.dev' }, role: 'admin', logout: vi.fn() };
+    notifications.value = [];
   });
 
-  it('shows the admin navigation', () => {
+  it('shows the administrator navigation', () => {
     renderAt('/dashboard');
     const nav = screen.getByRole('navigation', { name: 'Main' });
     expect(nav.querySelectorAll('a')).toHaveLength(8);
@@ -37,7 +44,7 @@ describe('AppShell', () => {
 
   it('shows the signed-in role in the top bar', () => {
     renderAt('/dashboard');
-    expect(screen.getByText('a@test.dev (admin)')).toBeInTheDocument();
+    expect(screen.getByText('d@test.dev (admin)')).toBeInTheDocument();
   });
 
   it('toggles the mobile menu with aria-expanded', async () => {
@@ -60,12 +67,6 @@ describe('AppShell', () => {
     renderAt('/my');
     expect(screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')).toHaveLength(0);
   });
-  it('gives an admin no Assignments link: the website has no responder pages', () => {
-    auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
-    render(<MemoryRouter initialEntries={['/admin']}><AppShell title="Admin"><div /></AppShell></MemoryRouter>);
-    expect(screen.queryByRole('link', { name: 'Assignments' })).toBeNull();
-  });
-
   it('shows an admin every staff page, plus Admin', () => {
     auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
     renderAt('/dashboard');
@@ -73,5 +74,51 @@ describe('AppShell', () => {
     for (const label of ['Dashboard', 'Map', 'Monitor', 'Analytics', 'Audit', 'Teams', 'Users', 'Admin']) {
       expect(names).toContain(label);
     }
+  });
+
+  it('does not list Assignments in the admin navigation', () => {
+    auth.value = { user: { uid: 'a-1', email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
+    renderAt('/admin');
+    expect(screen.queryByRole('link', { name: 'Assignments' })).not.toBeInTheDocument();
+  });
+
+  it('gives a responder no website navigation: rescuers use the mobile app', () => {
+    auth.value = { user: { uid: 'f-1', email: 'f@test.dev' }, role: 'responder', logout: vi.fn() };
+    renderAt('/assignments');
+    expect(screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')).toHaveLength(0);
+  });
+
+  it('mounts the notification bell in the staff header', () => {
+    renderAt('/dashboard');
+    expect(screen.getByRole('button', { name: /^Notifications/ })).toBeInTheDocument();
+  });
+
+  it('links responder notifications to the report on the responder assignment route', async () => {
+    auth.value = { user: { uid: 'f-1', email: 'f@test.dev' }, role: 'responder', logout: vi.fn() };
+    notifications.value = [{ id: 'n1', title: 'Team assigned', body: 'Review your assignment.', reportId: 'r1', read: false, createdAt: new Date('2026-10-17T01:00:00Z') }];
+    renderAt('/assignments');
+    await userEvent.click(screen.getByRole('button', { name: /^Notifications/ }));
+    expect(screen.getByRole('link', { name: 'View report' })).toHaveAttribute('href', '/assignments/r1');
+  });
+
+  it('links a staff notification to the incident page', async () => {
+    notifications.value = [{ id: 'n1', title: 'New report', body: 'A flood was reported.', reportId: 'r1', read: false, createdAt: new Date('2026-10-17T01:00:00Z') }];
+    const user = userEvent.setup();
+    renderAt('/dashboard');
+    await user.click(screen.getByRole('button', { name: /^Notifications/ }));
+    expect(screen.getByRole('link', { name: 'View report' })).toHaveAttribute('href', '/incidents/r1');
+  });
+});
+
+describe('AppShell workspace copy', () => {
+  it('does not render an environment label in the product header', () => {
+    demo.value = { label: 'Demo workspace · Sample data' };
+    render(
+      <MemoryRouter initialEntries={['/dashboard']}>
+        <AppShell title="Dashboard"><p>body</p></AppShell>
+      </MemoryRouter>,
+    );
+    expect(screen.queryByText('Demo workspace · Sample data')).not.toBeInTheDocument();
+    demo.value = null;
   });
 });

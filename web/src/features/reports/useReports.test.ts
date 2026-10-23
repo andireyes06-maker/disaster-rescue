@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 
 interface DocSnap {
+  metadata: { fromCache: boolean };
   docs: { id: string; data: () => Record<string, unknown> }[];
 }
 
@@ -14,7 +15,8 @@ vi.mock('firebase/firestore', () => ({
   collection: vi.fn(() => 'col'),
   query: vi.fn((c: unknown) => c),
   orderBy: vi.fn(),
-  onSnapshot: vi.fn((q: unknown, ok: (s: DocSnap) => void, err: (e: unknown) => void) => {
+  limit: vi.fn(),
+  onSnapshot: vi.fn((q: unknown, _options: unknown, ok: (s: DocSnap) => void, err: (e: unknown) => void) => {
     h.cb = ok;
     h.errCb = err;
     return h.unsub;
@@ -25,6 +27,7 @@ import { useReports } from './useReports';
 
 const snap = (docs: { id: string; data: Record<string, unknown> }[]): DocSnap => ({
   docs: docs.map((d) => ({ id: d.id, data: () => d.data })),
+  metadata: { fromCache: false },
 });
 const ts = (ms: number) => ({ toDate: () => new Date(ms) });
 
@@ -44,23 +47,14 @@ describe('useReports', () => {
     expect(result.current.reports[0].updatedAt.getTime()).toBe(6000);
   });
 
-  it('converts the validation time to a Date so the page can show it', () => {
+  it('surfaces cache freshness changes without dropping the reports', () => {
     const { result } = renderHook(() => useReports());
-    act(() => h.cb(snap([
-      {
-        id: 'v',
-        data: {
-          createdAt: ts(1000),
-          updatedAt: ts(1000),
-          verified: true,
-          verifiedBy: { uid: 'admin-1', name: 'Admin Ana' },
-          verifiedAt: ts(7000),
-        },
-      },
-    ])));
-    const r = result.current.reports[0];
-    expect(r.verifiedAt).toBeInstanceOf(Date);
-    expect(r.verifiedAt?.getTime()).toBe(7000);
+    const snapshot = snap([{ id: 'a', data: { createdAt: ts(1000) } }]);
+    act(() => h.cb({ ...snapshot, metadata: { fromCache: true } }));
+    expect(result.current.fromCache).toBe(true);
+    act(() => h.cb(snapshot));
+    expect(result.current.fromCache).toBe(false);
+    expect(result.current.reports).toHaveLength(1);
   });
 
   it('reports errors', () => {

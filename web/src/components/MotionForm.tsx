@@ -20,6 +20,7 @@ export default function MotionForm(props: ComponentPropsWithoutRef<'form'>) {
     const items = Array.from(form.children).flatMap((element) => element.classList.contains('report-workspace')
       ? Array.from(element.querySelectorAll('.report-form__group')).flatMap((group) => Array.from(group.children))
       : [element]);
+    const moves: { element: Element; x: number; y: number }[] = [];
     for (const element of items) {
       const box = element.getBoundingClientRect();
       // Ignore viewport scrolling and the separate page entrance on the parent workspace.
@@ -29,6 +30,10 @@ export default function MotionForm(props: ComponentPropsWithoutRef<'form'>) {
       if (feedbackChanged || preference.matches || viewport.current !== window.innerWidth || !before || box.height === 0) continue;
       const x = before.x - point.x, y = before.y - point.y;
       if (Math.abs(x) < 1 && Math.abs(y) < 1) continue;
+      moves.push({ element, x, y });
+    }
+    // Finish layout reads before any animation writes, including when several fields move together.
+    for (const { element, x, y } of moves) {
       const animation = element.animate([{ transform: `translate(${x}px, ${y}px)` }, { transform: 'none' }], {
         duration: 220, easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
       });

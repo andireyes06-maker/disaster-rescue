@@ -65,3 +65,10 @@ describe('notifyRole', () => {
     expect(await repo.listNotifications('d-active')).toHaveLength(0);
   });
 });
+
+it('late push failure cannot remove a token transferred to another account', async () => {
+ const repo=createMemoryRepo();await repo.addDevice('first','rebound');
+ const sender={send:async()=>{await repo.removeDeviceOwned('first','rebound');await repo.claimDevice('second','rebound');return{failedTokens:['rebound']};}};
+ await notifyUsers({repo,sender},['first'],payload);
+ expect(await repo.getDeviceOwner('rebound')).toBe('second');
+});

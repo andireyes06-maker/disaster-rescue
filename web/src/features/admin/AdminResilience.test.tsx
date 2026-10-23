@@ -25,7 +25,7 @@ it('keeps a filtered team visible while its name is being edited and preserves d
   expect(screen.getByLabelText('Name of Harbor Alpha')).toHaveValue('Renamed team');
   expect(screen.getByRole('searchbox', { name: 'Find a team' })).toHaveFocus();
 });
-beforeEach(() => { h.api.mockReset().mockImplementation(async (path: string) => path === '/users' ? [sample] : path === '/admin/settings' ? { hotline: 'demo-contact', residentNotice: 'Demo notice' } : path === '/admin/health' ? { api: 'ok', firestore: 'ok', checkedAt: '2026-10-17T00:00:00Z' } : []); });
+beforeEach(() => { h.api.mockReset().mockImplementation(async (path: string) => path === '/users' ? [sample] : path === '/admin/settings' ? { hotline: '000-0000', residentNotice: 'Demo notice' } : path === '/admin/health' ? { api: 'ok', firestore: 'ok', checkedAt: '2026-10-17T00:00:00Z' } : []); });
 it('keeps account creation success separate from a failed list refresh', async () => {
   let reads = 0;
   h.api.mockImplementation(async (path: string, options?: { method: string }) => {

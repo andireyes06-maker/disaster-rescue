@@ -5,6 +5,7 @@ import Home from './routes/Home';
 import ProductMotion from './components/ProductMotion';
 import PageLoading from './components/PageLoading';
 import PageBoundary from './components/PageBoundary';
+import { ConnectionStatus } from './components/ConnectionStatus';
 import './product.css';
 import './pages/page-finish.css';
 
@@ -26,7 +27,7 @@ const AdminPage = lazy(() => import('./features/admin/AdminPage'));
 export default function App() {
   const { pathname } = useLocation();
   return (
-    <><ProductMotion /><PageBoundary resetKey={pathname}><Suspense fallback={<PageLoading />}><Routes>
+    <><ProductMotion /><ConnectionStatus /><PageBoundary resetKey={pathname}><Suspense fallback={<PageLoading />}><Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<MobileAppNotice />} />
@@ -44,6 +45,7 @@ export default function App() {
       <Route path="/teams" element={<RoleRoute allow={['admin']}><AppShell title="Teams"><TeamsPage /></AppShell></RoleRoute>} />
       <Route path="/users" element={<RoleRoute allow={['admin']}><AppShell title="Users"><UsersPage /></AppShell></RoleRoute>} />
       <Route path="/assignments" element={<MobileAppNotice />} />
+      <Route path="/assignments/:id" element={<MobileAppNotice />} />
       <Route path="*" element={<NotFound />} />
     </Routes></Suspense></PageBoundary></>
   );

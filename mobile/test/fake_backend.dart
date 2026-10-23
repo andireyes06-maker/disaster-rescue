@@ -39,6 +39,9 @@ class FakeBackend implements AuthBackend {
   FakeUser? nextCreated;
   FakeUser? nextSignIn;
   int signOuts = 0;
+  final resetEmails = <String>[];
+  @override
+  Future<void> sendPasswordReset(String email) async { resetEmails.add(email); }
 
   void setUser(FakeUser? u) {
     current = u;

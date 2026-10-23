@@ -53,7 +53,7 @@ describe('queue order', () => {
 
   it('responder queue for their team is oldest first', async () => {
     const t = makeTestApp();
-    await t.repo.createUser('rsp-1', { role: 'responder', team: 'tA' });
+    await t.repo.createUser('rsp-1', { role: 'responder', team: 'tA', active: true });
     const later = await seed(t, '2026-10-02T08:00:00Z', { assignedTeamId: 'tA', status: 'Team Assigned' });
     const earlier = await seed(t, '2026-10-01T08:00:00Z', { assignedTeamId: 'tA', status: 'Team Assigned' });
     expect(ids(await list(t, 'responder', 'rsp-1'))).toEqual([earlier, later]);
@@ -61,7 +61,7 @@ describe('queue order', () => {
 
   it('responder with no team gets an empty list without error', async () => {
     const t = makeTestApp();
-    await t.repo.createUser('rsp-2', { role: 'responder' });
+    await t.repo.createUser('rsp-2', { role: 'responder', active: true });
     await seed(t, '2026-10-01T08:00:00Z', { assignedTeamId: 'tA', status: 'Team Assigned' });
     const res = await list(t, 'responder', 'rsp-2');
     expect(res.status).toBe(200);

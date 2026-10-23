@@ -1,0 +1,132 @@
+[
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "normal": {
+      "paused": true,
+      "muted": true,
+      "loop": true,
+      "inline": true,
+      "duration": 16,
+      "ready": 4
+    },
+    "reduced": {
+      "videoCount": 0,
+      "mp4Requests": 0,
+      "posterLoaded": true
+    },
+    "manual": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "normal": {
+      "paused": true,
+      "muted": true,
+      "loop": true,
+      "inline": true,
+      "duration": 16,
+      "ready": 4
+    },
+    "reduced": {
+      "videoCount": 0,
+      "mp4Requests": 0,
+      "posterLoaded": true
+    },
+    "manual": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "normal": {
+      "paused": true,
+      "muted": true,
+      "loop": true,
+      "duration": 16,
+      "ready": 4
+    },
+    "reduced": {
+      "videoCount": 0,
+      "mp4Requests": 0,
+      "posterLoaded": true
+    },
+    "manual": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "normal": {
+      "paused": true,
+      "muted": true,
+      "loop": true,
+      "duration": 16,
+      "ready": 4
+    },
+    "reduced": {
+      "videoCount": 0,
+      "mp4Requests": 0,
+      "posterLoaded": true
+    },
+    "manual": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "normal": {
+      "paused": true,
+      "muted": true,
+      "loop": true,
+      "inline": true,
+      "duration": 16,
+      "ready": 4
+    },
+    "reduced": {
+      "videoCount": 0,
+      "mp4Requests": 0,
+      "posterLoaded": true
+    },
+    "manual": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "normal": {
+      "paused": true,
+      "muted": true,
+      "loop": true,
+      "inline": true,
+      "duration": 16,
+      "ready": 4
+    },
+    "reduced": {
+      "videoCount": 0,
+      "mp4Requests": 0,
+      "posterLoaded": true
+    },
+    "manual": true,
+    "offscreenPause": true,
+    "onscreenResume": true,
+    "overflow": false,
+    "errors": []
+  }
+]

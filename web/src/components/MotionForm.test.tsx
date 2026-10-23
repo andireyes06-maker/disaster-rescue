@@ -49,6 +49,22 @@ describe('Form feedback motion', () => {
     } finally { h.restore(); }
   });
 
+  it('measures every moving control before starting any animation', () => {
+    const h = setup(); let offset = 0;
+    const order: string[] = [];
+    try {
+      vi.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(function (this: Element) {
+        order.push('read');
+        return { left: 0, top: this.tagName === 'FORM' ? 0 : offset, height: 40, width: 100 } as DOMRect;
+      });
+      h.animate.mockImplementation(() => { order.push('animate'); return { cancel: h.cancel } as unknown as Animation; });
+      const view = render(<Example />);
+      order.length = 0; offset = 20; view.rerender(<Example />);
+      expect(order).toContain('animate');
+      expect(order.lastIndexOf('read')).toBeLessThan(order.indexOf('animate'));
+    } finally { h.restore(); }
+  });
+
   it('keeps validation immediate and does not animate layout with reduced motion', () => {
     const h = setup(true);
     try {

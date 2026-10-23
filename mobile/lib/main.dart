@@ -6,8 +6,11 @@ import 'package:provider/provider.dart';
 import 'auth/auth_backend.dart';
 import 'auth/auth_controller.dart';
 import 'auth/auth_repository.dart';
+import 'auth/profile_source.dart';
 import 'auth/role_gate.dart';
+import 'auth/session_navigation.dart';
 import 'data/api_client.dart';
+import 'data/responder_attempts.dart';
 import 'data/services.dart';
 import 'features/notifications/push_registration.dart';
 import 'features/report/report_draft_store.dart';
@@ -16,6 +19,14 @@ import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (releaseErrors.isNotEmpty) {
+    runApp(
+      _ConfigErrorApp(
+        'This release build is not configured safely. ${releaseErrors.join(' ')}',
+      ),
+    );
+    return;
+  }
   if (!firebaseConfigured) {
     runApp(
       const _ConfigErrorApp(
@@ -45,9 +56,15 @@ Future<void> main() async {
     backend,
     () => api,
     beforeSignOut: push.unregister,
+    profiles: FirestoreProfileSource(FirebaseFirestore.instance),
   );
   // Created before runApp so it is listening from the start.
   final controller = AuthController(repo);
+  // Uncertain responder updates are remembered in memory only. They are dropped when the account, role or team changes.
+  final attempts = ResponderAttemptStore(currentUid: () => controller.user?.uid);
+  final navigatorKey = GlobalKey<NavigatorState>();
+  final session = SessionNavigationReset(navigatorKey, onChange: attempts.clear);
+  controller.addListener(() => session.update(controller.user));
   runApp(
     MultiProvider(
       providers: [
@@ -70,12 +87,14 @@ Future<void> main() async {
         Provider<ResponderRepository>.value(
           value: ApiResponderRepository(api, FirebaseFirestore.instance),
         ),
+        Provider<ResponderAttemptStore>.value(value: attempts),
         Provider<NotificationsRepository>.value(
           value: ApiNotificationsRepository(api, FirebaseFirestore.instance),
         ),
         Provider<PushRegistration>.value(value: push),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         title: 'Rescue Reports',
         theme: AppTheme.light,
         home: const RoleGate(),

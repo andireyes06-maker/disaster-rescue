@@ -94,3 +94,10 @@ describe('report operations survive a notification failure', () => {
     expect(await t.repo.listNotifications('res-1')).toHaveLength(1);
   });
 });
+
+// Invalid Firestore document identities are input errors, never server failures.
+it.each(['.', '..', '__reserved__', 'path/token', 'x'.repeat(1501)])('refuses an unsupported device identity (%s)', async token => {
+ const t = makeTestApp();
+ const r = await request(t.app).post('/api/devices').set('Authorization', t.as('resident', 'identity-check')).send({token});
+ expect(r.status).toBe(400); expect(await t.repo.listDevices('identity-check')).toEqual([]);
+});

@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 5173;
+const PORT = Number(process.env.PLAYWRIGHT_PORT) || 5173;
+const externalBaseURL = process.env.PLAYWRIGHT_BASE_URL;
 
 export default defineConfig({
   testDir: './e2e',
@@ -10,13 +11,13 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: 'list',
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    baseURL: externalBaseURL || `http://localhost:${PORT}`,
     trace: 'retain-on-failure',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-  webServer: {
+  webServer: externalBaseURL ? undefined : {
     command: `npm run dev -- --port ${PORT} --strictPort`,
     url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
   },
 });

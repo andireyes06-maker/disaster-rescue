@@ -46,7 +46,8 @@ export const staffAccountSchema = z.object({
 export type StaffAccount = z.infer<typeof staffAccountSchema>;
 
 // Same phone rule as the API (PHONE_RE in api/src/domain/validation.js).
-const PHONE_PATTERN = /^[0-9+()\-\s]{7,20}$/;
+export const PHONE_PATTERN = /^(?=(?:\D*\d){7,15}\D*$)[0-9+()\-\s]{7,25}$/;
+export const HOTLINE_PATTERN = /^(?=(?:\D*\d){3,15}\D*$)[0-9+()\-\s]{3,40}$/;
 
 export const residentSignUpSchema = z
   .object({

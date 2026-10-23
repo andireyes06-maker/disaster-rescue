@@ -23,7 +23,19 @@ export function buildApp({
   rateLimit: rateOptions = DEFAULT_RATE_LIMIT,
   trustProxy = 0,
 }) {
-  const deps = { repo, uploader, sender, verifyToken, notifier, auth };
+  // The users document is canonical. Token claims can lag a role or deactivation change by up to a
+  // second (revocation granularity), so role and active are read from the document on every request.
+  // An account with no document has no role and is refused (fail closed).
+  const verifyCanonical = async (token) => {
+    const d = await verifyToken(token);
+    if (!d?.uid) return d;
+    const user = await repo.getUser(d.uid);
+    return {
+      uid: d.uid, email: d.email, emailVerified: d.emailVerified,
+      role: user?.role ?? null, active: user?.active === true, team: user?.team ?? null,
+    };
+  };
+  const deps = { repo, uploader, sender, verifyToken: verifyCanonical, notifier, auth };
   const app = express();
   app.disable('x-powered-by');
   // Behind a host's proxy, count clients by their forwarded address, not the proxy's.
@@ -31,7 +43,7 @@ export function buildApp({
   app.use(helmet());
   // Only configured origins may call the API from a browser. Others get no CORS header.
   // Content-Disposition is exposed so the browser can keep the server's export filename (demo exports say so).
-  app.use(cors({ origin: corsOrigins.length ? corsOrigins : false, exposedHeaders: ['Content-Disposition'] }));
+  app.use(cors({ origin: corsOrigins.length ? corsOrigins : false, exposedHeaders: ['Content-Disposition', 'Idempotent-Replayed'] }));
   app.use(rateLimit({ ...rateOptions, standardHeaders: 'draft-7', legacyHeaders: false }));
   app.use(express.json({ limit: '100kb' }));
   // Public liveness check for the host. Reveals nothing about data.

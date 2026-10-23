@@ -1,7 +1,7 @@
 /* Shared finishing pass: access, resident records and administration. */
 .password-control { position: relative; }
 .password-control input { width: 100%; padding-right: 56px; }
-.password-control button { position: absolute; right: 2px; top: 2px; bottom: 2px; width: 44px; border: 0; border-radius: 8px; background: transparent; color: var(--color-muted); display: grid; place-items: center; cursor: pointer; }
+.password-control button { position: absolute; right: 2px; top: 0; bottom: 0; width: 44px; border: 0; border-radius: 8px; background: transparent; color: var(--color-muted); display: grid; place-items: center; cursor: pointer; }
 .password-control button:hover { background: var(--color-primary-soft); color: var(--color-primary); }
 .password-control button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -3px; }
 .login-page .login.auth-split { min-height: auto; flex: 0; align-content: start; width: 100%; max-width: 1160px; margin: 0 auto; padding: 56px 32px; gap: 36px; align-items: start; }
@@ -71,6 +71,9 @@
 .route-loading { width: min(100%, 680px); padding: 48px 24px; }
 .route-loading__brand { margin-bottom: 36px; }
 .route-loading__label { margin: 0 0 24px; font-size: .9375rem; color: var(--color-muted); }
+.route-hold__panel { padding: clamp(20px, 4vw, 32px); border: 1px solid var(--color-mist); border-radius: 16px; background: var(--color-surface); }
+.route-hold__title { margin: 0; font-size: clamp(1.5rem, 4vw, 1.875rem); line-height: 1.2; letter-spacing: -.035em; }
+.route-hold__message { margin: 18px 0 24px; color: var(--color-muted); line-height: 1.65; }
 
 .resident-evidence { margin-top: 24px; }
 .resident-evidence__list { display: flex; flex-wrap: wrap; gap: 12px; padding: 0; list-style: none; }
@@ -113,3 +116,8 @@
  .admin-teams__create-controls .btn { width: 100%; }
 }
 .response-updates > li > span { display: block; margin-top: 4px; color: var(--color-muted); font-size: .8125rem; }
+
+/* Long notes retain a compact preview; their disclosure preserves the complete text. */
+.activity-note__preview { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; overflow-wrap: anywhere; }
+.activity-note details > summary { display: list-item; width: fit-content; min-height: 44px; padding-block: 10px; color: var(--color-primary); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.activity-note details > summary:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }

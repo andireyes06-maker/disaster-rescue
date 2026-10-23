@@ -43,6 +43,11 @@
 .login__card label { font-size: 0.875rem; }
 .login__card button[type="submit"] { width: 100%; margin-top: 24px; }
 .login__help { margin: 20px 0 0; font-size: 0.875rem; }
+.login__recovery { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--color-mist); }
+.login__recovery h2 { margin: 0 0 8px; font-size: 1rem; }
+.login__recovery-help { margin: 0 0 12px; color: var(--color-muted); font-size: 0.875rem; }
+.login__recovery-button { width: 100%; }
+.login__recovery .calm-banner { margin-top: 16px; }
 .login__footer { max-width: 440px; font-size: 0.75rem; }
 .login__footer p { margin: 0; }
 .login__home { display: block; margin-top: 20px; min-height: 44px; padding-block: 10px; color: var(--color-primary); }
@@ -80,3 +85,8 @@
 .admin__pair { display: grid; gap: 20px; align-items: start; grid-template-columns: minmax(0, 1fr); min-width: 0; }
 .admin > section, .admin__pair > section { min-width: 0; }
 @media (min-width: 1100px) { .admin__pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+/* Audit Finding 5: inline text links get a 44px tap height on small screens. Visual size is unchanged. */
+@media (max-width: 640px) {
+  .login__help a, .incident__back a, .resident > p > a, .safety-notice__numbers a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 6px; margin-inline: -6px; }
+}

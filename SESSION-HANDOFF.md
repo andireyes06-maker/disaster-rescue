@@ -1,3 +1,5 @@
+> Historical record. Read HANDOFF.md for the current source, repair status and recovery bundle. Older counts and recovery instructions below are superseded.
+
 # Session handoff
 
 > Generated: 2026-10-16 (late session)

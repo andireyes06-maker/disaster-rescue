@@ -24,7 +24,7 @@ Airen requested a complete visual redesign and explicitly delegated direction se
 
 ## Evidence on Hand
 
-README.md, web/src, docs, and design-plans contain product behavior and prior browser evidence. Synthetic emulator fixtures are demonstrations, not live incidents. Course credits must remain factual.
+README.md, web/src, docs, and design-plans contain product behavior and prior browser evidence. Synthetic emulator fixtures are demonstrations, not live incidents. Use Rescue Reports service branding throughout.
 
 ## Product Principles
 

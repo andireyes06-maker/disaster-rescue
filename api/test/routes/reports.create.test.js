@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import request from 'supertest';
 import { makeTestApp } from '../fakes/testApp.js';
+import { submissionFingerprint } from '../../src/services/reportService.js';
+import { parseReportInput } from '../../src/domain/validation.js';
 
 const JPEG = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0, 0, 0, 0]);
 const PNG = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0]);
@@ -122,10 +124,10 @@ describe('POST /api/reports', () => {
     expect(r.assignedTeamId).toBeUndefined();
   });
 
-  it('createReport failure after upload is 500 and removes the uploaded assets', async () => {
+  it('a failed commit after upload is 500 and removes the uploaded assets (unkeyed requests use the same claim path)', async () => {
     const t = makeTestApp();
     vi.spyOn(console, 'error').mockImplementation(() => {});
-    t.repo.createReport = async () => { throw new Error('db down'); };
+    t.repo.commitSubmission = async () => { throw new Error('db down'); };
     const res = await post(t, undefined, {}, [JPEG, PNG]);
     expect(res.status).toBe(500);
     expect(res.body.error).toBe('internal_error');
@@ -242,9 +244,12 @@ describe('idempotent submission (M04)', () => {
 
   it('a key whose first attempt is still in flight is refused, not run twice', async () => {
     const t = makeTestApp();
-    expect((await t.repo.claimSubmission('res-x', KEY, { staleAfterMs: 120000 })).state).toBe('new');
-    const second = await t.repo.claimSubmission('res-x', KEY, { staleAfterMs: 120000 });
-    expect(second.state).toBe('pending');
+    // The first attempt claimed the key for this same submission, so its fingerprint matches the retry.
+    const fingerprint = submissionFingerprint(parseReportInput(fields), []);
+    const claim = { fingerprint, now: Date.now(), reportId: 'reserved-1', reference: 'DR-HOLD01', leaseMs: 120000 };
+    expect((await t.repo.claimSubmission('res-x', KEY, claim)).mode).toBe('run');
+    const second = await t.repo.claimSubmission('res-x', KEY, { ...claim, reportId: 'reserved-2' });
+    expect(second.mode).toBe('pending');
     const res = await request(t.app).post('/api/reports').set('Authorization', t.as('resident', 'res-x')).set('Idempotency-Key', KEY).field('type', 'flood').field('description', 'Water rising fast').field('lat', '14.8512').field('lng', '120.8123').field('source', 'gps');
     expect(res.status).toBe(409);
     expect(res.body.error).toBe('submission_in_progress');

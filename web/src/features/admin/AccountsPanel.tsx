@@ -22,6 +22,9 @@ export interface AdminTeam { id: string; name: string }
 // Roles an admin can assign to staff. A resident account is shown as resident and is never silently changed to another role.
 const ROLE_OPTIONS = ['responder', 'dispatcher', 'dmo', 'admin'] as const;
 
+// Teams apply to field staff and dispatch roles. Residents and admins have no team.
+const TEAM_ROLES = new Set(['responder', 'dispatcher', 'dmo']);
+
 function roleOptionsFor(current: string): string[] {
   return ROLE_OPTIONS.includes(current as typeof ROLE_OPTIONS[number]) ? [...ROLE_OPTIONS] : [current, ...ROLE_OPTIONS];
 }
@@ -49,6 +52,8 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
   const retryAccounts = () => { retryFocus.current = true; setAttempt(value => value + 1); };
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [error, setError] = useState('');
+  // Confirms a created account and says how the person sets a password (F02). No credential is shown here.
+  const [notice, setNotice] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState<string>('responder');
@@ -109,6 +114,23 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
     }
   }
 
+  // Assigns or clears a staff member's team, through the same API as the Users screen (F03).
+  async function saveTeam(u: AdminUser, teamId: string) {
+    if (busy(u.uid)) return;
+    setError('');
+    setNotice('');
+    setBusy(u.uid, true);
+    try {
+      await api(`/users/${u.uid}`, { method: 'PATCH', body: { team: teamId || null } });
+      setUsers((list) => list.map((x) => (x.uid === u.uid ? { ...x, team: teamId || undefined } : x)));
+      setNotice(teamId ? `Team assigned for ${u.name}.` : `Team removed for ${u.name}.`);
+    } catch (err) {
+      setError(failureText(err, `Could not confirm the team change for ${u.name}. Refresh accounts before trying again.`));
+    } finally {
+      setBusy(u.uid, false);
+    }
+  }
+
   async function create(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (busy('create')) return;
@@ -120,6 +142,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
     setFieldErrors(errors);
     if (errors.name || errors.email) { document.getElementById(errors.name ? 'new-name' : 'new-email')?.focus(); return; }
     setError('');
+    setNotice('');
     setBusy('create', true);
     try {
       const body: Record<string, unknown> = { name: name.trim(), email: email.trim(), role };
@@ -129,6 +152,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
       setEmail('');
       setTeam('');
       setSaved('Staff account created.');
+      setNotice('They can open Sign in and choose Forgot password to set their password.');
       // A successful creation must never become a "creation failed" error if only the refresh fails.
       try {
         const list = await api('/users');
@@ -156,6 +180,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
       {error && <Banner tone="error" role="alert"><span>{error}</span></Banner>}
       {needsRefresh && !refreshFailed && <button type="button" className="btn btn--ghost" onClick={retryAccounts}>Refresh accounts</button>}
       {saved && <p role="status">{saved}</p>}
+      {notice && <Banner tone="info" role="status">{notice}</Banner>}
       {refreshFailed && <Banner tone="error" role="alert">The account list could not be refreshed. Check it before making another change. <button type="button" className="btn btn--ghost" onClick={retryAccounts}>Refresh accounts</button></Banner>}
       <div className="management-search">
         <div><label htmlFor="admin-account-search">Find an account</label><input id="admin-account-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Name, email, or account ID" /></div>
@@ -166,7 +191,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
       {visibleUsers.length > 0 && <>
       <div className="admin-accounts__list" role="region" aria-label="Accounts and roles list" tabIndex={0}>
       <table>
-        <thead><tr><th>Name</th><th>Email / account ID</th><th>Role</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Email / account ID</th><th>Role</th><th>Team</th><th>Status</th></tr></thead>
         <tbody>
           {visibleUsers.map((u) => (
             <tr key={u.uid}>
@@ -184,6 +209,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
                   </button>
                 )}
               </td>
+              <td>{TEAM_ROLES.has(u.role) ? <select aria-label={`Team for ${u.name}`} value={u.team ?? ''} disabled={u.uid === currentUid || busy(u.uid) || teamsUnavailable} onChange={(e) => saveTeam(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select> : <span>Not applicable</span>}</td>
               <td>{u.active ? 'Active' : 'Inactive'}{u.authSyncPending && <p className="field-hint">Access update pending. Retry to finish the previous change.</p>}</td>
             </tr>
           ))}

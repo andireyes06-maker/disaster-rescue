@@ -1,3 +1,6 @@
+// Statuses that still need someone to act. Same list as the API (api/src/domain/queueOrder.js).
+export const AWAITING_STATUSES = ['Submitted', 'Under Verification', 'Verified', 'Awaiting Assignment', 'Team Assigned', 'Rescue in Progress'] as const;
+
 // Oldest submission first, for reports waiting on action. Same rule as the API queue: equal times fall back to id,
 // and a report with no usable time goes last.
 const timeOf = (v: unknown): number => {

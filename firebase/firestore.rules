@@ -56,7 +56,7 @@ service cloud.firestore {
     }
 
     match /auditLogs/{id} {
-      allow read: if isStaff();
+      allow read: if isActive() && role() == 'admin';
       allow write: if false;
     }
 
@@ -74,6 +74,14 @@ service cloud.firestore {
     match /devices/{token} {
       allow read, write: if false;
     }
+
+    // Photo cleanup ledger: upload ids and states only. Server-only (Admin SDK), never readable by any client role.
+    match /photoAssets/{id} {
+      allow read, write: if false;
+    }
+
+    // Durable operational recovery plans are server-only.
+    match /mutationEffects/{id} { allow read, write: if false; }
 
     match /{document=**} {
       allow read, write: if false;

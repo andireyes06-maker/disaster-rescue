@@ -14,6 +14,9 @@ vi.mock('firebase/auth', () => ({
   signOut: (...a: unknown[]) => signOutFn(...a),
 }));
 vi.mock('../firebase-auth', () => ({ getFirebaseAuth: () => ({}) }));
+vi.mock('../firebase', () => ({ getFirebaseDb: () => ({}) }));
+// The profile listener has its own tests (AuthProfileSync.test.tsx). These tests cover the claims path only.
+vi.mock('firebase/firestore', () => ({ doc: () => ({}), onSnapshot: () => () => {} }));
 import { AuthProvider, useAuth } from './AuthProvider';
 
 function Probe() {
@@ -66,7 +69,7 @@ describe('AuthProvider', () => {
   });
 
   it('forces a token refresh when reading claims', async () => {
-    const spy = vi.fn(async (_force?: boolean) => ({ claims: { role: 'dmo', active: true } }));
+    const spy = vi.fn(async (_force?: boolean) => ({ claims: { role: 'admin', active: true } }));
     render(<AuthProvider><Probe /></AuthProvider>);
     await act(async () => authCallback({ uid: 'u', getIdTokenResult: spy }));
     expect(spy).toHaveBeenCalledWith(true);
@@ -87,7 +90,7 @@ describe('AuthProvider', () => {
     const slow = {
       uid: 'a',
       getIdTokenResult: () => new Promise<{ claims: Record<string, unknown> }>((r) => {
-        releaseFirst = () => r({ claims: { role: 'dmo', active: true } });
+        releaseFirst = () => r({ claims: { role: 'admin', active: true } });
       }),
     };
     let p1: unknown;
@@ -125,21 +128,13 @@ describe('AuthProvider', () => {
   });
 });
 
+// Professor clarification (2026-10-23): dispatcher and DMO accounts have no website access.
 describe('website access by role', () => {
-  beforeEach(() => signOutFn.mockClear());
-
   it.each(['dispatcher', 'dmo'])('signs out a %s account with website_access_disabled', async (role) => {
     render(<AuthProvider><Probe /></AuthProvider>);
     await act(async () => authCallback(fbUser({ role, active: true })));
-    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('out'));
-    expect(screen.getByTestId('e')).toHaveTextContent('website_access_disabled');
+    await waitFor(() => expect(screen.getByTestId('e')).toHaveTextContent('website_access_disabled'));
+    expect(screen.getByTestId('s')).toHaveTextContent('out');
     expect(signOutFn).toHaveBeenCalled();
-  });
-
-  it('lets an administrator in', async () => {
-    render(<AuthProvider><Probe /></AuthProvider>);
-    await act(async () => authCallback(fbUser({ role: 'admin', active: true })));
-    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:admin'));
-    expect(signOutFn).not.toHaveBeenCalled();
   });
 });

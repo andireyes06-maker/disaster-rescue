@@ -14,7 +14,7 @@ const audits = (t, id) => t.repo.listAudit({ reportId: id });
 describe('manual validation', () => {
   it('admin validates a submitted report and the validator and time are recorded', async () => {
     const t = makeTestApp();
-    await t.repo.createUser('admin-1', { role: 'admin', name: 'Admin Ana' });
+    await t.repo.createUser('admin-1', { role: 'admin', name: 'Admin Ana', active: true });
     const id = await seed(t);
     const res = await validate(t, id, t.as('admin'));
     expect(res.status).toBe(200);
@@ -27,8 +27,8 @@ describe('manual validation', () => {
 
   it('validating twice gives 409, keeps the first validator, and writes one validation audit entry', async () => {
     const t = makeTestApp();
-    await t.repo.createUser('admin-1', { role: 'admin', name: 'Admin Ana' });
-    await t.repo.createUser('admin-2', { role: 'admin', name: 'Admin Ben' });
+    await t.repo.createUser('admin-1', { role: 'admin', name: 'Admin Ana', active: true });
+    await t.repo.createUser('admin-2', { role: 'admin', name: 'Admin Ben', active: true });
     const id = await seed(t);
     expect((await validate(t, id, t.as('admin'))).status).toBe(200);
     const again = await validate(t, id, t.as('admin', 'admin-2'));

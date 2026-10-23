@@ -11,7 +11,7 @@ const h = vi.hoisted(() => ({
   error: null as Error | null,
   role: 'admin' as string,
 }));
-vi.mock('./useReports', () => ({ useReports: () => ({ reports: h.reports, loading: h.loading, error: h.error, retry: () => {} }) }));
+vi.mock('./useAwaitingReports', () => ({ useAwaitingReports: () => ({ reports: h.reports, loading: h.loading, error: h.error, retry: () => {} }) }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ role: h.role }) }));
 vi.mock('./useReport', () => ({ useReportUpdates: () => ({ updates: [], error: null, retry: () => {} }) }));
 import ReportQueue from './ReportQueue';

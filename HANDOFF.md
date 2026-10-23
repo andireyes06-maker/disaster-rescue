@@ -1,27 +1,32 @@
-# HANDOFF
+# Release handoff, 20 October 2026
 
-## Start here
+Authoritative tree: `/private/tmp/rescue-release-integration-2026-10-18`, branch `integration/redesign-functional-2026-10-18`. Preserve other sessions' work. Do not overwrite this source from the older product tree.
 
-- **Status (Oct 23, Claude):** professor clarification work is complete on this branch. Spec `docs/superpowers/specs/2026-10-23-professor-clarification-design.md`, plan `docs/superpowers/plans/2026-10-23-professor-clarification.md`, ledger `.superpowers/sdd/2026-10-23-professor-clarification/progress.md` (git-ignored, this machine).
-- **Commits on `build/disaster-rescue`:** `8040165` feature, `9b9ce01` and `a091266` handoffs, `faac412` review fixes, `0b448ad` option A (API refuses dispatcher and DMO tokens), `0c1307d` handoff.
-- **Pushed:** new remote branch `build/professor-clarification-2026-10-23` at head `3abe326` (cleanup: unused calm components, Placeholder page, demo indicator removed). Origin's `build/disaster-rescue` was not touched. No pull request opened.
-- **Verified:** API 328 pass, 1 skipped (pre-existing). Web typecheck clean; 326 pass on the staged snapshot (`--maxWorkers=2`). Flutter analyze clean, 130 pass. Rules 128 pass under the emulator (unchanged by option A). Browser check of the mobile-app notice at 390px.
-- **Not deployed:** the Firestore rules are not deployed. Nothing is deployed from this change.
-- **BLOCKED, needs a decision:** (1) merging this branch with origin's `build/disaster-rescue`, which has 5 commits this branch lacks (merge of PR #1 and a large redesign, 496 files); a plain push is rejected. (2) deploying the Firestore rules: they apply to the whole project, and origin's code still expects dispatcher and DMO reads, so deploying now breaks live dispatcher and DMO screens.
-- **Left uncommitted on purpose:** another session's edits in `web/src/features/auth/LoginPage.tsx`, `LoginPage.test.tsx`, `web/src/pages/public.css` (password reset work) and `design-plans/completion-verification-2026-10-18/PAGE-LEDGER.md`. This change's login edits are committed.
-- **Gotchas:** run web tests with `--maxWorkers=2`; on macOS `sed -i` needs `''`. Typecheck and tests must be run separately; `sh -c 'a; b'` hides a failed `a`.
+## Current status (20 Oct 2026, Flutter finish)
+- Web/API were deployed at b834c03 before this publication. Current source is committed in release PR #1: https://github.com/andireyes06-maker/disaster-rescue/pull/1 . Its merge status and resulting commit are authoritative; earlier no-commit statements describe historical passes.
+- Flutter now has a public welcome, resident notification bell, bounded detail/notification layouts and finite route/tab/error motion. Residents/responders remain native; staff/admin remain web.
+- Final analysis is clean, 219 Flutter tests pass, all 15 golden checksums verify without regeneration. Chrome debug and Android debug builds succeed. Chrome visual reviewer scored its desktop-notification fix resolved; native hardware remains unverified.
+- User-guide PowerPoint, source screenshots/generator, schema, video script and supporting silent preview are in docs/. Actual group narration/contributions and Office rendering review remain owner work.
+- Flutter product checkpoint: 6734ccc. Publish to the existing default branch build/disaster-rescue. Keep the integration branch because it owns this live worktree. No signed native/store release is implied by a source merge.
+- Start with durable DEFAULT-BRANCH-RELEASE-2026-10-20.md, then FLUTTER-FINISH-2026-10-20.md and the current recovery manifest. Earlier 777/787 recovery records are historical; current scope is 805 paths.
 
-## Next step
+## Production release
+The user requested a direct release instead of waiting for staging. The verified product commit `b834c038055db76438858abdb95aadffbd5fd32d` is now deployed:
+- Web: https://disaster-rescue-web.vercel.app , Vercel deployment `dpl_7BL9kvvriSF4fB5f9wxpu74w8kfa`.
+- API: https://disaster-rescue-api.onrender.com , Render deployment `dep-dbb1o6k9v7es73acih9g`.
+- Production Firebase: explicit project `flutter-5094e`. Reviewed rules deployed and all 11 composite indexes READY.
+- Remote CI on b834c03 passes web/API, Firestore and Flutter: https://github.com/andireyes06-maker/disaster-rescue/actions/runs/39256572821 . No default-branch merge occurred.
 
-Decide the merge with origin (option A: merge and resolve conflicts, B: keep the new branch separate, C: hold) and when the rules deploy happens (after the merged code is live, which avoids breaking live dispatcher and DMO screens).
+## Production checks and limits
+API health and a browser cross-origin health request return 200. The landing video autoplays muted. Public login/register/Forbidden and signed-out protected-route redirects were checked in Chromium at 390 and 1440 px: no horizontal overflow, one main landmark, correct titles; empty forms show field errors and focus the first invalid field. No console errors occurred during those checks.
+This is a production smoke pass, not a production role-workflow, photo-provider, email/push, device or screen-reader certification. Native signing/release builds and owner hotline/support/privacy/retention details remain open. The local WebKit reload issue remains unresolved; this Chromium pass does not clear it.
 
-## Open questions
+## Rollback
+Previous API commit `effd53f9a6239154604ff48cec05214b1b27f098`, deployment `dep-db93li3rjlhs73bjvur0`. Previous web deployment: `https://disaster-rescue-k8xpfnmsw-personalfranz.vercel.app`. Prior rules/indexes and service settings are saved in secure local release scratch as `live-rollback.json`.
 
-1. Merge with origin's `build/disaster-rescue`: STOPPED. A test merge in a separate worktree had 91 conflicts (57 in web), and the auto-mode permission check denied the step that takes origin's version of conflicted files. The merge needs an explicit permission from Airen (or a permission rule) before it's retried. The plan was: take origin's side for conflicted files, re-apply this feature on top, verify with all suites.
-2. Rules deploy: wait for the merged release to be live?
-3. Other session's login work: commit it with its owner, or leave it?
-4. Older unreachable web files (`components/calm`, `components/ui`, `features/demo`, `lib/utils`, `pages/Placeholder`) predate this change; delete in a cleanup pass?
+## Staging and records
+Separate Firebase `aclon-franz2`, Vercel `rescue-reports-staging` and Render `rescue-reports-staging-api` were created during the earlier authorized staging work. The staging web is unpublished and the API lacks staging Cloudinary configuration. Do not present them as a verified full staging stack. Render CLI is authenticated; the connector OAuth callback failed, so do not repeat that flow.
+Durable records, recovery bundle and release evidence: `/Users/rien/Documents/FINAL_PROJECT/design-plans/full-repair-2026-10-19/`. Read the latest section of `RELEASE-EXECUTION.md`; older no-deploy statements are historical. Never archive scratch credentials, CLI tokens or local OIDC environment files.
 
-## Resume prompt
-
-"Read HANDOFF.md and docs/role-matrix.md in /Users/rien/Documents/FINAL_PROJECT. The professor clarification work is committed and pushed to build/professor-clarification-2026-10-23. Waiting on Airen for the merge decision and the rules deploy."
+## Emulator reload follow-up, 20 October 2026
+The installed firebase_auth_web 6.3.0 debug emulator reconnect is gated to browser hostname localhost. Reproduced the failed Google account lookup on 127.0.0.1, then verified three same-tab reloads each for resident and responder on localhost, with all captured Auth requests going only to the dedicated local emulator. No bootstrap logic changed. See mobile/README.md for the explicit Chrome launch command and durable FLUTTER-RESTORE-REVIEW-2026-10-20.md for evidence and limits. Hosted restore, fresh tabs and device restarts remain unverified.

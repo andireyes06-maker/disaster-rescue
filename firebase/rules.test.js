@@ -85,14 +85,15 @@ describe('reports', () => {
     await assertSucceeds(ctx.resident().collection('reports').where('reporterId', '==', 'res1').get());
   });
   test('resident unfiltered list fails', async () => { await assertFails(ctx.resident().collection('reports').get()); });
-  // Professor clarification (2026-10-23): the website is for administrators only.
-  test('dispatcher cannot read reports', async () => {
-    await assertFails(ctx.dispatcher().doc('reports/r1').get());
-    await assertFails(ctx.dispatcher().doc('reports/r2').get());
-    await assertFails(ctx.dispatcher().collection('reports').get());
+  // Professor clarification (2026-10-23): the website and staff reads are for administrators only.
+  test('administrator reads all', async () => {
+    await assertSucceeds(ctx.admin().doc('reports/r1').get());
+    await assertSucceeds(ctx.admin().doc('reports/r2').get());
+    await assertSucceeds(ctx.admin().collection('reports').get());
   });
-  test('dmo cannot read reports', async () => {
-    await assertFails(ctx.dmo().doc('reports/r1').get());
+  test('dispatcher and dmo cannot read reports', async () => {
+    await assertFails(ctx.dispatcher().doc('reports/r1').get());
+    await assertFails(ctx.dispatcher().collection('reports').get());
     await assertFails(ctx.dmo().doc('reports/r2').get());
   });
   test('responder reads only own team reports', async () => {
@@ -153,6 +154,7 @@ describe('report updates', () => {
     await assertFails(ctx.resident().doc('reports/r2/updates/u2').get());
     await assertSucceeds(ctx.responderA().doc('reports/r1/updates/u1').get());
     await assertFails(ctx.responderA().doc('reports/r2/updates/u2').get());
+    await assertSucceeds(ctx.admin().doc('reports/r2/updates/u2').get());
     await assertFails(ctx.dispatcher().doc('reports/r2/updates/u2').get());
     await assertFails(ctx.dmo().doc('reports/r2/updates/u2').get());
   });
@@ -238,7 +240,10 @@ describe('stale or disagreeing claims (canonical users document wins)', () => {
 describe('users', () => {
   test('self reads own profile', async () => { await assertSucceeds(ctx.resident().doc('users/res1').get()); });
   test('resident cannot read other profile', async () => { await assertFails(ctx.resident().doc('users/res2').get()); });
-  test('dispatcher cannot read other profiles', async () => { await assertFails(ctx.dispatcher().doc('users/res2').get()); });
+  test('administrator reads any profile; dispatcher cannot', async () => {
+    await assertSucceeds(ctx.admin().doc('users/res2').get());
+    await assertFails(ctx.dispatcher().doc('users/res2').get());
+  });
   test('dmo and responder cannot read other profiles', async () => {
     await assertFails(ctx.dmo().doc('users/res2').get());
     await assertFails(ctx.responderA().doc('users/res2').get());
@@ -269,9 +274,24 @@ describe('notifications', () => {
 });
 
 describe('auditLogs', () => {
-  test('dispatcher and dmo cannot read the audit log', async () => {
+  // F05 decision D1 now reads: the audit log is administrator only (professor clarification, option A).
+  test('administrator reads; dispatcher and dmo are denied (F05, decision D1)', async () => {
+    await assertSucceeds(ctx.admin().doc('auditLogs/a1').get());
     await assertFails(ctx.dispatcher().doc('auditLogs/a1').get());
     await assertFails(ctx.dmo().doc('auditLogs/a1').get());
+  });
+  // F05 matrix: the audit log is administrator only. Rules, API GET /audit and navigation must agree.
+  const auditMatrix = { resident: false, responderA: false, dispatcher: false, dmo: false, admin: true };
+  for (const [who, allowed] of Object.entries(auditMatrix)) {
+    test(`audit matrix: ${who} read is ${allowed ? 'allowed' : 'denied'}`, async () => {
+      const read = ctx[who]().doc('auditLogs/a1').get();
+      if (allowed) await assertSucceeds(read);
+      else await assertFails(read);
+    });
+  }
+  test('inactive admin cannot read the audit log', async () => {
+    const db = await as('adm1', { role: 'admin', active: false });
+    await assertFails(db.doc('auditLogs/a1').get());
   });
   test('resident and responder cannot read', async () => {
     await assertFails(ctx.resident().doc('auditLogs/a1').get());
@@ -287,7 +307,8 @@ describe('auditLogs', () => {
 });
 
 describe('teams', () => {
-  test('dispatcher and dmo cannot read teams; a responder of that team can', async () => {
+  test('administrator and a responder of that team read; dispatcher and dmo cannot', async () => {
+    await assertSucceeds(ctx.admin().doc('teams/team-alpha').get());
     await assertFails(ctx.dispatcher().doc('teams/team-alpha').get());
     await assertFails(ctx.dmo().doc('teams/team-alpha').get());
     await assertSucceeds(ctx.responderA().doc('teams/team-alpha').get());
@@ -362,3 +383,108 @@ describe('admin holds every staff read', () => {
   });
 });
 
+
+describe('server-only report recovery jobs', () => {
+  test('all client roles are denied recovery reads and writes', async () => {
+    await env.withSecurityRulesDisabled(async c => { await c.firestore().doc('reportEffects/internal-job').set({ state: 'pending' }); });
+    for (const who of ['anon', 'resident', 'dispatcher', 'dmo', 'responderA', 'admin']) {
+      const db = ctx[who]();
+      await assertFails(db.doc('reportEffects/internal-job').get());
+      await assertFails(db.collection('reportEffects').get());
+      await assertFails(db.doc('reportEffects/internal-job').set({ state: 'done' }));
+    }
+  });
+});
+
+describe('responder access to closed reports (the users document decides, a notification never grants)', () => {
+  beforeEach(async () => {
+    await env.withSecurityRulesDisabled(async (c) => {
+      const db = c.firestore();
+      await db.doc('reports/c1').set({ reporterId: 'res1', assignedTeamId: 'team-alpha', status: 'Closed', type: 'flood' });
+      await db.doc('reports/c1/updates/cu1').set({ status: 'Resolved', byUid: 'resp1', kind: 'status' });
+      await db.doc('notifications/nc1').set({ recipientUid: 'resp2', title: 'Team Assigned', reportId: 'c1' });
+    });
+  });
+
+  test('current-team responder reads a closed report and its updates', async () => {
+    await assertSucceeds(ctx.responderA().doc('reports/c1').get());
+    await assertSucceeds(ctx.responderA().doc('reports/c1/updates/cu1').get());
+    await assertSucceeds(ctx.responderA().collection('reports').where('assignedTeamId', '==', 'team-alpha').get());
+  });
+
+  test('another team responder is denied the closed report and its updates', async () => {
+    await assertFails(ctx.responderB().doc('reports/c1').get());
+    await assertFails(ctx.responderB().doc('reports/c1/updates/cu1').get());
+  });
+
+  test('responder whose user document has the team cleared is denied, though the token still names it', async () => {
+    const db = await as('resp7', { role: 'responder', active: true, team: 'team-alpha' });
+    await assertSucceeds(db.doc('reports/c1').get());
+    await setUser('resp7', { role: 'responder', active: true, team: '' });
+    await assertFails(db.doc('reports/c1').get());
+    await assertFails(db.doc('reports/c1/updates/cu1').get());
+  });
+
+  test('responder whose team changed is denied for the old team and reads only the new team', async () => {
+    const db = await as('resp7', { role: 'responder', active: true, team: 'team-alpha' });
+    await setUser('resp7', { role: 'responder', active: true, team: 'team-bravo' });
+    await assertFails(db.doc('reports/c1').get());
+    await assertFails(db.doc('reports/c1/updates/cu1').get());
+    await assertFails(db.collection('reports').where('assignedTeamId', '==', 'team-alpha').get());
+  });
+
+  test('a token that names the new team, with a stale document, is denied', async () => {
+    const db = await as('resp7', { role: 'responder', active: true, team: 'team-bravo' });
+    await setUser('resp7', { role: 'responder', active: true, team: 'team-alpha' });
+    await assertFails(db.doc('reports/c1').get());
+  });
+
+  test('deactivated responder is denied even with a team and an active token', async () => {
+    const db = await as('resp7', { role: 'responder', active: true, team: 'team-alpha' });
+    await setUser('resp7', { role: 'responder', active: false, team: 'team-alpha' });
+    await assertFails(db.doc('reports/c1').get());
+    await assertFails(db.doc('reports/c1/updates/cu1').get());
+  });
+
+  test('a responder whose role was changed away is denied', async () => {
+    const db = await as('resp7', { role: 'responder', active: true, team: 'team-alpha' });
+    await setUser('resp7', { role: 'resident', active: true, team: 'team-alpha' });
+    await assertFails(db.doc('reports/c1').get());
+  });
+
+  test('a notification that names the report does not grant read of the report', async () => {
+    const db = ctx.responderB();
+    await assertSucceeds(db.doc('notifications/nc1').get());
+    await assertFails(db.doc('reports/c1').get());
+  });
+
+  test('closed reports stay read-only for responders', async () => {
+    await assertFails(ctx.responderA().doc('reports/c1').update({ status: 'Resolved' }));
+    await assertFails(ctx.responderA().doc('reports/c1/updates/new').set({ status: 'Resolved', byUid: 'resp1' }));
+  });
+});
+
+// Photo cleanup ledger: server-only. No client role may read or write any ledger row, including the rows of its own uploads.
+describe('photo cleanup ledger is closed to every client role', () => {
+  const ledgerRow = 'photoAssets/pa1';
+  beforeEach(async () => {
+    await env.withSecurityRulesDisabled(async (c) => {
+      await c.firestore().doc(ledgerRow).set({ assetId: 'disaster-rescue/pa1', uid: 'res1', state: 'reserved', generation: 1 });
+    });
+  });
+
+  for (const [who, make] of [['anonymous', () => ctx.anon()], ['resident owner', () => ctx.resident('res1')], ['dispatcher', () => ctx.dispatcher()], ['admin', () => ctx.admin()], ['responder', () => ctx.responderA()]]) {
+    test(`${who} cannot read a ledger row`, async () => { await assertFails(make().doc(ledgerRow).get()); });
+    test(`${who} cannot write a ledger row`, async () => { await assertFails(make().doc(ledgerRow).update({ state: 'committed' })); });
+    test(`${who} cannot create a ledger row`, async () => { await assertFails(make().doc('photoAssets/pa2').set({ state: 'committed' })); });
+  }
+});
+
+// Operational outbox is never a client capability, including for administrators.
+test('mutation recovery plans are server-only for every role', async () => {
+ for (const actor of Object.values(ctx)) {
+  const db = actor();
+  await assertFails(db.doc('mutationEffects/private-job').get());
+  await assertFails(db.doc('mutationEffects/private-job').set({state:'done'}));
+ }
+});

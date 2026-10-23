@@ -12,6 +12,8 @@ const h = vi.hoisted(() => ({
   over: {} as Record<string, unknown>,
   updates: [] as { id: string; status: string; note: string; peopleRescued: number; at: Date | null }[],
   updatesLoading: false,
+  hasMore: false,
+  loadOlder: vi.fn(),
   retry: vi.fn(),
 }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => h.auth }));
@@ -21,7 +23,7 @@ vi.mock('./useReport', () => ({
     const report = h.reports.find((r) => r.id === id) || null;
     return { report, loading: false, error: null, notFound: !report, removed: false, retry: h.retry, ...h.over };
   },
-  useReportUpdates: () => ({ updates: h.updates, loading: h.updatesLoading, error: null }),
+  useReportUpdates: () => ({ updates: h.updates, loading: h.updatesLoading, error: null, hasMore: h.hasMore, loadOlder: h.loadOlder }),
   useReportsByIds: (ids: string[]) => Object.fromEntries(ids.map((i) => [i, { report: h.reports.find((r) => r.id === i) || null, loading: false }])),
 }));
 vi.mock('../../api/client', async () => {
@@ -51,7 +53,7 @@ function show(reports: Report[], role = 'admin', id = 'r1', over: Record<string,
 }
 
 describe('IncidentDetails', () => {
-  beforeEach(() => { h.updatesLoading = false; h.api.mockReset(); h.api.mockResolvedValue({}); });
+  beforeEach(() => { h.updatesLoading = false; h.hasMore = false; h.loadOlder.mockReset(); h.api.mockReset(); h.api.mockResolvedValue({}); });
 
   it('displays the public reference instead of its storage ID', () => {
     show([makeReport({ reference: 'RR-260005' })]);
@@ -156,7 +158,7 @@ describe('IncidentDetails', () => {
     expect(h.retry).toHaveBeenCalled();
   });
 
-  it('lists responder rescue updates oldest first', () => {
+  it('lists the newest rescue updates first', () => {
     h.updates = [
       { id: 'u1', status: 'Rescue in Progress', note: 'On site', peopleRescued: 2, at: new Date('2026-10-15T08:00:00Z') },
       { id: 'u2', status: 'Resolved', note: 'Done', peopleRescued: 3, at: new Date('2026-10-15T09:00:00Z') },
@@ -164,9 +166,37 @@ describe('IncidentDetails', () => {
     show([makeReport({ id: 'r1' })]);
     const list = screen.getByRole('list');
     const items = within(list).getAllByRole('listitem');
-    expect(items[0]).toHaveTextContent('Rescue in Progress');
-    expect(items[1]).toHaveTextContent('Resolved');
+    expect(items[0]).toHaveTextContent('Resolved');
+    expect(items[1]).toHaveTextContent('Rescue in Progress');
     expect(screen.getByText('People rescued: 2')).toBeInTheDocument();
+    h.updates = [];
+  });
+
+  it('shows the 5 newest of 50 rescue updates and reveals the rest without losing text', async () => {
+    const long = (i: number) => `Update ${i} ` + 'z'.repeat(400) + ` end-${i}`;
+    h.updates = Array.from({ length: 50 }, (_, i) => ({
+      id: `u${i}`, status: 'Rescue in Progress', note: long(i), peopleRescued: 0,
+      at: new Date(Date.UTC(2026, 9, 15, 0, i)),
+    }));
+    show([makeReport({ id: 'r1' })]);
+    const items = within(screen.getByRole('list')).getAllByRole('listitem');
+    expect(items).toHaveLength(5);
+    expect(items[0]).toHaveTextContent('Update 49 ');
+    await userEvent.click(screen.getByRole('button', { name: 'Show 45 older updates' }));
+    expect(within(screen.getByRole('list')).getAllByRole('listitem')).toHaveLength(50);
+    for (let i = 0; i < 50; i++) expect(screen.getByText(long(i))).toBeInTheDocument();
+    h.updates = [];
+  });
+
+  it('offers Load older updates when the listener has more history, and calls loadOlder', async () => {
+    h.hasMore = true;
+    h.updates = Array.from({ length: 20 }, (_, i) => ({
+      id: `u${i}`, status: 'Rescue in Progress', note: '', peopleRescued: 0,
+      at: new Date(Date.UTC(2026, 9, 15, 0, i)),
+    }));
+    show([makeReport({ id: 'r1' })]);
+    await userEvent.click(screen.getByRole('button', { name: 'Load older updates' }));
+    expect(h.loadOlder).toHaveBeenCalledTimes(1);
     h.updates = [];
   });
 

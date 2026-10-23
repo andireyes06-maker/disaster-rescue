@@ -48,7 +48,7 @@ describe('review endpoints', () => {
 
   it('responder lists only reports of their own team', async () => {
     const t = makeTestApp();
-    await t.repo.createUser('rsp-1', { role: 'responder', team: 'tA' });
+    await t.repo.createUser('rsp-1', { role: 'responder', team: 'tA', active: true });
     await seed(t, { assignedTeamId: 'tA', status: 'Team Assigned' });
     await seed(t, { assignedTeamId: 'tB', status: 'Team Assigned' });
     await seed(t);

@@ -2,6 +2,7 @@ import 'package:disaster_rescue/auth/auth_controller.dart';
 import 'package:disaster_rescue/auth/auth_repository.dart';
 import 'package:disaster_rescue/auth/role_gate.dart';
 import 'package:disaster_rescue/features/auth/login_page.dart';
+import 'package:disaster_rescue/features/welcome/welcome_page.dart';
 import 'package:disaster_rescue/features/responder/assigned_list_page.dart';
 import 'package:disaster_rescue/features/auth/register_page.dart';
 import 'package:disaster_rescue/theme/app_theme.dart';
@@ -38,12 +39,12 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
-  testWidgets('signed out shows login', (t) async {
+  testWidgets('signed out shows welcome', (t) async {
     await t.pumpWidget(host(c, const RoleGate()));
     repo.events.add(null);
     await t.pump();
     await t.pump();
-    expect(find.byType(LoginPage), findsOneWidget);
+    expect(find.byType(WelcomePage), findsOneWidget);
   });
 
   testWidgets('resident gets the report, my reports, profile navigation', (
@@ -119,17 +120,29 @@ void main() {
     await t.pumpWidget(host(c, const LoginPage()));
     expect(find.text(disclaimer), findsOneWidget);
     repo.loginError = const AuthException(AuthFailure.invalidCredentials);
-    await t.enterText(find.widgetWithText(TextFormField, 'Email'), 'a@b.c');
+    await t.enterText(find.widgetWithText(TextFormField, 'Email *'), 'a@b.c');
     await t.enterText(
-      find.widgetWithText(TextFormField, 'Password'),
+      find.widgetWithText(TextFormField, 'Password *'),
       'wrongpass',
     );
     await t.tap(find.widgetWithText(FilledButton, 'Log in'));
     await t.pump();
     await t.pump();
     expect(find.textContaining('email or password'), findsOneWidget);
-    expect(find.byIcon(Icons.info_outline), findsOneWidget);
+    expect(find.byIcon(Icons.error_outline), findsOneWidget);
   });
+
+  testWidgets(
+    'register marks name, email and password as required, phone as optional (F08)',
+    (t) async {
+      await t.pumpWidget(host(c, const RegisterPage()));
+      expect(find.bySemanticsLabel('Full name, required'), findsOneWidget);
+      expect(find.bySemanticsLabel('Email, required'), findsOneWidget);
+      expect(find.bySemanticsLabel('Password, required'), findsOneWidget);
+      expect(find.bySemanticsLabel(RegExp('Phone.*required')), findsNothing);
+      expect(find.widgetWithText(TextFormField, 'Full name *'), findsOneWidget);
+    },
+  );
 
   testWidgets('password visibility toggle has accessible label', (t) async {
     await t.pumpWidget(host(c, const LoginPage()));
@@ -151,10 +164,10 @@ void main() {
     FilledButton button() => t.widget<FilledButton>(
       find.widgetWithText(FilledButton, 'Create account'),
     );
-    await t.enterText(find.widgetWithText(TextFormField, 'Full name'), 'Ana');
-    await t.enterText(find.widgetWithText(TextFormField, 'Email'), 'a@b.c');
+    await t.enterText(find.widgetWithText(TextFormField, 'Full name *'), 'Ana');
+    await t.enterText(find.widgetWithText(TextFormField, 'Email *'), 'a@b.c');
     await t.enterText(
-      find.widgetWithText(TextFormField, 'Password'),
+      find.widgetWithText(TextFormField, 'Password *'),
       'longenough1',
     );
     await t.pump();

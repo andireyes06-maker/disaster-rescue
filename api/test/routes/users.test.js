@@ -20,7 +20,7 @@ describe('POST /api/users (dispatcher creates staff)', () => {
     expect(t.auth.calls.setCustomUserClaims).toHaveLength(0);
   });
 
-  it('dispatcher is refused before any account is created', async () => {
+  it('a dispatcher is refused at the website gate, so no account is created', async () => {
     const t = makeTestApp();
     const res = await create(t, t.as('dispatcher'), { email: 'root@x.test', name: 'Root', role: 'admin' });
     expect(res.status).toBe(403);
@@ -46,10 +46,13 @@ describe('POST /api/users (dispatcher creates staff)', () => {
 describe('GET /api/users', () => {
   it('dispatcher and admin can list; responder gets 403', async () => {
     const t = makeTestApp();
-    await makeStaff(t);
-    expect((await request(t.app).get('/api/users').set('Authorization', t.as('admin'))).body).toHaveLength(1);
+    const uid = await makeStaff(t);
+    // The caller's own users document is also listed, so check for the new account rather than a count.
+    const list = (await request(t.app).get('/api/users').set('Authorization', t.as('admin'))).body;
+    expect(list.map((u) => u.uid)).toContain(uid);
     expect((await request(t.app).get('/api/users').set('Authorization', t.as('admin'))).status).toBe(200);
     expect((await request(t.app).get('/api/users').set('Authorization', t.as('responder'))).status).toBe(403);
+    expect((await request(t.app).get('/api/users').set('Authorization', t.as('dispatcher'))).body.error).toBe('website_access_disabled');
   });
 });
 
@@ -72,10 +75,12 @@ describe('PATCH /api/users/:id', () => {
     expect(t.auth.users.get(uid).customClaims).toEqual({ role: 'dmo', active: true, team: 'tA' });
   });
 
-  it('dispatcher cannot promote to admin (refused); an admin unknown user is 404', async () => {
+  it('a dispatcher cannot promote to admin (refused at the website gate); unknown user is 404', async () => {
     const t = makeTestApp();
     const uid = await makeStaff(t);
-    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('dispatcher')).send({ role: 'admin' })).status).toBe(403);
+    const refused = await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('dispatcher')).send({ role: 'admin' });
+    expect(refused.status).toBe(403);
+    expect(refused.body.error).toBe('website_access_disabled');
     expect((await request(t.app).patch('/api/users/ghost').set('Authorization', t.as('admin')).send({ active: false })).status).toBe(404);
   });
 });
@@ -87,6 +92,7 @@ describe('PATCH /api/users/:id guards', () => {
     t.auth.users.set('adm-1', { uid: 'adm-1', email: 'root@x.test', disabled: false });
     const res = await request(t.app).patch('/api/users/adm-1').set('Authorization', t.as('dispatcher')).send({ active: false });
     expect(res.status).toBe(403);
+    expect(res.body.error).toBe('website_access_disabled');
     expect(t.auth.calls.setCustomUserClaims).toHaveLength(0);
     expect(t.auth.calls.revokeRefreshTokens ?? []).toHaveLength(0);
     expect(await t.repo.getUser('adm-1')).toMatchObject({ role: 'admin', active: true });
@@ -104,7 +110,7 @@ describe('PATCH /api/users/:id guards', () => {
     const t = makeTestApp();
     await t.repo.createUser('d1', { name: 'Dee', role: 'dispatcher', active: true });
     t.auth.users.set('d1', { uid: 'd1', email: 'dee@x.test', disabled: false });
-    const res = await request(t.app).patch('/api/users/d1').set('Authorization', t.as('admin', 'd1')).send({ active: false });
+    const res = await request(t.app).patch('/api/users/d1').set('Authorization', t.as('dispatcher', 'd1')).send({ active: false });
     expect(res.status).toBe(403);
     expect(await t.repo.getUser('d1')).toMatchObject({ active: true });
   });

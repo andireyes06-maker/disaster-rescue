@@ -1,3 +1,4 @@
+import { ConnectionNotice } from '../../components/ConnectionStatus';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useDialogFocusReturn } from '../../components/useDialogFocusReturn';
@@ -16,6 +17,7 @@ import { awaitingVerify, canAssign, canActOnReports, nextStep } from './workflow
 import { PRIORITIES, type Report, type Team } from '../../types/domain';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import Banner from '../../components/calm/Banner';
+import ActivityHistory, { ActivityNote } from '../../components/calm/ActivityHistory';
 import { resolvePhotoUrl } from '../../lib/photos';
 import PhotoImage from '../../components/PhotoImage';
 import EmptyState from '../../components/calm/EmptyState';
@@ -149,9 +151,9 @@ function useAssignedTeamName(teamId: string | undefined): string | null {
 }
 
 function IncidentView({ id }: IncidentViewProps) {
-  const { role } = useAuth();
-  const { report, loading, error, notFound, removed, retry } = useReport(id);
-  const updatesState = useReportUpdates(id);
+  const { role, user } = useAuth();
+  const { report, loading, error, notFound, removed, fromCache, retry } = useReport(id);
+  const updatesState = useReportUpdates(id, `${user?.uid ?? ''}|${role ?? ''}`);
   const teamName = useAssignedTeamName(report?.assignedTeamId);
   const byId = useReportsByIds(report ? report.possibleDuplicates || [] : []);
   const [busy, setBusy] = useState(false);
@@ -228,6 +230,7 @@ function IncidentView({ id }: IncidentViewProps) {
     <div className="incident">
       <p className="incident__back"><Link className="touch-link" to={canAct ? '/dashboard' : '/monitor'}>{canAct ? 'Back to the queue' : 'Back to monitor'}</Link></p>
 
+      <ConnectionNotice fromCache={fromCache} />
       <header className="incident__heading">
         <h2>{report.type} report</h2>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /><VerifiedBadge verified={report.verified} /></div>
@@ -291,15 +294,18 @@ function IncidentView({ id }: IncidentViewProps) {
         {updatesState.loading && updatesState.updates.length === 0 && <Skeleton label="Loading rescue updates"><SkeletonRows rows={3} height={52} /></Skeleton>}
         {!updatesState.loading && !updatesState.error && updatesState.updates.length === 0 && <p>No rescue updates yet.</p>}
         {updatesState.updates.length > 0 && (
-          <ol className="updates">
-            {updatesState.updates.map((u) => (
-              <li key={u.id}>
+          <ActivityHistory
+            updates={updatesState.updates}
+            hasMore={updatesState.hasMore}
+            onLoadOlder={updatesState.loadOlder}
+            renderItem={(u) => (
+              <>
                 <strong>{u.status}</strong> <span>{formatTime(u.at)}</span>
                 {u.peopleRescued > 0 && <p>People rescued: {u.peopleRescued}</p>}
-                {u.note && <p className="plain">{u.note}</p>}
-              </li>
-            ))}
-          </ol>
+                {u.note && <ActivityNote text={u.note} />}
+              </>
+            )}
+          />
         )}
       </section>
 
