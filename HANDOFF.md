@@ -8,7 +8,8 @@
 - **Done (Airen, Oct 23):** old web resident and responder paths show the mobile-app notice; video script and outline rewritten for the new roles. Web 405/405 (`--maxWorkers=2`), typecheck and build OK, rules 128/128. Browser check of the notice at 390px done.
 - **Decided (B, Airen, Oct 23):** dispatcher and DMO can't sign in to the website and Firestore rules deny their staff reads. The API still accepts their tokens (cost, see `docs/role-matrix.md`). Verified: web 397/397 with `--maxWorkers=2`, rules 128/128 under the emulator.
 - **Not done:** final whole-branch review (not dispatched); commit (waiting for approval); Flutter role_gate notice for dispatcher and DMO; dead resident and responder web pages (cleanup).
-- **Nothing committed, pushed or deployed.** Commit steps wait for approval. Production is untouched.
+- **Committed locally:** `8040165` on build/disaster-rescue (this change only). **Not pushed, not deployed.** Firestore rules are not deployed. Production is untouched.
+- **Left uncommitted on purpose:** `web/src/features/auth/LoginPage.tsx`, `LoginPage.test.tsx` (another session's work is mixed in with this change's one-line edits) and `LoginPage.websiteAccess.test.tsx` (depends on them).
 - **Gotchas:** web tests time out under default workers, so use `--maxWorkers=2`. On macOS, `sed -i` needs `''`. Other sessions' uncommitted files (LoginPage, public.css, design-plans, untracked folders) are not part of this change; do not stage them.
 
 ## Next step
