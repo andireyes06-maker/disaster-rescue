@@ -17,7 +17,7 @@ Decide the merge with origin (option A: merge and resolve conflicts, B: keep the
 
 ## Open questions
 
-1. Merge with origin's `build/disaster-rescue`: STOPPED. A test merge in a separate worktree had 91 conflicts (57 in web), and the auto-mode permission check denied the step that takes origin's version of conflicted files. The merge needs an explicit permission from Airen (or a permission rule) before it's retried. The plan was: take origin's side for conflicted files, re-apply this feature on top, verify with all suites.
+1. Merge with origin's `build/disaster-rescue`: retried. The conflicts resolved to origin's version (92 files), and the feature was not yet re-applied. API suite on the merge: 27 failures. Cause: option A (API refuses dispatcher and DMO tokens) conflicts with origin's live dispatcher workflows (F03 team assignment, F04 exports, users, teams), which return 403 now. Decision needed: (A) keep option A, rewrite origin's dispatcher tests and move those workflows to admin; or (B) keep dispatcher access on the merged branch and gate the website only. The merge is not committed; the merge worktree is in the scratchpad (`merge-wt`, branch merge/origin-redesign-2026-10-23).
 2. Rules deploy: wait for the merged release to be live?
 3. Other session's login work: commit it with its owner, or leave it?
 4. Older unreachable web files (`components/calm`, `components/ui`, `features/demo`, `lib/utils`, `pages/Placeholder`) predate this change; delete in a cleanup pass?
