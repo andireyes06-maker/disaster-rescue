@@ -89,7 +89,8 @@ class _AssignedListPageState extends State<AssignedListPage> {
                         if (x == null && y == null) return 0;
                         if (x == null) return 1;
                         if (y == null) return -1;
-                        return y.compareTo(x);
+                        // Oldest first: the order the team should work the queue.
+                        return x.compareTo(y);
                       });
                 if (active.isEmpty) {
                   return const ProductEmpty(title: 'No assigned reports right now.', description: 'New assignments from dispatch will appear here.', icon: Icons.assignment_turned_in_outlined);

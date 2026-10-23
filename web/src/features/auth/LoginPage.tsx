@@ -59,6 +59,8 @@ export default function LoginPage() {
     error ||
     (authError === 'account_disabled'
       ? 'This account is disabled. Contact your administrator.'
+      : authError === 'website_access_disabled'
+        ? 'Website access is for administrators only. Ask your administrator about your access.'
       : authError === 'auth_failed'
         ? 'We could not sign you in. Check your connection and try again.'
         : '');
@@ -86,7 +88,7 @@ export default function LoginPage() {
           {fieldErrors.password && <FieldError id="password-error" className="field-error">{fieldErrors.password}</FieldError>}
           {message && <Banner tone="error" role="alert">{message}</Banner>}
           <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
-          <p className="login__help">New to the app? <Link to="/register">Create a resident account</Link>.</p>
+          <p className="login__help">Residents use the Rescue Reports mobile app to send and track reports.</p>
         </MotionForm>
         <aside className="auth-split__intro" aria-labelledby="login-aside-title">
           <h2 id="login-aside-title">Who signs in here</h2>

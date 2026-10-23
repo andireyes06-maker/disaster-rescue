@@ -44,6 +44,25 @@ describe('useReports', () => {
     expect(result.current.reports[0].updatedAt.getTime()).toBe(6000);
   });
 
+  it('converts the validation time to a Date so the page can show it', () => {
+    const { result } = renderHook(() => useReports());
+    act(() => h.cb(snap([
+      {
+        id: 'v',
+        data: {
+          createdAt: ts(1000),
+          updatedAt: ts(1000),
+          verified: true,
+          verifiedBy: { uid: 'admin-1', name: 'Admin Ana' },
+          verifiedAt: ts(7000),
+        },
+      },
+    ])));
+    const r = result.current.reports[0];
+    expect(r.verifiedAt).toBeInstanceOf(Date);
+    expect(r.verifiedAt?.getTime()).toBe(7000);
+  });
+
   it('reports errors', () => {
     const { result } = renderHook(() => useReports());
     act(() => h.errCb(new Error('denied')));

@@ -15,7 +15,9 @@ const time = (v: unknown): number => (v instanceof Date ? v.getTime() : 0);
 
 // Boundary: Firestore documents are untyped. Timestamps become Date; other fields are trusted to match Report.
 export function convertReport(id: string, data: DocumentData): Report {
-  return { ...data, id, createdAt: toDate(data.createdAt), updatedAt: toDate(data.updatedAt) } as Report;
+  // verifiedAt is written by the API when an administrator validates a report.
+  const verifiedAt = data.verifiedAt === undefined || data.verifiedAt === null ? undefined : toDate(data.verifiedAt);
+  return { ...data, id, createdAt: toDate(data.createdAt), updatedAt: toDate(data.updatedAt), verifiedAt } as Report;
 }
 
 export interface ReportsState {

@@ -79,7 +79,8 @@ describe('LoginPage', () => {
     renderPage();
     expect(screen.getByText('Residents', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.getByText('Staff', { selector: 'strong' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Create a resident account' })).toHaveAttribute('href', '/register');
+    expect(screen.queryByRole('link', { name: 'Create a resident account' })).toBeNull();
+    expect(screen.getByText('Residents use the Rescue Reports mobile app to send and track reports.')).toBeInTheDocument();
   });
 
   it('treats a malformed email as a field error and does not try to sign in', async () => {
