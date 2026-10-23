@@ -3,6 +3,22 @@ import { STATUS, assertTransition, isOpen } from '../domain/workflow.js';
 import { projectReportForRole } from '../domain/privacy.js';
 import { sanitizeText } from '../domain/validation.js';
 import { record } from './auditService.js';
+import { AWAITING_ACTION, compareOldestFirst, toMillis } from '../domain/queueOrder.js';
+
+// Newest first; reports with no readable time go last.
+const newestFirst = (a, b) => {
+  const x = toMillis(a.createdAt);
+  const y = toMillis(b.createdAt);
+  if (x === y) return 0;
+  if (x === Number.POSITIVE_INFINITY) return 1;
+  if (y === Number.POSITIVE_INFINITY) return -1;
+  return y - x;
+};
+// Open reports oldest first (the queue), then everything else newest first.
+const queueFirst = (rows) => [
+  ...rows.filter((r) => AWAITING_ACTION.has(r.status)).sort(compareOldestFirst),
+  ...rows.filter((r) => !AWAITING_ACTION.has(r.status)).sort(newestFirst),
+];
 
 const PRIORITIES = ['low', 'medium', 'high', 'critical'];
 export const notFound = () => new HttpError(404, 'not_found', 'Report not found');
@@ -53,6 +69,8 @@ export async function list({ repo }, user, query = {}) {
   if (query.verified === 'true' || query.verified === 'false') {
     rows = rows.filter((r) => Boolean(r.verified) === (query.verified === 'true'));
   }
+  if (user.role === 'admin' || user.role === 'responder') rows = queueFirst(rows);
+  else if (user.role === 'resident') rows = [...rows].sort(newestFirst);
   return rows.map((r) => projectReportForRole(r, user.role, user.uid, teamId)).filter(Boolean);
 }
 
@@ -71,11 +89,13 @@ export async function verify({ repo, notifier }, user, id) {
     throw new HttpError(409, 'illegal_transition', `Cannot verify a report that is ${report.status}`);
   }
   if (report.status === STATUS.SUBMITTED) report = await transition(repo, user, report, STATUS.UNDER_VERIFICATION);
-  report = await transition(repo, user, report, STATUS.VERIFIED, { verified: true });
+  const verifiedBy = { uid: user.uid, name: (await repo.getUser(user.uid))?.name ?? null };
+  const verifiedAt = new Date();
+  report = await transition(repo, user, report, STATUS.VERIFIED, { verified: true, verifiedBy, verifiedAt });
   report = await transition(repo, user, report, STATUS.AWAITING_ASSIGNMENT);
-  await safeAudit(repo, { actorUid: user.uid, action: 'report.verify', reportId: id, after: { status: report.status, verified: true } });
+  await safeAudit(repo, { actorUid: user.uid, action: 'report.verify', reportId: id, after: { status: report.status, verified: true, verifiedBy } });
   await notifyReporter(notifier, report, 'Report verified', `Report ${report.reference} was verified`);
-  return { id, status: report.status, verified: true };
+  return { id, status: report.status, verified: true, verifiedBy, verifiedAt };
 }
 
 async function simpleEdit(repo, user, id, patch, action, pick) {

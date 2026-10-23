@@ -85,14 +85,15 @@ describe('reports', () => {
     await assertSucceeds(ctx.resident().collection('reports').where('reporterId', '==', 'res1').get());
   });
   test('resident unfiltered list fails', async () => { await assertFails(ctx.resident().collection('reports').get()); });
-  test('dispatcher reads all', async () => {
-    await assertSucceeds(ctx.dispatcher().doc('reports/r1').get());
-    await assertSucceeds(ctx.dispatcher().doc('reports/r2').get());
-    await assertSucceeds(ctx.dispatcher().collection('reports').get());
+  // Professor clarification (2026-10-23): the website is for administrators only.
+  test('dispatcher cannot read reports', async () => {
+    await assertFails(ctx.dispatcher().doc('reports/r1').get());
+    await assertFails(ctx.dispatcher().doc('reports/r2').get());
+    await assertFails(ctx.dispatcher().collection('reports').get());
   });
-  test('dmo reads all', async () => {
-    await assertSucceeds(ctx.dmo().doc('reports/r1').get());
-    await assertSucceeds(ctx.dmo().doc('reports/r2').get());
+  test('dmo cannot read reports', async () => {
+    await assertFails(ctx.dmo().doc('reports/r1').get());
+    await assertFails(ctx.dmo().doc('reports/r2').get());
   });
   test('responder reads only own team reports', async () => {
     await assertSucceeds(ctx.responderA().doc('reports/r1').get());
@@ -152,8 +153,8 @@ describe('report updates', () => {
     await assertFails(ctx.resident().doc('reports/r2/updates/u2').get());
     await assertSucceeds(ctx.responderA().doc('reports/r1/updates/u1').get());
     await assertFails(ctx.responderA().doc('reports/r2/updates/u2').get());
-    await assertSucceeds(ctx.dispatcher().doc('reports/r2/updates/u2').get());
-    await assertSucceeds(ctx.dmo().doc('reports/r2/updates/u2').get());
+    await assertFails(ctx.dispatcher().doc('reports/r2/updates/u2').get());
+    await assertFails(ctx.dmo().doc('reports/r2/updates/u2').get());
   });
   test('inactive user cannot read updates', async () => {
     await assertFails((await as('disp1', { role: 'dispatcher', active: false })).doc('reports/r1/updates/u1').get());
@@ -237,7 +238,7 @@ describe('stale or disagreeing claims (canonical users document wins)', () => {
 describe('users', () => {
   test('self reads own profile', async () => { await assertSucceeds(ctx.resident().doc('users/res1').get()); });
   test('resident cannot read other profile', async () => { await assertFails(ctx.resident().doc('users/res2').get()); });
-  test('dispatcher reads any profile', async () => { await assertSucceeds(ctx.dispatcher().doc('users/res2').get()); });
+  test('dispatcher cannot read other profiles', async () => { await assertFails(ctx.dispatcher().doc('users/res2').get()); });
   test('dmo and responder cannot read other profiles', async () => {
     await assertFails(ctx.dmo().doc('users/res2').get());
     await assertFails(ctx.responderA().doc('users/res2').get());
@@ -268,9 +269,9 @@ describe('notifications', () => {
 });
 
 describe('auditLogs', () => {
-  test('dispatcher and dmo read', async () => {
-    await assertSucceeds(ctx.dispatcher().doc('auditLogs/a1').get());
-    await assertSucceeds(ctx.dmo().doc('auditLogs/a1').get());
+  test('dispatcher and dmo cannot read the audit log', async () => {
+    await assertFails(ctx.dispatcher().doc('auditLogs/a1').get());
+    await assertFails(ctx.dmo().doc('auditLogs/a1').get());
   });
   test('resident and responder cannot read', async () => {
     await assertFails(ctx.resident().doc('auditLogs/a1').get());
@@ -286,9 +287,9 @@ describe('auditLogs', () => {
 });
 
 describe('teams', () => {
-  test('dispatcher, dmo, and a responder of that team read', async () => {
-    await assertSucceeds(ctx.dispatcher().doc('teams/team-alpha').get());
-    await assertSucceeds(ctx.dmo().doc('teams/team-alpha').get());
+  test('dispatcher and dmo cannot read teams; a responder of that team can', async () => {
+    await assertFails(ctx.dispatcher().doc('teams/team-alpha').get());
+    await assertFails(ctx.dmo().doc('teams/team-alpha').get());
     await assertSucceeds(ctx.responderA().doc('teams/team-alpha').get());
   });
   test('resident cannot read', async () => { await assertFails(ctx.resident().doc('teams/team-alpha').get()); });

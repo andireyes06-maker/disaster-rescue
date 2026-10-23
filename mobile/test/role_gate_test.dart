@@ -92,13 +92,23 @@ void main() {
     expect(find.text('No assigned reports right now.'), findsOneWidget);
   });
 
+  testWidgets('admin is told to use the web dashboard', (t) async {
+    await t.pumpWidget(host(c, const RoleGate()));
+    repo.events.add(withRole('admin'));
+    await t.pump();
+    await t.pump();
+    expect(find.text('Use the web dashboard'), findsOneWidget);
+  });
+
+  // Professor clarification (2026-10-23): dispatcher and DMO website access is turned off.
   for (final role in ['dispatcher', 'dmo']) {
-    testWidgets('$role is told to use the web dashboard', (t) async {
+    testWidgets('$role is told website access is for administrators', (t) async {
       await t.pumpWidget(host(c, const RoleGate()));
       repo.events.add(withRole(role));
       await t.pump();
       await t.pump();
-      expect(find.text('Use the web dashboard'), findsOneWidget);
+      expect(find.text('Website access is for administrators'), findsOneWidget);
+      expect(find.text('Use the web dashboard'), findsNothing);
       await t.tap(find.text('Log out'));
       await t.pump();
       expect(repo.logoutCalls, 1);

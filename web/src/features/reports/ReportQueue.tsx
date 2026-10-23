@@ -6,6 +6,7 @@ import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
 import IncidentPreview from './IncidentPreview';
 import { isOpen, formatTime } from './format';
+import { orderQueue } from './queueOrder';
 import { awaitingVerify, canActOnReports } from './workflow';
 import { useAuth } from '../../auth/AuthProvider';
 import { REPORT_TYPES, PRIORITIES, REPORT_STATUSES } from '../../types/domain';
@@ -135,12 +136,12 @@ export default function ReportQueue() {
   const matchesQuery = (r: Report) => !query || [r.type, r.description, r.addressText ?? '', r.reference ?? '']
     .some((text) => text.toLowerCase().includes(query));
 
-  const rows = reports.filter((r) =>
+  const rows = orderQueue(reports.filter((r) =>
     matchesQuery(r) && quickMatch(r, quick)
     && (!f.status || r.status === f.status)
     && (!f.type || r.type === f.type)
     && (!f.priority || r.priority === f.priority)
-    && (!f.verified || (f.verified === 'verified') === Boolean(r.verified)));
+    && (!f.verified || (f.verified === 'verified') === Boolean(r.verified))), isActive);
 
   // First visible report is the default. Once chosen, the selection stays put while the list changes.
   const effectiveId = selectedId ?? rows[0]?.id ?? null;
@@ -178,7 +179,8 @@ export default function ReportQueue() {
         <div className="queue-toolbar">
           <div>
             <h2 id="queue-heading">Incident inbox</h2>
-            <p aria-live="polite">{loading ? 'Loading reports…' : failed ? 'Reports unavailable' : `Showing ${rows.length} of ${reports.length} reports · newest first`}</p>
+            <p aria-live="polite">{loading ? 'Loading reports…' : failed ? 'Reports unavailable' : `Showing ${rows.length} of ${reports.length} reports`}</p>
+            <p className="queue-order">Oldest first. Priority does not change the order.</p>
           </div>
           <div className="queue-toolbar__actions">
             {activeFilters > 0 && <button type="button" className="btn btn--ghost" onClick={clearAll}>Clear filters</button>}

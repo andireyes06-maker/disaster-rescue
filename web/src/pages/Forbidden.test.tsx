@@ -11,12 +11,15 @@ import Forbidden from './Forbidden';
 const renderPage = () => render(<MemoryRouter><Forbidden /></MemoryRouter>);
 
 describe('Forbidden', () => {
-  it('names the role and offers the role page for a known role', () => {
-    authState.user = { uid: 'r1' };
-    authState.role = 'responder';
-    renderPage();
-    expect(screen.getByText(/Signed in as a responder/)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Go to my page' })).toHaveAttribute('href', '/assignments');
+  it('tells a signed-in resident or rescuer to use the mobile app, with no website page link', () => {
+    for (const role of ['responder', 'resident']) {
+      authState.user = { uid: 'r1' };
+      authState.role = role;
+      const { unmount } = render(<MemoryRouter><Forbidden /></MemoryRouter>);
+      expect(screen.getByText('Residents and rescue teams use the Rescue Reports mobile app. The website is for administrators.')).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: 'Go to my page' })).not.toBeInTheDocument();
+      unmount();
+    }
   });
 
   it('explains an unrecognized role without offering a page', () => {

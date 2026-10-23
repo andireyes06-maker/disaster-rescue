@@ -18,8 +18,9 @@ service cloud.firestore {
     function team() {
       return isActive() && userData().get('team', '') == request.auth.token.get('team', '') ? userData().get('team', '') : '';
     }
-    // Admins hold every staff permission.
-    function isStaff() { return isActive() && (role() == 'dispatcher' || role() == 'dmo' || role() == 'admin'); }
+    // The website is for administrators only (professor clarification, 2026-10-23).
+    // Dispatcher and DMO accounts keep their records but cannot read staff data.
+    function isStaff() { return isActive() && role() == 'admin'; }
 
     // Can the signed-in user see this report data?
     function canSeeReport(data) {
@@ -40,7 +41,7 @@ service cloud.firestore {
     }
 
     match /users/{uid} {
-      allow read: if isActive() && (request.auth.uid == uid || role() == 'dispatcher' || role() == 'admin');
+      allow read: if isActive() && (request.auth.uid == uid || role() == 'admin');
       allow write: if false;
     }
 
@@ -50,7 +51,7 @@ service cloud.firestore {
     }
 
     match /teams/{id} {
-      allow read: if isActive() && (role() == 'dispatcher' || role() == 'dmo' || role() == 'admin' || (role() == 'responder' && team() == id));
+      allow read: if isActive() && (role() == 'admin' || (role() == 'responder' && team() == id));
       allow write: if false;
     }
 

@@ -21,7 +21,21 @@ export default function Forbidden() {
   const signOut = <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>;
 
   let body: React.ReactNode;
-  if (role && LANDING[role]) {
+  if (role === 'resident' || role === 'responder') {
+    body = (
+      <>
+        <p>Residents and rescue teams use the Rescue Reports mobile app. The website is for administrators.</p>
+        <div className="forbidden__actions">{signOut}</div>
+      </>
+    );
+  } else if (role === 'dispatcher' || role === 'dmo') {
+    body = (
+      <>
+        <p>Website access is for administrators only. Ask your administrator about your access.</p>
+        <div className="forbidden__actions">{signOut}</div>
+      </>
+    );
+  } else if (role && LANDING[role]) {
     body = (
       <>
         <p>Signed in as a {ROLE_NAME[role]}. This page is outside the work that role can do.</p>

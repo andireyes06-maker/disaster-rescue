@@ -27,7 +27,7 @@ class RoleGate extends StatelessWidget {
       case 'responder':
         return const ResponderHome();
       default:
-        return const WebDashboardNotice();
+        return WebDashboardNotice(role: user.role ?? '');
     }
   }
 }
@@ -84,8 +84,12 @@ class _ResponderHomeState extends State<ResponderHome> {
   }
 }
 
+// Staff accounts do not use the mobile app. Administrators use the website; dispatcher and DMO website
+// access is turned off (professor clarification, 2026-10-23).
 class WebDashboardNotice extends StatelessWidget {
-  const WebDashboardNotice({super.key});
+  const WebDashboardNotice({super.key, required this.role});
+
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -101,13 +105,17 @@ class WebDashboardNotice extends StatelessWidget {
               const Icon(Icons.desktop_windows_outlined, size: 48),
               const SizedBox(height: 16),
               Text(
-                'Use the web dashboard',
+                role == 'admin'
+                    ? 'Use the web dashboard'
+                    : 'Website access is for administrators',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 12),
-              const Text(
-                'Your account is for the web dashboard. Please open it in a browser on a computer.',
+              Text(
+                role == 'admin'
+                    ? 'Your account is for the web dashboard. Please open it in a browser on a computer.'
+                    : 'Ask your administrator about your access. Residents and rescue teams use this app.',
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),

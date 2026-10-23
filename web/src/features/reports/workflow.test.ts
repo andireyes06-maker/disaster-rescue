@@ -34,7 +34,7 @@ describe('workflow predicates', () => {
   });
 
   it('lets dispatchers and admins act, and never DMOs or residents', () => {
-    expect(canActOnReports('dispatcher')).toBe(true);
+    expect(canActOnReports('dispatcher')).toBe(false);
     expect(canActOnReports('admin')).toBe(true);
     expect(canActOnReports('dmo')).toBe(false);
     expect(canActOnReports('resident')).toBe(false);

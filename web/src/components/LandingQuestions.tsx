@@ -15,7 +15,7 @@ const questions = [
   },
   {
     title: 'Do I need an account?',
-    answer: 'Yes. Create a resident account or sign in to send and track your reports. Staff use their assigned accounts to review reports and coordinate the response.',
+    answer: 'Yes. Residents sign in to the Rescue Reports mobile app to send and track reports. Administrators use the website to review reports and coordinate the response.',
   },
 ];
 

@@ -47,18 +47,18 @@ describe('Home at /', () => {
   });
 
   it.each([
-    ['dispatcher', '/dashboard'],
-    ['dmo', '/monitor'],
-    ['responder', '/assignments'],
+    ['dispatcher', '/forbidden'],
+    ['dmo', '/forbidden'],
+    ['responder', '/forbidden'],
   ])('sends a signed-in %s to their landing route', (role, path) => {
     auth.value = { user: { uid: 'u1' }, role, loading: false };
     renderAt();
     expect(screen.getByTestId('at')).toHaveTextContent(path);
   });
 
-  it('sends a signed-in resident to /my', () => {
+  it('sends a signed-in resident to the mobile-app notice, not a website page', () => {
     auth.value = { user: { uid: 'u1' }, role: 'resident', loading: false };
     renderAt();
-    expect(screen.getByTestId('at')).toHaveTextContent('/my');
+    expect(screen.getByTestId('at')).toHaveTextContent('/forbidden');
   });
 });

@@ -326,11 +326,17 @@ function IncidentView({ id }: IncidentViewProps) {
               <button type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={() => run('close', undefined, 'Report closed.')}>Close report</button>
             </div>
           )}
-          {awaitingVerify(report) && (
+          {canAct && awaitingVerify(report) && (
             <div className="actions__row">
-              <button type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={() => run('verify', undefined, 'Report verified.')}>Verify</button>
+              <button type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={() => run('verify', undefined, 'Report verified.')}>Validate report</button>
               <button ref={rejectTrigger} type="button" className="btn btn--ghost" aria-disabled={busy} aria-busy={busy} onClick={() => setRejecting(true)}>Reject</button>
             </div>
+          )}
+          {canAct && awaitingVerify(report) && (
+            <p className="actions__note">Validation is a manual review. The system does not check whether a photo is authentic.</p>
+          )}
+          {report.verified && report.verifiedBy && (
+            <p className="actions__note">Validated by {report.verifiedBy.name ?? 'an administrator'} on {formatTime(report.verifiedAt)}</p>
           )}
           <button type="button" className="btn btn--ghost" aria-expanded={editingDetails} aria-controls="report-metadata"
             onClick={() => setEditingDetails((open) => !open)}>{editingDetails ? 'Hide report settings' : 'Edit priority & classification'}</button>

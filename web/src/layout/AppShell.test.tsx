@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 const auth = vi.hoisted(() => ({
-  value: { user: { email: 'd@test.dev' }, role: 'dispatcher', logout: vi.fn() } as {
+  value: { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() } as {
     user: { email: string } | null; role: string | null; logout: () => Promise<void>;
   },
 }));
@@ -23,13 +23,13 @@ const renderAt = (path: string) =>
 
 describe('AppShell', () => {
   beforeEach(() => {
-    auth.value = { user: { email: 'd@test.dev' }, role: 'dispatcher', logout: vi.fn() };
+    auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
   });
 
-  it('shows the dispatcher navigation', () => {
+  it('shows the admin navigation', () => {
     renderAt('/dashboard');
     const nav = screen.getByRole('navigation', { name: 'Main' });
-    expect(nav.querySelectorAll('a')).toHaveLength(6);
+    expect(nav.querySelectorAll('a')).toHaveLength(8);
   });
 
   it('marks the current route with aria-current', () => {
@@ -39,7 +39,7 @@ describe('AppShell', () => {
 
   it('shows the signed-in role in the top bar', () => {
     renderAt('/dashboard');
-    expect(screen.getByText('d@test.dev (dispatcher)')).toBeInTheDocument();
+    expect(screen.getByText('a@test.dev (admin)')).toBeInTheDocument();
   });
 
   it('toggles the mobile menu with aria-expanded', async () => {
@@ -62,11 +62,17 @@ describe('AppShell', () => {
     renderAt('/my');
     expect(screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')).toHaveLength(0);
   });
+  it('gives an admin no Assignments link: the website has no responder pages', () => {
+    auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
+    render(<MemoryRouter initialEntries={['/admin']}><AppShell title="Admin"><div /></AppShell></MemoryRouter>);
+    expect(screen.queryByRole('link', { name: 'Assignments' })).toBeNull();
+  });
+
   it('shows an admin every staff page, plus Admin', () => {
     auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
     renderAt('/dashboard');
     const names = [...screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')].map((a) => a.textContent);
-    for (const label of ['Dashboard', 'Map', 'Monitor', 'Analytics', 'Audit', 'Teams', 'Users', 'Assignments', 'Admin']) {
+    for (const label of ['Dashboard', 'Map', 'Monitor', 'Analytics', 'Audit', 'Teams', 'Users', 'Admin']) {
       expect(names).toContain(label);
     }
   });

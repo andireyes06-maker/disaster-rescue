@@ -2,9 +2,11 @@
 
 Purpose: the outline for the user guide slides (deliverable 2 in the spec). Each section lists the screens as the code names them, what the user can do, and a screenshot placeholder for the presentation. Screen names come from `mobile/lib/features/` and `web/src/features/` at commit f7c5b96. Items marked UNVERIFIED were not run on a device or in a browser.
 
-Roles: the spec defines four roles (resident, dispatcher, responder, dmo). The API also has an `admin` role. Admin has no screens in either app, so it is covered in section 6 as API-only.
+**Updated 2026-10-23 (professor clarification): read `docs/role-matrix.md` first.** The website is for the administrator only. Residents and responders use the Flutter app only. Dispatcher and DMO functions move to the administrator. Sections 2 to 6 were rewritten for this allocation. The queue is oldest first and validation is a manual admin action.
 
-Platforms: Flutter app (Android and iOS, resident and responder). React web app (dispatcher, DMO, responder).
+Roles: resident, responder (Flutter), administrator (website). Dispatcher and DMO are pending a decision (see `docs/role-matrix.md`).
+
+Platforms: Flutter app (Android and iOS, resident and responder). React web app (administrator only).
 
 Every screen that handles an emergency shows the notice "Submitting a report through this app does not automatically guarantee immediate rescue" and a hotline button.
 
@@ -43,104 +45,68 @@ Signs in with email and password after self-registration. Reports emergencies an
 
 ---
 
-## 2. Responder (Flutter app and web)
+## 2. Responder (Flutter app only)
 
-A rescue team member. Sees only reports assigned to their team.
-
-**Flutter screens**
-- Assigned list (`AssignedListPage`), with the incident map icon (`IncidentMapPage`).
-- Incident detail (`IncidentDetailPage`): exact location, Open in maps (`url_launcher`), and the "Add operation update" action. UNVERIFIED that an acknowledge action is shown on the phone.
-- Operation update (`OperationFormPage`): status (Rescue in Progress or Resolved), people rescued, note.
-- Notifications (`NotificationsPage`).
-
-**Web screen**
-- Assignments (`AssignmentsPage`) with `OperationForm`, for desktop. The responder has no web map (per the build notes).
+Rescue teams use the Flutter app. The web `/assignments` page was removed on 2026-10-23 (professor clarification). Screens to show: `AssignedListPage` (assigned reports, oldest first), `IncidentDetailPage` (details and map), `OperationFormPage` (status, people rescued, note). The team's updates are visible to the administrator on the website.
 
 **What the responder can do**
-- See assigned incidents and their exact location.
-- Acknowledge an assignment (the API endpoint exists; where the button appears is UNVERIFIED).
-- Move the report from Team Assigned to Rescue in Progress, then to Resolved.
-- Record the number of people rescued and notes for each update.
+- See reports assigned to their team, oldest first.
+- Acknowledge an assignment and record progress (Rescue in Progress, Resolved).
+- Open the location in maps.
 
-**Screenshots for the presentation**
-- [screenshot: responder assigned list on the phone]
-- [screenshot: incident detail with Open in maps]
-- [screenshot: operation update form]
-- [screenshot: web assignments page with the operation form]
+**Limits to say on the slides:** responders cannot see other teams' reports. Push delivery and GPS accuracy are UNVERIFIED on a physical phone.
+
+- [screenshot: assigned list and incident detail in the Flutter app]
+- [screenshot: operation form with status and note]
 
 ---
 
-## 3. Dispatcher (web app)
+## 3. Administrator (web app, the only website role)
 
-Runs the queue. Verifies, prioritizes, classifies, assigns, and closes reports. Creates staff accounts.
+The website is for the administrator. Dispatcher and DMO functions are now the administrator's (professor clarification, 2026-10-23; decision B: their website sign-in is refused and staff reads are admin-only in the rules).
 
-**Screens** (routes in `web/src/App.tsx`)
-- Dashboard (`/dashboard`): summary cards (`SummaryCards`) and the report queue (`ReportQueue`).
-- Incident details (`/incidents/:id`, `IncidentDetails`): verify, reject with a reason, priority, classify, mark duplicate, assign team (`AssignTeamDialog`), history. Badges: `StatusBadge`, `PriorityBadge`, `VerifiedBadge`.
-- Map (`/map`, `IncidentMap`): Leaflet with OpenStreetMap and filters.
-- Analytics (`/analytics`, `AnalyticsPage`): charts (`ChartCard`), a text table for each chart, filters, CSV and PDF export (`ExportButtons`).
-- Audit log (`/audit`, `AuditPage`): before and after values as plain text.
-- Teams (`/teams`, `TeamsPage`).
-- Users (`/users`, `UsersPage`): create staff accounts, change role and active state.
+Screens (as the code names them):
+- Dashboard (`/dashboard`, `ReportQueue`): the report queue. The line under the title reads "Oldest first. Priority does not change the order." Queue order is oldest submission first, ties broken by report id.
+- Incident details (`/incidents/:id`, `IncidentDetails`): photos, location, and history. The administrator presses **Validate report** to validate the report by hand. Below it: "Validation is a manual review. The system does not check whether a photo is authentic." After validation: "Validated by [name] on [time]". Also reject with a reason, mark duplicate, set priority, classify, assign team (`AssignTeamDialog`), close.
+- Map (`/map`, `IncidentMap`) and monitor (`/monitor`, `MonitorPage`).
+- Analytics (`/analytics`, `AnalyticsPage`): charts with text tables, and CSV or PDF export (`ExportButtons`).
+- Audit log (`/audit`, `AuditPage`), teams (`/teams`, `TeamsPage`), users (`/users`, `UsersPage`).
+- Admin (`/admin`, `AdminPage`): accounts, teams, settings, health.
 
-**What the dispatcher can do**
-- Verify a report, reject it with a reason, mark it as a duplicate.
-- Set priority (low, medium, high, critical) and classification.
-- Assign a team to a report. A team already on a rescue cannot be assigned again.
-- Close a resolved report.
-- Export incidents and summaries. Exports contain no contact details.
-- Read the audit log.
+**What the administrator can do**
+- Validate a report by hand, once. A second validation is refused.
+- Keep the queue oldest first, while priority and classification stay visible.
+- Assign and close teams, manage accounts and teams, export summaries.
 
-**Screenshots for the presentation**
-- [screenshot: dispatcher dashboard with summary cards and report queue]
-- [screenshot: incident details with the verify and priority controls]
-- [screenshot: duplicate review with both reports side by side]
-- [screenshot: assign team dialog]
-- [screenshot: map with filters]
-- [screenshot: analytics chart with its text table]
-- [screenshot: audit log viewer]
-- [screenshot: teams and users pages]
+**Limits:** the API still accepts dispatcher and DMO tokens on its other routes (decision B; see `docs/role-matrix.md`). Say so if asked.
 
-**Gap**
-- The spec puts a live map on the dashboard. The dashboard shows cards and the queue, and the map is a separate page. Use the separate map in the guide, or note the difference.
+- [screenshot: dashboard queue with the order line]
+- [screenshot: incident details with Validate report and the validated-by line]
+- [screenshot: analytics with export]
 
 ---
 
-## 4. DMO (Disaster Management Officer, web app)
+## 4. DMO and dispatcher (no website access)
 
-Read-only monitoring, trends, and reports. No verify or assign rights.
-
-**Screens**
-- Monitor (`/monitor`, `MonitorPage`): read-only map (`IncidentMap`) with no action buttons.
-- Analytics (`/analytics`, `AnalyticsPage`): same charts as the dispatcher. Exports (`ExportButtons`) are allowed for the DMO role by the API (`/api/export`). UNVERIFIED that the buttons appear for the DMO in the browser.
-- Incident details (`/incidents/:id`): read-only view of a report.
-
-**What the DMO can do**
-- Watch incidents on the map.
-- Read trends and counts by type and status.
-- Export CSV and PDF summaries.
-
-**Screenshots for the presentation**
-- [screenshot: DMO monitor page, read-only map]
-- [screenshot: DMO analytics with the export buttons]
+Dispatcher and DMO accounts keep their records and history. Their website sign-in shows "Website access is for administrators only. Ask your administrator about your access." Their functions are the administrator's. Do not show a DMO or dispatcher screen on the slides; show the message if asked.
 
 ---
 
 ## 5. Login and common screens (web app)
 
-- Login (`LoginPage`). Shows the same "no guarantee of rescue" notice and the hotline line.
-- Forbidden (`/forbidden`): shown when a signed-in account has no web role.
-- Application shell (`AppShell`): navigation by role. Dispatcher sees Dashboard, Map, Analytics, Audit, Teams, Users. DMO sees Monitor and Analytics. Responder sees Assignments.
+- Login (`/login`, `LoginPage`): administrators sign in here. The page says residents use the Rescue Reports mobile app.
+- Residents and rescue teams who open an old web path (`/register`, `/my`, `/my/report`, `/my/reports/:id`, `/assignments`) see the notice "Use the Rescue Reports mobile app" (`MobileAppNotice`). It has no report or dashboard links.
+- Forbidden (`/forbidden`, `Forbidden`) explains the role and gives no page link for residents, responders, dispatchers, and DMO.
+- Landing (`/`, `Landing`): explains the mobile app for residents and rescue teams, and the administrator sign-in.
 
-**Screenshots for the presentation**
-- [screenshot: web login page]
-- [screenshot: app shell navigation for the dispatcher]
+- [screenshot: admin sign-in]
+- [screenshot: mobile-app notice on an old web path]
 
 ---
 
-## 6. Admin (API only)
+## 6. Administrator account and offline help
 
-The API has an `admin` role. It can read users (`GET /api/users`), teams (`GET /api/teams`), the audit log (`GET /api/audit`), and stats (`GET /api/stats`). There is no admin screen in either app, and Firestore rules do not grant admin any read access. The spec does not list admin as a role, so the guide should say: "Admin is API-only and is not part of the user guide screens." Decide with the team before the presentation (see `docs/schema.md` section 8).
+The administrator's website is described in section 3. Accounts are created and changed on `/admin` and `/users`. Offline help and hotlines are in the Flutter app (`OfflineHelpPage`) and in section 7.
 
 ---
 
@@ -158,10 +124,10 @@ The API has an `admin` role. It can read users (`GET /api/users`), teams (`GET /
 
 | Role | Screens to capture |
 |---|---|
-| Resident | login, report steps 1 to 4, success, My Reports, offline help |
-| Responder | assigned list, incident detail, operation form, web assignments |
-| Dispatcher | dashboard, incident details, duplicate review, assign dialog, map, analytics, audit, teams, users |
-| DMO | monitor, analytics |
+| Resident | Flutter login, report steps 1 to 4, success, My Reports, offline help |
+| Responder | assigned list, incident detail, operation form (Flutter app only) |
+| Administrator | dashboard with the order line, incident details with Validate report and the validated-by line, duplicate review, assign dialog, map, monitor, analytics with export, audit, teams, users |
+| Dispatcher and DMO | none (website access is for administrators only); show the sign-in message if asked |
 | All | web login, navigation |
 
 Capture on a real phone and in the browser at 1280 px width. Mark each screenshot as taken or not taken in this file before the presentation.

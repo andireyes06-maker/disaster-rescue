@@ -43,7 +43,7 @@ export function reportsRouter(deps) {
   const patch = (path, role, fn) => r.patch(`/:id/${path}`, auth, requireRole(role), async (req, res, next) => {
     try { res.json(await fn(deps, req.user, req.params.id, req.body ?? {})); } catch (e) { next(e); }
   });
-  patch('verify', 'dispatcher', review.verify);
+  patch('verify', 'admin', review.verify);
   patch('priority', 'dispatcher', review.setPriority);
   patch('classify', 'dispatcher', review.classify);
   patch('reject', 'dispatcher', review.reject);

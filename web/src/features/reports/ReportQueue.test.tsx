@@ -9,7 +9,7 @@ const h = vi.hoisted(() => ({
   reports: [] as Report[],
   loading: false,
   error: null as Error | null,
-  role: 'dispatcher' as string,
+  role: 'admin' as string,
 }));
 vi.mock('./useReports', () => ({ useReports: () => ({ reports: h.reports, loading: h.loading, error: h.error, retry: () => {} }) }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ role: h.role }) }));
@@ -48,12 +48,20 @@ describe('ReportQueue', () => {
     expect(screen.queryByText(/no reports match/i)).toBeNull();
   });
 
-  it('keeps newest-first order and marks the first visible report as selected', () => {
-    show(data());
+  it('lists open reports oldest first and marks the first visible report as selected', () => {
+    show([
+      makeReport({ id: 'new', description: 'Flood New', type: 'flood', status: 'Submitted', createdAt: new Date('2026-10-02T08:00:00Z') }),
+      makeReport({ id: 'old', description: 'Fire Old', type: 'fire', status: 'Submitted', createdAt: new Date('2026-10-01T08:00:00Z') }),
+    ]);
     const rows = within(inbox()).getAllByRole('button');
-    expect(rows[0]).toHaveTextContent('Flood A');
+    expect(rows[0]).toHaveTextContent('Fire Old');
     expect(rows[0]).toHaveAttribute('aria-pressed', 'true');
     expect(rows[1]).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('says how the queue is ordered and that priority does not change it', () => {
+    show(data());
+    expect(screen.getByText('Oldest first. Priority does not change the order.')).toBeInTheDocument();
   });
 
   it('selecting a row updates the preview without navigating', async () => {
@@ -63,18 +71,19 @@ describe('ReportQueue', () => {
     expect(within(preview()).getByRole('link', { name: 'Open full report' })).toHaveAttribute('href', '/incidents/b');
   });
 
-  it('offers the verify action to dispatchers for a submitted report', async () => {
+  it('offers the validate action to admins for a submitted report', async () => {
+    h.role = 'admin';
     show(data());
     await userEvent.click(within(inbox()).getByRole('button', { name: /Fire B/ }));
-    expect(within(preview()).getByRole('link', { name: 'Verify report' })).toHaveAttribute('href', '/incidents/b');
+    expect(within(preview()).getByRole('link', { name: 'Validate report' })).toHaveAttribute('href', '/incidents/b');
   });
 
   it('shows the next step as text only for roles that cannot act', async () => {
     h.role = 'dmo';
     show(data());
     await userEvent.click(within(inbox()).getByRole('button', { name: /Fire B/ }));
-    expect(within(preview()).queryByRole('link', { name: 'Verify report' })).toBeNull();
-    expect(within(preview()).getByText('Verify the report')).toBeInTheDocument();
+    expect(within(preview()).queryByRole('link', { name: 'Validate report' })).toBeNull();
+    expect(within(preview()).getByText('Validate the report')).toBeInTheDocument();
     h.role = 'dispatcher';
   });
 
@@ -82,7 +91,7 @@ describe('ReportQueue', () => {
     h.role = 'admin';
     show(data());
     await userEvent.click(within(inbox()).getByRole('button', { name: /Fire B/ }));
-    expect(within(preview()).getByRole('link', { name: 'Verify report' })).toBeInTheDocument();
+    expect(within(preview()).getByRole('link', { name: 'Validate report' })).toBeInTheDocument();
     h.role = 'dispatcher';
   });
 

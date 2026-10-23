@@ -60,7 +60,7 @@ describe('review endpoints', () => {
   it('verify from Submitted ends Awaiting Assignment with 4 audit entries', async () => {
     const t = makeTestApp();
     const id = await seed(t);
-    const res = await patch(t, id, 'verify', t.as('dispatcher'));
+    const res = await patch(t, id, 'verify', t.as('admin'));
     expect(res.status).toBe(200);
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Awaiting Assignment', verified: true });
     const a = await audits(t, id);
@@ -73,7 +73,7 @@ describe('review endpoints', () => {
     const notifier = { notifyUsers: vi.fn(async () => {}), notifyRole: vi.fn(async () => {}) };
     const t = makeTestApp({ notifier });
     const id = await seed(t, { status: 'Under Verification' });
-    expect((await patch(t, id, 'verify', t.as('dispatcher'))).status).toBe(200);
+    expect((await patch(t, id, 'verify', t.as('admin'))).status).toBe(200);
     expect(await audits(t, id)).toHaveLength(3);
     expect(notifier.notifyUsers).toHaveBeenCalledWith(['res-1'], expect.objectContaining({ reportId: id }));
   });
@@ -82,9 +82,9 @@ describe('review endpoints', () => {
     const t = makeTestApp();
     for (const status of ['Verified', 'Resolved']) {
       const id = await seed(t, { status });
-      expect((await patch(t, id, 'verify', t.as('dispatcher'))).status).toBe(409);
+      expect((await patch(t, id, 'verify', t.as('admin'))).status).toBe(409);
     }
-    expect((await patch(t, 'nope', 'verify', t.as('dispatcher'))).status).toBe(404);
+    expect((await patch(t, 'nope', 'verify', t.as('admin'))).status).toBe(404);
     expect((await patch(t, 'nope', 'priority', t.as('dispatcher'), { priority: 'low' })).status).toBe(404);
   });
 
@@ -137,7 +137,7 @@ describe('review endpoints', () => {
     expect((await patch(t, id, 'cancel', t.as('resident', 'res-1'))).status).toBe(200);
     expect(notifier.notifyRole).toHaveBeenCalledWith('dispatcher', expect.any(Object));
     const id2 = await seed(t);
-    await patch(t, id2, 'verify', t.as('dispatcher'));
+    await patch(t, id2, 'verify', t.as('admin'));
     expect((await patch(t, id2, 'cancel', t.as('resident', 'res-1'))).status).toBe(409);
   });
 
@@ -152,7 +152,7 @@ describe('review endpoints', () => {
   it('two concurrent verifies give one 200, one 409, no duplicate audit', async () => {
     const t = makeTestApp();
     const id = await seed(t);
-    const rs = await Promise.all([patch(t, id, 'verify', t.as('dispatcher')), patch(t, id, 'verify', t.as('dispatcher', 'd2'))]);
+    const rs = await Promise.all([patch(t, id, 'verify', t.as('admin')), patch(t, id, 'verify', t.as('admin', 'd2'))]);
     expect(rs.map((r) => r.status).sort()).toEqual([200, 409]);
     expect(await audits(t, id)).toHaveLength(4);
   });
@@ -162,7 +162,7 @@ describe('review endpoints', () => {
     const boom = { notifyUsers: async () => { throw new Error('x'); }, notifyRole: async () => { throw new Error('x'); } };
     const t = makeTestApp({ notifier: boom });
     const id = await seed(t);
-    expect((await patch(t, id, 'verify', t.as('dispatcher'))).status).toBe(200);
+    expect((await patch(t, id, 'verify', t.as('admin'))).status).toBe(200);
     const id2 = await seed(t);
     expect((await patch(t, id2, 'cancel', t.as('resident', 'res-1'))).status).toBe(200);
     const t2 = makeTestApp();

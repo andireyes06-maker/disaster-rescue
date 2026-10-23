@@ -33,24 +33,27 @@ describe('Landing', () => {
     expect(document.querySelector('a[href^="tel:"]')).toBeNull();
   });
 
-  it('sends the staff entries to /login', () => {
+  it('sends the administrator entries to /login', () => {
     renderLanding();
-    for (const link of screen.getAllByRole('link', { name: 'Staff sign in' })) {
+    const links = screen.getAllByRole('link', { name: 'Administrator sign in' });
+    expect(links.length).toBeGreaterThan(0);
+    for (const link of links) {
       expect(link).toHaveAttribute('href', '/login');
     }
+    expect(screen.queryByRole('link', { name: 'Staff sign in' })).toBeNull();
   });
 
-  it('keeps returning residents inside the resident path, with their own sign-in', () => {
+  it('sends residents to the mobile app, not to website sign-in or registration', () => {
     renderLanding();
-    const path = document.getElementById('residents');
-    expect(path).not.toBeNull();
-    expect(within(path!).getByRole('link', { name: 'Already a resident? Sign in' })).toHaveAttribute('href', '/login');
-    expect(within(path!).getByRole('link', { name: 'New here? Create an account' })).toHaveAttribute('href', '/register');
+    expect(screen.queryByRole('link', { name: 'Already a resident? Sign in' })).toBeNull();
+    expect(screen.queryByRole('link', { name: 'Create a resident account' })).toBeNull();
+    expect(screen.queryByRole('link', { name: 'New here? Create an account' })).toBeNull();
+    expect(screen.getByRole('link', { name: 'Get the mobile app' })).toHaveAttribute('href', '#residents');
   });
 
-  it('explains browser access without implying a store release', () => {
+  it('says residents and rescuers use the mobile app, and the website is for administrators', () => {
     renderLanding();
-    expect(screen.getByText('Use Rescue Reports in your browser to submit an incident, add a location, and check updates.')).toBeInTheDocument();
+    expect(screen.getByText('Use the Rescue Reports mobile app to submit reports, add a location and check updates. The website is for administrators.')).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /app store|google play/i })).toBeNull();
   });
 

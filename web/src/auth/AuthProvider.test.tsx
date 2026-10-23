@@ -38,13 +38,13 @@ describe('AuthProvider', () => {
 
   it('reads role from claims', async () => {
     render(<AuthProvider><Probe /></AuthProvider>);
-    await act(async () => authCallback(fbUser({ role: 'dispatcher', active: true })));
-    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:dispatcher'));
+    await act(async () => authCallback(fbUser({ role: 'admin', active: true })));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:admin'));
   });
 
   it('missing active claim means signed out with account_disabled', async () => {
     render(<AuthProvider><Probe /></AuthProvider>);
-    await act(async () => authCallback(fbUser({ role: 'dispatcher' })));
+    await act(async () => authCallback(fbUser({ role: 'admin' })));
     await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('out'));
     expect(screen.getByTestId('e')).toHaveTextContent('account_disabled');
     expect(signOutFn).toHaveBeenCalled();
@@ -58,9 +58,9 @@ describe('AuthProvider', () => {
 
   it('revalidates on token change: dropped active signs out', async () => {
     render(<AuthProvider><Probe /></AuthProvider>);
-    await act(async () => authCallback(fbUser({ role: 'dispatcher', active: true })));
-    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:dispatcher'));
-    await act(async () => authCallback(fbUser({ role: 'dispatcher', active: false })));
+    await act(async () => authCallback(fbUser({ role: 'admin', active: true })));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:admin'));
+    await act(async () => authCallback(fbUser({ role: 'admin', active: false })));
     await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('out'));
     expect(screen.getByTestId('e')).toHaveTextContent('account_disabled');
   });
@@ -101,7 +101,7 @@ describe('AuthProvider', () => {
   it('keeps account_disabled when signOut fires the null token event', async () => {
     signOutFn.mockImplementationOnce(async () => { await authCallback(null); });
     render(<AuthProvider><Probe /></AuthProvider>);
-    await act(async () => authCallback(fbUser({ role: 'dispatcher', active: false })));
+    await act(async () => authCallback(fbUser({ role: 'admin', active: false })));
     await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('out'));
     expect(screen.getByTestId('e')).toHaveTextContent('account_disabled');
   });
@@ -117,10 +117,29 @@ describe('AuthProvider', () => {
 
   it('a later successful sign in clears the error', async () => {
     render(<AuthProvider><Probe /></AuthProvider>);
-    await act(async () => authCallback(fbUser({ role: 'dmo', active: false })));
+    await act(async () => authCallback(fbUser({ role: 'admin', active: false })));
     await waitFor(() => expect(screen.getByTestId('e')).toHaveTextContent('account_disabled'));
-    await act(async () => authCallback(fbUser({ role: 'dmo', active: true })));
-    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:dmo'));
+    await act(async () => authCallback(fbUser({ role: 'admin', active: true })));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:admin'));
     expect(screen.getByTestId('e')).toBeEmptyDOMElement();
+  });
+});
+
+describe('website access by role', () => {
+  beforeEach(() => signOutFn.mockClear());
+
+  it.each(['dispatcher', 'dmo'])('signs out a %s account with website_access_disabled', async (role) => {
+    render(<AuthProvider><Probe /></AuthProvider>);
+    await act(async () => authCallback(fbUser({ role, active: true })));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('out'));
+    expect(screen.getByTestId('e')).toHaveTextContent('website_access_disabled');
+    expect(signOutFn).toHaveBeenCalled();
+  });
+
+  it('lets an administrator in', async () => {
+    render(<AuthProvider><Probe /></AuthProvider>);
+    await act(async () => authCallback(fbUser({ role: 'admin', active: true })));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent('in:admin'));
+    expect(signOutFn).not.toHaveBeenCalled();
   });
 });

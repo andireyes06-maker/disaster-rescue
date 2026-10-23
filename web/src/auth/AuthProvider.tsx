@@ -3,8 +3,9 @@ import { onIdTokenChanged, signInWithEmailAndPassword, signOut, type User } from
 import { getFirebaseAuth } from '../firebase-auth';
 import type { Role } from '../types/domain';
 import { isProvisioning } from './provisioning';
+import { hasWebsiteAccess } from './websiteAccess';
 
-export type AuthError = 'account_disabled' | 'auth_failed';
+export type AuthError = 'account_disabled' | 'auth_failed' | 'website_access_disabled';
 
 export interface AuthState {
   user: User | null;
@@ -53,6 +54,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (claims.active !== true || !claims.role) {
           // Set the error first: signOut fires a null event that bumps seq.
           setState({ user: null, role: null, loading: false, error: 'account_disabled' });
+          await signOut(auth).catch(() => {});
+          return;
+        }
+        // Dispatcher and DMO accounts are not allowed on the website; sign them out.
+        if (!hasWebsiteAccess(String(claims.role))) {
+          setState({ user: null, role: null, loading: false, error: 'website_access_disabled' });
           await signOut(auth).catch(() => {});
           return;
         }

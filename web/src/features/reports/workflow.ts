@@ -7,8 +7,9 @@ export const awaitingVerify = (r: Pick<Report, 'status'>): boolean =>
 export const canAssign = (r: Pick<Report, 'status'>): boolean =>
   r.status === 'Verified' || r.status === 'Awaiting Assignment';
 
-// Staff actions on reports. Mirrors the API: dispatchers and admins act; DMOs read; residents never act here.
-export const canActOnReports = (role: string | null | undefined): boolean => role === 'dispatcher' || role === 'admin';
+// Staff actions on reports. The website is for administrators only: they validate, assign and close.
+// Other roles read here; residents and responders use the mobile app.
+export const canActOnReports = (role: string | null | undefined): boolean => role === 'admin';
 
 export interface NextStep {
   title: string;
@@ -19,7 +20,7 @@ export interface NextStep {
 
 export function nextStep(r: Pick<Report, 'status'>): NextStep {
   if (awaitingVerify(r)) {
-    return { title: 'Verify the report', body: 'Check the report before assigning a rescue team.', action: 'verify' };
+    return { title: 'Validate the report', body: 'Check the report and its photos before assigning a rescue team.', action: 'verify' };
   }
   if (canAssign(r)) {
     return { title: 'Assign a rescue team', body: 'The report is verified and waiting for a team.', action: 'assign' };

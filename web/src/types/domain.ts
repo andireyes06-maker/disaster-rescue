@@ -62,6 +62,9 @@ export interface Report {
   updatedAt: Date;
   assignedTeamId?: string;
   rejectionReason?: string;
+  // Set when an administrator validates the report by hand.
+  verifiedBy?: { uid: string; name: string | null };
+  verifiedAt?: Date;
 }
 
 export interface Team {

@@ -1,4 +1,6 @@
 import type { Role } from '../types/domain';
 
-export const LANDING: Partial<Record<Role, string>> = { dispatcher: '/dashboard', dmo: '/monitor', responder: '/assignments', resident: '/my', admin: '/admin' };
+// Dispatcher and DMO accounts have no website access (see src/auth/websiteAccess.ts).
+// Only administrators have a website page. Residents and rescuers use the mobile app.
+export const LANDING: Partial<Record<Role, string>> = { admin: '/admin' };
 export const landingFor = (role: Role | null): string => (role && LANDING[role]) || '/forbidden';

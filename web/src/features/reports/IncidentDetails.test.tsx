@@ -6,7 +6,7 @@ import { makeReport } from './fixtures';
 import type { Report } from '../../types/domain';
 
 const h = vi.hoisted(() => ({
-  auth: { role: 'dispatcher' } as { role: string },
+  auth: { role: 'admin' } as { role: string },
   reports: [] as Report[],
   api: vi.fn(),
   over: {} as Record<string, unknown>,
@@ -39,7 +39,7 @@ vi.mock('../../api/client', async () => {
 import { ApiError } from '../../api/client';
 import IncidentDetails from './IncidentDetails';
 
-function show(reports: Report[], role = 'dispatcher', id = 'r1', over: Record<string, unknown> = {}) {
+function show(reports: Report[], role = 'admin', id = 'r1', over: Record<string, unknown> = {}) {
   h.auth = { role };
   h.over = over;
   h.reports = reports;
@@ -79,9 +79,9 @@ describe('IncidentDetails', () => {
     expect(await screen.findByText(success)).toBeInTheDocument();
   });
 
-  it.each(['Submitted', 'Under Verification'] as const)('shows Verify for %s', (status) => {
+  it.each(['Submitted', 'Under Verification'] as const)('shows Validate report for %s', (status) => {
     show([makeReport({ status })]);
-    expect(screen.getByRole('button', { name: 'Verify' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Validate report' })).toBeInTheDocument();
   });
 
   it('opens photo thumbnails in a viewer and steps between them', async () => {
@@ -96,9 +96,9 @@ describe('IncidentDetails', () => {
     expect(within(viewer).getByRole('button', { name: 'Next' })).toBeDisabled();
   });
 
-  it('does not show Verify for Verified', () => {
+  it('does not show Validate report for Verified', () => {
     show([makeReport({ status: 'Verified', verified: true })]);
-    expect(screen.queryByRole('button', { name: 'Verify' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Validate report' })).toBeNull();
     expect(screen.queryByRole('button', { name: /reject/i })).toBeNull();
   });
 
@@ -232,13 +232,33 @@ describe('IncidentDetails', () => {
   it('shows the conflict message on 409', async () => {
     h.api.mockRejectedValue(new ApiError({ status: 409, code: 'conflict' }));
     show([makeReport()]);
-    await userEvent.click(screen.getByRole('button', { name: 'Verify' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Validate report' }));
     expect(await screen.findByText(/Someone else already changed this report/)).toBeInTheDocument();
+  });
+
+  it('hides the validate action from dispatchers', () => {
+    show([makeReport({ status: 'Submitted' })], 'dispatcher');
+    expect(screen.queryByRole('button', { name: 'Validate report' })).toBeNull();
+  });
+
+  it('says validation is a manual review, not a photo check', () => {
+    show([makeReport({ status: 'Submitted' })]);
+    expect(screen.getByText('Validation is a manual review. The system does not check whether a photo is authentic.')).toBeInTheDocument();
+  });
+
+  it('shows who validated the report and when', () => {
+    show([makeReport({
+      status: 'Awaiting Assignment',
+      verified: true,
+      verifiedBy: { uid: 'admin-1', name: 'Admin Ana' },
+      verifiedAt: new Date('2026-10-02T09:30:00Z'),
+    } as Partial<Report>)]);
+    expect(screen.getByText(/Validated by Admin Ana/)).toBeInTheDocument();
   });
 
   it('shows success after verify', async () => {
     show([makeReport()]);
-    await userEvent.click(screen.getByRole('button', { name: 'Verify' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Validate report' }));
     expect(h.api).toHaveBeenCalledWith('/reports/r1/verify', { method: 'PATCH' });
     expect(await screen.findByText(/verified/i, { selector: '[role="status"]' })).toBeInTheDocument();
   });

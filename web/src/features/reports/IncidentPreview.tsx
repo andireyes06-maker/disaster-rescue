@@ -33,7 +33,7 @@ interface IncidentPreviewProps {
   onClearFilters: () => void;
 }
 
-const ACTION_LABEL = { verify: 'Verify report', assign: 'Assign team', close: 'Close report' } as const;
+const ACTION_LABEL = { verify: 'Validate report', assign: 'Assign team', close: 'Close report' } as const;
 
 // Rendered with key={report.id} so the rescue-updates subscription follows the selection.
 export default function IncidentPreview({ report, canAct, outsideFilters, onClearFilters }: IncidentPreviewProps) {

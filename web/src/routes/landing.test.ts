@@ -3,10 +3,10 @@ import { landingFor } from './landing';
 
 describe('landingFor', () => {
   it('sends each role to its own page', () => {
-    expect(landingFor('dispatcher')).toBe('/dashboard');
-    expect(landingFor('dmo')).toBe('/monitor');
-    expect(landingFor('responder')).toBe('/assignments');
-    expect(landingFor('resident')).toBe('/my');
+    expect(landingFor('dispatcher')).toBe('/forbidden');
+    expect(landingFor('dmo')).toBe('/forbidden');
+    expect(landingFor('responder')).toBe('/forbidden');
+    expect(landingFor('resident')).toBe('/forbidden');
     expect(landingFor('admin')).toBe('/admin');
   });
 

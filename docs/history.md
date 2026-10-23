@@ -132,3 +132,104 @@ Done: Render CORS and redeploy, GitHub repo, Firebase project `flutter-5094e` (s
 
 ## Resume prompt
 "Read HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT. Continue from 'Waiting on Airen'. Older history is in docs/history.md."
+
+---
+
+## Archived handoff (saved 2026-10-23, before the professor clarification work)
+
+**Newest web redesign completion (October 18):** Read `design-plans/web-redesign-finish-2026-10-18/HANDOFF.md` and its `CLAUDE-PROMPT.md`. The remaining web presentation/state pass is finished, including expanded Admin interiors, form/pending/recovery feedback and response-row motion. 380 tests / 52 files, typecheck/build pass. Controlled state evidence and Firefox normal-route checks are recorded. Integration, real transport, uploads and physical/Flutter verification remain separate release gates. Nothing committed/pushed/deployed.
+
+**Latest completed visual fixes (October 18):** Read `design-plans/visual-motion-fixes-2026-10-18/HANDOFF.md`; paste its `CLAUDE-PROMPT.md` into the next session. M1 validation overlap, V1 landing/bell typography and M2 exit easing are implemented. 377 tests / 52 files, typecheck/build pass; normal-motion Chromium/WebKit validation/interactions verified. The earlier read-only visual report is superseded for those findings. Expanded Admin interiors, remaining state coverage and real release gates remain open. Nothing committed/pushed/deployed.
+
+**Latest web audit continuation (October 18):** Read `design-plans/audit-round2-2026-10-18/HANDOFF.md`. 376 tests / 52 files; typecheck/build/diff checks pass. 82 normal route cases, 28 Chromium/WebKit audit/activity cases, 24 tile failure/recovery cases and three saving-indicator checks. Fixed audit readability/mobile overflow, report-specific update loading/stale callback behavior, resident activity/long notes, map tile retry and visible busy indicators. Real uploads, management persistence/concurrency, complete historical transitions, reconnect and physical devices remain open. Nothing committed/pushed/deployed.
+
+**Fresh web re-audit and required markers (October 18):** Read `design-plans/reaudit-2026-10-18/HANDOFF.md`. All 18 web surfaces revisited in 82 normal cases; landing label defect found and corrected in four rechecks. Required stars/semantics added across web entry forms; optional fields left optional. Fixed incident busy labels/reference/status guidance, same-metadata photo retry collision and responder acknowledgement loading/error race. 371 tests / 52 files; typecheck/build pass. 28 Chromium/WebKit targeted cases, ten final form cases and acknowledgement fixtures recorded. Long staff history fixture tested; actual uploads, transport, management persistence, audit readability and resident complete-status history remain open. Nothing committed/pushed/deployed.
+
+**Error presentation (October 18):** `design-plans/error-signs-2026-10-18/HANDOFF.md` records shared web error/field icons, removal of duplicate text signs/Problem prefixes and context-specific fallback copy. 361 tests, typecheck/build pass; eight Chromium/WebKit phone/desktop error cases have clean axe/overflow. Existing error motion, focus and field associations preserved. Web only, nothing committed/pushed/deployed.
+
+**Resident follow-up (October 18):** Claude records real incident/responder/resident persistence plus mocked failure checks in `design-plans/full-page-audit-2026-10-18/HANDOFF-2026-10-18.md`. Codex reviewed source and fixed misleading non-delivery copy and PhotoImage recovery on URL change; read `CODEX-RESIDENT-REVIEW.md` in that folder. 361 tests / 52 files, typecheck/build pass. Cloudinary, long history, in-app leave behavior and web idempotent retry remain open. Retention-policy explanation is a code comment, not public copy. No new Codex browser/emulator writes in this review.
+
+**Claude continuation entry (October 18):** Start with `CLAUDE-NEXT.md` for the consolidated current brief, all 18 web routes and remaining work, latest copy requirements, evidence boundaries, changed local logins and environment precautions. This is a documentation-only consolidation; no new runtime checks are claimed.
+
+**Product copy direction (Oct 18, Codex, uncommitted):** Airen removed academic credits, demo badges and unfinished team-lead/availability/privacy copy. Read `design-plans/product-copy-2026-10-18/HANDOFF.md` first. Public UI and the re-rendered landing film use product language and fictional Harbor district/team/person content. Flutter banner removed and school-gate hint replaced. Known local fixture accounts now use reserved `@harbor.example` addresses (table in that handoff), with passwords/IDs/roles unchanged; older browser scripts must use the new emails. 354 web / 128 Flutter tests pass, 26 fixture tests pass, analysis/typecheck/build/video checks pass. Browser evidence at 390/1440. Internal emulator protections and historical audit provenance remain. Nothing committed/pushed/deployed; production untouched.
+
+**Admin and page-state continuation (Oct 17–18, Codex, uncommitted):** Read `design-plans/admin-state-audit-2026-10-17/HANDOFF.md` first. Fixed Admin load/empty/retry, searchable accounts, own-role protection, pending-access retry, misleading creation/refresh outcomes, settings draft/success behavior, degraded health, long-name columns and Safari selectors. Also fixed invalid-list/statistics/map outcomes, Users self-action and Audit dates/missing data. 354 tests / 51 files; typecheck/build pass. State evidence: 76 broader Chromium cases, 40 Admin cases per Chromium/WebKit, plus final four-width Admin layout checks. API writes were mocked: persistence and real transport remain open. WebKit emulator Listen errors are recorded separately; do not claim clean real transport. Current backend already has a guarded transaction and authSyncPending; old non-atomic last-admin note below is stale. No backend tests newly run. Nothing committed/pushed/deployed.
+
+**Full-page finishing audit (Oct 17, Codex, uncommitted):** Airen clarified that audit means complete pages, not isolated technical fixes. Read `design-plans/full-page-audit-2026-10-17/HANDOFF.md` and its `PAGE-REVIEW.md`; `CLAUDE-NEXT.md` is ready for a new session. Reviewed all 16 existing routes after the landing plus a new missing-page route. Reworked access compositions/password controls, resident hub/details/evidence, Admin work areas, management search/filter/validation, loading/recovery and dialogs. 340 tests / 50 files; typecheck/build pass. Evidence: 39 responsive surfaces, nine final admin/detail targets, 26 role walkthrough states, 36 three-engine access/admin cases, and six three-engine dialogs. No writes attempted in the role walkthrough; no production change. Mutation success/transport, long/missing content, physical/Flutter and owner hotline/privacy inputs still have explicit gaps. Nothing committed/pushed/deployed.
+
+**Staff readability/state audit (Oct 17, Codex, uncommitted):** read `design-plans/staff-readability-2026-10-17/HANDOFF.md`. Fixed small product typography, phone account/search layout, 44px map marker hit areas and missing keyboard activation, map skeleton and empty/filter/search recovery. 334 tests / 49 files; typecheck/build pass. 39 Chromium surfaces and 12 Firefox/WebKit cases have zero axe/overflow; targeted four-case search recovery passes. Real delayed session restoration verifies S10. S05 measured samples now zero under 13px; S07 interaction fixed. Staff field-validation/transport and physical/Flutter checks remain. Nothing committed, pushed or deployed.
+
+**Busy-control continuation (Oct 17, Codex, uncommitted):** remaining AccountsPanel, UsersPage, TeamsPage, ExportButtons and NotificationBell controls preserve busy focus and block duplicate requests. Action removal now places focus deliberately. 328 tests / 49 files, typecheck and build pass. Delayed failures verified on local demo in Chromium desktop and WebKit phone for five staff/export actions; no writes persisted. Read `design-plans/busy-focus-2026-10-17/HANDOFF.md` for evidence and limits. S05, timed S10 and broader staff-state audit remain open. Nothing pushed or deployed.
+
+# HANDOFF
+
+## Start here
+
+- Full-page audit, continuation (Oct 18, uncommitted): incident, dashboard, responder, resident submit/cancel, admin settings checked on the emulator. Per-page ledger and next steps: `design-plans/full-page-audit-2026-10-18/HANDOFF-2026-10-18.md`. Open owner question: the admin settings save requires a hotline, which is not configured.
+
+**Landing content continuation (Oct 17, Codex, uncommitted):** read `design-plans/landing-content-2026-10-17/HANDOFF.md`. Stronger header followed by clearer service copy, four native reporting questions and a closing resident action. 319 tests / 48 files pass; six-width expanded-content audit and 15 cross-browser edge scenarios are clean, with keyboard disclosure/registration navigation checked in all three engines. Prior Lighthouse scores were not rerun for this version. Claude’s open staff/state findings remain open.
+
+**Header presence after Claude’s access audit (Oct 17, Codex, uncommitted):** landing masthead now uses deep indigo, larger branding, a service descriptor and brighter navigation; light access headers and Claude’s fixes preserved. Read `design-plans/header-presence-2026-10-17/HANDOFF.md`. 319 tests pass. Claude’s LEDGER confirms hosted variable names and the effd53f live bundle’s Render API; the original local missing API variable must not be treated as proof of missing hosting configuration. Staff and whole-product audit gaps remain open.
+
+**Surface audit, continuation (Oct 17, Claude, uncommitted):** sign-in, registration, Forbidden, and resident pages audited at 390/1440 (axe, measured targets and type, Tab order, error and recovery flows). Fixed: focus lost after a failed sign-in or registration; skip links moved ahead of the header; resident pages gained one `<main>`; analytics chart tables are keyboard reachable; phone touch targets. Ledger: `design-plans/landing-release-audit-2026-10-17/LEDGER.md`. **Open:** 11–12px staff chrome text, focus lost on about 15 other busy-disabled forms, populated staff states, Firefox/WebKit for this pass. Vercel Production has all five client variables; the live bundle points at the Render API. 319 web tests pass. Gotchas: demo API CORS allows only `localhost:5174`, and `127.0.0.1:5174` is a live-config Flutter run.
+
+**Landing release audit (Oct 17, Codex, uncommitted):** read `design-plans/landing-release-audit-2026-10-17/REPORT.md` and `CLAUDE-NEXT.md`. Fixed readability/safety order, title/focus/recovery/loading, deferred map/Firestore and unused auth iframe, robots and metadata, responsive/high-contrast states. Added release configuration validation and route-error recovery. 316 tests / 48 files pass. Final Lighthouse measures the actual landing; rejected configuration-screen runs are explicitly separated. Local release preflight remains blocked on missing VITE_API_BASE_URL; hosted settings were not inspected. Remaining routes have regression checks, not full new audits.
+
+**Interactive landing promo (Oct 17, Codex, uncommitted):** revised film with kinetic headlines, cursor demonstrations, camera easing, and a held ending; explicit autoplay plus three seekable chapters with progress. Current master is `rescue-response-promo-master.mp4`, web delivery 584152 bytes. Read `design-plans/codex-redesign/LANDING-VIDEO-HANDOFF.md`. 302 web tests pass; Chromium/Firefox/WebKit playback and interaction checked at 320/390/1440px.
+
+**Public header (Oct 17, Codex, uncommitted):** reorganized desktop brand/navigation/staff action, added a dedicated phone navigation row and demo notice strip, and kept landing anchor headings clear of the sticky header. Read `design-plans/codex-redesign/HEADER-REFINEMENT.md`. Chromium checked at 320–1440px; 300 tests and production build pass.
+
+**Landing film (Oct 17, Codex, uncommitted):** created and integrated a 16-second Hyperframes product animation, with compressed MP4, poster, pause/play, reduced-motion/save-data defaults, and original-scene fallback. Read `design-plans/codex-redesign/LANDING-VIDEO-HANDOFF.md` and `videos/rescue-response/README.md`. 300 web tests pass; actual playback checked in Chromium/Firefox/WebKit at 1440/390px. No deployment or production change.
+
+**Latest Codex UI state motion (Oct 17, uncommitted):** registration/sign-in/reporting validation messages, shared form repositioning, banners, data states, disclosures, and dialog lifecycle/focus now have motion. Read `design-plans/codex-redesign/STATE-MOTION-HANDOFF.md` for implementation, 294-test result, cross-browser evidence, and remaining limits. Preserve Claude's preceding notification/stagger/skeleton repairs.
+
+**Project:** IT 305 final project, Disaster Rescue Reporting and Monitoring System (Flutter + React + Express + Firebase). Due Nov 2, 2026.
+**Branch:** `build/disaster-rescue`. Nothing merged to `master`. Repo: https://github.com/andireyes06-maker/disaster-rescue (private).
+**Resident web and admin (Oct 16, 2026, late):** committed on this branch (latest `f65cb96`). Web deployed to Vercel production (includes the resident pages and admin screen). Firestore rules deployed to `flutter-5094e`. **Pushed (Oct 16, 2026, evening):** `build/disaster-rescue` pushed to origin at `c5f9845` after Airen approved it. Render redeploys from GitHub; confirm `/api/public/incidents` returns 200 before calling the API live. Plan: `docs/superpowers/plans/2026-10-16-web-resident-redesign.md`. Ledger with every ruling and deviation: `.superpowers/sdd/2026-10-16-web-resident-redesign/progress.md`. Spec amendment in `X-SPEC.md`.
+**Website pass (Oct 16, 2026):** see [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md) for the layouts, retry controls, and open decisions.
+**Status:** committed on this branch, see the commit named in CLAUDE-HANDOFF.md. Deployed to production at https://disaster-rescue-web.vercel.app (live Firebase project `flutter-5094e`, not the emulator). Sign-in not verified on the live site.
+**Bell audit (Oct 17, Claude, uncommitted):** notification bell verified on the demo emulator (keyboard open/close, focus return, bounded scroll, mark-as-read persisted across reload). Fixed the mark-as-read accessible name (Label in Name) and added a text "Unread:" state. Record: `design-plans/codex-redesign/checks/bell-audit-2026-10-17.md`. Web suite 286 tests. Not verified: screen-reader announcements, Flutter device.
+**Cross-browser motion (Oct 17, Claude, uncommitted):** Chromium, Firefox 155, WebKit 27.2 at 1440 and 390px. Fixed: notification rows did not stagger (specificity reset `animation-delay`); Escape kept focus in the closing panel, so a reopen during the exit was lost. Record: `design-plans/codex-redesign/checks/cross-browser-motion-2026-10-17.md`. Still pending: physical devices and Flutter.
+**Redesign:** the staff screens already match the approved operations-console direction (checked by rendering); `REDESIGN-SPEC.md` and `REDESIGN-PLAN.md` are older and need reconciling.
+**Admins hold every staff permission** (decided Oct 16, late). This reverses the earlier 'no admin exports' rule: admins now get exports and the full report view. Residents-only actions (file, cancel) stay resident-only.
+
+**Oct 17 review (Claude, uncommitted, working tree):** redesign regression review and fixes. Record: `design-plans/CONFIRM-AND-FIX-PLAN.md`, `design-plans/codex-redesign/checks/review-2026-10-17.md`, `design-plans/codex-redesign/checks/audit-routes-2026-10-17.md`. Fixed: access-page skip links, titles, duplicate banner, favicon, loading skeletons on audit and analytics. API address now explicit: no `localhost:8080` fallback; a missing `VITE_API_BASE_URL` shows a configuration error (`web/src/api/config.ts`, `web/src/components/ApiConfigGate.tsx`). Stopped a local API on port 8080 that ran with the production project's credentials. **Before the next Vercel deploy, confirm `VITE_API_BASE_URL` is set in the Vercel project**; without it production now shows the configuration error.
+**Verified (Oct 16, late):** API 248 tests, rules 118 (emulator 8180), web 215 tests (3 full runs stable), `tsc` clean, production build OK, Impeccable 0 findings on the changed UI, `git diff --check` clean.
+**Historical redesign note, updated Oct 18:** current backend uses transactional `setStaffGuarded` and `authSyncPending`; the previously deferred non-atomic last-admin finding is no longer an accurate description of the source. This UI audit did not rerun backend concurrency tests. Only a `build/disaster-rescue` push will put the new API live. Populated staff screens (assignment cards, queue rows, incident details with data) were not rendered: the emulator has no reports. Analytics and users pages not rendered.
+**Not verified:** physical phones, screen readers, Firefox and WebKit, signed-in live pages, real device features (GPS, camera, push, map tiles), real Cloudinary.
+
+## Decisions locked
+- Firestore, not PostgreSQL (`docs/schema.md`).
+- Express API in JavaScript. Web: React + Vite + TypeScript. Calm Clarity UI, bold public-safety palette: navy `#0B2A4A`, blue `#1E5BC6`, red `#C8102E` (hotline and critical only), amber `#B45309`.
+- Photos through Cloudinary, signed. No Firebase Storage (needs Blaze).
+- Hosts: Vercel (web), Render (API), Firebase Spark.
+
+## Live
+- Web: https://disaster-rescue-web.vercel.app (Vercel production, project `disaster-rescue-web`). Deployment protection is on for the deployment-specific URL.
+- API: https://disaster-rescue-api.onrender.com (Render free plan). Health: `/api/health`. Pushed `c5f9845` on Oct 16; the new routes go live once Render finishes deploying.
+- Firestore rules and indexes deployed to `flutter-5094e`. Test reports left on the real project (DR-T49M76 and others) should be closed or deleted before the demo.
+- Live test accounts (`resident/dispatcher/responder/dmo@test.dev`) use password `AuditOnly#2026`, set by Airen on Oct 16 evening. Consider a different password before a real demo.
+
+## Waiting on Airen
+1. **Confirm the Render deploy** of the new API (`/api/public/incidents` returns 200). Then test live sign-in and the public map.
+1b. **Later (not yet planned in detail):** QR code and biometric sign-in, as the professor mentioned. Plan these once the main work is settled and only light work is left.
+2. **Live sign-in:** the demo accounts exist only in the local emulator. Decide whether to create demo logins on `flutter-5094e`.
+3. **Redesign:** approve `REDESIGN-SPEC.md`.
+4. **Course docs:** fill `docs/contributions.md`; replace the `000-0000` LDRRMO placeholder in `config/hotlines`; get legal review of `docs/privacy-and-coordination.md`.
+5. **PR to master:** not opened. Needs your approval.
+
+## Open questions
+- Admin role: now a real web role (admin screen). Admins manage accounts and teams, and download CSV/PDF summaries from Analytics (the admin audit section points there).
+- Responders read only their own team, in the rules and the API (done).
+- Public placeholders still open: hotline number, privacy text, credits.
+
+## Gotchas
+- Never run `dart format` on folders (it rewrote 27 files once).
+- Firestore queries use at most one equality filter; the rest filter in memory.
+- Sign-out calls `DELETE /api/devices/:token` (wired via `beforeSignOut` in `mobile/lib/main.dart`). Keep it.
+- Web API address: set `VITE_API_BASE_URL` explicitly (see `web/.env.example`). There is no default. `web/.env.local` targets the live project `flutter-5094e` and has no API address, so `npm run dev` shows the configuration error until it is set.
+- Local emulators: Auth 9099, Firestore 8180 (the app hardcodes 8080 in `web/src/firebase.ts`). Demo emulator: Auth 9299, Firestore 8190, project `demo-disaster-rescue`, demo API on port 3102 in the review session.
+- `mobile/web/` and `.vscode/` are untracked and deliberately not committed.
+
+## Resume prompt
+"Read HANDOFF.md and CLAUDE-HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT. Continue from 'Waiting on Airen'. Older history is in docs/history.md."
