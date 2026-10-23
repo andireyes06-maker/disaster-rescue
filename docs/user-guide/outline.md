@@ -1,18 +1,18 @@
 # Rescue Reports user guide
 
-Updated 20 October 2026 from the authoritative integration. Companion: Rescue-Reports-User-Guide.pptx, generated from generate.cjs and actual local Flutter Chrome captures. Screenshots use fictional emulator accounts, not physical phones.
+Updated 23 October 2026 for the professor clarification (website for administrators only; residents and rescuers use Flutter). Earlier text: 20 October 2026. Companion: Rescue-Reports-User-Guide.pptx, generated from generate.cjs and actual local Flutter Chrome captures. Screenshots use fictional emulator accounts, not physical phones.
 
 ## Workspaces
 
 | Role | Flutter | Web entry |
 |---|---|---|
-| Resident | Welcome, registration, report flow, My Reports, notifications, profile | /my |
-| Responder | Assigned, map/detail, progress history, updates, notifications | /assignments |
-| Dispatcher | Use existing web workspace | /dashboard |
-| DMO | Use existing web workspace | /monitor |
-| Admin | Use existing web workspace | /admin |
+| Resident | Welcome, registration, report flow, My Reports, notifications, profile | None. /my and /register show the mobile-app notice |
+| Responder | Assigned, map/detail, progress history, updates, notifications | None. /assignments shows the mobile-app notice |
+| Dispatcher | None. Website sign-in is refused; functions are the administrator's | None |
+| DMO | None. Website sign-in is refused; functions are the administrator's | None |
+| Admin | Not applicable | /dashboard (oldest-first queue, Validate report), /monitor, /analytics, /audit, /teams, /users, /admin |
 
-The supplied brief requires a functional web and mobile system. It does not specify all-role native parity. Admin has a real web workspace; the earlier API-only description was obsolete.
+The professor clarified (23 October 2026) that the website is for administrators, and residents and responders use the Flutter app. Dispatcher and DMO accounts keep their records; their website and API access is refused.
 
 ## Resident instructions
 
@@ -39,10 +39,9 @@ Team/role changes hold protected content while profile and claims synchronize. R
 
 ## Staff web instructions
 
-- Dispatcher: Dashboard /dashboard, incident review /incidents/:id, Map /map, Teams /teams, Users /users, Analytics /analytics and Audit /audit. Review/verify, prioritize/classify, assign and close permitted reports.
-- DMO: read-only Monitor /monitor, incident details and Analytics.
-- Admin: /admin and staff routes allowed by the route matrix. This is not an API-only account.
-- Responder web: /assignments and authorized read-only closed detail /assignments/:id.
+- Administrator only: Dashboard /dashboard lists reports awaiting action, oldest first; priority does not change the order. Incident review /incidents/:id: Validate report (manual review, with the validator and time shown afterwards), reject with a reason, mark duplicate, priority, classification, assign team, and close. Map /map, Monitor /monitor, Analytics /analytics, Audit /audit, Teams /teams, Users /users, and Admin /admin.
+- Dispatcher and DMO: no website access. Sign-in shows "Website access is for administrators only." Do not present these roles as web workspaces.
+- Responder and resident: Flutter only. Old web paths show the mobile-app notice.
 
 ## Presentation and evidence
 
