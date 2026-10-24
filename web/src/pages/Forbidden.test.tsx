@@ -11,12 +11,12 @@ import Forbidden from './Forbidden';
 const renderPage = () => render(<MemoryRouter><Forbidden /></MemoryRouter>);
 
 describe('Forbidden', () => {
-  it('tells a signed-in resident or rescuer to use the mobile app, with no website page link', () => {
-    for (const role of ['responder', 'resident']) {
+  it('tells a signed-in resident to use the mobile app, with no website page link', () => {
+    for (const role of ['resident']) {
       authState.user = { uid: 'r1' };
       authState.role = role;
       const { unmount } = render(<MemoryRouter><Forbidden /></MemoryRouter>);
-      expect(screen.getByText('Residents and rescue teams use the Rescue Reports mobile app. The website is for administrators.')).toBeInTheDocument();
+      expect(screen.getByText('Residents use the Rescue Reports mobile app. The website is for administrators and rescue teams.')).toBeInTheDocument();
       expect(screen.queryByRole('link', { name: 'Go to my page' })).not.toBeInTheDocument();
       unmount();
     }

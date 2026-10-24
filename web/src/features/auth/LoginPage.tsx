@@ -113,7 +113,7 @@ export default function LoginPage() {
       <main className="login auth-split" id="main-content" tabIndex={-1}>
         <MotionForm className="card login__card auth-form" onSubmit={onSubmit} noValidate aria-labelledby="login-title">
           <h1 id="login-title">Sign in</h1>
-          <p className="login__intro">Administrators sign in here. Residents use the Rescue Reports mobile app.</p>
+          <p className="login__intro">Administrators and rescue teams sign in here. Residents use the Rescue Reports mobile app.</p>
           <RequiredNote />
           <label htmlFor="email">Email<RequiredMark /></label>
           <input id="email" name="email" type="email" aria-required="true" autoComplete="username" spellCheck={false} value={email}
@@ -140,8 +140,8 @@ export default function LoginPage() {
         <aside className="auth-split__intro" aria-labelledby="login-aside-title">
           <h2 id="login-aside-title">Who signs in here</h2>
           <ul className="auth-split__points">
-            <li><strong>Residents and rescue teams</strong> use the Rescue Reports mobile app.</li>
-            <li><strong>Administrators</strong> use the account an administrator created for them.</li>
+            <li><strong>Residents</strong> use the Rescue Reports mobile app.</li>
+            <li><strong>Administrators and rescue teams</strong> use the account an administrator created for them, here or in the mobile app.</li>
           </ul>
           <p className="auth-split__note">Administrator accounts are created by an administrator. Use your registered email address and password to sign in.</p>
           <p className="auth-split__note">Submitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.</p>

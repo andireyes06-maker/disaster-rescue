@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, type LucideIcon } from 'lucide-react';
+import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, ClipboardList, type LucideIcon } from 'lucide-react';
 import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
 import Brand from '../components/Brand';
@@ -23,6 +23,10 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
     { to: '/teams', label: 'Teams', icon: ShieldCheck },
     { to: '/users', label: 'Users', icon: Users },
     { to: '/admin', label: 'Admin', icon: Settings },
+  ],
+  // Rescuers use the website for their team's assignments and closed reports, and the mobile app for field work.
+  responder: [
+    { to: '/assignments', label: 'Assignments', icon: ClipboardList },
   ],
 };
 

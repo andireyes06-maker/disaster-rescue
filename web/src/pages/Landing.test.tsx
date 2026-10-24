@@ -49,9 +49,9 @@ describe('Landing', () => {
     expect(screen.queryByRole('link', { name: 'Create a resident account' })).toBeNull();
   });
 
-  it('explains that residents and rescuers use the mobile app', () => {
+  it('explains that residents use the mobile app and staff use the website', () => {
     renderLanding();
-    expect(screen.getByText('Use the Rescue Reports mobile app to submit reports, add a location and check updates. The website is for administrators.')).toBeInTheDocument();
+    expect(screen.getByText('Use the Rescue Reports mobile app to submit reports, add a location and check updates. The website is for administrators and rescue teams.')).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /app store|google play/i })).toBeNull();
   });
 

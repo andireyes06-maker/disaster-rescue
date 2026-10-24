@@ -82,10 +82,12 @@ describe('AppShell', () => {
     expect(screen.queryByRole('link', { name: 'Assignments' })).not.toBeInTheDocument();
   });
 
-  it('gives a responder no website navigation: rescuers use the mobile app', () => {
+  it('gives a responder only the Assignments website navigation', () => {
     auth.value = { user: { uid: 'f-1', email: 'f@test.dev' }, role: 'responder', logout: vi.fn() };
     renderAt('/assignments');
-    expect(screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')).toHaveLength(0);
+    const links = screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a');
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute('href', '/assignments');
   });
 
   it('mounts the notification bell in the staff header', () => {

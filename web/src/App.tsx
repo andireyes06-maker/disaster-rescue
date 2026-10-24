@@ -23,6 +23,8 @@ const MonitorPage = lazy(() => import('./features/dmo/MonitorPage'));
 const AnalyticsPage = lazy(() => import('./features/analytics/AnalyticsPage'));
 const AuditPage = lazy(() => import('./features/audit/AuditPage'));
 const AdminPage = lazy(() => import('./features/admin/AdminPage'));
+const AssignmentsPage = lazy(() => import('./features/responder/AssignmentsPage'));
+const ClosedReportPage = lazy(() => import('./features/responder/ClosedReportDetail'));
 
 export default function App() {
   const { pathname } = useLocation();
@@ -44,8 +46,8 @@ export default function App() {
       <Route path="/incidents/:id" element={<RoleRoute allow={['admin']}><AppShell title="Incident details"><IncidentDetails /></AppShell></RoleRoute>} />
       <Route path="/teams" element={<RoleRoute allow={['admin']}><AppShell title="Teams"><TeamsPage /></AppShell></RoleRoute>} />
       <Route path="/users" element={<RoleRoute allow={['admin']}><AppShell title="Users"><UsersPage /></AppShell></RoleRoute>} />
-      <Route path="/assignments" element={<MobileAppNotice />} />
-      <Route path="/assignments/:id" element={<MobileAppNotice />} />
+      <Route path="/assignments" element={<RoleRoute allow={['responder']}><AppShell title="Assignments"><AssignmentsPage /></AppShell></RoleRoute>} />
+      <Route path="/assignments/:id" element={<RoleRoute allow={['responder']}><AppShell title="Assignment"><ClosedReportPage /></AppShell></RoleRoute>} />
       <Route path="*" element={<NotFound />} />
     </Routes></Suspense></PageBoundary></>
   );

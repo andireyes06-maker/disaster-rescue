@@ -1,12 +1,12 @@
 # Role matrix (professor clarification, 2026-10-23)
 
-Source of truth: `docs/superpowers/specs/2026-10-23-professor-clarification-design.md` (approved, option A).
+Source of truth: `docs/superpowers/specs/2026-10-23-professor-clarification-design.md` (approved, option A). Amended 2026-10-24: rescuers (responders) use both the Flutter app and the website; residents stay mobile only; administrators stay website only.
 
 | Role | Platform (target) | What they do | Status in code |
 |---|---|---|---|
 | Administrator | Website | Validate reports by hand, verify, reject, mark duplicate, classify, set priority, assign teams, close, manage users and teams, audit log, analytics, exports, monitor, map | Validate action and the oldest-first queue are done (API and web). Admin already held every staff permission. |
 | Resident | Flutter app | Submit a report, add photos and location, cancel their own report, follow status and updates | Flutter flows unchanged. Old web paths (`/register`, `/my*`) show the mobile-app notice (`MobileAppNotice`). |
-| Responder (rescuer) | Flutter app | See assigned reports for their team, acknowledge, add field updates | Flutter flows unchanged. Old web path `/assignments` shows the mobile-app notice. |
+| Responder (rescuer) | Flutter app and website | See assigned reports for their team, acknowledge, add field updates; website shows their team's assignments and closed reports | Flutter flows unchanged. Web `/assignments` and `/assignments/:id` are guarded to the responder role, with an Assignments nav link. Landing goes to `/assignments`. API and Firestore rules were already team-scoped for responders. |
 | Dispatcher | None (approved option A) | Functions move to the administrator. Account and history kept, nothing deleted. | Website sign-in is refused (signed out with `website_access_disabled`). Firestore rules deny staff reads. The API refuses dispatcher tokens; admin owns the operational workflows. |
 | DMO | None (approved option A) | Monitoring, analytics and exports move to the administrator. Account and history kept. | Website sign-in is refused the same way. Firestore rules deny staff reads. The API refuses DMO tokens; admin owns monitoring and exports. |
 
@@ -21,4 +21,4 @@ Source of truth: `docs/superpowers/specs/2026-10-23-professor-clarification-desi
 
 - Dispatcher and DMO accounts and historical records remain. They are not automatically promoted to administrator.
 - Flutter tells administrators to use the website and tells retired roles their website access is unavailable.
-- Unreachable resident/responder web components remain for their retry and idempotency tests; public paths show the mobile-app notice.
+- Unreachable resident web components remain for their retry and idempotency tests; public resident paths show the mobile-app notice.

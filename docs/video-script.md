@@ -4,7 +4,7 @@ Prepared 20 October 2026; updated 23 October 2026 for the professor clarificatio
 
 ## 0:00–0:45 · Purpose and technologies
 
-Architecture presenter: introduce report-to-response coordination. Explain React/TypeScript/Vite for web, Flutter/Provider for mobile, Express for API, Firebase Auth and Firestore for identity/data, Cloudinary for photos and FCM for push. Residents/responders use mobile; staff/admin use web.
+Architecture presenter: introduce report-to-response coordination. Explain React/TypeScript/Vite for web, Flutter/Provider for mobile, Express for API, Firebase Auth and Firestore for identity/data, Cloudinary for photos and FCM for push. Residents use mobile; rescuers use mobile and web; administrators use web.
 
 ## 0:45–2:15 · Resident demonstration
 

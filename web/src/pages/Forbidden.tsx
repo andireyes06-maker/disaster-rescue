@@ -21,11 +21,11 @@ export default function Forbidden() {
   const signOut = <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>;
 
   let body: React.ReactNode;
-  // Professor clarification (2026-10-23): residents and rescuers use the mobile app; dispatchers and DMO have no website access.
-  if (role === 'resident' || role === 'responder') {
+  // Professor clarification (2026-10-23), amended 2026-10-24: residents use the mobile app only; rescuers use both; dispatchers and DMO have no website access.
+  if (role === 'resident') {
     body = (
       <>
-        <p>Residents and rescue teams use the Rescue Reports mobile app. The website is for administrators.</p>
+        <p>Residents use the Rescue Reports mobile app. The website is for administrators and rescue teams.</p>
         <div className="forbidden__actions">{signOut}</div>
       </>
     );

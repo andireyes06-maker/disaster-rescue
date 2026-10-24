@@ -53,7 +53,7 @@ The professor's message takes precedence over older specs where they conflict.
 |---|---|---|
 | Administrator | Website | Queue, validation, assignment, teams, users, analytics, exports, audit, monitor, map |
 | Resident | Flutter app | Web resident routes removed or redirected to a "use the mobile app" page |
-| Responder (rescuer) | Flutter app | Web `/assignments` removed. Flutter responder flow kept online |
+| Responder (rescuer) | Flutter app and website (amended 2026-10-24) | Flutter responder flow kept online. Web `/assignments` restored for responders only (team assignments and closed reports) |
 | Dispatcher | **Open (see question 1)** | Currently web-only staff |
 | DMO | **Open (see question 1)** | Currently web-only staff |
 

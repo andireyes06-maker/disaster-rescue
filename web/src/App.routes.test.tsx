@@ -9,7 +9,7 @@ vi.mock('./auth/AuthProvider', () => ({
 import App from './App';
 
 describe('website routes after the mobile-app clarification', () => {
-  it.each(['/register', '/my', '/my/report', '/my/reports/r1', '/assignments'])(
+  it.each(['/register', '/my', '/my/report', '/my/reports/r1'])(
     '%s shows the mobile-app notice instead of a website page',
     async (path) => {
       render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>);

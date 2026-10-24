@@ -49,7 +49,7 @@ describe('Home at /', () => {
   it.each([
     ['dispatcher', '/forbidden'],
     ['dmo', '/forbidden'],
-    ['responder', '/forbidden'],
+    ['responder', '/assignments'],
   ])('sends a signed-in %s to their landing route', (role, path) => {
     auth.value = { user: { uid: 'u1' }, role, loading: false };
     renderAt();
