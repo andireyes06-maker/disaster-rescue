@@ -10,7 +10,7 @@ abstract class ProfileSource {
 }
 
 /// Reads `users/{uid}` through the rules. The rules let a user read their own profile only while the account is active,
-/// so a refused read is treated as a deactivated account.
+/// so a refused read is reported as unreadable, not as a deactivated account. Only the `active` flag decides that.
 class FirestoreProfileSource implements ProfileSource {
   FirestoreProfileSource(this._db);
   final FirebaseFirestore _db;

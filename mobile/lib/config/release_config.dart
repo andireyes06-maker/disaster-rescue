@@ -1,7 +1,7 @@
-/// Pure check of the --dart-define values for a release build. Returns one message per problem.
-/// Debug and profile builds are not checked, so they keep the emulator defaults.
+/// Pure check of the --dart-define values for a non-debug build (release and profile). Returns one message per problem.
+/// Only debug builds are skipped, so they keep the emulator defaults.
 List<String> releaseConfigErrors({
-  required bool releaseMode,
+  required bool nonDebug,
   required String apiBaseUrl,
   required bool useEmulators,
   required String firebaseApiKey,
@@ -9,7 +9,7 @@ List<String> releaseConfigErrors({
   required String firebaseSenderId,
   required String firebaseProjectId,
 }) {
-  if (!releaseMode) return const [];
+  if (!nonDebug) return const [];
   final errors = <String>[];
 
   if (apiBaseUrl.trim().isEmpty) {

@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart' show kReleaseMode;
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 import 'config/release_config.dart';
 
 /// Values come from --dart-define so no real config is committed.
 const _apiBaseUrlDefine = String.fromEnvironment('API_BASE_URL');
 
-/// Debug and profile builds default to the Android emulator host. Release builds have no default,
+/// Debug builds default to the Android emulator host. Profile and release builds have no default,
 /// so an unset API_BASE_URL is reported by [releaseErrors] instead of falling back to a local host.
 const apiBaseUrl = _apiBaseUrlDefine != ''
     ? _apiBaseUrlDefine
-    : (kReleaseMode ? '' : 'http://10.0.2.2:8080/api');
+    : (kDebugMode ? 'http://10.0.2.2:8080/api' : '');
 
 const _apiKey = String.fromEnvironment('FIREBASE_API_KEY');
 const _appId = String.fromEnvironment('FIREBASE_APP_ID');
@@ -36,7 +36,7 @@ bool get usingEmulators => _useEmulators;
 
 /// Problems with this build's configuration. Always empty in debug and profile builds.
 final releaseErrors = releaseConfigErrors(
-  releaseMode: kReleaseMode,
+  nonDebug: !kDebugMode,
   apiBaseUrl: apiBaseUrl,
   useEmulators: _useEmulators,
   firebaseApiKey: _apiKey,

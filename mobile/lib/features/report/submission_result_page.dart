@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../../data/api_client.dart';
 import 'hotline_button.dart';
@@ -33,8 +36,12 @@ const _session =
 /// True when the server may have created the report, so the same key must be kept and a
 /// resend is not automatic. Mirrors the web's apiFailure mapping (F02). Auth is never uncertain.
 bool isUncertainSubmission(Object error) {
-  // Once submission starts, an unrecognized receipt/error cannot prove refusal.
-  if (error is! ApiException) return true;
+  // Only a timeout, a dropped connection, or a reply that cannot be read can mean the request reached the server.
+  // Any other error that is not an ApiException happened on this phone (for example a file or validation error)
+  // before the request was sent, so it cannot have created a report.
+  if (error is! ApiException) {
+    return error is TimeoutException || error is http.ClientException || error is FormatException;
+  }
   if (error.code == 'bad_response' ||
       (error.status >= 200 && error.status < 300)) {
     return true;

@@ -32,6 +32,8 @@ String failureMessage(AuthFailure f, String? detail) {
       return detail ?? 'We could not create your account. Please try again.';
     case AuthFailure.sessionEnded:
       return 'Your session has ended. Please sign in again.';
+    case AuthFailure.profileUnreadable:
+      return 'We cannot read your account right now. Try again, or ask an administrator if this continues.';
   }
 }
 

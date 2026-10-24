@@ -4,7 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/report_models.dart';
 
-/// Keeps the unsent report on the phone. Photos are never stored.
+/// Keeps the unsent report on the phone. Photos, the contact name and the contact phone are never stored:
+/// the resident retypes those after a restart (the form refills them from the profile when it can).
 abstract class DraftStore {
   Future<void> save(ReportDraft draft);
   Future<ReportDraft?> load();
@@ -39,12 +40,17 @@ class ReportDraftStore implements DraftStore {
     return prefs;
   }
 
+  /// The stored form of a draft: the contact fields are left out.
+  static Map<String, dynamic> _stored(Map<String, dynamic> j) => Map<String, dynamic>.of(j)
+    ..remove('contactName')
+    ..remove('contactPhone');
+
   @override
   Future<void> save(ReportDraft draft) async {
     final key = _key;
     if (key == null) return;
     final prefs = await _prefs();
-    await prefs.setString(key, jsonEncode(draft.toJson()));
+    await prefs.setString(key, jsonEncode(_stored(draft.toJson())));
   }
 
   @override
@@ -56,7 +62,13 @@ class ReportDraftStore implements DraftStore {
     if (s == null) return null;
     try {
       final j = jsonDecode(s);
-      if (j is Map<String, dynamic>) return ReportDraft.fromJson(j);
+      if (j is Map<String, dynamic>) {
+        // Drafts saved by earlier builds may still hold the contact fields. Remove them from the phone.
+        if (j.containsKey('contactName') || j.containsKey('contactPhone')) {
+          await prefs.setString(key, jsonEncode(_stored(j)));
+        }
+        return ReportDraft.fromJson(_stored(j));
+      }
     } catch (_) {}
     return null;
   }

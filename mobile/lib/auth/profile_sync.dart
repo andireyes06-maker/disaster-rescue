@@ -16,7 +16,7 @@ class ProfileMissing extends ProfileState {
   const ProfileMissing();
 }
 
-/// The rules refused the profile read. They refuse it once the account is deactivated.
+/// The rules refused the profile read. Usually the account is deactivated, but a refusal can also come from other rule or auth problems.
 class ProfileDenied extends ProfileState {
   const ProfileDenied();
 }
@@ -68,7 +68,8 @@ class SyncSignOut extends SyncDecision {
   final SyncEnd reason;
 }
 
-enum SyncEnd { accountDisabled, sessionEnded }
+/// profileUnreadable: the profile read was refused. Only [accountDisabled] means the account is actually inactive.
+enum SyncEnd { accountDisabled, sessionEnded, profileUnreadable }
 
 String? _teamOf(String? v) => (v == null || v.isEmpty) ? null : v;
 
@@ -87,7 +88,7 @@ SyncDecision decideProfileSync({
     case ProfileLoading():
       return const SyncHoldFor(SyncHold.profileLoading);
     case ProfileDenied():
-      return const SyncSignOut(SyncEnd.accountDisabled);
+      return const SyncSignOut(SyncEnd.profileUnreadable);
     case ProfileMissing():
       // A missing profile is a broken or ended session, except while a new account is still being set up.
       return provisioning

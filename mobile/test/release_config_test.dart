@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// A complete, valid release configuration. Each test changes one value.
 List<String> check({
-  bool releaseMode = true,
+  bool nonDebug = true,
   String apiBaseUrl = 'https://api.example.org/api',
   bool useEmulators = false,
   String firebaseApiKey = 'key',
@@ -12,7 +12,7 @@ List<String> check({
   String firebaseProjectId = 'project',
 }) =>
     releaseConfigErrors(
-      releaseMode: releaseMode,
+      nonDebug: nonDebug,
       apiBaseUrl: apiBaseUrl,
       useEmulators: useEmulators,
       firebaseApiKey: firebaseApiKey,
@@ -28,9 +28,15 @@ void main() {
 
   test('debug builds report nothing, even with the emulator default host', () {
     expect(
-      check(releaseMode: false, apiBaseUrl: 'http://10.0.2.2:8080/api', useEmulators: true, firebaseApiKey: ''),
+      check(nonDebug: false, apiBaseUrl: 'http://10.0.2.2:8080/api', useEmulators: true, firebaseApiKey: ''),
       isEmpty,
     );
+  });
+
+  test('profile builds (non-debug) are checked too, not only release', () {
+    final errors = check(apiBaseUrl: 'http://10.0.2.2:8080/api', useEmulators: true, firebaseApiKey: '');
+    expect(errors, isNotEmpty);
+    expect(errors.join(' '), contains('10.0.2.2'));
   });
 
   test('a cleartext HTTP API URL is rejected and the message mentions HTTPS', () {

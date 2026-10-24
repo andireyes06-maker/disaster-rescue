@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
+
+import 'package:http/http.dart' as http;
 
 import 'package:disaster_rescue/data/api_client.dart';
 import 'package:disaster_rescue/data/report_models.dart';
@@ -320,6 +324,36 @@ void main() {
       }
     });
   }
+
+  testWidgets('a timed-out send is uncertain: the draft and the send block are kept', (t) async {
+    await open(t);
+    env.reports.createError = TimeoutException('slow');
+    await toStep4(t);
+    await tapText(t, 'Submit report');
+    expect(env.drafts.uncertain, isTrue);
+    expect(env.drafts.draft, isNotNull);
+  });
+
+  testWidgets('a dropped connection is uncertain: the send block is kept', (t) async {
+    await open(t);
+    env.reports.createError = http.ClientException('connection reset');
+    await toStep4(t);
+    await tapText(t, 'Submit report');
+    expect(env.drafts.uncertain, isTrue);
+  });
+
+  testWidgets('a local file error before sending does not block a resend', (t) async {
+    await open(t);
+    env.reports.createError = const FileSystemException('photo file is missing');
+    await toStep4(t);
+    await tapText(t, 'Submit report');
+    expect(env.drafts.uncertain, isFalse);
+    expect(find.text(uncertainCopy), findsNothing);
+    env.reports.createError = null;
+    await tapText(t, 'Try again');
+    await tapText(t, 'Submit report');
+    expect(env.reports.created, hasLength(1));
+  });
 
   testWidgets(
     'a retry after a lost response sends the same submission key (M04)',

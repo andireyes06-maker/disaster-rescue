@@ -4,6 +4,7 @@ import 'package:disaster_rescue/auth/auth_repository.dart';
 import 'package:disaster_rescue/auth/profile_source.dart';
 import 'package:disaster_rescue/auth/profile_sync.dart';
 import 'package:disaster_rescue/data/api_client.dart';
+import 'package:disaster_rescue/features/auth/auth_widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/testing.dart';
 
@@ -88,12 +89,18 @@ void main() {
     expect(user.claimCalls.length, 2);
   });
 
-  test('a refused profile read signs the person out with the account-disabled reason', () async {
+  test('a refused profile read signs the person out with the unreadable reason, not account-disabled', () async {
     backend.emit(FakeUser('u1', (_) async => claimsOf('resident')));
     await settle();
     profiles.send('u1', const ProfileDenied());
     await settle();
-    expect(last?.endReason, AuthFailure.accountDisabled);
+    expect(last?.endReason, AuthFailure.profileUnreadable);
+  });
+
+  test('a refused profile read shows its own message, never the account-disabled one', () {
+    final unreadable = failureMessage(AuthFailure.profileUnreadable, null);
+    expect(unreadable, contains('cannot read your account'));
+    expect(unreadable, isNot(failureMessage(AuthFailure.accountDisabled, null)));
   });
 
   test('a role change under a running session ends it with the session-ended reason', () async {

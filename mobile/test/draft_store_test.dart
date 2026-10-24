@@ -26,8 +26,9 @@ void main() {
     expect(d.lng, 120.9);
     expect(d.source, 'gps');
     expect(d.addressText, 'Near the bridge');
-    expect(d.contactName, 'Ana');
-    expect(d.contactPhone, '0917 123 4567');
+    // Contact fields are not persisted, so they come back empty.
+    expect(d.contactName, '');
+    expect(d.contactPhone, '');
     await store.clear();
     expect(await store.load(), isNull);
   });
@@ -35,6 +36,28 @@ void main() {
   test('a corrupt value loads as no draft', () async {
     SharedPreferences.setMockInitialValues({'report_draft_v2:res-a': '{not json'});
     expect(await ReportDraftStore(currentUid: () => 'res-a').load(), isNull);
+  });
+
+  test('the stored draft has no contact name or phone', () async {
+    final store = ReportDraftStore(currentUid: () => 'res-a');
+    await store.save(const ReportDraft(type: 'fire', description: 'Smoke', lat: 1, lng: 1, source: 'gps', addressText: 'Gate 2', contactName: 'Ana', contactPhone: '09170000001'));
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getString('report_draft_v2:res-a')!;
+    expect(raw, isNot(contains('Ana')));
+    expect(raw, isNot(contains('09170000001')));
+    expect(raw, isNot(contains('contactName')));
+    expect(raw, isNot(contains('contactPhone')));
+    expect((await store.load())?.addressText, 'Gate 2');
+  });
+
+  test('a draft stored by an earlier build loses its contact fields on load', () async {
+    SharedPreferences.setMockInitialValues({'report_draft_v2:res-a': '{"type":"fire","description":"Smoke","lat":1,"lng":1,"source":"gps","addressText":"","contactName":"Ana","contactPhone":"09170000001"}'});
+    final store = ReportDraftStore(currentUid: () => 'res-a');
+    final d = (await store.load())!;
+    expect(d.description, 'Smoke');
+    expect(d.contactPhone, '');
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString('report_draft_v2:res-a'), isNot(contains('09170000001')));
   });
 
   test('draft json has no photo field', () {

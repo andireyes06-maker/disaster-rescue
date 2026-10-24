@@ -17,6 +17,8 @@ enum AuthFailure {
   registrationIncomplete,
   /// The profile or the token is no longer valid (for example after a role change). Sign in again.
   sessionEnded,
+  /// The profile read was refused for a reason other than an inactive flag. Try again later.
+  profileUnreadable,
 }
 
 class AuthException implements Exception {
@@ -310,7 +312,11 @@ class FirebaseAuthRepository implements AuthRepository {
         _cancelProfileWait();
         _publishEnded(
           user,
-          reason == SyncEnd.accountDisabled ? AuthFailure.accountDisabled : AuthFailure.sessionEnded,
+          switch (reason) {
+            SyncEnd.accountDisabled => AuthFailure.accountDisabled,
+            SyncEnd.profileUnreadable => AuthFailure.profileUnreadable,
+            SyncEnd.sessionEnded => AuthFailure.sessionEnded,
+          },
         );
     }
   }

@@ -46,9 +46,9 @@ void main() {
     expect((d as SyncSignOut).reason, SyncEnd.accountDisabled);
   });
 
-  test('a refused profile read is treated as a deactivated account', () {
+  test('a refused profile read is not reported as a deactivated account', () {
     final d = decideProfileSync(profile: const ProfileDenied(), claims: resident, refreshedFor: null);
-    expect((d as SyncSignOut).reason, SyncEnd.accountDisabled);
+    expect((d as SyncSignOut).reason, SyncEnd.profileUnreadable);
   });
 
   test('a missing profile ends the session, except while a new account is being set up', () {
