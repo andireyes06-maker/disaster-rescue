@@ -30,12 +30,13 @@ export function useAssignedReports(teamId: string | null | undefined): AssignedR
       return undefined;
     }
     setState({ reports: [], loading: true, error: null, fromCache: false });
-    // Server-filtered: the current team's open statuses only, newest first.
+    // Server-filtered: the current team's open statuses only, oldest first, so the window holds the oldest open
+    // assignments (the same order as the Flutter responder list).
     const q = query(
       collection(getFirebaseDb(), 'reports'),
       where('assignedTeamId', '==', teamId),
       where('status', 'in', OPEN_STATUSES),
-      orderBy('createdAt', 'desc'), limit(windowSize),
+      orderBy('createdAt', 'asc'), limit(windowSize),
     );
     return onSnapshot(
       q,

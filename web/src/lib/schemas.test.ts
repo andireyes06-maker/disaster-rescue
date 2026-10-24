@@ -91,10 +91,14 @@ describe('teamNameSchema', () => {
 });
 
 describe('staffAccountSchema', () => {
-  const valid = { email: 'a@example.org', name: 'Ana', role: 'dispatcher', team: '' };
+  const valid = { email: 'a@example.org', name: 'Ana', role: 'responder', team: '' };
 
   it('accepts a staff account with no team', () => {
     expect(staffAccountSchema.safeParse(valid).success).toBe(true);
+  });
+
+  it.each(['dispatcher', 'dmo'])('does not offer the %s role, which has no website access', (role) => {
+    expect(staffAccountSchema.safeParse({ ...valid, role }).success).toBe(false);
   });
 
   it('rejects an unknown role and a blank email', () => {

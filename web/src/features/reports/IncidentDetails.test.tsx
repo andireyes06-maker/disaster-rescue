@@ -104,8 +104,8 @@ describe('IncidentDetails', () => {
     expect(screen.queryByRole('button', { name: /reject/i })).toBeNull();
   });
 
-  it('shows no action buttons for dmo', () => {
-    show([makeReport()], 'dmo');
+  it('shows no action buttons for a role without staff actions', () => {
+    show([makeReport()], 'responder');
     expect(screen.queryByRole('button')).toBeNull();
     expect(screen.queryByRole('combobox')).toBeNull();
     expect(screen.queryByRole('textbox')).toBeNull();

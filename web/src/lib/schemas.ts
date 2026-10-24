@@ -8,7 +8,8 @@ export const MAX_NOTE_LENGTH = 1000;
 export const PEOPLE_RESCUED_ERROR = 'People rescued must be a whole number from 0 to 10000.';
 export const ASSIGN_TEAM_ERROR = 'Choose a free rescue team.';
 export const TEAM_NAME_ERROR = 'Team names must be 1 to 100 characters.';
-export const STAFF_ROLE_OPTIONS = ['responder', 'dispatcher', 'dmo'] as const;
+// Roles an administrator can give a new staff account. Dispatcher and DMO accounts have no website access, so they are not offered.
+export const STAFF_ROLE_OPTIONS = ['responder'] as const;
 
 export const operationUpdateSchema = z.object({
   status: z.enum(OPERATION_STATUSES),

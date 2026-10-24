@@ -105,9 +105,11 @@ export default function IncidentMap() {
         <FilterSelect label="Priority" value={filters.priority} onChange={set('priority')} options={PRIORITIES} />
         <FilterSelect label="Status" value={filters.status} onChange={set('status')} options={REPORT_STATUSES} />
       </div>
-      <div className="map-legend" aria-label="Map legend">
+      <div className="map-legend" role="group" aria-label="Map legend">
         <strong>{visible.length} located report{visible.length === 1 ? '' : 's'} shown</strong>
-        {PRIORITIES.map((priority) => <span key={priority}><span className={`badge badge--${priority}`}>{cap(priority)}</span></span>)}
+        <ul className="map-legend__priorities" aria-label="Priority colors">
+          {PRIORITIES.map((priority) => <li key={priority}><span className={`badge badge--${priority}`}>{cap(priority)}</span></li>)}
+        </ul>
       </div>
       {visible.length === 0 && (
         <EmptyState

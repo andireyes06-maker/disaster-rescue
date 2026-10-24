@@ -123,4 +123,11 @@ describe('AppShell workspace copy', () => {
     expect(screen.queryByText('Demo workspace · Sample data')).not.toBeInTheDocument();
     demo.value = null;
   });
+
+  it('announces a sign-out that fails instead of swallowing it', async () => {
+    auth.value = { ...auth.value, logout: vi.fn(async () => { throw new Error('offline'); }) };
+    renderAt('/dashboard');
+    await userEvent.click(screen.getAllByRole('button', { name: 'Sign out' })[0]);
+    expect(await screen.findByRole('alert')).toHaveTextContent('Could not sign out. Check your connection and try again.');
+  });
 });

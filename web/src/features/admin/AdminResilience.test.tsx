@@ -94,7 +94,7 @@ it('returns focus to search when a role update removes a row from the selected f
   const user = userEvent.setup(); render(<AccountsPanel teams={[]} />);
   const role = await screen.findByLabelText('Role for Sample Staff');
   await user.selectOptions(screen.getByLabelText('Filter by role'), 'responder');
-  await user.selectOptions(role, 'dmo');
+  await user.selectOptions(role, 'admin');
   await user.click(screen.getByRole('button', { name: 'Save role for Sample Staff' }));
   await screen.findByText('Role updated for Sample Staff.');
   expect(screen.getByRole('searchbox', { name: 'Find an account' })).toHaveFocus();

@@ -8,7 +8,7 @@ export const canAssign = (r: Pick<Report, 'status'>): boolean =>
   r.status === 'Verified' || r.status === 'Awaiting Assignment';
 
 // Staff actions on reports. The website is for administrators only: they validate, assign and close.
-// Other roles read here; residents and responders use the mobile app.
+// Other roles read here. Rescuers record field progress in the mobile app or on this website; residents use the mobile app.
 export const canActOnReports = (role: string | null | undefined): boolean => role === 'admin';
 
 export interface NextStep {

@@ -93,7 +93,7 @@ export default function ClosedReportPage() {
     return (
       <EmptyState
         title="Your account is not linked to a rescue team"
-        body="Ask a dispatcher to assign you to a team. Assignments appear here once you have one."
+        body="Ask your administrator to assign you to a team. Assignments appear here once you have one."
       />
     );
   }

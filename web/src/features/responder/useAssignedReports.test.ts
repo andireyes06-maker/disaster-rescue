@@ -43,16 +43,16 @@ describe('useAssignedReports filters open statuses on the server', () => {
     vi.clearAllMocks();
   });
 
-  it('queries the team, open statuses only, newest first', () => {
+  it('queries the team, open statuses only, oldest first', () => {
     renderHook(() => useAssignedReports('team-a'));
     expect(where).toHaveBeenCalledWith('assignedTeamId', '==', 'team-a');
     expect(where).toHaveBeenCalledWith('status', 'in', OPEN);
-    expect(orderBy).toHaveBeenCalledWith('createdAt', 'desc');
+    expect(orderBy).toHaveBeenCalledWith('createdAt', 'asc');
     for (const s of TERMINAL_STATUSES) expect(OPEN).not.toContain(s);
     expect(h.subs[0].constraints).toEqual(expect.arrayContaining([
       { where: 'assignedTeamId', op: '==', value: 'team-a' },
       { where: 'status', op: 'in', value: OPEN },
-      { orderBy: 'createdAt', dir: 'desc' },
+      { orderBy: 'createdAt', dir: 'asc' },
     ]));
     expect(onSnapshot).toHaveBeenCalledTimes(1);
   });

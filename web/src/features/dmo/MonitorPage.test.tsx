@@ -22,7 +22,7 @@ import MonitorPage from './MonitorPage';
 const ACTION = /^(assign|acknowledge|close|reject|save|verify|classify|set priority|mark|confirm)/i;
 
 describe('MonitorPage', () => {
-  it('renders no action buttons for dmo', () => {
+  it('renders no action buttons (read-only monitor)', () => {
     render(<MemoryRouter><MonitorPage /></MemoryRouter>);
     expect(screen.getByTestId('map')).toBeInTheDocument();
     expect(screen.queryAllByRole('button', { name: ACTION })).toHaveLength(0);

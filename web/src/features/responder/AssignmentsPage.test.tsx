@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
@@ -151,5 +151,31 @@ describe('AssignmentsPage recently closed (read-only, bounded)', () => {
     state.closed = [closedReport(3)];
     renderPage();
     expect(screen.getByRole('link', { name: 'View fire report' })).toHaveAttribute('href', '/assignments/c3');
+  });
+});
+
+describe('AssignmentsPage title and order', () => {
+  beforeEach(() => {
+    state.team = 'team-a';
+    state.reports = [];
+    document.title = 'Rescue Reports';
+  });
+
+  it('sets the Assignments document title on first render', () => {
+    renderPage();
+    expect(document.title).toBe('Assignments · Rescue Reports');
+  });
+
+  it('labels the assignment list as oldest first, in the order the hook returns it', () => {
+    const at = new Date('2026-10-19T09:00:00+08:00');
+    state.reports = [
+      { id: 'old', type: 'flood', status: 'Team Assigned', assignedTeamId: 'team-a', reference: 'RR-1', description: '', location: null, addressText: '', priority: 'High', createdAt: at, updatedAt: at },
+      { id: 'new', type: 'fire', status: 'Team Assigned', assignedTeamId: 'team-a', reference: 'RR-2', description: '', location: null, addressText: '', priority: 'High', createdAt: new Date(at.getTime() + 3600000), updatedAt: at },
+    ];
+    renderPage();
+    const list = screen.getByRole('list', { name: 'Assigned incidents, oldest first' });
+    const items = within(list).getAllByRole('listitem');
+    expect(items[0]).toHaveTextContent('flood report');
+    expect(items[1]).toHaveTextContent('fire report');
   });
 });

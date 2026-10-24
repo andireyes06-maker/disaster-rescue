@@ -137,4 +137,20 @@ describe('website access by role', () => {
     expect(screen.getByTestId('s')).toHaveTextContent('out');
     expect(signOutFn).toHaveBeenCalled();
   });
+
+  // Residents use the mobile app only: refused and signed out, the same way as a dispatcher.
+  it('signs out a resident with resident_mobile_only', async () => {
+    render(<AuthProvider><Probe /></AuthProvider>);
+    await act(async () => authCallback(fbUser({ role: 'resident', active: true })));
+    await waitFor(() => expect(screen.getByTestId('e')).toHaveTextContent('resident_mobile_only'));
+    expect(screen.getByTestId('s')).toHaveTextContent('out');
+    expect(signOutFn).toHaveBeenCalled();
+  });
+
+  it.each(['responder', 'admin'])('keeps a %s account signed in', async (role) => {
+    render(<AuthProvider><Probe /></AuthProvider>);
+    await act(async () => authCallback(fbUser({ role, active: true })));
+    await waitFor(() => expect(screen.getByTestId('s')).toHaveTextContent(`in:${role}`));
+    expect(screen.getByTestId('e')).toBeEmptyDOMElement();
+  });
 });

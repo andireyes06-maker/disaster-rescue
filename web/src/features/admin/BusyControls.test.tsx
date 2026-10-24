@@ -26,7 +26,7 @@ it.each(['account-create', 'role', 'user-create', 'user-status', 'team-create', 
     await user.type(screen.getByLabelText('New account email'), 'new@example.test');
     button = screen.getByRole('button', { name: 'Create account' });
   } else if (kind === 'role') {
-    await user.selectOptions(screen.getByLabelText('Role for Sample Staff'), 'dispatcher');
+    await user.selectOptions(screen.getByLabelText('Role for Sample Staff'), 'admin');
     button = screen.getByRole('button', { name: 'Save role for Sample Staff' });
   } else if (kind === 'user-create') {
     await user.click(screen.getByText('Create staff account', { selector: 'summary' }));
@@ -62,7 +62,7 @@ it('returns focus to the role selector when the saved action disappears', async 
   const user = userEvent.setup();
   render(<AccountsPanel teams={[team]} />);
   const select = await screen.findByLabelText('Role for Sample Staff');
-  await user.selectOptions(select, 'dispatcher');
+  await user.selectOptions(select, 'admin');
   let resolve!: () => void;
   h.api.mockImplementation(() => new Promise<void>(done => { resolve = done; }));
   await user.click(screen.getByRole('button', { name: 'Save role for Sample Staff' }));
@@ -79,7 +79,7 @@ it('filters accounts by name and role and restores them from an empty view', asy
   await user.click(screen.getByRole('button', { name: 'Clear account filters' }));
   expect(screen.getByText('Sample Staff')).toBeInTheDocument();
   expect(screen.getByRole('searchbox', { name: 'Find an account' })).toHaveFocus();
-  await user.selectOptions(screen.getByLabelText('Account role'), 'dispatcher');
+  await user.selectOptions(screen.getByLabelText('Account role'), 'admin');
   expect(screen.getByRole('heading', { name: 'No matching accounts' })).toBeInTheDocument();
 });
 it('filters teams by availability and recovers from an empty view', async () => {

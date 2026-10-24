@@ -177,7 +177,7 @@ function IncidentView({ id }: IncidentViewProps) {
   const [editingDetails, setEditingDetails] = useState(false);
 
   const canAct = canActOnReports(role);
-  const backTo = role === 'dmo' ? '/monitor' : '/dashboard';
+  // The route is admin-only, so the queue is the one place to return to.
   if (loading) return <Skeleton label="Loading incident details"><SkeletonRows rows={3} height={120} /></Skeleton>;
   if (error) {
     return (
@@ -189,8 +189,8 @@ function IncidentView({ id }: IncidentViewProps) {
   }
   if (removed || notFound || !report) return <EmptyState
     title={removed ? 'This report is no longer available.' : 'Report not found'}
-    body={`The report may have been removed, or the link may be outdated. Return to ${canAct ? 'the incident queue' : 'the monitor'} to choose another report.`}
-    action={<Link className="btn btn--ghost" to={backTo}>{canAct ? 'Back to the queue' : 'Back to monitor'}</Link>}
+    body="The report may have been removed, or the link may be outdated. Return to the incident queue to choose another report."
+    action={<Link className="btn btn--ghost" to="/dashboard">Back to the queue</Link>}
   />;
 
   const reportId = report.id;
@@ -228,7 +228,7 @@ function IncidentView({ id }: IncidentViewProps) {
   const loc = report.location;
   return (
     <div className="incident">
-      <p className="incident__back"><Link className="touch-link" to={canAct ? '/dashboard' : '/monitor'}>{canAct ? 'Back to the queue' : 'Back to monitor'}</Link></p>
+      <p className="incident__back"><Link className="touch-link" to="/dashboard">Back to the queue</Link></p>
 
       <ConnectionNotice fromCache={fromCache} />
       <header className="incident__heading">

@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldAlert } from 'lucide-react';
 import { useAuth } from '../auth/AuthProvider';
 import { landingFor, LANDING } from '../routes/landing';
 import type { Role } from '../types/domain';
 import PublicHeader from '../components/PublicHeader';
+import Banner from '../components/calm/Banner';
 import './public.css';
 
 const ROLE_NAME: Record<Role, string> = {
@@ -17,11 +18,21 @@ const ROLE_NAME: Record<Role, string> = {
 
 export default function Forbidden() {
   const { user, role, logout } = useAuth();
+  const [signOutError, setSignOutError] = useState('');
   useEffect(() => { document.title = 'Access denied · Rescue Reports'; }, []);
-  const signOut = <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>;
+  async function onSignOut() {
+    setSignOutError('');
+    try {
+      await logout();
+    } catch {
+      setSignOutError('Could not sign out. Check your connection and try again.');
+    }
+  }
+  const signOut = <button type="button" className="btn btn--ghost" onClick={onSignOut}>Sign out</button>;
 
   let body: React.ReactNode;
   // Professor clarification (2026-10-23), amended 2026-10-24: residents use the mobile app only; rescuers use both; dispatchers and DMO have no website access.
+  // AuthProvider signs out refused accounts, so these branches show only when a refused role is still reported here.
   if (role === 'resident') {
     body = (
       <>
@@ -32,7 +43,7 @@ export default function Forbidden() {
   } else if (role === 'dispatcher' || role === 'dmo') {
     body = (
       <>
-        <p>Website access is for administrators only. Ask your administrator about your access.</p>
+        <p>This account has no website access. Ask your administrator.</p>
         <div className="forbidden__actions">{signOut}</div>
       </>
     );
@@ -78,6 +89,7 @@ export default function Forbidden() {
           </header>
           <div className="forbidden__body">
             {body}
+            {signOutError && <Banner tone="error" role="alert">{signOutError}</Banner>}
             <Link className="login__home" to="/">Back to home</Link>
           </div>
         </div>

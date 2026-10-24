@@ -239,12 +239,13 @@ export default function AssignmentsPage() {
   const drafts = useDrafts();
   const scope = user ? `${user.uid}|${role ?? ''}|${team ?? ''}` : '';
   const closedDrafts = [...drafts.values()].filter((d) => d.closed && hasContent(d));
+  useEffect(() => { document.title = 'Assignments · Rescue Reports'; }, []);
 
   if (!team) {
     return (
       <EmptyState
         title="Your account is not linked to a rescue team"
-        body="Ask a dispatcher to assign you to a team. Assignments appear here once you have one."
+        body="Ask your administrator to assign you to a team. Assignments appear here once you have one."
       />
     );
   }
@@ -262,11 +263,11 @@ export default function AssignmentsPage() {
       {!loading && !error && reports.length === 0 && (
         <EmptyState
           title="No open assignments right now"
-          body="New assignments from your dispatcher appear here."
+          body="New assignments from your administrator appear here."
         />
       )}
       {reports.length > 0 && (
-        <ul className="queue" aria-label="Assigned incidents, newest first">
+        <ul className="queue" aria-label="Assigned incidents, oldest first">
           {reports.map((r) => <AssignedCard key={r.id} report={r} scope={scope} />)}
         </ul>
       )}

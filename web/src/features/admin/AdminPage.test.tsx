@@ -100,11 +100,11 @@ describe('AdminPage', () => {
     const user = userEvent.setup();
     renderPage();
     const row = (await screen.findByText('Ana Cruz')).closest('tr') as HTMLElement;
-    await user.selectOptions(within(row).getByLabelText('Role for Ana Cruz'), 'dmo');
+    await user.selectOptions(within(row).getByLabelText('Role for Ana Cruz'), 'admin');
     // Staged: nothing is sent until the admin saves the change (W11).
     expect(h.api).not.toHaveBeenCalledWith('/users/r1', expect.objectContaining({ method: 'PATCH' }));
     await user.click(within(row).getByRole('button', { name: 'Save role for Ana Cruz' }));
-    expect(h.api).toHaveBeenCalledWith('/users/r1', expect.objectContaining({ method: 'PATCH', body: { role: 'dmo' } }));
+    expect(h.api).toHaveBeenCalledWith('/users/r1', expect.objectContaining({ method: 'PATCH', body: { role: 'admin' } }));
   });
 
   it("shows each account's current role in its row", async () => {
@@ -139,6 +139,19 @@ describe('AdminPage', () => {
     await user.click(screen.getByText('System health and settings', { selector: 'h2' }));
     await user.click(await screen.findByRole('button', { name: 'Retry health check' }));
     expect(await screen.findByText('API: Available')).toBeInTheDocument();
+  });
+
+  // Dispatcher and DMO accounts have no website access: an admin cannot give those roles, but an existing record still shows its role.
+  it('offers only responder and admin for new accounts and role changes, and still shows an existing dispatcher', async () => {
+    renderPage();
+    const existing = await screen.findByLabelText('Role for Jose Reyes');
+    expect(existing).toHaveValue('dispatcher');
+    const offered = within(existing).queryAllByRole('option').map((o) => o.textContent);
+    expect(offered).toEqual(['dispatcher', 'responder', 'admin']);
+    const ana = await screen.findByLabelText('Role for Ana Cruz');
+    expect(within(ana).queryAllByRole('option').map((o) => o.textContent)).toEqual(['responder', 'admin']);
+    const newRole = screen.getByLabelText('New account role');
+    expect(within(newRole).queryAllByRole('option').map((o) => o.textContent)).toEqual(['responder', 'admin']);
   });
 
 });

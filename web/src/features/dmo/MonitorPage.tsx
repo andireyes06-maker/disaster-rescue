@@ -1,7 +1,7 @@
 import IncidentMap from '../map/IncidentMap';
 import { Eye } from 'lucide-react';
 
-// Read-only for the DMO: the map and filters only. No action controls.
+// Admin-only read-only monitor (route /monitor): the map and filters only. No action controls.
 export default function MonitorPage() {
   return (
     <section aria-label="Incident monitor">

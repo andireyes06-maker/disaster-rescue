@@ -7,10 +7,11 @@ import type { Role } from '../types/domain';
 import { isProvisioning } from './provisioning';
 import { decideSync, classifyRefreshError, CLAIM_RETRY_DELAYS_MS, type ProfileDoc, type ProfileState, type SyncHold } from './profileSync';
 import { setIdentity } from '../features/responder/draftStore';
-import { hasWebsiteAccess } from './websiteAccess';
+import { websiteRefusalFor } from './websiteAccess';
 
 // 'session_ended': the profile or token is no longer valid, so the user must sign in again (for example after a role change).
-export type AuthError = 'account_disabled' | 'auth_failed' | 'session_ended' | 'website_access_disabled';
+// 'website_access_disabled' (dispatcher, DMO) and 'resident_mobile_only' (residents) are refused and signed out.
+export type AuthError = 'account_disabled' | 'auth_failed' | 'session_ended' | 'website_access_disabled' | 'resident_mobile_only';
 
 export interface AuthState {
   user: User | null;
@@ -85,9 +86,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           await signOut(auth).catch(() => {});
           return;
         }
-        // Professor clarification (2026-10-23): dispatcher and DMO accounts have no website access; sign them out.
-        if (!hasWebsiteAccess(String(claims.role))) {
-          setState({ ...INITIAL, loading: false, error: 'website_access_disabled' });
+        // Dispatcher and DMO accounts have no website access (2026-10-23); residents use the mobile app only. Sign them out.
+        const refusal = websiteRefusalFor(String(claims.role));
+        if (refusal) {
+          setState({ ...INITIAL, loading: false, error: refusal });
           await signOut(auth).catch(() => {});
           return;
         }

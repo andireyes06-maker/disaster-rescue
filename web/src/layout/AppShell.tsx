@@ -5,6 +5,7 @@ import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
 import Brand from '../components/Brand';
 import NotificationBell from '../features/resident/NotificationBell';
+import Banner from '../components/calm/Banner';
 
 interface NavItem {
   to: string;
@@ -24,7 +25,7 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
     { to: '/users', label: 'Users', icon: Users },
     { to: '/admin', label: 'Admin', icon: Settings },
   ],
-  // Rescuers use the website for their team's assignments and closed reports, and the mobile app for field work.
+  // Rescuers use the website for their team's assignments and closed reports. They record field progress in the mobile app or on this website.
   responder: [
     { to: '/assignments', label: 'Assignments', icon: ClipboardList },
   ],
@@ -52,7 +53,16 @@ export default function AppShell({ title, children }: AppShellProps) {
   const { user, role, logout } = useAuth();
   const items = (role && NAV[role]) || [];
   const [menuOpen, setMenuOpen] = useState(false);
+  const [signOutError, setSignOutError] = useState('');
   const { pathname } = useLocation();
+  async function onSignOut() {
+    setSignOutError('');
+    try {
+      await logout();
+    } catch {
+      setSignOutError('Could not sign out. Check your connection and try again.');
+    }
+  }
   useEffect(() => { document.title = `${title} · Rescue Reports`; }, [title]);
   return (
     <div className="shell">
@@ -89,10 +99,11 @@ export default function AppShell({ title, children }: AppShellProps) {
           {user && <NotificationBell key={user.uid} uid={user.uid} reportHref={(id) => role === 'responder' ? `/assignments/${encodeURIComponent(id)}` : `/incidents/${encodeURIComponent(id)}`} />}
           <span className="account-avatar" aria-hidden="true">{(user?.displayName || user?.email || 'R').slice(0, 1).toUpperCase()}</span>
           <span>{user?.displayName || user?.email} ({role})</span>
-          <button type="button" className="btn btn--ghost" onClick={() => logout().catch(() => {})}>Sign out</button>
+          <button type="button" className="btn btn--ghost" onClick={onSignOut}>Sign out</button>
           </div>
         </header>
         <main className="shell__main" id="main-content" tabIndex={-1}>
+          {signOutError && <Banner tone="error" role="alert">{signOutError}</Banner>}
           <header className="page-band">
             <h1>{title}</h1>
             <p className="shell__description">{DESCRIPTIONS[title]}</p>

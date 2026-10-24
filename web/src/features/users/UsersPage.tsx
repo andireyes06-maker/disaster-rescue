@@ -164,7 +164,7 @@ export default function UsersPage() {
       {users && <>
         <div className="management-search">
           <div><label htmlFor="account-search">Find an account</label><input id="account-search" type="search" placeholder="Name, email, or account ID" value={query} onChange={event => setQuery(event.target.value)} /></div>
-          <div><label htmlFor="account-role-filter">Account role</label><select id="account-role-filter" value={roleFilter} onChange={event => setRoleFilter(event.target.value)}><option value="">All roles</option>{['resident', 'responder', 'dispatcher', 'dmo', 'admin'].map(role => <option key={role} value={role}>{role}</option>)}</select></div>
+          <div><label htmlFor="account-role-filter">Account role</label><select id="account-role-filter" value={roleFilter} onChange={event => setRoleFilter(event.target.value)}><option value="">All roles</option>{Array.from(new Set(['resident', 'responder', 'admin', ...(users ?? []).map(u => u.role)])).map(role => <option key={role} value={role}>{role}</option>)}</select></div>
         </div>
         <p className="management-result-count" role="status">Showing {visibleUsers?.length} of {users.length} accounts</p>
         {visibleUsers?.length === 0 && <EmptyState title={users.length ? 'No matching accounts' : 'No accounts yet'} body={users.length ? 'Try a different name or role.' : 'Create a staff account to grant access to your team.'} action={users.length ? <button type="button" className="btn btn--ghost" onClick={() => { setQuery(''); setRoleFilter(''); document.getElementById('account-search')?.focus(); }}>Clear account filters</button> : undefined} />}

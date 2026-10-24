@@ -20,7 +20,8 @@ export interface AdminUser {
 export interface AdminTeam { id: string; name: string }
 
 // Roles an admin can assign to staff. A resident account is shown as resident and is never silently changed to another role.
-const ROLE_OPTIONS = ['responder', 'dispatcher', 'dmo', 'admin'] as const;
+// Dispatcher and DMO are not offered; an existing account with one of those roles still shows its current role (roleOptionsFor).
+const ROLE_OPTIONS = ['responder', 'admin'] as const;
 
 // Teams apply to field staff and dispatch roles. Residents and admins have no team.
 const TEAM_ROLES = new Set(['responder', 'dispatcher', 'dmo']);
@@ -89,6 +90,13 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
       return next;
     });
   };
+  // The email field is disabled while the create request is pending, so focus moves to it once it is enabled again.
+  const emailFocus = useRef(false);
+  useEffect(() => {
+    if (!emailFocus.current || pending.has('create')) return;
+    emailFocus.current = false;
+    document.getElementById('new-email')?.focus();
+  }, [pending]);
 
   async function saveRole(u: AdminUser) {
     const next = draft[u.uid] ?? u.role;
@@ -163,7 +171,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
     } catch (err) {
       if (apiFailure(err)?.code === 'email_taken') {
         setFieldErrors(previous => ({ ...previous, email: 'That email already has an account. Use another email or find the existing account above.' }));
-        document.getElementById('new-email')?.focus();
+        emailFocus.current = true;
         return;
       }
       setError(failureText(err, 'Could not confirm account creation. Search for this email before trying again.'));
@@ -222,10 +230,10 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
       <MotionForm onSubmit={create} noValidate className="admin-accounts__create">
         <p className="field-hint">Enter the staff member’s name and email, then choose their role.</p>
         <RequiredNote /><label htmlFor="new-name">New account name<RequiredMark /></label>
-        <input id="new-name" aria-required="true" readOnly={pending.has('create')} aria-invalid={!!fieldErrors.name} aria-describedby={fieldErrors.name ? 'admin-name-error' : undefined} value={name} onChange={(e) => setName(e.target.value)} />
+        <input id="new-name" aria-required="true" disabled={pending.has('create')} aria-invalid={!!fieldErrors.name} aria-describedby={fieldErrors.name ? 'admin-name-error' : undefined} value={name} onChange={(e) => setName(e.target.value)} />
         {fieldErrors.name && <FieldError id="admin-name-error">{fieldErrors.name}</FieldError>}
         <label htmlFor="new-email">New account email<RequiredMark /></label>
-        <input id="new-email" aria-required="true" type="email" readOnly={pending.has('create')} aria-invalid={!!fieldErrors.email} aria-describedby={fieldErrors.email ? 'admin-email-error' : undefined} value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input id="new-email" aria-required="true" type="email" disabled={pending.has('create')} aria-invalid={!!fieldErrors.email} aria-describedby={fieldErrors.email ? 'admin-email-error' : undefined} value={email} onChange={(e) => setEmail(e.target.value)} />
         {fieldErrors.email && <FieldError id="admin-email-error" role="alert">{fieldErrors.email}</FieldError>}
         <label htmlFor="new-role">New account role<RequiredMark /></label>
         <select id="new-role" aria-required="true" value={role} disabled={pending.has('create')} onChange={(e) => setRole(e.target.value)}>
