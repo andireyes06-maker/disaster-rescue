@@ -14,5 +14,5 @@ test('the public front door explains reporting and fits narrow screens', async (
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   }
   await page.getByRole('link', { name: 'Access', exact: true }).click();
-  await expect(page.getByText('Use Rescue Reports in your browser to submit an incident, add a location, and check updates.')).toBeVisible();
+  await expect(page.getByText('Use the Rescue Reports mobile app to submit reports, add a location and check updates. The website is for administrators and rescue teams.')).toBeVisible();
 });
