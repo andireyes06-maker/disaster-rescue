@@ -25,6 +25,9 @@ export function validatePhotos(files) {
   }
 }
 
+// A Firestore document id: non-empty, no '/', not '.' or '..'. Anything else makes the database call throw (500).
+export const isSafeId = (v) => typeof v === 'string' && v.length > 0 && v.length <= 1500 && !v.includes('/') && v !== '.' && v !== '..';
+
 export function sanitizeText(s, max) {
   return String(s ?? '')
     .replace(/<[^>]*>/g, '')

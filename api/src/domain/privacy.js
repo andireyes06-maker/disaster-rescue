@@ -6,7 +6,7 @@ export const coarsen = (lat, lng) => ({ lat: snap(lat), lng: snap(lng) });
 
 export function projectReportForRole(report, role, uid, teamId) {
   if (!report) return null;
-  if (role === 'dispatcher' || role === 'dmo' || role === 'admin') return report;
+  if (role === 'admin') return report;
   if (uid && report.reporterId === uid) return report;
   if (role === 'responder') {
     return teamId && report.assignedTeamId === teamId ? report : null;

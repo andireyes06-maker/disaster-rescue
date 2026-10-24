@@ -31,9 +31,9 @@ describe('stats and export access control', () => {
     }
   });
 
-  it('responder gets 200 on stats and 403 on both exports', async () => {
+  it('responder gets 403 on stats (admin only) and on both exports', async () => {
     const t = makeTestApp();
-    expect((await get(t, t.as('responder'), '/api/stats')).status).toBe(200);
+    expect((await get(t, t.as('responder'), '/api/stats')).status).toBe(403);
     expect((await get(t, t.as('responder'), '/api/export/incidents.csv')).status).toBe(403);
     expect((await get(t, t.as('responder'), '/api/export/summary.pdf')).status).toBe(403);
   });

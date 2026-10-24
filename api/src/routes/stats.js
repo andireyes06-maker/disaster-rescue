@@ -7,7 +7,8 @@ export function statsRouter(deps) {
   const auth = requireAuth(deps.verifyToken);
 
   // Aggregates only: no contact details, photos or locations.
-  r.get('/', auth, requireRole('dispatcher', 'dmo', 'responder', 'admin'), async (req, res, next) => {
+  // Admin only: the web Analytics page is admin-only and no responder or mobile screen calls this route.
+  r.get('/', auth, requireRole('admin'), async (req, res, next) => {
     try {
       const filters = parseFilters(req.query);
       res.json(buildStats(await loadReports(deps.repo, filters), filters));

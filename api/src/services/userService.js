@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { HttpError } from '../errors.js';
 import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js';
-import { PHONE_RE, sanitizeText } from '../domain/validation.js';
+import { PHONE_RE, sanitizeText, isSafeId } from '../domain/validation.js';
 
 const STAFF_ROLES = ['resident', 'responder', 'dispatcher', 'dmo'];
 const ADMIN_ROLES = [...STAFF_ROLES, 'admin'];
@@ -23,7 +23,7 @@ export async function createStaff({ repo, auth }, body, caller = { role: 'dispat
   if (role === 'admin' && caller.role !== 'admin') throw new HttpError(400, 'role_not_allowed', 'Dispatchers cannot create admins');
   if (!(caller.role === 'admin' ? ADMIN_ROLES : STAFF_ROLES).includes(role)) throw new HttpError(400, 'invalid_role', 'Unknown role');
   const team = body?.team == null ? null : body.team;
-  if (team !== null && (typeof team !== 'string' || !(await repo.getTeam(team)))) {
+  if (team !== null && (!isSafeId(team) || !(await repo.getTeam(team)))) {
     throw new HttpError(400, 'invalid_team', 'Team does not exist');
   }
 
@@ -78,7 +78,7 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   if (hasRole && !(isAdmin ? ADMIN_ROLES : STAFF_ROLES).includes(body.role)) throw new HttpError(400, 'invalid_role', 'Unknown role');
   if (hasActive && typeof body.active !== 'boolean') throw new HttpError(400, 'invalid_active', 'active must be true or false');
   // A team is an existing team id, or null to remove the account from its team. The same rule as creation applies.
-  if (hasTeam && body.team !== null && (typeof body.team !== 'string' || !(await repo.getTeam(body.team)))) {
+  if (hasTeam && body.team !== null && (!isSafeId(body.team) || !(await repo.getTeam(body.team)))) {
     throw new HttpError(400, 'invalid_team', 'Team does not exist');
   }
 

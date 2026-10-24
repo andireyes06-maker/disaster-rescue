@@ -35,4 +35,12 @@ describe('GET /api/stats filters', () => {
     const res = await request(t.app).get('/api/stats').set('Authorization', t.as('admin'));
     expect(res.body.total).toBe(3);
   });
+
+  it.each(['responder', 'resident'])('%s is refused (403); only admin reads stats', async (role) => {
+    const t = makeTestApp();
+    await seedMixed(t);
+    const res = await request(t.app).get('/api/stats').set('Authorization', t.as(role));
+    expect(res.status).toBe(403);
+    expect(res.body.total).toBeUndefined();
+  });
 });

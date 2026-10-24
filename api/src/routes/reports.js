@@ -5,10 +5,13 @@ import { uploadPhotos } from '../middleware/upload.js';
 import { create } from '../services/reportService.js';
 import * as review from '../services/reviewService.js';
 import * as assignment from '../services/assignmentService.js';
+import { isSafeId } from '../domain/validation.js';
 
 export function reportsRouter(deps) {
   const r = Router();
   const auth = requireAuth(deps.verifyToken);
+  // An id that cannot be a database document id (empty, or containing '/') is simply not a report.
+  r.param('id', (req, res, next, id) => (isSafeId(id) ? next() : res.status(404).json({ error: 'not_found' })));
   // Keyed by signed-in user, so it must run after auth. Counts only residents' submissions.
   const submitLimit = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -18,8 +21,16 @@ export function reportsRouter(deps) {
     keyGenerator: (req) => req.user.uid,
     handler: (req, res) => res.status(429).json({ error: 'rate_limited' }),
   });
+  // Per address, checked before sign-in, so one caller cannot spread submissions across many accounts.
+  const submitIpLimit = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 30,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    handler: (req, res) => res.status(429).json({ error: 'rate_limited' }),
+  });
 
-  r.post('/', auth, requireRole('resident'), submitLimit, uploadPhotos(), async (req, res, next) => {
+  r.post('/', submitIpLimit, auth, requireRole('resident'), submitLimit, uploadPhotos(), async (req, res, next) => {
     try {
       const b = req.body ?? {};
       const input = {

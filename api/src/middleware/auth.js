@@ -28,6 +28,8 @@ export function requireIdentity(verifyToken) {
     let d;
     try { d = await verifyToken(m[1]); } catch { return res.status(401).json({ error: 'invalid_token' }); }
     if (!d?.uid) return res.status(401).json({ error: 'invalid_token' });
+    // Same website rule as requireAuth: retired staff roles get no API access, not even self-registration.
+    if (WEBSITE_RETIRED_ROLES.includes(d.role)) return res.status(403).json({ error: 'website_access_disabled' });
     req.user = { uid: d.uid, email: d.email ?? null, emailVerified: d.emailVerified === true };
     next();
   };

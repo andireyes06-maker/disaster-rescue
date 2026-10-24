@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import request from 'supertest';
 import { makeTestApp } from '../fakes/testApp.js';
 import { coarsen } from '../../src/domain/privacy.js';
+import { PUBLIC_CACHE_MS } from '../../src/services/publicIncidentService.js';
 
 describe('GET /api/public/incidents', () => {
   it('answers with no token and returns only rounded, non-identifying fields', async () => {
@@ -49,6 +50,7 @@ describe('GET /api/public/incidents', () => {
   });
 
   it('a report submitted through the API appears publicly once verified (BE04 end to end)', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
     const t = makeTestApp();
     const created = await request(t.app).post('/api/reports').set('Authorization', t.as('resident'))
       .field('type', 'flood').field('description', 'Water rising fast').field('lat', '14.8512').field('lng', '120.8123').field('source', 'gps');
@@ -56,9 +58,12 @@ describe('GET /api/public/incidents', () => {
     expect((await request(t.app).get('/api/public/incidents')).body.incidents).toEqual([]);
     const id = created.body.id;
     await t.repo.updateReportIf(id, 'Submitted', { status: 'Verified', verified: true });
+    // The public answer is cached for PUBLIC_CACHE_MS, so the verified report shows once the cache has expired.
+    vi.setSystemTime(new Date(Date.now() + PUBLIC_CACHE_MS));
     const res = await request(t.app).get('/api/public/incidents');
     expect(res.body.incidents).toEqual([{
       type: 'flood', statusCategory: 'open', center: coarsen(14.8512, 120.8123), radiusMeters: 500,
     }]);
+    vi.useRealTimers();
   });
 });

@@ -41,6 +41,18 @@ describe('POST /api/users (dispatcher creates staff)', () => {
     await makeStaff(t, { email: 'dup@x.test', name: 'Dup', role: 'dmo' });
     expect((await create(t, t.as('admin'), { email: 'dup@x.test', name: 'Dup 2', role: 'dmo' })).status).toBe(409);
   });
+
+  it.each(['', 'a/b', '.', '..'])('an unusable team id %j is a 400, never reaches the database', async (team) => {
+    const t = makeTestApp();
+    let asked = false;
+    const getTeam = t.repo.getTeam;
+    t.repo.getTeam = async (id) => { asked = true; return getTeam(id); };
+    const res = await create(t, t.as('admin'), { email: 'bad@x.test', name: 'Bad', role: 'responder', team });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('invalid_team');
+    expect(asked).toBe(false);
+    expect(t.auth.users.size).toBe(0);
+  });
 });
 
 describe('GET /api/users', () => {
@@ -155,10 +167,20 @@ describe('POST /api/users/self', () => {
 
   it('an existing account with a non-resident role is refused (409)', async () => {
     const t = makeTestApp();
-    await t.repo.createUser('u-staff', { name: 'Staff', role: 'dispatcher', active: true });
+    await t.repo.createUser('u-staff', { name: 'Staff', role: 'responder', active: true });
     expect((await self(t, 'Bearer new:u-staff')).status).toBe(409);
     expect(t.auth.calls.setCustomUserClaims).toHaveLength(0);
-    expect(await t.repo.getUser('u-staff')).toMatchObject({ role: 'dispatcher' });
+    expect(await t.repo.getUser('u-staff')).toMatchObject({ role: 'responder' });
+  });
+
+  it.each(['dispatcher', 'dmo'])('a %s account gets 403 website_access_disabled, like every other route', async (role) => {
+    const t = makeTestApp();
+    await t.repo.createUser(`u-${role}`, { name: 'Retired', role, active: true });
+    const res = await self(t, `Bearer new:u-${role}`);
+    expect(res.status).toBe(403);
+    expect(res.body.error).toBe('website_access_disabled');
+    expect(t.auth.calls.setCustomUserClaims).toHaveLength(0);
+    expect(await t.repo.getUser(`u-${role}`)).toMatchObject({ role, active: true });
   });
 
   it('invalid name (empty, too long) and invalid phone return 400', async () => {
