@@ -30,7 +30,7 @@ Old website resident pages (`/register`, `/my`) show a notice to use the mobile 
 ### On the website
 
 1. Sign in at the website with the same account. You land on the Assignments page.
-2. The page lists your team's incidents, newest first. For each one you can see the address, the location with an "Open in maps" link, the report time, and when it was acknowledged.
+2. The page lists your team's incidents, oldest first. For each one you can see the address, the location with an "Open in maps" link, the report time, and when it was acknowledged.
 3. Use "Post an update" to add a field update, the same as on the phone.
 4. Use "View ... report" on a closed report of your team to read it (read-only).
 5. The website only shows your team's work. Notifications link to the assignment page.
@@ -66,13 +66,14 @@ Sign in at the website. You land on the Admin page. The menu has Dashboard, Map,
 
 ### Dispatchers and DMO accounts
 
-Dispatcher and DMO accounts cannot sign in to the website. The sign-in page says "Website access is for administrators only". Their records and history are kept. Their work is done by the administrator.
+Dispatcher and DMO accounts cannot use the website. Signing in with one signs it out and shows "This account has no website access. Ask your administrator." Their records and history are kept. Their work is done by the administrator.
 
 ## Troubleshooting
 
 | What you see | What to do |
 |---|---|
-| "Website access is for administrators only" | Expected for dispatcher and DMO accounts. Ask an administrator. |
+| "This account has no website access. Ask your administrator." | Expected for dispatcher and DMO accounts. Ask an administrator. |
+| "Residents use the Rescue Reports mobile app" | Expected for resident accounts on the website. Use the phone app. |
 | "Use the Rescue Reports mobile app" | Expected for residents on the website. Use the phone app. |
 | "Access not confirmed yet" | Wait a moment, then choose "Retry access check". Your role or team may be changing. |
 | Admin dashboard says "Loading incident inbox" for a long time | A database index may still be building after a deploy. Wait a few minutes, then reload. |

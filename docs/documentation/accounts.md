@@ -18,7 +18,7 @@ This is the default in `api/scripts/seed-demo.js`, set by the `DEMO_PASSWORD` va
 | Clara Navarro | clara.navarro@harbor.example | rescuer | Bravo (`demo-team-bravo`) | allowed | team isolation: must not see Alpha's assignments |
 | Rafael Castillo | rafael.castillo@harbor.example | rescuer | Delta (`demo-team-delta`) | allowed | the same, third team |
 | Nina Bautista | nina.bautista@harbor.example | rescuer | Foxtrot (`demo-team-foxtrot`) | allowed | the same, fourth team |
-| Maya Torres | maya.torres@harbor.example | resident | none | sent to `/forbidden` (mobile app notice). Still signed in | resident report flow on the phone; website refusal |
+| Maya Torres | maya.torres@harbor.example | resident | none | refused at sign-in with "Residents use the Rescue Reports mobile app" (signed out at once) | resident report flow on the phone; website refusal |
 | Noah Garcia | noah.garcia@harbor.example | resident | none | same as Maya | a second resident, for multi-resident data |
 | Isabel Ramos | isabel.ramos@harbor.example | resident | none | same as Maya | a third resident |
 | Leo Mendoza | leo.mendoza@harbor.example | resident | none | same as Maya | a fourth resident |
@@ -32,7 +32,7 @@ Residents use the phone app. To test the phone app against the demo, run the Flu
 3. Enter an email from the table and the demo password. Sign in.
 4. To switch accounts, choose "Sign out" in the top bar first.
 
-Also: a resident who signs in on the website is sent to `/forbidden` but stays signed in. Use "Sign out" on that page. A dispatcher or DMO is signed out at once.
+A resident or a dispatcher or DMO who signs in on the website is signed out at once, with a message that explains the account has no website access. Residents use the phone app. Rescuers (Daniel, Clara, Rafael, Nina) sign in on the website and the phone app.
 
 ### Demo data
 

@@ -55,8 +55,8 @@ Three deployable parts and one data platform:
 5. Routing by role:
    - Administrator: lands on `/admin`. All staff pages are under `/dashboard`, `/map`, `/monitor`, `/analytics`, `/audit`, `/teams`, `/users`, `/incidents/:id`.
    - Rescuer: lands on `/assignments`. Sees only the assignments and closed reports of their own team (`/assignments/:id`).
-   - Resident: sent to `/forbidden` with a message to use the mobile app. Old resident web pages (`/register`, `/my*`) show the mobile-app notice.
-   - Dispatcher or DMO: refused at sign-in with "Website access is for administrators only", and refused by the API on every route with `website_access_disabled`.
+   - Resident: signed out at sign-in with "Residents use the Rescue Reports mobile app". Old resident web pages (`/register`, `/my*`) show the mobile-app notice.
+   - Dispatcher or DMO: signed out at sign-in with "This account has no website access. Ask your administrator.", and refused by the API on every route with `website_access_disabled`.
 6. "Administrators hold every staff permission" is implemented in `grants()` (`api/src/middleware/auth.js`). An administrator therefore also passes checks written for the retired dispatcher role. This is intentional under option A.
 
 ## 4. The report lifecycle

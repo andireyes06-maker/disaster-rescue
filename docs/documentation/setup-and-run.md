@@ -78,17 +78,17 @@ To run only the web app against a running API, use `cd web && npm run dev`.
 
 ## 5. Run the tests
 
-| Suite | Command | Last result (978fe7e) |
+| Suite | Command | Last result (fix branch head, 25 October 2026) |
 |---|---|---|
-| Web: types and unit tests | `cd web && npm test` (runs `tsc --noEmit` then Vitest) | typecheck clean; 589 tests pass in 82 files |
+| Web: types and unit tests | `cd web && npm test` (runs `tsc --noEmit` then Vitest) | typecheck clean; 512 tests pass in 69 files |
 | Web: under load | `cd web && npx vitest run --maxWorkers=2` | use this; the default worker count times out on this machine |
-| API: unit and route tests | `cd api && npm test` | 486 pass, 36 skipped (the emulator tests) |
-| API: emulator tests | `cd api && npx firebase-tools@latest emulators:exec --config ../firebase/firebase.demo.json --only firestore,auth --project demo-disaster-rescue "npx vitest run test/demo-seed.emulator.test.js test/adapters/submission"` | 18 pass; 3 time out at 5 s under load and pass at 30 s |
-| API: identity emulator test | same wrapper with `npx vitest run --testTimeout=30000 test/adapters/submission-identity.emulator.test.js` | 6 of 6 pass |
+| API: unit and route tests | `cd api && npm test` | 505 pass, 36 skipped (the emulator tests) |
+| API: emulator tests | `cd api && npx firebase-tools@latest emulators:exec --config ../firebase/firebase.demo.json --only firestore,auth --project demo-disaster-rescue "npx vitest run test/demo-seed.emulator.test.js test/adapters/submission"` | 66 of 66 pass in 13 files (the 30-second timeout is set in `api/vitest.config.js`) |
+| API: identity emulator test | same wrapper with `npx vitest run --testTimeout=30000 test/adapters/submission-identity.emulator.test.js` | included in the 66 above |
 | Firestore rules | `cd firebase && npx firebase-tools@latest emulators:exec --config firebase.demo.json --only firestore --project demo-rules "node --test rules.test.js"` | 160 of 160 pass |
 | Mobile: static analysis | `cd mobile && flutter analyze` | no issues |
-| Mobile: tests | `cd mobile && flutter test` | 224 pass |
-| Web: end-to-end | `cd web && npm run e2e` (Playwright) | not run in this audit |
+| Mobile: tests | `cd mobile && flutter test` | 231 pass |
+| Web: end-to-end | `cd web && npx playwright test` (needs `web/.env.local`) | 8 pass, 2 skipped by design |
 
 Emulator tests need Java and the Firebase emulators. Under load, raise the timeout to 30 seconds rather than changing the test logic.
 
@@ -138,4 +138,4 @@ The Android NDK folder can be corrupt on some machines. If the build fails in th
 - The API's Render auto-deploy was not checked from the Render dashboard in this audit. Confirm that the latest deploy is live.
 - The Firestore index build was not confirmed as complete. The CLI does not report build state, and `gcloud` is not installed.
 - The release APK needs a keystore from the team. Until then, only debug APKs are produced.
-- The web Playwright suite (`npm run e2e`) exists but was not run in this audit.
+- The web end-to-end suite needs a git-ignored `web/.env.local` with the Firebase values and `VITE_API_BASE_URL`. Without it, the login page stops at "VITE_API_BASE_URL is not set".
