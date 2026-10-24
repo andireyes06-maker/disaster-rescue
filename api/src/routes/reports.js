@@ -21,7 +21,8 @@ export function reportsRouter(deps) {
     keyGenerator: (req) => req.user.uid,
     handler: (req, res) => res.status(429).json({ error: 'rate_limited' }),
   });
-  // Per address, checked before sign-in, so one caller cannot spread submissions across many accounts.
+  // Per address, after sign-in and the resident check, so unauthenticated requests cannot use up a shared address's quota.
+  // It still stops one address from spreading submissions across many accounts. Needs TRUST_PROXY=1 behind a proxy.
   const submitIpLimit = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 30,
@@ -30,7 +31,7 @@ export function reportsRouter(deps) {
     handler: (req, res) => res.status(429).json({ error: 'rate_limited' }),
   });
 
-  r.post('/', submitIpLimit, auth, requireRole('resident'), submitLimit, uploadPhotos(), async (req, res, next) => {
+  r.post('/', auth, requireRole('resident'), submitIpLimit, submitLimit, uploadPhotos(), async (req, res, next) => {
     try {
       const b = req.body ?? {};
       const input = {

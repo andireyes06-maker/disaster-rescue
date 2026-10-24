@@ -40,6 +40,14 @@ describe('POST /api/reports per-address limit', () => {
     expect(statuses[30]).toBe(429);
   });
 
+  it('requests without a valid sign-in do not use up the address quota', async () => {
+    const t = makeTestApp({ trustProxy: 1 });
+    for (let i = 0; i < 40; i++) {
+      await request(t.app).post('/api/reports').set('X-Forwarded-For', '198.51.100.9').send({});
+    }
+    expect((await submit(t, 'res-shared', '198.51.100.9')).status).toBe(201);
+  });
+
   it('another address is not affected by the first one filling up', async () => {
     const t = makeTestApp({ trustProxy: 1 });
     for (let i = 0; i < 30; i++) await submit(t, `res-a${i}`, '198.51.100.1');
