@@ -1,6 +1,6 @@
 # Handoff: Rescue Reports documentation and fixes
 
-Status as of 25 October 2026. `build/disaster-rescue` and `fix/audit-2026-10-24` are at `73a2c5a` on origin. Local worktree `feat/rescuer-web-access` is at the same commit and clean.
+Status as of 25 October 2026. `build/disaster-rescue` is at `e8a7399` on origin (app code at `73a2c5a`, then a docs-only commit). `fix/audit-2026-10-24` is at `73a2c5a`. Local worktree `feat/rescuer-web-access` is at `e8a7399` and clean.
 
 ## Start here
 - Full state, deliverable locations and open decisions: `SUBMISSION-2026-10-20/DELIVERABLES-AND-STATUS-2026-10-25.md` (in the submission folder, not in git).
