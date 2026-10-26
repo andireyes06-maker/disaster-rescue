@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -170,6 +171,27 @@ class MapPickerPage extends StatefulWidget {
 class _MapPickerPageState extends State<MapPickerPage> {
   static const _fallbackCenter = LatLng(14.5995, 120.9842);
   LatLng? _point;
+  final _map = MapController();
+  bool _locating = false;
+  String? _locationProblem;
+
+  // Same rule as the location step: the device's current position, placed on the map.
+  Future<void> _useCurrent() async {
+    setState(() {
+      _locating = true;
+      _locationProblem = null;
+    });
+    final r = await context.read<LocationService>().current();
+    if (!mounted) return;
+    setState(() => _locating = false);
+    if (r.status == LocationStatus.ok && r.lat != null && r.lng != null) {
+      final p = LatLng(r.lat!, r.lng!);
+      setState(() => _point = p);
+      _map.move(p, 16);
+    } else {
+      setState(() => _locationProblem = locationProblemMessage(r.status));
+    }
+  }
 
   @override
   void initState() {
@@ -185,6 +207,7 @@ class _MapPickerPageState extends State<MapPickerPage> {
         children: [
           Expanded(
             child: FlutterMap(
+              mapController: _map,
               options: MapOptions(
                 initialCenter: widget.initial ?? _fallbackCenter,
                 initialZoom: widget.initial == null ? 12 : 16,
@@ -236,13 +259,33 @@ class _MapPickerPageState extends State<MapPickerPage> {
             top: false,
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: FilledButton(
-                onPressed: _point == null
-                    ? null
-                    : () => Navigator.of(context).pop(_point),
-                child: Text(
-                  _point == null ? 'Tap the map to choose' : 'Use this place',
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  OutlinedButton.icon(
+                    onPressed: _locating ? null : _useCurrent,
+                    icon: const Icon(Icons.my_location),
+                    label: Text(
+                      _locating ? 'Finding you…' : 'Use my current location',
+                    ),
+                  ),
+                  if (_locationProblem != null) ...[
+                    const SizedBox(height: 8),
+                    Text(_locationProblem!),
+                  ],
+                  const SizedBox(height: 8),
+                  FilledButton(
+                    onPressed: _point == null
+                        ? null
+                        : () => Navigator.of(context).pop(_point),
+                    child: Text(
+                      _point == null
+                          ? 'Tap the map or use your location'
+                          : 'Use this place',
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
