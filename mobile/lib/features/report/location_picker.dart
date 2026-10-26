@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../data/geo.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/product_widgets.dart';
@@ -69,12 +70,23 @@ class _LocationStepState extends State<LocationStep> {
   }
 
   Future<void> _pickOnMap() async {
-    final start = (widget.lat != null && widget.lng != null)
-        ? LatLng(widget.lat!, widget.lng!)
-        : null;
+    setState(() {
+      _busy = true;
+      _problem = null;
+    });
+    final fix = await widget.service.current();
+    if (!mounted) return;
+    setState(() => _busy = false);
+    if (fix.status != LocationStatus.ok || fix.lat == null || fix.lng == null) {
+      setState(() => _problem = locationProblemMessage(fix.status));
+      return;
+    }
     final picked = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
-        builder: (_) => MapPickerPage(initial: start, radiusM: widget.radiusM),
+        builder: (_) => MapPickerPage(
+          anchor: LatLng(fix.lat!, fix.lng!),
+          radiusM: widget.radiusM,
+        ),
       ),
     );
     if (picked != null) {
@@ -99,11 +111,30 @@ class _LocationStepState extends State<LocationStep> {
               : const Icon(Icons.my_location),
           label: const Text('Use my current location'),
         ),
-        const SizedBox(height: 12),
-        OutlinedButton.icon(
-          onPressed: _busy ? null : _pickOnMap,
-          icon: const Icon(Icons.map_outlined),
-          label: const Text('Pick on a map'),
+        const SizedBox(height: 16),
+        Text(
+          'Place of the emergency',
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(
+              child: OutlinedButton.icon(
+                onPressed: _busy ? null : _pickOnMap,
+                icon: const Icon(Icons.map_outlined),
+                label: const Text('Pick on a map'),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: OutlinedButton.icon(
+                onPressed: _busy ? null : _useGps,
+                icon: const Icon(Icons.place_outlined),
+                label: const Text('Same as my current location'),
+              ),
+            ),
+          ],
         ),
         if (_problem != null) ...[
           const SizedBox(height: 12),
@@ -160,8 +191,10 @@ class _LocationStepState extends State<LocationStep> {
 }
 
 class MapPickerPage extends StatefulWidget {
-  const MapPickerPage({super.key, this.initial, this.radiusM = 500});
-  final LatLng? initial;
+  const MapPickerPage({super.key, required this.anchor, this.radiusM = 500});
+
+  /// The reporter's current position. The reach circle is drawn around it.
+  final LatLng anchor;
   final int radiusM;
 
   @override
@@ -169,38 +202,67 @@ class MapPickerPage extends StatefulWidget {
 }
 
 class _MapPickerPageState extends State<MapPickerPage> {
-  static const _fallbackCenter = LatLng(14.5995, 120.9842);
   LatLng? _point;
+  late LatLng _anchor = widget.anchor;
   final _map = MapController();
   bool _locating = false;
-  String? _locationProblem;
+  String? _problem;
 
-  // Same rule as the location step: the device's current position, placed on the map.
+  bool _within(LatLng p) =>
+      distanceMeters(
+        _anchor.latitude,
+        _anchor.longitude,
+        p.latitude,
+        p.longitude,
+      ) <=
+      widget.radiusM;
+
+  // A tap is accepted only inside the reach around the reporter.
+  void _onTap(LatLng p) {
+    if (!_within(p)) {
+      final d = distanceMeters(
+        _anchor.latitude,
+        _anchor.longitude,
+        p.latitude,
+        p.longitude,
+      );
+      setState(() {
+        _point = null;
+        _problem =
+            'That place is ${formatMeters(d)} from you. Pick a place within ${formatMeters(widget.radiusM.toDouble())} of your location.';
+      });
+      return;
+    }
+    setState(() {
+      _point = p;
+      _problem = null;
+    });
+  }
+
+  // The device's current position becomes the centre of the reach, and the place chosen.
   Future<void> _useCurrent() async {
     setState(() {
       _locating = true;
-      _locationProblem = null;
+      _problem = null;
     });
     final r = await context.read<LocationService>().current();
     if (!mounted) return;
     setState(() => _locating = false);
     if (r.status == LocationStatus.ok && r.lat != null && r.lng != null) {
       final p = LatLng(r.lat!, r.lng!);
-      setState(() => _point = p);
+      setState(() {
+        _anchor = p;
+        _point = p;
+      });
       _map.move(p, 16);
     } else {
-      setState(() => _locationProblem = locationProblemMessage(r.status));
+      setState(() => _problem = locationProblemMessage(r.status));
     }
   }
 
   @override
-  void initState() {
-    super.initState();
-    _point = widget.initial;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final errorColor = Theme.of(context).colorScheme.error;
     return Scaffold(
       appBar: AppBar(title: const Text('Tap the place on the map')),
       body: Column(
@@ -209,9 +271,9 @@ class _MapPickerPageState extends State<MapPickerPage> {
             child: FlutterMap(
               mapController: _map,
               options: MapOptions(
-                initialCenter: widget.initial ?? _fallbackCenter,
-                initialZoom: widget.initial == null ? 12 : 16,
-                onTap: (_, p) => setState(() => _point = p),
+                initialCenter: _anchor,
+                initialZoom: 15,
+                onTap: (_, p) => _onTap(p),
               ),
               children: [
                 TileLayer(
@@ -221,19 +283,18 @@ class _MapPickerPageState extends State<MapPickerPage> {
                     defaultValue: 'local.rescuereports.app',
                   ),
                 ),
-                if (_point != null)
-                  CircleLayer(
-                    circles: [
-                      CircleMarker(
-                        point: _point!,
-                        radius: widget.radiusM.toDouble(),
-                        useRadiusInMeter: true,
-                        color: AppColors.primary.withValues(alpha: 0.15),
-                        borderColor: AppColors.primary,
-                        borderStrokeWidth: 2,
-                      ),
-                    ],
-                  ),
+                CircleLayer(
+                  circles: [
+                    CircleMarker(
+                      point: _anchor,
+                      radius: widget.radiusM.toDouble(),
+                      useRadiusInMeter: true,
+                      color: AppColors.primary.withValues(alpha: 0.15),
+                      borderColor: AppColors.primary,
+                      borderStrokeWidth: 2,
+                    ),
+                  ],
+                ),
                 if (_point != null)
                   MarkerLayer(
                     markers: [
@@ -263,6 +324,11 @@ class _MapPickerPageState extends State<MapPickerPage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Text(
+                    'Pick a place inside the circle, ${formatMeters(widget.radiusM.toDouble())} around you.',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  const SizedBox(height: 8),
                   OutlinedButton.icon(
                     onPressed: _locating ? null : _useCurrent,
                     icon: const Icon(Icons.my_location),
@@ -270,9 +336,9 @@ class _MapPickerPageState extends State<MapPickerPage> {
                       _locating ? 'Finding you…' : 'Use my current location',
                     ),
                   ),
-                  if (_locationProblem != null) ...[
+                  if (_problem != null) ...[
                     const SizedBox(height: 8),
-                    Text(_locationProblem!),
+                    Text(_problem!, style: TextStyle(color: errorColor)),
                   ],
                   const SizedBox(height: 8),
                   FilledButton(
@@ -281,7 +347,7 @@ class _MapPickerPageState extends State<MapPickerPage> {
                         : () => Navigator.of(context).pop(_point),
                     child: Text(
                       _point == null
-                          ? 'Tap the map or use your location'
+                          ? 'Tap the map inside the circle'
                           : 'Use this place',
                     ),
                   ),
