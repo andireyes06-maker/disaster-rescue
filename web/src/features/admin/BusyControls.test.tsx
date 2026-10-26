@@ -41,7 +41,7 @@ it.each(['account-create', 'role', 'user-create', 'user-status', 'team-create', 
     await user.type(screen.getByLabelText('New team name'), 'New Team');
     button = screen.getByRole('button', { name: 'Create team' });
   } else {
-    await user.click(screen.getByText('Edit name'));
+    await user.click(screen.getByText('Edit team'));
     await user.type(screen.getByLabelText('Team name'), ' Updated');
     button = screen.getByRole('button', { name: 'Save name' });
   }

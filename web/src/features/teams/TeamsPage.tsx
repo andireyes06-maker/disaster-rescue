@@ -97,7 +97,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
       <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team.hq)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
       <button type="button" className="btn btn--ghost" disabled={busy} onClick={async () => { setBusy(true); try { const hq = await currentPosition(); await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq } }); onSaved('Headquarters set to your current location.'); } catch { onError('Could not set headquarters. Allow location and try again.'); } finally { setBusy(false); } }}>Set headquarters to my location</button>
-      <details className="team-edit"><summary>Edit name</summary>
+      <details className="team-edit"><summary>Edit team</summary>
       <MotionForm onSubmit={handleSubmit(save)} noValidate className="ops-form" aria-label={`Team ${team.name}`}>
         <RequiredNote /><label htmlFor={`team-name-${team.id}`}>Team name<RequiredMark /></label>
         <input aria-required="true" id={`team-name-${team.id}`} maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? `team-error-${team.id}` : undefined} />
@@ -106,8 +106,8 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
           <button type="submit" className="btn" aria-disabled={busy || !name.trim()} aria-busy={busy}>Save name</button>
         </div>
       </MotionForm>
-      </details>
       <TeamHeadquartersEditor team={team} onSaved={onSaved} onError={onError} />
+      </details>
     </li>
   );
 }
@@ -240,6 +240,14 @@ export default function TeamsPage() {
         <input id="new-team" aria-required="true" maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'new-team-error' : undefined} />
         {errors.name && <FieldError id="new-team-error">{errors.name.message}</FieldError>}
         {hqNotice && <p className="field-hint" role="status">{hqNotice}</p>}
+        <div className="hq-map" role="region" aria-label="Map for the new team headquarters">
+          <p className="field-hint">Click the map to place the headquarters{newHq ? `: ${newHq.lat.toFixed(4)}, ${newHq.lng.toFixed(4)}` : ''}.</p>
+          <MapContainer center={newHq ? [newHq.lat, newHq.lng] : [14.5995, 120.9842]} zoom={13} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
+            <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
+            <HqPicker onPick={(p) => { setNewHq({ lat: p.lat, lng: p.lng }); setHqNotice(''); }} />
+            {newHq && <Marker position={[newHq.lat, newHq.lng]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
+          </MapContainer>
+        </div>
         <div className="actions__row">
           <button type="button" className="btn btn--ghost" onClick={async () => { try { setNewHq(await currentPosition()); setHqNotice('Headquarters captured from your current location.'); } catch { setHqNotice('Could not read your location. Allow location and try again, or create the team without headquarters.'); } }}>Use my current location as headquarters</button>
           <button type="submit" className="btn" aria-disabled={busy || !newName.trim()} aria-busy={busy}>Create team</button>
