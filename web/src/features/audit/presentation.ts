@@ -12,6 +12,7 @@ export const ACTION_NAMES: Record<string, string> = {
 const FIELDS: Record<string, string> = {
   assignedTeamId: 'Assigned team', duplicateOf: 'Related report', target: 'Account',
   peopleRescued: 'People rescued', verified: 'Verification', active: 'Account access',
+  verifiedBy: 'Verified by',
 };
 
 export function readableName(value: string): string {
@@ -30,6 +31,13 @@ export interface AuditNames {
 
 export function namedValue(field: string, value: unknown, names: AuditNames): string {
   if (value === undefined || value === null) return 'Not recorded';
+  // Verification stores { uid, name }. Show the name, then the directory name for that uid, never the raw ID first.
+  if (field === 'verifiedBy' && typeof value === 'object') {
+    const who = value as { uid?: unknown; name?: unknown };
+    if (typeof who.name === 'string' && who.name) return who.name;
+    if (typeof who.uid === 'string') return names.users[who.uid] || 'Name not recorded';
+    return 'Not recorded';
+  }
   if (typeof value === 'string') {
     if (field === 'assignedTeamId' || field === 'team') return names.teams[value] || value;
     if (field === 'duplicateOf' || field === 'reportId') return names.reports[value] || value;

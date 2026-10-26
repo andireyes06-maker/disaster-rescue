@@ -131,16 +131,16 @@ describe('PATCH /api/users/:id guards', () => {
 describe('POST /api/users/self', () => {
   it('empty body creates a resident with users doc and claims {role, active:true}', async () => {
     const t = makeTestApp();
-    const res = await self(t, 'Bearer new:u-new-1:ana.cruz@x.test');
+    const res = await self(t, 'Bearer new:u-new-1:ana.cruz@x.test', { phone: '+1 555 010 0111' });
     expect(res.status).toBe(201);
-    expect(await t.repo.getUser('u-new-1')).toMatchObject({ role: 'resident', active: true, name: 'ana.cruz', phone: null });
+    expect(await t.repo.getUser('u-new-1')).toMatchObject({ role: 'resident', active: true, name: 'ana.cruz', phone: '+1 555 010 0111' });
     expect(await t.repo.getUser('u-new-1')).toHaveProperty('createdAt');
     expect(t.auth.calls.setCustomUserClaims.at(-1)).toEqual({ uid: 'u-new-1', claims: { role: 'resident', active: true } });
   });
 
   it('name defaults to "Resident" when the token has no email; sanitized name and phone are stored', async () => {
     const t = makeTestApp();
-    await self(t, 'Bearer new:u-anon');
+    await self(t, 'Bearer new:u-anon', { phone: '+1 555 010 0112' });
     expect((await t.repo.getUser('u-anon')).name).toBe('Resident');
     const res = await self(t, 'Bearer new:u-x:x@x.test', { name: ' <b>Ana</b> ', phone: '0917 123 4567' });
     expect(res.status).toBe(201);
@@ -150,11 +150,20 @@ describe('POST /api/users/self', () => {
   it('second call for the same account is idempotent: 200 and claims re-set', async () => {
     const t = makeTestApp();
     const token = 'Bearer new:u-2:two@x.test';
-    expect((await self(t, token)).status).toBe(201);
+    expect((await self(t, token, { phone: '+1 555 010 0113' })).status).toBe(201);
     const again = await self(t, token);
     expect(again.status).toBe(200);
     expect(t.auth.calls.setCustomUserClaims.at(-1).claims).toEqual({ role: 'resident', active: true });
     expect(await t.repo.getUser('u-2')).toMatchObject({ role: 'resident', active: true });
+  });
+
+  it('a new resident without a phone number is refused (400 phone_required) and no account is created', async () => {
+    const t = makeTestApp();
+    const res = await self(t, 'Bearer new:u-nophone:nophone@x.test');
+    expect(res.status).toBe(400);
+    expect(res.body.error ?? res.body.code).toMatch(/phone_required/);
+    expect(await t.repo.getUser('u-nophone')).toBeFalsy();
+    expect(t.auth.calls.setCustomUserClaims).toHaveLength(0);
   });
 
   it('a disabled account is never re-enabled by self-heal (409)', async () => {

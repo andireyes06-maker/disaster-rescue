@@ -156,6 +156,8 @@ export async function registerSelf({ repo, auth }, identity, body) {
     : {};
 
   const existing = await repo.getUser(uid);
+  // New residents must give a phone number. Reports carry it so responders and administrators can call back.
+  if (!existing && !phone) throw new HttpError(400, 'phone_required', 'A phone number is required to register');
   if (existing) {
     if (existing.role === 'resident' && existing.active === true) {
       // Accounts made before this field existed get their verified email on the next sign-in.

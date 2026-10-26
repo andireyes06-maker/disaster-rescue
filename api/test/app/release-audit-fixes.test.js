@@ -86,7 +86,7 @@ describe('F04: exports apply the same type and status filters as Analytics', () 
 describe('F08: a new resident profile stores the verified email', () => {
   it('self-registration writes the token email, and admins can find the account by it', async () => {
     const t = makeTestApp();
-    const res = await request(t.app).post('/api/users/self').set('Authorization', 'Bearer new:res-9:bea@x.test').send({ name: 'Bea' });
+    const res = await request(t.app).post('/api/users/self').set('Authorization', 'Bearer new:res-9:bea@x.test').send({ name: 'Bea', phone: '+1 555 010 0114' });
     expect(res.status).toBe(201);
     expect(await t.repo.getUser('res-9')).toMatchObject({ email: 'bea@x.test', emailVerified: false, role: 'resident' });
   });

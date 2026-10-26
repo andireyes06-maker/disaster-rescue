@@ -40,7 +40,8 @@ export function submissionFingerprint(data, files = []) {
 const photosExpired = () => new HttpError(409, 'photos_expired', 'The photos for this report were not attached in time and were discarded. Send the report again.');
 const busy = () => new HttpError(409, 'submission_in_progress', 'This report is already being sent. Wait a moment, then check My reports before sending again.');
 
-function buildReport(data, user, reference, now) {
+// The reporter's name and phone are copied from the profile at submission, so the inbox and responders can see who reported.
+function buildReport(data, user, reference, now, profile = {}) {
   const report = {
     reference,
     type: data.type,
@@ -54,6 +55,8 @@ function buildReport(data, user, reference, now) {
     photos: [],
     createdAt: now,
   };
+  if (profile.name) report.reporterName = profile.name;
+  if (profile.phone) report.reporterPhone = profile.phone;
   if (data.addressText) report.addressText = data.addressText;
   if (data.contact) report.contact = data.contact;
   return report;
@@ -94,7 +97,8 @@ async function runClaimed(deps, user, data, files, key, held, observed) {
   let uploaded = [];
   let commitStarted = false;
   let committed;
-  const report = buildReport(data, user, reference, now);
+  const profile = (repo.getUser ? await repo.getUser(user.uid) : null) ?? {};
+  const report = buildReport(data, user, reference, now, profile);
   // Photo ids are reserved in the server-only ledger before any bytes are sent (PHOTO-CLEANUP-SPEC, item 1).
   const assetIds = files?.length ? files.map(() => newAssetId()) : [];
   try {

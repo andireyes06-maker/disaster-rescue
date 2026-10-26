@@ -88,10 +88,10 @@ describe('AuditPage', () => {
     serveAudit([]);
     render(<AuditPage />);
     await waitFor(() => expect(fetch).toHaveBeenCalled());
-    await userEvent.type(screen.getByLabelText('Action'), 'update_status');
+    await userEvent.selectOptions(screen.getByLabelText('Action'), 'status.change');
     await waitFor(() => {
       const urls = vi.mocked(fetch).mock.calls.map((c) => String(c[0]));
-      expect(urls.some((u) => u.includes('/audit?') && u.includes('action=update_status'))).toBe(true);
+      expect(urls.some((u) => u.includes('/audit?') && u.includes('action=status.change'))).toBe(true);
     });
   });
   it('treats a malformed response as an error, not an empty audit log', async () => {

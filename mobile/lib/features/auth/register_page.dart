@@ -96,9 +96,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _phone,
                 keyboardType: TextInputType.phone,
                 autofillHints: const [AutofillHints.telephoneNumber],
-                decoration: const InputDecoration(
-                  labelText: 'Phone number (optional)',
-                ),
+                decoration: const InputDecoration(labelText: 'Phone number'),
+                validator: (v) =>
+                    (v == null || v.replaceAll(RegExp(r'\D'), '').length < 7)
+                    ? 'Enter a phone number so responders can reach you.'
+                    : null,
               ),
               const SizedBox(height: 16),
               PasswordField(

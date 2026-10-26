@@ -117,8 +117,10 @@ export default function AuditPage() {
         </div>
         <div className="filter">
           <label htmlFor="au-action">Action</label>
-          <input id="au-action" list="audit-actions" value={filters.action} onChange={set('action')} />
-          <datalist id="audit-actions">{Object.entries(ACTION_NAMES).map(([code, label]) => <option key={code} value={code}>{label}</option>)}</datalist>
+          <select id="au-action" value={filters.action} onChange={(e) => setFilters((s) => ({ ...s, action: e.target.value }))}>
+            <option value="">All actions</option>
+            {Object.entries(ACTION_NAMES).map(([code, label]) => <option key={code} value={code}>{label}</option>)}
+          </select>
         </div>
         <div className="filter">
           <label htmlFor="au-from">From</label>
