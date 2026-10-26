@@ -70,8 +70,7 @@ interface TeamRowProps {
 
 function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
   const [busy, setBusy] = useState(false);
-  // The headquarters map is mounted only while "Edit team" is open, so it always has a visible size.
-  const [editing, setEditing] = useState(false);
+  const [editingLocation, setEditingLocation] = useState(false);
   const pendingRef = useRef(false);
   const { register, handleSubmit, watch, formState: { errors } } = useForm<TeamName>({
     resolver: zodResolver(teamNameSchema),
@@ -98,8 +97,9 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
     <li className="management-row">
       <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team.hq)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
-      <button type="button" className="btn btn--ghost" disabled={busy} onClick={async () => { setBusy(true); try { const hq = await currentPosition(); await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq } }); onSaved('Headquarters set to your current location.'); } catch { onError('Could not set headquarters. Allow location and try again.'); } finally { setBusy(false); } }}>Set headquarters to my location</button>
-      <details className="team-edit" onToggle={(e) => setEditing((e.currentTarget as HTMLDetailsElement).open)}><summary>Edit team</summary>
+      <button type="button" className="btn btn--ghost" aria-expanded={editingLocation} onClick={() => setEditingLocation((v) => !v)}>Edit location</button>
+      {editingLocation && <TeamLocationEditor team={team} onSaved={(t) => { setEditingLocation(false); onSaved(t); }} onError={onError} />}
+      <details className="team-edit"><summary>Edit team</summary>
       <MotionForm onSubmit={handleSubmit(save)} noValidate className="ops-form" aria-label={`Team ${team.name}`}>
         <RequiredNote /><label htmlFor={`team-name-${team.id}`}>Team name<RequiredMark /></label>
         <input aria-required="true" id={`team-name-${team.id}`} maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? `team-error-${team.id}` : undefined} />
@@ -108,7 +108,6 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
           <button type="submit" className="btn" aria-disabled={busy || !name.trim()} aria-busy={busy}>Save name</button>
         </div>
       </MotionForm>
-      {editing && <TeamHeadquartersEditor team={team} onSaved={onSaved} onError={onError} />}
       </details>
     </li>
   );
@@ -120,63 +119,60 @@ function HqPicker({ onPick }: { onPick: (p: { lat: number; lng: number }) => voi
   return null;
 }
 
-// Editable headquarters: latitude and longitude typed by hand. Saved as a fixed point for distance ranking.
-function TeamHeadquartersEditor({ team, onSaved, onError }: { team: Team; onSaved: (text: string) => void; onError: (text: string) => void }) {
-  const [lat, setLat] = useState(team.hq ? String(team.hq.lat) : '');
-  const [lng, setLng] = useState(team.hq ? String(team.hq.lng) : '');
+// Team headquarters: one map, two ways to place it (current location or a tap on the map), then Save.
+function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (text: string) => void; onError: (text: string) => void }) {
+  const [draft, setDraft] = useState<GeoPoint | null>(team.hq ?? null);
+  const [mode, setMode] = useState<'idle' | 'pick'>('idle');
   const [busy, setBusy] = useState(false);
-  const [localError, setLocalError] = useState('');
-  const center: [number, number] = [Number(lat) || team.hq?.lat || 14.5995, Number(lng) || team.hq?.lng || 120.9842];
+  const [notice, setNotice] = useState('');
+  const center: [number, number] = draft ? [draft.lat, draft.lng] : [14.5995, 120.9842];
 
-  async function save(hq: GeoPoint | null) {
+  async function useCurrent() {
     setBusy(true);
-    setLocalError('');
+    setNotice('');
     try {
-      await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq } });
-      onSaved(hq ? 'Headquarters saved.' : 'Headquarters removed.');
+      setDraft(await currentPosition());
+      setMode('idle');
     } catch {
-      onError('Could not save the headquarters. Check the values and try again.');
+      setNotice('Could not read your location. Allow location and try again, or pick on the map.');
     } finally {
       setBusy(false);
     }
   }
 
-  function submit(e: FormEvent) {
-    e.preventDefault();
-    const la = Number(lat), ln = Number(lng);
-    if (!lat.trim() || !lng.trim() || !Number.isFinite(la) || !Number.isFinite(ln) || la < -90 || la > 90 || ln < -180 || ln > 180) {
-      setLocalError('Enter a latitude from -90 to 90 and a longitude from -180 to 180.');
-      return;
+  async function save() {
+    if (!draft) return;
+    setBusy(true);
+    try {
+      await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq: draft } });
+      onSaved('Location saved.');
+    } catch {
+      onError('Could not save the location. Try again.');
+    } finally {
+      setBusy(false);
     }
-    void save({ lat: la, lng: ln });
   }
 
   return (
     <section className="team-hq" aria-labelledby={`hq-title-${team.id}`}>
-      <h3 id={`hq-title-${team.id}`}>Headquarters</h3>
-      {(
-        <div className="hq-map" role="region" aria-label={`Map for ${team.name} headquarters`}>
-          <p className="field-hint">Click the map to place the headquarters, or type the coordinates below.</p>
-          <MapContainer key={team.id} center={center} zoom={13} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
-            <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
-            <HqPicker onPick={(p) => { setLat(p.lat.toFixed(6)); setLng(p.lng.toFixed(6)); setLocalError(''); }} />
-            {Number.isFinite(Number(lat)) && lat.trim() && Number.isFinite(Number(lng)) && lng.trim()
-              ? <Marker position={[Number(lat), Number(lng)]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />
-              : null}
-          </MapContainer>
-        </div>
-      )}
-      <form onSubmit={submit} className="ops-form" aria-label={`Headquarters for ${team.name}`}>
-        <label htmlFor={`hq-lat-${team.id}`}>Latitude</label>
-        <input id={`hq-lat-${team.id}`} type="number" step="any" value={lat} onChange={(e) => setLat(e.target.value)} />
-        <label htmlFor={`hq-lng-${team.id}`}>Longitude</label>
-        <input id={`hq-lng-${team.id}`} type="number" step="any" value={lng} onChange={(e) => setLng(e.target.value)} />
-        {localError && <FieldError role="alert">{localError}</FieldError>}
-        <div className="actions__row">
-          <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>Save headquarters</button>
-          {team.hq && <button type="button" className="btn btn--ghost" disabled={busy} onClick={() => void save(null)}>Remove headquarters</button>}
-        </div>
-      </form>
+      <h3 id={`hq-title-${team.id}`}>Location of {team.name}</h3>
+      <div className="actions__row">
+        <button type="button" className="btn btn--ghost" disabled={busy} onClick={() => void useCurrent()}>Use my current location</button>
+        <button type="button" className="btn btn--ghost" aria-pressed={mode === 'pick'} disabled={busy} onClick={() => setMode('pick')}>Pick on a map</button>
+      </div>
+      {notice && <p className="field-hint" role="status">{notice}</p>}
+      <div className="hq-map" role="region" aria-label={`Map for ${team.name} location`}>
+        <p className="field-hint">{mode === 'pick' ? 'Tap the map to place the location.' : 'Use your location or pick a place on the map.'}</p>
+        <MapContainer key={team.id} center={center} zoom={14} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
+          <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
+          <HqPicker onPick={(p) => { if (mode === 'pick') { setDraft({ lat: p.lat, lng: p.lng }); setMode('idle'); } }} />
+          {draft && <Marker position={[draft.lat, draft.lng]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
+        </MapContainer>
+      </div>
+      <p className="field-hint">{draft ? `Selected: ${draft.lat.toFixed(5)}, ${draft.lng.toFixed(5)}` : 'No location selected yet.'}</p>
+      <div className="actions__row">
+        <button type="button" className="btn" disabled={busy || !draft} aria-busy={busy} onClick={() => void save()}>Save location</button>
+      </div>
     </section>
   );
 }
