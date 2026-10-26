@@ -30,6 +30,7 @@ class LocationStep extends StatefulWidget {
     required this.lat,
     required this.lng,
     required this.source,
+    this.radiusM = 500,
     required this.addressController,
     required this.onPicked,
   });
@@ -37,6 +38,9 @@ class LocationStep extends StatefulWidget {
   final double? lat;
   final double? lng;
   final String? source;
+
+  /// Reach the danger covers, in meters. Shown as a circle around the marked point.
+  final int radiusM;
   final TextEditingController addressController;
   final void Function(double lat, double lng, String source) onPicked;
 
@@ -68,7 +72,9 @@ class _LocationStepState extends State<LocationStep> {
         ? LatLng(widget.lat!, widget.lng!)
         : null;
     final picked = await Navigator.of(context).push<LatLng>(
-      MaterialPageRoute(builder: (_) => MapPickerPage(initial: start)),
+      MaterialPageRoute(
+        builder: (_) => MapPickerPage(initial: start, radiusM: widget.radiusM),
+      ),
     );
     if (picked != null) {
       widget.onPicked(picked.latitude, picked.longitude, 'manual');
@@ -153,8 +159,9 @@ class _LocationStepState extends State<LocationStep> {
 }
 
 class MapPickerPage extends StatefulWidget {
-  const MapPickerPage({super.key, this.initial});
+  const MapPickerPage({super.key, this.initial, this.radiusM = 500});
   final LatLng? initial;
+  final int radiusM;
 
   @override
   State<MapPickerPage> createState() => _MapPickerPageState();
@@ -191,6 +198,19 @@ class _MapPickerPageState extends State<MapPickerPage> {
                     defaultValue: 'local.rescuereports.app',
                   ),
                 ),
+                if (_point != null)
+                  CircleLayer(
+                    circles: [
+                      CircleMarker(
+                        point: _point!,
+                        radius: widget.radiusM.toDouble(),
+                        useRadiusInMeter: true,
+                        color: AppColors.primary.withValues(alpha: 0.15),
+                        borderColor: AppColors.primary,
+                        borderStrokeWidth: 2,
+                      ),
+                    ],
+                  ),
                 if (_point != null)
                   MarkerLayer(
                     markers: [

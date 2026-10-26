@@ -505,6 +505,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           lat: _lat,
           lng: _lng,
           source: _source,
+          radiusM: _reachM,
           addressController: _address,
           onPicked: (lat, lng, source) => setState(() {
             _lat = lat;
