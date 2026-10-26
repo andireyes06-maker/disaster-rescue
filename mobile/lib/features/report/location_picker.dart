@@ -239,8 +239,17 @@ class _MapPickerPageState extends State<MapPickerPage> {
     });
   }
 
-  // The device's current position becomes the centre of the reach, and the place chosen.
-  Future<void> _useCurrent() async {
+  @override
+  void initState() {
+    super.initState();
+    // The map is always based on the live current location: refresh it as soon as the picker opens.
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _useCurrent(choosePoint: false),
+    );
+  }
+
+  // The device's current position becomes the centre of the reach. Optionally it also becomes the chosen place.
+  Future<void> _useCurrent({bool choosePoint = true}) async {
     setState(() {
       _locating = true;
       _problem = null;
@@ -252,7 +261,7 @@ class _MapPickerPageState extends State<MapPickerPage> {
       final p = LatLng(r.lat!, r.lng!);
       setState(() {
         _anchor = p;
-        _point = p;
+        if (choosePoint) _point = p;
       });
       _map.move(p, 16);
     } else {
