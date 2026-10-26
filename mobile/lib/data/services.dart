@@ -32,7 +32,9 @@ class ApiReportsRepository implements ReportsRepository {
     final res = await _api.sendMultipart(
       'POST',
       '/reports',
-      headers: {if (r.idempotencyKey != null) 'Idempotency-Key': r.idempotencyKey!},
+      headers: {
+        if (r.idempotencyKey != null) 'Idempotency-Key': r.idempotencyKey!,
+      },
       fields: {
         'type': r.type,
         'description': r.description,
@@ -64,11 +66,15 @@ class ApiReportsRepository implements ReportsRepository {
   }
 
   @override
-  Stream<List<ReportSummary>> watchMyReports(String uid, {int windowSize = 50}) {
+  Stream<List<ReportSummary>> watchMyReports(
+    String uid, {
+    int windowSize = 50,
+  }) {
     return _db
         .collection('reports')
         .where('reporterId', isEqualTo: uid)
-        .orderBy('createdAt', descending: true).limit(windowSize)
+        .orderBy('createdAt', descending: true)
+        .limit(windowSize)
         .snapshots()
         .map(
           (snap) => sortNewestFirst(
@@ -91,12 +97,21 @@ class ApiReportsRepository implements ReportsRepository {
   }
 
   @override
-  Stream<ReportSummary?> watchReport(String id) => _db.collection('reports').doc(id).snapshots().map((doc) {
-    final data = doc.data();
-    if (data == null) return null;
-    final at = data['createdAt'];
-    return ReportSummary(id: doc.id, type: data['type'] as String? ?? 'other', description: data['description'] as String? ?? '', status: data['status'] as String? ?? 'Submitted', priority: data['priority'] as String?, reference: data['reference'] as String?, createdAt: at is Timestamp ? at.toDate() : null);
-  });
+  Stream<ReportSummary?> watchReport(String id) =>
+      _db.collection('reports').doc(id).snapshots().map((doc) {
+        final data = doc.data();
+        if (data == null) return null;
+        final at = data['createdAt'];
+        return ReportSummary(
+          id: doc.id,
+          type: data['type'] as String? ?? 'other',
+          description: data['description'] as String? ?? '',
+          status: data['status'] as String? ?? 'Submitted',
+          priority: data['priority'] as String?,
+          reference: data['reference'] as String?,
+          createdAt: at is Timestamp ? at.toDate() : null,
+        );
+      });
 
   @override
   Future<void> cancel(String id) async {
@@ -281,18 +296,52 @@ class FirestoreHotlineRepository implements HotlineRepository {
 
 // ---------- Responder ----------
 
+/// Counts for the signed-in responder's own team only. No names or contact details.
+class TeamSummary {
+  const TeamSummary({
+    required this.total,
+    required this.open,
+    required this.resolved,
+    required this.peopleRescued,
+  });
+  final int total;
+  final int open;
+  final int resolved;
+  final int peopleRescued;
+
+  factory TeamSummary.fromJson(Map<String, dynamic> json) => TeamSummary(
+    total: (json['total'] as num?)?.toInt() ?? 0,
+    open: (json['open'] as num?)?.toInt() ?? 0,
+    resolved: (json['resolved'] as num?)?.toInt() ?? 0,
+    peopleRescued: (json['peopleRescued'] as num?)?.toInt() ?? 0,
+  );
+}
+
 abstract class ResponderRepository {
+  /// Team totals from the API (GET /stats/team). Errors when the request fails.
+  Future<TeamSummary> teamSummary();
+
   /// Live list of reports assigned to [teamId]. The query has one equality
   /// filter; anything else is filtered in memory by the caller.
-  Stream<List<AssignedReport>> watchAssigned(String teamId, {int windowSize = 50});
+  Stream<List<AssignedReport>> watchAssigned(
+    String teamId, {
+    int windowSize = 50,
+  });
   Stream<List<AssignedReport>> watchRecentlyClosed(String teamId);
+
   /// Live state of one report. Emits null when the record no longer exists, and errors when access is refused.
   Stream<AssignedReport?> watchReport(String id);
+
   /// Newest progress entries first, at most [limit]. Acknowledgements are not included. Errors when access is refused.
   Stream<List<ProgressEntry>> watchUpdates(String id, {int limit = 20});
   Future<void> acknowledge(String id);
+
   /// [idempotencyKey] makes a retried update replay the first result instead of recording it again.
-  Future<void> postUpdate(String id, OperationUpdate update, {String? idempotencyKey});
+  Future<void> postUpdate(
+    String id,
+    OperationUpdate update, {
+    String? idempotencyKey,
+  });
 }
 
 class ApiResponderRepository implements ResponderRepository {
@@ -301,7 +350,16 @@ class ApiResponderRepository implements ResponderRepository {
   final FirebaseFirestore _db;
 
   @override
-  Stream<List<AssignedReport>> watchAssigned(String teamId, {int windowSize = 50}) {
+  Future<TeamSummary> teamSummary() async {
+    final body = await _api.send('GET', '/stats/team');
+    return TeamSummary.fromJson(body ?? const <String, dynamic>{});
+  }
+
+  @override
+  Stream<List<AssignedReport>> watchAssigned(
+    String teamId, {
+    int windowSize = 50,
+  }) {
     // Oldest first, from the database, so the window holds the oldest open assignments (2026-10-23).
     return _db
         .collection('reports')
@@ -318,11 +376,16 @@ class ApiResponderRepository implements ResponderRepository {
   }
 
   @override
-  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) => _db.collection('reports')
-    .where('assignedTeamId', isEqualTo: teamId)
-    .where('status', whereIn: historyStatuses)
-    .orderBy('updatedAt', descending: true).limit(10).snapshots()
-    .map((snap) => snap.docs.map((d) => _assignedFrom(d.id, d.data())).toList());
+  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) => _db
+      .collection('reports')
+      .where('assignedTeamId', isEqualTo: teamId)
+      .where('status', whereIn: historyStatuses)
+      .orderBy('updatedAt', descending: true)
+      .limit(10)
+      .snapshots()
+      .map(
+        (snap) => snap.docs.map((d) => _assignedFrom(d.id, d.data())).toList(),
+      );
 
   @override
   Stream<AssignedReport?> watchReport(String id) {
@@ -342,10 +405,12 @@ class ApiResponderRepository implements ResponderRepository {
         .limit(limit)
         .snapshots()
         // Acknowledgements share this subcollection but carry no status. They are not progress entries.
-        .map((snap) => snap.docs
-            .map((d) => ProgressEntry.fromMap(d.id, d.data()))
-            .whereType<ProgressEntry>()
-            .toList());
+        .map(
+          (snap) => snap.docs
+              .map((d) => ProgressEntry.fromMap(d.id, d.data()))
+              .whereType<ProgressEntry>()
+              .toList(),
+        );
   }
 
   @override
@@ -354,7 +419,11 @@ class ApiResponderRepository implements ResponderRepository {
   }
 
   @override
-  Future<void> postUpdate(String id, OperationUpdate update, {String? idempotencyKey}) async {
+  Future<void> postUpdate(
+    String id,
+    OperationUpdate update, {
+    String? idempotencyKey,
+  }) async {
     await _api.send(
       'POST',
       '/reports/$id/updates',
@@ -418,7 +487,8 @@ class ApiNotificationsRepository implements NotificationsRepository {
     return _db
         .collection('notifications')
         .where('recipientUid', isEqualTo: uid)
-        .orderBy('createdAt', descending: true).limit(windowSize)
+        .orderBy('createdAt', descending: true)
+        .limit(windowSize)
         .snapshots()
         .map((snap) {
           final list = snap.docs.map((d) {

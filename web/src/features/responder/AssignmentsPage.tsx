@@ -12,6 +12,7 @@ import { useClosedTeamReports } from './useClosedTeamReports';
 import { useAcknowledgedAt, useReport } from '../reports/useReport';
 import EmptyState from '../../components/calm/EmptyState';
 import OperationForm, { allowedOperationStatuses } from './OperationForm';
+import TeamSummary from './TeamSummary';
 import AssignedProgress from './AssignedProgress';
 import StatusBadge from '../reports/StatusBadge';
 import PriorityBadge from '../reports/PriorityBadge';
@@ -252,6 +253,7 @@ export default function AssignmentsPage() {
   return (
     <div>
       {!error && <ConnectionNotice fromCache={fromCache} />}
+      <TeamSummary team={team} />
       {!loading && !error && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
       {error && (
         <Banner tone="error" role="alert">

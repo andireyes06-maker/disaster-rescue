@@ -27,7 +27,8 @@ vi.mock('../reports/useReport', () => ({
   useReportUpdates: () => ({ updates: [], error: null, loading: false, hasMore: false, retry: () => {}, loadOlder: () => {} }),
   useReport: () => ({ ...state.draftReport, retry: () => {} }),
 }));
-vi.mock('../../api/client', async (original) => ({ ...await original<typeof import('../../api/client')>(), api: state.api }));
+// The team summary card loads its own counts; keep those out of the call sequence these tests assert.
+vi.mock('../../api/client', async (original) => ({ ...await original<typeof import('../../api/client')>(), api: (...a: unknown[]) => (a[0] === '/stats/team' ? Promise.resolve(null) : state.api(...a)) }));
 
 import AssignmentsPage from './AssignmentsPage';
 

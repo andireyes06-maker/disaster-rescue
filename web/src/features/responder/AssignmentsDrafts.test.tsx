@@ -7,7 +7,8 @@ const state = vi.hoisted(() => ({
   reportState: {} as Record<string, unknown>,
   api: vi.fn(),
 }));
-vi.mock('../../api/client', () => ({ api: (...a: unknown[]) => state.api(...a) }));
+// The team summary card loads its own counts; keep those out of the call sequence these tests assert.
+vi.mock('../../api/client', () => ({ api: (...a: unknown[]) => (a[0] === '/stats/team' ? Promise.resolve(null) : state.api(...a)) }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ team: 'team-a', user: { uid: 'ana' }, role: 'responder' }) }));
 vi.mock('./useAssignedReports', () => ({
   useAssignedReports: () => ({ reports: [], loading: false, error: null, fromCache: false, retry: () => {}, windowSize: 50, loadMore: () => {} }),

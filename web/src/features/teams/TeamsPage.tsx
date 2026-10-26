@@ -29,13 +29,36 @@ function errorText(err: unknown): string {
   return 'Could not confirm the team change. Refresh the team list before trying again.';
 }
 
+interface StaffMember {
+  uid: string;
+  name?: string | null;
+  email?: string;
+  role: string;
+  active: boolean;
+  team?: string | null;
+}
+
+const ROLE_LABEL: Record<string, string> = { responder: 'Rescuer', admin: 'Administrator' };
+
+function TeamMembers({ team, members }: { team: Team; members: StaffMember[] }) {
+  if (members.length === 0) return <small className="team-members__empty">No members yet</small>;
+  return (
+    <ul className="team-members" aria-label={`Members of ${team.name}`}>
+      {members.map((m) => (
+        <li key={m.uid}><strong>{m.name || m.email || 'Unnamed'}</strong> <small>{ROLE_LABEL[m.role] ?? m.role}</small></li>
+      ))}
+    </ul>
+  );
+}
+
 interface TeamRowProps {
   team: Team;
+  members: StaffMember[];
   onSaved: (text: string) => void;
   onError: (text: string) => void;
 }
 
-function TeamRow({ team, onSaved, onError }: TeamRowProps) {
+function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
   const [busy, setBusy] = useState(false);
   const pendingRef = useRef(false);
   const { register, handleSubmit, watch, formState: { errors } } = useForm<TeamName>({
@@ -62,6 +85,7 @@ function TeamRow({ team, onSaved, onError }: TeamRowProps) {
   return (
     <li className="management-row">
       <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
+      <TeamMembers team={team} members={members} />
       <details className="team-edit"><summary>Edit name</summary>
       <MotionForm onSubmit={handleSubmit(save)} noValidate className="ops-form" aria-label={`Team ${team.name}`}>
         <RequiredNote /><label htmlFor={`team-name-${team.id}`}>Team name<RequiredMark /></label>
@@ -90,11 +114,16 @@ export default function TeamsPage() {
   });
   const newName = watch('name');
 
+  const [staff, setStaff] = useState<StaffMember[]>([]);
+
   const load = useCallback(() => {
     setLoadError(null);
     return api('/teams')
       .then((list: unknown) => { if (!Array.isArray(list)) throw new Error('Invalid teams response'); setTeams(list as Team[]); })
-      .catch(() => setLoadError('Could not load teams. Check your connection and try again.'));
+      .catch(() => setLoadError('Could not load teams. Check your connection and try again.'))
+      .then(() => api('/users'))
+      .then((list: unknown) => { if (Array.isArray(list)) setStaff(list as StaffMember[]); })
+      .catch(() => setStaff([]));
   }, []);
 
   useEffect(() => { load(); }, [load]);
@@ -153,6 +182,7 @@ export default function TeamsPage() {
         <ul className="management-list" aria-label="Teams">
           {visibleTeams.map((t) => (
             <TeamRow key={t.id} team={t}
+              members={staff.filter((m) => m.active && m.team === t.id && m.role !== 'resident')}
               onSaved={(text) => { setMessage({ kind: 'ok', text }); load(); }}
               onError={(text) => setMessage({ kind: 'error', text })} />
           ))}

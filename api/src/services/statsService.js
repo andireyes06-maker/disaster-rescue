@@ -78,3 +78,10 @@ export function buildStats(reports, { from, to } = {}) {
     peopleRescued,
   };
 }
+
+// Counts for one responder team only. Aggregates; no names, contacts, photos or locations.
+export function teamSummary(reports, teamId) {
+  const mine = reports.filter((r) => r.assignedTeamId === teamId);
+  const s = buildStats(mine, {});
+  return { total: s.total, open: s.open, resolved: s.resolved, byStatus: s.byStatus, peopleRescued: s.peopleRescued };
+}

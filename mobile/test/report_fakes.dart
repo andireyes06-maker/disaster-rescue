@@ -18,10 +18,13 @@ import 'fakes.dart';
 
 class FakeReportsRepository implements ReportsRepository {
   @override
-  Stream<ReportSummary?> watchReport(String id) => controller.stream.map((rows) {
-    for (final row in rows) { if (row.id == id) return row; }
-    return null;
-  });
+  Stream<ReportSummary?> watchReport(String id) =>
+      controller.stream.map((rows) {
+        for (final row in rows) {
+          if (row.id == id) return row;
+        }
+        return null;
+      });
   Object? createError;
   final List<NewReport> created = [];
   // Every attempt's key, including attempts that failed (M04).
@@ -44,7 +47,10 @@ class FakeReportsRepository implements ReportsRepository {
   }
 
   @override
-  Stream<List<ReportSummary>> watchMyReports(String uid, {int windowSize = 50}) => controller.stream;
+  Stream<List<ReportSummary>> watchMyReports(
+    String uid, {
+    int windowSize = 50,
+  }) => controller.stream;
 
   @override
   Future<void> cancel(String id) async {
@@ -110,6 +116,7 @@ class MemoryDraftStore implements DraftStore {
     if (failSave) throw StateError('storage unavailable');
     draft = d;
   }
+
   @override
   Future<ReportDraft?> load() async => draft;
   @override
@@ -117,6 +124,7 @@ class MemoryDraftStore implements DraftStore {
     if (failClear) throw StateError('storage unavailable');
     draft = null;
   }
+
   // Mirrors the persisted per-account uncertain-send flag (F02).
   bool uncertain = false;
   @override
@@ -124,6 +132,7 @@ class MemoryDraftStore implements DraftStore {
     if (failLoadUncertain) throw StateError('storage unavailable');
     return uncertain;
   }
+
   @override
   Future<void> setUncertainSend(bool value) async {
     if (failSetUncertain) throw StateError('storage unavailable');
@@ -153,25 +162,39 @@ PickedPhoto photo(String name) =>
 
 class FakeResponderRepository implements ResponderRepository {
   final closed = StreamController<List<AssignedReport>>.broadcast();
+  TeamSummary summary = const TeamSummary(
+    total: 3,
+    open: 2,
+    resolved: 1,
+    peopleRescued: 4,
+  );
   @override
-  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) => closed.stream;
+  Future<TeamSummary> teamSummary() async => summary;
+  @override
+  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) =>
+      closed.stream;
   final StreamController<List<AssignedReport>> assigned =
       StreamController.broadcast();
   final List<String> acknowledged = [];
   final List<(String, OperationUpdate)> updates = [];
   Object? updateError;
+
   /// Per-update outcome: returns an error to throw, or null to succeed. Takes precedence over [updateError].
   Object? Function(OperationUpdate update)? updateOutcome;
 
   @override
-  Stream<List<AssignedReport>> watchAssigned(String teamId, {int windowSize = 50}) => assigned.stream;
+  Stream<List<AssignedReport>> watchAssigned(
+    String teamId, {
+    int windowSize = 50,
+  }) => assigned.stream;
 
   final StreamController<AssignedReport?> single = StreamController.broadcast();
   @override
   Stream<AssignedReport?> watchReport(String id) => single.stream;
 
   /// Progress history. Each subscription records its limit, so a test can check the bounded page size.
-  final StreamController<List<ProgressEntry>> progress = StreamController.broadcast();
+  final StreamController<List<ProgressEntry>> progress =
+      StreamController.broadcast();
   final List<int> progressLimits = [];
   @override
   Stream<List<ProgressEntry>> watchUpdates(String id, {int limit = 20}) {
@@ -186,9 +209,15 @@ class FakeResponderRepository implements ResponderRepository {
   final List<String?> updateKeys = [];
 
   @override
-  Future<void> postUpdate(String id, OperationUpdate update, {String? idempotencyKey}) async {
+  Future<void> postUpdate(
+    String id,
+    OperationUpdate update, {
+    String? idempotencyKey,
+  }) async {
     updateKeys.add(idempotencyKey);
-    final outcome = updateOutcome != null ? updateOutcome!(update) : updateError;
+    final outcome = updateOutcome != null
+        ? updateOutcome!(update)
+        : updateError;
     if (outcome != null) throw outcome;
     updates.add((id, update));
   }
@@ -200,7 +229,8 @@ class FakeNotificationsRepository implements NotificationsRepository {
   final List<String> marked = [];
 
   @override
-  Stream<List<AppNotification>> watch(String uid, {int windowSize = 50}) => controller.stream;
+  Stream<List<AppNotification>> watch(String uid, {int windowSize = 50}) =>
+      controller.stream;
 
   @override
   Future<void> markRead(String id) async => marked.add(id);
@@ -221,7 +251,10 @@ class FakePushMessaging implements PushMessaging {
   }
 
   @override
-  Future<String?> getToken() async { if (tokenError != null) throw tokenError!; return token; }
+  Future<String?> getToken() async {
+    if (tokenError != null) throw tokenError!;
+    return token;
+  }
 
   @override
   Stream<String> get onTokenRefresh => refresh.stream;
@@ -238,6 +271,7 @@ class FakeApi extends ApiClient {
 
   Object? sendError;
   final List<(String, String, Map<String, dynamic>?)> calls = [];
+
   /// Headers of each send call, in order.
   final List<Map<String, String>> sendHeaders = [];
 

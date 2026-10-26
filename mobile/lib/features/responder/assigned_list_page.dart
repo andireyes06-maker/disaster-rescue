@@ -9,6 +9,7 @@ import '../auth/auth_widgets.dart';
 import '../map/incident_map_page.dart';
 import '../my_reports/my_reports_page.dart' show StatusChip, formatWhen;
 import 'incident_detail_page.dart';
+import 'team_summary_card.dart';
 import '../../theme/product_widgets.dart';
 import '../report/report_flow_page.dart' show reportTypeInfo;
 
@@ -80,133 +81,140 @@ class _AssignedListPageState extends State<AssignedListPage> {
           ],
         ),
         body: ProductViewport(
-          child: _stream == null
-              ? const ProductEmpty(
-                  title: 'No response team yet.',
-                  description:
-                      'Assignments will appear here once your account is added to a response team.',
-                  icon: Icons.groups_outlined,
-                )
-              : TabBarView(
-                  children: [
-                    StreamBuilder<List<AssignedReport>>(
-                      stream: _stream,
-                      builder: (context, snap) {
-                        if (snap.hasError) {
-                          return _retry(
-                            'Could not load assigned reports. Check your connection and try again.',
-                            () => setState(
-                              () => _stream = context
-                                  .read<ResponderRepository>()
-                                  .watchAssigned(
-                                    team!,
-                                    windowSize: _windowSize,
+          child: Column(
+            children: [
+              if (_stream != null) const TeamSummaryCard(),
+              Expanded(
+                child: _stream == null
+                    ? const ProductEmpty(
+                        title: 'No response team yet.',
+                        description:
+                            'Assignments will appear here once your account is added to a response team.',
+                        icon: Icons.groups_outlined,
+                      )
+                    : TabBarView(
+                        children: [
+                          StreamBuilder<List<AssignedReport>>(
+                            stream: _stream,
+                            builder: (context, snap) {
+                              if (snap.hasError) {
+                                return _retry(
+                                  'Could not load assigned reports. Check your connection and try again.',
+                                  () => setState(
+                                    () => _stream = context
+                                        .read<ResponderRepository>()
+                                        .watchAssigned(
+                                          team!,
+                                          windowSize: _windowSize,
+                                        ),
                                   ),
-                            ),
-                          );
-                        }
-                        if (!snap.hasData) return const ProductLoading();
-                        final active =
-                            snap.data!
-                                .where((r) => !isHistoryStatus(r.status))
-                                .toList()
-                              ..sort((a, b) {
-                                final x = a.createdAt, y = b.createdAt;
-                                if (x == null && y == null) {
-                                  return a.id.compareTo(b.id);
-                                }
-                                if (x == null) return 1;
-                                if (y == null) return -1;
-                                final byTime = x.compareTo(y);
-                                return byTime != 0
-                                    ? byTime
-                                    : a.id.compareTo(b.id);
-                              });
-                        if (active.isEmpty) {
-                          return const ProductEmpty(
-                            title: 'No assigned reports right now.',
-                            description:
-                                'New assignments from your administrator will appear here.',
-                            icon: Icons.assignment_turned_in_outlined,
-                          );
-                        }
-                        return Column(
-                          children: [
-                            if (active.length >= _windowSize)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'Showing ${active.length} oldest active reports.',
+                                );
+                              }
+                              if (!snap.hasData) return const ProductLoading();
+                              final active =
+                                  snap.data!
+                                      .where((r) => !isHistoryStatus(r.status))
+                                      .toList()
+                                    ..sort((a, b) {
+                                      final x = a.createdAt, y = b.createdAt;
+                                      if (x == null && y == null) {
+                                        return a.id.compareTo(b.id);
+                                      }
+                                      if (x == null) return 1;
+                                      if (y == null) return -1;
+                                      final byTime = x.compareTo(y);
+                                      return byTime != 0
+                                          ? byTime
+                                          : a.id.compareTo(b.id);
+                                    });
+                              if (active.isEmpty) {
+                                return const ProductEmpty(
+                                  title: 'No assigned reports right now.',
+                                  description:
+                                      'New assignments from your administrator will appear here.',
+                                  icon: Icons.assignment_turned_in_outlined,
+                                );
+                              }
+                              return Column(
+                                children: [
+                                  if (active.length >= _windowSize)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'Showing ${active.length} oldest active reports.',
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () => setState(() {
+                                              _windowSize += 50;
+                                              _stream = context
+                                                  .read<ResponderRepository>()
+                                                  .watchAssigned(
+                                                    team!,
+                                                    windowSize: _windowSize,
+                                                  );
+                                            }),
+                                            child: const Text('Load older'),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    TextButton(
-                                      onPressed: () => setState(() {
-                                        _windowSize += 50;
-                                        _stream = context
-                                            .read<ResponderRepository>()
-                                            .watchAssigned(
-                                              team!,
-                                              windowSize: _windowSize,
-                                            );
-                                      }),
-                                      child: const Text('Load older'),
+                                  Expanded(
+                                    child: ListView.separated(
+                                      padding: const EdgeInsets.all(20),
+                                      itemCount: active.length,
+                                      separatorBuilder: (_, _) =>
+                                          const SizedBox(height: 14),
+                                      itemBuilder: (_, i) =>
+                                          _AssignedTile(report: active[i]),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            Expanded(
-                              child: ListView.separated(
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                          StreamBuilder<List<AssignedReport>>(
+                            stream: _closed,
+                            builder: (context, snap) {
+                              if (snap.hasError) {
+                                return _retry(
+                                  'Could not load closed reports. Check your connection and return to this tab.',
+                                  () => setState(
+                                    () => _closed = context
+                                        .read<ResponderRepository>()
+                                        .watchRecentlyClosed(team!),
+                                  ),
+                                );
+                              }
+                              if (!snap.hasData) return const ProductLoading();
+                              final reports = snap.data!;
+                              if (reports.isEmpty) {
+                                return const ProductEmpty(
+                                  title: 'No recently closed reports.',
+                                  description:
+                                      'The ten most recent completed reports for your team appear here.',
+                                );
+                              }
+                              return ListView.separated(
                                 padding: const EdgeInsets.all(20),
-                                itemCount: active.length,
+                                itemCount: reports.length,
                                 separatorBuilder: (_, _) =>
                                     const SizedBox(height: 14),
                                 itemBuilder: (_, i) =>
-                                    _AssignedTile(report: active[i]),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                    StreamBuilder<List<AssignedReport>>(
-                      stream: _closed,
-                      builder: (context, snap) {
-                        if (snap.hasError) {
-                          return _retry(
-                            'Could not load closed reports. Check your connection and return to this tab.',
-                            () => setState(
-                              () => _closed = context
-                                  .read<ResponderRepository>()
-                                  .watchRecentlyClosed(team!),
-                            ),
-                          );
-                        }
-                        if (!snap.hasData) return const ProductLoading();
-                        final reports = snap.data!;
-                        if (reports.isEmpty) {
-                          return const ProductEmpty(
-                            title: 'No recently closed reports.',
-                            description:
-                                'The ten most recent completed reports for your team appear here.',
-                          );
-                        }
-                        return ListView.separated(
-                          padding: const EdgeInsets.all(20),
-                          itemCount: reports.length,
-                          separatorBuilder: (_, _) =>
-                              const SizedBox(height: 14),
-                          itemBuilder: (_, i) =>
-                              _AssignedTile(report: reports[i]),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                                    _AssignedTile(report: reports[i]),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );
