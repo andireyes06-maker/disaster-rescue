@@ -210,14 +210,31 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       case 0:
         return _type != null;
       case 1:
-        return _hasLocation;
+        return _hasLocation && _source == 'gps';
       default:
         return true;
     }
   }
 
+  static const _needPhoto = 'Add at least one photo as proof.';
+  static const _needGps = 'Use your current location (GPS) before continuing.';
+
+  void _notify(String message) {
+    ScaffoldMessenger.maybeOf(
+      context,
+    )?.showSnackBar(SnackBar(content: Text(message)));
+  }
+
   void _next() {
+    if (_step == 1 && _source != 'gps') {
+      _notify(_needGps);
+      return;
+    }
     if (_step == 2 && !(_formKey.currentState?.validate() ?? false)) return;
+    if (_step == 2 && _photos.isEmpty) {
+      _notify(_needPhoto);
+      return;
+    }
     setState(() => _step++);
   }
 
@@ -234,6 +251,14 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
 
   Future<void> _submit() async {
     if (_submitting || _blockedByUncertain) return;
+    if (_photos.isEmpty) {
+      _notify(_needPhoto);
+      return;
+    }
+    if (_source != 'gps') {
+      _notify(_needGps);
+      return;
+    }
     setState(() => _submitting = true);
     final nav = Navigator.of(context);
     final reports = context.read<ReportsRepository>();

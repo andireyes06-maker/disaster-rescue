@@ -83,7 +83,6 @@ class _AssignedListPageState extends State<AssignedListPage> {
         body: ProductViewport(
           child: Column(
             children: [
-              if (_stream != null) const TeamSummaryCard(),
               Expanded(
                 child: _stream == null
                     ? const ProductEmpty(
@@ -202,11 +201,12 @@ class _AssignedListPageState extends State<AssignedListPage> {
                               }
                               return ListView.separated(
                                 padding: const EdgeInsets.all(20),
-                                itemCount: reports.length,
+                                itemCount: reports.length + 1,
                                 separatorBuilder: (_, _) =>
                                     const SizedBox(height: 14),
-                                itemBuilder: (_, i) =>
-                                    _AssignedTile(report: reports[i]),
+                                itemBuilder: (_, i) => i == 0
+                                    ? const TeamSummaryCard()
+                                    : _AssignedTile(report: reports[i - 1]),
                               );
                             },
                           ),

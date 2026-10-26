@@ -48,6 +48,7 @@ Future<void> toStep4(WidgetTester t) async {
   await t.enterText(find.byKey(const Key('contactName')), 'Ana Reyes');
   await t.enterText(find.byKey(const Key('contactPhone')), '0917 123 4567');
   await t.pump();
+  await tapText(t, 'Add photos');
   await t.tap(find.widgetWithText(FilledButton, 'Next'));
   await t.pumpAndSettle();
 }

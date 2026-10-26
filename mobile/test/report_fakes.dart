@@ -70,7 +70,8 @@ class FakeLocationService implements LocationService {
 }
 
 class FakePhotoService implements PhotoService {
-  List<PickedPhoto> next = [];
+  // Reports need at least one photo as proof, so the default pick is one valid photo.
+  List<PickedPhoto> next = [photo('proof.jpg')];
   int calls = 0;
   @override
   Future<List<PickedPhoto>> pick(int limit) async {
