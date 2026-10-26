@@ -213,14 +213,15 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       case 0:
         return _type != null;
       case 1:
-        return _hasLocation && _source == 'gps';
+        return _hasLocation;
       default:
         return true;
     }
   }
 
   static const _needPhoto = 'Add at least one photo as proof.';
-  static const _needGps = 'Use your current location (GPS) before continuing.';
+  static const _needLocation =
+      'Choose a location first: use your current location or pick on a map.';
 
   void _notify(String message) {
     ScaffoldMessenger.maybeOf(
@@ -229,10 +230,6 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   }
 
   void _next() {
-    if (_step == 1 && _source != 'gps') {
-      _notify(_needGps);
-      return;
-    }
     if (_step == 2 && !(_formKey.currentState?.validate() ?? false)) return;
     if (_step == 2 && _photos.isEmpty) {
       _notify(_needPhoto);
@@ -258,8 +255,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _notify(_needPhoto);
       return;
     }
-    if (_source != 'gps') {
-      _notify(_needGps);
+    if (!_hasLocation) {
+      _notify(_needLocation);
       return;
     }
     setState(() => _submitting = true);

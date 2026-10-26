@@ -126,14 +126,6 @@ class _LocationStepState extends State<LocationStep> {
                 label: const Text('Pick on a map'),
               ),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: _busy ? null : _useGps,
-                icon: const Icon(Icons.place_outlined),
-                label: const Text('Same as my current location'),
-              ),
-            ),
           ],
         ),
         if (_problem != null) ...[
@@ -159,7 +151,7 @@ class _LocationStepState extends State<LocationStep> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      has ? 'Location selected' : 'Choose your location',
+                      has ? 'Location selected' : 'No location selected yet',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 5),
