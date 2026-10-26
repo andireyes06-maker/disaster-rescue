@@ -160,8 +160,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     _watchProgress();
   }
 
-  String get _farMessage =>
-      'You are too far from this incident to act on it. Move within ${formatMeters(_allowedMeters.toDouble())} of it, then try again.';
+  static const _farMessage = 'You are too far from the incident to verify.';
 
   Future<void> _acknowledge() async {
     if (_tooFar) {
@@ -349,7 +348,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
             ],
             if (!closed)
               FilledButton.icon(
-                onPressed: _acknowledged || _busy || closed || _tooFar
+                onPressed: _acknowledged || _busy || closed
                     ? null
                     : _acknowledge,
                 icon: Icon(
@@ -360,7 +359,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
             if (!closed) ...[
               const SizedBox(height: 12),
               OutlinedButton.icon(
-                onPressed: _tooFar ? null : _updateStatus,
+                onPressed: _updateStatus,
                 icon: const Icon(Icons.edit_note),
                 label: const Text('Add operation update'),
               ),
