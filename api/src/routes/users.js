@@ -13,7 +13,7 @@ export function usersRouter(deps) {
       res.status(out.created ? 201 : 200).json({ uid: out.uid, role: out.role });
     } catch (e) { next(e); }
   });
-  r.post('/', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
+  r.post('/', auth, requireRole('admin'), async (req, res, next) => {
     try { res.status(201).json(await createStaff(deps, req.body ?? {}, req.user)); } catch (e) { next(e); }
   });
   r.get('/', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {

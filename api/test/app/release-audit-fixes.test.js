@@ -56,9 +56,10 @@ describe('F03: an administrator can assign and change a staff member\'s team', (
     expect(linked.status).toBe(200);
     expect(await t.repo.getUser('rsp-2')).toMatchObject({ team: 'tA' });
     expect(t.auth.users.get('rsp-2').customClaims).toMatchObject({ team: 'tA' });
-    const unlinked = await request(t.app).patch('/api/users/rsp-2').set('Authorization', t.as('admin')).send({ team: null });
-    expect(unlinked.status).toBe(200);
-    expect(await t.repo.getUser('rsp-2')).toMatchObject({ team: null });
+    // A rescuer on a team cannot be moved or removed from it.
+    const moved = await request(t.app).patch('/api/users/rsp-2').set('Authorization', t.as('admin')).send({ team: null });
+    expect(moved.status).toBe(409);
+    expect(await t.repo.getUser('rsp-2')).toMatchObject({ team: 'tA' });
   });
 
   it('refuses an unknown team', async () => {

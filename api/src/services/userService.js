@@ -17,6 +17,8 @@ const cleanName = (v) => {
 };
 
 export async function createStaff({ repo, auth }, body, caller = { role: 'dispatcher' }) {
+  // Only an administrator creates accounts, and only an administrator sets a first password.
+  if (caller.role !== 'admin') throw new HttpError(403, 'forbidden', 'Only administrators can create accounts');
   const email = typeof body?.email === 'string' ? body.email.trim() : '';
   if (!EMAIL_RE.test(email)) throw new HttpError(400, 'invalid_email', 'A valid email is required');
   const name = cleanName(body?.name);
@@ -87,6 +89,11 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
   // A team is an existing team id, or null to remove the account from its team. The same rule as creation applies.
   if (hasTeam && body.team !== null && (!isSafeId(body.team) || !(await repo.getTeam(body.team)))) {
     throw new HttpError(400, 'invalid_team', 'Team does not exist');
+  }
+
+  // Once a rescuer has a team, the team cannot be changed or removed. Moving someone between teams is not allowed.
+  if (hasTeam && user.role === 'responder' && user.team && body.team !== user.team) {
+    throw new HttpError(409, 'team_locked', 'This rescuer is already on a team and cannot be moved. Create a new account for another team.');
   }
 
   const role = hasRole ? body.role : user.role;

@@ -370,7 +370,7 @@ function IncidentView({ id }: IncidentViewProps) {
       )}
 
       {canAct && (
-        <AssignTeamDialog open={assigning} reportId={report.id} onClose={() => setAssigning(false)} returnFocusTo={assignTrigger}
+        <AssignTeamDialog open={assigning} reportId={report.id} reportLocation={report.location} onClose={() => setAssigning(false)} returnFocusTo={assignTrigger}
           onAssigned={() => setMessage({ kind: 'ok', text: 'Rescue team assigned.' })} />
       )}
 

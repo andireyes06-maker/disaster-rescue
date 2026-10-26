@@ -75,5 +75,6 @@ export interface Team {
   id: string;
   name: string;
   busy: boolean;
+  hq?: GeoPoint | null;
   currentReportId?: string | null;
 }

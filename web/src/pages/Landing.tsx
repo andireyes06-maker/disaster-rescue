@@ -12,12 +12,21 @@ import './landing.css';
 import './landing-header.css';
 import './landing-story.css';
 import { ANDROID_APK_URL } from '../config/downloads';
+// Store-style badges, matching the App Store and Google Play badge layout. The official badge artwork
+// is not used here; these are styled text badges.
+const storeBadge = 'store-badge';
 const downloadButtons = (
   <div className="service-downloads">
     {ANDROID_APK_URL
-      ? <a className="btn" href={ANDROID_APK_URL} download>Download for Android<Download size={17} aria-hidden="true" /></a>
-      : <button className="btn" type="button" disabled aria-disabled="true">Android, coming soon</button>}
-    <button className="btn" type="button" disabled aria-disabled="true">iOS, coming soon</button>
+      ? <a className={storeBadge} href={ANDROID_APK_URL} download aria-label="Download for Android (APK)">
+          <span className="store-badge__small">Download the</span><span className="store-badge__large">Android app</span>
+        </a>
+      : <button className={`${storeBadge} is-soon`} type="button" disabled aria-disabled="true" aria-label="Android, coming soon">
+          <span className="store-badge__small">Coming soon on</span><span className="store-badge__large">Google Play</span>
+        </button>}
+    <button className={`${storeBadge} is-soon`} type="button" disabled aria-disabled="true" aria-label="iOS, coming soon">
+      <span className="store-badge__small">Coming soon on the</span><span className="store-badge__large">App Store</span>
+    </button>
   </div>
 );
 const NAV = [{ href: '#how-it-works', label: 'How it works' }, { href: '#residents', label: 'For residents' }, { href: '#access', label: 'Access' }];

@@ -18,11 +18,15 @@ export const NO_FREE_TEAMS = 'No rescue teams are free right now. Close a finish
 import type { Team } from '../../types/domain';
 import Banner from '../../components/calm/Banner';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
+import { distanceMeters } from './format';
+import type { GeoPoint } from '../../types/domain';
 
 interface AssignTeamDialogProps {
   open?: boolean;
   returnFocusTo?: React.RefObject<HTMLElement | null>;
   reportId: string;
+  // Where the incident is. Teams are listed nearest first, with their distance from it.
+  reportLocation?: GeoPoint | null;
   onClose: () => void;
   onAssigned?: () => void;
 }
@@ -46,12 +50,12 @@ function errorText(err: unknown): string {
 
 function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
   reportId: string;
-  freeTeams: Team[];
+  freeTeams: { team: Team; km: number | null }[];
   onClose: () => void;
   onAssigned?: () => void;
 }) {
   // The schema is fixed for this form's lifetime. The parent mounts it only once teams have loaded.
-  const [schema] = useState(() => assignTeamSchema(freeTeams.map((t) => t.id)));
+  const [schema] = useState(() => assignTeamSchema(freeTeams.map((t) => t.team.id)));
   const [busy, setBusy] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const { control, handleSubmit, formState: { errors } } = useForm<AssignTeam>({
@@ -85,7 +89,7 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
         render={({ field }) => (
           <select id="assign-team" aria-required="true" aria-invalid={!!errors.teamId} aria-describedby={message ? 'assign-error' : undefined} name="teamId" value={field.value} onChange={(e) => field.onChange(e.target.value)} onBlur={field.onBlur} ref={field.ref}>
             <option value="" disabled>Choose a team</option>
-            {freeTeams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
+            {freeTeams.map(({ team: t, km }) => <option key={t.id} value={t.id}>{km === null ? `${t.name} (no headquarters set)` : `${t.name}, ${km.toFixed(1)} km away`}</option>)}
           </select>
         )}
       />
@@ -98,7 +102,7 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
   );
 }
 
-export default function AssignTeamDialog({ open = true, reportId, onClose, onAssigned, returnFocusTo }: AssignTeamDialogProps) {
+export default function AssignTeamDialog({ open = true, reportId, reportLocation, onClose, onAssigned, returnFocusTo }: AssignTeamDialogProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   useDialogFocusReturn(open, returnFocusTo, contentRef);
   const [state, setState] = useState<TeamsState>({ teams: [], loading: true, error: null });
@@ -118,7 +122,14 @@ export default function AssignTeamDialog({ open = true, reportId, onClose, onAss
     return () => { active = false; };
   }, [attempt, open]);
 
-  const free = state.teams.filter((t) => !t.busy);
+  // Nearest first. Teams without a headquarters point go last.
+  const free = state.teams
+    .filter((t) => !t.busy)
+    .map((team) => {
+      const m = team.hq ? distanceMeters(team.hq, reportLocation) : null;
+      return { team, km: m === null ? null : m / 1000 };
+    })
+    .sort((a, b) => (a.km === null ? 1 : b.km === null ? -1 : a.km - b.km));
   const showEmpty = !state.loading && !state.error && free.length === 0;
   const showForm = !state.loading && !state.error && free.length > 0;
 

@@ -8,6 +8,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import { teamNameSchema, type TeamName } from '../../lib/schemas';
+import { currentPosition } from '../../lib/position';
+import type { GeoPoint } from '../../types/domain';
+
+function hqText(hq?: GeoPoint | null): string {
+  return hq ? `HQ ${hq.lat.toFixed(4)}, ${hq.lng.toFixed(4)}` : 'No headquarters set';
+}
 
 import type { Team } from '../../types/domain';
 import Banner from '../../components/calm/Banner';
@@ -84,8 +90,9 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
 
   return (
     <li className="management-row">
-      <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
+      <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team.hq)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
+      <button type="button" className="btn btn--ghost" disabled={busy} onClick={async () => { setBusy(true); try { const hq = await currentPosition(); await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq } }); onSaved('Headquarters set to your current location.'); } catch { onError('Could not set headquarters. Allow location and try again.'); } finally { setBusy(false); } }}>Set headquarters to my location</button>
       <details className="team-edit"><summary>Edit name</summary>
       <MotionForm onSubmit={handleSubmit(save)} noValidate className="ops-form" aria-label={`Team ${team.name}`}>
         <RequiredNote /><label htmlFor={`team-name-${team.id}`}>Team name<RequiredMark /></label>
@@ -113,6 +120,8 @@ export default function TeamsPage() {
     defaultValues: { name: '' },
   });
   const newName = watch('name');
+  const [newHq, setNewHq] = useState<GeoPoint | null>(null);
+  const [hqNotice, setHqNotice] = useState('');
 
   const [staff, setStaff] = useState<StaffMember[]>([]);
 
@@ -134,8 +143,10 @@ export default function TeamsPage() {
     setBusy(true);
     setMessage(null);
     try {
-      await api('/teams', { method: 'POST', body: { name: values.name } });
+      await api('/teams', { method: 'POST', body: { name: values.name, hq: newHq } });
       reset({ name: '' });
+      setNewHq(null);
+      setHqNotice('');
       setMessage({ kind: 'ok', text: 'Team created.' });
       await load();
     } catch (err) {
@@ -156,7 +167,9 @@ export default function TeamsPage() {
         <RequiredNote /><label htmlFor="new-team">New team name<RequiredMark /></label>
         <input id="new-team" aria-required="true" maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'new-team-error' : undefined} />
         {errors.name && <FieldError id="new-team-error">{errors.name.message}</FieldError>}
+        {hqNotice && <p className="field-hint" role="status">{hqNotice}</p>}
         <div className="actions__row">
+          <button type="button" className="btn btn--ghost" onClick={async () => { try { setNewHq(await currentPosition()); setHqNotice('Headquarters captured from your current location.'); } catch { setHqNotice('Could not read your location. Allow location and try again, or create the team without headquarters.'); } }}>Use my current location as headquarters</button>
           <button type="submit" className="btn" aria-disabled={busy || !newName.trim()} aria-busy={busy}>Create team</button>
         </div>
       </MotionForm>

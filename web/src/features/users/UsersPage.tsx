@@ -190,7 +190,7 @@ export default function UsersPage() {
               </div>
               <div className="management-actions">
                 <span>{u.active ? 'Active' : 'Deactivated'}</span>
-                {TEAM_ROLES.has(u.role) && u.uid !== user?.uid && <label className="management-team"><span>Team</span><select aria-label={`Team for ${u.name || u.email}`} value={u.team ?? ''} disabled={busy} onChange={e => setTeam(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select></label>}
+                {TEAM_ROLES.has(u.role) && u.uid !== user?.uid && <label className="management-team"><span>Team</span><select aria-label={`Team for ${u.name || u.email}`} value={u.team ?? ''} disabled={(u.role === 'responder' && !!u.team) || busy} onChange={e => setTeam(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select></label>}
                 {u.uid === user?.uid ? <span className="field-hint">Your account</span> : <button type="button" className="btn btn--ghost" aria-disabled={busy} aria-busy={busy}
                   aria-label={`${u.active ? 'Deactivate' : 'Activate'} ${u.name || u.email}`}
                   onClick={() => setActive(u, !u.active)}>

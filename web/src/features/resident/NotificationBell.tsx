@@ -26,6 +26,12 @@ export default function NotificationBell({ uid, reportHref = residentReportHref 
     if (open) panelRef.current?.querySelector<HTMLElement>('.notification-panel__close')?.focus();
   }, [open]);
   const unread = notifications.filter((n) => !n.read && !readIds.has(n.id)).length;
+  // Viewing the notifications marks them read: opening the panel marks each unread item it shows.
+  useEffect(() => {
+    if (!open) return;
+    for (const n of notifications) if (!n.read && !readIds.has(n.id)) void markRead(n.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, notifications]);
 
   async function markRead(id: string) {
     if (pendingRef.current.has(id)) return;
@@ -75,7 +81,6 @@ export default function NotificationBell({ uid, reportHref = residentReportHref 
                 {isUnread && <span className="visually-hidden">Unread: </span>}<strong>{n.title}</strong><p>{n.body}</p><time dateTime={n.createdAt.toISOString()}>{formatTime(n.createdAt)}</time>
                 <div className="notification-panel__actions">
                   {n.reportId && <Link to={reportHref(n.reportId)} onClick={() => setOpen(false)}>View report</Link>}
-                  {isUnread && <button type="button" onClick={() => void markRead(n.id)} data-notification-read={n.id} aria-disabled={pendingIds.has(n.id)} aria-busy={pendingIds.has(n.id)} aria-label={`Mark as read: ${n.title}`}><Check size={14} aria-hidden="true" />{pendingIds.has(n.id) ? 'Saving…' : 'Mark as read'}</button>}
                 </div>
               </div>
             </li>;

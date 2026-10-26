@@ -23,9 +23,9 @@ const TEAMS = [
   { id: 't3', name: 'Charlie', busy: false, currentReportId: null },
 ];
 
-function show(teams = TEAMS) {
+function show(teams = TEAMS, reportLocation: { lat: number; lng: number } | null = null) {
   h.api.mockImplementation((path: string) => (path === '/teams' ? Promise.resolve(teams) : Promise.resolve({})));
-  return render(<AssignTeamDialog reportId="r1" onClose={vi.fn()} onAssigned={vi.fn()} />);
+  return render(<AssignTeamDialog reportId="r1" reportLocation={reportLocation} onClose={vi.fn()} onAssigned={vi.fn()} />);
 }
 
 describe('AssignTeamDialog', () => {
@@ -45,8 +45,16 @@ describe('AssignTeamDialog', () => {
     show();
     const select = await screen.findByRole('combobox', { name: /rescue team/i });
     const options = within(select).getAllByRole('option').filter((o) => (o as HTMLOptionElement).value).map((o) => o.textContent);
-    expect(options).toEqual(['Alpha', 'Charlie']);
-    expect(within(select).queryByText('Bravo')).toBeNull();
+    expect(options).toEqual(['Alpha (no headquarters set)', 'Charlie (no headquarters set)']);
+    expect(within(select).queryByText('Bravo', { exact: false })).toBeNull();
+  });
+
+  it('lists the nearest team first, with its distance in km', async () => {
+    show(TEAMS.map((t) => ({ ...t, hq: t.id === 't3' ? { lat: 14.6, lng: 120.98 } : { lat: 14.9, lng: 121.2 } })), { lat: 14.6, lng: 120.98 });
+    const select = await screen.findByRole('combobox', { name: /rescue team/i });
+    const options = within(select).getAllByRole('option').filter((o) => (o as HTMLOptionElement).value).map((o) => o.textContent);
+    expect(options[0]).toMatch(/^Charlie, 0\.0 km away$/);
+    expect(options[1]).toMatch(/^Alpha, \d+\.\d km away$/);
   });
 
   it('shows a plain-text reason when no team is free', async () => {
