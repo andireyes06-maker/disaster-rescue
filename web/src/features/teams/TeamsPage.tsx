@@ -70,6 +70,8 @@ interface TeamRowProps {
 
 function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
   const [busy, setBusy] = useState(false);
+  // The headquarters map is mounted only while "Edit team" is open, so it always has a visible size.
+  const [editing, setEditing] = useState(false);
   const pendingRef = useRef(false);
   const { register, handleSubmit, watch, formState: { errors } } = useForm<TeamName>({
     resolver: zodResolver(teamNameSchema),
@@ -97,7 +99,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
       <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team.hq)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
       <button type="button" className="btn btn--ghost" disabled={busy} onClick={async () => { setBusy(true); try { const hq = await currentPosition(); await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq } }); onSaved('Headquarters set to your current location.'); } catch { onError('Could not set headquarters. Allow location and try again.'); } finally { setBusy(false); } }}>Set headquarters to my location</button>
-      <details className="team-edit"><summary>Edit team</summary>
+      <details className="team-edit" onToggle={(e) => setEditing((e.currentTarget as HTMLDetailsElement).open)}><summary>Edit team</summary>
       <MotionForm onSubmit={handleSubmit(save)} noValidate className="ops-form" aria-label={`Team ${team.name}`}>
         <RequiredNote /><label htmlFor={`team-name-${team.id}`}>Team name<RequiredMark /></label>
         <input aria-required="true" id={`team-name-${team.id}`} maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? `team-error-${team.id}` : undefined} />
@@ -106,7 +108,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
           <button type="submit" className="btn" aria-disabled={busy || !name.trim()} aria-busy={busy}>Save name</button>
         </div>
       </MotionForm>
-      <TeamHeadquartersEditor team={team} onSaved={onSaved} onError={onError} />
+      {editing && <TeamHeadquartersEditor team={team} onSaved={onSaved} onError={onError} />}
       </details>
     </li>
   );
@@ -124,7 +126,6 @@ function TeamHeadquartersEditor({ team, onSaved, onError }: { team: Team; onSave
   const [lng, setLng] = useState(team.hq ? String(team.hq.lng) : '');
   const [busy, setBusy] = useState(false);
   const [localError, setLocalError] = useState('');
-  const [mapOpen, setMapOpen] = useState(false);
   const center: [number, number] = [Number(lat) || team.hq?.lat || 14.5995, Number(lng) || team.hq?.lng || 120.9842];
 
   async function save(hq: GeoPoint | null) {
@@ -151,8 +152,9 @@ function TeamHeadquartersEditor({ team, onSaved, onError }: { team: Team; onSave
   }
 
   return (
-    <details className="team-edit" onToggle={(e) => setMapOpen((e.currentTarget as HTMLDetailsElement).open)}><summary>Edit headquarters</summary>
-      {mapOpen && (
+    <section className="team-hq" aria-labelledby={`hq-title-${team.id}`}>
+      <h3 id={`hq-title-${team.id}`}>Headquarters</h3>
+      {(
         <div className="hq-map" role="region" aria-label={`Map for ${team.name} headquarters`}>
           <p className="field-hint">Click the map to place the headquarters, or type the coordinates below.</p>
           <MapContainer key={team.id} center={center} zoom={13} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
@@ -175,7 +177,7 @@ function TeamHeadquartersEditor({ team, onSaved, onError }: { team: Team; onSave
           {team.hq && <button type="button" className="btn btn--ghost" disabled={busy} onClick={() => void save(null)}>Remove headquarters</button>}
         </div>
       </form>
-    </details>
+    </section>
   );
 }
 
