@@ -1,0 +1,5 @@
+.hq-pin span {
+  display: block; padding: 2px 6px; border-radius: 999px; background: #7c3aed; color: #fff;
+  font-size: 12px; font-weight: 700; text-align: center; border: 2px solid #fff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.3);
+}
+.hq-map { margin-block: 8px; }

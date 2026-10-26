@@ -2,13 +2,16 @@ import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import MotionForm from '../../components/MotionForm';
 import FieldError from '../../components/FieldError';
 import EmptyState from '../../components/calm/EmptyState';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import { teamNameSchema, type TeamName } from '../../lib/schemas';
 import { currentPosition } from '../../lib/position';
+import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import * as L from 'leaflet';
 import type { GeoPoint } from '../../types/domain';
 
 function hqText(hq?: GeoPoint | null): string {
@@ -103,7 +106,75 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
         </div>
       </MotionForm>
       </details>
+      <TeamHeadquartersEditor team={team} onSaved={onSaved} onError={onError} />
     </li>
+  );
+}
+
+// Reports a map click as a coordinate pair.
+function HqPicker({ onPick }: { onPick: (p: { lat: number; lng: number }) => void }) {
+  useMapEvents({ click: (e) => onPick({ lat: e.latlng.lat, lng: e.latlng.lng }) });
+  return null;
+}
+
+// Editable headquarters: latitude and longitude typed by hand. Saved as a fixed point for distance ranking.
+function TeamHeadquartersEditor({ team, onSaved, onError }: { team: Team; onSaved: (text: string) => void; onError: (text: string) => void }) {
+  const [lat, setLat] = useState(team.hq ? String(team.hq.lat) : '');
+  const [lng, setLng] = useState(team.hq ? String(team.hq.lng) : '');
+  const [busy, setBusy] = useState(false);
+  const [localError, setLocalError] = useState('');
+  const [mapOpen, setMapOpen] = useState(false);
+  const center: [number, number] = [Number(lat) || team.hq?.lat || 14.5995, Number(lng) || team.hq?.lng || 120.9842];
+
+  async function save(hq: GeoPoint | null) {
+    setBusy(true);
+    setLocalError('');
+    try {
+      await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq } });
+      onSaved(hq ? 'Headquarters saved.' : 'Headquarters removed.');
+    } catch {
+      onError('Could not save the headquarters. Check the values and try again.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function submit(e: FormEvent) {
+    e.preventDefault();
+    const la = Number(lat), ln = Number(lng);
+    if (!lat.trim() || !lng.trim() || !Number.isFinite(la) || !Number.isFinite(ln) || la < -90 || la > 90 || ln < -180 || ln > 180) {
+      setLocalError('Enter a latitude from -90 to 90 and a longitude from -180 to 180.');
+      return;
+    }
+    void save({ lat: la, lng: ln });
+  }
+
+  return (
+    <details className="team-edit" onToggle={(e) => setMapOpen((e.currentTarget as HTMLDetailsElement).open)}><summary>Edit headquarters</summary>
+      {mapOpen && (
+        <div className="hq-map" role="region" aria-label={`Map for ${team.name} headquarters`}>
+          <p className="field-hint">Click the map to place the headquarters, or type the coordinates below.</p>
+          <MapContainer key={team.id} center={center} zoom={13} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
+            <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
+            <HqPicker onPick={(p) => { setLat(p.lat.toFixed(6)); setLng(p.lng.toFixed(6)); setLocalError(''); }} />
+            {Number.isFinite(Number(lat)) && lat.trim() && Number.isFinite(Number(lng)) && lng.trim()
+              ? <Marker position={[Number(lat), Number(lng)]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />
+              : null}
+          </MapContainer>
+        </div>
+      )}
+      <form onSubmit={submit} className="ops-form" aria-label={`Headquarters for ${team.name}`}>
+        <label htmlFor={`hq-lat-${team.id}`}>Latitude</label>
+        <input id={`hq-lat-${team.id}`} type="number" step="any" value={lat} onChange={(e) => setLat(e.target.value)} />
+        <label htmlFor={`hq-lng-${team.id}`}>Longitude</label>
+        <input id={`hq-lng-${team.id}`} type="number" step="any" value={lng} onChange={(e) => setLng(e.target.value)} />
+        {localError && <FieldError role="alert">{localError}</FieldError>}
+        <div className="actions__row">
+          <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>Save headquarters</button>
+          {team.hq && <button type="button" className="btn btn--ghost" disabled={busy} onClick={() => void save(null)}>Remove headquarters</button>}
+        </div>
+      </form>
+    </details>
   );
 }
 
