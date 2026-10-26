@@ -24,6 +24,7 @@ it.each(['account-create', 'role', 'user-create', 'user-status', 'team-create', 
     await user.click(screen.getByText('Create a staff account', { selector: 'summary' }));
     await user.type(screen.getByLabelText('New account name'), 'New Staff');
     await user.type(screen.getByLabelText('New account email'), 'new@example.test');
+    await user.type(screen.getByLabelText('New account first password'), 'Harbor-test-2026');
     button = screen.getByRole('button', { name: 'Create account' });
   } else if (kind === 'role') {
     await user.selectOptions(screen.getByLabelText('Role for Sample Staff'), 'admin');
@@ -32,6 +33,7 @@ it.each(['account-create', 'role', 'user-create', 'user-status', 'team-create', 
     await user.click(screen.getByText('Create staff account', { selector: 'summary' }));
     await user.type(screen.getByLabelText('Email'), 'new@example.test');
     await user.type(screen.getByLabelText('Name'), 'New Staff');
+    await user.type(screen.getByLabelText(/First password/), 'Harbor-test-2026');
     button = screen.getByRole('button', { name: 'Create account' });
   } else if (kind === 'user-status') button = screen.getByRole('button', { name: 'Deactivate Sample Staff' });
   else if (kind === 'team-create') {

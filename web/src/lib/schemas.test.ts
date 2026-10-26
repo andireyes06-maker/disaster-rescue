@@ -91,7 +91,7 @@ describe('teamNameSchema', () => {
 });
 
 describe('staffAccountSchema', () => {
-  const valid = { email: 'a@example.org', name: 'Ana', role: 'responder', team: '' };
+  const valid = { email: 'a@example.org', name: 'Ana', role: 'responder', team: '', password: 'Harbor-test-2026' };
 
   it('accepts a staff account with no team', () => {
     expect(staffAccountSchema.safeParse(valid).success).toBe(true);
@@ -102,7 +102,7 @@ describe('staffAccountSchema', () => {
   });
 
   it('rejects an unknown role and a blank email', () => {
-    expect(staffAccountSchema.safeParse({ ...valid, role: 'admin' }).success).toBe(false);
+    expect(staffAccountSchema.safeParse({ ...valid, role: 'dispatcher' }).success).toBe(false);
     expect(staffAccountSchema.safeParse({ ...valid, email: '  ' }).success).toBe(false);
   });
 });

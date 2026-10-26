@@ -78,6 +78,7 @@ describe('AdminPage', () => {
     await user.click(screen.getByText('Create a staff account', { selector: 'summary' }));
     await user.type(screen.getByLabelText('New account name'), 'Second Admin');
     await user.type(screen.getByLabelText('New account email'), 'second@x.test');
+    await user.type(screen.getByLabelText('New account first password'), 'Harbor-test-2026');
     await user.selectOptions(screen.getByLabelText('New account role'), 'admin');
     await user.click(screen.getByRole('button', { name: 'Create account' }));
     await waitFor(() => expect(h.api).toHaveBeenCalledWith('/users', expect.objectContaining({
@@ -147,11 +148,11 @@ describe('AdminPage', () => {
     const existing = await screen.findByLabelText('Role for Jose Reyes');
     expect(existing).toHaveValue('dispatcher');
     const offered = within(existing).queryAllByRole('option').map((o) => o.textContent);
-    expect(offered).toEqual(['dispatcher', 'responder', 'admin']);
+    expect(offered).toEqual(['dispatcher', 'admin', 'responder', 'resident']);
     const ana = await screen.findByLabelText('Role for Ana Cruz');
-    expect(within(ana).queryAllByRole('option').map((o) => o.textContent)).toEqual(['responder', 'admin']);
+    expect(within(ana).queryAllByRole('option').map((o) => o.textContent)).toEqual(['admin', 'responder', 'resident']);
     const newRole = screen.getByLabelText('New account role');
-    expect(within(newRole).queryAllByRole('option').map((o) => o.textContent)).toEqual(['responder', 'admin']);
+    expect(within(newRole).queryAllByRole('option').map((o) => o.textContent)).toEqual(['admin', 'responder', 'resident']);
   });
 
 });

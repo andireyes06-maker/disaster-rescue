@@ -3,6 +3,7 @@ import { ConnectionNotice } from '../../components/ConnectionStatus';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAwaitingReports } from './useAwaitingReports';
+import { useReports } from './useReports';
 import StatusBadge from './StatusBadge';
 import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
@@ -105,6 +106,8 @@ function InboxRow({ r, selected, onSelect, reporter }: { r: Report; selected: bo
 export default function ReportQueue() {
   const { role } = useAuth();
   const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useAwaitingReports();
+  // A search covers every report, including closed and rejected ones. Without a search, the queue stays as before.
+  const everything = useReports();
   // Reporter names come from the admin directory, not the report record, so responders never see them.
   const [people, setPeople] = useState<Record<string, Reporter>>({});
   useEffect(() => {
@@ -158,7 +161,8 @@ export default function ReportQueue() {
   const matchesQuery = (r: Report) => !query || [r.type, r.description, r.addressText ?? '', r.reference ?? '', r.id ?? '']
     .some((text) => text.toLowerCase().includes(query));
 
-  const rows = orderQueue(reports.filter((r) =>
+  const source = query ? everything.reports : reports;
+  const rows = orderQueue(source.filter((r) =>
     matchesQuery(r) && quickMatch(r, quick)
     && (!f.status || r.status === f.status)
     && (!f.type || r.type === f.type)
@@ -172,7 +176,7 @@ export default function ReportQueue() {
     focusPreviewOnNextRender.current = false;
     document.getElementById('preview-title')?.focus();
   }, [effectiveId]);
-  const selected: Report | undefined = reports.find((r) => r.id === effectiveId);
+  const selected: Report | undefined = source.find((r) => r.id === effectiveId);
   const selectedHidden = Boolean(selected) && !rows.some((r) => r.id === selected?.id);
 
   const cards: [string, number][] = [
@@ -221,7 +225,7 @@ export default function ReportQueue() {
           <input id="inbox-search" type="search" value={params.get('q') ?? ''} placeholder="Search reports…" aria-describedby="inbox-search-hint"
             onChange={(e) => update((p) => { if (e.target.value) p.set('q', e.target.value); else p.delete('q'); })} />
         </div>
-        <p id="inbox-search-hint" className="inbox-search-hint">Search by type, place, description, or reference.</p>
+        <p id="inbox-search-hint" className="inbox-search-hint">Search by type, place, description, reference, or report ID.</p>
         <div className="quick" role="group" aria-label="Quick views">
           {QUICK.map(([key, text]) => (
             <button key={key} type="button" className="quick__chip" aria-pressed={quick === key}

@@ -84,28 +84,20 @@ describe('AuditPage', () => {
     expect(container.querySelector('script')).toBeNull();
   });
 
-  it('sends the action filter to GET /api/audit', async () => {
-    serveAudit([]);
+  it('one search box filters the whole log by text and date', async () => {
+    serveAudit(ROWS);
     render(<AuditPage />);
-    await waitFor(() => expect(fetch).toHaveBeenCalled());
-    await userEvent.selectOptions(screen.getByLabelText('Action'), 'status.change');
-    await waitFor(() => {
-      const urls = vi.mocked(fetch).mock.calls.map((c) => String(c[0]));
-      expect(urls.some((u) => u.includes('/audit?') && u.includes('action=status.change'))).toBe(true);
-    });
+    await screen.findByRole('region', { name: 'Audit entries' });
+    expect(screen.getAllByRole('searchbox')).toHaveLength(1);
+    await userEvent.type(screen.getByRole('searchbox'), 'zzz-no-match');
+    expect(await screen.findByText('Nothing matches that search')).toBeInTheDocument();
+    await userEvent.clear(screen.getByRole('searchbox'));
+    await userEvent.type(screen.getByRole('searchbox'), '2026-01-02');
+    expect(await screen.findByRole('region', { name: 'Audit entries' })).toBeInTheDocument();
   });
   it('treats a malformed response as an error, not an empty audit log', async () => {
     serveAudit({}); render(<AuditPage />);
     expect(await screen.findByRole('alert')).toHaveTextContent('Could not load the audit log.');
-  });
-  it('rejects a reversed date range without requesting it', async () => {
-    serveAudit([]); render(<AuditPage />);
-    await screen.findByText('No audit entries match these filters');
-    fireEvent.change(screen.getByLabelText('From'), { target: { value: '2026-10-17' } });
-    fireEvent.change(screen.getByLabelText('To'), { target: { value: '2026-10-01' } });
-    expect(await screen.findByRole('alert')).toHaveTextContent('The end date must be on or after the start date.');
-    expect(screen.getByLabelText('To')).toHaveAttribute('aria-invalid', 'true');
-    expect(vi.mocked(fetch).mock.calls.some(call => String(call[0]).includes('to=2026-10-01'))).toBe(false);
   });
 
 });

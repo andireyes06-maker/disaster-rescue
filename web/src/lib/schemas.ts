@@ -9,7 +9,8 @@ export const PEOPLE_RESCUED_ERROR = 'People rescued must be a whole number from 
 export const ASSIGN_TEAM_ERROR = 'Choose a free rescue team.';
 export const TEAM_NAME_ERROR = 'Team names must be 1 to 100 characters.';
 // Roles an administrator can give a new staff account. Dispatcher and DMO accounts have no website access, so they are not offered.
-export const STAFF_ROLE_OPTIONS = ['responder'] as const;
+// Every account type an administrator can create. Dispatcher and DMO are retired.
+export const STAFF_ROLE_OPTIONS = ['admin', 'responder', 'resident'] as const;
 
 export const operationUpdateSchema = z.object({
   status: z.enum(OPERATION_STATUSES),
@@ -42,6 +43,8 @@ export const staffAccountSchema = z.object({
   name: z.string().trim().min(1, { error: 'Enter a name.' }).max(100, { error: 'Names must be 100 characters or fewer.' }),
   role: z.enum(STAFF_ROLE_OPTIONS),
   team: z.string(),
+  // The administrator sets the first password, which the new person uses to sign in.
+  password: z.string().min(12, { error: 'Use at least 12 characters.' }).max(128, { error: 'Use 128 characters or fewer.' }),
 });
 
 export type StaffAccount = z.infer<typeof staffAccountSchema>;

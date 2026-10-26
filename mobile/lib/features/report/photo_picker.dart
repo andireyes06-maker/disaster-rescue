@@ -79,7 +79,7 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          'Photos (optional, up to 5)',
+          'Photos (required, up to 5)',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),

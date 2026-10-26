@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import { makeTestApp } from '../fakes/testApp.js';
 
-const create = (t, who, body) => request(t.app).post('/api/users').set('Authorization', who).send(body);
-const patch = (t, who, id, body) => request(t.app).patch(`/api/users/${id}`).set('Authorization', who).send(body);
+const create = (t, who, body) => request(t.app).post('/api/users').set('Authorization', who).send({ password: 'Harbor-test-2026', ...body });
+const patch = (t, who, id, body) => request(t.app).patch(`/api/users/${id}`).set('Authorization', who).send({ password: 'Harbor-test-2026', ...body });
 
 // An admin needs both a users document and an Auth account, as the real system has.
 async function seedAdmin(t, uid, name) {
@@ -14,7 +14,7 @@ async function seedAdmin(t, uid, name) {
 describe('admin account management', () => {
   it('admin can create a dispatcher and an admin', async () => {
     const t = makeTestApp();
-    expect((await create(t, t.as('admin'), { email: 'd@x.test', name: 'Dee', role: 'dispatcher' })).status).toBe(201);
+    expect((await create(t, t.as('admin'), { email: 'd@x.test', name: 'Dee', role: 'responder' })).status).toBe(201);
     expect((await create(t, t.as('admin'), { email: 'a2@x.test', name: 'Ada', role: 'admin' })).status).toBe(201);
   });
 
@@ -120,7 +120,7 @@ describe('admin account management', () => {
     const t = makeTestApp();
     await t.repo.createUser('res-9', { name: 'Rae', role: 'responder', active: true, team: null });
     t.auth.users.set('res-9', { uid: 'res-9', email: 'rae@x.test', disabled: false, customClaims: { role: 'responder', active: true } });
-    expect((await patch(t, t.as('admin'), 'res-9', { role: 'dmo' })).status).toBe(200);
+    expect((await patch(t, t.as('admin'), 'res-9', { role: 'admin' })).status).toBe(200);
     expect(t.auth.calls.revokeRefreshTokens).toContain('res-9');
   });
 
@@ -128,14 +128,14 @@ describe('admin account management', () => {
     const t = makeTestApp();
     await seedAdmin(t, 'adm-2', 'Second');
     await seedAdmin(t, 'adm-3', 'Third');
-    const made = await create(t, t.as('admin', 'adm-1'), { email: 'd@x.test', name: 'Dee', role: 'dispatcher' });
+    const made = await create(t, t.as('admin', 'adm-1'), { email: 'd@x.test', name: 'Dee', role: 'responder' });
     expect(made.status).toBe(201);
     expect(await patch(t, t.as('admin', 'adm-1'), made.body.uid, { role: 'responder' })).toMatchObject({ status: 200 });
     const audit = await t.repo.listAudit({});
     const create_ = audit.find((a) => a.action === 'user.create');
     const update = audit.find((a) => a.action === 'user.update');
-    expect(create_).toMatchObject({ actorUid: 'adm-1', after: { target: made.body.uid, role: 'dispatcher', active: true } });
-    expect(update).toMatchObject({ actorUid: 'adm-1', before: { role: 'dispatcher', active: true }, after: { target: made.body.uid, role: 'responder', active: true } });
+    expect(create_).toMatchObject({ actorUid: 'adm-1', after: { target: made.body.uid, role: 'responder', active: true } });
+    expect(update).toMatchObject({ actorUid: 'adm-1', before: { role: 'responder', active: true }, after: { target: made.body.uid, role: 'responder', active: true } });
     // Phone numbers are 11 digits starting 09. A bare "09" also matches the audit timestamp hour (time-dependent), so it is not used.
     expect(JSON.stringify(audit)).not.toMatch(/password|token|\b09\d{9}\b/i);
   });

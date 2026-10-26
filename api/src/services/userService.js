@@ -4,7 +4,8 @@ import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js
 import { PHONE_RE, sanitizeText, isSafeId } from '../domain/validation.js';
 
 const STAFF_ROLES = ['resident', 'responder', 'dispatcher', 'dmo'];
-const ADMIN_ROLES = [...STAFF_ROLES, 'admin'];
+// Administrators can create every active account type. Dispatcher and DMO are retired.
+const ADMIN_ROLES = ['resident', 'responder', 'admin'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const badName = () => new HttpError(400, 'invalid_name', 'Name must be 1 to 100 characters');
@@ -27,9 +28,15 @@ export async function createStaff({ repo, auth }, body, caller = { role: 'dispat
     throw new HttpError(400, 'invalid_team', 'Team does not exist');
   }
 
+  // The administrator sets the first password. It is never stored or logged here; Firebase Auth keeps only its hash.
+  const password = body?.password;
+  if (typeof password !== 'string' || password.length < 12 || password.length > 128) {
+    throw new HttpError(400, 'invalid_password', 'Password must be 12 to 128 characters');
+  }
+
   let account;
   try {
-    account = await auth.createUser({ email, displayName: name });
+    account = await auth.createUser({ email, displayName: name, password });
   } catch (e) {
     if (e?.code === 'auth/email-already-exists') throw new HttpError(409, 'email_taken', 'That email already has an account');
     throw e;

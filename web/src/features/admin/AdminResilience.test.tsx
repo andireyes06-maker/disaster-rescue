@@ -38,6 +38,7 @@ it('keeps account creation success separate from a failed list refresh', async (
   await user.click(screen.getByText('Create a staff account', { selector: 'summary' }));
   await user.type(screen.getByLabelText('New account name'), 'New Staff');
   await user.type(screen.getByLabelText('New account email'), 'new@example.test');
+  await user.type(screen.getByLabelText('New account first password'), 'Harbor-test-2026');
   await user.click(screen.getByRole('button', { name: 'Create account' }));
   expect(await screen.findByText('Staff account created.')).toBeInTheDocument();
   expect(screen.getByRole('alert')).toHaveTextContent('account list could not be refreshed');
@@ -122,6 +123,7 @@ it('places a taken-email error on Email and preserves the account draft', async 
   await user.click(screen.getByText('Create a staff account', { selector: 'summary' }));
   await user.type(screen.getByLabelText('New account name'), 'New Staff');
   await user.type(screen.getByLabelText('New account email'), 'used@example.test');
+  await user.type(screen.getByLabelText('New account first password'), 'Harbor-test-2026');
   h.api.mockRejectedValue(Object.assign(new Error('taken'), { status: 409, code: 'email_taken' }));
   await user.click(screen.getByRole('button', { name: 'Create account' }));
   expect(await screen.findByRole('alert')).toHaveTextContent('That email already has an account.');

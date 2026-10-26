@@ -21,7 +21,8 @@ export interface AdminTeam { id: string; name: string }
 
 // Roles an admin can assign to staff. A resident account is shown as resident and is never silently changed to another role.
 // Dispatcher and DMO are not offered; an existing account with one of those roles still shows its current role (roleOptionsFor).
-const ROLE_OPTIONS = ['responder', 'admin'] as const;
+// Every account type an administrator can create. Dispatcher and DMO are retired.
+const ROLE_OPTIONS = ['admin', 'responder', 'resident'] as const;
 
 // Teams apply to field staff and dispatch roles. Residents and admins have no team.
 const TEAM_ROLES = new Set(['responder', 'dispatcher', 'dmo']);
@@ -57,6 +58,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
   const [notice, setNotice] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [role, setRole] = useState<string>('responder');
   const [team, setTeam] = useState('');
   // Staged role choices per account. Nothing is sent until the admin presses Save.
@@ -150,14 +152,20 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
     setFieldErrors(errors);
     if (errors.name || errors.email) { document.getElementById(errors.name ? 'new-name' : 'new-email')?.focus(); return; }
     setError('');
+    if (password.length < 12 || password.length > 128) {
+      setError('Use a first password of 12 to 128 characters.');
+      document.getElementById('new-password')?.focus();
+      return;
+    }
     setNotice('');
     setBusy('create', true);
     try {
-      const body: Record<string, unknown> = { name: name.trim(), email: email.trim(), role };
+      const body: Record<string, unknown> = { name: name.trim(), email: email.trim(), role, password };
       if (role === 'responder' && team && !teamsUnavailable) body.team = team;
       await api('/users', { method: 'POST', body });
       setName('');
       setEmail('');
+      setPassword('');
       setTeam('');
       setSaved('Staff account created.');
       setNotice('They can open Sign in and choose Forgot password to set their password.');
@@ -234,6 +242,9 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
         {fieldErrors.name && <FieldError id="admin-name-error">{fieldErrors.name}</FieldError>}
         <label htmlFor="new-email">New account email<RequiredMark /></label>
         <input id="new-email" aria-required="true" type="email" disabled={pending.has('create')} aria-invalid={!!fieldErrors.email} aria-describedby={fieldErrors.email ? 'admin-email-error' : undefined} value={email} onChange={(e) => setEmail(e.target.value)} />
+        <label htmlFor="new-password">New account first password<RequiredMark /></label>
+        <input id="new-password" aria-required="true" type="password" autoComplete="new-password" disabled={pending.has('create')} value={password} onChange={(e) => setPassword(e.target.value)} aria-describedby="admin-password-hint" />
+        <p id="admin-password-hint" className="field-hint">At least 12 characters. Give it to the person privately.</p>
         {fieldErrors.email && <FieldError id="admin-email-error" role="alert">{fieldErrors.email}</FieldError>}
         <label htmlFor="new-role">New account role<RequiredMark /></label>
         <select id="new-role" aria-required="true" value={role} disabled={pending.has('create')} onChange={(e) => setRole(e.target.value)}>

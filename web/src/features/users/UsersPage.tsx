@@ -31,7 +31,7 @@ interface Message {
   text: string;
 }
 
-const EMPTY_ACCOUNT: StaffAccount = { email: '', name: '', role: 'responder', team: '' };
+const EMPTY_ACCOUNT: StaffAccount = { email: '', name: '', role: 'responder', team: '', password: '' };
 
 function errorText(err: unknown): string {
   const failure = apiFailure(err);
@@ -83,7 +83,13 @@ export default function UsersPage() {
     try {
       await api('/users', {
         method: 'POST',
-        body: { email: values.email, name: values.name, role: values.role, team: values.team || null },
+        body: {
+          email: values.email,
+          name: values.name,
+          password: values.password,
+          role: values.role,
+          team: values.role === 'responder' ? values.team || null : null,
+        },
       });
       reset(EMPTY_ACCOUNT);
       // No password is set here (F02). The new person uses Forgot password on the sign-in page to set one.
@@ -145,7 +151,11 @@ export default function UsersPage() {
         <select id="staff-role" aria-required="true" {...register('role')}>
           {STAFF_ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
         </select>
-        <label htmlFor="staff-team">Team (optional)</label>
+        <label htmlFor="staff-password">First password<RequiredMark /></label>
+        <input id="staff-password" aria-required="true" type="password" autoComplete="new-password" {...register('password')} aria-invalid={!!errors.password} aria-describedby={errors.password ? 'staff-password-error' : 'staff-password-hint'} />
+        <p id="staff-password-hint" className="field-hint">At least 12 characters. Give it to the person privately; they can change it after signing in.</p>
+        {errors.password && <FieldError id="staff-password-error">{errors.password.message}</FieldError>}
+        <label htmlFor="staff-team">Team (rescuers only)</label>
         <select id="staff-team" {...register('team')}>
           <option value="">No team</option>
           {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}

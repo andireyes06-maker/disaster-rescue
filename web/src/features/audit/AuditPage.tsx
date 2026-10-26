@@ -1,11 +1,10 @@
-import FieldError from '../../components/FieldError';
 import MotionForm from '../../components/MotionForm';
 import EmptyState from '../../components/calm/EmptyState';
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../../api/client';
 import Banner from '../../components/calm/Banner';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
-import { ACTION_NAMES, actionName, fieldName, namedValue, type AuditNames } from './presentation';
+import { actionName, fieldName, namedValue, type AuditNames } from './presentation';
 
 interface AuditEntry {
   actorUid?: string;
@@ -14,14 +13,6 @@ interface AuditEntry {
   at?: unknown;
   before?: unknown;
   after?: unknown;
-}
-
-interface AuditFilters {
-  reportId: string;
-  actorUid: string;
-  action: string;
-  from: string;
-  to: string;
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null;
@@ -52,7 +43,6 @@ function formatTime(v: unknown): string {
 }
 
 interface Result {
-  key: string;
   rows?: AuditEntry[];
   error?: boolean;
 }
@@ -76,78 +66,60 @@ export default function AuditPage() {
     });
     return () => { active = false; };
   }, [namesAttempt]);
-  const [filters, setFilters] = useState<AuditFilters>({ reportId: '', actorUid: '', action: '', from: '', to: '' });
-  const params = new URLSearchParams();
-  for (const key of ['reportId', 'actorUid', 'action', 'from', 'to'] as const) {
-    if (filters[key]) params.set(key, filters[key]);
-  }
-  const requestQuery = params.toString();
-  const invalidRange = Boolean(filters.from && filters.to && filters.from > filters.to);
-
+  // One search box. The full log is loaded once and filtered here, so it matches IDs, names, actions, teams and dates.
+  const [query, setQuery] = useState('');
   const [result, setResult] = useState<Result | null>(null);
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
-    if (invalidRange) return;
     let cancelled = false;
-    const timer = window.setTimeout(() => { void api(`/audit${requestQuery ? `?${requestQuery}` : ''}`)
+    void api('/audit')
       .then((data) => {
         if (!Array.isArray(data)) throw new Error('Invalid audit response');
-        if (!cancelled) setResult({ key: requestQuery, rows: data as AuditEntry[] });
+        if (!cancelled) setResult({ rows: data as AuditEntry[] });
       })
-      .catch(() => { if (!cancelled) setResult({ key: requestQuery, error: true }); });
-    }, requestQuery ? 250 : 0);
-    return () => { cancelled = true; window.clearTimeout(timer); };
-  }, [requestQuery, invalidRange, attempt]);
+      .catch(() => { if (!cancelled) setResult({ error: true }); });
+    return () => { cancelled = true; };
+  }, [attempt]);
   const retry = () => { setResult(null); setAttempt((n) => n + 1); };
+  const loading = result === null;
 
-  const loading = result?.key !== requestQuery;
-  const set = (k: keyof AuditFilters) => (e: ChangeEvent<HTMLInputElement>) =>
-    setFilters((s) => ({ ...s, [k]: e.target.value }));
+  const needle = query.trim().toLowerCase();
+  const rows = (result?.rows ?? []).filter((row) => {
+    if (!needle) return true;
+    const changes = changedFields(row.before, row.after).flatMap((c) => [fieldName(c.field), namedValue(c.field, c.before, names), namedValue(c.field, c.after, names)]);
+    const text = [
+      formatTime(row.at), typeof row.at === 'string' ? row.at.slice(0, 10) : '', actionName(row.action ?? ''), row.action ?? '', row.reportId ?? '',
+      names.reports[row.reportId ?? ''] ?? '', row.actorUid ?? '', names.users[row.actorUid ?? ''] ?? '',
+      ...changes,
+    ].join(' ').toLowerCase();
+    return text.includes(needle);
+  });
 
   return (
     <div>
-      <MotionForm className="filters card" aria-label="Audit filters" onSubmit={(e) => e.preventDefault()}>
-        <div className="filter">
-          <label htmlFor="au-report">Report ID</label>
-          <input id="au-report" value={filters.reportId} onChange={set('reportId')} />
+      <MotionForm className="filters card" aria-label="Search the audit log" onSubmit={(e) => e.preventDefault()}>
+        <div className="filter filter--wide">
+          <label htmlFor="audit-search">Search the audit log</label>
+          <input id="audit-search" type="search" value={query} onChange={(e) => setQuery(e.target.value)} aria-describedby="audit-search-hint" />
+          <p id="audit-search-hint" className="field-hint">Type a report ID or reference, a person, an action, a team, a field, or a date such as 2026-10-25.</p>
         </div>
-        <div className="filter">
-          <label htmlFor="au-actor">Account ID</label>
-          <input id="au-actor" value={filters.actorUid} onChange={set('actorUid')} />
-        </div>
-        <div className="filter">
-          <label htmlFor="au-action">Action</label>
-          <select id="au-action" value={filters.action} onChange={(e) => setFilters((s) => ({ ...s, action: e.target.value }))}>
-            <option value="">All actions</option>
-            {Object.entries(ACTION_NAMES).map(([code, label]) => <option key={code} value={code}>{label}</option>)}
-          </select>
-        </div>
-        <div className="filter">
-          <label htmlFor="au-from">From</label>
-          <input id="au-from" type="date" value={filters.from} aria-invalid={invalidRange} aria-describedby={invalidRange ? 'audit-range-error' : undefined} onChange={set('from')} />
-        </div>
-        <div className="filter">
-          <label htmlFor="au-to">To</label>
-          <input id="au-to" type="date" value={filters.to} aria-invalid={invalidRange} aria-describedby={invalidRange ? 'audit-range-error' : undefined} onChange={set('to')} />
-        </div>
-        {Object.values(filters).some(Boolean) && <button type="button" className="btn btn--ghost" onClick={() => { setFilters({ reportId: '', actorUid: '', action: '', from: '', to: '' }); document.getElementById('au-report')?.focus(); }}>Clear audit filters</button>}
+        {query && <button type="button" className="btn btn--ghost" onClick={() => { setQuery(''); document.getElementById('audit-search')?.focus(); }}>Clear search</button>}
       </MotionForm>
-      {invalidRange && <FieldError id="audit-range-error" role="alert" className="range-error">The end date must be on or after the start date.</FieldError>}
 
-      {!invalidRange && loading && <Skeleton label="Loading the audit log"><SkeletonRows rows={6} height={44} /></Skeleton>}
-      {!invalidRange && !loading && result?.error && (
+      {loading && <Skeleton label="Loading the audit log"><SkeletonRows rows={6} height={44} /></Skeleton>}
+      {!loading && result?.error && (
         <Banner tone="error" role="alert">
           Could not load the audit log. Check your connection and try again.{' '}
           <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
         </Banner>
       )}
-      {!invalidRange && !loading && !result?.error && result?.rows?.length === 0 && (
+      {!loading && !result?.error && rows.length === 0 && (
         <EmptyState
-          title="No audit entries match these filters"
-          body="Audit entries appear here as staff verify, assign, or change reports. Clear the filters to see more."
+          title={needle ? 'Nothing matches that search' : 'No audit entries yet'}
+          body={needle ? 'Try a shorter word, a report reference, or a date.' : 'Audit entries appear here as staff verify, assign, or change reports.'}
         />
       )}
-      {!invalidRange && !loading && !result?.error && result?.rows && result.rows.length > 0 && (
+      {!loading && !result?.error && rows.length > 0 && (
         <>
         {namesFailed && <p className="field-hint" role="status">Some names or references could not be loaded. Original IDs are shown instead. <button type="button" className="btn btn--ghost" onClick={() => setNamesAttempt(value => value + 1)}>Retry names</button></p>}
         <p className="scroll-cue">Swipe sideways to see every column.</p>
@@ -163,7 +135,7 @@ export default function AuditPage() {
               </tr>
             </thead>
             <tbody>
-              {result.rows.map((row, i) => (
+              {rows.map((row, i) => (
                 <tr key={`${i}-${formatTime(row.at)}-${row.action ?? ''}`}>
                   <td>{formatTime(row.at)}</td>
                   <td>{row.action ? actionName(row.action) : 'Not recorded'}<details className="audit__identifiers"><summary>Identifiers</summary><dl><dt>Action code</dt><dd>{row.action || 'Not recorded'}</dd><dt>Account ID</dt><dd>{row.actorUid || 'Not recorded'}</dd><dt>Report ID</dt><dd>{row.reportId || 'Not recorded'}</dd></dl></details></td>

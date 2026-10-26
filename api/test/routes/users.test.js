@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import { makeTestApp } from '../fakes/testApp.js';
 
-const create = (t, who, body) => request(t.app).post('/api/users').set('Authorization', who).send(body);
+const create = (t, who, body) => request(t.app).post('/api/users').set('Authorization', who).send({ password: 'Harbor-test-2026', ...body });
 const self = (t, token, body) => request(t.app).post('/api/users/self').set('Authorization', token).send(body ?? {});
 
 // Creates a staff account through the dispatcher route and returns its uid.
@@ -38,8 +38,8 @@ describe('POST /api/users (dispatcher creates staff)', () => {
   it('rejects an unknown team (400) and a duplicate email (409)', async () => {
     const t = makeTestApp();
     expect((await create(t, t.as('admin'), { email: 'a@x.test', name: 'A', role: 'responder', team: 'ghost' })).status).toBe(400);
-    await makeStaff(t, { email: 'dup@x.test', name: 'Dup', role: 'dmo' });
-    expect((await create(t, t.as('admin'), { email: 'dup@x.test', name: 'Dup 2', role: 'dmo' })).status).toBe(409);
+    await makeStaff(t, { email: 'dup@x.test', name: 'Dup', role: 'responder' });
+    expect((await create(t, t.as('admin'), { email: 'dup@x.test', name: 'Dup 2', role: 'responder' })).status).toBe(409);
   });
 
   it.each(['', 'a/b', '.', '..'])('an unusable team id %j is a 400, never reaches the database', async (team) => {
@@ -83,8 +83,8 @@ describe('PATCH /api/users/:id', () => {
   it('a role change keeps active and team in claims', async () => {
     const t = makeTestApp();
     const uid = await makeStaff(t);
-    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('admin')).send({ role: 'dmo' })).status).toBe(200);
-    expect(t.auth.users.get(uid).customClaims).toEqual({ role: 'dmo', active: true, team: 'tA' });
+    expect((await request(t.app).patch(`/api/users/${uid}`).set('Authorization', t.as('admin')).send({ role: 'responder' })).status).toBe(200);
+    expect(t.auth.users.get(uid).customClaims).toEqual({ role: 'responder', active: true, team: 'tA' });
   });
 
   it('a dispatcher cannot promote to admin (refused at the website gate); unknown user is 404', async () => {
