@@ -1,3 +1,4 @@
+import './teams.css';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import MotionForm from '../../components/MotionForm';
 import FieldError from '../../components/FieldError';
