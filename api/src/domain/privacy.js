@@ -9,10 +9,7 @@ export function projectReportForRole(report, role, uid, teamId) {
   if (role === 'admin') return report;
   if (uid && report.reporterId === uid) return report;
   if (role === 'responder') {
-    if (!(teamId && report.assignedTeamId === teamId)) return null;
-    // Responders see the incident but not who reported it (name and phone stay with administrators).
-    const { reporterName, reporterPhone, ...forResponder } = report;
-    return forResponder;
+    return teamId && report.assignedTeamId === teamId ? report : null;
   }
   if (!PUBLIC_STATUSES.has(report.status)) return null;
   const { id, type, status, priority, coarseLocation, createdAt } = report;

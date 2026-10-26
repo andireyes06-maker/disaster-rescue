@@ -11,6 +11,7 @@ import { isOpen, formatTime } from './format';
 import { orderQueue } from './queueOrder';
 import { awaitingVerify, canActOnReports } from './workflow';
 import { useAuth } from '../../auth/AuthProvider';
+import { api } from '../../api/client';
 import { REPORT_TYPES, PRIORITIES, REPORT_STATUSES } from '../../types/domain';
 import EmptyState from '../../components/calm/EmptyState';
 import Card from '../../components/calm/Card';
@@ -66,7 +67,9 @@ const quickMatch = (r: Report, quick: Quick): boolean => {
 const TYPE_ICONS = { flood: Waves, fire: Flame, earthquake: Building2, landslide: Mountain, other: CircleHelp };
 const TYPE_CLASS = { flood: 'type-icon--flood', fire: 'type-icon--fire', earthquake: 'type-icon--earthquake', landslide: 'type-icon--landslide', other: 'type-icon--other' };
 
-function InboxRow({ r, selected, onSelect }: { r: Report; selected: boolean; onSelect: () => void }) {
+interface Reporter { name?: string | null; phone?: string | null }
+
+function InboxRow({ r, selected, onSelect, reporter }: { r: Report; selected: boolean; onSelect: () => void; reporter?: Reporter }) {
   const Icon = TYPE_ICONS[r.type as keyof typeof TYPE_ICONS] || CircleHelp;
   const typeClass = TYPE_CLASS[r.type as keyof typeof TYPE_CLASS] || 'type-icon--other';
   const label = r.type.charAt(0).toUpperCase() + r.type.slice(1);
@@ -85,6 +88,7 @@ function InboxRow({ r, selected, onSelect }: { r: Report; selected: boolean; onS
             <PriorityBadge priority={r.priority} />
           </span>
           <span className="inbox__place"><MapPin aria-hidden="true" /> {r.addressText || 'No address given'}</span>
+          <span className="inbox__reporter">Reported by {reporter?.name || 'name not recorded'}{reporter?.phone ? ` · ${reporter.phone}` : ''}</span>
           <span className="inbox__desc">{r.description}</span>
         </span>
         <span className="inbox__side">
@@ -100,6 +104,21 @@ function InboxRow({ r, selected, onSelect }: { r: Report; selected: boolean; onS
 export default function ReportQueue() {
   const { role } = useAuth();
   const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useAwaitingReports();
+  // Reporter names come from the admin directory, not the report record, so responders never see them.
+  const [people, setPeople] = useState<Record<string, Reporter>>({});
+  useEffect(() => {
+    if (role !== 'admin') return;
+    let active = true;
+    Promise.resolve()
+      .then(() => api('/users'))
+      .then((list: unknown) => {
+        if (!active || !Array.isArray(list)) return;
+        setPeople(Object.fromEntries(list.filter((u): u is Record<string, unknown> & { uid: string } => !!u && typeof (u as { uid?: unknown }).uid === 'string')
+          .map((u) => [u.uid, { name: typeof u.name === 'string' ? u.name : null, phone: typeof u.phone === 'string' ? u.phone : null }])));
+      })
+      .catch(() => { /* names stay hidden; the row says the name was not recorded */ });
+    return () => { active = false; };
+  }, [role]);
   // Filters, quick view, and selection live in the URL (W08): Back, reload, and shared links restore the same list.
   const [params, setParams] = useSearchParams();
   const f: Filters = {
@@ -240,7 +259,7 @@ export default function ReportQueue() {
         {rows.length > 0 && (
           <ul className="inbox" aria-label="Incident inbox">
             {rows.map((r) => (
-              <InboxRow key={r.id} r={r} selected={r.id === effectiveId} onSelect={() => setSelectedId(r.id)} />
+              <InboxRow key={r.id} r={r} selected={r.id === effectiveId} onSelect={() => setSelectedId(r.id)} reporter={r.reporterId ? people[r.reporterId] : undefined} />
             ))}
           </ul>
         )}

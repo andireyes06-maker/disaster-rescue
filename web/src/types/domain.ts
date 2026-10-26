@@ -46,6 +46,9 @@ export interface Photo {
 export interface Report {
   id: string;
   reference?: string;
+  reporterId?: string;
+  reporterName?: string | null;
+  reporterPhone?: string | null;
   type: ReportType;
   description: string;
   status: ReportStatus;

@@ -57,7 +57,8 @@ export async function list({ repo }, user, query = {}) {
   // Professor clarification (2026-10-23): the staff queue is oldest first; priority does not reorder it.
   if (user.role === 'admin' || user.role === 'responder') rows = queueFirst(rows);
   else if (user.role === 'resident') rows = [...rows].sort(newestFirst);
-  return rows.map((r) => projectReportForRole(r, user.role, user.uid, teamId)).filter(Boolean);
+  const out = rows.map((r) => projectReportForRole(r, user.role, user.uid, teamId)).filter(Boolean);
+  return user.role === 'admin' ? attachReporters(repo, out) : out;
 }
 
 // Newest first; reports with no readable time go last.
@@ -75,13 +76,27 @@ const queueFirst = (rows) => [
   ...rows.filter((r) => !AWAITING_ACTION.has(r.status)).sort(newestFirst),
 ];
 
+// Reporter name and phone live on the profile, not on the report, so responders' direct reads never expose them.
+// Administrators get them here, read per request.
+async function attachReporters(repo, reports) {
+  const cache = new Map();
+  return Promise.all(reports.map(async (r) => {
+    if (!r.reporterId) return r;
+    if (!cache.has(r.reporterId)) cache.set(r.reporterId, repo.getUser(r.reporterId).catch(() => null));
+    const profile = (await cache.get(r.reporterId)) ?? {};
+    return { ...r, reporterName: profile.name ?? null, reporterPhone: profile.phone ?? null };
+  }));
+}
+
 export async function get({ repo }, user, id) {
   const report = await repo.getReport(id);
   let teamId;
   if (report && user.role === 'responder') teamId = (await repo.getUser(user.uid))?.team;
   const out = projectReportForRole(report, user.role, user.uid, teamId);
   if (!out) throw notFound();
-  return out;
+  if (user.role !== 'admin') return out;
+  const [withReporter] = await attachReporters(repo, [out]);
+  return withReporter;
 }
 
 export async function verify({ repo, notifier }, user, id) {
