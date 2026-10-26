@@ -55,6 +55,7 @@ function buildReport(data, user, reference, now) {
     createdAt: now,
   };
   if (data.addressText) report.addressText = data.addressText;
+  report.affectedRadiusM = data.affectedRadiusM ?? 500;
   if (data.contact) report.contact = data.contact;
   return report;
 }

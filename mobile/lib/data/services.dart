@@ -42,6 +42,7 @@ class ApiReportsRepository implements ReportsRepository {
         'lng': r.lng.toString(),
         'source': r.source,
         'addressText': r.addressText,
+        'affectedRadiusM': r.affectedRadiusM.toString(),
         'contactName': r.contactName,
         'contactPhone': r.contactPhone,
       },
@@ -568,5 +569,6 @@ AssignedReport _assignedFrom(String id, Map<String, dynamic> m) {
     reporterId: m['reporterId'] as String?,
     assignedTeamId: m['assignedTeamId'] as String?,
     coarseLocation: cLat != null && cLng != null ? MapPoint(cLat, cLng) : null,
+    affectedRadiusM: (m['affectedRadiusM'] as num?)?.toInt(),
   );
 }

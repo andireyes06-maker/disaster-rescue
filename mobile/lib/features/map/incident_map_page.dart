@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../data/report_models.dart';
 import '../../theme/app_theme.dart';
@@ -33,6 +34,38 @@ class IncidentMapPage extends StatefulWidget {
 
 class _IncidentMapPageState extends State<IncidentMapPage> {
   String? _type;
+  // Lower-case search text. Matches type, place, reference and description.
+  String _query = '';
+
+  bool _matchesQuery(AssignedReport r) {
+    if (_query.isEmpty) return true;
+    return [
+      r.type,
+      r.description,
+      r.addressText ?? '',
+      r.reference ?? '',
+    ].any((text) => text.toLowerCase().contains(_query));
+  }
+
+  /// Shares the incidents now listed, with a map link for each that has a point.
+  Future<void> _share(List<AssignedReport> shown) async {
+    final lines = <String>[
+      'Rescue Reports: ${shown.length} incident${shown.length == 1 ? '' : 's'}',
+    ];
+    for (final r in shown.take(10)) {
+      final where = r.addressText?.trim().isNotEmpty == true
+          ? r.addressText!.trim()
+          : 'no address given';
+      final link = r.lat != null && r.lng != null
+          ? ' https://www.google.com/maps/search/?api=1&query=${r.lat},${r.lng}'
+          : '';
+      lines.add(
+        '- ${r.reference ?? r.id}: ${r.type}, $where, ${r.status}.$link',
+      );
+    }
+    if (shown.length > 10) lines.add('...and ${shown.length - 10} more.');
+    await SharePlus.instance.share(ShareParams(text: lines.join('\n')));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +86,10 @@ class _IncidentMapPageState extends State<IncidentMapPage> {
             return const ProductLoading();
           }
           final all = snap.data!;
-          final shown = _type == null
-              ? all
-              : all.where((r) => r.type == _type).toList();
+          final shown = all
+              .where((r) => _type == null || r.type == _type)
+              .where(_matchesQuery)
+              .toList();
           final points = <_Pin>[];
           for (final r in shown) {
             final p = visibleLocation(
@@ -65,9 +99,39 @@ class _IncidentMapPageState extends State<IncidentMapPage> {
             );
             if (p != null) points.add(_Pin(r, p));
           }
-          final filters = _FilterBar(
-            selected: _type,
-            onSelected: (t) => setState(() => _type = t),
+          final filters = Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        key: const Key('map-search'),
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.search),
+                          hintText: 'Search type, place or reference',
+                          isDense: true,
+                        ),
+                        onChanged: (v) =>
+                            setState(() => _query = v.trim().toLowerCase()),
+                      ),
+                    ),
+                    IconButton(
+                      key: const Key('map-share'),
+                      tooltip: 'Share these incidents',
+                      icon: const Icon(Icons.share),
+                      onPressed: shown.isEmpty ? null : () => _share(shown),
+                    ),
+                  ],
+                ),
+              ),
+              _FilterBar(
+                selected: _type,
+                onSelected: (t) => setState(() => _type = t),
+              ),
+            ],
           );
           // Landscape and short screens: map and list side by side, so neither overflows.
           // Portrait: the map takes a share of the available height, never a fixed 260dp.

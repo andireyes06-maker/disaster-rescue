@@ -41,9 +41,10 @@ class ReportDraftStore implements DraftStore {
   }
 
   /// The stored form of a draft: the contact fields are left out.
-  static Map<String, dynamic> _stored(Map<String, dynamic> j) => Map<String, dynamic>.of(j)
-    ..remove('contactName')
-    ..remove('contactPhone');
+  static Map<String, dynamic> _stored(Map<String, dynamic> j) =>
+      Map<String, dynamic>.of(j)
+        ..remove('contactName')
+        ..remove('contactPhone');
 
   @override
   Future<void> save(ReportDraft draft) async {

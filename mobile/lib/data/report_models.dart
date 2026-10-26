@@ -105,6 +105,10 @@ class NewReport {
   final String contactName;
   final String contactPhone;
   final List<PickedPhoto> photos;
+
+  /// How far the danger reaches from the point, in meters. Responders may act within this distance.
+  final int affectedRadiusM;
+
   /// Same key for every retry of one submission; the server returns the first result instead of duplicating.
   final String? idempotencyKey;
   const NewReport({
@@ -117,6 +121,7 @@ class NewReport {
     required this.contactName,
     required this.contactPhone,
     this.photos = const [],
+    this.affectedRadiusM = 500,
     this.idempotencyKey,
   });
 }
@@ -248,6 +253,9 @@ class AssignedReport {
   final String? reporterId;
   final String? assignedTeamId;
   final MapPoint? coarseLocation;
+
+  /// Reported reach of the danger in meters. Null for older reports; the app then uses 500 m.
+  final int? affectedRadiusM;
   const AssignedReport({
     required this.id,
     required this.type,
@@ -261,6 +269,7 @@ class AssignedReport {
     this.priority,
     this.reporterId,
     this.assignedTeamId,
+    this.affectedRadiusM,
     this.coarseLocation,
   });
 }

@@ -40,7 +40,8 @@ class ResponderAttemptStore {
   }
 
   /// True when no further payload can be kept for this report.
-  bool isFull(String reportId) => attemptsFor(reportId).length >= maxUnresolvedPerReport;
+  bool isFull(String reportId) =>
+      attemptsFor(reportId).length >= maxUnresolvedPerReport;
 
   /// Keeps an uncertain attempt. Content that is already kept keeps its first key. Callers check [isFull] first.
   void remember(String reportId, UpdateAttempt attempt) {

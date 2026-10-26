@@ -83,6 +83,9 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   double? _lng;
   String? _source;
   List<PickedPhoto> _photos = [];
+  // How far the danger reaches from the point. Responders may act only within this distance.
+  int _reachM = 500;
+  static const _reachOptions = [100, 250, 500, 1000, 2000, 5000];
   bool _submitting = false;
   // One key per submission attempt. Kept across network retries; replaced when the content changes.
   String? _submitKey;
@@ -282,6 +285,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           contactName: _name.text.trim(),
           contactPhone: _phone.text.trim(),
           photos: _photos,
+          affectedRadiusM: _reachM,
           idempotencyKey: _submitKey,
         ),
       );
@@ -571,6 +575,24 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             service: context.read<PhotoService>(),
             photos: _photos,
             onChanged: (p) => setState(() => _photos = p),
+          ),
+          const SizedBox(height: 16),
+          DropdownButtonFormField<int>(
+            key: const Key('reach'),
+            initialValue: _reachM,
+            decoration: InputDecoration(
+              label: requiredFieldLabel('How far does the danger reach?'),
+              helperText:
+                  'Responders can act only within this distance of the point you marked.',
+            ),
+            items: [
+              for (final m in _reachOptions)
+                DropdownMenuItem(
+                  value: m,
+                  child: Text(m >= 1000 ? '${m ~/ 1000} km' : '$m m'),
+                ),
+            ],
+            onChanged: (v) => setState(() => _reachM = v ?? _reachM),
           ),
           const SizedBox(height: 24),
           Text(

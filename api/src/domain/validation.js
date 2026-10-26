@@ -56,6 +56,8 @@ const schema = z.object({
   lng: coord(-180, 180),
   source: z.enum(['gps', 'manual']),
   addressText: z.preprocess((v) => (v == null ? undefined : sanitizeText(v, 300)), z.string().optional()),
+  // How far the danger reaches from the reported point, in meters. Responders may act within this distance.
+  affectedRadiusM: z.preprocess((v) => (v == null || v === '' ? undefined : Number(v)), z.number().int().min(50).max(5000).optional()),
   contact: z.object({
     name: z.string().trim().min(1).max(100),
     phone: z.string().trim().regex(PHONE_RE),

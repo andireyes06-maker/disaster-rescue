@@ -40,7 +40,9 @@ bool isUncertainSubmission(Object error) {
   // Any other error that is not an ApiException happened on this phone (for example a file or validation error)
   // before the request was sent, so it cannot have created a report.
   if (error is! ApiException) {
-    return error is TimeoutException || error is http.ClientException || error is FormatException;
+    return error is TimeoutException ||
+        error is http.ClientException ||
+        error is FormatException;
   }
   if (error.code == 'bad_response' ||
       (error.status >= 200 && error.status < 300)) {

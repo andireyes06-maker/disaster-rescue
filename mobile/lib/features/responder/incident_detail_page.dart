@@ -54,8 +54,12 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   double? _distance;
   String? _locationNotice;
 
-  bool get _tooFar =>
-      _distance != null && _distance! > kMaxResponderDistanceMeters;
+  // The reach the resident reported for this incident, or the default when the report has none.
+  int get _allowedMeters =>
+      (_current ?? widget.report).affectedRadiusM ??
+      kMaxResponderDistanceMeters.round();
+
+  bool get _tooFar => _distance != null && _distance! > _allowedMeters;
 
   /// Reads the responder's current position and measures it to the incident.
   Future<void> _measure() async {
@@ -156,8 +160,8 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     _watchProgress();
   }
 
-  static const _farMessage =
-      'You are too far from this incident to act on it. Move within 500 m, then try again.';
+  String get _farMessage =>
+      'You are too far from this incident to act on it. Move within ${formatMeters(_allowedMeters.toDouble())} of it, then try again.';
 
   Future<void> _acknowledge() async {
     if (_tooFar) {

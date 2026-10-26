@@ -38,7 +38,11 @@ class ApiClient {
       final t = await tokenProvider();
       if (t != null && t.isNotEmpty) return t;
     } catch (_) {}
-    throw const ApiException(0, 'auth', 'You are signed out. Please log in again.');
+    throw const ApiException(
+      0,
+      'auth',
+      'You are signed out. Please log in again.',
+    );
   }
 
   Future<Map<String, dynamic>?> send(
@@ -76,18 +80,32 @@ class ApiClient {
     return _run(() async => http.Response.fromStream(await _client.send(req)));
   }
 
-  Future<Map<String, dynamic>?> _run(Future<http.Response> Function() call) async {
+  Future<Map<String, dynamic>?> _run(
+    Future<http.Response> Function() call,
+  ) async {
     final http.Response res;
     try {
       res = await call().timeout(timeout);
     } on ApiException {
       rethrow;
     } on TimeoutException {
-      throw const ApiException(0, 'network', 'The server took too long to answer. Check your connection and try again.');
+      throw const ApiException(
+        0,
+        'network',
+        'The server took too long to answer. Check your connection and try again.',
+      );
     } on IOException {
-      throw const ApiException(0, 'network', 'Cannot reach the server. Check your connection and try again.');
+      throw const ApiException(
+        0,
+        'network',
+        'Cannot reach the server. Check your connection and try again.',
+      );
     } on http.ClientException {
-      throw const ApiException(0, 'network', 'Cannot reach the server. Check your connection and try again.');
+      throw const ApiException(
+        0,
+        'network',
+        'Cannot reach the server. Check your connection and try again.',
+      );
     }
 
     final text = res.body.trim();
@@ -106,14 +124,24 @@ class ApiClient {
         throw ApiException(
           res.statusCode,
           decoded['error'] as String,
-          msg is String && msg.isNotEmpty ? msg : 'The request failed (${res.statusCode}).',
+          msg is String && msg.isNotEmpty
+              ? msg
+              : 'The request failed (${res.statusCode}).',
         );
       }
-      throw ApiException(res.statusCode, 'http_error', 'The service could not complete this request. Please try again.');
+      throw ApiException(
+        res.statusCode,
+        'http_error',
+        'The service could not complete this request. Please try again.',
+      );
     }
     if (res.statusCode == 204 || text.isEmpty) return null;
     if (!isJson) {
-      throw ApiException(res.statusCode, 'bad_response', 'The server sent an unexpected reply.');
+      throw ApiException(
+        res.statusCode,
+        'bad_response',
+        'The server sent an unexpected reply.',
+      );
     }
     return decoded is Map<String, dynamic> ? decoded : {'data': decoded};
   }
