@@ -66,7 +66,11 @@ export default function Landing() {
       <LandingQuestions />
       <section className="service-closing" aria-labelledby="start-report-title">
         <div><h2 id="start-report-title">Start with what you know.</h2><p>Send a report from the Rescue Reports mobile app, then follow its status and updates there.</p></div>
-        <div className="service-closing__actions">{ANDROID_APK_URL && <a className="btn" href={ANDROID_APK_URL} download>Download Android app<Download size={17} aria-hidden="true" /></a>}<a className="btn" href="#residents">Get the mobile app<ArrowUpRight size={17} aria-hidden="true" /></a></div>
+        <div className="service-closing__actions">{ANDROID_APK_URL
+          ? <a className="btn" href={ANDROID_APK_URL} download>Download for Android<Download size={17} aria-hidden="true" /></a>
+          : <button className="btn" type="button" disabled aria-disabled="true">Android download, coming soon<Download size={17} aria-hidden="true" /></button>}
+          <button className="btn" type="button" disabled aria-disabled="true">iOS download, coming soon<Download size={17} aria-hidden="true" /></button>
+          <a className="btn" href="#residents">Get the mobile app<ArrowUpRight size={17} aria-hidden="true" /></a></div>
       </section>
       <section className="service-access" id="access" aria-labelledby="access-title"><h2 id="access-title" className="visually-hidden">Access and privacy</h2><div><Smartphone size={22} aria-hidden="true" /><h3>Report from the mobile app</h3><p>Use the Rescue Reports mobile app to submit reports, add a location and check updates. The website is for administrators and rescue teams.</p></div><div id="privacy"><ShieldCheck size={22} aria-hidden="true" /><h3>Privacy</h3><p>Share only the details needed to explain the incident. Avoid sensitive personal information in photos and descriptions.</p></div><div><Radio size={22} aria-hidden="true" /><h3>Coordinated response</h3><p>Keep the report, assigned team, and field updates connected as the response progresses.</p></div></section>
     </main>
