@@ -135,7 +135,7 @@ export default function ReportQueue() {
   const activeFilters = Object.values(f).filter(Boolean).length + (quick !== 'all' ? 1 : 0);
 
   const query = (params.get('q') ?? '').trim().toLowerCase();
-  const matchesQuery = (r: Report) => !query || [r.type, r.description, r.addressText ?? '', r.reference ?? '']
+  const matchesQuery = (r: Report) => !query || [r.type, r.description, r.addressText ?? '', r.reference ?? '', r.id ?? '']
     .some((text) => text.toLowerCase().includes(query));
 
   const rows = orderQueue(reports.filter((r) =>
