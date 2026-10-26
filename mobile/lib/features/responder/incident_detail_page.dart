@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../data/api_client.dart';
+import '../../data/geo.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
@@ -49,10 +50,40 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     'Cancelled',
   };
 
+  // Distance from this responder to the incident, in meters. Null until a position is known.
+  double? _distance;
+  String? _locationNotice;
+
+  bool get _tooFar =>
+      _distance != null && _distance! > kMaxResponderDistanceMeters;
+
+  /// Reads the responder's current position and measures it to the incident.
+  Future<void> _measure() async {
+    final r = _current ?? widget.report;
+    if (r.lat == null || r.lng == null) return;
+    final result = await context.read<LocationService>().current();
+    if (!mounted) return;
+    if (result.status != LocationStatus.ok ||
+        result.lat == null ||
+        result.lng == null) {
+      setState(() {
+        _distance = null;
+        _locationNotice =
+            'Turn on location to check your distance from this incident.';
+      });
+      return;
+    }
+    setState(() {
+      _distance = distanceMeters(result.lat!, result.lng!, r.lat!, r.lng!);
+      _locationNotice = null;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _current = widget.report;
+    WidgetsBinding.instance.addPostFrameCallback((_) => _measure());
     _liveStatus.value = widget.report.status;
   }
 
@@ -125,7 +156,14 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     _watchProgress();
   }
 
+  static const _farMessage =
+      'You are too far from this incident to act on it. Move within 500 m, then try again.';
+
   Future<void> _acknowledge() async {
+    if (_tooFar) {
+      setState(() => _error = _farMessage);
+      return;
+    }
     setState(() {
       _busy = true;
       _error = null;
@@ -148,6 +186,10 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   }
 
   Future<void> _updateStatus() async {
+    if (_tooFar) {
+      setState(() => _error = _farMessage);
+      return;
+    }
     // The live subscription shows the new status once the server confirms it.
     await Navigator.of(context).push<OperationUpdate>(
       MaterialPageRoute(
@@ -251,6 +293,20 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                     Text(r.addressText!.trim()),
                   if (hasLocation) Text('${r.lat}, ${r.lng}'),
                   if (!hasLocation) const Text('No exact location was given.'),
+                  if (_distance != null) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      'You are ${formatMeters(_distance!)} from this incident.',
+                    ),
+                  ],
+                  if (_locationNotice != null) ...[
+                    const SizedBox(height: 6),
+                    Text(_locationNotice!),
+                  ],
+                  if (_tooFar) ...[
+                    const SizedBox(height: 6),
+                    InlineError(_farMessage),
+                  ],
                   const SizedBox(height: 8),
                   if (hasLocation)
                     OutlinedButton.icon(
@@ -273,7 +329,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
             ],
             if (!closed)
               FilledButton.icon(
-                onPressed: _acknowledged || _busy || closed
+                onPressed: _acknowledged || _busy || closed || _tooFar
                     ? null
                     : _acknowledge,
                 icon: Icon(
@@ -284,7 +340,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
             if (!closed) ...[
               const SizedBox(height: 12),
               OutlinedButton.icon(
-                onPressed: _updateStatus,
+                onPressed: _tooFar ? null : _updateStatus,
                 icon: const Icon(Icons.edit_note),
                 label: const Text('Add operation update'),
               ),
