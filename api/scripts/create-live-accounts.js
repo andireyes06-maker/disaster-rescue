@@ -11,18 +11,36 @@ import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
 import { loadConfig } from '../src/config.js';
 
-// Accounts to create. Edit names and emails before running. Teams must already exist on the live project.
+// Accounts to create. Accounts that already exist are skipped. Missing responder teams are created.
 export const LIVE_ACCOUNTS = [
   { email: 'elena.cruz@harbor.example', name: 'Elena Cruz', role: 'admin', team: null },
   { email: 'daniel.flores@harbor.example', name: 'Daniel Flores', role: 'responder', team: 'team-alpha' },
+  { email: 'clara.navarro@harbor.example', name: 'Clara Navarro', role: 'responder', team: 'team-bravo' },
+  { email: 'rafael.castillo@harbor.example', name: 'Rafael Castillo', role: 'responder', team: 'team-delta' },
+  { email: 'nina.bautista@harbor.example', name: 'Nina Bautista', role: 'responder', team: 'team-foxtrot' },
+  { email: 'maya.torres@harbor.example', name: 'Maya Torres', role: 'resident', team: null },
+  { email: 'noah.garcia@harbor.example', name: 'Noah Garcia', role: 'resident', team: null },
+  { email: 'isabel.ramos@harbor.example', name: 'Isabel Ramos', role: 'resident', team: null },
+  { email: 'leo.mendoza@harbor.example', name: 'Leo Mendoza', role: 'resident', team: null },
 ];
 
 export function generatePassword() {
   return randomBytes(12).toString('base64url');
 }
 
+// Creates a responder team document when it does not exist yet. Existing teams are left untouched.
+export async function ensureTeam(db, team) {
+  const ref = db.collection('teams').doc(team);
+  const snap = await ref.get();
+  if (snap.exists) return false;
+  const name = team.replace(/^team-/, '').replace(/^./, (c) => c.toUpperCase());
+  await ref.set({ name: `Team ${name}`, members: [], status: 'available', currentReportId: null, busy: false });
+  return true;
+}
+
 // Creates the Auth user, role and active claims, and the users document. Returns the uid.
 export async function createLiveAccount({ auth, db }, { email, password, name, role, team }) {
+  if (team) await ensureTeam(db, team);
   const { uid } = await auth.createUser({ email, password, displayName: name, emailVerified: true });
   const claims = { role, active: true, ...(team ? { team } : {}) };
   await auth.setCustomUserClaims(uid, claims);
@@ -54,6 +72,13 @@ async function main() {
   const db = getFirestore();
   const lines = [];
   for (const account of LIVE_ACCOUNTS) {
+    try {
+      await auth.getUserByEmail(account.email);
+      console.log(`Skipped, already exists: ${account.email}`);
+      continue;
+    } catch (error) {
+      if (error.code !== 'auth/user-not-found') throw error;
+    }
     const password = generatePassword();
     const { uid } = await createLiveAccount({ auth, db }, { ...account, password });
     lines.push(`${account.role}\t${account.email}\t${password}\t(uid ${uid})`);
