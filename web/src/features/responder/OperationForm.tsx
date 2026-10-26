@@ -15,6 +15,7 @@ import {
 import Banner from '../../components/calm/Banner';
 import { focusProgressHistory, progressSectionId } from './AssignedProgress';
 import { saveDraft, useDraft, getDraft, type DraftAttempt } from './draftStore';
+import { currentPosition } from '../../lib/position';
 
 // Whole-number text becomes its integer value. Anything else becomes NaN, which the schema rejects.
 // React Hook Form also passes the numeric default through here, so numbers are returned unchanged.
@@ -129,6 +130,8 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
     setBusy(true);
     let sent: DraftAttempt | null = null;
     try {
+      // The API checks the responder is within the incident's reach, so the browser's position is sent with the update.
+      const position = await currentPosition();
       const fingerprint = JSON.stringify([values.status, String(values.peopleRescued), values.note]);
       const stored = getDraft(reportId)?.attempt ?? null;
       sent = stored && stored.fingerprint === fingerprint ? stored : { key: crypto.randomUUID(), fingerprint, status: values.status };
@@ -136,7 +139,7 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
       await api(`/reports/${reportId}/updates`, {
         method: 'POST',
         headers: { 'Idempotency-Key': sent.key },
-        body: { status: values.status, peopleRescued: values.peopleRescued, note: values.note },
+        body: { status: values.status, peopleRescued: values.peopleRescued, note: values.note, position },
       });
       saveDraft(reportId, { attempt: null });
       setSaved(true);

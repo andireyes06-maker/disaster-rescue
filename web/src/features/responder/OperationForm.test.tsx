@@ -2,6 +2,9 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+// jsdom has no geolocation. The API checks reach, so tests supply a fixed position inside the incident's reach.
+vi.mock('../../lib/position', () => ({ currentPosition: () => Promise.resolve({ lat: 14.8512, lng: 120.8123 }) }));
+
 const h = vi.hoisted(() => ({ api: vi.fn() }));
 vi.mock('../../api/client', async () => {
   class ApiError extends Error {
@@ -42,7 +45,7 @@ describe('OperationForm', () => {
     expect(h.api).toHaveBeenCalledWith('/reports/r1/updates', {
       method: 'POST',
       headers: { 'Idempotency-Key': expect.any(String) },
-      body: { status: 'Resolved', peopleRescued: 12, note: 'Family moved to the shelter' },
+      body: { status: 'Resolved', peopleRescued: 12, note: 'Family moved to the shelter', position: { lat: 14.8512, lng: 120.8123 } },
     });
   });
 
@@ -75,7 +78,7 @@ describe('OperationForm', () => {
     expect(h.api).toHaveBeenCalledWith('/reports/r1/updates', {
       method: 'POST',
       headers: { 'Idempotency-Key': expect.any(String) },
-      body: { status: 'Rescue in Progress', peopleRescued: 0, note: 'Family moved' },
+      body: { status: 'Rescue in Progress', peopleRescued: 0, note: 'Family moved', position: { lat: 14.8512, lng: 120.8123 } },
     });
   });
 

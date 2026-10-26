@@ -13,6 +13,7 @@ import { useAcknowledgedAt, useReport } from '../reports/useReport';
 import EmptyState from '../../components/calm/EmptyState';
 import OperationForm, { allowedOperationStatuses } from './OperationForm';
 import TeamSummary from './TeamSummary';
+import { currentPosition } from '../../lib/position';
 import AssignedProgress from './AssignedProgress';
 import StatusBadge from '../reports/StatusBadge';
 import PriorityBadge from '../reports/PriorityBadge';
@@ -64,7 +65,8 @@ function AssignedCard({ report, scope }: AssignedCardProps) {
     setBusy(true);
     setMessage(null);
     try {
-      await api(`/reports/${report.id}/acknowledge`, { method: 'POST' });
+      const position = await currentPosition();
+      await api(`/reports/${report.id}/acknowledge`, { method: 'POST', body: { position } });
       setAccepted(true);
       setMessage({ kind: 'ok', text: 'Assignment acknowledged.' });
     } catch (err) {
