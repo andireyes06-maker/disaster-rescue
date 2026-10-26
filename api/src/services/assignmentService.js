@@ -3,6 +3,7 @@ import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js
 import { HttpError } from '../errors.js';
 import { STATUS, isOpen, assertTransition } from '../domain/workflow.js';
 import { sanitizeText } from '../domain/validation.js';
+import { assertWithinReach } from '../domain/reach.js';
 import { load, transition, notFound, conflict } from './reviewService.js';
 
 const RESPONDER_STATUSES = [STATUS.IN_PROGRESS, STATUS.RESOLVED];
@@ -54,7 +55,10 @@ export async function assign({ repo, notifier }, user, id, body) {
   return { id, status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId };
 }
 
-export async function acknowledge({ repo }, user, id) {
+export async function acknowledge({ repo }, user, id, body) {
+  const report = await load(repo, id);
+  await ownTeamOrNotFound(repo, user, report);
+  assertWithinReach(report, body?.position);
   const effects = mutationEffects([{ actorUid: user.uid, action: 'report.acknowledge', reportId: id }]);
   const result = await repo.acknowledgeReport(id, user.uid, effects);
   throwIfRejected(result);
@@ -98,6 +102,7 @@ export async function addUpdate({ repo }, user, id, body, idempotencyKey) {
   // Current permissions come first: a retry after the responder left the team is refused, never replayed.
   const report = await load(repo, id);
   await ownTeamOrNotFound(repo, user, report);
+  assertWithinReach(report, body?.position);
   if (updateId) {
     const prior = await repo.getReportUpdate(id, updateId);
     if (prior) return replayed(prior, user, id);

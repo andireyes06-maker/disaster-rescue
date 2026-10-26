@@ -9,11 +9,11 @@ async function fixture() {
   const d = makeTestApp();
   await d.repo.createUser('resp', { name: 'R', role: 'responder', active: true, team: 'team-a', createdAt: new Date() });
   await d.repo.createUser('other', { name: 'O', role: 'responder', active: true, team: 'team-a', createdAt: new Date() });
-  const reportId = await d.repo.createReport({ status: 'Rescue in Progress', assignedTeamId: 'team-a', reporterId: 'res', reference: 'R-1', createdAt: new Date() });
+  const reportId = await d.repo.createReport({ location: { lat: 14.8512, lng: 120.8123 }, status: 'Rescue in Progress', assignedTeamId: 'team-a', reporterId: 'res', reference: 'R-1', createdAt: new Date() });
   const rescued = async () => (await d.repo.listUpdates(reportId)).reduce((s, u) => s + (u.peopleRescued ?? 0), 0);
   return { d, reportId, rescued, user: { uid: 'resp', role: 'responder' } };
 }
-const body = { status: 'Rescue in Progress', peopleRescued: 3, note: 'Two adults moved' };
+const body = { position: { lat: 14.8512, lng: 120.8123 }, status: 'Rescue in Progress', peopleRescued: 3, note: 'Two adults moved' };
 
 describe('responder update idempotency', () => {
   it('a retry with the same key replays the first result and writes no second row', async () => {
@@ -27,7 +27,7 @@ describe('responder update idempotency', () => {
 
   it('a replay of a Resolved update still succeeds after the report is closed to further changes', async () => {
     const { d, reportId, rescued, user } = await fixture();
-    const resolved = { status: 'Resolved', peopleRescued: 5 };
+    const resolved = { position: { lat: 14.8512, lng: 120.8123 }, status: 'Resolved', peopleRescued: 5 };
     const first = await addUpdate({ repo: d.repo }, user, reportId, resolved, 'resolve-key-01');
     const again = await addUpdate({ repo: d.repo }, user, reportId, resolved, 'resolve-key-01');
     expect(again).toEqual(first);

@@ -89,6 +89,7 @@ function InboxRow({ r, selected, onSelect, reporter }: { r: Report; selected: bo
           </span>
           <span className="inbox__place"><MapPin aria-hidden="true" /> {r.addressText || 'No address given'}</span>
           <span className="inbox__reporter">Reported by {reporter?.name || 'name not recorded'}{reporter?.phone ? ` · ${reporter.phone}` : ''}</span>
+          <span className="inbox__reach">Danger reaches {r.affectedRadiusM ? (r.affectedRadiusM >= 1000 ? `${r.affectedRadiusM / 1000} km` : `${r.affectedRadiusM} m`) : '500 m (default)'} from the point</span>
           <span className="inbox__desc">{r.description}</span>
         </span>
         <span className="inbox__side">

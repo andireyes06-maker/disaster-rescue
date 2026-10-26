@@ -10,9 +10,9 @@ const base = {
   contact: { name: 'Ana', phone: '09171234567' }, reporterId: 'res-1', photos: [], reference: 'DR-CLOSED1',
   assignedTeamId: 'tA',
 };
-const seed = (t, over = {}) => t.repo.createReport({ ...base, ...over });
+const seed = (t, over = {}) => t.repo.createReport({ location: { lat: 14.8512, lng: 120.8123 }, ...base, ...over });
 const get = (t, id, who) => request(t.app).get(`/api/reports/${id}`).set('Authorization', who);
-const post = (t, id, path, who, body) => request(t.app).post(`/api/reports/${id}/${path}`).set('Authorization', who).send(body ?? {});
+const post = (t, id, path, who, body) => request(t.app).post(`/api/reports/${id}/${path}`).set('Authorization', who).send({ position: { lat: 14.8512, lng: 120.8123 }, ...(body ?? {}) });
 
 // Team A and team B, one responder each. rsp-a is on tA, rsp-b is on tB.
 async function withTeams(t) {

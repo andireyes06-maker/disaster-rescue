@@ -122,10 +122,24 @@ class _OperationFormPageState extends State<OperationFormPage> {
       _blocked = false;
     });
     try {
+      // The server checks the position too, so the app sends the device's current fix with the update.
+      final fix = await context.read<LocationService>().current();
+      if (fix.status != LocationStatus.ok ||
+          fix.lat == null ||
+          fix.lng == null) {
+        if (!mounted) return;
+        setState(() {
+          _busy = false;
+          _error = 'Turn on location to post an update for this incident.';
+        });
+        return;
+      }
       await context.read<ResponderRepository>().postUpdate(
         widget.reportId,
         OperationUpdate(status: status, peopleRescued: people, note: note),
         idempotencyKey: key,
+        lat: fix.lat,
+        lng: fix.lng,
       );
       attempts.forget(widget.reportId, signature);
       if (!mounted) return;

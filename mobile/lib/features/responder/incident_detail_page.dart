@@ -173,7 +173,23 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
       _error = null;
     });
     try {
-      await context.read<ResponderRepository>().acknowledge(widget.report.id);
+      // The server checks the position too, so the app sends the device's current fix with the action.
+      final fix = await context.read<LocationService>().current();
+      if (fix.status != LocationStatus.ok ||
+          fix.lat == null ||
+          fix.lng == null) {
+        if (!mounted) return;
+        setState(() {
+          _busy = false;
+          _error = 'Turn on location to acknowledge this incident.';
+        });
+        return;
+      }
+      await context.read<ResponderRepository>().acknowledge(
+        widget.report.id,
+        lat: fix.lat,
+        lng: fix.lng,
+      );
       if (!mounted) return;
       setState(() => _acknowledged = true);
     } on ApiException catch (e) {

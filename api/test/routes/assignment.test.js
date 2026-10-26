@@ -7,8 +7,8 @@ const base = {
   location: { lat: 14.8512, lng: 120.8123, source: 'gps' }, coarseLocation: { lat: 14.85, lng: 120.81 },
   contact: { name: 'Ana', phone: '09171234567' }, reporterId: 'res-1', photos: [], reference: 'DR-AAAAAA',
 };
-const seed = (t, over = {}) => t.repo.createReport({ ...base, ...over });
-const post = (t, id, path, who, body) => request(t.app).post(`/api/reports/${id}/${path}`).set('Authorization', who).send(body ?? {});
+const seed = (t, over = {}) => t.repo.createReport({ location: { lat: 14.8512, lng: 120.8123 }, ...base, ...over });
+const post = (t, id, path, who, body) => request(t.app).post(`/api/reports/${id}/${path}`).set('Authorization', who).send({ position: { lat: 14.8512, lng: 120.8123 }, ...(body ?? {}) });
 const audits = (t, id) => t.repo.listAudit({ reportId: id });
 const countAudit = async (t, id, action) => (await audits(t, id)).filter((a) => a.action === action).length;
 
@@ -93,7 +93,7 @@ describe('resolution is all-or-nothing (BE03)', () => {
     const id = await seed(t, { status: 'Rescue in Progress', assignedTeamId: 'tA' });
     const real = t.repo.applyReportChange;
     t.repo.applyReportChange = async () => { throw new Error('injected write failure'); };
-    const body = { status: 'Resolved', note: 'Area cleared', peopleRescued: 2 };
+    const body = { position: { lat: 14.8512, lng: 120.8123 }, status: 'Resolved', note: 'Area cleared', peopleRescued: 2 };
     const failed = await request(t.app).post(`/api/reports/${id}/updates`).set('Authorization', t.as('responder', 'rsp-a')).send(body);
     expect(failed.status).toBe(500);
     expect(await t.repo.getReport(id)).toMatchObject({ status: 'Rescue in Progress' });

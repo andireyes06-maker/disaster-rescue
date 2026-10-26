@@ -47,6 +47,7 @@ export interface Report {
   id: string;
   reference?: string;
   reporterId?: string;
+  affectedRadiusM?: number;
   reporterName?: string | null;
   reporterPhone?: string | null;
   type: ReportType;

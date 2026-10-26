@@ -204,7 +204,8 @@ class FakeResponderRepository implements ResponderRepository {
   }
 
   @override
-  Future<void> acknowledge(String id) async => acknowledged.add(id);
+  Future<void> acknowledge(String id, {double? lat, double? lng}) async =>
+      acknowledged.add(id);
 
   /// Idempotency-Key of each postUpdate call, in order (null when none was sent).
   final List<String?> updateKeys = [];
@@ -214,6 +215,8 @@ class FakeResponderRepository implements ResponderRepository {
     String id,
     OperationUpdate update, {
     String? idempotencyKey,
+    double? lat,
+    double? lng,
   }) async {
     updateKeys.add(idempotencyKey);
     final outcome = updateOutcome != null

@@ -335,13 +335,17 @@ abstract class ResponderRepository {
 
   /// Newest progress entries first, at most [limit]. Acknowledgements are not included. Errors when access is refused.
   Stream<List<ProgressEntry>> watchUpdates(String id, {int limit = 20});
-  Future<void> acknowledge(String id);
+
+  /// [lat] and [lng] are the responder's current position. The server refuses the action when it is beyond the report's reach.
+  Future<void> acknowledge(String id, {double? lat, double? lng});
 
   /// [idempotencyKey] makes a retried update replay the first result instead of recording it again.
   Future<void> postUpdate(
     String id,
     OperationUpdate update, {
     String? idempotencyKey,
+    double? lat,
+    double? lng,
   });
 }
 
@@ -415,8 +419,14 @@ class ApiResponderRepository implements ResponderRepository {
   }
 
   @override
-  Future<void> acknowledge(String id) async {
-    await _api.send('POST', '/reports/$id/acknowledge');
+  Future<void> acknowledge(String id, {double? lat, double? lng}) async {
+    await _api.send(
+      'POST',
+      '/reports/$id/acknowledge',
+      body: {
+        if (lat != null && lng != null) 'position': {'lat': lat, 'lng': lng},
+      },
+    );
   }
 
   @override
@@ -424,6 +434,8 @@ class ApiResponderRepository implements ResponderRepository {
     String id,
     OperationUpdate update, {
     String? idempotencyKey,
+    double? lat,
+    double? lng,
   }) async {
     await _api.send(
       'POST',
@@ -433,6 +445,7 @@ class ApiResponderRepository implements ResponderRepository {
         'status': update.status,
         'peopleRescued': update.peopleRescued,
         'note': update.note,
+        if (lat != null && lng != null) 'position': {'lat': lat, 'lng': lng},
       },
     );
   }
