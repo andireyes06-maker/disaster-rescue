@@ -123,6 +123,20 @@ describe('AssignTeamDialog', () => {
     expect(h.api).toHaveBeenCalledWith('/reports/r1/assign', { method: 'POST', body: { teamIds: ['p1', 'b1'] } });
   });
 
+  it('moves between identity tabs with the keyboard and announces the selection', async () => {
+    show([{ id: 'p1', name: 'PNP North', busy: false, currentReportId: null, kind: 'PNP' }]);
+    const tab = await screen.findByRole('tab', { name: /^PNP/ });
+    tab.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: /^BFP/ })).toHaveFocus();
+    expect(screen.getByRole('tab', { name: /^BFP/ })).toHaveAttribute('aria-selected', 'true');
+    await userEvent.keyboard('{Home}');
+    expect(tab).toHaveFocus();
+    await userEvent.click(screen.getByRole('checkbox', { name: /PNP North/ }));
+    expect(screen.getByRole('status')).toHaveTextContent('1 team selected');
+    expect(h.api).not.toHaveBeenCalledWith('/reports/r1/assign', expect.anything());
+  });
+
   it("says you can't assign a team with no members", async () => {
     h.api.mockReset().mockImplementation((path: string) => {
       if (path === '/teams') return Promise.resolve(TEAMS);

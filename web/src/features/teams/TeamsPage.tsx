@@ -101,7 +101,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
 
   return (
     <li className="management-row team-row">
-      <div className="management-identity"><strong>{team.name} <span className="team-kind">{team.kind === 'Other' && team.kindLabel ? team.kindLabel : team.kind ?? 'Rescue'}</span></strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
+      <div className="management-identity"><span className="identity-mark identity-mark--team" aria-hidden="true">{team.name.trim().split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase()}</span><strong>{team.name} <span className="team-kind">{team.kind === 'Other' && team.kindLabel ? team.kindLabel : team.kind ?? 'Rescue'}</span></strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
       <div className="team-row__actions">
       <button type="button" className="btn btn--ghost team-location-toggle" aria-expanded={editingLocation} onClick={() => setEditingLocation((v) => !v)}>Edit location</button>

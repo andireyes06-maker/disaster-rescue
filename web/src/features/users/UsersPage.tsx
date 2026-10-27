@@ -216,6 +216,7 @@ export default function UsersPage() {
           {visibleUsers.map((u) => (
             <li key={u.uid} className="management-row">
               <div className="management-identity">
+                <span className="identity-mark" data-role={u.role} aria-hidden="true">{(u.name || u.email || '?').trim().split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase()}</span>
                 <strong>{u.name || u.email}</strong>
                 <small>{u.email || u.uid}</small>
                 <span className="badge badge--neutral">{u.role}</span>

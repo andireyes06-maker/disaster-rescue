@@ -104,9 +104,9 @@ describe('IncidentDetails', () => {
     expect(screen.queryByRole('button', { name: /reject/i })).toBeNull();
   });
 
-  it('shows no action buttons for a role without staff actions', () => {
+  it('shows no operational controls for a role without staff actions', () => {
     show([makeReport()], 'responder');
-    expect(screen.queryByRole('button')).toBeNull();
+    expect(screen.queryByRole('button', { name: /validate report|assign team|reject|set priority|classify|close report/i })).toBeNull();
     expect(screen.queryByRole('combobox')).toBeNull();
     expect(screen.queryByRole('textbox')).toBeNull();
   });
@@ -314,7 +314,8 @@ describe('IncidentDetails', () => {
     const evil = '<img src=x onerror=alert(1)>';
     const { container } = show([makeReport({ description: evil })]);
     expect(screen.getByText(evil)).toBeInTheDocument();
-    expect(container.querySelector('img')).toBeNull();
+    expect(container.querySelector('.incident__description img')).toBeNull();
+    expect(container.querySelector('[onerror]')).toBeNull();
   });
 
   it('shows not found for an unknown id', () => {

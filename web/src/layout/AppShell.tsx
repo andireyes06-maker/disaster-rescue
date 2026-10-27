@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, ClipboardList, type LucideIcon } from 'lucide-react';
+import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, ClipboardList, MapPin, type LucideIcon } from 'lucide-react';
 import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
 import NotificationBell from '../features/resident/NotificationBell';
@@ -50,6 +50,7 @@ interface AppShellProps {
 export default function AppShell({ title, children }: AppShellProps) {
   const { user, role, logout } = useAuth();
   const items = (role && NAV[role]) || [];
+  const PageIcon = title === 'Incident details' || title === 'Assignment' ? MapPin : items.find(item => item.label === title || (title === 'Audit log' && item.to === '/audit'))?.icon || Settings;
   const [menuOpen, setMenuOpen] = useState(false);
   const [signOutError, setSignOutError] = useState('');
   const { pathname } = useLocation();
@@ -102,9 +103,9 @@ export default function AppShell({ title, children }: AppShellProps) {
         </header>
         <main className="shell__main" id="main-content" tabIndex={-1}>
           {signOutError && <Banner tone="error" role="alert">{signOutError}</Banner>}
-          <header className="page-band">
-            <h1>{title}</h1>
-            <p className="shell__description">{DESCRIPTIONS[title]}</p>
+          <header className={`page-band${title === 'Incident details' || title === 'Assignment' ? ' page-band--incident' : ''}`}>
+            <span className="page-band__icon" aria-hidden="true"><PageIcon size={26} /></span>
+            <div><h1>{title}</h1><p className="shell__description">{DESCRIPTIONS[title]}</p></div>
           </header>
           {children ?? <Outlet />}
         </main>

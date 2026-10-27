@@ -1,9 +1,9 @@
 import { TYPE_CLASS, TYPE_ICONS } from './IncidentPreview';
-import { CircleHelp } from 'lucide-react';
+import { CircleHelp, Camera, Check, CircleDot, Radio } from 'lucide-react';
 import type { ReportType } from '../../types/domain';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useDialogFocusReturn } from '../../components/useDialogFocusReturn';
 import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
@@ -24,6 +24,8 @@ import ActivityHistory, { ActivityNote } from '../../components/calm/ActivityHis
 import { resolvePhotoUrl } from '../../lib/photos';
 import PhotoImage from '../../components/PhotoImage';
 import EmptyState from '../../components/calm/EmptyState';
+
+const IncidentLocation = lazy(() => import('./IncidentLocation'));
 
 const CONFLICT = 'Someone else already changed this report. Reloading the latest status.';
 
@@ -133,7 +135,7 @@ function StatusProgress({ status }: { status: string }) {
         const marker = i < current ? 'Done' : i === current ? 'Current' : 'Pending';
         return (
           <div key={step} className={`incident-progress__step is-${marker.toLowerCase()}`} aria-current={marker === 'Current' ? 'step' : undefined}>
-            <span className="incident-progress__dot" aria-hidden="true">{marker === 'Done' ? '✓' : marker === 'Current' ? '●' : ''}</span>
+            <span className="incident-progress__dot" aria-hidden="true">{marker === 'Done' ? <Check size={14} /> : marker === 'Current' ? <CircleDot size={14} /> : i + 1}</span>
             <span className="incident-progress__label">{step}</span>
             <span className="incident-progress__marker">{marker}</span>
           </div>
@@ -280,7 +282,7 @@ function IncidentView({ id }: IncidentViewProps) {
       )}
 
       <div className="incident__content">
-      <section className="card" aria-label="Report details">
+      <section className="card incident-record" aria-label="Report details">
         <h2>Reported incident</h2>
         <p className="plain incident__description">{report.description}</p>
         <dl>
@@ -291,6 +293,8 @@ function IncidentView({ id }: IncidentViewProps) {
           {teamIds.length > 0 && <Fact label={teamIds.length > 1 ? 'Assigned teams' : 'Assigned team'}><span className="plain">{teamNames?.join(', ') ?? 'Rescue team assigned'}</span></Fact>}
           {report.rejectionReason && <Fact label="Rejection reason"><span className="plain">{report.rejectionReason}</span></Fact>}
         </dl>
+        <h3 className="incident-evidence-title"><Camera size={18} aria-hidden="true" />Photo evidence <span>{report.photos?.length ?? 0}</span></h3>
+        {!report.photos?.length && <p className="incident-evidence-empty">No photos were attached to this report.</p>}
         {report.photos?.length > 0 && (
           <ul className="photos" aria-label="Photos">
             {report.photos.map((p, i) => (
@@ -319,12 +323,13 @@ function IncidentView({ id }: IncidentViewProps) {
         )}
       </section>
 
+      {loc && Number.isFinite(loc.lat) && Number.isFinite(loc.lng) && <Suspense fallback={<Skeleton label="Loading incident map"><SkeletonRows rows={1} height={240} /></Skeleton>}><IncidentLocation key={`${id}-${loc.lat}-${loc.lng}`} location={loc} name={report.placeName || report.area || report.addressText || 'Place not named'} radius={report.affectedRadiusM || 500} /></Suspense>}
       <section className="card incident-progress" aria-labelledby="progress-title">
         <h2 id="progress-title">Progress</h2>
         <StatusProgress status={report.status} />
       </section>
       <section className="card" aria-labelledby="updates-title">
-        <h2 id="updates-title">Rescue updates</h2>
+        <h2 id="updates-title" className="incident-section-title"><Radio size={19} aria-hidden="true" />Rescue updates</h2>
         {updatesState.error && (
           <Banner tone="error" role="alert">
             Could not load rescue updates.{' '}

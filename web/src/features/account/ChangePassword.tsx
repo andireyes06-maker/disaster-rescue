@@ -1,5 +1,8 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
+import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
+import Banner from '../../components/calm/Banner';
+import { KeyRound } from 'lucide-react';
 import { getFirebaseAuth } from '../../firebase-auth';
 
 const MIN_LENGTH = 10;
@@ -23,6 +26,7 @@ export default function ChangePassword() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    if (busy) return;
     setMessage(null);
     if (next.length < MIN_LENGTH) {
       setMessage({ kind: 'error', text: `The new password needs at least ${MIN_LENGTH} characters.` });
@@ -65,17 +69,18 @@ export default function ChangePassword() {
       <button type="button" className="btn btn--ghost" onClick={() => dialog.current?.showModal()}>Change password</button>
       <dialog ref={dialog} aria-labelledby="change-password-title" className="change-password" onClose={close}>
         <form onSubmit={submit} noValidate className="change-password__form">
-          <h2 id="change-password-title">Change your password</h2>
-          <label htmlFor="cp-current">Current password</label>
-          <input id="cp-current" type="password" autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} required />
-          <label htmlFor="cp-next">New password (at least {MIN_LENGTH} characters)</label>
-          <input id="cp-next" type="password" autoComplete="new-password" value={next} onChange={(e) => setNext(e.target.value)} required />
-          <label htmlFor="cp-confirm">Repeat the new password</label>
-          <input id="cp-confirm" type="password" autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} required />
-          {message && <p role="status" className={message.kind === 'error' ? 'field-error' : 'field-hint'}>{message.text}</p>}
+          <header className="response-dialog__native-head"><span className="response-dialog__icon"><KeyRound size={24} aria-hidden="true" /></span><div><h2 id="change-password-title">Change your password</h2><p>Confirm your current password, then choose a new one.</p></div></header>
+          <RequiredNote />
+          <label htmlFor="cp-current">Current password<RequiredMark /></label>
+          <input id="cp-current" type="password" readOnly={busy} aria-required="true" autoComplete="current-password" value={current} onChange={(e) => setCurrent(e.target.value)} required />
+          <label htmlFor="cp-next">New password (at least {MIN_LENGTH} characters)<RequiredMark /></label>
+          <input id="cp-next" type="password" readOnly={busy} aria-required="true" autoComplete="new-password" value={next} onChange={(e) => setNext(e.target.value)} required />
+          <label htmlFor="cp-confirm">Repeat the new password<RequiredMark /></label>
+          <input id="cp-confirm" type="password" readOnly={busy} aria-required="true" autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} required />
+          {message && <Banner tone={message.kind === 'error' ? 'error' : 'info'} role={message.kind === 'error' ? 'alert' : 'status'}>{message.text}</Banner>}
           <div className="actions__row">
             <button type="button" className="btn btn--ghost" onClick={close}>Close</button>
-            <button type="submit" className="btn" disabled={busy} aria-busy={busy}>{busy ? 'Saving…' : 'Save password'}</button>
+            <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>{busy ? 'Saving…' : 'Save password'}</button>
           </div>
         </form>
       </dialog>

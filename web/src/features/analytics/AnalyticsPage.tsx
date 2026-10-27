@@ -106,9 +106,9 @@ export default function AnalyticsPage() {
 
       {!invalidRange && !loading && !result?.error && (
         <div className="analytics-grid">
-          <ChartCard title="Incidents by type" labelHeader="Type" data={byType} />
-          <ChartCard title="Incidents by status" labelHeader="Status" data={byStatus} />
-          <ChartCard title="Incidents by priority" labelHeader="Priority" data={byPriority} />
+          <ChartCard title="Incidents by type" labelHeader="Type" data={byType} palette="type" />
+          <ChartCard title="Incidents by status" labelHeader="Status" data={byStatus} palette="status" />
+          <ChartCard title="Incidents by priority" labelHeader="Priority" data={byPriority} palette="priority" />
           <ChartCard title="Incidents per month" labelHeader="Month" data={perMonth} chronological formatLabel={(m) => m} />
           <ChartCard title="Incidents per day" labelHeader="Day" data={perDay} chronological />
           <ChartCard title="Reports by location" labelHeader="Location" data={byLocation} />

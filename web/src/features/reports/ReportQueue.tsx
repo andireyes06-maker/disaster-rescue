@@ -195,7 +195,7 @@ export default function ReportQueue() {
     <div className="overview">
       <div className="summary" aria-label="Workload">
         {cards.map(([label, n]) => (
-          <Card key={label} className="summary__card">
+          <Card key={label} className={`summary__card metric--${String(label).toLowerCase().replaceAll(' ', '-')}`}>
             <span className="summary__label">{label}</span>
             <strong className="summary__value">{loading || failed ? '—' : n}</strong>
           </Card>

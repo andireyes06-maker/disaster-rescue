@@ -2,8 +2,9 @@ import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import MotionForm from '../../components/MotionForm';
 import { useDialogFocusReturn } from '../../components/useDialogFocusReturn';
 import { useEffect, useRef, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ShieldCheck, Check, Users } from 'lucide-react';
 import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
 import { assignTeamsSchema, type AssignTeams } from '../../lib/schemas';
@@ -11,6 +12,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  DialogDescription,
 } from '../../components/ui/dialog';
 
 export const NO_FREE_TEAMS = 'No rescue teams are free right now. Close a finished rescue to free a team, then try again.';
@@ -75,6 +77,8 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
     defaultValues: { teamIds: [] },
   });
 
+  const selected = useWatch({ control, name: 'teamIds' }) ?? [];
+
   async function onValid({ teamIds }: AssignTeams) {
     if (busy) return;
     setBusy(true);
@@ -95,7 +99,8 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
   return (
     <MotionForm onSubmit={handleSubmit(onValid)} noValidate>
       <fieldset className="assign-teams" aria-describedby={message ? 'assign-error' : undefined}>
-        <legend><RequiredNote /><RequiredMark /> Rescue teams</legend>
+        <legend>Rescue teams<RequiredMark /></legend>
+        <RequiredNote />
         <p className="field-hint">Choose one or more teams. Each chosen team works on this report.</p>
         <Controller
           name="teamIds"
@@ -115,6 +120,12 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
                       tabIndex={activeTab === id ? 0 : -1}
                       className={`assign-teams__tab${activeTab === id ? ' is-active' : ''}`}
                       onClick={() => setTab(id)}
+                      onKeyDown={(event) => {
+                        const index = tabs.indexOf(id);
+                        const next = event.key === 'ArrowRight' ? (index + 1) % tabs.length : event.key === 'ArrowLeft' ? (index + tabs.length - 1) % tabs.length : event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : null;
+                        if (next === null) return;
+                        event.preventDefault(); setTab(tabs[next]); document.getElementById(`assign-tab-${tabs[next]}`)?.focus();
+                      }}
                     >
                       {id}
                       <span className="assign-teams__count">{freeTeams.filter(({ team }) => identityOf(team) === id).length}</span>
@@ -125,14 +136,16 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
               <div role="tabpanel" id="assign-teams-panel" aria-labelledby={`assign-tab-${activeTab}`} className="assign-teams__list">
                 {teamsInTab.length === 0 && <p className="field-hint">No free {activeTab} teams right now.</p>}
                 {teamsInTab.map(({ team: t, km }) => (
-                  <label key={t.id} className="assign-teams__option">
+                  <label key={t.id} className="assign-teams__option" data-selected={field.value.includes(t.id)}>
                     <input
                       type="checkbox"
                       value={t.id}
                       checked={field.value.includes(t.id)}
                       onChange={(e) => field.onChange(e.target.checked ? [...field.value, t.id] : field.value.filter((id) => id !== t.id))}
                     />
-                    <span>{km === null ? `${t.name} (no headquarters set)` : `${t.name}, ${km.toFixed(1)} km away`}</span>
+                    <span className="assign-teams__symbol" aria-hidden="true"><ShieldCheck size={23} /></span>
+                    <span className="assign-teams__option-copy"><strong>{t.name}</strong><small>{km === null ? ' (no headquarters set)' : `, ${km.toFixed(1)} km away`}</small></span>
+                    <Check className="assign-teams__selected" size={18} aria-hidden="true" />
                   </label>
                 ))}
               </div>
@@ -141,7 +154,8 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
         />
       </fieldset>
       {message && <Banner id="assign-error" tone="error" role="alert">{message}</Banner>}
-      <div className="actions__row">
+      <div className="assign-teams__selection" role="status"><Users size={16} aria-hidden="true" /><span>{selected.length === 0 ? 'No teams selected yet' : `${selected.length} ${selected.length === 1 ? 'team' : 'teams'} selected`}</span></div>
+      <div className="actions__row assign-teams__footer">
         <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>Assign team</button>
         <button type="button" className="btn btn--ghost" onClick={onClose}>Cancel</button>
       </div>
@@ -184,14 +198,14 @@ export default function AssignTeamDialog({ open = true, reportId, reportLocation
     <Dialog open={open} onOpenChange={(nextOpen) => { if (!nextOpen) { returnFocusTo?.current?.focus(); onClose(); } }}>
       <DialogContent
         ref={contentRef}
+        className="assign-dialog"
         onEscapeKeyDown={() => returnFocusTo?.current?.focus()}
         showCloseButton={false}
-        aria-describedby={undefined}
         onCloseAutoFocus={(e) => { if (returnFocusTo?.current) { e.preventDefault(); returnFocusTo.current.focus(); } }}
         onPointerDownOutside={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
       >
-        <DialogTitle>Assign a rescue team</DialogTitle>
+        <header className="response-dialog__head"><span className="response-dialog__icon"><ShieldCheck size={25} aria-hidden="true" /></span><div><DialogTitle>Assign a rescue team</DialogTitle><DialogDescription>Choose available teams for this incident. Teams with a known headquarters are listed nearest first.</DialogDescription></div></header>
         {state.loading && <Skeleton label="Loading teams"><SkeletonRows rows={2} height={44} /></Skeleton>}
         {state.error && <Banner tone="error" role="alert">{state.error}</Banner>}
         {showEmpty && <p className="card empty">{NO_FREE_TEAMS}</p>}
