@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'auth/auth_backend.dart';
 import 'auth/auth_controller.dart';
 import 'auth/auth_repository.dart';
+import 'auth/sign_in_lockout.dart';
 import 'auth/profile_source.dart';
 import 'auth/role_gate.dart';
 import 'auth/session_navigation.dart';
@@ -57,6 +58,7 @@ Future<void> main() async {
     () => api,
     beforeSignOut: push.unregister,
     profiles: FirestoreProfileSource(FirebaseFirestore.instance),
+    lockout: SignInLockout(baseUrl: apiBaseUrl),
   );
   // Created before runApp so it is listening from the start.
   final controller = AuthController(repo);

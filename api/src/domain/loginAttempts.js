@@ -4,9 +4,11 @@ import { createHash } from 'node:crypto';
 export const MAX_FAILED_ATTEMPTS = 5;
 export const LOCKOUT_MS = 5 * 60 * 1000;
 
-// The stored key is a hash, so the document never holds the email itself.
-export function attemptKey(email) {
-  return createHash('sha256').update(String(email).trim().toLowerCase()).digest('hex');
+// The count is per email AND client address, so one attacker from one address cannot lock a person out from elsewhere.
+// The stored key is a hash, so the document never holds the email or the address itself.
+export function attemptKey(email, ip) {
+  const pair = `${String(email).trim().toLowerCase()}|${String(ip ?? 'unknown')}`;
+  return createHash('sha256').update(pair).digest('hex');
 }
 
 // Whether the email is locked right now, and for how long.

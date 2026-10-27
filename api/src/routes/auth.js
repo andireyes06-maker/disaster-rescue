@@ -18,7 +18,7 @@ export function authRouter(deps) {
   // Whether this email is locked right now. Answers the same way for any email, registered or not.
   r.post('/sign-in/check', async (req, res, next) => {
     try {
-      const record = await deps.repo.getLoginAttempt(attemptKey(emailFrom(req.body)));
+      const record = await deps.repo.getLoginAttempt(attemptKey(emailFrom(req.body), req.ip));
       res.json(lockState(record, Date.now()));
     } catch (e) { next(e); }
   });
@@ -26,7 +26,7 @@ export function authRouter(deps) {
   // Records one failed sign-in and returns the lock state after it.
   r.post('/sign-in/failure', async (req, res, next) => {
     try {
-      const key = attemptKey(emailFrom(req.body));
+      const key = attemptKey(emailFrom(req.body), req.ip);
       const record = await deps.repo.mutateLoginAttempt(key, (current) => nextAfterFailure(current, Date.now()));
       res.json(lockState(record, Date.now()));
     } catch (e) { next(e); }
@@ -40,7 +40,7 @@ export function authRouter(deps) {
       let d;
       try { d = await deps.verifyToken(m[1]); } catch { return res.status(401).json({ error: 'invalid_token' }); }
       if (!d?.uid || !d.email) return res.status(401).json({ error: 'invalid_token' });
-      await deps.repo.mutateLoginAttempt(attemptKey(d.email), () => null);
+      await deps.repo.mutateLoginAttempt(attemptKey(d.email, req.ip), () => null);
       res.json({ ok: true });
     } catch (e) { next(e); }
   });

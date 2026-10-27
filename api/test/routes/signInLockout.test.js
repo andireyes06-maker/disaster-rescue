@@ -23,8 +23,9 @@ describe('login attempt rules', () => {
   });
 
   it('keys by email without storing the address, ignoring case and spaces', () => {
-    expect(attemptKey('  Ana@Example.com ')).toBe(attemptKey('ana@example.com'));
-    expect(attemptKey('ana@example.com')).not.toContain('@');
+    expect(attemptKey('  Ana@Example.com ', '10.0.0.1')).toBe(attemptKey('ana@example.com', '10.0.0.1'));
+    expect(attemptKey('ana@example.com', '10.0.0.1')).not.toBe(attemptKey('ana@example.com', '10.0.0.2'));
+    expect(attemptKey('ana@example.com', '10.0.0.1')).not.toContain('@');
   });
 });
 
@@ -52,6 +53,18 @@ describe('sign-in lockout routes', () => {
     expect(ok.status).toBe(200);
     const cleared = await request(t.app).post('/api/auth/sign-in/check').send({ email });
     expect(cleared.body.locked).toBe(false);
+  });
+
+  it('one address cannot lock the same email for a different address', async () => {
+    const t = makeTestApp({ trustProxy: 1 });
+    const email = 'victim@example.com';
+    for (let i = 0; i < MAX_FAILED_ATTEMPTS; i++) {
+      await request(t.app).post('/api/auth/sign-in/failure').set('X-Forwarded-For', '198.51.100.7').send({ email });
+    }
+    const attacker = await request(t.app).post('/api/auth/sign-in/check').set('X-Forwarded-For', '198.51.100.7').send({ email });
+    expect(attacker.body.locked).toBe(true);
+    const person = await request(t.app).post('/api/auth/sign-in/check').set('X-Forwarded-For', '203.0.113.9').send({ email });
+    expect(person.body.locked).toBe(false);
   });
 
   it('answers the same way for an unknown email, so it reveals nothing about accounts', async () => {

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import '../data/api_client.dart';
 import 'auth_backend.dart';
+import 'sign_in_lockout.dart';
 import 'profile_source.dart';
 import 'profile_sync.dart';
 
@@ -19,6 +20,8 @@ enum AuthFailure {
   sessionEnded,
   /// The profile read was refused for a reason other than an inactive flag. Try again later.
   profileUnreadable,
+  /// Too many failed sign-ins for this email from this device. The detail is the wait, in minutes.
+  lockedOut,
 }
 
 class AuthException implements Exception {
@@ -83,11 +86,15 @@ class FirebaseAuthRepository implements AuthRepository {
     this.beforeSignOut,
     this.profiles,
     this.retryDelays = claimRetryDelays,
+    this.lockout,
   }) {
     _sub = _backend.authStateChanges().listen(_onBackendUser);
   }
 
   final AuthBackend _backend;
+
+  /// The server's sign-in lockout. Null in tests and when no API address is configured.
+  final SignInLockout? lockout;
   final ApiClient Function() _api;
 
   /// Runs while the user is still signed in, so the API call can authenticate.
@@ -458,7 +465,31 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> login(String email, String password) async {
-    await _backend.signIn(email, password);
+    final guard = lockout;
+    if (guard != null) {
+      final wait = await guard.check(email);
+      if (wait > 0) throw AuthException(AuthFailure.lockedOut, _waitText(wait));
+    }
+    final BackendUser user;
+    try {
+      user = await _backend.signIn(email, password);
+    } on AuthException catch (e) {
+      // Only a wrong password counts toward the lock. Network and disabled-account failures do not.
+      if (guard != null && e.failure == AuthFailure.invalidCredentials) {
+        final wait = await guard.failure(email);
+        if (wait > 0) throw AuthException(AuthFailure.lockedOut, _waitText(wait));
+      }
+      rethrow;
+    }
+    if (guard != null) {
+      final token = await user.idToken();
+      if (token != null) await guard.success(token);
+    }
+  }
+
+  static String _waitText(int seconds) {
+    final minutes = (seconds / 60).ceil().clamp(1, 60);
+    return 'Too many failed sign-in attempts. Try again in $minutes minute${minutes == 1 ? '' : 's'}.';
   }
 
   @override
