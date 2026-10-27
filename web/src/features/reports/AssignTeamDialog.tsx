@@ -41,6 +41,7 @@ function errorText(err: unknown): string {
   const failure = apiFailure(err);
   if (failure) {
     if (failure.code === 'team_busy') return 'That team was just sent to another rescue. Choose another team.';
+    if (failure.code === 'team_no_members') return "You can't assign this team. It has no members yet. Add a responder to the team first.";
     if (failure.status === 409) return 'This report cannot be assigned right now. Reload the page to see its latest status.';
     if (failure.status === 403) return 'You do not have permission to do that.';
     if (failure.status === 0) return 'Network error. Check your connection and try again.';

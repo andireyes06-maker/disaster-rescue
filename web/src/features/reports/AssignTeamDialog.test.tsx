@@ -122,4 +122,15 @@ describe('AssignTeamDialog', () => {
     await userEvent.click(screen.getByRole('button', { name: /assign team/i }));
     expect(h.api).toHaveBeenCalledWith('/reports/r1/assign', { method: 'POST', body: { teamIds: ['p1', 'b1'] } });
   });
+
+  it("says you can't assign a team with no members", async () => {
+    h.api.mockReset().mockImplementation((path: string) => {
+      if (path === '/teams') return Promise.resolve(TEAMS);
+      return Promise.reject(Object.assign(new Error('no members'), { status: 409, code: 'team_no_members' }));
+    });
+    render(<AssignTeamDialog reportId="r1" reportLocation={null} onClose={vi.fn()} onAssigned={vi.fn()} />);
+    await userEvent.click(await screen.findByRole('checkbox', { name: /Alpha/ }));
+    await userEvent.click(screen.getByRole('button', { name: /assign team/i }));
+    expect(await screen.findByRole('alert')).toHaveTextContent("You can't assign this team. It has no members yet.");
+  });
 });

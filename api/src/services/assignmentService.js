@@ -8,6 +8,14 @@ import { isAssignedTo, teamIdsOf } from '../domain/assignedTeams.js';
 
 const MAX_TEAMS = 10;
 
+// A team can take a report only when at least one active account belongs to it.
+async function hasMembers(repo, teamId) {
+  for await (const page of repo.recipientPages({ teamId })) {
+    if (page.length) return true;
+  }
+  return false;
+}
+
 const RESPONDER_STATUSES = [STATUS.IN_PROGRESS, STATUS.RESOLVED];
 
 // Maps a refused atomic change to the same responses the single-document path gives.
@@ -38,6 +46,7 @@ export async function assign({ repo, notifier }, user, id, body) {
   for (const teamId of teamIds) {
     const team = await repo.getTeam(teamId);
     if (!team) throw new HttpError(400, 'invalid_team', 'Team does not exist');
+    if (!(await hasMembers(repo, teamId))) throw new HttpError(409, 'team_no_members', `You can't assign ${team.name ?? 'this team'}. It has no members yet. Add a responder to the team first.`);
     teams.push({ id: teamId, name: team.name });
   }
 
