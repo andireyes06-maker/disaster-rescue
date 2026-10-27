@@ -106,14 +106,13 @@ class _LocationStepState extends State<LocationStep> {
     final fix = await widget.service.current();
     if (!mounted) return;
     setState(() => _busy = false);
-    if (fix.status != LocationStatus.ok || fix.lat == null || fix.lng == null) {
-      setState(() => _problem = locationProblemMessage(fix.status));
-      return;
-    }
+    // Without a location fix the picker still opens. The resident pins the place by hand, and the reach
+    // limit cannot be checked, so the picker says so.
+    final ok = fix.status == LocationStatus.ok && fix.lat != null && fix.lng != null;
     final picked = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         builder: (_) => MapPickerPage(
-          anchor: LatLng(fix.lat!, fix.lng!),
+          anchor: ok ? LatLng(fix.lat!, fix.lng!) : null,
           radiusM: widget.radiusM,
         ),
       ),
@@ -219,11 +218,22 @@ class _LocationStepState extends State<LocationStep> {
   }
 }
 
-class MapPickerPage extends StatefulWidget {
-  const MapPickerPage({super.key, required this.anchor, this.radiusM = 500});
+/// Whether [p] is inside the reach around [anchor]. With no location fix there is no reference point,
+/// so the reach cannot be checked and every point is accepted.
+bool withinReach(LatLng? anchor, LatLng p, int radiusM) {
+  if (anchor == null) return true;
+  return distanceMeters(anchor.latitude, anchor.longitude, p.latitude, p.longitude) <= radiusM;
+}
 
-  /// The reporter's current position. The reach circle is drawn around it.
-  final LatLng anchor;
+/// Metro Manila, the centre of the area the app serves. Used when the phone has no location fix.
+const _fallbackCenter = LatLng(14.5995, 120.9842);
+
+class MapPickerPage extends StatefulWidget {
+  const MapPickerPage({super.key, this.anchor, this.radiusM = 500});
+
+  /// The reporter's current position. The reach circle is drawn around it. Null when location is off:
+  /// then there is no reference point, the reach is not checked, and the map opens on the service area.
+  final LatLng? anchor;
   final int radiusM;
 
   @override
@@ -232,29 +242,18 @@ class MapPickerPage extends StatefulWidget {
 
 class _MapPickerPageState extends State<MapPickerPage> {
   LatLng? _point;
-  late LatLng _anchor = widget.anchor;
+  late LatLng? _anchor = widget.anchor;
   final _map = MapController();
   bool _locating = false;
   String? _problem;
 
-  bool _within(LatLng p) =>
-      distanceMeters(
-        _anchor.latitude,
-        _anchor.longitude,
-        p.latitude,
-        p.longitude,
-      ) <=
-      widget.radiusM;
+  bool _within(LatLng p) => withinReach(_anchor, p, widget.radiusM);
 
-  // A tap is accepted only inside the reach around the reporter.
+  // A tap is accepted only inside the reach around the reporter, when the reporter's location is known.
   void _onTap(LatLng p) {
-    if (!_within(p)) {
-      final d = distanceMeters(
-        _anchor.latitude,
-        _anchor.longitude,
-        p.latitude,
-        p.longitude,
-      );
+    final a = _anchor;
+    if (a != null && !_within(p)) {
+      final d = distanceMeters(a.latitude, a.longitude, p.latitude, p.longitude);
       setState(() {
         _point = null;
         _problem =
@@ -309,8 +308,8 @@ class _MapPickerPageState extends State<MapPickerPage> {
             child: FlutterMap(
               mapController: _map,
               options: MapOptions(
-                initialCenter: _anchor,
-                initialZoom: 15,
+                initialCenter: _anchor ?? _fallbackCenter,
+                initialZoom: _anchor == null ? 12 : 15,
                 onTap: (_, p) => _onTap(p),
               ),
               children: [
@@ -323,14 +322,15 @@ class _MapPickerPageState extends State<MapPickerPage> {
                 ),
                 CircleLayer(
                   circles: [
-                    CircleMarker(
-                      point: _anchor,
-                      radius: widget.radiusM.toDouble(),
-                      useRadiusInMeter: true,
-                      color: AppColors.primary.withValues(alpha: 0.15),
-                      borderColor: AppColors.primary,
-                      borderStrokeWidth: 2,
-                    ),
+                    if (_anchor != null)
+                      CircleMarker(
+                        point: _anchor!,
+                        radius: widget.radiusM.toDouble(),
+                        useRadiusInMeter: true,
+                        color: AppColors.primary.withValues(alpha: 0.15),
+                        borderColor: AppColors.primary,
+                        borderStrokeWidth: 2,
+                      ),
                   ],
                 ),
                 if (_point != null)
@@ -363,7 +363,9 @@ class _MapPickerPageState extends State<MapPickerPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Pick a place inside the circle, ${formatMeters(widget.radiusM.toDouble())} around you.',
+                    _anchor == null
+                        ? 'Location is off, so the reach limit cannot be checked. Pick the place where help is needed.'
+                        : 'Pick a place inside the circle, ${formatMeters(widget.radiusM.toDouble())} around you.',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(height: 8),
@@ -385,7 +387,7 @@ class _MapPickerPageState extends State<MapPickerPage> {
                         : () => Navigator.of(context).pop(_point),
                     child: Text(
                       _point == null
-                          ? 'Tap the map inside the circle'
+                          ? (_anchor == null ? 'Tap the map where help is needed' : 'Tap the map inside the circle')
                           : 'Use this place',
                     ),
                   ),
