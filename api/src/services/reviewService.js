@@ -101,14 +101,23 @@ export async function get({ repo }, user, id) {
 
 export async function verify({ repo, notifier }, user, id) {
   let report = await load(repo, id);
-  if (report.status !== STATUS.SUBMITTED && report.status !== STATUS.UNDER_VERIFICATION) {
+  // A verify that stopped after the Verified step is finished by a retry, with the verifier and time it already recorded.
+  const resuming = report.status === STATUS.VERIFIED && report.verified === true;
+  if (!resuming && report.status !== STATUS.SUBMITTED && report.status !== STATUS.UNDER_VERIFICATION) {
     throw new HttpError(409, 'illegal_transition', `Cannot verify a report that is ${report.status}`);
   }
-  if (report.status === STATUS.SUBMITTED) report = await transition(repo, user, report, STATUS.UNDER_VERIFICATION);
-  // The validator and time are recorded on the report and in the audit trail (manual admin review, not a photo check).
-  const verifiedBy = { uid: user.uid, name: (await repo.getUser(user.uid))?.name ?? null };
-  const verifiedAt = new Date();
-  report = await transition(repo, user, report, STATUS.VERIFIED, { verified: true, verifiedBy, verifiedAt });
+  let verifiedBy;
+  let verifiedAt;
+  if (resuming) {
+    verifiedBy = report.verifiedBy ?? null;
+    verifiedAt = report.verifiedAt ?? null;
+  } else {
+    if (report.status === STATUS.SUBMITTED) report = await transition(repo, user, report, STATUS.UNDER_VERIFICATION);
+    // The validator and time are recorded on the report and in the audit trail (manual admin review, not a photo check).
+    verifiedBy = { uid: user.uid, name: (await repo.getUser(user.uid))?.name ?? null };
+    verifiedAt = new Date();
+    report = await transition(repo, user, report, STATUS.VERIFIED, { verified: true, verifiedBy, verifiedAt });
+  }
   report = await transition(repo, user, report, STATUS.AWAITING_ASSIGNMENT, {}, {
     audits: [{ actorUid: user.uid, action: 'report.verify', reportId: id, after: { status: STATUS.AWAITING_ASSIGNMENT, verified: true, verifiedBy, verifiedAt } }],
     notifications: reporterIntent(report, 'Report verified', `Report ${report.reference} was verified`), notifier,

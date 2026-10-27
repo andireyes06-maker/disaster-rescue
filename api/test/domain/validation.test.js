@@ -53,7 +53,7 @@ describe('carried-forward hardening', () => {
     expect(() => parseReportInput({ ...ok, lat })).toThrow(expect.objectContaining({ status: 400 }));
   });
   it('rejects non-decimal lng', () => { expect(() => parseReportInput({ ...ok, lng: '1e1' })).toThrow(expect.objectContaining({ status: 400 })); });
-  it('accepts trimmed negative decimals', () => { expect(parseReportInput({ ...ok, lat: ' -14.5 ' }).lat).toBe(-14.5); });
+  it('accepts trimmed decimals inside the Philippines', () => { expect(parseReportInput({ ...ok, lat: ' 14.5 ' }).lat).toBe(14.5); });
   it('rejects object description', () => { expect(() => parseReportInput({ ...ok, description: {} })).toThrow(expect.objectContaining({ status: 400 })); });
   it('rejects empty contact name', () => {
     expect(() => parseReportInput({ ...ok, contact: { name: '  ', phone: '09171234567' } })).toThrow(expect.objectContaining({ status: 400 }));

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { HttpError } from '../errors.js';
 import { AREAS } from './areas.js';
+import { inPhilippines, OUTSIDE_PH_MESSAGE } from './serviceArea.js';
 
 const MAX_PHOTOS = 5;
 const MAX_BYTES = 5 * 1024 * 1024;
@@ -72,6 +73,10 @@ const schema = z.object({
     name: z.string().trim().min(1).max(100),
     phone: z.string().trim().regex(PHONE_RE),
   }).optional(),
+}).superRefine((d, ctx) => {
+  if (Number.isFinite(d.lat) && Number.isFinite(d.lng) && !inPhilippines(d.lat, d.lng)) {
+    ctx.addIssue({ code: 'custom', path: ['lat'], message: OUTSIDE_PH_MESSAGE });
+  }
 });
 
 export function parseReportInput(body) {

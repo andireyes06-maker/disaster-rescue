@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { HttpError } from '../errors.js';
 import { sanitizeText } from '../domain/validation.js';
+import { inPhilippines, OUTSIDE_PH_MESSAGE } from '../domain/serviceArea.js';
 import { randomUUID } from 'node:crypto';
 import { mutationEffects, tryMutationEffects } from '../services/mutationEffectsService.js';
 import { isSafeId } from '../domain/validation.js';
@@ -37,6 +38,7 @@ const headquarters = (v) => {
   if (!Number.isFinite(lat) || !Number.isFinite(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
     throw new HttpError(400, 'invalid_hq', 'Headquarters need a valid latitude and longitude');
   }
+  if (!inPhilippines(lat, lng)) throw new HttpError(400, 'outside_philippines', OUTSIDE_PH_MESSAGE);
   return { lat, lng };
 };
 
@@ -53,11 +55,12 @@ export function teamsRouter(deps) {
     try {
       const name = teamName(req.body?.name);
       const kind = teamKind(req.body?.kind);
+      const kindLabel = kindLabelOf(kind, req.body?.kindLabel);
       const hq = headquarters(req.body?.hq);
       const id = randomUUID();
       const hqName = hq ? hqNameOf(req.body?.hqName) : null;
-      const effects = mutationEffects([{ actorUid: req.user.uid, action: 'team.create', after: { teamId: id, name, hq } }]);
-      await deps.repo.saveTeam(id, { name, kind, hq, hqName, busy: false, currentReportId: null, createdAt: new Date() }, effects);
+      const effects = mutationEffects([{ actorUid: req.user.uid, action: 'team.create', after: { teamId: id, name, kind, kindLabel, hq } }]);
+      await deps.repo.saveTeam(id, { name, kind, kindLabel, hq, hqName, busy: false, currentReportId: null, createdAt: new Date() }, effects);
       await tryMutationEffects(deps, effects);
       res.status(201).json({ id });
     } catch (e) { next(e); }
