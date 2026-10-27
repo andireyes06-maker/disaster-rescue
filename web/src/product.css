@@ -378,3 +378,5 @@ table td { padding: 16px 18px; font-variant-numeric: tabular-nums; }
 .incident-progress__marker { font-size: 0.75rem; }
 
 .incident__title { display: flex; align-items: center; gap: 10px; }
+
+.password-help__set { display: grid; gap: 6px; min-width: 240px; }

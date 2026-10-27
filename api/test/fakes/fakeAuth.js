@@ -31,7 +31,12 @@ export function createFakeAuth() {
       get(uid).customClaims = structuredClone(claims);
     },
     async revokeRefreshTokens(uid) { maybeFail('revokeRefreshTokens'); calls.revokeRefreshTokens.push(uid); get(uid); },
-    async updateUser(uid, patch) { maybeFail('updateUser'); const u = get(uid); if ('disabled' in patch) u.disabled = patch.disabled; },
+    async updateUser(uid, patch) { maybeFail('updateUser'); const u = get(uid); if ('disabled' in patch) u.disabled = patch.disabled; if ('password' in patch) u.passwordSet = true; },
+    async getUserByEmail(email) {
+      const u = [...users.values()].find((x) => x.email === email);
+      if (!u) { const e = new Error('no user'); e.code = 'auth/user-not-found'; throw e; }
+      return u;
+    },
     async deleteUser(uid) { calls.deleteUser.push(uid); users.delete(uid); },
   };
 }

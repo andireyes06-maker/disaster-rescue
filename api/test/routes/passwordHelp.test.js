@@ -43,3 +43,28 @@ describe('password help cooldown', () => {
     expect(await t.repo.listPasswordHelp()).toHaveLength(0);
   });
 });
+
+describe('administrator sets the password from a help request', () => {
+  it('sets the password, ends sign-ins, closes the request, and records no password', async () => {
+    const t = makeTestApp();
+    await t.auth.createUser({ email: 'staff@example.test', password: 'old-password-1' });
+    await request(t.app).post('/api/auth/reset-help').send({ email: 'staff@example.test' });
+    const [row] = await t.repo.listPasswordHelp();
+    const res = await request(t.app).post(`/api/auth/reset-help/${row.id}/set-password`).set('Authorization', t.as('admin')).send({ password: 'New-harbor-2026' });
+    expect(res.status).toBe(200);
+    const account = await t.auth.getUserByEmail('staff@example.test');
+    expect(account.passwordSet).toBe(true);
+    expect(await t.repo.listPasswordHelp()).toHaveLength(0);
+    const audits = await t.repo.listAudit({});
+    expect(JSON.stringify(audits)).not.toContain('New-harbor-2026');
+  });
+
+  it('refuses a short password and a non-admin', async () => {
+    const t = makeTestApp();
+    await t.auth.createUser({ email: 'staff@example.test', password: 'old-password-1' });
+    await request(t.app).post('/api/auth/reset-help').send({ email: 'staff@example.test' });
+    const [row] = await t.repo.listPasswordHelp();
+    expect((await request(t.app).post(`/api/auth/reset-help/${row.id}/set-password`).set('Authorization', t.as('admin')).send({ password: 'short' })).status).toBe(400);
+    expect((await request(t.app).post(`/api/auth/reset-help/${row.id}/set-password`).set('Authorization', t.as('responder', 'rsp-x')).send({ password: 'New-harbor-2026' })).status).toBe(403);
+  });
+});

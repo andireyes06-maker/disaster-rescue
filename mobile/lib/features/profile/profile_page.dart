@@ -7,6 +7,7 @@ import '../../auth/auth_repository.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../auth/auth_widgets.dart';
+import 'change_password_dialog.dart';
 import '../../theme/product_widgets.dart';
 import '../../theme/app_theme.dart';
 
@@ -155,6 +156,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 const SizedBox(height: 24),
+                OutlinedButton.icon(
+                  onPressed: () => showChangePasswordDialog(context),
+                  icon: const Icon(Icons.lock_outline),
+                  label: const Text('Change password'),
+                ),
+                const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: () => context.read<AuthController>().logout(),
                   icon: const Icon(Icons.logout),
