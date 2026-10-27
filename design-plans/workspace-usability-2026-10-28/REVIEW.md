@@ -79,3 +79,9 @@ Base: `cd087ca` (production). All changes below are uncommitted in the working t
 
 ### Skills
 Used: superpowers:brainstorming (loaded for the spec gate). Other skills named in the continuation (frontend, accessibility, motion, security, testing) were not invoked in this pass; the tests above are the evidence.
+
+### Update, 28 October 2026 (after commit `bda8c54`)
+- **Zod v3 to v4 done.** `api/package.json` zod `^4.6.7` (lock updated). Full API suite 550 pass, 36 skipped. Production audit: no advisories. The migration was first run in a side-by-side scratch copy.
+- **Golden sums not changed.** The four mismatched goldens stay as they were. Two were refreshed in commits described as approved; `report-details.png` is the open decision. Changing the sums would record an unreviewed image as approved.
+- **report-details golden, reviewed.** The reference image is scrolled and still shows "How far does the danger reach?", a field replaced by severity. The current render shows the severity field. The golden looks stale. Owner decision: confirm, then regenerate with a deterministic scroll.
+- **Backfill.** Still a proposal. Not run.
