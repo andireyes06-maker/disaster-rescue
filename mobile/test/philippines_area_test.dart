@@ -10,6 +10,7 @@ void main() {
     'Batanes': [20.45, 121.97],
     'Tawi-Tawi': [5.03, 119.77],
     'Palawan': [9.8, 118.7],
+    'Turtle Islands (Taganak)': [6.08, 118.32],
     'Davao Oriental': [6.9, 126.5],
   };
   const outside = {
@@ -21,6 +22,8 @@ void main() {
     'Hanoi': [21.03, 105.85],
     'Kuala Lumpur': [3.14, 101.69],
     'Palau': [7.5, 134.5],
+    'Lahad Datu, Sabah': [5.03, 118.33],
+    'Semporna, Sabah': [4.48, 118.6],
   };
 
   test('inside the Philippines is accepted', () {

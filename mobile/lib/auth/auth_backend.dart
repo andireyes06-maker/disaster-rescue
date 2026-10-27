@@ -105,6 +105,9 @@ class FirebaseAuthBackend implements AuthBackend {
       await user.updatePassword(newPassword);
     } on FirebaseAuthException catch (e) {
       throw PasswordChangeException(_mapChange(e));
+    } catch (_) {
+      // A timeout or platform error must still reach the dialog, so it can say that nothing changed.
+      throw const PasswordChangeException(PasswordChangeFailure.unknown);
     }
   }
 

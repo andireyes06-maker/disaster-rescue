@@ -25,7 +25,9 @@ String formatMeters(double meters) => '${meters.round()} m';
 bool inPhilippines(double lat, double lng) {
   if (lat.isNaN || lng.isNaN) return false;
   if (lat < 4.5 || lat > 21.3 || lng < 116.8 || lng > 127.0) return false;
-  if (lat < 7.5 && lng < 119.3) return false;
+  // Sabah: south of 6.0N and west of 119.3E, or north of 6.0N and west of 118.0E. The Turtle Islands (6.08N, 118.32E) stay in.
+  if (lat < 6.0 && lng < 119.3) return false;
+  if (lat < 7.5 && lng < 118.0) return false;
   return true;
 }
 
