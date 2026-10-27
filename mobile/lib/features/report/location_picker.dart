@@ -77,7 +77,12 @@ class _LocationStepState extends State<LocationStep> {
     });
     final r = await widget.service.current();
     if (!mounted) return;
-    if (r.status == LocationStatus.ok && r.lat != null && r.lng != null) {
+    if (r.status == LocationStatus.ok && r.lat != null && r.lng != null && !inPhilippines(r.lat!, r.lng!)) {
+      setState(() {
+        _busy = false;
+        _problem = outsidePhilippinesMessage;
+      });
+    } else if (r.status == LocationStatus.ok && r.lat != null && r.lng != null) {
       await _choose(r.lat!, r.lng!, 'gps');
     } else {
       setState(() {
@@ -108,7 +113,8 @@ class _LocationStepState extends State<LocationStep> {
     setState(() => _busy = false);
     // Without a location fix the picker still opens. The resident pins the place by hand, and the reach
     // limit cannot be checked, so the picker says so.
-    final ok = fix.status == LocationStatus.ok && fix.lat != null && fix.lng != null;
+    // A fix outside the Philippines is not a usable reference, so the picker opens without one.
+    final ok = fix.status == LocationStatus.ok && fix.lat != null && fix.lng != null && inPhilippines(fix.lat!, fix.lng!);
     final picked = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         builder: (_) => MapPickerPage(
@@ -251,6 +257,13 @@ class _MapPickerPageState extends State<MapPickerPage> {
 
   // A tap is accepted only inside the reach around the reporter, when the reporter's location is known.
   void _onTap(LatLng p) {
+    if (!inPhilippines(p.latitude, p.longitude)) {
+      setState(() {
+        _point = null;
+        _problem = outsidePhilippinesMessage;
+      });
+      return;
+    }
     final a = _anchor;
     if (a != null && !_within(p)) {
       final d = distanceMeters(a.latitude, a.longitude, p.latitude, p.longitude);
@@ -285,7 +298,9 @@ class _MapPickerPageState extends State<MapPickerPage> {
     final r = await context.read<LocationService>().current();
     if (!mounted) return;
     setState(() => _locating = false);
-    if (r.status == LocationStatus.ok && r.lat != null && r.lng != null) {
+    if (r.status == LocationStatus.ok && r.lat != null && r.lng != null && !inPhilippines(r.lat!, r.lng!)) {
+      setState(() => _problem = outsidePhilippinesMessage);
+    } else if (r.status == LocationStatus.ok && r.lat != null && r.lng != null) {
       final p = LatLng(r.lat!, r.lng!);
       setState(() {
         _anchor = p;

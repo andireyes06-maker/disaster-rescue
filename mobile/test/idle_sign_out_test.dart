@@ -34,4 +34,25 @@ void main() {
     await t.pump(const Duration(minutes: 11));
     expect(signedOut, 1);
   });
+
+  testWidgets('a touch on a page pushed above home also restarts the idle period', (t) async {
+    var signedOut = 0;
+    final navKey = GlobalKey<NavigatorState>();
+    await t.pumpWidget(MaterialApp(
+      navigatorKey: navKey,
+      home: IdleSignOut(
+        timeout: const Duration(minutes: 30),
+        onIdle: () async => signedOut++,
+        child: const Text('home'),
+      ),
+    ));
+    navKey.currentState!.push(MaterialPageRoute<void>(builder: (_) => const Scaffold(body: Center(child: Text('pushed')))));
+    await t.pumpAndSettle();
+    await t.pump(const Duration(minutes: 20));
+    await t.tap(find.text('pushed'));
+    await t.pump(const Duration(minutes: 20));
+    expect(signedOut, 0, reason: 'a touch on the pushed page counts as activity');
+    await t.pump(const Duration(minutes: 11));
+    expect(signedOut, 1);
+  });
 }

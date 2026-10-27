@@ -19,3 +19,15 @@ double distanceMeters(double lat1, double lng1, double lat2, double lng2) {
 
 /// Whole meters, for display.
 String formatMeters(double meters) => '${meters.round()} m';
+
+/// Approximate Philippine area, the same rule as the API (api/src/domain/serviceArea.js). Pins outside it are refused.
+/// Keep the two in step: a pin the phone accepts must also pass the server.
+bool inPhilippines(double lat, double lng) {
+  if (lat.isNaN || lng.isNaN) return false;
+  if (lat < 4.5 || lat > 21.3 || lng < 116.8 || lng > 127.0) return false;
+  if (lat < 7.5 && lng < 119.3) return false;
+  return true;
+}
+
+/// Shown when a pin would be outside the Philippines.
+const outsidePhilippinesMessage = 'Pins must be inside the Philippines. Pick a place in the Philippines.';

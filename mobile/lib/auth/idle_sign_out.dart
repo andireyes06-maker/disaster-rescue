@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
 /// How long a resident can go without touching the app before they are signed out.
@@ -28,13 +29,20 @@ class _IdleSignOutState extends State<IdleSignOut> {
   @override
   void initState() {
     super.initState();
+    // A global route sees every touch, including on pages pushed above the home screen.
+    GestureBinding.instance.pointerRouter.addGlobalRoute(_onPointer);
     _restart();
   }
 
   @override
   void dispose() {
+    GestureBinding.instance.pointerRouter.removeGlobalRoute(_onPointer);
     _timer?.cancel();
     super.dispose();
+  }
+
+  void _onPointer(PointerEvent event) {
+    if (event is PointerDownEvent || event is PointerMoveEvent || event is PointerScrollEvent) _restart();
   }
 
   void _restart() {
@@ -45,13 +53,5 @@ class _IdleSignOutState extends State<IdleSignOut> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Listener(
-      behavior: HitTestBehavior.translucent,
-      onPointerDown: (_) => _restart(),
-      onPointerMove: (_) => _restart(),
-      onPointerSignal: (_) => _restart(),
-      child: widget.child,
-    );
-  }
+  Widget build(BuildContext context) => widget.child;
 }
