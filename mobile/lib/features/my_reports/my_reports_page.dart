@@ -237,6 +237,14 @@ class ReportDetailPage extends StatefulWidget {
 class _ReportDetailPageState extends State<ReportDetailPage> {
   bool _busy = false;
   String? _error;
+  Stream<List<ProgressEntry>>? _progress;
+
+  // The rescue updates the responders post. The resident can read them on their own report.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _progress ??= context.read<ResponderRepository>().watchUpdates(widget.initial.id);
+  }
 
   Future<void> _cancel(ReportSummary r) async {
     final yes = await showDialog<bool>(
@@ -337,6 +345,37 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                ProductSurface(
+                  child: StreamBuilder<List<ProgressEntry>>(
+                    stream: _progress,
+                    builder: (context, progress) {
+                      final entries = progress.data ?? const <ProgressEntry>[];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text('Rescue updates', style: Theme.of(context).textTheme.titleMedium),
+                          const SizedBox(height: 8),
+                          if (entries.isEmpty)
+                            const Text('No rescue updates yet.')
+                          else
+                            for (final e in entries)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(e.status, style: const TextStyle(fontWeight: FontWeight.w700)),
+                                    if (e.at != null) Text(formatWhen(e.at), style: const TextStyle(color: AppColors.muted)),
+                                    if (e.peopleRescued > 0) Text('People rescued: ${e.peopleRescued}'),
+                                    if (e.note.trim().isNotEmpty) Text(e.note.trim()),
+                                  ],
+                                ),
+                              ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
                 ProductSurface(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,

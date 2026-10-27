@@ -1,4 +1,4 @@
-import { AggregateField } from 'firebase-admin/firestore';
+import { AggregateField, FieldValue } from 'firebase-admin/firestore';
 import { HttpError } from '../errors.js';
 import { reportEffectsJob } from '../domain/reportEffects.js';
 // Firestore implementation of the repo port (see src/ports/repo.js).
@@ -340,23 +340,28 @@ export function createFirestoreRepo(db) {
       await ref.set(stripUndefined({ ...update, at: update.at ?? new Date() }));
       return ref.id;
     },
+    // One acknowledgement per team. The first team to acknowledge starts the rescue (Team Assigned becomes Rescue in Progress);
+    // every assigned team records its own acknowledgement on the report, in the same transaction.
     async acknowledgeReport(reportId, uid, effects) {
       const ref = col('reports').doc(reportId);
-      const ack = ref.collection('updates').doc('ack-' + createHash('sha256').update(uid).digest('hex'));
+      const userRef = col('users').doc(uid);
       return db.runTransaction(async tx => {
-        const [report, actor, existing] = await Promise.all([tx.get(ref), tx.get(col('users').doc(uid)), tx.get(ack)]);
+        const [report, actor] = await Promise.all([tx.get(ref), tx.get(userRef)]);
         const u = actor.exists ? actor.data() : null;
         if (!report.exists || !u?.active || !['responder', 'admin'].includes(u.role) || !u.team || !isAssignedTo(report.data(), u.team)) return { ok: false, reason: 'not_found' };
+        const team = u.team;
         const status = report.data().status;
         if (!['Team Assigned', 'Rescue in Progress'].includes(status)) return { ok: false, reason: 'report_closed' };
-        // Earlier random-id acknowledgements remain authoritative during migration.
-        const legacy = await tx.get(ref.collection('updates').where('kind', '==', 'acknowledge').where('byUid', '==', uid).limit(1));
-        if (existing.exists || legacy.docs.some(d => d.data().byUid === uid)) return { ok: true, duplicate: true, status };
-        tx.set(ack, { kind: 'acknowledge', byUid: uid, at: new Date() });
-        // The first acknowledgement starts the rescue: Team Assigned becomes Rescue in Progress in the same transaction.
+        const teamAck = ref.collection('updates').doc('ack-team-' + createHash('sha256').update(team).digest('hex'));
+        const acked = (report.data().acknowledgedTeamIds ?? []).includes(team);
+        // Acknowledgements recorded per person before this change are still honoured for that person.
+        const legacyAck = ref.collection('updates').doc('ack-' + createHash('sha256').update(uid).digest('hex'));
+        const [existing, legacyExisting] = await Promise.all([tx.get(teamAck), tx.get(legacyAck)]);
+        if (acked || existing.exists || legacyExisting.exists) return { ok: true, duplicate: true, status };
+        tx.set(teamAck, { kind: 'acknowledge', byUid: uid, teamId: team, at: new Date() });
         const next = status === 'Team Assigned' ? 'Rescue in Progress' : status;
-        if (next !== status) tx.update(ref, { status: next, updatedAt: new Date() });
-        writeEffects(tx, effects ? { ...effects, audits: effects.audits.map(a => ({ ...a, after: { ...a.after, status: next } })) } : null);
+        tx.update(ref, { status: next, updatedAt: new Date(), acknowledgedTeamIds: FieldValue.arrayUnion(team) });
+        writeEffects(tx, effects ? { ...effects, audits: effects.audits.map(a => ({ ...a, after: { ...a.after, status: next, teamId: team } })) } : null);
         return { ok: true, duplicate: false, status: next };
       });
     },

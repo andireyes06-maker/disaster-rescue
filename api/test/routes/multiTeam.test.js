@@ -70,4 +70,18 @@ describe('several teams on one report', () => {
     const ack = await request(t.app).post(`/api/reports/${id}/acknowledge`).set('Authorization', t.as('responder', 'rsp-a'));
     expect(ack.status).toBe(200);
   });
+
+  it('each assigned team acknowledges once; the report stays in progress and repeats change nothing', async () => {
+    const t = makeTestApp();
+    await teams(t);
+    const id = await seed(t, { status: 'Team Assigned', assignedTeamIds: ['tA', 'tB'], assignedTeamId: 'tA' });
+    expect((await request(t.app).post(`/api/reports/${id}/acknowledge`).set('Authorization', t.as('responder', 'rsp-a'))).status).toBe(200);
+    expect((await t.repo.getReport(id)).status).toBe('Rescue in Progress');
+    expect((await t.repo.getReport(id)).acknowledgedTeamIds).toEqual(['tA']);
+    expect((await request(t.app).post(`/api/reports/${id}/acknowledge`).set('Authorization', t.as('responder', 'rsp-b'))).status).toBe(200);
+    expect((await t.repo.getReport(id)).acknowledgedTeamIds).toEqual(['tA', 'tB']);
+    await request(t.app).post(`/api/reports/${id}/acknowledge`).set('Authorization', t.as('responder', 'rsp-a'));
+    expect((await t.repo.getReport(id)).acknowledgedTeamIds).toEqual(['tA', 'tB']);
+    expect(await t.repo.listUpdates(id)).toHaveLength(2);
+  });
 });

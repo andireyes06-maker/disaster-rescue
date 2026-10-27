@@ -652,6 +652,7 @@ AssignedReport _assignedFrom(String id, Map<String, dynamic> m) {
     reporterId: m['reporterId'] as String?,
     assignedTeamId: m['assignedTeamId'] as String?,
     assignedTeamIds: (m['assignedTeamIds'] as List?)?.whereType<String>().toList() ?? const [],
+    acknowledgedTeamIds: (m['acknowledgedTeamIds'] as List?)?.whereType<String>().toList() ?? const [],
     coarseLocation: cLat != null && cLng != null ? MapPoint(cLat, cLng) : null,
     affectedRadiusM: (m['affectedRadiusM'] as num?)?.toInt(),
   );

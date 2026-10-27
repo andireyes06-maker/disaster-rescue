@@ -280,6 +280,8 @@ class AssignedReport {
   final String? assignedTeamId;
   /// Every team the report is assigned to. Older reports have only assignedTeamId.
   final List<String> assignedTeamIds;
+  /// Teams that have acknowledged this report. Each team acknowledges once.
+  final List<String> acknowledgedTeamIds;
   final MapPoint? coarseLocation;
 
   /// Reported reach of the danger in meters. Null for older reports; the app then uses 500 m.
@@ -304,6 +306,7 @@ class AssignedReport {
     this.reporterId,
     this.assignedTeamId,
     this.assignedTeamIds = const [],
+    this.acknowledgedTeamIds = const [],
     this.affectedRadiusM,
     this.coarseLocation,
   });

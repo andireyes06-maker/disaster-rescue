@@ -210,18 +210,20 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
       updates.get(reportId).push({ ...copy(update), id });
       return id;
     },
+    // One acknowledgement per team, as in the database transaction.
     async acknowledgeReport(reportId, uid, effects) {
       const r = reports.get(reportId), actor = users.get(uid);
       if (!r || !actor?.active || !['responder', 'admin'].includes(actor.role) || !actor.team || !isAssignedTo(r, actor.team)) return { ok: false, reason: 'not_found' };
       if (!['Team Assigned', 'Rescue in Progress'].includes(r.status)) return { ok: false, reason: 'report_closed' };
+      const team = actor.team;
+      const acked = r.acknowledgedTeamIds ?? [];
+      if (acked.includes(team)) return { ok: true, duplicate: true, status: r.status };
       const rows = updates.get(reportId) ?? [];
-      if (rows.some(u => u.kind === 'acknowledge' && u.byUid === uid)) return { ok: true, duplicate: true, status: r.status };
-      rows.push({ kind: 'acknowledge', byUid: uid, at: new Date(), id: nextId('u') });
+      rows.push({ kind: 'acknowledge', byUid: uid, teamId: team, at: new Date(), id: nextId('u') });
       updates.set(reportId, rows);
-      // The first acknowledgement starts the rescue, as in the database transaction.
       const next = r.status === 'Team Assigned' ? 'Rescue in Progress' : r.status;
-      if (next !== r.status) reports.set(reportId, { ...r, status: next, updatedAt: new Date() });
-      writeEffects(effects ? { ...effects, audits: effects.audits.map(a => ({ ...a, after: { ...a.after, status: next } })) } : null);
+      reports.set(reportId, { ...r, status: next, updatedAt: new Date(), acknowledgedTeamIds: [...acked, team] });
+      writeEffects(effects ? { ...effects, audits: effects.audits.map(a => ({ ...a, after: { ...a.after, status: next, teamId: team } })) } : null);
       return { ok: true, duplicate: false, status: next };
     },
     async listUpdates(reportId) { return copy(updates.get(reportId) ?? []); },

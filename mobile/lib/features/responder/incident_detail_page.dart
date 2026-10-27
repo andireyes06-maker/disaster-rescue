@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../auth/auth_controller.dart';
 import '../../data/api_client.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
@@ -224,9 +225,9 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     }
     final hasLocation = r.lat != null && r.lng != null;
     final closed = _closedStatuses.contains(r.status);
-    // Once the rescue has started (the first acknowledgement moves the report on), the button stays locked, even after leaving the page.
-    final rescueStarted = r.status != 'Team Assigned' && r.status.isNotEmpty;
-    final acknowledged = _acknowledged || rescueStarted;
+    // Each team acknowledges once. The button stays locked for this team after leaving and reopening the page.
+    final myTeam = context.watch<AuthController>().user?.team;
+    final acknowledged = _acknowledged || (myTeam != null && r.acknowledgedTeamIds.contains(myTeam));
     return Scaffold(
       appBar: AppBar(title: Text(r.reference ?? 'Incident')),
       body: ProductViewport(
