@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../auth/auth_controller.dart';
 import '../../auth/auth_repository.dart';
+import '../../auth/password_help.dart';
+import '../../firebase_bootstrap.dart';
 import 'auth_widgets.dart';
 import 'register_page.dart';
 import '../../theme/product_widgets.dart';
@@ -22,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   bool _resetting = false;
   String? _resetNotice;
   String? _resetError;
+  bool _contacting = false;
+  String? _helpNotice;
   String? _emailResetError;
 
   @override
@@ -35,6 +39,35 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _submit() async {
     if (!_form.currentState!.validate()) return;
     await context.read<AuthController>().login(_email.text, _password.text);
+  }
+
+  // Sends a request to the administrators, who send the reset link from the website.
+  Future<void> _contactAdmin() async {
+    if (_contacting) return;
+    final email = _email.text.trim();
+    setState(() {
+      _helpNotice = null;
+      _resetError = null;
+      _emailResetError = null;
+    });
+    if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(email)) {
+      setState(() => _emailResetError = 'Enter your email above, then choose Contact an admin.');
+      _emailFocus.requestFocus();
+      return;
+    }
+    setState(() => _contacting = true);
+    try {
+      await PasswordHelp(baseUrl: apiBaseUrl).request(email);
+      if (mounted) {
+        setState(() => _helpNotice = 'Your request was sent. An administrator will send you a reset link.');
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() => _resetError = 'Could not send your request. Check your internet and try again.');
+      }
+    } finally {
+      if (mounted) setState(() => _contacting = false);
+    }
   }
 
   Future<void> _resetPassword() async {
@@ -146,6 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                 'Enter your email above to set or reset your password.',
               ),
               if (_resetError != null) InlineError(_resetError!),
+              if (_helpNotice != null) Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(_helpNotice!)),
               if (_resetNotice != null)
                 Semantics(
                   liveRegion: true,
@@ -160,6 +194,11 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   _resetting ? 'Requesting link…' : 'Forgot password?',
                 ),
+              ),
+              const SizedBox(height: 4),
+              TextButton(
+                onPressed: _contacting || auth.busy ? null : _contactAdmin,
+                child: Text(_contacting ? 'Sending request…' : 'Contact an admin to reset it'),
               ),
               const SizedBox(height: 8),
               TextButton(

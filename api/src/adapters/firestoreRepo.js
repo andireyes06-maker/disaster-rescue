@@ -363,6 +363,13 @@ export function createFirestoreRepo(db) {
         return next;
       });
     },
+    // Password help requests from the sign-in pages. One record per email, keyed by a hash of it.
+    async recordPasswordHelp(key, data) { await col('passwordHelp').doc(key).set(data); },
+    async listPasswordHelp() {
+      const snap = await col('passwordHelp').where('status', '==', 'open').get();
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    },
+    async closePasswordHelp(key, closedBy, at) { await col('passwordHelp').doc(key).update({ status: 'closed', closedBy, closedAt: at }); },
     async getUser(uid) { return userDoc(await col('users').doc(uid).get()); },
     async createUser(uid, data) {
       const { uid: _u, id: _i, ...rest } = data;

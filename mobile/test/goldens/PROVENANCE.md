@@ -99,3 +99,8 @@ Reviewed: `incident-detail.png` regenerated; only the coordinates line changed t
 
 Reason: the radius and distance were resident-only. The responder page no longer shows "You are N m from this incident" or the "too far" banner, and updates are no longer limited by distance on the server. Owner request, 27 October 2026.
 Reviewed: `incident-detail.png` regenerated; the distance line and banner are gone, and the rest of the layout is unchanged.
+
+## Reviewed change: contact an admin on the sign-in page, 27 October 2026
+
+Reason: a person who cannot reset their password can send a request to the administrators, who send the reset link from the website. The sign-in page shows "Contact an admin to reset it" under "Forgot password?". Owner request, 27 October 2026.
+Reviewed: `login.png` regenerated; the only change is the new text link, and the layout is unchanged.

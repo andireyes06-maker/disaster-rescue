@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { attemptKey, lockState, nextAfterFailure } from '../domain/loginAttempts.js';
 import { HttpError } from '../errors.js';
+import { createHash } from 'node:crypto';
+import { requireAuth, requireRole } from '../middleware/auth.js';
 
 const EMAIL_MAX = 254;
 
@@ -43,6 +45,33 @@ export function authRouter(deps) {
       try { d = await deps.verifyToken(m[1]); } catch { return res.status(401).json({ error: 'invalid_token' }); }
       if (!d?.uid || !d.email) return res.status(401).json({ error: 'invalid_token' });
       await deps.repo.mutateLoginAttempt(attemptKey(d.email, req.ip, deps.loginAttemptSecret), () => null);
+      res.json({ ok: true });
+    } catch (e) { next(e); }
+  });
+
+  // A person who cannot reset their password asks for help here. Always answers the same way, registered or not.
+  r.post('/reset-help', async (req, res, next) => {
+    try {
+      const email = emailFrom(req.body).toLowerCase();
+      const key = createHash('sha256').update(email).digest('hex');
+      await deps.repo.recordPasswordHelp(key, { email, status: 'open', createdAt: new Date() });
+      res.status(202).json({ ok: true });
+    } catch (e) { next(e); }
+  });
+
+  // Open help requests, for administrators only. The administrator sends the reset email from the website.
+  const auth = requireAuth(deps.verifyToken);
+  const admin = requireRole('admin');
+  r.get('/reset-help', auth, admin, async (req, res, next) => {
+    try {
+      const rows = await deps.repo.listPasswordHelp();
+      res.json(rows.map((x) => ({ id: x.id, email: x.email, createdAt: x.createdAt })).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
+    } catch (e) { next(e); }
+  });
+
+  r.post('/reset-help/:id/close', auth, admin, async (req, res, next) => {
+    try {
+      await deps.repo.closePasswordHelp(req.params.id, req.user.uid, new Date());
       res.json({ ok: true });
     } catch (e) { next(e); }
   });

@@ -19,6 +19,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
   const updates = new Map();
   const users = new Map();
   const loginAttempts = new Map();
+  const passwordHelp = new Map();
   const teams = new Map();
   const submissions = new Map();
   const notifications = new Map();
@@ -231,6 +232,9 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
       else loginAttempts.set(key, copy(next));
       return next;
     },
+    async recordPasswordHelp(key, data) { passwordHelp.set(key, copy(data)); },
+    async listPasswordHelp() { return [...passwordHelp].filter(([, v]) => v.status === 'open').map(([id, v]) => ({ id, ...copy(v) })); },
+    async closePasswordHelp(key, closedBy, at) { const v = passwordHelp.get(key); if (v) passwordHelp.set(key, { ...v, status: 'closed', closedBy, closedAt: at }); },
     async getUser(uid) { const u = users.get(uid); return u ? copy(u) : null; },
     async createUser(uid, data) { users.set(uid, { ...copy(data), uid, createdAt: data.createdAt ?? new Date() }); },
     async completeUserProvisioning(uid, provisioningId, effects) {
