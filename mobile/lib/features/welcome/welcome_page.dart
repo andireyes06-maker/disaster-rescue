@@ -50,8 +50,8 @@ class WelcomePage extends StatelessWidget {
                                   'I-Report',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w800,
                                   ),
                                 ),
                               ),
@@ -182,7 +182,7 @@ class WelcomePage extends StatelessWidget {
                       const SizedBox(height: 24),
                       const Text(
                         'I-Report',
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
                       ),
                       const SizedBox(height: 4),
                       const Text(
