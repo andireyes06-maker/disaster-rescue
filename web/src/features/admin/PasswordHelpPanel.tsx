@@ -25,7 +25,12 @@ export default function PasswordHelpPanel() {
     }
   }, []);
 
-  useEffect(() => { void load(); }, [load]);
+  // Live: new requests appear without a page reload. Pauses while a password is being set, so a row never disappears mid-save.
+  useEffect(() => {
+    void load();
+    const timer = window.setInterval(() => { if (busy === null) void load(); }, 15000);
+    return () => window.clearInterval(timer);
+  }, [load, busy]);
 
   async function setPassword(row: HelpRequest) {
     const password = passwords[row.id] ?? '';

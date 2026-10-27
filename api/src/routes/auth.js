@@ -94,6 +94,9 @@ export function authRouter(deps) {
       let account;
       try { account = await deps.auth.getUserByEmail(request.email); }
       catch (e) { if (e?.code === 'auth/user-not-found') throw new HttpError(404, 'no_account', 'No account uses this email address'); throw e; }
+      // An administrator's password is never set from a help request; the administrator must change it themselves.
+      const profile = await deps.repo.getUser(account.uid);
+      if (profile?.role === 'admin') throw new HttpError(403, 'forbidden', 'Administrator passwords cannot be set from a help request');
       await deps.auth.updateUser(account.uid, { password });
       await deps.auth.revokeRefreshTokens(account.uid);
       const at = new Date();

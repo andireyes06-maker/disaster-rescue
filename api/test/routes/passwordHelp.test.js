@@ -68,3 +68,16 @@ describe('administrator sets the password from a help request', () => {
     expect((await request(t.app).post(`/api/auth/reset-help/${row.id}/set-password`).set('Authorization', t.as('responder', 'rsp-x')).send({ password: 'New-harbor-2026' })).status).toBe(403);
   });
 });
+
+describe('administrator accounts', () => {
+  it('refuses to set the password of another administrator', async () => {
+    const t = makeTestApp();
+    const account = await t.auth.createUser({ email: 'boss@example.test', password: 'old-password-1' });
+    await t.repo.createUser(account.uid, { name: 'Boss', role: 'admin', active: true, email: 'boss@example.test' });
+    await request(t.app).post('/api/auth/reset-help').send({ email: 'boss@example.test' });
+    const [row] = await t.repo.listPasswordHelp();
+    const res = await request(t.app).post(`/api/auth/reset-help/${row.id}/set-password`).set('Authorization', t.as('admin')).send({ password: 'New-harbor-2026' });
+    expect(res.status).toBe(403);
+    expect((await t.auth.getUserByEmail('boss@example.test')).passwordSet).toBeUndefined();
+  });
+});
