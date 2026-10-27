@@ -102,9 +102,11 @@ export function authRouter(deps) {
       if (profile?.role === 'admin') throw new HttpError(403, 'forbidden', 'Administrator passwords cannot be reset from a help request');
       await deps.auth.updateUser(account.uid, { password: request.email });
       await deps.auth.revokeRefreshTokens(account.uid);
+      // The audit row is written before the request is closed. If it fails, the request stays open and a retry is safe:
+      // the reset is repeatable (same password, sign-ins ended again), and no reset is recorded without its audit row.
       const at = new Date();
-      await deps.repo.closePasswordHelp(req.params.id, req.user.uid, at);
       await deps.repo.addAudit({ actorUid: req.user.uid, action: 'password-help.reset', at, target: { uid: account.uid, requestId: req.params.id } });
+      await deps.repo.closePasswordHelp(req.params.id, req.user.uid, at);
       res.json({ ok: true });
     } catch (e) { next(e); }
   });

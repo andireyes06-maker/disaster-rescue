@@ -13,6 +13,7 @@ export const PUBLIC_RADIUS_METERS = 500;
 
 // The public map may lag a new report by up to this long. Keeps a scan of every report off the request path.
 export const PUBLIC_CACHE_MS = 30 * 1000;
+export const PUBLIC_MAX_INCIDENTS = 2000;
 // Cached per repo, so each app instance (and each test) has its own copy.
 const cache = new WeakMap();
 
@@ -20,7 +21,8 @@ const cache = new WeakMap();
 export async function listPublicIncidents({ repo }) {
   const hit = cache.get(repo);
   if (hit && Date.now() - hit.at < PUBLIC_CACHE_MS) return hit.value;
-  const rows = await repo.listReports({});
+  // The most recent incidents only. A fixed bound keeps the public map from failing as reports grow.
+  const rows = await repo.listRecentReports(PUBLIC_MAX_INCIDENTS);
   const value = rows
     // Coordinates live in the canonical nested location written at creation (see reportService.create).
     .filter((r) => CATEGORY[r.status] && Number.isFinite(r.location?.lat) && Number.isFinite(r.location?.lng))

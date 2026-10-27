@@ -11,7 +11,7 @@ describe('listPublicIncidents cache', () => {
     vi.useFakeTimers({ toFake: ['Date'] });
     vi.setSystemTime(new Date('2026-10-25T10:00:00Z'));
     const repo = createMemoryRepo();
-    const scan = vi.spyOn(repo, 'listReports');
+    const scan = vi.spyOn(repo, 'listRecentReports');
     await verified(repo);
     expect(await listPublicIncidents({ repo })).toHaveLength(1);
 
