@@ -42,6 +42,7 @@ class ApiReportsRepository implements ReportsRepository {
         'lng': r.lng.toString(),
         'source': r.source,
         'addressText': r.addressText,
+        'area': r.area,
         'affectedRadiusM': r.affectedRadiusM.toString(),
         'contactName': r.contactName,
         'contactPhone': r.contactPhone,

@@ -11,7 +11,6 @@ import './public.css';
 const ROLE_NAME: Record<Role, string> = {
   resident: 'resident',
   dispatcher: 'dispatcher',
-  dmo: 'disaster management officer',
   responder: 'responder',
   admin: 'administrator',
 };
@@ -40,7 +39,7 @@ export default function Forbidden() {
         <div className="forbidden__actions">{signOut}</div>
       </>
     );
-  } else if (role === 'dispatcher' || role === 'dmo') {
+  } else if (role === 'dispatcher') {
     body = (
       <>
         <p>This account has no website access. Ask your administrator.</p>

@@ -58,6 +58,10 @@ export default function AnalyticsPage() {
   const byType = Object.entries(stats?.byType ?? {}).map(toDatum);
   const byStatus = Object.entries(stats?.byStatus ?? {}).map(toDatum);
   const perDay = (stats?.perDay ?? []).map((d) => ({ label: d.date, value: d.count }));
+  const perMonth = (stats?.perMonth ?? []).map((m) => ({ label: m.month, value: m.count }));
+  const byPriority = Object.entries(stats?.byPriority ?? {}).map(toDatum);
+  const byPlace = Object.entries(stats?.byPlace ?? {}).map(toDatum);
+  const byArea = Object.entries(stats?.byArea ?? {}).map(toDatum);
 
   return (
     <div>
@@ -102,7 +106,11 @@ export default function AnalyticsPage() {
         <div className="analytics-grid">
           <ChartCard title="Incidents by type" labelHeader="Type" data={byType} />
           <ChartCard title="Incidents by status" labelHeader="Status" data={byStatus} />
+          <ChartCard title="Incidents by priority" labelHeader="Priority" data={byPriority} />
+          <ChartCard title="Incidents per month" labelHeader="Month" data={perMonth} />
           <ChartCard title="Incidents per day" labelHeader="Day" data={perDay} chronological />
+          <ChartCard title="Reports by area" labelHeader="Area" data={byArea} />
+          <ChartCard title="Top places reported" labelHeader="Place" data={byPlace} />
         </div>
       )}
     </div>

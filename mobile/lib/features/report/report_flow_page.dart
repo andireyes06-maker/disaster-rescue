@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth/auth_controller.dart';
+import '../../data/areas.dart';
 import '../../data/photo_identity.dart';
 import '../../data/submission_key.dart';
 import '../../data/api_client.dart';
@@ -74,6 +75,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   final _formKey = GlobalKey<FormState>();
   final _description = TextEditingController();
   final _address = TextEditingController();
+  String? _area;
   final _name = TextEditingController();
   final _phone = TextEditingController();
 
@@ -145,6 +147,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     lng: _lng,
     source: _source,
     addressText: _address.text,
+    area: _area,
     contactName: _name.text,
     contactPhone: _phone.text,
   );
@@ -167,6 +170,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _lng = d.lng;
       _source = d.source;
       _address.text = d.addressText;
+      _area = kAreas.contains(d.area) ? d.area : null;
       _name.text = d.contactName;
       _phone.text = d.contactPhone;
       _savedDraft = null;
@@ -213,7 +217,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       case 0:
         return _type != null;
       case 1:
-        return _hasLocation;
+        return _hasLocation && _area != null;
       default:
         return true;
     }
@@ -259,6 +263,10 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _notify(_needLocation);
       return;
     }
+    if (_area == null) {
+      _notify('Choose the province or city for this report.');
+      return;
+    }
     setState(() => _submitting = true);
     final nav = Navigator.of(context);
     final reports = context.read<ReportsRepository>();
@@ -279,6 +287,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           lng: _lng!,
           source: _source!,
           addressText: _address.text.trim(),
+          area: _area!,
           contactName: _name.text.trim(),
           contactPhone: _phone.text.trim(),
           photos: _photos,
@@ -504,6 +513,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           source: _source,
           radiusM: _reachM,
           addressController: _address,
+          area: _area,
+          onAreaChanged: (v) => setState(() => _area = v),
           onPicked: (lat, lng, source) => setState(() {
             _lat = lat;
             _lng = lng;
@@ -660,6 +671,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                   'Location',
                   '${_lat!.toStringAsFixed(5)}, ${_lng!.toStringAsFixed(5)} (${_source == 'gps' ? 'from GPS' : 'picked on map'})',
                 ),
+                if (_area != null) row('Area', _area!),
                 if (_address.text.trim().isNotEmpty)
                   row('Address or landmark', _address.text.trim()),
                 row('Description', _description.text.trim()),

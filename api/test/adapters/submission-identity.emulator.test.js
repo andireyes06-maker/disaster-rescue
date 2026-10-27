@@ -9,7 +9,7 @@ import { parseReportInput } from '../../src/domain/validation.js';
 import { createFakeUploader } from '../fakes/fakeUploader.js';
 
 const emulator = Boolean(process.env.FIRESTORE_EMULATOR_HOST);
-const input = { type: 'flood', description: 'Identity check payload', lat: '14.5870', lng: '120.9720', source: 'gps' };
+const input = { type: 'flood', description: 'Identity check payload', lat: '14.5870', lng: '120.9720', source: 'gps', area: 'Quezon City' };
 const fingerprint = submissionFingerprint(parseReportInput(input), []);
 
 describe.skipIf(!emulator)('claim identity against the Firestore emulator', () => {

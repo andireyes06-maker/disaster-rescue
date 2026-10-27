@@ -82,7 +82,7 @@ export default function AppShell({ title, children }: AppShellProps) {
         </div>
         <nav aria-label="Main" id="main-nav">
           {items.map((i) => {
-            const contextActive = pathname.startsWith('/incidents/') && i.to === (role === 'dmo' ? '/monitor' : '/dashboard');
+            const contextActive = pathname.startsWith('/incidents/') && i.to === '/dashboard';
             const Icon = i.icon;
             return <NavLink key={i.to} to={i.to} onClick={() => setMenuOpen(false)}
               className={({ isActive }) => `navlink${isActive || contextActive ? ' active' : ''}`}>

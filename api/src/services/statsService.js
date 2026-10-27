@@ -58,6 +58,27 @@ export function buildStats(reports, { from, to } = {}) {
   }
   const perDay = [...days].sort(([a], [b]) => a.localeCompare(b)).map(([date, count]) => ({ date, count }));
 
+  const months = new Map();
+  for (const r of rows) {
+    const month = r.createdAt.toISOString().slice(0, 7);
+    months.set(month, (months.get(month) ?? 0) + 1);
+  }
+  const perMonth = [...months].sort(([a], [b]) => a.localeCompare(b)).map(([month, count]) => ({ month, count }));
+
+  // Reports have free-text addresses, not a region field. Group by the address text, ignoring case and extra spaces.
+  const places = new Map();
+  for (const r of rows) {
+    const text = typeof r.addressText === 'string' ? r.addressText.trim().replace(/\s+/g, ' ') : '';
+    if (!text) continue;
+    const key = text.toLowerCase();
+    const entry = places.get(key) ?? { label: text, count: 0 };
+    entry.count += 1;
+    places.set(key, entry);
+  }
+  const byPlace = Object.fromEntries(
+    [...places.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)).slice(0, 10).map((p) => [p.label, p.count]),
+  );
+
   const minutes = rows.filter((r) => r.assignedAt).map((r) => (r.assignedAt - r.createdAt) / 60000);
   const avgResponseMinutes = minutes.length
     ? Math.round((minutes.reduce((a, b) => a + b, 0) / minutes.length) * 10) / 10
@@ -73,7 +94,11 @@ export function buildStats(reports, { from, to } = {}) {
     byType: countBy(rows, 'type'),
     byStatus: countBy(rows, 'status'),
     byPriority: countBy(rows, 'priority'),
+    // Reports filed before areas existed have none; they are counted together as "Not recorded".
+    byArea: countBy(rows.map((r) => ({ ...r, area: r.area || 'Not recorded' })), 'area'),
     perDay,
+    perMonth,
+    byPlace,
     avgResponseMinutes,
     peopleRescued,
   };

@@ -53,7 +53,7 @@ describe('AnalyticsPage', () => {
   it('shows the empty state and no chart when there is no data', async () => {
     serveStats(EMPTY);
     renderPage();
-    await waitFor(() => expect(screen.getAllByText(/no data for this range/i)).toHaveLength(3));
+    await waitFor(() => expect(screen.getAllByText(/no data for this range/i)).toHaveLength(7));
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 

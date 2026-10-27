@@ -8,7 +8,7 @@ export function exportRouter(deps) {
   const r = Router();
   const auth = requireAuth(deps.verifyToken);
   // Both exports carry exact locations (the summary lists each incident), so only the roles that see them in the app get them.
-  const staff = requireRole('dispatcher', 'dmo');
+  const staff = requireRole('admin');
 
   // Demo workspace exports are named and labeled as sample output, so they cannot pass for operational data.
   const demoLabel = async () => {

@@ -10,7 +10,7 @@ import { HttpError } from '../../src/errors.js';
 const KEY = 'retry-key-0000000001';
 const LEASE = 120_000;
 const user = { uid: 'resident-1', role: 'resident' };
-const input = { type: 'flood', description: 'Water across the road', lat: '14.5870', lng: '120.9720', source: 'gps' };
+const input = { type: 'flood', description: 'Water across the road', lat: '14.5870', lng: '120.9720', source: 'gps', area: 'Quezon City' };
 const JPEG_A = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0xaa, 0xbb]);
 const JPEG_B = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0xcc, 0xdd]); // same length, different bytes
 const photo = (buf = JPEG_A) => ({ buffer: buf, mimetype: 'image/jpeg', size: buf.length, originalname: 'scene.jpg' });

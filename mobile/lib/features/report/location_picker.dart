@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../data/areas.dart';
 import '../../data/geo.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
@@ -35,6 +36,8 @@ class LocationStep extends StatefulWidget {
     this.radiusM = 500,
     required this.addressController,
     required this.onPicked,
+    this.area,
+    this.onAreaChanged,
   });
   final LocationService service;
   final double? lat;
@@ -45,6 +48,10 @@ class LocationStep extends StatefulWidget {
   final int radiusM;
   final TextEditingController addressController;
   final void Function(double lat, double lng, String source) onPicked;
+
+  /// The chosen province or Metro Manila city, from kAreas.
+  final String? area;
+  final ValueChanged<String?>? onAreaChanged;
 
   @override
   State<LocationStep> createState() => _LocationStepState();
@@ -166,6 +173,19 @@ class _LocationStepState extends State<LocationStep> {
               ),
             ],
           ),
+        ),
+        const SizedBox(height: 16),
+        DropdownButtonFormField<String>(
+          key: const Key('area'),
+          initialValue: kAreas.contains(widget.area) ? widget.area : null,
+          isExpanded: true,
+          menuMaxHeight: 360,
+          decoration: const InputDecoration(
+            labelText: 'Province or city (required)',
+            hintText: 'Choose the area of the report',
+          ),
+          items: [for (final a in kAreas) DropdownMenuItem(value: a, child: Text(a))],
+          onChanged: widget.onAreaChanged,
         ),
         const SizedBox(height: 16),
         TextField(

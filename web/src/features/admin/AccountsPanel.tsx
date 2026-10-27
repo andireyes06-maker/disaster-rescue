@@ -24,8 +24,8 @@ export interface AdminTeam { id: string; name: string }
 // Every account type an administrator can create. Dispatcher and DMO are retired.
 const ROLE_OPTIONS = ['admin', 'responder', 'resident'] as const;
 
-// Teams apply to field staff and dispatch roles. Residents and admins have no team.
-const TEAM_ROLES = new Set(['responder', 'dispatcher', 'dmo']);
+// Teams apply to field staff. Residents and admins have no team.
+const TEAM_ROLES = new Set(['responder', 'dispatcher']);
 
 function roleOptionsFor(current: string): string[] {
   return ROLE_OPTIONS.includes(current as typeof ROLE_OPTIONS[number]) ? [...ROLE_OPTIONS] : [current, ...ROLE_OPTIONS];

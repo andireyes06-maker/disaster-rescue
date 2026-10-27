@@ -5,13 +5,22 @@ export interface DayCount {
   count: number;
 }
 
+export interface MonthCount {
+  month: string;
+  count: number;
+}
+
 export interface Stats {
   total: number;
   open: number;
   resolved: number;
   byType: Record<string, number>;
   byStatus: Record<string, number>;
+  byPriority: Record<string, number>;
+  byPlace: Record<string, number>;
+  byArea: Record<string, number>;
   perDay: DayCount[];
+  perMonth: MonthCount[];
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null;
@@ -28,13 +37,20 @@ export function toStats(data: unknown): Stats {
   const perDay = Array.isArray(r.perDay)
     ? r.perDay.filter(isRecord).map((d) => ({ date: String(d.date ?? ''), count: num(d.count) }))
     : [];
+  const perMonth = Array.isArray(r.perMonth)
+    ? r.perMonth.filter(isRecord).map((m) => ({ month: String(m.month ?? ''), count: num(m.count) }))
+    : [];
   return {
     total: num(r.total),
     open: num(r.open),
     resolved: num(r.resolved),
     byType: counts(r.byType),
     byStatus: counts(r.byStatus),
+    byPriority: counts(r.byPriority),
+    byPlace: counts(r.byPlace),
+    byArea: counts(r.byArea),
     perDay,
+    perMonth,
   };
 }
 

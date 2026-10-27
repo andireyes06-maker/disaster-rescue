@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { HttpError } from '../errors.js';
+import { AREAS } from './areas.js';
 
 const MAX_PHOTOS = 5;
 const MAX_BYTES = 5 * 1024 * 1024;
@@ -56,6 +57,8 @@ const schema = z.object({
   lng: coord(-180, 180),
   source: z.enum(['gps', 'manual']),
   addressText: z.preprocess((v) => (v == null ? undefined : sanitizeText(v, 300)), z.string().optional()),
+  // The province or Metro Manila city the report is filed under. Chosen from the fixed list.
+  area: z.enum(AREAS),
   // How far the danger reaches from the reported point, in meters. Responders may act within this distance.
   affectedRadiusM: z.preprocess((v) => (v == null || v === '' ? undefined : Number(v)), z.number().int().min(50).max(5000).optional()),
   contact: z.object({

@@ -12,7 +12,7 @@ import { parseReportInput } from '../../src/domain/validation.js';
 const emulator = Boolean(process.env.FIRESTORE_EMULATOR_HOST);
 const LEASE = 120_000;
 const T = 2_000_000;
-const input = parseReportInput({ type: 'flood', description: 'Emulator ledger check', lat: '14.5870', lng: '120.9720', source: 'gps' });
+const input = parseReportInput({ type: 'flood', description: 'Emulator ledger check', lat: '14.5870', lng: '120.9720', source: 'gps', area: 'Quezon City' });
 const photos = [{ buffer: Buffer.from([0xff, 0xd8, 0xff, 0xe0]), mimetype: 'image/jpeg' }];
 
 describe.skipIf(!emulator)('photo ledger against the Firestore emulator', () => {

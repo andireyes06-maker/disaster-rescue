@@ -13,7 +13,7 @@ const KEY = 'photo-key-0000000001';
 const LEASE = 120_000;
 const T = 1_000_000;
 const user = { uid: 'resident-1', role: 'resident' };
-const input = { type: 'flood', description: 'Water across the road, contact Maria 0917 000 1234', lat: '14.5870', lng: '120.9720', source: 'gps' };
+const input = { type: 'flood', description: 'Water across the road, contact Maria 0917 000 1234', lat: '14.5870', lng: '120.9720', source: 'gps', area: 'Quezon City' };
 const JPEG = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0xaa, 0xbb]);
 const photo = () => ({ buffer: JPEG, mimetype: 'image/jpeg', size: JPEG.length, originalname: 'scene.jpg' });
 

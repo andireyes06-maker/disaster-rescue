@@ -5,7 +5,7 @@ import { makeTestApp } from '../fakes/testApp.js';
 // Regression tests for the release-audit findings F03, F04, F05, F08, F09 and F10 (F01 is in canonical-access.test.js).
 
 const KEY = 'idem-key-audit-0001';
-const fields = { type: 'flood', description: 'Water rising fast', lat: '14.8512', lng: '120.8123', source: 'gps' };
+const fields = { type: 'flood', description: 'Water rising fast', lat: '14.8512', lng: '120.8123', source: 'gps', area: 'Quezon City' };
 
 function submit(t, over = {}) {
   let r = request(t.app).post('/api/reports').set('Authorization', t.as('resident', 'res-x')).set('Idempotency-Key', KEY);

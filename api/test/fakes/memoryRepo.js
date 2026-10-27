@@ -18,6 +18,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
   const reports = new Map();
   const updates = new Map();
   const users = new Map();
+  const loginAttempts = new Map();
   const teams = new Map();
   const submissions = new Map();
   const notifications = new Map();
@@ -222,6 +223,14 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
       return row ? copy(row) : null;
     },
 
+    async getLoginAttempt(key) { const a = loginAttempts.get(key); return a ? copy(a) : null; },
+    // Synchronous read-modify-write, the same contract as the Firestore transaction.
+    async mutateLoginAttempt(key, mutate) {
+      const next = mutate(loginAttempts.has(key) ? copy(loginAttempts.get(key)) : null);
+      if (next === null) loginAttempts.delete(key);
+      else loginAttempts.set(key, copy(next));
+      return next;
+    },
     async getUser(uid) { const u = users.get(uid); return u ? copy(u) : null; },
     async createUser(uid, data) { users.set(uid, { ...copy(data), uid, createdAt: data.createdAt ?? new Date() }); },
     async completeUserProvisioning(uid, provisioningId, effects) {

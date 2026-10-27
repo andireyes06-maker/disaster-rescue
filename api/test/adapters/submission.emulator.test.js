@@ -12,7 +12,7 @@ const emulator = Boolean(process.env.FIRESTORE_EMULATOR_HOST);
 const LEASE = 120_000;
 const JPEG = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0xaa, 0xbb]);
 const photo = { buffer: JPEG, mimetype: 'image/jpeg', size: JPEG.length, originalname: 'scene.jpg' };
-const input = { type: 'flood', description: 'Emulator submission check', lat: '14.5870', lng: '120.9720', source: 'gps' };
+const input = { type: 'flood', description: 'Emulator submission check', lat: '14.5870', lng: '120.9720', source: 'gps', area: 'Quezon City' };
 
 describe.skipIf(!emulator)('report submission against the Firestore emulator', () => {
   let db;
@@ -87,7 +87,7 @@ describe.skipIf(!emulator)('report submission against the Firestore emulator', (
     // The lease expires while the stale worker is still "uploading". A retry takes over with the same reservation.
     const winner = await repo.claimSubmission(uid, key, { fingerprint, now: t0 + LEASE + 1, reportId: 'rid-fence-x', reference: 'DR-FENCEX', leaseMs: LEASE });
     expect(winner).toMatchObject({ mode: 'run', generation: 2, reportId, reference: 'DR-FENCE1' });
-    const report = { reference: 'DR-FENCE1', type: 'flood', description: input.description, status: 'Submitted', verified: false, priority: 'medium', location: { lat: 14.587, lng: 120.972, source: 'gps' }, coarseLocation: { lat: 14.587, lng: 120.972 }, reporterId: uid, photos: [] };
+    const report = { reference: 'DR-FENCE1', type: 'flood', description: input.description, status: 'Submitted', verified: false, priority: 'medium', location: { lat: 14.587, lng: 120.972, source: 'gps' }, area: 'Quezon City', coarseLocation: { lat: 14.587, lng: 120.972 }, reporterId: uid, photos: [] };
     // The stale worker tries to commit first, then the winner commits.
     expect(await repo.commitSubmission(uid, key, { generation: 1, reportId, report })).toEqual({ mode: 'fenced' });
     expect(await db.collection('reports').doc(reportId).get()).toHaveProperty('exists', false);

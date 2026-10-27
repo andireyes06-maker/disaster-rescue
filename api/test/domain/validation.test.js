@@ -28,7 +28,7 @@ describe('sanitizeText', () => {
   it('limits length', () => { expect(sanitizeText('a'.repeat(900), 500)).toHaveLength(500); });
 });
 describe('parseReportInput', () => {
-  const ok = { type: 'flood', description: 'Water rising', lat: '14.85', lng: '120.81', source: 'gps', contact: { name: 'Ana', phone: '09171234567' } };
+  const ok = { type: 'flood', description: 'Water rising', lat: '14.85', lng: '120.81', source: 'gps', area: 'Quezon City', contact: { name: 'Ana', phone: '09171234567' } };
   it('parses numeric strings from multipart', () => { expect(parseReportInput(ok).lat).toBeCloseTo(14.85); });
   it.each([['abc', '120'], ['NaN', '120'], ['91', '120'], ['14', '181'], ['', '120']])('rejects lat=%s lng=%s', (lat, lng) => {
     expect(() => parseReportInput({ ...ok, lat, lng })).toThrow(expect.objectContaining({ status: 400 }));
@@ -37,7 +37,7 @@ describe('parseReportInput', () => {
 });
 
 describe('carried-forward hardening', () => {
-  const ok = { type: 'flood', description: 'Water rising', lat: '14.85', lng: '120.81', source: 'gps' };
+  const ok = { type: 'flood', description: 'Water rising', lat: '14.85', lng: '120.81', source: 'gps', area: 'Quezon City' };
   it.each(['0x10', '1e1', '+5', ' 1 2'])('rejects non-decimal lat %s', (lat) => {
     expect(() => parseReportInput({ ...ok, lat })).toThrow(expect.objectContaining({ status: 400 }));
   });

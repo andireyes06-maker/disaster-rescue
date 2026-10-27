@@ -21,8 +21,8 @@ interface User {
   team?: string | null;
 }
 
-// Teams apply to field staff and dispatch roles. Residents and admins have no team.
-const TEAM_ROLES = new Set(['responder', 'dispatcher', 'dmo']);
+// Teams apply to field staff. Residents and admins have no team.
+const TEAM_ROLES = new Set(['responder', 'dispatcher']);
 
 type Team = Pick<import('../../types/domain').Team, 'id' | 'name'>;
 
@@ -61,6 +61,7 @@ export default function UsersPage() {
   });
   const email = watch('email');
   const fullName = watch('name');
+  const role = watch('role');
 
   const load = useCallback(() => {
     setLoadError(null);
@@ -155,11 +156,15 @@ export default function UsersPage() {
         <input id="staff-password" aria-required="true" type="password" autoComplete="new-password" {...register('password')} aria-invalid={!!errors.password} aria-describedby={errors.password ? 'staff-password-error' : 'staff-password-hint'} />
         <p id="staff-password-hint" className="field-hint">At least 12 characters. Give it to the person privately; they can change it after signing in.</p>
         {errors.password && <FieldError id="staff-password-error">{errors.password.message}</FieldError>}
-        <label htmlFor="staff-team">Team (rescuers only)</label>
-        <select id="staff-team" {...register('team')}>
-          <option value="">No team</option>
-          {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
-        </select>
+        {role === 'responder' && (
+          <>
+            <label htmlFor="staff-team">Team (rescuers only)</label>
+            <select id="staff-team" {...register('team')}>
+              <option value="">No team</option>
+              {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
+            </select>
+          </>
+        )}
         <div className="actions__row">
           <button type="submit" className="btn" aria-disabled={busy || !email.trim() || !fullName.trim()} aria-busy={busy}>Create account</button>
         </div>

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import { makeTestApp } from '../fakes/testApp.js';
 
-const fields = { type: 'flood', description: 'Water rising fast', lat: '14.8512', lng: '120.8123', source: 'gps' };
+const fields = { type: 'flood', description: 'Water rising fast', lat: '14.8512', lng: '120.8123', source: 'gps', area: 'Quezon City' };
 const submit = (t, uid, ip = '203.0.113.7') => {
   let r = request(t.app).post('/api/reports').set('Authorization', t.as('resident', uid)).set('X-Forwarded-For', ip);
   for (const [k, v] of Object.entries(fields)) r = r.field(k, v);

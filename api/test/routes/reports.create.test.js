@@ -6,7 +6,7 @@ import { parseReportInput } from '../../src/domain/validation.js';
 
 const JPEG = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0, 0, 0, 0]);
 const PNG = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0]);
-const fields = { type: 'flood', description: 'Water rising fast', lat: '14.8512', lng: '120.8123', source: 'gps' };
+const fields = { type: 'flood', description: 'Water rising fast', lat: '14.8512', lng: '120.8123', source: 'gps', area: 'Quezon City' };
 
 function post(t, auth = t.as('resident'), over = {}, photos = []) {
   let r = request(t.app).post('/api/reports');
@@ -29,7 +29,7 @@ describe('POST /api/reports', () => {
     const r = await t.repo.getReport(res.body.id);
     expect(r).toMatchObject({
       status: 'Submitted', verified: false, priority: 'medium', reporterId: 'res-9', type: 'flood',
-      location: { lat: 14.8512, lng: 120.8123, source: 'gps' }, contact: { name: 'Ana', phone: '09171234567' },
+      location: { lat: 14.8512, lng: 120.8123, source: 'gps' }, area: 'Quezon City', contact: { name: 'Ana', phone: '09171234567' },
       addressText: 'Main St', reference: res.body.reference,
     });
     expect(r.coarseLocation).toEqual({ lat: expect.any(Number), lng: expect.any(Number) });
@@ -108,7 +108,7 @@ describe('POST /api/reports', () => {
   it('400 for a file under the wrong field name', async () => {
     const t = makeTestApp();
     const res = await request(t.app).post('/api/reports').set('Authorization', t.as('resident'))
-      .field('type', 'flood').field('description', 'Water rising').field('lat', '14').field('lng', '120').field('source', 'gps')
+      .field('type', 'flood').field('description', 'Water rising').field('lat', '14').field('lng', '120').field('source', 'gps').field('area', 'Quezon City')
       .attach('files', JPEG, { filename: 'a.jpg' });
     expect(res.status).toBe(400);
     expect(t.uploader.calls).toHaveLength(0);
@@ -250,7 +250,7 @@ describe('idempotent submission (M04)', () => {
     expect((await t.repo.claimSubmission('res-x', KEY, claim)).mode).toBe('run');
     const second = await t.repo.claimSubmission('res-x', KEY, { ...claim, reportId: 'reserved-2' });
     expect(second.mode).toBe('pending');
-    const res = await request(t.app).post('/api/reports').set('Authorization', t.as('resident', 'res-x')).set('Idempotency-Key', KEY).field('type', 'flood').field('description', 'Water rising fast').field('lat', '14.8512').field('lng', '120.8123').field('source', 'gps');
+    const res = await request(t.app).post('/api/reports').set('Authorization', t.as('resident', 'res-x')).set('Idempotency-Key', KEY).field('type', 'flood').field('description', 'Water rising fast').field('lat', '14.8512').field('lng', '120.8123').field('source', 'gps').field('area', 'Quezon City');
     expect(res.status).toBe(409);
     expect(res.body.error).toBe('submission_in_progress');
     expect(await writes(t)).toBe(0);

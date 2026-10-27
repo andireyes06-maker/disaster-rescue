@@ -10,8 +10,19 @@ describe('buildStats', () => {
   it('returns zeros and null response time for an empty set', () => {
     expect(buildStats([], {})).toEqual({
       total: 0, open: 0, resolved: 0, byType: {}, byStatus: {}, byPriority: {},
-      perDay: [], avgResponseMinutes: null, peopleRescued: 0,
+      perDay: [], perMonth: [], byPlace: {}, byArea: {}, avgResponseMinutes: null, peopleRescued: 0,
     });
+  });
+
+  it('groups by month and by address text, ignoring case and extra spaces', () => {
+    const reports = [
+      rep({ createdAt: new Date('2026-09-30T10:00:00Z'), addressText: 'Riverside  District' }),
+      rep({ createdAt: new Date('2026-10-02T10:00:00Z'), addressText: 'riverside district' }),
+      rep({ createdAt: new Date('2026-10-03T10:00:00Z'), addressText: '   ' }),
+    ];
+    const s = buildStats(reports, {});
+    expect(s.perMonth).toEqual([{ month: '2026-09', count: 1 }, { month: '2026-10', count: 2 }]);
+    expect(s.byPlace).toEqual({ 'Riverside District': 2 });
   });
 
   it('counts open as everything except Resolved, Closed, Cancelled, Rejected, Duplicate', () => {

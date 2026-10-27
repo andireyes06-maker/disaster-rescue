@@ -1,5 +1,5 @@
 import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-import { initializeAuth, indexedDBLocalPersistence, browserLocalPersistence, browserSessionPersistence, connectAuthEmulator, type Auth } from 'firebase/auth';
+import { initializeAuth, browserSessionPersistence, connectAuthEmulator, type Auth } from 'firebase/auth';
 
 let auth: Auth | undefined;
 
@@ -23,10 +23,10 @@ const authPort = () => Number(import.meta.env.VITE_AUTH_EMULATOR_PORT) || 9099;
 export function getFirebaseAuth(): Auth {
   if (auth) return auth;
   const app = getFirebaseApp();
-  // This product uses email/password only. Preserve the default persistence
-  // fallbacks without initializing an unused popup/redirect iframe on public pages.
+  // Session-only sign-in: the session lasts while the tab is open (no idle logout, so an admin
+  // can stay on screen for an emergency) and ends when the tab closes.
   auth = initializeAuth(app, {
-    persistence: [indexedDBLocalPersistence, browserLocalPersistence, browserSessionPersistence],
+    persistence: [browserSessionPersistence],
   });
   if (shouldUseEmulators(import.meta.env)) {
     connectAuthEmulator(auth, `http://localhost:${authPort()}`, { disableWarnings: true });

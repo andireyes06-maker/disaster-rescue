@@ -53,7 +53,7 @@ describe('GET /api/public/incidents', () => {
     vi.useFakeTimers({ toFake: ['Date'] });
     const t = makeTestApp();
     const created = await request(t.app).post('/api/reports').set('Authorization', t.as('resident'))
-      .field('type', 'flood').field('description', 'Water rising fast').field('lat', '14.8512').field('lng', '120.8123').field('source', 'gps');
+      .field('type', 'flood').field('description', 'Water rising fast').field('lat', '14.8512').field('lng', '120.8123').field('source', 'gps').field('area', 'Quezon City');
     expect(created.status).toBe(201);
     expect((await request(t.app).get('/api/public/incidents')).body.incidents).toEqual([]);
     const id = created.body.id;

@@ -348,6 +348,21 @@ export function createFirestoreRepo(db) {
       return snap.data().total ?? 0;
     },
 
+    async getLoginAttempt(key) {
+      const snap = await col('loginAttempts').doc(key).get();
+      return snap.exists ? snap.data() : null;
+    },
+    // Reads and writes the record in one transaction, so concurrent failures never lose a count.
+    async mutateLoginAttempt(key, mutate) {
+      const ref = col('loginAttempts').doc(key);
+      return db.runTransaction(async (tx) => {
+        const snap = await tx.get(ref);
+        const next = mutate(snap.exists ? snap.data() : null);
+        if (next === null) tx.delete(ref);
+        else tx.set(ref, next);
+        return next;
+      });
+    },
     async getUser(uid) { return userDoc(await col('users').doc(uid).get()); },
     async createUser(uid, data) {
       const { uid: _u, id: _i, ...rest } = data;

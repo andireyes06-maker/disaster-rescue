@@ -61,6 +61,7 @@ class ReportDraft {
   final String addressText;
   final String contactName;
   final String contactPhone;
+  final String? area;
   const ReportDraft({
     this.type,
     this.description = '',
@@ -70,6 +71,7 @@ class ReportDraft {
     this.addressText = '',
     this.contactName = '',
     this.contactPhone = '',
+    this.area,
   });
 
   Map<String, dynamic> toJson() => {
@@ -81,9 +83,11 @@ class ReportDraft {
     'addressText': addressText,
     'contactName': contactName,
     'contactPhone': contactPhone,
+    'area': area,
   };
 
   factory ReportDraft.fromJson(Map<String, dynamic> j) => ReportDraft(
+    area: j['area'] as String?,
     type: j['type'] as String?,
     description: (j['description'] as String?) ?? '',
     lat: (j['lat'] as num?)?.toDouble(),
@@ -104,6 +108,9 @@ class NewReport {
   final String addressText;
   final String contactName;
   final String contactPhone;
+
+  /// The province or Metro Manila city the report is filed under. Chosen from kAreas.
+  final String area;
   final List<PickedPhoto> photos;
 
   /// How far the danger reaches from the point, in meters. Responders may act within this distance.
@@ -120,6 +127,7 @@ class NewReport {
     required this.addressText,
     required this.contactName,
     required this.contactPhone,
+    required this.area,
     this.photos = const [],
     this.affectedRadiusM = 500,
     this.idempotencyKey,

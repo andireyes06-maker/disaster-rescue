@@ -1,3 +1,4 @@
+import 'area_helper.dart';
 // Regenerate with: flutter test test/redesign_visual_test.dart --update-goldens
 // Uses local fakes only. These captures verify Flutter layout, not device permissions or gestures.
 import 'dart:io';
@@ -92,6 +93,7 @@ void main() {
     await t.pumpAndSettle();
     await capture(t, 'report-location');
     await t.tap(find.text('Use my current location'));
+    await chooseArea(t);
     await t.pumpAndSettle();
     await t.tap(find.text('Next'));
     await t.pumpAndSettle();

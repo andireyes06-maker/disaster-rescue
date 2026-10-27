@@ -69,4 +69,5 @@ export const REPO_METHODS = [
   'getDemoConfig', 'listReportEffects', 'claimReportEffects', 'completeReportEffects',
   'reservePhotoAssets', 'recordPhotoAccepted', 'listDuePhotoAssets', 'claimPhotoAssetForCleanup', 'finishPhotoAssetCleanup',
   'summarizePhotoReconciliation', 'recipientPages', 'listMutationEffects', 'claimMutationEffects', 'completeMutationEffects',
+  'getLoginAttempt', 'mutateLoginAttempt',
 ];

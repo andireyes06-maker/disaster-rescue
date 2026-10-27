@@ -3,7 +3,7 @@ import { HttpError } from '../errors.js';
 import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js';
 import { PHONE_RE, sanitizeText, isSafeId } from '../domain/validation.js';
 
-const STAFF_ROLES = ['resident', 'responder', 'dispatcher', 'dmo'];
+const STAFF_ROLES = ['resident', 'responder', 'dispatcher'];
 // Administrators can create every active account type. Dispatcher and DMO are retired.
 const ADMIN_ROLES = ['resident', 'responder', 'admin'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

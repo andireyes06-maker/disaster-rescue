@@ -8,6 +8,7 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { useAuth } from '../../auth/AuthProvider';
 import { landingFor } from '../../routes/landing';
 import { getFirebaseAuth } from '../../firebase-auth';
+import { api } from '../../api/client';
 import PublicHeader from '../../components/PublicHeader';
 import '../../pages/public.css';
 import Banner from '../../components/calm/Banner';
@@ -16,6 +17,13 @@ type LoginField = 'email' | 'password';
 const EMAIL_SHAPE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FIELD_ORDER: LoginField[] = ['email', 'password'];
 const RESET_SENT = 'If an account exists for that email, a link to set or reset its password has been sent. Check your inbox and spam folder.';
+// Sign-in lockout is enforced by the API (per email, 5 failures, 5 minutes). See api/src/routes/auth.js.
+interface LockState { locked: boolean; retryAfterSeconds: number }
+
+const lockedMessage = (seconds: number) => {
+  const minutes = Math.max(1, Math.ceil(seconds / 60));
+  return `Too many failed sign-in attempts. Try again in ${minutes} minute${minutes === 1 ? '' : 's'}.`;
+};
 
 export default function LoginPage() {
   const { user, role, error: authError, login } = useAuth();
@@ -50,10 +58,24 @@ export default function LoginPage() {
     }
     pendingRef.current = true;
     setBusy(true);
+    const emailValue = email.trim();
     try {
+      // If the lock check cannot reach the API, sign-in still goes ahead; the API enforces the limit on failures.
+      const lock = await api('/auth/sign-in/check', { method: 'POST', body: { email: emailValue } }).then((r) => r as LockState).catch(() => null);
+      if (lock?.locked) {
+        setError(lockedMessage(lock.retryAfterSeconds));
+        return;
+      }
       await login(email, password);
+      // Clears the count. Needs the new session's token; a failure here does not block the sign-in.
+      await api('/auth/sign-in/success', { method: 'POST', body: {} }).catch(() => undefined);
     } catch {
-      setError('Could not sign in. Check your email and password and try again.');
+      const failed = await api('/auth/sign-in/failure', { method: 'POST', body: { email: emailValue } }).then((r) => r as LockState).catch(() => null);
+      if (failed?.locked) {
+        setError(lockedMessage(failed.retryAfterSeconds));
+      } else {
+        setError('Could not sign in. Check your email and password and try again.');
+      }
       // Return to the field the person can correct after a failed sign-in.
       document.getElementById('password')?.focus();
     } finally {

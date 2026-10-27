@@ -11,6 +11,7 @@ import { auditRouter } from './routes/audit.js';
 import { usersRouter } from './routes/users.js';
 import { notificationsRouter } from './routes/notifications.js';
 import { publicRouter } from './routes/public.js';
+import { authRouter } from './routes/auth.js';
 import { adminRouter } from './routes/admin.js';
 import { createNotifier } from './services/notificationService.js';
 
@@ -49,6 +50,7 @@ export function buildApp({
   // Public liveness check for the host. Reveals nothing about data.
   app.get('/api/health', (req, res) => res.json({ ok: true }));
   app.use('/api/public', publicRouter(deps));
+  app.use('/api/auth', authRouter(deps));
   app.use('/api/admin', adminRouter(deps));
   app.use('/api/reports', reportsRouter(deps));
   app.use('/api/teams', teamsRouter(deps));
