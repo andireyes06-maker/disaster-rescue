@@ -16,6 +16,7 @@ const h = vi.hoisted(() => ({
   loadOlder: vi.fn(),
   retry: vi.fn(),
 }));
+vi.mock('../../lib/placeName', () => ({ approximatePlaceName: async () => null }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => h.auth }));
 vi.mock('./useReport', () => ({
   MAX_DUPLICATE_IDS: 10,
@@ -54,6 +55,17 @@ function show(reports: Report[], role = 'admin', id = 'r1', over: Record<string,
 
 describe('IncidentDetails', () => {
   beforeEach(() => { h.updatesLoading = false; h.hasMore = false; h.loadOlder.mockReset(); h.api.mockReset(); h.api.mockResolvedValue({}); });
+
+  it('shows the known incident type and separates contact person and number', () => {
+    show([makeReport({ classification: '', contact: { name: 'Ana Cruz', phone: '09123456789' } })]);
+    expect(screen.getByText('Incident type')).toBeInTheDocument();
+    expect(screen.queryByText('Not classified')).toBeNull();
+    expect(screen.getByText('Contact person').closest('.fact')).toHaveTextContent('Ana Cruz');
+    expect(screen.getByText('Contact number').closest('.fact')).toHaveTextContent('09123456789');
+    expect(screen.getByRole('link', { name: '09123456789' })).toHaveAttribute('href', 'tel:09123456789');
+    expect(screen.getByRole('tabpanel', { name: 'Report and location' })).toBeVisible();
+    expect(screen.queryByRole('tabpanel', { name: 'Response and updates' })).toBeNull();
+  });
 
   it('displays the public reference instead of its storage ID', () => {
     show([makeReport({ reference: 'RR-260005' })]);
@@ -158,12 +170,13 @@ describe('IncidentDetails', () => {
     expect(h.retry).toHaveBeenCalled();
   });
 
-  it('lists the newest rescue updates first', () => {
+  it('lists the newest rescue updates first', async () => {
     h.updates = [
       { id: 'u1', status: 'Rescue in Progress', note: 'On site', peopleRescued: 2, at: new Date('2026-10-15T08:00:00Z') },
       { id: 'u2', status: 'Resolved', note: 'Done', peopleRescued: 3, at: new Date('2026-10-15T09:00:00Z') },
     ];
     show([makeReport({ id: 'r1' })]);
+    await userEvent.click(screen.getByRole('tab', { name: 'Response and updates' }));
     const list = screen.getByRole('list');
     const items = within(list).getAllByRole('listitem');
     expect(items[0]).toHaveTextContent('Resolved');
@@ -179,6 +192,7 @@ describe('IncidentDetails', () => {
       at: new Date(Date.UTC(2026, 9, 15, 0, i)),
     }));
     show([makeReport({ id: 'r1' })]);
+    await userEvent.click(screen.getByRole('tab', { name: 'Response and updates' }));
     const items = within(screen.getByRole('list')).getAllByRole('listitem');
     expect(items).toHaveLength(5);
     expect(items[0]).toHaveTextContent('Update 49 ');
@@ -195,6 +209,7 @@ describe('IncidentDetails', () => {
       at: new Date(Date.UTC(2026, 9, 15, 0, i)),
     }));
     show([makeReport({ id: 'r1' })]);
+    await userEvent.click(screen.getByRole('tab', { name: 'Response and updates' }));
     await userEvent.click(screen.getByRole('button', { name: 'Load older updates' }));
     expect(h.loadOlder).toHaveBeenCalledTimes(1);
     h.updates = [];
@@ -205,9 +220,10 @@ describe('IncidentDetails', () => {
     expect(screen.getByText('No rescue updates yet.')).toBeInTheDocument();
   });
 
-  it('does not claim there are no rescue updates before their read finishes', () => {
+  it('does not claim there are no rescue updates before their read finishes', async () => {
     h.updatesLoading = true;
     show([makeReport({ id: 'r1' })]);
+    await userEvent.click(screen.getByRole('tab', { name: 'Response and updates' }));
     expect(screen.getByRole('status')).toHaveTextContent('Loading rescue updates');
     expect(screen.queryByText('No rescue updates yet.')).not.toBeInTheDocument();
   });

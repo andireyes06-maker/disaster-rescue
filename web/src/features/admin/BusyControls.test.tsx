@@ -38,7 +38,7 @@ it.each(['account-create', 'role', 'user-create', 'user-status', 'team-create', 
     button = screen.getByRole('button', { name: 'Create account' });
   } else if (kind === 'user-status') button = screen.getByRole('button', { name: 'Deactivate Sample Staff' });
   else if (kind === 'team-create') {
-    await user.click(screen.getByText('Create team', { selector: 'summary' }));
+    await user.click(screen.getByRole('button', { name: 'Create team' }));
     await user.type(screen.getByLabelText('New team name'), 'New Team');
     button = screen.getByRole('button', { name: 'Create team' });
   } else {

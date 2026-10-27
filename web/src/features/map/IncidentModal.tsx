@@ -1,35 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
 import IncidentDetails from '../reports/IncidentDetails';
+import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
 
-// The incident's full details over the map, so the person keeps their place on the map.
-// Escape and the close button both dismiss it; focus moves into the dialog and returns to the marker's map on close.
+// Bounded dialog with a persistent close control, focus trap and focus return.
 export default function IncidentModal({ reportId, onClose }: { reportId: string; onClose: () => void }) {
-  const closeButton = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    closeButton.current?.focus();
-    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [onClose]);
-
-  return (
-    <div className="incident-modal" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <section className="incident-modal__panel" role="dialog" aria-modal="true" aria-labelledby="incident-modal-title">
-        <header className="incident-modal__header">
-          <h2 id="incident-modal-title">Incident details</h2>
-          <div className="incident-modal__actions">
-            <Link className="btn btn--ghost" to={`/incidents/${encodeURIComponent(reportId)}`}>Open full report</Link>
-            <button ref={closeButton} type="button" className="btn btn--ghost" onClick={onClose} aria-label="Close incident details">
-              <X size={18} aria-hidden="true" />
-            </button>
-          </div>
-        </header>
-        <div className="incident-modal__body">
-          <IncidentDetails reportId={reportId} />
-        </div>
-      </section>
-    </div>
-  );
+  const content = useRef<HTMLDivElement>(null);
+  const trigger = useRef(document.activeElement as HTMLElement | null);
+  return <Dialog open onOpenChange={open => { if (!open) onClose(); }}>
+    <DialogContent ref={content} onEscapeKeyDown={event => { const dialogs = Array.from(document.querySelectorAll('[data-slot="dialog-content"][data-state="open"]')); if (dialogs.length && dialogs[dialogs.length - 1] !== content.current) event.preventDefault(); }} className="incident-modal__panel incident-modal__panel--detail" showCloseButton={false} aria-describedby={undefined} onCloseAutoFocus={event => { event.preventDefault(); if (trigger.current?.isConnected) trigger.current.focus(); }}>
+      <header className="incident-modal__header"><DialogTitle>Incident details</DialogTitle><div className="incident-modal__actions"><Link className="btn btn--ghost" to={`/incidents/${encodeURIComponent(reportId)}`}>Open full report</Link><button type="button" className="btn btn--ghost" onClick={onClose} aria-label="Close incident details"><X size={18} aria-hidden="true" /></button></div></header>
+      <div className="incident-modal__body"><IncidentDetails reportId={reportId} /></div>
+    </DialogContent>
+  </Dialog>;
 }

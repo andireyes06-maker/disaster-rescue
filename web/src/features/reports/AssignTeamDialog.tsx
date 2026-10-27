@@ -1,3 +1,4 @@
+import { useDialogPresence } from '../../components/useDialogPresence';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import MotionForm from '../../components/MotionForm';
 import { useDialogFocusReturn } from '../../components/useDialogFocusReturn';
@@ -165,6 +166,7 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
 
 export default function AssignTeamDialog({ open = true, reportId, reportLocation, onClose, onAssigned, returnFocusTo }: AssignTeamDialogProps) {
   const contentRef = useRef<HTMLDivElement>(null);
+  const present = useDialogPresence(open);
   useDialogFocusReturn(open, returnFocusTo, contentRef);
   const [state, setState] = useState<TeamsState>({ teams: [], loading: true, error: null });
   const [attempt, setAttempt] = useState(0);
@@ -194,12 +196,14 @@ export default function AssignTeamDialog({ open = true, reportId, reportLocation
   const showEmpty = !state.loading && !state.error && free.length === 0;
   const showForm = !state.loading && !state.error && free.length > 0;
 
+  if (!present) return null;
   return (
     <Dialog open={open} onOpenChange={(nextOpen) => { if (!nextOpen) { returnFocusTo?.current?.focus(); onClose(); } }}>
       <DialogContent
         ref={contentRef}
         className="assign-dialog"
-        onEscapeKeyDown={() => returnFocusTo?.current?.focus()}
+        onEscapeKeyDown={event => { event.preventDefault(); onClose(); }}
+        onKeyDownCapture={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); onClose(); } }}
         showCloseButton={false}
         onCloseAutoFocus={(e) => { if (returnFocusTo?.current) { e.preventDefault(); returnFocusTo.current.focus(); } }}
         onPointerDownOutside={(e) => e.preventDefault()}

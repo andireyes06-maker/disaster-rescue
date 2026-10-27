@@ -1,5 +1,6 @@
+import { api } from '../api/client';
 // An approximate place name for a point, the way map apps show one ("Near Commonwealth, Quezon City").
-// Uses OpenStreetMap's reverse lookup on a point rounded to about 110 m. Returns null when no name is found.
+// Uses the authenticated API queue and cache; points are rounded to about 110 m.
 
 function pick(address: Record<string, unknown>, keys: string[]): string | null {
   for (const key of keys) {
@@ -24,18 +25,7 @@ export function placeNameFrom(reply: unknown): string | null {
 
 export async function approximatePlaceName(lat: number, lng: number): Promise<string | null> {
   try {
-    const query = new URLSearchParams({
-      format: 'jsonv2',
-      lat: lat.toFixed(3),
-      lon: lng.toFixed(3),
-      zoom: '17',
-      addressdetails: '1',
-      'accept-language': 'en',
-    });
-    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?${query}`, { headers: { Accept: 'application/json' } });
-    if (!res.ok) return null;
-    return placeNameFrom(await res.json());
-  } catch {
-    return null;
-  }
+    const response = await api(`/places/reverse?lat=${lat.toFixed(3)}&lng=${lng.toFixed(3)}`, { timeoutMs: 15_000 }) as { placeName?: unknown };
+    return typeof response?.placeName === 'string' && response.placeName.trim() ? response.placeName : null;
+  } catch { return null; }
 }

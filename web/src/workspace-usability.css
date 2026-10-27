@@ -1,0 +1,112 @@
+/* Task hierarchy and account navigation. */
+.shell__side-footer { margin-top: auto; display: grid; gap: 16px; }
+.shell__side-footer .shell__side-note { margin: 0 8px; }
+.sidebar-signout { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 42px; padding: 10px 12px; border: 1px solid #ffffff35; border-radius: 8px; background: #ffffff08; color: #fff; font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+.sidebar-signout:hover { background: #ffffff18; }
+.shell .shell__account { display: flex; width: auto; gap: 16px; margin-left: auto; }
+.profile-trigger { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 4px 8px; border: 0; background: transparent; color: #34234f; cursor: pointer; font: inherit; font-size: 14px; font-weight: 550; }
+.profile-trigger > span:not(.account-avatar) { max-width: 230px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+[data-slot="dialog-content"].profile-dialog { max-width: min(500px,calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; }
+.profile-identity { display: flex; gap: 16px; padding: 20px; border-radius: 12px; background: #f1ecfa; margin: 12px 0; }
+.profile-identity > svg { color: #6d28d9; flex: none; }
+.profile-identity strong { display: block; font-size: 18px; }
+.profile-identity p { margin: 6px 0 12px; font-size: 14px; overflow-wrap: anywhere; color: #665b77; }
+.profile-password > summary { min-height: 44px; padding: 12px 0; font-size: 15px; color: #5b21b6; font-weight: 600; cursor: pointer; }
+.profile-password .change-password__form { padding: 12px 0 0; display: grid; gap: 10px; }
+.account-list-heading { display: grid; grid-template-columns: minmax(220px,1fr) 116px 210px 120px; gap: 18px; padding: 12px 20px; color: #665b77; font-size: 13px; font-weight: 550; }
+.shell .account-list .management-row { display: grid; grid-template-columns: minmax(220px,1fr) 116px 210px 120px; align-items: center; gap: 18px; }
+.account-list .management-actions { display: contents; }
+.account-status { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: #6a6077; white-space: nowrap; }
+.account-status > span { width: 7px; height: 7px; border-radius: 50%; background: #8b8196; }
+.account-status.is-active { color: #0f665c; }
+.account-status.is-active > span { background: #0f766e; }
+.account-list .management-team { min-width: 0; margin: 0; }
+.account-list .management-team > span { display: none; }
+.account-list .management-team select { width: 100%; }
+.account-no-team { color: #776b85; font-size: 13px; }
+.admin-intro { margin-bottom: 20px; }
+.admin-intro h2 { font-size: 21px; margin-bottom: 7px; }
+.admin-intro p, .admin-group-heading p { font-size: 14px; color: #665b77; line-height: 1.5; margin: 0; }
+.shell .admin-destinations { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; border: 0; margin-bottom: 32px; }
+.shell .admin-destinations > a { display: grid; grid-template-columns: 40px 1fr auto; align-items: start; gap: 12px; padding: 18px; border: 1px solid #dbd4e8; border-radius: 12px; background: #fff; }
+.admin-task-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: #ede7fa; color: #6d28d9; }
+.admin-destinations > a:nth-child(2) .admin-task-icon { background: #e6efff; color: #1d4ed8; }
+.admin-destinations > a:nth-child(3) .admin-task-icon { background: #e6f3ed; color: #0f766e; }
+.shell .admin-destinations small { margin-top: 7px; font-size: 13px; line-height: 1.5; }
+.admin-control-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.admin-group-heading { padding-bottom: 16px; border-bottom: 1px solid #d8ddec; margin-bottom: 16px; }
+.admin-group-heading h2 { font-size: 19px; margin-bottom: 6px; }
+.admin-control-group { min-width: 0; }
+.shell .admin-control-group .admin-section { margin-bottom: 14px; border-radius: 12px; }
+.shell .admin-control-group .admin-section > summary { padding: 18px 20px; min-height: 0; }
+.shell .admin-control-group .admin-section summary h2 { font-size: 16px; }
+.shell .admin-control-group .admin-section summary p { font-size: 13px; line-height: 1.5; margin-top: 5px; }
+.shell .admin-system { grid-template-columns: 1fr; padding: 0 20px 20px; }
+.shell .admin-system > section:first-child { padding: 16px; }
+@media(max-width:1300px) { .shell .admin-destinations { grid-template-columns: repeat(2,minmax(0,1fr)); } .admin-control-grid { grid-template-columns: 1fr; } }
+@media(max-width:1100px) { .account-list-heading { display: none; } .shell .account-list .management-row { grid-template-columns: minmax(160px,1fr) 110px; gap: 14px; } .account-list .management-team, .account-list .account-no-team { grid-column: 1; } .account-list .management-team > span { display: block; } }
+@media(max-width:900px) { .shell__side-footer { display: none; padding-top: 18px; } .shell__side.is-open .shell__side-footer { display: grid; } .shell__side-footer .shell__side-note { display: none; } .shell .shell__account { width: auto; } .shell .shell__top { min-height: 64px; padding-block: 8px; } }
+@media(max-width:639px) { .profile-trigger > span:not(.account-avatar) { max-width: 160px; } .shell .shell__account { gap: 8px; } .shell .admin-destinations { grid-template-columns: 1fr; } .shell .account-list .management-row { grid-template-columns: minmax(0,1fr) auto; padding: 18px 16px; } .account-status { font-size: 12px; } .account-list .management-team { width: 100%; } .account-list .management-team select { min-height: 44px; } }
+.place-label { display: inline-flex; flex-direction: column; gap: 5px; line-height: 1.5; }
+.place-label small { font-size: 12px; color: #776b85; font-weight: 400; font-variant-numeric: tabular-nums; }
+.incident-tabs { grid-column: 1/-1; display: flex; gap: 6px; padding: 5px; border: 1px solid #d8ddec; border-radius: 10px; background: #e8eaf3; }
+.incident-tabs > button { min-height: 42px; padding: 10px 18px; border: 0; border-radius: 7px; background: transparent; color: #665b77; font: inherit; font-size: 14px; font-weight: 550; cursor: pointer; }
+.incident-tabs > button[aria-selected="true"] { color: #5b21b6; background: #fff; box-shadow: 0 2px 4px #2417470d; }
+.incident-tab-panel { display: grid; gap: 18px; min-width: 0; }
+.incident-tab-panel[hidden] { display: none; }
+.incident-tab-panel > .card { padding: 24px; }
+.incident-tab-panel .updates { max-height: 380px; overflow-y: auto; overscroll-behavior: contain; padding-right: 12px; }
+.incident-modal__body .incident__back { display: none; }
+[data-slot="dialog-content"].incident-modal__panel--detail { display: flex; gap: 0; padding: 0; width: min(1120px,calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); }
+.incident-modal__panel--detail > .incident-modal__header { flex: none; padding: 14px 20px; }
+.incident-modal__panel--detail .incident-modal__body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.incident-modal__body .incident { gap: 16px; }
+.incident-modal__body .incident__heading { padding: 18px 20px; }
+.incident-modal__body .incident__heading .incident__title { font-size: 23px; }
+.incident-modal__body .incident-tabs { position: sticky; top: -16px; z-index: 5; }
+@media(max-width:899px) { .incident__actions { grid-row: 4; } .incident__content { grid-row: 5; } }
+@media(max-width:639px) { .incident-tabs > button { flex: 1; padding-inline: 8px; font-size: 13px; } .incident-tab-panel > .card { padding: 18px; } [data-slot="dialog-content"].incident-modal__panel--detail { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); } .incident-modal__header { gap: 10px; } .incident-modal__header h2 { font-size: 16px; } .incident-modal__actions .btn { font-size: 12px; padding: 8px; } }
+[data-slot="dialog-content"].team-dialog { width: min(720px,calc(100vw - 32px)); max-width: 720px; max-height: calc(100dvh - 32px); overflow-y: auto; }
+.team-dialog .ops-form { padding: 0; border: 0; box-shadow: none; width: 100%; max-width: none; background: transparent; margin: 12px 0 0; }
+.team-dialog .hq-map { overflow: hidden; border: 1px solid #d6dfee; border-radius: 12px; margin: 18px 0 0; }
+.team-dialog .hq-map > p { padding: 12px 14px; margin: 0; background: #edf3ff; color: #315b9b; font-size: 13px; }
+.selected-place { display: grid; gap: 8px; padding: 14px 16px; background: #f5f2fc; border: 1px solid #dfd6ef; border-radius: 10px; }
+.selected-place > p { margin: 0; font-size: 14px; }
+.selected-place > small { color: #776b85; font-size: 12px; line-height: 1.5; }
+.team-dialog .team-create-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; }
+.team-create-actions > :first-child { margin-right: auto; }
+@media(max-width:639px) { .team-create-actions > :first-child { flex-basis: 100%; margin-right: 0; } .team-create-actions > .btn { min-height: 44px; } }
+.map-key { margin: 18px 0; border: 1px solid #d8ddec; border-radius: 12px; background: #fff; padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.map-key > header { grid-column: 1/-1; }
+.map-key header p { font-size: 13px; color: #665b77; margin: 6px 0 0; line-height: 1.5; }
+.map-key__group h2 { font-size: 14px; margin-bottom: 12px; }
+.map-key__group ul { display: flex; flex-wrap: wrap; gap: 14px 20px; padding: 0; margin: 0; list-style: none; }
+.map-key__group li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: #4f445e; }
+.incident-pin { position: relative; width: 36px; height: 36px; border: 1px solid #bba6da; border-radius: 10px; display: grid; place-items: center; color: #4d277e; background: #fff; box-shadow: 0 2px 5px #24174730; }
+.incident-pin > .map-marker { position: absolute; width: 14px; height: 14px; right: -4px; bottom: -4px; }
+.incident-pin--legend { width: 32px; height: 32px; box-shadow: none; background: #f5f1fc; }
+.map-key .map-marker { flex: none; }
+.map-place-inspector { display: flex; gap: 14px; align-items: flex-start; padding: 20px; background: #fff; border: 1px solid #d3c5e9; border-radius: 12px; margin-top: 14px; }
+.map-place-inspector > svg { color: #6d28d9; flex: none; }
+.map-place-inspector > div { display: grid; gap: 9px; flex: 1; }
+.map-place-inspector strong { font-size: 16px; }
+.map-place-inspector small { color: #776b85; font-size: 12px; }
+.map-place-inspector a { font-size: 13px; text-decoration: underline; }
+.selected-location-pin > span { display: block; width: 22px; height: 22px; background: #6d28d9; border: 4px solid #fff; border-radius: 50%; box-shadow: 0 0 0 2px #6d28d9,0 2px 8px #24174745; }
+@media(max-width:639px) { .map-key { grid-template-columns: 1fr; padding: 16px; } .map-key__group ul { gap: 12px; } .map-place-inspector { padding: 16px; gap: 10px; } }
+.account-list .management-identity { min-width: 0; }
+.account-list .management-identity small { display: block; min-width: 0; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.place-label { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.incident-record .fact[data-field="Pinned location"], .incident-record .fact[data-field="Assigned teams"], .incident-record .fact[data-field="Assigned team"] { grid-column: 1/-1; }
+[data-slot="dialog-content"].team-dialog--create { padding: 0; gap: 0; display: flex; flex-direction: column; overflow: hidden; }
+.team-dialog__header { display: flex; align-items: flex-start; gap: 14px; padding: 20px 24px; background: #241747; color: #fff; flex: none; }
+.team-dialog__header [data-slot="dialog-title"] { color: #fff; margin: 0; font-size: 22px; line-height: 1.3; }
+.team-dialog__header [data-slot="dialog-description"] { color: #ded2ef; margin: 8px 0 0; font-size: 13px; line-height: 1.5; }
+.team-dialog--create .ops-form { min-height: 0; overflow-y: auto; padding: 20px 24px; margin: 0; display: grid; gap: 12px; }
+.team-dialog--create .ops-form > label { margin: 0; }
+.team-dialog--create .hq-map { margin: 2px 0 0; }
+.team-dialog--create .team-create-actions { margin-top: 4px; padding-top: 16px; }
+@media(max-width:639px) { .team-dialog__header { padding: 18px; gap: 12px; } .team-dialog--create .ops-form { padding: 18px; gap: 10px; } .team-dialog__header [data-slot="dialog-title"] { font-size: 20px; } }
+.incident-map-page { position: relative; }
+.map-place-inspector { position: absolute; z-index: 5; bottom: 18px; left: 18px; width: min(440px,calc(100% - 36px)); margin: 0; box-shadow: 0 8px 30px #24174720; }
+@media(max-width:639px) { .map-place-inspector { bottom: 12px; left: 12px; width: calc(100% - 24px); } }

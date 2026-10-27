@@ -1,11 +1,12 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, ClipboardList, MapPin, type LucideIcon } from 'lucide-react';
+import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, ClipboardList, MapPin, LogOut, ChevronDown, UserRound, type LucideIcon } from 'lucide-react';
 import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
 import NotificationBell from '../features/resident/NotificationBell';
 import ChangePassword from '../features/account/ChangePassword';
 import Banner from '../components/calm/Banner';
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 
 interface NavItem {
   to: string;
@@ -89,24 +90,24 @@ export default function AppShell({ title, children }: AppShellProps) {
             </NavLink>;
           })}
         </nav>
-        <p className="shell__side-note">Disaster reporting &amp; monitoring</p>
+        <div className="shell__side-footer"><p className="shell__side-note">Disaster reporting &amp; monitoring</p><button type="button" className="sidebar-signout" onClick={onSignOut}><LogOut size={17} aria-hidden="true" />Sign out</button></div>
       </aside>
       <div className="shell__body">
         <header className="shell__top">
           <div className="shell__account">
+          <Dialog>
+            <DialogTrigger asChild><button type="button" className="profile-trigger" aria-label={`Open profile for ${user?.displayName || user?.email || 'your account'}`}><span className="account-avatar" aria-hidden="true">{(user?.displayName || user?.email || 'R').slice(0, 1).toUpperCase()}</span><span>{user?.displayName || user?.email}</span><ChevronDown size={15} aria-hidden="true" /></button></DialogTrigger>
+            <DialogContent className="profile-dialog"><DialogTitle>Your profile</DialogTitle><DialogDescription>Review your account and manage your password.</DialogDescription><section className="profile-identity"><UserRound size={25} aria-hidden="true" /><div><strong>{user?.displayName || user?.email}</strong><p>{user?.email}</p><span className="badge badge--neutral">{role === 'admin' ? 'Administrator' : role === 'responder' ? 'Rescuer' : role}</span></div></section><details className="profile-password"><summary>Change password</summary><ChangePassword embedded /></details></DialogContent>
+          </Dialog>
           {user && <NotificationBell key={user.uid} uid={user.uid} reportHref={(id) => role === 'responder' ? `/assignments/${encodeURIComponent(id)}` : `/incidents/${encodeURIComponent(id)}`} />}
-          <span className="account-avatar" aria-hidden="true">{(user?.displayName || user?.email || 'R').slice(0, 1).toUpperCase()}</span>
-          <span>{user?.displayName || user?.email} ({role})</span>
-          <ChangePassword />
-          <button type="button" className="btn btn--ghost" onClick={onSignOut}>Sign out</button>
           </div>
         </header>
         <main className="shell__main" id="main-content" tabIndex={-1}>
           {signOutError && <Banner tone="error" role="alert">{signOutError}</Banner>}
-          <header className={`page-band${title === 'Incident details' || title === 'Assignment' ? ' page-band--incident' : ''}`}>
+          <div className={`page-band${title === 'Incident details' || title === 'Assignment' ? ' page-band--incident' : ''}`}>
             <span className="page-band__icon" aria-hidden="true"><PageIcon size={26} /></span>
             <div><h1>{title}</h1><p className="shell__description">{DESCRIPTIONS[title]}</p></div>
-          </header>
+          </div>
           {children ?? <Outlet />}
         </main>
       </div>

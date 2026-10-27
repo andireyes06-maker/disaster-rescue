@@ -1,3 +1,4 @@
+import PlaceLabel from '../../components/PlaceLabel';
 import { teamsOf } from '../../types/domain';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
@@ -42,7 +43,7 @@ export function ClosedReportDetail({ report, updates, historyError, historyLoadi
         <div className="fact"><dt>Location</dt><dd>
           {hasLoc ? (
             <>
-              {report.placeName || report.area || 'Place not named'}{' '}
+              <PlaceLabel point={loc} saved={report.placeName} />{' '}
               <a className="touch-link" href={mapsUrl(loc)} target="_blank" rel="noopener noreferrer">Open in maps</a>
             </>
           ) : 'Not available'}

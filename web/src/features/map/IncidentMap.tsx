@@ -1,15 +1,19 @@
+import PlaceLabel from '../../components/PlaceLabel';
+import MapViewport from '../../components/MapViewport';
+import { DisasterSymbol, disasterSymbolHtml } from './disasterSymbols';
+import { MapPin, X } from 'lucide-react';
 import ReportWindow from '../../components/ReportWindow';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
 import EmptyState from '../../components/calm/EmptyState';
 import MapTileNotice, { useMapTiles } from '../../components/MapTileNotice';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'react';
 import IncidentModal from './IncidentModal';
-import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useReports } from '../reports/useReports';
 import { markerStyle } from './markerStyle';
-import { PRIORITIES, REPORT_STATUSES, REPORT_TYPES, type Report } from '../../types/domain';
+import { PRIORITIES, REPORT_STATUSES, REPORT_TYPES, type Report, type GeoPoint } from '../../types/domain';
 import Banner from '../../components/calm/Banner';
 import { Skeleton } from '../../components/calm/Skeleton';
 
@@ -48,12 +52,16 @@ function iconFor(report: Report): L.DivIcon {
     className: 'map-marker-wrap',
     iconSize: [44, 44],
     iconAnchor: [22, 22],
-    html: `<span class="map-marker map-marker--${shape}" style="--marker-color: ${color}"></span>`
+    html: `<span class="incident-pin">${disasterSymbolHtml(report.type)}<span class="map-marker map-marker--${shape}" style="--marker-color: ${color}"></span></span>`
       + `<span class="map-marker__label">${label}</span>`,
   });
 }
 
-const DEFAULT_CENTER: [number, number] = [0, 0];
+const DEFAULT_CENTER: [number, number] = [14.5995, 120.9842];
+function PinSelection({ onSelect }: { onSelect: (point: GeoPoint) => void }) {
+  useMapEvents({ click: event => onSelect({ lat: event.latlng.lat, lng: event.latlng.lng }) });
+  return null;
+}
 
 function FitReports({ reports }: { reports: Report[] }) {
   const map = useMap();
@@ -69,6 +77,7 @@ function FitReports({ reports }: { reports: Report[] }) {
 export default function IncidentMap() {
   const tiles = useMapTiles();
   const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useReports();
+  const [selection, setSelection] = useState<{ point: GeoPoint; name?: string } | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
   const closeModal = useCallback(() => setOpenId(null), []);
   const [filters, setFilters] = useState<Filters>({ type: '', priority: '', status: '' });
@@ -106,12 +115,11 @@ export default function IncidentMap() {
         <FilterSelect label="Priority" value={filters.priority} onChange={set('priority')} options={PRIORITIES} />
         <FilterSelect label="Status" value={filters.status} onChange={set('status')} options={REPORT_STATUSES} />
       </div>
-      <div className="map-legend" role="group" aria-label="Map legend">
-        <strong>{visible.length} located report{visible.length === 1 ? '' : 's'} shown</strong>
-        <ul className="map-legend__priorities" aria-label="Priority colors">
-          {PRIORITIES.map((priority) => <li key={priority}><span className={`badge badge--${priority}`}>{cap(priority)}</span></li>)}
-        </ul>
-      </div>
+      <section className="map-key" aria-label="Map legend">
+        <header><strong>{visible.length} located report{visible.length === 1 ? '' : 's'} shown</strong><p>Disaster icons identify the incident. Colored shapes show priority. Open a report to see its response status.</p></header>
+        <div className="map-key__group"><h2>Disaster type</h2><ul aria-label="Disaster type symbols">{REPORT_TYPES.map(type => <li key={type}><span className="incident-pin incident-pin--legend"><DisasterSymbol type={type} /></span>{cap(type)}</li>)}</ul></div>
+        <div className="map-key__group"><h2>Priority</h2><ul aria-label="Priority colors and shapes">{PRIORITIES.map(priority => { const style = markerStyle({ priority }); return <li key={priority}><span className={`map-marker map-marker--${style.shape}`} style={{ '--marker-color': style.color } as CSSProperties} />{style.label}</li>; })}</ul></div>
+      </section>
       {visible.length === 0 && (
         <EmptyState
           title={located.length ? 'No reports match these filters' : 'No located reports yet'}
@@ -121,8 +129,9 @@ export default function IncidentMap() {
       )}
       {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
       <div className="incident-map">
-        <MapContainer center={center} zoom={located.length ? 13 : 2} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
-          <FitReports reports={visible} />
+        <MapContainer center={center} zoom={located.length ? 13 : 11} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+          <FitReports reports={visible} /><MapViewport point={selection?.point} /><PinSelection onSelect={point => setSelection({ point })} />
+          {selection && <Marker position={[selection.point.lat, selection.point.lng]} interactive={false} keyboard={false} icon={L.divIcon({ className: 'selected-location-pin', html: '<span></span>', iconSize: [24, 24], iconAnchor: [12, 12] })} />}
           <TileLayer
             key={tiles.key} eventHandlers={tiles.events}
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -135,7 +144,7 @@ export default function IncidentMap() {
               icon={iconFor(r)}
               title={`Report ${r.id}, ${cap(r.type)}, ${markerStyle(r).label}, ${r.status}`}
               eventHandlers={{
-                click: () => setOpenId(r.id),
+                click: () => { setSelection({ point: r.location!, name: r.placeName }); setOpenId(r.id); },
                 keydown: (event) => {
                   const key = (event as L.LeafletKeyboardEvent).originalEvent;
                   if (key.key !== 'Enter' && key.key !== ' ') return;
@@ -147,6 +156,7 @@ export default function IncidentMap() {
           ))}
         </MapContainer>
       </div>
+      {selection && <aside className="map-place-inspector" aria-label="Selected map location"><MapPin size={23} aria-hidden="true" /><div><strong>Selected place</strong><PlaceLabel point={selection.point} saved={selection.name} /><small>Approximate address · © OpenStreetMap contributors</small><a href={`https://www.google.com/maps/search/?api=1&query=${selection.point.lat},${selection.point.lng}`} target="_blank" rel="noopener noreferrer">Open in Google Maps</a></div><button type="button" className="btn btn--ghost" aria-label="Clear selected location" onClick={() => setSelection(null)}><X size={17} aria-hidden="true" /></button></aside>}
       {openId && <IncidentModal reportId={openId} onClose={closeModal} />}
     </div>
   );

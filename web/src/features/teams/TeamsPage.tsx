@@ -1,4 +1,9 @@
 import './teams.css';
+import MapTileNotice, { useMapTiles } from '../../components/MapTileNotice';
+import { ShieldCheck } from 'lucide-react';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '../../components/ui/dialog';
+import MapViewport from '../../components/MapViewport';
+import PlaceLabel from '../../components/PlaceLabel';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import MotionForm from '../../components/MotionForm';
 import { approximatePlaceName } from '../../lib/placeName';
@@ -126,7 +131,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
       </MotionForm>
       </details>
       </div>
-      {editingLocation && <TeamLocationEditor team={team} onSaved={(t) => { setEditingLocation(false); onSaved(t); }} onError={onError} />}
+      <Dialog open={editingLocation} onOpenChange={setEditingLocation}><DialogContent className="team-dialog" aria-describedby={undefined}><DialogTitle>Set headquarters for {team.name}</DialogTitle><TeamLocationEditor team={team} onSaved={(t) => { setEditingLocation(false); onSaved(t); }} onError={onError} /></DialogContent></Dialog>
     </li>
   );
 }
@@ -139,13 +144,16 @@ function HqPicker({ onPick }: { onPick: (p: { lat: number; lng: number }) => voi
 
 // Team headquarters: one map, two ways to place it (current location or a tap on the map), then Save.
 function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (text: string) => void; onError: (text: string) => void }) {
+  const tiles = useMapTiles();
   const [draft, setDraft] = useState<GeoPoint | null>(team.hq ?? null);
   const [mode, setMode] = useState<'idle' | 'pick'>('idle');
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
+  const [saveError, setSaveError] = useState('');
   const center: [number, number] = draft ? [draft.lat, draft.lng] : [14.5995, 120.9842];
 
   async function useCurrent() {
+    if (busy) return;
     setBusy(true);
     setNotice('');
     try {
@@ -159,13 +167,15 @@ function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (
   }
 
   async function save() {
-    if (!draft) return;
+    if (!draft || busy) return;
+    setSaveError('');
     setBusy(true);
     try {
       const hqName = await approximatePlaceName(draft.lat, draft.lng);
       await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq: draft, hqName } });
       onSaved('Location saved.');
     } catch {
+      setSaveError('Could not save the location. Try again.');
       onError('Could not save the location. Try again.');
     } finally {
       setBusy(false);
@@ -173,31 +183,35 @@ function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (
   }
 
   return (
-    <section className="team-hq" aria-labelledby={`hq-title-${team.id}`}>
+    <section data-map-tile-surface className="team-hq" aria-labelledby={`hq-title-${team.id}`}>
       <h3 id={`hq-title-${team.id}`}>Location of {team.name}</h3>
       <div className="actions__row">
         <button type="button" className="btn btn--ghost" disabled={busy} onClick={() => void useCurrent()}>Use my current location</button>
         <button type="button" className="btn btn--ghost" aria-pressed={mode === 'pick'} disabled={busy} onClick={() => setMode('pick')}>Pick on a map</button>
       </div>
       {notice && <p className="field-hint" role="status">{notice}</p>}
+      {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
       <div className="hq-map" role="region" aria-label={`Map for ${team.name} location`}>
         <p className="field-hint">{mode === 'pick' ? 'Tap the map to place the location.' : 'Use your location or pick a place on the map.'}</p>
         <MapContainer key={team.id} center={center} zoom={14} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
-          <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
+          <MapViewport point={draft} /><TileLayer key={tiles.key} eventHandlers={tiles.events} url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
           <HqPicker onPick={(p) => { if (mode === 'pick') { setDraft({ lat: p.lat, lng: p.lng }); setMode('idle'); } }} />
           {draft && <Marker position={[draft.lat, draft.lng]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
         </MapContainer>
       </div>
-      <p className="field-hint">{draft ? 'Location selected. Save to set it.' : 'No location selected yet.'}</p>
+      <div className="selected-place">{draft ? <PlaceLabel point={draft} saved={draft.lat === team.hq?.lat && draft.lng === team.hq?.lng ? team.hqName : null} /> : <p>No headquarters selected.</p>}<small>Place names are approximate. The pin sets the exact headquarters.</small></div>
+      {saveError && <Banner tone="error" role="alert">{saveError}</Banner>}
       <div className="actions__row">
-        <button type="button" className="btn" disabled={busy || !draft} aria-busy={busy} onClick={() => void save()}>Save location</button>
+        <button type="button" className="btn" aria-disabled={busy || !draft} aria-busy={busy} onClick={() => void save()}>Save location</button>
       </div>
     </section>
   );
 }
 
 export default function TeamsPage() {
+  const tiles = useMapTiles();
   const [query, setQuery] = useState('');
+  const [creating, setCreating] = useState(false);
   const [availability, setAvailability] = useState('');
   const [teams, setTeams] = useState<Team[] | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -238,6 +252,7 @@ export default function TeamsPage() {
       reset({ name: '' });
       setNewHq(null);
       setHqNotice('');
+      setCreating(false);
       setMessage({ kind: 'ok', text: 'Team created.' });
       await load();
     } catch (err) {
@@ -252,33 +267,38 @@ export default function TeamsPage() {
   return (
     <div className="teams-workspace">
       {teams && <dl className="analytics-summary"><div><dt>Rescue teams</dt><dd>{teams.length}</dd></div><div><dt>Available</dt><dd>{teams.filter((team) => !team.busy).length}</dd></div><div><dt>On assignment</dt><dd>{teams.filter((team) => team.busy).length}</dd></div></dl>}
-      <div className="management-toolbar"><div><h2>Rescue teams{teams ? ` (${teams.length})` : ''}</h2><p>Availability updates as teams are assigned to rescues.</p></div></div>
-      <details className="management-create"><summary className="btn">Create team</summary>
-      <MotionForm className="card ops-form" onSubmit={handleSubmit(create)} noValidate aria-label="Create team">
+      <div className="management-toolbar"><div><h2>Rescue teams{teams ? ` (${teams.length})` : ''}</h2><p>Availability updates as teams are assigned to rescues.</p></div><button type="button" className="btn" onClick={() => { setMessage(null); tiles.retry(); setCreating(true); }}>Create team</button></div>
+      <Dialog open={creating} onOpenChange={open => { if (!busy) setCreating(open); }}><DialogContent className="team-dialog team-dialog--create" showCloseButton={false} onEscapeKeyDown={event => { if (busy) event.preventDefault(); }}>
+      <header className="team-dialog__header"><span className="response-dialog__icon"><ShieldCheck size={24} aria-hidden="true" /></span><div><DialogTitle>Create a rescue team</DialogTitle><DialogDescription>Name the team and pin its headquarters. Headquarters can also be set later.</DialogDescription></div></header>
+      <MotionForm data-map-tile-surface className="card ops-form" onSubmit={handleSubmit(create)} noValidate aria-label="Create team">
         <RequiredNote /><label htmlFor="new-team">New team name<RequiredMark /></label>
-        <input id="new-team" aria-required="true" maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'new-team-error' : undefined} />
+        <input id="new-team" aria-required="true" readOnly={busy} maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'new-team-error' : undefined} />
         {errors.name && <FieldError id="new-team-error">{errors.name.message}</FieldError>}
         <label htmlFor="new-team-kind">Team identity</label>
-        <select id="new-team-kind" value={newKind} onChange={(e) => setNewKind(e.target.value)}>
+        <select id="new-team-kind" disabled={busy} value={newKind} onChange={(e) => setNewKind(e.target.value)}>
           {['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
         </select>
         {hqNotice && <p className="field-hint" role="status">{hqNotice}</p>}
-        <div className="hq-map" role="region" aria-label="Map for the new team headquarters">
-          <p className="field-hint">{newHq ? 'Headquarters selected.' : 'Click the map to place the headquarters.'}</p>
+        {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
+      <div className="hq-map" role="region" aria-label="Map for the new team headquarters">
+          <p className="field-hint">Click the map to place the headquarters.</p>
           <MapContainer center={newHq ? [newHq.lat, newHq.lng] : [14.5995, 120.9842]} zoom={13} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
-            <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
-            <HqPicker onPick={(p) => { setNewHq({ lat: p.lat, lng: p.lng }); setHqNotice(''); }} />
+            <MapViewport point={newHq} /><TileLayer key={tiles.key} eventHandlers={tiles.events} url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
+            <HqPicker onPick={(p) => { if (busy) return; setNewHq({ lat: p.lat, lng: p.lng }); setHqNotice(''); }} />
             {newHq && <Marker position={[newHq.lat, newHq.lng]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
           </MapContainer>
         </div>
-        <div className="actions__row">
-          <button type="button" className="btn btn--ghost" onClick={async () => { try { setNewHq(await currentPosition()); setHqNotice('Headquarters captured from your current location.'); } catch { setHqNotice('Could not read your location. Allow location and try again, or create the team without headquarters.'); } }}>Use my current location as headquarters</button>
+        <div className="selected-place">{newHq ? <PlaceLabel point={newHq} /> : <p>No headquarters selected yet.</p>}<small>Place names are approximate. The pin sets the exact headquarters.</small></div>
+        {message?.kind === 'error' && <Banner tone="error" role="alert">{message.text}</Banner>}
+        <div className="actions__row team-create-actions">
+          <button type="button" className="btn btn--ghost" aria-disabled={busy} onClick={async () => { if (busy) return; try { setNewHq(await currentPosition()); setHqNotice('Headquarters captured from your current location.'); } catch { setHqNotice('Could not read your location. Allow location and try again, or create the team without headquarters.'); } }}>Use my current location as headquarters</button>
+          <button type="button" className="btn btn--ghost" aria-disabled={busy} onClick={() => { if (!busy) setCreating(false); }}>Cancel</button>
           <button type="submit" className="btn" aria-disabled={busy || !newName.trim()} aria-busy={busy}>Create team</button>
         </div>
       </MotionForm>
-      </details>
+      </DialogContent></Dialog>
 
-      {message && (message.kind === 'ok'
+      {message && !creating && (message.kind === 'ok'
         ? <Banner tone="info" role="status">{message.text}</Banner>
         : <Banner tone="error" role="alert">{message.text}</Banner>)}
       {loadError && <Banner tone="error" role="alert">{loadError} <button className="btn btn--ghost" type="button" onClick={load}>Try again</button></Banner>}

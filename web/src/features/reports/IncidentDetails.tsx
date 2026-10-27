@@ -1,3 +1,4 @@
+import { useDialogPresence } from '../../components/useDialogPresence';
 import { TYPE_CLASS, TYPE_ICONS } from './IncidentPreview';
 import { CircleHelp, Camera, Check, CircleDot, Radio } from 'lucide-react';
 import type { ReportType } from '../../types/domain';
@@ -24,6 +25,7 @@ import ActivityHistory, { ActivityNote } from '../../components/calm/ActivityHis
 import { resolvePhotoUrl } from '../../lib/photos';
 import PhotoImage from '../../components/PhotoImage';
 import EmptyState from '../../components/calm/EmptyState';
+import PlaceLabel from '../../components/PlaceLabel';
 
 const IncidentLocation = lazy(() => import('./IncidentLocation'));
 
@@ -47,7 +49,7 @@ interface Message {
 
 function Fact({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="fact">
+    <div className="fact" data-field={label}>
       <dt>{label}</dt>
       <dd>{children}</dd>
     </div>
@@ -190,6 +192,7 @@ function IncidentView({ id }: IncidentViewProps) {
   const teamNames = useAssignedTeamNames(teamIds);
   const byId = useReportsByIds(report ? report.possibleDuplicates || [] : []);
   const [busy, setBusy] = useState(false);
+  const [view, setView] = useState<'report' | 'response'>('report');
   const actionInFlight = useRef(false);
   const [pendingAction, setPendingAction] = useState<string | null>(null);
   const rejectTrigger = useRef<HTMLButtonElement>(null);
@@ -198,6 +201,8 @@ function IncidentView({ id }: IncidentViewProps) {
   const [rejecting, setRejecting] = useState(false);
   const [photoIndex, setPhotoIndex] = useState<number | null>(null);
   const [photoOpen, setPhotoOpen] = useState(false);
+  const photoPresent = useDialogPresence(photoOpen);
+  const rejectPresent = useDialogPresence(rejecting);
   const photoTrigger = useRef<HTMLButtonElement>(null);
   const photoContent = useRef<HTMLDivElement>(null);
   const rejectContent = useRef<HTMLDivElement>(null);
@@ -271,7 +276,7 @@ function IncidentView({ id }: IncidentViewProps) {
           </span>
           {report.type.charAt(0).toUpperCase() + report.type.slice(1)} report
         </h2>
-        <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /><VerifiedBadge verified={report.verified} /></div>
+        <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} />{!(report.status === 'Verified' && report.verified) && <VerifiedBadge verified={report.verified} />}</div>
         <p className="incident__reference">Report {report.reference || report.id} · {formatTime(report.createdAt)}</p>
       </header>
 
@@ -281,15 +286,19 @@ function IncidentView({ id }: IncidentViewProps) {
           : <Banner tone="error" role="alert">{message.text}</Banner>
       )}
 
+      <div className="incident-tabs" role="tablist" aria-label="Incident sections">{(['report', 'response'] as const).map(tab => <button type="button" role="tab" key={tab} id={`incident-tab-${tab}-${id}`} aria-selected={view === tab} aria-controls={`incident-panel-${tab}-${id}`} tabIndex={view === tab ? 0 : -1} onClick={() => setView(tab)} onKeyDown={event => { if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return; event.preventDefault(); const next = event.key === 'Home' ? 'report' : event.key === 'End' ? 'response' : tab === 'report' ? 'response' : 'report'; setView(next); document.getElementById(`incident-tab-${next}-${id}`)?.focus(); }}>{tab === 'report' ? 'Report and location' : 'Response and updates'}</button>)}</div>
       <div className="incident__content">
+      <div role="tabpanel" id={`incident-panel-report-${id}`} aria-labelledby={`incident-tab-report-${id}`} hidden={view !== 'report'} className="incident-tab-panel">
       <section className="card incident-record" aria-label="Report details">
         <h2>Reported incident</h2>
         <p className="plain incident__description">{report.description}</p>
         <dl>
-          <Fact label="Classification"><span className="plain">{report.classification || 'Not classified'}</span></Fact>
-          <Fact label="Address"><span className="plain">{report.addressText || 'No address given'}</span></Fact>
-          {loc && Number.isFinite(loc.lat) && <Fact label="Location"><span className="plain">{report.placeName || report.area || 'Place not named'}</span></Fact>}
-          <Fact label="Contact"><span className="plain">{report.contact?.name || (!report.contact?.phone ? 'No contact provided' : '')}{' '}{report.contact?.phone && <a href={`tel:${report.contact.phone}`}>{report.contact.phone}</a>}</span></Fact>
+          <Fact label="Incident type"><span className="plain">{report.type.charAt(0).toUpperCase() + report.type.slice(1)}</span></Fact>
+          {report.classification?.trim() && <Fact label="Additional classification"><span className="plain">{report.classification}</span></Fact>}
+          <Fact label="Resident landmark"><span className="plain">{report.addressText || 'No address given'}</span></Fact>
+          {loc && Number.isFinite(loc.lat) && <Fact label="Pinned location"><PlaceLabel point={loc} saved={report.placeName} /></Fact>}
+          <Fact label="Contact person"><span className="plain">{report.contact?.name || report.reporterName || 'Not provided'}</span></Fact>
+          <Fact label="Contact number">{(report.contact?.phone || report.reporterPhone) ? <a href={`tel:${report.contact?.phone || report.reporterPhone}`}>{report.contact?.phone || report.reporterPhone}</a> : 'Not provided'}</Fact>
           {teamIds.length > 0 && <Fact label={teamIds.length > 1 ? 'Assigned teams' : 'Assigned team'}><span className="plain">{teamNames?.join(', ') ?? 'Rescue team assigned'}</span></Fact>}
           {report.rejectionReason && <Fact label="Rejection reason"><span className="plain">{report.rejectionReason}</span></Fact>}
         </dl>
@@ -307,9 +316,9 @@ function IncidentView({ id }: IncidentViewProps) {
             ))}
           </ul>
         )}
-        {photoIndex !== null && report.photos?.[photoIndex] && (
+        {photoPresent && photoIndex !== null && report.photos?.[photoIndex] && (
           <Dialog open={photoOpen} onOpenChange={setPhotoOpen}>
-            <DialogContent ref={photoContent} className="photo-viewer">
+            <DialogContent ref={photoContent} className="photo-viewer" onEscapeKeyDown={event => { event.preventDefault(); setPhotoOpen(false); }} onKeyDownCapture={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); setPhotoOpen(false); } }}>
               <DialogTitle>Photo {photoIndex + 1} of {report.photos.length}</DialogTitle>
               <img src={resolvePhotoUrl(report.photos[photoIndex].url)} alt={`Incident photo ${photoIndex + 1}`} />
               <div className="photo-viewer__nav">
@@ -323,7 +332,9 @@ function IncidentView({ id }: IncidentViewProps) {
         )}
       </section>
 
-      {loc && Number.isFinite(loc.lat) && Number.isFinite(loc.lng) && <Suspense fallback={<Skeleton label="Loading incident map"><SkeletonRows rows={1} height={240} /></Skeleton>}><IncidentLocation key={`${id}-${loc.lat}-${loc.lng}`} location={loc} name={report.placeName || report.area || report.addressText || 'Place not named'} radius={report.affectedRadiusM || 500} /></Suspense>}
+      {loc && Number.isFinite(loc.lat) && Number.isFinite(loc.lng) && <Suspense fallback={<Skeleton label="Loading incident map"><SkeletonRows rows={1} height={240} /></Skeleton>}><IncidentLocation key={`${id}-${loc.lat}-${loc.lng}`} location={loc} name={report.placeName || ''} radius={report.affectedRadiusM || 500} /></Suspense>}
+      </div>
+      <div role="tabpanel" id={`incident-panel-response-${id}`} aria-labelledby={`incident-tab-response-${id}`} hidden={view !== 'response'} className="incident-tab-panel">
       <section className="card incident-progress" aria-labelledby="progress-title">
         <h2 id="progress-title">Progress</h2>
         <StatusProgress status={report.status} />
@@ -339,7 +350,7 @@ function IncidentView({ id }: IncidentViewProps) {
         {updatesState.loading && updatesState.updates.length === 0 && <Skeleton label="Loading rescue updates"><SkeletonRows rows={3} height={52} /></Skeleton>}
         {!updatesState.loading && !updatesState.error && updatesState.updates.length === 0 && <p>No rescue updates yet.</p>}
         {updatesState.updates.length > 0 && (
-          <ActivityHistory
+          <ActivityHistory scrollable
             updates={updatesState.updates}
             hasMore={updatesState.hasMore}
             onLoadOlder={updatesState.loadOlder}
@@ -354,6 +365,7 @@ function IncidentView({ id }: IncidentViewProps) {
         )}
       </section>
 
+      </div>
       {candidates.length > 0 && (
         <DuplicateBanner report={report} candidates={candidates} canAct={canAct} busy={busy}
           onMark={(dupId) => run('duplicate', { duplicateOf: dupId }, 'Report marked as a duplicate.')} />
@@ -404,7 +416,7 @@ function IncidentView({ id }: IncidentViewProps) {
             </div>
           )}
           <div className="actions__row">
-            <label htmlFor="classification-input">Classification<RequiredMark /></label>
+            <p className="field-hint">Additional classification is optional for a report. Use it for a more specific incident category.</p><label htmlFor="classification-input">Classification<RequiredMark /></label>
             <input id="classification-input" aria-required="true" readOnly={busy} maxLength={100} value={classification}
               onChange={(e) => setClassification(e.target.value)} />
             <button type="button" className="btn" disabled={!classification.trim()} aria-disabled={busy} aria-busy={busy}
@@ -419,10 +431,11 @@ function IncidentView({ id }: IncidentViewProps) {
           onAssigned={() => setMessage({ kind: 'ok', text: 'Rescue team assigned.' })} />
       )}
 
-      {canAct && (
+      {canAct && rejectPresent && (
         <Dialog open={rejecting} onOpenChange={(open) => { if (!open) { rejectTrigger.current?.focus(); setRejecting(false); } }}>
           <DialogContent ref={rejectContent} showCloseButton={false} aria-describedby={undefined}
-            onEscapeKeyDown={() => rejectTrigger.current?.focus()}
+            onEscapeKeyDown={event => { event.preventDefault(); setRejecting(false); }}
+            onKeyDownCapture={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); setRejecting(false); } }}
             onCloseAutoFocus={(e) => { e.preventDefault(); rejectTrigger.current?.focus(); }}
             onPointerDownOutside={(e) => e.preventDefault()} onInteractOutside={(e) => e.preventDefault()}>
             <DialogTitle>Reject this report</DialogTitle><RequiredNote />

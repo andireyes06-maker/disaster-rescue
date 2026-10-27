@@ -211,19 +211,21 @@ export default function UsersPage() {
         <p className="management-result-count" role="status">Showing {visibleUsers?.length} of {users.length} accounts</p>
         {visibleUsers?.length === 0 && <EmptyState title={users.length ? 'No matching accounts' : 'No accounts yet'} body={users.length ? 'Try a different name or role.' : 'Create a staff account to grant access to your team.'} action={users.length ? <button type="button" className="btn btn--ghost" onClick={() => { setQuery(''); setRoleFilter(''); document.getElementById('account-search')?.focus(); }}>Clear account filters</button> : undefined} />}
       </>}
-      {visibleUsers && visibleUsers.length > 0 && (
-        <ul className="management-list" aria-label="Users">
+      {visibleUsers && visibleUsers.length > 0 && (<>
+        <div className="account-list-heading" aria-hidden="true"><span>Account</span><span>Status</span><span>Team membership</span><span>Account access</span></div>
+        <ul className="management-list account-list" aria-label="Users">
           {visibleUsers.map((u) => (
             <li key={u.uid} className="management-row">
               <div className="management-identity">
                 <span className="identity-mark" data-role={u.role} aria-hidden="true">{(u.name || u.email || '?').trim().split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase()}</span>
                 <strong>{u.name || u.email}</strong>
-                <small>{u.email || u.uid}</small>
+                <small title={u.email || undefined}>{u.email || 'Email not available'}</small>
                 <span className="badge badge--neutral">{u.role}</span>
               </div>
               <div className="management-actions">
-                <span>{u.active ? 'Active' : 'Deactivated'}</span>
+                <span className={`account-status${u.active ? ' is-active' : ''}`}><span aria-hidden="true" />{u.active ? 'Active' : 'Deactivated'}</span>
                 {TEAM_ROLES.has(u.role) && u.uid !== user?.uid && <label className="management-team"><span>Team</span><select aria-label={`Team for ${u.name || u.email}`} value={u.team ?? ''} disabled={busy} onChange={e => askTeamChange(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select></label>}
+                {(!TEAM_ROLES.has(u.role) || u.uid === user?.uid) && <span className="account-no-team">{TEAM_ROLES.has(u.role) ? (teams.find(t => t.id === u.team)?.name || 'No team') : 'Not applicable'}</span>}
                 {u.uid === user?.uid ? <span className="field-hint">Your account</span> : <button type="button" className="btn btn--ghost" aria-disabled={busy} aria-busy={busy}
                   aria-label={`${u.active ? 'Deactivate' : 'Activate'} ${u.name || u.email}`}
                   onClick={() => setActive(u, !u.active)}>
@@ -233,7 +235,7 @@ export default function UsersPage() {
             </li>
           ))}
         </ul>
-      )}
+      </>)}
     </div>
   );
 }

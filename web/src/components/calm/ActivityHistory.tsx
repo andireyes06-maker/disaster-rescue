@@ -26,6 +26,7 @@ interface ActivityHistoryProps<T extends { id: string; note?: string }> {
   // True when the listener has more history beyond the updates passed in. Shows a control to fetch it.
   hasMore?: boolean;
   onLoadOlder?: () => void;
+  scrollable?: boolean;
 }
 
 // Shows the newest updates first. Older updates sit behind a button and appear above the recent block, oldest first.
@@ -36,6 +37,7 @@ export default function ActivityHistory<T extends { id: string; note?: string }>
   listClassName = 'updates',
   hasMore = false,
   onLoadOlder,
+  scrollable = false,
 }: ActivityHistoryProps<T>) {
   const [showOlder, setShowOlder] = useState(false);
   const splitAt = Math.max(0, updates.length - recentCount);
@@ -52,7 +54,7 @@ export default function ActivityHistory<T extends { id: string; note?: string }>
           {showOlder ? 'Hide older updates' : olderLabel}
         </button>
       )}
-      <ol className={listClassName}>
+      <ol className={listClassName} tabIndex={scrollable ? 0 : undefined} aria-label={scrollable ? 'Rescue update history' : undefined}>
         {visible.map((u) => <li key={u.id}>{renderItem(u)}</li>)}
       </ol>
       {hasMore && onLoadOlder && (

@@ -1,16 +1,19 @@
 import type { ReactNode } from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { makeReport } from '../reports/fixtures';
 import type { Report } from '../../types/domain';
 
-const h = vi.hoisted(() => ({ reports: [] as Report[], loading: false, error: null as Error | null, retry: vi.fn() }));
+const h = vi.hoisted(() => ({ mapEvents: {} as { click?: (event: { latlng: { lat: number; lng: number } }) => void }, reports: [] as Report[], loading: false, error: null as Error | null, retry: vi.fn() }));
 vi.mock('../reports/useReports', () => ({
   useReports: () => ({ reports: h.reports, loading: h.loading, error: h.error, retry: h.retry }),
 }));
+vi.mock('../../components/MapViewport', () => ({ default: () => null }));
+vi.mock('../../lib/placeName', () => ({ approximatePlaceName: async () => 'Test District, Test City' }));
 vi.mock('react-leaflet', () => ({
+  useMapEvents: (events: typeof h.mapEvents) => { h.mapEvents = events; },
   useMap: () => ({ fitBounds: vi.fn() }),
   MapContainer: ({ children }: { children?: ReactNode }) => <div data-testid="map">{children}</div>,
   TileLayer: () => null,
@@ -35,6 +38,22 @@ function renderMap(reports: Report[]) {
 
 describe('IncidentMap', () => {
   beforeEach(() => { h.reports = []; h.loading = false; h.error = null; h.retry.mockReset(); });
+
+  it('explains the same disaster symbols and priority shapes used on the map', () => {
+    renderMap([makeReport()]);
+    expect(screen.getByRole('list', { name: 'Disaster type symbols' }).querySelectorAll('svg')).toHaveLength(5);
+    expect(screen.getByRole('list', { name: 'Priority colors and shapes' }).querySelector('.map-marker--triangle')).toBeInTheDocument();
+    expect(screen.getByRole('list', { name: 'Priority colors and shapes' }).querySelector('.map-marker--diamond')).toBeInTheDocument();
+  });
+
+  it('names a selected map point and lets the user clear it', async () => {
+    renderMap([makeReport()]);
+    act(() => h.mapEvents.click?.({ latlng: { lat: 14.55123, lng: 121.01234 } }));
+    expect(await screen.findByText('Test District, Test City')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Open in Google Maps' })).toHaveAttribute('href', 'https://www.google.com/maps/search/?api=1&query=14.55123,121.01234');
+    await userEvent.click(screen.getByRole('button', { name: 'Clear selected location' }));
+    expect(screen.queryByRole('complementary', { name: 'Selected map location' })).toBeNull();
+  });
 
   it('shows an empty state when no located reports exist', () => {
     renderMap([makeReport({ id: 'r1', location: undefined })]);

@@ -42,9 +42,16 @@ describe('AppShell', () => {
     expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'page');
   });
 
-  it('shows the signed-in role in the top bar', () => {
+  it('opens profile details from the header and keeps sign out in the sidebar', async () => {
     renderAt('/dashboard');
-    expect(screen.getByText('d@test.dev (admin)')).toBeInTheDocument();
+    expect(screen.getByRole('banner').querySelector('button.sidebar-signout')).toBeNull();
+    expect(screen.getByRole('complementary').querySelector('button.sidebar-signout')).not.toBeNull();
+    expect(screen.queryByLabelText('Current password')).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: 'Open profile for d@test.dev' }));
+    expect(screen.getByRole('dialog', { name: 'Your profile' })).toBeInTheDocument();
+    expect(screen.getByText('Administrator')).toBeInTheDocument();
+    await userEvent.click(screen.getByText('Change password', { selector: 'summary' }));
+    expect(screen.getByLabelText('Current password')).toBeVisible();
   });
 
   it('toggles the mobile menu with aria-expanded', async () => {

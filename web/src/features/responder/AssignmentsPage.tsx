@@ -91,7 +91,7 @@ function AssignedCard({ report, scope }: AssignedCardProps) {
           <div className="fact"><dt>Location</dt><dd>
             {hasLoc ? (
               <>
-                {report.placeName || report.area || 'Place not named'}{' '}
+                {report.placeName || report.area || 'Pinned location'}{' '}
                 <a className="touch-link" href={mapsUrl(loc)} target="_blank" rel="noopener noreferrer">Open in maps</a>
               </>
             ) : 'Not available'}
