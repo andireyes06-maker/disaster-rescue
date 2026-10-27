@@ -354,7 +354,8 @@ Stream<List<AssignedReport>> _joinTeamStreams(
   out = StreamController<List<AssignedReport>>(
     onListen: () {
       subSingle = single.listen((v) { latestSingle = v; emit(); }, onError: out.addError);
-      subMany = many.listen((v) { latestMany = v; emit(); }, onError: out.addError);
+      // The several-teams query can fail before its index is deployed. That must not hide the reports already listed.
+      subMany = many.listen((v) { latestMany = v; emit(); }, onError: (_) { latestMany = const []; emit(); });
     },
     onCancel: () async {
       await subSingle?.cancel();

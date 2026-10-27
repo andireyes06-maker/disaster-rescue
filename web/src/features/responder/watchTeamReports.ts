@@ -35,7 +35,16 @@ export function watchTeamReports<T extends { id: string }>(
       cached[i] = snap.metadata.fromCache;
       emit();
     },
-    onError,
+    // The several-teams query (index 1) can fail before its index is deployed. Its failure must not hide the single-team reports.
+    (error) => {
+      if (i === 1) {
+        latest[1] = [];
+        cached[1] = false;
+        emit();
+      } else {
+        onError(error);
+      }
+    },
   ));
   return () => unsubscribes.forEach((unsubscribe) => unsubscribe());
 }
