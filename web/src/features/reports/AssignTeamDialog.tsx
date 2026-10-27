@@ -62,9 +62,12 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
   const [schema] = useState(() => assignTeamsSchema(freeTeams.map((t) => t.team.id)));
   const [busy, setBusy] = useState(false);
   // Only identities that have a free team get a tab. The tab shows that identity's teams; selections persist across tabs.
-  const tabs = IDENTITIES.filter((id) => freeTeams.some(({ team }) => identityOf(team) === id));
-  const [tab, setTab] = useState<string>(tabs[0] ?? '');
-  const activeTab = tabs.includes(tab as typeof tabs[number]) ? tab : tabs[0] ?? '';
+  // Every identity always has a tab, so the choice is visible even when only one identity has a free team.
+  const tabs = IDENTITIES;
+  const firstWithTeams = IDENTITIES.find((id) => freeTeams.some(({ team }) => identityOf(team) === id)) ?? IDENTITIES[0];
+  const [tab, setTab] = useState<string>(firstWithTeams);
+  const activeTab = (tabs as readonly string[]).includes(tab) ? tab : firstWithTeams;
+  const teamsInTab = freeTeams.filter(({ team }) => identityOf(team) === activeTab);
   const [apiError, setApiError] = useState<string | null>(null);
   const { control, handleSubmit, formState: { errors } } = useForm<AssignTeams>({
     resolver: zodResolver(schema),
@@ -98,7 +101,7 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
           control={control}
           render={({ field }) => (
             <>
-              {tabs.length > 1 && (
+              {(
                 <div role="tablist" aria-label="Team identity" className="assign-teams__tabs">
                   {tabs.map((id) => (
                     <button
@@ -113,12 +116,14 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
                       onClick={() => setTab(id)}
                     >
                       {id}
+                      <span className="assign-teams__count">{freeTeams.filter(({ team }) => identityOf(team) === id).length}</span>
                     </button>
                   ))}
                 </div>
               )}
-              <div role="tabpanel" id="assign-teams-panel" aria-labelledby={tabs.length > 1 ? `assign-tab-${activeTab}` : undefined} className="assign-teams__list">
-                {freeTeams.filter(({ team }) => identityOf(team) === activeTab).map(({ team: t, km }) => (
+              <div role="tabpanel" id="assign-teams-panel" aria-labelledby={`assign-tab-${activeTab}`} className="assign-teams__list">
+                {teamsInTab.length === 0 && <p className="field-hint">No free {activeTab} teams right now.</p>}
+                {teamsInTab.map(({ team: t, km }) => (
                   <label key={t.id} className="assign-teams__option">
                     <input
                       type="checkbox"

@@ -364,3 +364,5 @@ table td { padding: 16px 18px; font-variant-numeric: tabular-nums; }
 .assign-teams__tab { min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--color-mist); background: var(--color-surface); color: var(--color-text); font-weight: 600; cursor: pointer; }
 .assign-teams__tab.is-active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 .assign-teams__list { display: grid; gap: 6px; }
+
+.assign-teams__count { margin-left: 6px; font-size: 0.75rem; opacity: 0.8; }
