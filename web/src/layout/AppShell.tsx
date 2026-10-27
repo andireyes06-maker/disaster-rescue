@@ -94,7 +94,6 @@ export default function AppShell({ title, children }: AppShellProps) {
       </aside>
       <div className="shell__body">
         <header className="shell__top">
-          <span className="shell__section">Response coordination / {title}</span>
           <div className="shell__account">
           {user && <NotificationBell key={user.uid} uid={user.uid} reportHref={(id) => role === 'responder' ? `/assignments/${encodeURIComponent(id)}` : `/incidents/${encodeURIComponent(id)}`} />}
           <span className="account-avatar" aria-hidden="true">{(user?.displayName || user?.email || 'R').slice(0, 1).toUpperCase()}</span>
