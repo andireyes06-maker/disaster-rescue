@@ -3,7 +3,6 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, ClipboardList, type LucideIcon } from 'lucide-react';
 import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
-import Brand from '../components/Brand';
 import NotificationBell from '../features/resident/NotificationBell';
 import Banner from '../components/calm/Banner';
 
@@ -69,7 +68,7 @@ export default function AppShell({ title, children }: AppShellProps) {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <aside className={`shell__side${menuOpen ? ' is-open' : ''}`}>
         <div className="shell__sidehead">
-          <div className="shell__brand"><Brand /></div>
+          <div className="shell__brand"><img className="shell__logo" src="/brand/ireport-logo-dark.png" alt="I-Report" width="200" height="72" /></div>
           <button
             type="button"
             className="shell__menu-toggle"
