@@ -52,11 +52,11 @@ export default function ExportButtons({ filters }: ExportButtonsProps) {
   }
 
   return (
-    <div className="export-row">
-      <button type="button" className="btn" aria-disabled={busy !== null} aria-busy={busy === 'incidents.csv'} onClick={() => download('incidents.csv', 'incidents.csv')}>
+    <div className="export-row" role="group" aria-label="Export reports">
+      <button type="button" className="btn btn--ghost" aria-disabled={busy !== null} aria-busy={busy === 'incidents.csv'} onClick={() => download('incidents.csv', 'incidents.csv')}>
         Download CSV
       </button>
-      <button type="button" className="btn" aria-disabled={busy !== null} aria-busy={busy === 'summary.pdf'} onClick={() => download('summary.pdf', 'summary.pdf')}>
+      <button type="button" className="btn btn--ghost" aria-disabled={busy !== null} aria-busy={busy === 'summary.pdf'} onClick={() => download('summary.pdf', 'summary.pdf')}>
         Download PDF
       </button>
       {error && <Banner tone="error" role="alert">{error}</Banner>}

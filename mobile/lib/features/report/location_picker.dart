@@ -5,10 +5,17 @@ import 'package:latlong2/latlong.dart';
 
 import '../../data/areas.dart';
 import '../../data/geo.dart';
+import '../../data/place_name.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/product_widgets.dart';
 import '../auth/auth_widgets.dart';
+
+/// What the reporter sees for a chosen point: a place name, never raw coordinates.
+String placeLineFor(String? placeName, String? source) {
+  if (placeName != null && placeName.trim().isNotEmpty) return placeName;
+  return source == 'gps' ? 'Pinned at your current location' : 'Pinned on the map';
+}
 
 String locationProblemMessage(LocationStatus s) {
   switch (s) {
@@ -33,6 +40,8 @@ class LocationStep extends StatefulWidget {
     required this.lat,
     required this.lng,
     required this.source,
+    this.placeName,
+    this.placeNamer = approximatePlaceName,
     this.radiusM = 500,
     required this.addressController,
     required this.onPicked,
@@ -44,10 +53,16 @@ class LocationStep extends StatefulWidget {
   final double? lng;
   final String? source;
 
+  /// Approximate place name for the chosen point, such as "Near Commonwealth Ave, Quezon City".
+  final String? placeName;
+
+  /// Looks up [placeName] for a new point. Injected so tests never reach the network.
+  final PlaceNamer placeNamer;
+
   /// Reach the danger covers, in meters. Shown as a circle around the marked point.
   final int radiusM;
   final TextEditingController addressController;
-  final void Function(double lat, double lng, String source) onPicked;
+  final void Function(double lat, double lng, String source, String? placeName) onPicked;
 
   /// The chosen province or Metro Manila city, from kAreas.
   final String? area;
@@ -68,12 +83,25 @@ class _LocationStepState extends State<LocationStep> {
     });
     final r = await widget.service.current();
     if (!mounted) return;
-    setState(() => _busy = false);
     if (r.status == LocationStatus.ok && r.lat != null && r.lng != null) {
-      widget.onPicked(r.lat!, r.lng!, 'gps');
+      await _choose(r.lat!, r.lng!, 'gps');
     } else {
-      setState(() => _problem = locationProblemMessage(r.status));
+      setState(() {
+        _busy = false;
+        _problem = locationProblemMessage(r.status);
+      });
     }
+  }
+
+  // The pin is chosen at once. The place name follows when it arrives, and only if the pin has not moved since.
+  // A failed lookup leaves the pin usable with no name.
+  Future<void> _choose(double lat, double lng, String source) async {
+    setState(() => _busy = false);
+    widget.onPicked(lat, lng, source, null);
+    final name = await widget.placeNamer(lat, lng);
+    if (!mounted || name == null) return;
+    if (widget.lat != lat || widget.lng != lng) return;
+    widget.onPicked(lat, lng, source, name);
   }
 
   Future<void> _pickOnMap() async {
@@ -97,7 +125,8 @@ class _LocationStepState extends State<LocationStep> {
       ),
     );
     if (picked != null) {
-      widget.onPicked(picked.latitude, picked.longitude, 'manual');
+      setState(() => _busy = true);
+      await _choose(picked.latitude, picked.longitude, 'manual');
     }
   }
 
@@ -164,10 +193,17 @@ class _LocationStepState extends State<LocationStep> {
                     const SizedBox(height: 5),
                     Text(
                       has
-                          ? 'Location chosen: ${widget.lat!.toStringAsFixed(5)}, ${widget.lng!.toStringAsFixed(5)} (${widget.source == 'gps' ? 'from GPS' : 'picked on map'})'
+                          ? placeLineFor(widget.placeName, widget.source)
                           : 'No location chosen yet. Choose one to continue.',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
+                    if (has) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        'Responders see the exact pin.',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
                   ],
                 ),
               ),

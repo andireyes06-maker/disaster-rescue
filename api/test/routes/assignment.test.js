@@ -169,6 +169,14 @@ describe('acknowledge and updates', () => {
     expect(await t.repo.listUpdates(id)).toHaveLength(1);
     expect(await countAudit(t, id, 'report.acknowledge')).toBe(1);
   });
+  it('an assigned team acknowledges from any distance, with no position sent', async () => {
+    const t = makeTestApp();
+    const teams = await withTeams(t);
+    const id = await seed(t, { status: 'Team Assigned', assignedTeamId: 'tA' });
+    const res = await request(t.app).post(`/api/reports/${id}/acknowledge`).set('Authorization', teams.a).send({});
+    expect(res.status).toBe(200);
+    expect(await countAudit(t, id, 'report.acknowledge')).toBe(1);
+  });
 
   it('peopleRescued -1 and "many" return 400', async () => {
     const t = makeTestApp();

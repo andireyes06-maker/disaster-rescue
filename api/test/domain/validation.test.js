@@ -34,6 +34,10 @@ describe('parseReportInput', () => {
     expect(() => parseReportInput({ ...ok, lat, lng })).toThrow(expect.objectContaining({ status: 400 }));
   });
   it('rejects unknown type', () => { expect(() => parseReportInput({ ...ok, type: 'zombie' })).toThrow(); });
+  it('keeps an approximate place name and strips markup from it', () => {
+    expect(parseReportInput({ ...ok, placeName: 'Near <b>Malolos</b>, Bulacan' }).placeName).toBe('Near Malolos, Bulacan');
+  });
+  it('place name stays optional', () => { expect(parseReportInput(ok).placeName).toBeUndefined(); });
 });
 
 describe('carried-forward hardening', () => {

@@ -23,7 +23,7 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
   const Icon = ICONS[status] || Circle;
   const complete = status === 'Resolved' || status === 'Closed';
   return (
-    <span className={`badge badge--status${complete ? ' badge--complete' : ''}`}>
+    <span data-status={status} className={`badge badge--status${complete ? ' badge--complete' : ''}`}>
       <Icon aria-hidden="true" />
       <span key={status} data-motion="status">{status}</span>
     </span>

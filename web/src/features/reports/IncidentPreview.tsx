@@ -28,6 +28,7 @@ const TYPE_CLASS: Record<ReportType, string> = {
 
 interface IncidentPreviewProps {
   report: Report;
+  reporter?: { name?: string | null; phone?: string | null };
   canAct: boolean;
   outsideFilters: boolean;
   onClearFilters: () => void;
@@ -36,7 +37,7 @@ interface IncidentPreviewProps {
 const ACTION_LABEL = { verify: 'Validate report', assign: 'Assign team', close: 'Close report' } as const;
 
 // Rendered with key={report.id} so the rescue-updates subscription follows the selection.
-export default function IncidentPreview({ report, canAct, outsideFilters, onClearFilters }: IncidentPreviewProps) {
+export default function IncidentPreview({ report, canAct, outsideFilters, onClearFilters, reporter }: IncidentPreviewProps) {
   const updates = useReportUpdates(report.id);
   const step = nextStep(report);
   const Icon = TYPE_ICONS[report.type] || CircleHelp;
@@ -75,6 +76,10 @@ export default function IncidentPreview({ report, canAct, outsideFilters, onClea
             <dt>Evidence</dt>
             <dd>{photos > 0 ? <span className="evidence"><Camera aria-hidden="true" /> {photos} {photos === 1 ? 'photo' : 'photos'}</span> : 'No photos'}</dd>
           </div>
+        </dl>
+        <dl className="preview__contact-facts">
+          <div><dt>Reported by</dt><dd>{reporter?.name || 'Name not recorded'}{reporter?.phone && <a href={`tel:${reporter.phone}`}>{reporter.phone}</a>}</dd></div>
+          <div><dt>Reported reach</dt><dd>{report.affectedRadiusM ? (report.affectedRadiusM >= 1000 ? `${report.affectedRadiusM / 1000} km` : `${report.affectedRadiusM} m`) : '500 m (default)'} from the location</dd></div>
         </dl>
       </section>
 

@@ -94,11 +94,11 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
   }
 
   return (
-    <li className="management-row">
+    <li className="management-row team-row">
       <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team.hq)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
-      <button type="button" className="btn btn--ghost" aria-expanded={editingLocation} onClick={() => setEditingLocation((v) => !v)}>Edit location</button>
-      {editingLocation && <TeamLocationEditor team={team} onSaved={(t) => { setEditingLocation(false); onSaved(t); }} onError={onError} />}
+      <div className="team-row__actions">
+      <button type="button" className="btn btn--ghost team-location-toggle" aria-expanded={editingLocation} onClick={() => setEditingLocation((v) => !v)}>Edit location</button>
       <details className="team-edit"><summary>Edit team</summary>
       <MotionForm onSubmit={handleSubmit(save)} noValidate className="ops-form" aria-label={`Team ${team.name}`}>
         <RequiredNote /><label htmlFor={`team-name-${team.id}`}>Team name<RequiredMark /></label>
@@ -109,6 +109,8 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
         </div>
       </MotionForm>
       </details>
+      </div>
+      {editingLocation && <TeamLocationEditor team={team} onSaved={(t) => { setEditingLocation(false); onSaved(t); }} onError={onError} />}
     </li>
   );
 }
@@ -229,7 +231,7 @@ export default function TeamsPage() {
 
   const visibleTeams = teams?.filter(team => team.name.toLowerCase().includes(query.trim().toLowerCase()) && (!availability || (availability === 'busy') === team.busy));
   return (
-    <div>
+    <div className="teams-workspace">
       {teams && <dl className="analytics-summary"><div><dt>Rescue teams</dt><dd>{teams.length}</dd></div><div><dt>Available</dt><dd>{teams.filter((team) => !team.busy).length}</dd></div><div><dt>On assignment</dt><dd>{teams.filter((team) => team.busy).length}</dd></div></dl>}
       <div className="management-toolbar"><div><h2>Rescue teams{teams ? ` (${teams.length})` : ''}</h2><p>Availability updates as teams are assigned to rescues.</p></div></div>
       <details className="management-create"><summary className="btn">Create team</summary>

@@ -36,7 +36,7 @@ export function reportsRouter(deps) {
       const b = req.body ?? {};
       const input = {
         type: b.type, description: b.description, lat: b.lat, lng: b.lng, source: b.source, addressText: b.addressText,
-        area: b.area, affectedRadiusM: b.affectedRadiusM,
+        area: b.area, placeName: b.placeName, affectedRadiusM: b.affectedRadiusM,
       };
       if (b.contactName !== undefined || b.contactPhone !== undefined) {
         input.contact = { name: b.contactName ?? '', phone: b.contactPhone };

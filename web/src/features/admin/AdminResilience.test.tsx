@@ -44,18 +44,12 @@ it('keeps account creation success separate from a failed list refresh', async (
   expect(screen.getByRole('alert')).toHaveTextContent('account list could not be refreshed');
   expect(screen.queryByText(/Could not create the account/)).not.toBeInTheDocument();
 });
-it('offers recovery for a failed team load instead of rendering an empty editor', async () => {
-  let reads = 0;
-  h.api.mockImplementation(async (path: string) => {
-    if (path === '/teams') { if (reads++ === 0) throw new Error('offline'); return [{ id: 't1', name: 'Recovered Team' }]; }
-    if (path === '/users') return [sample];
-    if (path === '/admin/settings') return { hotline: '', residentNotice: '' };
-    return { api: 'ok', firestore: 'ok', checkedAt: '2026-10-17T00:00:00Z' };
-  });
-  const user = userEvent.setup(); render(<MemoryRouter><AdminPage /></MemoryRouter>);
-  await user.click(screen.getByText('Teams', { selector: 'h2' }));
-  await user.click(await screen.findByRole('button', { name: 'Retry teams' }));
-  expect(await screen.findByLabelText('Name of Recovered Team')).toBeInTheDocument();
+it('keeps team management on its own route instead of loading a second editor in Admin', async () => {
+  render(<MemoryRouter><AdminPage /></MemoryRouter>);
+  expect(screen.getByRole('link', { name: /Teams/ })).toHaveAttribute('href', '/teams');
+  await screen.findByText('Sample Staff');
+  expect(h.api).not.toHaveBeenCalledWith('/teams');
+  expect(screen.queryByLabelText('Team for Sample Staff')).not.toBeInTheDocument();
 });
 it('removes the settings saved message when the draft changes', async () => {
   const user = userEvent.setup(); render(<SettingsPanel />);

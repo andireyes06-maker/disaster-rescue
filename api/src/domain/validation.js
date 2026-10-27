@@ -59,6 +59,8 @@ const schema = z.object({
   addressText: z.preprocess((v) => (v == null ? undefined : sanitizeText(v, 300)), z.string().optional()),
   // The province or Metro Manila city the report is filed under. Chosen from the fixed list.
   area: z.enum(AREAS),
+  // Approximate place name for the pin, such as "Near Commonwealth Ave, Quezon City". Optional, shown next to the exact pin.
+  placeName: z.preprocess((v) => (typeof v === 'string' && v.trim() ? sanitizeText(v, 120) : undefined), z.string().optional()),
   // How far the danger reaches from the reported point, in meters. Responders may act within this distance.
   affectedRadiusM: z.preprocess((v) => (v == null || v === '' ? undefined : Number(v)), z.number().int().min(50).max(5000).optional()),
   contact: z.object({

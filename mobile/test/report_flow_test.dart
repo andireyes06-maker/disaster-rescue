@@ -151,7 +151,9 @@ void main() {
     expect(tester(nextBtn(), t).onPressed, isNull);
     await chooseArea(t);
     expect(tester(nextBtn(), t).onPressed, isNotNull);
-    expect(find.textContaining('14.59950'), findsOneWidget);
+    // No place name in tests, so the card says where the pin came from, never the raw numbers.
+    expect(find.text('Pinned at your current location'), findsOneWidget);
+    expect(find.textContaining('14.59950'), findsNothing);
   });
 
   testWidgets(

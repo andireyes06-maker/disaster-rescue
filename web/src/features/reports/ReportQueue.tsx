@@ -70,7 +70,7 @@ const TYPE_CLASS = { flood: 'type-icon--flood', fire: 'type-icon--fire', earthqu
 
 interface Reporter { name?: string | null; phone?: string | null }
 
-function InboxRow({ r, selected, onSelect, reporter }: { r: Report; selected: boolean; onSelect: () => void; reporter?: Reporter }) {
+function InboxRow({ r, selected, onSelect }: { r: Report; selected: boolean; onSelect: () => void }) {
   const Icon = TYPE_ICONS[r.type as keyof typeof TYPE_ICONS] || CircleHelp;
   const typeClass = TYPE_CLASS[r.type as keyof typeof TYPE_CLASS] || 'type-icon--other';
   const label = r.type.charAt(0).toUpperCase() + r.type.slice(1);
@@ -89,8 +89,6 @@ function InboxRow({ r, selected, onSelect, reporter }: { r: Report; selected: bo
             <PriorityBadge priority={r.priority} />
           </span>
           <span className="inbox__place"><MapPin aria-hidden="true" /> {r.addressText || 'No address given'}</span>
-          <span className="inbox__reporter">Reported by {reporter?.name || 'name not recorded'}{reporter?.phone ? ` · ${reporter.phone}` : ''}</span>
-          <span className="inbox__reach">Danger reaches {r.affectedRadiusM ? (r.affectedRadiusM >= 1000 ? `${r.affectedRadiusM / 1000} km` : `${r.affectedRadiusM} m`) : '500 m (default)'} from the point</span>
           <span className="inbox__desc">{r.description}</span>
         </span>
         <span className="inbox__side">
@@ -264,7 +262,7 @@ export default function ReportQueue() {
         {rows.length > 0 && (
           <ul className="inbox" aria-label="Incident inbox">
             {rows.map((r) => (
-              <InboxRow key={r.id} r={r} selected={r.id === effectiveId} onSelect={() => setSelectedId(r.id)} reporter={r.reporterId ? people[r.reporterId] : undefined} />
+              <InboxRow key={r.id} r={r} selected={r.id === effectiveId} onSelect={() => setSelectedId(r.id)} />
             ))}
           </ul>
         )}
@@ -273,7 +271,7 @@ export default function ReportQueue() {
       <aside className="inbox-preview" aria-label="Selected report">
         {selected ? (
           <IncidentPreview key={selected.id} report={selected} canAct={canAct}
-            outsideFilters={selectedHidden} onClearFilters={clearAll} />
+            outsideFilters={selectedHidden} onClearFilters={clearAll} reporter={selected.reporterId ? people[selected.reporterId] : undefined} />
         ) : (
           !loading && !failed && (
             <p className="preview__empty"><Search aria-hidden="true" /> {selectedId ? 'This report is no longer available.' : 'Select a report to see its details.'}</p>

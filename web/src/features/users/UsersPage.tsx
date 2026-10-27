@@ -1,6 +1,7 @@
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import { useAuth } from '../../auth/AuthProvider';
 import MotionForm from '../../components/MotionForm';
+import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -93,8 +94,7 @@ export default function UsersPage() {
         },
       });
       reset(EMPTY_ACCOUNT);
-      // No password is set here (F02). The new person uses Forgot password on the sign-in page to set one.
-      setMessage({ kind: 'ok', text: 'Staff account created. Ask them to open the sign-in page and choose Forgot password to set their password.' });
+      setMessage({ kind: 'ok', text: 'Staff account created. Share the first password privately. They can use Forgot password on the sign-in page to change it.' });
       await load();
     } catch (err) {
       setMessage({ kind: 'error', text: errorText(err) });
@@ -138,8 +138,8 @@ export default function UsersPage() {
 
   const visibleUsers = users?.filter(u => (!roleFilter || u.role === roleFilter) && [u.name, u.email, u.uid].some(value => value?.toLowerCase().includes(query.trim().toLowerCase())));
   return (
-    <div>
-      <div className="management-toolbar"><div><h2>Accounts{users ? ` (${users.length})` : ''}</h2><p>Review access before changing an account’s status.</p></div></div>
+    <div className="users-workspace">
+      <div className="management-toolbar"><div><h2>Accounts{users ? ` (${users.length})` : ''}</h2><p>Review access before changing an account’s status. <Link to="/admin?panel=roles">Manage access roles</Link></p></div></div>
       <details className="management-create"><summary className="btn">Create staff account</summary>
       <MotionForm className="card ops-form" onSubmit={handleSubmit(create)} noValidate aria-label="Create staff account">
         <RequiredNote /><label htmlFor="staff-email">Email<RequiredMark /></label>

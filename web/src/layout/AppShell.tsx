@@ -40,7 +40,7 @@ const DESCRIPTIONS: Record<string, string> = {
   Teams: 'Manage rescue teams and see their current availability.',
   Users: 'Manage staff access and team membership.',
   Assignments: 'Review your team’s incidents and record rescue progress.',
-  Admin: 'Manage accounts, roles, teams, system settings, and the audit log.',
+  Admin: 'Manage service settings and account access roles.',
   'Incident details': 'Review the report, its evidence, and the response history.',
 };
 
@@ -65,7 +65,7 @@ export default function AppShell({ title, children }: AppShellProps) {
   }
   useEffect(() => { document.title = `${title} · I-Report`; }, [title]);
   return (
-    <div className="shell">
+    <div className="shell" data-workspace={role}>
       <a className="skip-link" href="#main-content">Skip to content</a>
       <aside className={`shell__side${menuOpen ? ' is-open' : ''}`}>
         <div className="shell__sidehead">

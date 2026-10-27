@@ -40,7 +40,7 @@ function failureText(err: unknown, fallback: string): string {
   return fallback;
 }
 
-export default function AccountsPanel({ teams, currentUid, teamsUnavailable = false }: { teams: AdminTeam[]; currentUid?: string; teamsUnavailable?: boolean }) {
+export default function AccountsPanel({ teams, currentUid, teamsUnavailable = false, rolesOnly = false }: { teams: AdminTeam[]; currentUid?: string; teamsUnavailable?: boolean; rolesOnly?: boolean }) {
   const [query, setQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
   const [saved, setSaved] = useState('');
@@ -192,7 +192,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
   if (loadFailed) return <Banner tone="error" role="alert">Could not load accounts. <button id="admin-accounts-retry" className="btn btn--ghost" type="button" onClick={retryAccounts}>Retry accounts</button></Banner>;
   const visibleUsers = users.filter(user => (!roleFilter || user.role === roleFilter) && [user.name, user.email, user.uid].some(value => value?.toLowerCase().includes(query.trim().toLowerCase())));
   return (
-    <div className="admin-accounts">
+    <div className={`admin-accounts${rolesOnly ? " admin-accounts--roles" : ""}`}>
       {error && <Banner tone="error" role="alert"><span>{error}</span></Banner>}
       {needsRefresh && !refreshFailed && <button type="button" className="btn btn--ghost" onClick={retryAccounts}>Refresh accounts</button>}
       {saved && <p role="status">{saved}</p>}
@@ -203,11 +203,11 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
         <div><label htmlFor="admin-role-filter">Filter by role</label><select id="admin-role-filter" value={roleFilter} onChange={event => setRoleFilter(event.target.value)}><option value="">All roles</option>{Array.from(new Set(['resident', ...ROLE_OPTIONS, ...users.map(user => user.role)])).map(value => <option key={value} value={value}>{value}</option>)}</select></div>
       </div>
       <p className="field-hint" role="status">Showing {visibleUsers.length} of {users.length} accounts.</p>
-      {visibleUsers.length === 0 && <div className="calm-empty"><h3>{users.length ? 'No matching accounts' : 'No accounts yet'}</h3><p>{users.length ? 'Try a different name or role.' : 'Create a staff account below to grant access.'}</p>{users.length > 0 && <button type="button" className="btn btn--ghost" onClick={() => { setQuery(''); setRoleFilter(''); document.getElementById('admin-account-search')?.focus(); }}>Clear account filters</button>}</div>}
+      {visibleUsers.length === 0 && <div className="calm-empty"><h3>{users.length ? 'No matching accounts' : 'No accounts yet'}</h3><p>{users.length ? 'Try a different name or role.' : rolesOnly ? 'Create an account from Users to grant access.' : 'Create a staff account below to grant access.'}</p>{users.length > 0 && <button type="button" className="btn btn--ghost" onClick={() => { setQuery(''); setRoleFilter(''); document.getElementById('admin-account-search')?.focus(); }}>Clear account filters</button>}</div>}
       {visibleUsers.length > 0 && <>
       <div className="admin-accounts__list" role="region" aria-label="Accounts and roles list" tabIndex={0}>
       <table>
-        <thead><tr><th>Name</th><th>Email / account ID</th><th>Role</th><th>Team</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Email / account ID</th><th>Role</th>{!rolesOnly && <th>Team</th>}<th>Status</th></tr></thead>
         <tbody>
           {visibleUsers.map((u) => (
             <tr key={u.uid}>
@@ -225,7 +225,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
                   </button>
                 )}
               </td>
-              <td>{TEAM_ROLES.has(u.role) ? <select aria-label={`Team for ${u.name}`} value={u.team ?? ''} disabled={(u.role === 'responder' && !!u.team) || u.uid === currentUid || busy(u.uid) || teamsUnavailable} onChange={(e) => saveTeam(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select> : <span>Not applicable</span>}</td>
+              {!rolesOnly && <td>{TEAM_ROLES.has(u.role) ? <select aria-label={`Team for ${u.name}`} value={u.team ?? ''} disabled={(u.role === 'responder' && !!u.team) || u.uid === currentUid || busy(u.uid) || teamsUnavailable} onChange={(e) => saveTeam(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select> : <span>Not applicable</span>}</td>}
               <td>{u.active ? 'Active' : 'Inactive'}{u.authSyncPending && <p className="field-hint">Access update pending. Retry to finish the previous change.</p>}</td>
             </tr>
           ))}
@@ -234,7 +234,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
       </div>
       </>}
 
-      <details className="admin-create-account"><summary>Create a staff account</summary>
+      {!rolesOnly && <details className="admin-create-account"><summary>Create a staff account</summary>
       <MotionForm onSubmit={create} noValidate className="admin-accounts__create">
         <p className="field-hint">Enter the staff member’s name and email, then choose their role.</p>
         <RequiredNote /><label htmlFor="new-name">New account name<RequiredMark /></label>
@@ -262,7 +262,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
         )}
         <button type="submit" className="btn" aria-disabled={pending.has('create')} aria-busy={pending.has('create')}>{busy('create') ? 'Creating account...' : 'Create account'}</button>
       </MotionForm>
-      </details>
+      </details>}
     </div>
   );
 }

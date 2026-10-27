@@ -83,3 +83,9 @@ Reviewed changes, every image:
 Independent Impeccable review found faint input outlines/radio glyphs; candidates were rerendered after the dedicated control-outline token was added. Actual Chrome phone/desktop captures supplement these standalone widget references and exercise the navigation dock/rail. No Android/iOS hardware, release-signing or device-performance approval is implied.
 
 Font source: Google Fonts `ofl/geist/Geist[wght].ttf`, upstream Geist by Vercel, SIL Open Font License. Bundled license `assets/fonts/OFL-Geist.txt`. Font SHA-256: 73894e0448cae90a92b6c2f8732b7bb9acb7b94c418bff559dad4a18e1de9659.
+
+## Reviewed change: responder location line, 27 October 2026
+
+Reason: the responder incident page showed raw latitude and longitude under Location. It now shows the approximate place name the reporter's pin was given (for example "Near Commonwealth, Quezon City"), or "Exact pin is on the map." when a report has no name. Owner request, 27 October 2026.
+Reviewed: `incident-detail.png` regenerated with `--plain-name "assignment, incident"`. Only the coordinates line changed; the rest of the layout is identical.
+Not covered by this entry: `report-details.png` still differs from its reference by 8.87% (scroll offset in the details step). It is unresolved and has not been regenerated.

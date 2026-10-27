@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import { MemoryRouter } from 'react-router-dom';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -47,7 +48,7 @@ describe('UsersPage team assignment (F03)', () => {
   });
 
   it('a responder without a team can be linked to one, through the API', async () => {
-    render(<UsersPage />);
+    render(<MemoryRouter><UsersPage /></MemoryRouter>);
     const select = await screen.findByRole('combobox', { name: 'Team for Ana' });
     fireEvent.change(select, { target: { value: 'tA' } });
     await waitFor(() => expect(h.api).toHaveBeenCalledWith('/users/u-resp', { method: 'PATCH', body: { team: 'tA' } }));
@@ -55,7 +56,7 @@ describe('UsersPage team assignment (F03)', () => {
   });
 
   it('residents have no team control', async () => {
-    render(<UsersPage />);
+    render(<MemoryRouter><UsersPage /></MemoryRouter>);
     await screen.findByRole('combobox', { name: 'Team for Ana' });
     expect(screen.queryByRole('combobox', { name: 'Team for Res' })).toBeNull();
   });
@@ -68,7 +69,7 @@ describe('UsersPage team assignment (F03)', () => {
       if (path === '/teams') return teams;
       return {};
     });
-    const { container } = render(<UsersPage />);
+    const { container } = render(<MemoryRouter><UsersPage /></MemoryRouter>);
     const row = (await screen.findByRole('list', { name: 'Users' })).querySelector('.management-row');
     expect(row).not.toBeNull();
     expect(row!.querySelector('.management-identity')).toHaveTextContent(longName);

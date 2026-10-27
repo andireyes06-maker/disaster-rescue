@@ -59,6 +59,8 @@ export interface Report {
   location?: Location;
   coarseLocation?: GeoPoint;
   addressText: string;
+  /** Approximate place name for the pin, such as "Near Commonwealth Ave, Quezon City". */
+  placeName?: string;
   contact?: Contact;
   photos: Photo[];
   possibleDuplicates: string[];

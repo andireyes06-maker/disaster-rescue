@@ -1,0 +1,122 @@
+/* Operational density. Scoped to admin so public and field interfaces retain their sizing. */
+.shell[data-workspace="admin"] .page-band { margin-bottom: 20px; }
+.shell[data-workspace="admin"] .shell__description { font-size: 14px; }
+.shell[data-workspace="admin"] .badge--verified { color: #166534; background: #edf8f0; }
+.shell[data-workspace="admin"] .badge--pending { color: #854d0e; background: #fff8e7; }
+.shell[data-workspace="admin"] .badge--status { color: #514a66; background: #f0eef5; }
+.shell[data-workspace="admin"] .badge--status[data-status="Rescue in Progress"],
+.shell[data-workspace="admin"] .badge--status[data-status="Team Assigned"] { color: #3730a3; background: #eeedff; }
+.shell[data-workspace="admin"] .badge--status.badge--complete { color: #166534; background: #edf8f0; }
+.shell[data-workspace="admin"] .badge--status[data-status="Rejected"] { color: #991b1b; background: #fef2f2; }
+.shell[data-workspace="admin"] .queue-toolbar { padding: 16px 18px 10px; }
+.shell[data-workspace="admin"] .inbox-search { padding-inline: 18px; }
+.shell[data-workspace="admin"] .inbox-search-hint { margin: 6px 18px 0; }
+.shell[data-workspace="admin"] .quick { padding: 12px 18px; }
+.shell[data-workspace="admin"] .inbox__row { padding: 14px 18px; gap: 10px; grid-template-columns: 32px minmax(0,1fr) 156px; }
+.shell[data-workspace="admin"] .inbox__row .type-icon { width: 32px; height: 32px; }
+/* product.css removes the critical row's left border, which shifted its content 4px left of the other rows. Keep the reserved edge, transparent as before. */
+.shell[data-workspace="admin"] .inbox__row--critical { border-left: 4px solid transparent; }
+.shell[data-workspace="admin"] .inbox__main { min-width: 0; }
+.shell[data-workspace="admin"] .inbox__side { gap: 5px; }
+.shell[data-workspace="admin"] .inbox__side time { font-size: 12px; }
+.shell[data-workspace="admin"] .inbox__desc { font-size: 13px; line-height: 1.5; margin-top: 5px; }
+.shell[data-workspace="admin"] .inbox__side .badge { font-size: 12px; padding: 3px 6px; }
+.preview__contact-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 14px; margin: 14px 0 0; border-top: 1px solid var(--color-mist); }
+.preview__contact-facts dt { color: var(--color-muted); font-size: 13px; margin-bottom: 4px; }
+.preview__contact-facts dd { margin: 0; font-size: 14px; overflow-wrap: anywhere; }
+.preview__contact-facts a { display: block; width: fit-content; padding-block: 4px; text-decoration: underline; text-underline-offset: 3px; }
+.admin-destinations { display: grid; grid-template-columns: 1fr 1fr; border-block: 1px solid var(--color-mist); }
+.admin-destinations > a { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 8px; color: var(--color-text); text-decoration: none; }
+.admin-destinations > a:nth-child(n+3) { border-top: 1px solid var(--color-mist); }
+.admin-destinations > a:nth-child(odd) { padding-right: 24px; }
+.admin-destinations > a:hover { background: var(--color-primary-soft); }
+.admin-destinations strong, .admin-destinations small { display: block; }
+.admin-destinations strong { font-size: 15px; font-weight: 600; }
+.admin-destinations small { margin-top: 3px; font-size: 13px; line-height: 1.5; color: var(--color-muted); }
+.admin-destinations svg { flex: none; color: var(--color-primary); }
+.admin-settings-panel { padding: 22px; background: var(--color-surface); border: 1px solid var(--color-mist); border-radius: 12px; }
+.admin-settings-panel > header { margin-bottom: 22px; }
+.admin-settings-panel h2 { font-size: 19px; margin: 0 0 4px; }
+.admin-settings-panel > header p { margin: 0; color: var(--color-muted); font-size: 14px; }
+.admin-system h3 { margin: 0 0 12px; font-size: 15px; }
+.admin-system .admin-settings { margin-top: 0; }
+.admin-system .admin-health { padding: 0; background: transparent; }
+.admin-system .admin-settings > .btn { justify-self: start; width: auto; }
+.admin-workspace .admin-section > summary { padding: 16px 22px; }
+.admin-workspace .admin-section__body { padding: 0 22px 22px; }
+.admin-accounts--roles .admin-accounts__list th:nth-child(1) { width: 22%; }
+.admin-accounts--roles .admin-accounts__list th:nth-child(2) { width: 30%; }
+.admin-accounts--roles .admin-accounts__list th:nth-child(3) { width: 34%; }
+.admin-accounts--roles .admin-accounts__list th:nth-child(4) { width: 14%; }
+.shell[data-workspace="admin"] .management-search { padding: 14px 16px; gap: 12px; margin-bottom: 0; }
+.shell[data-workspace="admin"] .management-result-count { margin: 0; }
+.shell[data-workspace="admin"] .management-toolbar { margin-bottom: 0; }
+.shell[data-workspace="admin"] .management-row { padding: 14px 18px; gap: 16px; }
+.shell[data-workspace="admin"] .management-identity .badge { margin-top: 5px; }
+.team-row__actions { display: flex; align-items: start; gap: 8px; flex-wrap: wrap; }
+.team-row .team-location-toggle { width: auto; justify-self: start; }
+.team-row .team-hq { grid-column: 1 / -1; min-width: 0; }
+.team-row:has(.team-edit[open]) .team-row__actions { grid-column: 1 / -1; }
+.team-row .team-edit[open] { flex: 1 1 100%; }
+.team-row .team-edit form { max-width: 440px; }
+.shell[data-workspace="admin"] .export-row { gap: 8px; margin-block: 14px 20px; }
+@media (min-width: 640px) {
+ .shell[data-workspace="admin"] .btn { min-height: 36px; padding: 7px 12px; line-height: 20px; width: auto; }
+ .shell[data-workspace="admin"] .management-actions .btn { min-height: 36px; }
+ .shell[data-workspace="admin"] :is(input,select) { min-height: 38px; padding-block: 7px; }
+ .shell[data-workspace="admin"] .filters__toggle { min-height: 36px; }
+ .shell[data-workspace="admin"] .team-edit > summary { min-height: 36px; padding: 7px 10px; }
+ .shell[data-workspace="admin"] .management-row.team-row { grid-template-columns: minmax(200px,1.2fr) minmax(160px,1fr) auto; }
+ .shell[data-workspace="admin"] .team-members { text-align: left; }
+ .shell[data-workspace="admin"] .analytics-summary { padding: 14px 0; margin-bottom: 0; }
+ .shell[data-workspace="admin"] .summary { padding-block: 0; }
+ .shell[data-workspace="admin"] .summary .summary__card { padding: 14px 20px; }
+ .shell[data-workspace="admin"] .summary__value { margin-top: 3px; font-size: 28px; }
+ .users-workspace, .teams-workspace { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; align-items: start; }
+ .users-workspace > *, .teams-workspace > * { grid-column: 1 / -1; }
+ .users-workspace > .management-toolbar, .teams-workspace > .management-toolbar { grid-column: 1; }
+ .users-workspace > .management-create, .teams-workspace > .management-create { grid-column: 2; grid-row: 1; margin: 0; }
+ .teams-workspace > .management-create { grid-row: 2; }
+ .users-workspace > .management-create[open], .teams-workspace > .management-create[open] { grid-column: 1 / -1; grid-row: auto; }
+}
+@media (max-width: 639px) {
+ .shell[data-workspace="admin"] .btn, .shell[data-workspace="admin"] .team-edit > summary { min-height: 44px; }
+ .shell[data-workspace="admin"] .shell__top { padding: 8px 20px; min-height: 58px; }
+ .shell[data-workspace="admin"] .page-band h1 { font-size: 28px; }
+ .shell[data-workspace="admin"] .page-band { margin-bottom: 18px; }
+ .shell[data-workspace="admin"] .analytics-summary { padding: 12px; gap: 12px; margin-bottom: 20px; }
+ .shell[data-workspace="admin"] .analytics-summary > div { padding: 0; }
+ .shell[data-workspace="admin"] .analytics-summary dt { font-size: 12px; }
+ .shell[data-workspace="admin"] .analytics-summary dd { font-size: 24px; margin-top: 6px; }
+ .shell[data-workspace="admin"] .management-toolbar { margin-bottom: 12px; }
+ .shell[data-workspace="admin"] .management-create { margin-bottom: 16px; }
+ .shell[data-workspace="admin"] .management-search { gap: 12px; margin-bottom: 14px; }
+ .shell[data-workspace="admin"] .management-list { margin-top: 12px; }
+ .shell[data-workspace="admin"] .inbox__row { grid-template-columns: 30px minmax(0,1fr); padding: 14px; }
+ .shell[data-workspace="admin"] .inbox__side { flex-direction: row; grid-column: 2; justify-content: flex-start; }
+ .shell[data-workspace="admin"] .quick__chip { min-height: 44px; }
+ .admin-destinations { grid-template-columns: 1fr; }
+ .admin-destinations > a + a { border-top: 1px solid var(--color-mist); }
+ .admin-destinations > a { padding: 12px 4px; }
+ .admin-settings-panel { padding: 18px; }
+ .admin-system { grid-template-columns: minmax(0,1fr); gap: 24px; }
+ .admin-accounts--roles .admin-accounts__list { overflow-x: auto; }
+ .admin-accounts--roles table { min-width: 0; }
+ .preview__contact-facts { grid-template-columns: 1fr; }
+}
+.shell[data-workspace="admin"] .management-identity { padding-left: 0; }
+.shell[data-workspace="admin"] .management-identity::before { display: none; }
+@media (min-width: 640px) {
+ .shell[data-workspace="admin"] .analytics-summary > div { padding-inline: 20px; }
+}
+.shell[data-workspace="admin"] .management-toolbar p a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+.team-members li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
+@media (max-width: 639px) {
+ .shell[data-workspace="admin"] .analytics-summary { gap: 0; }
+ .shell[data-workspace="admin"] .analytics-summary > div { padding-inline: 8px; }
+ .shell[data-workspace="admin"] .analytics-summary > div:first-child { padding-left: 0; }
+ .shell[data-workspace="admin"] .analytics-summary > div:last-child { padding-right: 0; }
+ .shell[data-workspace="admin"] .management-toolbar p a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+.admin-accounts--roles td .btn { max-width: 100%; white-space: normal; margin-top: 8px; }

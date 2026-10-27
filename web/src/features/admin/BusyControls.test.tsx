@@ -1,3 +1,4 @@
+import { MemoryRouter } from 'react-router-dom';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, expect, it, vi } from 'vitest';
@@ -16,7 +17,7 @@ beforeEach(() => {
 it.each(['account-create', 'role', 'user-create', 'user-status', 'team-create', 'team-rename'])('%s preserves focus and blocks repeats during a failed save', async (kind) => {
   const user = userEvent.setup();
   if (kind.startsWith('account') || kind === 'role') render(<AccountsPanel teams={[team]} />);
-  else if (kind.startsWith('user')) render(<UsersPage />);
+  else if (kind.startsWith('user')) render(<MemoryRouter><UsersPage /></MemoryRouter>);
   else render(<TeamsPage />);
   await screen.findByText(kind.startsWith('team') ? 'Sample Team' : 'Sample Staff');
   let button: HTMLElement;
@@ -74,7 +75,7 @@ it('returns focus to the role selector when the saved action disappears', async 
 });
 
 it('filters accounts by name and role and restores them from an empty view', async () => {
-  const user = userEvent.setup(); render(<UsersPage />);
+  const user = userEvent.setup(); render(<MemoryRouter><UsersPage /></MemoryRouter>);
   await screen.findByText('Sample Staff');
   await user.type(screen.getByRole('searchbox', { name: 'Find an account' }), 'no-match');
   expect(screen.getByRole('heading', { name: 'No matching accounts' })).toBeInTheDocument();
@@ -94,7 +95,7 @@ it('filters teams by availability and recovers from an empty view', async () => 
   expect(screen.getByRole('searchbox', { name: 'Find a team' })).toHaveFocus();
 });
 it('names the invalid create-account fields and focuses the first without a request', async () => {
-  const user = userEvent.setup(); render(<UsersPage />);
+  const user = userEvent.setup(); render(<MemoryRouter><UsersPage /></MemoryRouter>);
   await screen.findByText('Sample Staff');
   await user.click(screen.getByText('Create staff account', { selector: 'summary' }));
   h.api.mockClear();

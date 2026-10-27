@@ -9,6 +9,8 @@ vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'adm-
 vi.mock('../audit/AuditPage', () => ({ default: () => <p>audit entries</p> }));
 
 import AdminPage from './AdminPage';
+import AccountsPanel from './AccountsPanel';
+import TeamsPanel from './TeamsPanel';
 
 const USERS = [
   { uid: 'd1', name: 'Jose Reyes', email: 'dispatcher@x.test', role: 'dispatcher', active: true },
@@ -28,8 +30,8 @@ function routeTo(path: string, opts?: { method?: string; body?: unknown }) {
   return {};
 }
 
-function renderPage() {
-  return render(<MemoryRouter><AdminPage /></MemoryRouter>);
+function renderPage(surface: 'page' | 'accounts' | 'teams' = 'page', route = '/admin') {
+  return render(<MemoryRouter initialEntries={[route]}>{surface === 'accounts' ? <AccountsPanel teams={[{ id: 'team-alpha', name: 'Team Alpha' }]} currentUid="adm-1" /> : surface === 'teams' ? <TeamsPanel teams={[{ id: 'team-alpha', name: 'Team Alpha' }]} onChange={() => {}} /> : <AdminPage />}</MemoryRouter>);
 }
 
 describe('AdminPage', () => {
@@ -38,11 +40,21 @@ describe('AdminPage', () => {
     h.api.mockReset().mockImplementation(async (path: string, opts?: { method?: string; body?: unknown }) => routeTo(path, opts));
   });
 
-  it('has the four sections: accounts, teams, system and settings, audit and exports', async () => {
+  it('routes management to its dedicated pages and keeps settings and access roles here', () => {
     renderPage();
-    for (const name of ['Accounts and roles', 'Teams', 'System health and settings', 'Audit and exports']) {
-      expect(screen.getByRole('heading', { name })).toBeInTheDocument();
+    for (const [name, href] of [['Users', '/users'], ['Teams', '/teams'], ['Audit log', '/audit'], ['Analytics and exports', '/analytics']]) {
+      expect(screen.getByRole('link', { name: new RegExp(name) })).toHaveAttribute('href', href);
     }
+    expect(screen.getByRole('heading', { name: 'Access roles' })).toBeInTheDocument();
+    expect(screen.queryByText('Create a staff account', { selector: 'summary' })).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('New team name')).not.toBeInTheDocument();
+  });
+
+  it('opens access roles directly from the Users management link', async () => {
+    renderPage('page', '/admin?panel=roles');
+    expect(screen.getByRole('heading', { name: 'Access roles' }).closest('details')).toHaveAttribute('open');
+    expect(await screen.findByLabelText('Role for Ana Cruz')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Team for Ana Cruz')).not.toBeInTheDocument();
   });
 
   it('shows the API and database status', async () => {
@@ -73,7 +85,7 @@ describe('AdminPage', () => {
 
   it('creates an admin account when the role is set to admin', async () => {
     const user = userEvent.setup();
-    renderPage();
+    renderPage('accounts');
     await screen.findByText('Ana Cruz');
     await user.click(screen.getByText('Create a staff account', { selector: 'summary' }));
     await user.type(screen.getByLabelText('New account name'), 'Second Admin');
@@ -89,8 +101,7 @@ describe('AdminPage', () => {
 
   it('lists teams and creates a new one', async () => {
     const user = userEvent.setup();
-    renderPage();
-    await user.click(screen.getByText('Teams', { selector: 'h2' }));
+    renderPage('teams');
     expect(await screen.findByRole('textbox', { name: 'Name of Team Alpha' })).toBeInTheDocument();
     await user.type(screen.getByLabelText('New team name'), 'Team Bravo');
     await user.click(screen.getByRole('button', { name: 'Create team' }));
@@ -116,8 +127,7 @@ describe('AdminPage', () => {
 
   it('renames a team from its row', async () => {
     const user = userEvent.setup();
-    renderPage();
-    await user.click(screen.getByText('Teams', { selector: 'h2' }));
+    renderPage('teams');
     const input = await screen.findByLabelText('Name of Team Alpha');
     await user.clear(input);
     await user.type(input, 'Team Alfa');
@@ -125,9 +135,10 @@ describe('AdminPage', () => {
     await waitFor(() => expect(h.api).toHaveBeenCalledWith('/teams/team-alpha', expect.objectContaining({ method: 'PATCH', body: { name: 'Team Alfa' } })));
   });
 
-  it('shows the audit log, and no export button (exports carry exact locations)', async () => {
+  it('links to audit and exports without duplicating their workspaces', async () => {
     renderPage();
-    expect(screen.getByText('audit entries')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Audit log/ })).toHaveAttribute('href', '/audit');
+    expect(screen.queryByText('audit entries')).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Download summary (PDF)' })).toBeNull();
   });
   it('recovers a failed health check without reloading the page', async () => {
@@ -144,7 +155,7 @@ describe('AdminPage', () => {
 
   // Dispatcher and DMO accounts have no website access: an admin cannot give those roles, but an existing record still shows its role.
   it('offers only responder and admin for new accounts and role changes, and still shows an existing dispatcher', async () => {
-    renderPage();
+    renderPage('accounts');
     const existing = await screen.findByLabelText('Role for Jose Reyes');
     expect(existing).toHaveValue('dispatcher');
     const offered = within(existing).queryAllByRole('option').map((o) => o.textContent);

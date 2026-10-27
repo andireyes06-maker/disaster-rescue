@@ -8,6 +8,7 @@ import PageBoundary from './components/PageBoundary';
 import { ConnectionStatus } from './components/ConnectionStatus';
 import './product.css';
 import './pages/page-finish.css';
+import './admin-workspace.css';
 
 const LoginPage = lazy(() => import('./features/auth/LoginPage'));
 const MobileAppNotice = lazy(() => import('./pages/MobileAppNotice'));

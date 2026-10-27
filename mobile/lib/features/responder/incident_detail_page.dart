@@ -160,35 +160,16 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     _watchProgress();
   }
 
-  static const _farMessage = 'You are too far from the incident to verify.';
+  static const _farMessage = 'You are too far from the incident to add an update.';
 
   Future<void> _acknowledge() async {
-    if (_tooFar) {
-      setState(() => _error = _farMessage);
-      return;
-    }
     setState(() {
       _busy = true;
       _error = null;
     });
     try {
-      // The server checks the position too, so the app sends the device's current fix with the action.
-      final fix = await context.read<LocationService>().current();
-      if (fix.status != LocationStatus.ok ||
-          fix.lat == null ||
-          fix.lng == null) {
-        if (!mounted) return;
-        setState(() {
-          _busy = false;
-          _error = 'Turn on location to acknowledge this incident.';
-        });
-        return;
-      }
-      await context.read<ResponderRepository>().acknowledge(
-        widget.report.id,
-        lat: fix.lat,
-        lng: fix.lng,
-      );
+      // Acknowledging needs only assignment to the team, so no location is sent.
+      await context.read<ResponderRepository>().acknowledge(widget.report.id);
       if (!mounted) return;
       setState(() => _acknowledged = true);
     } on ApiException catch (e) {
@@ -310,10 +291,17 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                   const SizedBox(height: 4),
                   if (r.addressText != null && r.addressText!.trim().isNotEmpty)
                     Text(r.addressText!.trim()),
-                  if (hasLocation) Text('${r.lat}, ${r.lng}'),
+                  if (hasLocation && r.addressText != null && r.addressText!.trim().isNotEmpty)
+                    const SizedBox(height: 4),
+                  if (hasLocation)
+                    Text(
+                      r.placeName != null && r.placeName!.trim().isNotEmpty
+                          ? r.placeName!.trim()
+                          : 'Exact pin is on the map.',
+                    ),
                   if (!hasLocation) const Text('No exact location was given.'),
                   if (_distance != null) ...[
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 12),
                     Text(
                       'You are ${formatMeters(_distance!)} from this incident.',
                     ),

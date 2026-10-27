@@ -62,6 +62,7 @@ class ReportDraft {
   final String contactName;
   final String contactPhone;
   final String? area;
+  final String? placeName;
   const ReportDraft({
     this.type,
     this.description = '',
@@ -72,6 +73,7 @@ class ReportDraft {
     this.contactName = '',
     this.contactPhone = '',
     this.area,
+    this.placeName,
   });
 
   Map<String, dynamic> toJson() => {
@@ -84,10 +86,12 @@ class ReportDraft {
     'contactName': contactName,
     'contactPhone': contactPhone,
     'area': area,
+    'placeName': placeName,
   };
 
   factory ReportDraft.fromJson(Map<String, dynamic> j) => ReportDraft(
     area: j['area'] as String?,
+    placeName: j['placeName'] as String?,
     type: j['type'] as String?,
     description: (j['description'] as String?) ?? '',
     lat: (j['lat'] as num?)?.toDouble(),
@@ -111,6 +115,9 @@ class NewReport {
 
   /// The province or Metro Manila city the report is filed under. Chosen from kAreas.
   final String area;
+
+  /// Approximate place name shown to responders next to the exact pin. Optional.
+  final String? placeName;
   final List<PickedPhoto> photos;
 
   /// How far the danger reaches from the point, in meters. Responders may act within this distance.
@@ -128,6 +135,7 @@ class NewReport {
     required this.contactName,
     required this.contactPhone,
     required this.area,
+    this.placeName,
     this.photos = const [],
     this.affectedRadiusM = 500,
     this.idempotencyKey,
@@ -254,6 +262,9 @@ class AssignedReport {
   final String status;
   final String? reference;
   final String? addressText;
+
+  /// Approximate place name for the pin. Null for older reports.
+  final String? placeName;
   final double? lat;
   final double? lng;
   final DateTime? createdAt;
@@ -271,6 +282,7 @@ class AssignedReport {
     required this.status,
     this.reference,
     this.addressText,
+    this.placeName,
     this.lat,
     this.lng,
     this.createdAt,

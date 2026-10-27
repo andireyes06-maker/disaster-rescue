@@ -55,10 +55,10 @@ export async function assign({ repo, notifier }, user, id, body) {
   return { id, status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId };
 }
 
-export async function acknowledge({ repo }, user, id, body) {
+// Any responder on the assigned team may acknowledge, wherever they are. Distance still limits addUpdate.
+export async function acknowledge({ repo }, user, id) {
   const report = await load(repo, id);
   await ownTeamOrNotFound(repo, user, report);
-  assertWithinReach(report, body?.position);
   const effects = mutationEffects([{ actorUid: user.uid, action: 'report.acknowledge', reportId: id }]);
   const result = await repo.acknowledgeReport(id, user.uid, effects);
   throwIfRejected(result);
