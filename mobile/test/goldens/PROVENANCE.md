@@ -122,3 +122,9 @@ The Change password button was removed again at the owner's request. `profile.pn
 ## Restored: Change password on the profile screen, 28 October 2026
 
 The owner asked for signed-in password change for residents and responders in the profile. The button is back above Log out. `profile.png` is restored byte-for-byte to the version reviewed under "Reviewed change" above (SHA-256 `cbc10be2…987044`). That render was viewed again before the restore and shows the button, nothing else changed. The dialog's own behavior is covered in `change_password_dialog_test.dart`, not in a golden.
+
+## Regenerated: report details step, 28 October 2026
+
+Reason: the earlier reference was captured at a different scroll position and still showed "How far does the danger reach?", a field severity replaced. The owner asked for the golden to be regenerated.
+Reviewed: the new render was viewed before acceptance. It shows step 3 at the top of the form, with the severity field and no reach field. The "Your name" field is cut off by the Next bar, as expected for a scrolling form at phone height.
+Method: `flutter test test/redesign_visual_test.dart --plain-name "four real report stages at phone width" --update-goldens`. The test passed on two consecutive full runs. No other golden was regenerated.
