@@ -32,3 +32,14 @@ describe('password help requests', () => {
     expect(await t.repo.listPasswordHelp()).toHaveLength(0);
   });
 });
+
+describe('password help cooldown', () => {
+  it('does not reopen a request that an administrator closed in the last day', async () => {
+    const t = makeTestApp();
+    await request(t.app).post('/api/auth/reset-help').send({ email: 'staff@example.test' });
+    const [row] = await t.repo.listPasswordHelp();
+    await request(t.app).post(`/api/auth/reset-help/${row.id}/close`).set('Authorization', t.as('admin'));
+    await request(t.app).post('/api/auth/reset-help').send({ email: 'staff@example.test' });
+    expect(await t.repo.listPasswordHelp()).toHaveLength(0);
+  });
+});

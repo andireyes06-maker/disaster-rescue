@@ -65,7 +65,7 @@ export const REPO_METHODS = [
   'addNotification', 'listNotifications', 'markRead',
   'addDevice', 'claimDevice', 'removeDeviceOwned', 'listDevices', 'removeDevice',
   'addAudit', 'listAudit',
-  'recordPasswordHelp', 'listPasswordHelp', 'closePasswordHelp',
+  'mutatePasswordHelp', 'listPasswordHelp', 'closePasswordHelp',
   'getHotlines', 'saveHotlines', 'saveSettingsWithAudit', 'acknowledgeReport',
   'getDemoConfig', 'listReportEffects', 'claimReportEffects', 'completeReportEffects',
   'reservePhotoAssets', 'recordPhotoAccepted', 'listDuePhotoAssets', 'claimPhotoAssetForCleanup', 'finishPhotoAssetCleanup',

@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { attemptKey, lockState, nextAfterFailure } from '../domain/loginAttempts.js';
 import { HttpError } from '../errors.js';
-import { createHash } from 'node:crypto';
+import { createHmac } from 'node:crypto';
+import rateLimit from 'express-rate-limit';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 
 const EMAIL_MAX = 254;
@@ -50,11 +51,24 @@ export function authRouter(deps) {
   });
 
   // A person who cannot reset their password asks for help here. Always answers the same way, registered or not.
-  r.post('/reset-help', async (req, res, next) => {
+  // Per address, at most 5 requests in 15 minutes; a request is ignored while one is open, and a closed one cannot be reopened for a day.
+  const helpLimit = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 5,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    handler: (req, res) => res.status(429).json({ error: 'rate_limited' }),
+  });
+  const HELP_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+  r.post('/reset-help', helpLimit, async (req, res, next) => {
     try {
       const email = emailFrom(req.body).toLowerCase();
-      const key = createHash('sha256').update(email).digest('hex');
-      await deps.repo.recordPasswordHelp(key, { email, status: 'open', createdAt: new Date() });
+      const key = createHmac('sha256', deps.loginAttemptSecret).update(email).digest('hex');
+      const now = Date.now();
+      await deps.repo.mutatePasswordHelp(key, (current) => {
+        if (current && (current.status === 'open' || now - new Date(current.closedAt ?? 0).getTime() < HELP_COOLDOWN_MS)) return current;
+        return { email, status: 'open', createdAt: new Date(now) };
+      });
       res.status(202).json({ ok: true });
     } catch (e) { next(e); }
   });

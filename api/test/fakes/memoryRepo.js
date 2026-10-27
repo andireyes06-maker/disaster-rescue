@@ -232,7 +232,12 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
       else loginAttempts.set(key, copy(next));
       return next;
     },
-    async recordPasswordHelp(key, data) { passwordHelp.set(key, copy(data)); },
+    async mutatePasswordHelp(key, mutate) {
+      const current = passwordHelp.has(key) ? copy(passwordHelp.get(key)) : null;
+      const next = mutate(current);
+      if (JSON.stringify(next) !== JSON.stringify(current)) passwordHelp.set(key, copy(next));
+      return next;
+    },
     async listPasswordHelp() { return [...passwordHelp].filter(([, v]) => v.status === 'open').map(([id, v]) => ({ id, ...copy(v) })); },
     async closePasswordHelp(key, closedBy, at) { const v = passwordHelp.get(key); if (v) passwordHelp.set(key, { ...v, status: 'closed', closedBy, closedAt: at }); },
     async getUser(uid) { const u = users.get(uid); return u ? copy(u) : null; },
