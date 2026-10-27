@@ -109,3 +109,8 @@ Reviewed: `login.png` regenerated; the only change is the new text link, and the
 
 Reason: residents no longer choose a province or city. The location step shows no dropdown. Owner request, 27 October 2026.
 Reviewed: `report-location.png` replaced with the new render; the only change is the removed dropdown. `report-details.png` and `report-review.png` are not yet regenerated (the visual test stops at this step, and the details golden already had an open difference).
+
+## Reviewed change: Change password on the profile screen, 27 October 2026
+
+Reason: residents and responders can change their own password from the profile screen. Owner request, 27 October 2026.
+Reviewed: `profile.png` replaced; the only change is the new Change password button above Log out.
