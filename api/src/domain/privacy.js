@@ -1,3 +1,4 @@
+import { isAssignedTo } from './assignedTeams.js';
 const STEP = 0.005;
 const PUBLIC_STATUSES = new Set(['Verified', 'Awaiting Assignment', 'Team Assigned', 'Rescue in Progress', 'Resolved']);
 const snap = (x) => Number((Math.round(x / STEP) * STEP).toFixed(3));
@@ -9,7 +10,7 @@ export function projectReportForRole(report, role, uid, teamId) {
   if (role === 'admin') return report;
   if (uid && report.reporterId === uid) return report;
   if (role === 'responder') {
-    if (!(teamId && report.assignedTeamId === teamId)) return null;
+    if (!isAssignedTo(report, teamId)) return null;
     // Defence in depth: reporter name and phone are never shown to responders, even if a stored record carries them.
     const { reporterName, reporterPhone, ...forResponder } = report;
     return forResponder;

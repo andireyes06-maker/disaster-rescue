@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -321,6 +322,48 @@ class TeamSummary {
   );
 }
 
+/// Joins two live lists of one team's reports: reports naming the team in its single-team field, and reports
+/// listing it among several teams. A report in both is shown once. Keeps the first [limit] rows in the given order.
+Stream<List<AssignedReport>> _joinTeamStreams(
+  Stream<List<AssignedReport>> single,
+  Stream<List<AssignedReport>> many, {
+  required int limit,
+  required bool newestFirst,
+}) {
+  late StreamController<List<AssignedReport>> out;
+  List<AssignedReport>? latestSingle;
+  List<AssignedReport>? latestMany;
+  StreamSubscription<List<AssignedReport>>? subSingle;
+  StreamSubscription<List<AssignedReport>>? subMany;
+
+  void emit() {
+    if (latestSingle == null || latestMany == null) return;
+    final byId = <String, AssignedReport>{};
+    for (final r in [...latestSingle!, ...latestMany!]) {
+      byId[r.id] = r;
+    }
+    final rows = byId.values.toList()
+      ..sort((a, b) {
+        final ta = a.createdAt, tb = b.createdAt;
+        if (ta == null || tb == null) return ta == null ? (tb == null ? 0 : 1) : -1;
+        return newestFirst ? tb.compareTo(ta) : ta.compareTo(tb);
+      });
+    out.add(rows.take(limit).toList());
+  }
+
+  out = StreamController<List<AssignedReport>>(
+    onListen: () {
+      subSingle = single.listen((v) { latestSingle = v; emit(); }, onError: out.addError);
+      subMany = many.listen((v) { latestMany = v; emit(); }, onError: out.addError);
+    },
+    onCancel: () async {
+      await subSingle?.cancel();
+      await subMany?.cancel();
+    },
+  );
+  return out.stream;
+}
+
 abstract class ResponderRepository {
   /// Team totals from the API (GET /stats/team). Errors when the request fails.
   Future<TeamSummary> teamSummary();
@@ -369,31 +412,51 @@ class ApiResponderRepository implements ResponderRepository {
     int windowSize = 50,
   }) {
     // Oldest first, from the database, so the window holds the oldest open assignments (2026-10-23).
-    return _db
+    const open = ['Team Assigned', 'Rescue in Progress'];
+    final single = _db
         .collection('reports')
         .where('assignedTeamId', isEqualTo: teamId)
-        .where('status', whereIn: const ['Team Assigned', 'Rescue in Progress'])
+        .where('status', whereIn: open)
         .orderBy('createdAt', descending: false)
         .limit(windowSize)
         .snapshots()
-        .map(
-          (snap) => snap.docs.map((d) {
-            return _assignedFrom(d.id, d.data());
-          }).toList(),
-        );
+        .map((snap) => snap.docs.map((d) => _assignedFrom(d.id, d.data())).toList());
+    // Reports assigned to several teams: filtered by status here, since the team list is one array filter.
+    final many = _db
+        .collection('reports')
+        .where('assignedTeamIds', arrayContains: teamId)
+        .orderBy('createdAt', descending: false)
+        .limit(windowSize * 2)
+        .snapshots()
+        .map((snap) => snap.docs
+            .map((d) => _assignedFrom(d.id, d.data()))
+            .where((r) => open.contains(r.status))
+            .toList());
+    return _joinTeamStreams(single, many, limit: windowSize, newestFirst: false);
   }
 
   @override
-  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) => _db
-      .collection('reports')
-      .where('assignedTeamId', isEqualTo: teamId)
-      .where('status', whereIn: historyStatuses)
-      .orderBy('updatedAt', descending: true)
-      .limit(10)
-      .snapshots()
-      .map(
-        (snap) => snap.docs.map((d) => _assignedFrom(d.id, d.data())).toList(),
-      );
+  Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) {
+    final single = _db
+        .collection('reports')
+        .where('assignedTeamId', isEqualTo: teamId)
+        .where('status', whereIn: historyStatuses)
+        .orderBy('updatedAt', descending: true)
+        .limit(10)
+        .snapshots()
+        .map((snap) => snap.docs.map((d) => _assignedFrom(d.id, d.data())).toList());
+    final many = _db
+        .collection('reports')
+        .where('assignedTeamIds', arrayContains: teamId)
+        .orderBy('updatedAt', descending: true)
+        .limit(20)
+        .snapshots()
+        .map((snap) => snap.docs
+            .map((d) => _assignedFrom(d.id, d.data()))
+            .where((r) => historyStatuses.contains(r.status))
+            .toList());
+    return _joinTeamStreams(single, many, limit: 10, newestFirst: true);
+  }
 
   @override
   Stream<AssignedReport?> watchReport(String id) {
@@ -586,6 +649,7 @@ AssignedReport _assignedFrom(String id, Map<String, dynamic> m) {
     priority: m['priority'] as String?,
     reporterId: m['reporterId'] as String?,
     assignedTeamId: m['assignedTeamId'] as String?,
+    assignedTeamIds: (m['assignedTeamIds'] as List?)?.whereType<String>().toList() ?? const [],
     coarseLocation: cLat != null && cLng != null ? MapPoint(cLat, cLng) : null,
     affectedRadiusM: (m['affectedRadiusM'] as num?)?.toInt(),
   );

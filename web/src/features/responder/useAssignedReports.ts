@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { collection, query, limit, where, orderBy, onSnapshot, type FirestoreError } from 'firebase/firestore';
+import { collection, query, limit, where, orderBy, type FirestoreError } from 'firebase/firestore';
+import { watchTeamReports } from './watchTeamReports';
 import { getFirebaseDb } from '../../firebase';
 import { REPORT_STATUSES, TERMINAL_STATUSES, type Report } from '../../types/domain';
 import { convertReport } from '../reports/useReports';
@@ -31,20 +32,19 @@ export function useAssignedReports(teamId: string | null | undefined): AssignedR
     }
     setState({ reports: [], loading: true, error: null, fromCache: false });
     // Server-filtered: the current team's open statuses only, oldest first, so the window holds the oldest open
-    // assignments (the same order as the Flutter responder list).
-    const q = query(
-      collection(getFirebaseDb(), 'reports'),
-      where('assignedTeamId', '==', teamId),
-      where('status', 'in', OPEN_STATUSES),
-      orderBy('createdAt', 'asc'), limit(windowSize),
-    );
-    return onSnapshot(
-      q,
-      { includeMetadataChanges: true },
-      (snap) => {
-        const reports = snap.docs.map((d) => convertReport(d.id, d.data()));
-        setState({ reports, loading: false, error: null, fromCache: snap.metadata.fromCache });
+    // assignments (the same order as the Flutter responder list). Reports assigned to several teams are joined in.
+    const db = getFirebaseDb();
+    const single = query(collection(db, 'reports'), where('assignedTeamId', '==', teamId), where('status', 'in', OPEN_STATUSES), orderBy('createdAt', 'asc'), limit(windowSize));
+    const many = query(collection(db, 'reports'), where('assignedTeamIds', 'array-contains', teamId), orderBy('createdAt', 'asc'), limit(windowSize * 2));
+    return watchTeamReports(
+      [single, many],
+      convertReport,
+      {
+        keep: (r) => OPEN_STATUSES.includes(r.status),
+        order: (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
+        limit: windowSize,
       },
+      (reports, fromCache) => setState({ reports, loading: false, error: null, fromCache }),
       (error) => setState((s) => ({ ...s, loading: false, error })),
     );
   }, [teamId, attempt, windowSize]);

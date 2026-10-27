@@ -1,3 +1,4 @@
+import { isAssignedTo } from '../domain/assignedTeams.js';
 import { STATUS } from '../domain/workflow.js';
 import { HttpError } from '../errors.js';
 
@@ -106,7 +107,7 @@ export function buildStats(reports, { from, to } = {}) {
 
 // Counts for one responder team only. Aggregates; no names, contacts, photos or locations.
 export function teamSummary(reports, teamId) {
-  const mine = reports.filter((r) => r.assignedTeamId === teamId);
+  const mine = reports.filter((r) => isAssignedTo(r, teamId));
   const s = buildStats(mine, {});
   return { total: s.total, open: s.open, resolved: s.resolved, byStatus: s.byStatus, peopleRescued: s.peopleRescued };
 }

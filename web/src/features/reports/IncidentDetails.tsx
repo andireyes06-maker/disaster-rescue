@@ -125,36 +125,37 @@ interface IncidentViewProps {
   id: string;
 }
 
-// Looks up the assigned team's name for the facts list. Staff who cannot list teams still see the assignment.
-function useAssignedTeamName(teamId: string | undefined): string | null {
-  const [name, setName] = useState<string | null>(null);
+// Looks up the names of the teams assigned to this report, for the facts list. Staff who cannot list teams still see the assignment.
+function useAssignedTeamNames(teamIds: string[]): string[] | null {
+  const [names, setNames] = useState<string[] | null>(null);
+  const key = teamIds.join(',');
   useEffect(() => {
-    if (!teamId) {
-      setName(null);
+    if (!key) {
+      setNames(null);
       return;
     }
+    const ids = key.split(',');
     let active = true;
     api('/teams')
       .then((list) => {
         if (!active) return;
         const teams = Array.isArray(list) ? (list as Team[]) : [];
-        setName(teams.find((t) => t.id === teamId)?.name ?? null);
+        setNames(ids.map((id) => teams.find((t) => t.id === id)?.name ?? 'Rescue team'));
       })
       .catch(() => {
-        if (active) setName(null);
+        if (active) setNames(null);
       });
-    return () => {
-      active = false;
-    };
-  }, [teamId]);
-  return name;
+    return () => { active = false; };
+  }, [key]);
+  return names;
 }
 
 function IncidentView({ id }: IncidentViewProps) {
   const { role, user } = useAuth();
   const { report, loading, error, notFound, removed, fromCache, retry } = useReport(id);
   const updatesState = useReportUpdates(id, `${user?.uid ?? ''}|${role ?? ''}`);
-  const teamName = useAssignedTeamName(report?.assignedTeamId);
+  const teamIds = report?.assignedTeamIds?.length ? report.assignedTeamIds : report?.assignedTeamId ? [report.assignedTeamId] : [];
+  const teamNames = useAssignedTeamNames(teamIds);
   const byId = useReportsByIds(report ? report.possibleDuplicates || [] : []);
   const [busy, setBusy] = useState(false);
   const actionInFlight = useRef(false);
@@ -252,7 +253,7 @@ function IncidentView({ id }: IncidentViewProps) {
           <Fact label="Address"><span className="plain">{report.addressText || 'No address given'}</span></Fact>
           {loc && Number.isFinite(loc.lat) && <Fact label="Location"><span className="plain">{report.placeName || report.area || 'Place not named'}</span></Fact>}
           <Fact label="Contact"><span className="plain">{report.contact?.name || (!report.contact?.phone ? 'No contact provided' : '')}{' '}{report.contact?.phone && <a href={`tel:${report.contact.phone}`}>{report.contact.phone}</a>}</span></Fact>
-          {report.assignedTeamId && <Fact label="Assigned team"><span className="plain">{teamName ?? 'Rescue team assigned'}</span></Fact>}
+          {teamIds.length > 0 && <Fact label={teamIds.length > 1 ? 'Assigned teams' : 'Assigned team'}><span className="plain">{teamNames?.join(', ') ?? 'Rescue team assigned'}</span></Fact>}
           {report.rejectionReason && <Fact label="Rejection reason"><span className="plain">{report.rejectionReason}</span></Fact>}
         </dl>
         {report.photos?.length > 0 && (

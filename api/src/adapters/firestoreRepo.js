@@ -5,6 +5,7 @@ import { reportEffectsJob } from '../domain/reportEffects.js';
 import { createHash } from 'node:crypto';
 import { isOpen } from '../domain/workflow.js';
 import { decideClaim, decideCommit, decideRelease } from '../domain/submission.js';
+import { isAssignedTo } from '../domain/assignedTeams.js';
 import {
   decideReserve, decideAttach, decideAccepted, planAbandon, planDestroyOutcome, reservedRow, OPEN_STATES, DESTROYABLE_STATES,
 } from '../domain/photoLedger.js';
@@ -78,12 +79,27 @@ export function createFirestoreRepo(db) {
     }
   }
   async function listReports(f = {}) {
+    const dated = (q) => {
+      let x = q;
+      if (f.from) x = x.where('createdAt', '>=', f.from);
+      if (f.to) x = x.where('createdAt', '<=', f.to);
+      return collectPaged(x.orderBy('createdAt', 'desc'));
+    };
+    // A team's reports: older reports name one team in assignedTeamId, newer ones list every team in assignedTeamIds.
+    if (f.assignedTeamId !== undefined) {
+      const { matches } = pickEquality(f, ['reporterId', 'status', 'type']);
+      const [single, many] = await Promise.all([
+        dated(col('reports').where('assignedTeamId', '==', f.assignedTeamId)),
+        dated(col('reports').where('assignedTeamIds', 'array-contains', f.assignedTeamId)),
+      ]);
+      const byId = new Map();
+      for (const r of [...single, ...many]) byId.set(r.id, r);
+      return [...byId.values()].filter(matches).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+    const { key, matches } = pickEquality(f, ['reporterId', 'status', 'type']);
     let q = col('reports');
-    const { key, matches } = pickEquality(f, ['reporterId', 'assignedTeamId', 'status', 'type']);
     if (key) q = q.where(key, '==', f[key]);
-    if (f.from) q = q.where('createdAt', '>=', f.from);
-    if (f.to) q = q.where('createdAt', '<=', f.to);
-    return (await collectPaged(q.orderBy('createdAt', 'desc'))).filter(matches);
+    return (await dated(q)).filter(matches);
   }
 
   return {
@@ -116,7 +132,8 @@ export function createFirestoreRepo(db) {
     // Reads come first (report, then team), then all writes, so a conflict on either document retries cleanly.
     async applyReportChange(reportId, expectedStatus, change) {
       const ref = col('reports').doc(reportId);
-      const teamRef = change.team ? col('teams').doc(change.team.id) : null;
+      const teams = change.teams ?? [];
+      const teamRefs = teams.map((t) => col('teams').doc(t.id));
       // A responder update with an idempotency key has a fixed document id. Finding it already written
       // means this exact request committed earlier, so nothing is written again and the stored row is returned.
       const updateRef = change.updateId ? ref.collection('updates').doc(change.updateId) : null;
@@ -131,19 +148,23 @@ export function createFirestoreRepo(db) {
         if (change.responderUid) {
           const actor = await tx.get(col('users').doc(change.responderUid));
           const u = actor.exists ? actor.data() : null;
-          if (!u?.active || !['responder', 'admin'].includes(u.role) || !u.team || report.data().assignedTeamId !== u.team) return { ok: false, reason: 'not_found' };
+          if (!u?.active || !['responder', 'admin'].includes(u.role) || !u.team || !isAssignedTo(report.data(), u.team)) return { ok: false, reason: 'not_found' };
         }
-        const team = teamRef ? await tx.get(teamRef) : null;
-        if (change.team?.claim) {
-          if (!team.exists) return { ok: false, reason: 'team_missing' };
-          const t = team.data();
+        // Every team is read before anything is written, so a claim covers all of them or none.
+        const docs = await Promise.all(teamRefs.map((r) => tx.get(r)));
+        for (let i = 0; i < teams.length; i++) {
+          if (!teams[i].claim) continue;
+          if (!docs[i].exists) return { ok: false, reason: 'team_missing' };
+          const t = docs[i].data();
           if (t.busy === true && t.currentReportId && t.currentReportId !== reportId) return { ok: false, reason: 'team_busy' };
         }
         tx.update(ref, stripUndefined({ ...change.reportPatch, updatedAt: new Date() }));
-        if (change.team?.claim) tx.set(teamRef, { busy: true, currentReportId: reportId }, { merge: true });
-        if (change.team?.release && team?.exists && team.data().currentReportId === reportId) {
-          tx.set(teamRef, { busy: false, currentReportId: null }, { merge: true });
-        }
+        teams.forEach((t, i) => {
+          if (t.claim) tx.set(teamRefs[i], { busy: true, currentReportId: reportId }, { merge: true });
+          if (t.release && docs[i].exists && docs[i].data().currentReportId === reportId) {
+            tx.set(teamRefs[i], { busy: false, currentReportId: null }, { merge: true });
+          }
+        });
         if (change.updateDoc) {
           const update = change.updateDoc;
           tx.set(updateRef ?? ref.collection('updates').doc(), stripUndefined({ ...update, at: update.at ?? new Date() }));
@@ -325,7 +346,7 @@ export function createFirestoreRepo(db) {
       return db.runTransaction(async tx => {
         const [report, actor, existing] = await Promise.all([tx.get(ref), tx.get(col('users').doc(uid)), tx.get(ack)]);
         const u = actor.exists ? actor.data() : null;
-        if (!report.exists || !u?.active || !['responder', 'admin'].includes(u.role) || !u.team || report.data().assignedTeamId !== u.team) return { ok: false, reason: 'not_found' };
+        if (!report.exists || !u?.active || !['responder', 'admin'].includes(u.role) || !u.team || !isAssignedTo(report.data(), u.team)) return { ok: false, reason: 'not_found' };
         const status = report.data().status;
         if (!['Team Assigned', 'Rescue in Progress'].includes(status)) return { ok: false, reason: 'report_closed' };
         // Earlier random-id acknowledgements remain authoritative during migration.

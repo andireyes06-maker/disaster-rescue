@@ -282,10 +282,16 @@ class AssignedReport {
   final String? priority;
   final String? reporterId;
   final String? assignedTeamId;
+  /// Every team the report is assigned to. Older reports have only assignedTeamId.
+  final List<String> assignedTeamIds;
   final MapPoint? coarseLocation;
 
   /// Reported reach of the danger in meters. Null for older reports; the app then uses 500 m.
   final int? affectedRadiusM;
+  /// True when [team] is the report's single team or one of its several teams.
+  bool isAssignedTo(String? team) =>
+      team != null && (assignedTeamId == team || assignedTeamIds.contains(team));
+
   const AssignedReport({
     required this.id,
     required this.type,
@@ -301,6 +307,7 @@ class AssignedReport {
     this.priority,
     this.reporterId,
     this.assignedTeamId,
+    this.assignedTeamIds = const [],
     this.affectedRadiusM,
     this.coarseLocation,
   });

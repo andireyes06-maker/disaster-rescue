@@ -48,7 +48,7 @@ describe('useClosedTeamReports is bounded on the server', () => {
     expect(where).toHaveBeenCalledWith('status', 'in', TERMINAL);
     expect(orderBy).toHaveBeenCalledWith('updatedAt', 'desc');
     expect(limit).toHaveBeenCalledWith(10);
-    expect(onSnapshot).toHaveBeenCalledTimes(1);
+    expect(onSnapshot).toHaveBeenCalledTimes(2);
     expect(h.subs[0].constraints).toEqual(expect.arrayContaining([
       { where: 'assignedTeamId', op: '==', value: 'team-a' },
       { where: 'status', op: 'in', value: TERMINAL },
@@ -57,10 +57,11 @@ describe('useClosedTeamReports is bounded on the server', () => {
     ]));
   });
 
-  it('issues one listener only, and never a status-free team query', () => {
+  it('issues two listeners, both bounded, and never a status-free team query', () => {
     renderHook(() => useClosedTeamReports('team-a'));
-    expect(query).toHaveBeenCalledTimes(1);
+    expect(query).toHaveBeenCalledTimes(2);
     expect(vi.mocked(query).mock.calls[0].slice(1)).toEqual(expect.arrayContaining([{ where: 'status', op: 'in', value: TERMINAL }]));
+    expect(vi.mocked(query).mock.calls[1].slice(1)).toEqual(expect.arrayContaining([{ where: 'assignedTeamIds', op: 'array-contains', value: 'team-a' }]));
   });
 
   it('gives a team change a new query and drops the old listener', () => {
@@ -68,7 +69,8 @@ describe('useClosedTeamReports is bounded on the server', () => {
     rerender({ team: 'team-b' });
     expect(where).toHaveBeenCalledWith('assignedTeamId', '==', 'team-b');
     expect(h.subs[0].unsub).toHaveBeenCalledTimes(1);
-    expect(h.subs[1].constraints).toEqual(expect.arrayContaining([{ where: 'assignedTeamId', op: '==', value: 'team-b' }]));
+    expect(h.subs[1].unsub).toHaveBeenCalledTimes(1);
+    expect(h.subs[2].constraints).toEqual(expect.arrayContaining([{ where: 'assignedTeamId', op: '==', value: 'team-b' }]));
   });
 
   it('issues no query and no listener without a team, so a notification alone grants no access', () => {
@@ -79,13 +81,14 @@ describe('useClosedTeamReports is bounded on the server', () => {
     expect(result.current.reports).toEqual([]);
   });
 
-  it('shows the server result as returned, without a second team listener', () => {
+  it('shows the joined result, newest change first, and flags cached results', () => {
     const { result } = renderHook(() => useClosedTeamReports('team-a'));
     act(() => h.subs[0].ok(snap([doc('c1', 'Closed', 2000), doc('c2', 'Cancelled', 1000)], true)));
+    act(() => h.subs[1].ok(snap([doc('c2', 'Cancelled', 1000)], true)));
     expect(result.current.reports.map((r) => r.id)).toEqual(['c1', 'c2']);
     expect(result.current.fromCache).toBe(true);
     expect(result.current.loading).toBe(false);
-    expect(h.subs).toHaveLength(1);
+    expect(h.subs).toHaveLength(2);
   });
 
   it('surfaces listener errors and resubscribes on retry', () => {
@@ -93,7 +96,7 @@ describe('useClosedTeamReports is bounded on the server', () => {
     act(() => h.subs[0].err(new Error('unavailable')));
     expect(result.current.error).toBeTruthy();
     act(() => result.current.retry());
-    expect(h.subs).toHaveLength(2);
+    expect(h.subs).toHaveLength(4);
     expect(h.subs[0].unsub).toHaveBeenCalled();
   });
 });

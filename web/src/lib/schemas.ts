@@ -32,6 +32,15 @@ export function assignTeamSchema(freeTeamIds: readonly string[]) {
 
 export type AssignTeam = z.infer<ReturnType<typeof assignTeamSchema>>;
 
+// One or more free teams for one report. Every chosen team must be on the free list.
+export function assignTeamsSchema(freeTeamIds: readonly string[]) {
+  return z.object({
+    teamIds: z.array(z.string()).min(1, { error: ASSIGN_TEAM_ERROR }).refine((ids) => ids.every((id) => freeTeamIds.includes(id)), { error: ASSIGN_TEAM_ERROR }),
+  });
+}
+
+export type AssignTeams = z.infer<ReturnType<typeof assignTeamsSchema>>;
+
 export const teamNameSchema = z.object({
   name: z.string().trim().min(1, { error: TEAM_NAME_ERROR }).max(100, { error: TEAM_NAME_ERROR }),
 });

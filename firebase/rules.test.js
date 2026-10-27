@@ -52,6 +52,7 @@ beforeEach(async () => {
     await db.doc('reports/r1').set({ reporterId: 'res1', assignedTeamId: 'team-alpha', status: 'assigned', type: 'flood' });
     await db.doc('reports/r2').set({ reporterId: 'res2', assignedTeamId: 'team-bravo', status: 'new', type: 'fire' });
     await db.doc('reports/r3').set({ reporterId: 'res2', assignedTeamId: null, status: 'new', type: 'flood' });
+    await db.doc('reports/r5').set({ reporterId: 'res2', assignedTeamId: 'team-alpha', assignedTeamIds: ['team-alpha', 'team-bravo'], status: 'assigned', type: 'flood' });
     await db.doc('reports/r4').set({ reporterId: 'res2', status: 'new', type: 'flood' });
     await db.doc('reports/r3/updates/u3').set({ status: 'new', byUid: 'res2' });
     await db.doc('reports/r1/updates/u1').set({ status: 'assigned', byUid: 'disp1' });
@@ -106,6 +107,11 @@ describe('reports', () => {
     await assertSucceeds(ctx.responderA().collection('reports').where('assignedTeamId', '==', 'team-alpha').get());
     await assertFails(ctx.responderA().collection('reports').get());
   });
+  test('a report assigned to several teams is readable by each of them', async () => {
+    await assertSucceeds(ctx.responderA().doc('reports/r5').get());
+    await assertSucceeds(ctx.responderB().doc('reports/r5').get());
+    await assertSucceeds(ctx.responderB().collection('reports').where('assignedTeamIds', 'array-contains', 'team-bravo').get());
+  });
   test('responder without team claim reads nothing', async () => {
     const db = await as('resp3', { role: 'responder', active: true });
     await assertFails(db.doc('reports/r1').get());
@@ -135,7 +141,7 @@ describe('reports', () => {
     test('proper team query returns only assigned reports', async () => {
       const db = await as('resp9', variants['real team claim']);
       const snap = await assertSucceeds(db.collection('reports').where('assignedTeamId', '==', 'team-alpha').get());
-      assert.deepEqual(snap.docs.map((d) => d.id), ['r1']);
+      assert.deepEqual(snap.docs.map((d) => d.id), ['r1', 'r5']);
     });
   });
   test('no client can write reports', async () => {

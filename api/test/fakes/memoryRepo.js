@@ -1,5 +1,6 @@
 import { reportEffectsJob } from '../../src/domain/reportEffects.js';
 import { isOpen } from '../../src/domain/workflow.js';
+import { isAssignedTo } from '../../src/domain/assignedTeams.js';
 import { decideClaim, decideCommit, decideRelease } from '../../src/domain/submission.js';
 import {
   decideReserve, decideAttach, decideAccepted, planAbandon, planDestroyOutcome, reservedRow, OPEN_STATES, DESTROYABLE_STATES,
@@ -57,7 +58,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
     async listReports(f = {}) {
       return [...reports.values()]
         .filter((r) => (f.reporterId === undefined || r.reporterId === f.reporterId)
-          && (f.assignedTeamId === undefined || r.assignedTeamId === f.assignedTeamId)
+          && (f.assignedTeamId === undefined || isAssignedTo(r, f.assignedTeamId))
           && (f.status === undefined || r.status === f.status)
           && (f.type === undefined || r.type === f.type)
           && inRange(r.createdAt, f.from, f.to))
@@ -91,18 +92,20 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
       if (r.status !== expectedStatus) return { ok: false, reason: 'conflict' };
       if (change.responderUid) {
         const actor = users.get(change.responderUid);
-        if (!actor?.active || !['responder', 'admin'].includes(actor.role) || !actor.team || actor.team !== r.assignedTeamId) return { ok: false, reason: 'not_found' };
+        if (!actor?.active || !['responder', 'admin'].includes(actor.role) || !actor.team || !isAssignedTo(r, actor.team)) return { ok: false, reason: 'not_found' };
       }
-      const team = change.team ? teams.get(change.team.id) : null;
-      if (change.team?.claim) {
-        if (!team) return { ok: false, reason: 'team_missing' };
-        if (team.busy === true && team.currentReportId && team.currentReportId !== reportId) return { ok: false, reason: 'team_busy' };
+      const teamList = change.teams ?? [];
+      const docs = teamList.map((t) => (teams.get(t.id) ? { ...teams.get(t.id) } : null));
+      for (let i = 0; i < teamList.length; i++) {
+        if (!teamList[i].claim) continue;
+        if (!docs[i]) return { ok: false, reason: 'team_missing' };
+        if (docs[i].busy === true && docs[i].currentReportId && docs[i].currentReportId !== reportId) return { ok: false, reason: 'team_busy' };
       }
       reports.set(reportId, { ...r, ...copy(change.reportPatch), id: reportId, updatedAt: new Date() });
-      if (change.team?.claim) teams.set(change.team.id, { ...team, busy: true, currentReportId: reportId });
-      if (change.team?.release && team && team.currentReportId === reportId) {
-        teams.set(change.team.id, { ...team, busy: false, currentReportId: null });
-      }
+      teamList.forEach((t, i) => {
+        if (t.claim) teams.set(t.id, { ...docs[i], busy: true, currentReportId: reportId });
+        if (t.release && docs[i] && docs[i].currentReportId === reportId) teams.set(t.id, { ...docs[i], busy: false, currentReportId: null });
+      });
       if (change.updateDoc) {
         if (!updates.has(reportId)) updates.set(reportId, []);
         updates.get(reportId).push({ ...copy(change.updateDoc), id: change.updateId ?? nextId('u') });
@@ -209,7 +212,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
     },
     async acknowledgeReport(reportId, uid, effects) {
       const r = reports.get(reportId), actor = users.get(uid);
-      if (!r || !actor?.active || !['responder', 'admin'].includes(actor.role) || !actor.team || r.assignedTeamId !== actor.team) return { ok: false, reason: 'not_found' };
+      if (!r || !actor?.active || !['responder', 'admin'].includes(actor.role) || !actor.team || !isAssignedTo(r, actor.team)) return { ok: false, reason: 'not_found' };
       if (!['Team Assigned', 'Rescue in Progress'].includes(r.status)) return { ok: false, reason: 'report_closed' };
       const rows = updates.get(reportId) ?? [];
       if (rows.some(u => u.kind === 'acknowledge' && u.byUid === uid)) return { ok: true, duplicate: true, status: r.status };

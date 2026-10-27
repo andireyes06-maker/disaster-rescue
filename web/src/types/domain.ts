@@ -71,6 +71,8 @@ export interface Report {
   createdAt: Date;
   updatedAt: Date;
   assignedTeamId?: string;
+  /** Every team the report is assigned to. Older reports have only assignedTeamId. */
+  assignedTeamIds?: string[];
   rejectionReason?: string;
   // Set when an administrator validates the report by hand.
   verifiedBy?: { uid: string; name: string | null };
@@ -87,4 +89,10 @@ export interface Team {
   /** The identity the team responds under: PNP, BFP, Rescue, MDDRMO or Other. */
   kind?: string;
   currentReportId?: string | null;
+}
+
+/** The teams a report is assigned to, whether it lists them all or names one team only. */
+export function teamsOf(report: { assignedTeamId?: string | null; assignedTeamIds?: string[] }): string[] {
+  if (report.assignedTeamIds?.length) return report.assignedTeamIds;
+  return report.assignedTeamId ? [report.assignedTeamId] : [];
 }

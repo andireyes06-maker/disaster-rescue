@@ -91,7 +91,7 @@ class _NotificationReportPageState extends State<NotificationReportPage> {
             );
           }
           final report = snapshot.data;
-          if (report == null || report.assignedTeamId != user.team) {
+          if (report == null || !report.isAssignedTo(user.team)) {
             return unavailable();
           }
           return IncidentDetailPage(report: report);

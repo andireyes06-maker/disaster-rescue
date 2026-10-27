@@ -4,6 +4,9 @@ import { HttpError } from '../errors.js';
 import { STATUS, isOpen, assertTransition } from '../domain/workflow.js';
 import { sanitizeText } from '../domain/validation.js';
 import { load, transition, notFound, conflict } from './reviewService.js';
+import { isAssignedTo, teamIdsOf } from '../domain/assignedTeams.js';
+
+const MAX_TEAMS = 10;
 
 const RESPONDER_STATUSES = [STATUS.IN_PROGRESS, STATUS.RESOLVED];
 
@@ -21,37 +24,45 @@ function throwIfRejected(result) {
 // so the report's existence is not leaked.
 async function ownTeamOrNotFound(repo, user, report) {
   const teamId = (await repo.getUser(user.uid))?.team;
-  if (!teamId || report.assignedTeamId !== teamId) throw notFound();
+  if (!isAssignedTo(report, teamId)) throw notFound();
 }
 
+// Assigns one or more teams at once. Send teamIds (a list); a single teamId is still accepted.
+// Every listed team is claimed in the same atomic change, so a team serves one report at a time.
 export async function assign({ repo, notifier }, user, id, body) {
-  const teamId = typeof body?.teamId === 'string' ? body.teamId.trim() : '';
-  if (!teamId) throw new HttpError(400, 'invalid_team', 'teamId is required');
-  const team = await repo.getTeam(teamId);
-  if (!team) throw new HttpError(400, 'invalid_team', 'Team does not exist');
+  const requested = Array.isArray(body?.teamIds) ? body.teamIds : [body?.teamId];
+  const teamIds = [...new Set(requested.map((t) => (typeof t === 'string' ? t.trim() : '')).filter(Boolean))];
+  if (!teamIds.length) throw new HttpError(400, 'invalid_team', 'Choose at least one team');
+  if (teamIds.length > MAX_TEAMS) throw new HttpError(400, 'too_many_teams', `At most ${MAX_TEAMS} teams can be assigned to one report`);
+  const teams = [];
+  for (const teamId of teamIds) {
+    const team = await repo.getTeam(teamId);
+    if (!team) throw new HttpError(400, 'invalid_team', 'Team does not exist');
+    teams.push({ id: teamId, name: team.name });
+  }
 
   let report = await load(repo, id);
   // Verified reports advance to Awaiting Assignment first, so none get stuck.
   if (report.status === STATUS.VERIFIED) report = await transition(repo, user, report, STATUS.AWAITING_ASSIGNMENT);
   assertTransition(report.status, STATUS.TEAM_ASSIGNED, user.role);
-  // Authoritative: the team claim and the report change commit together, so one team can serve one report.
+  // Authoritative: the team claims and the report change commit together, so one team can serve one report.
   // Two different reports racing for the same free team get one success and one team_busy.
   const previous = report.status;
   const assignedAt = new Date();
   const effects = mutationEffects([
     { actorUid: user.uid, action: 'status.change', reportId: id, before: { status: previous }, after: { status: STATUS.TEAM_ASSIGNED } },
-    { actorUid: user.uid, action: 'report.assign', reportId: id, after: { status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId } },
+    { actorUid: user.uid, action: 'report.assign', reportId: id, after: { status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamIds[0], assignedTeamIds: teamIds } },
   ], [
     ...(report.reporterId ? [{ target: { uid: report.reporterId }, payload: { title: 'Team assigned', body: `Report ${report.reference} has been assigned to a rescue team`, reportId: id } }] : []),
-    { target: { teamId }, payload: { title: 'New assignment', body: `Report ${report.reference} assigned to ${team.name ?? 'your team'}`, reportId: id } },
+    ...teams.map((t) => ({ target: { teamId: t.id }, payload: { title: 'New assignment', body: `Report ${report.reference} assigned to ${t.name ?? 'your team'}`, reportId: id } })),
   ]);
   throwIfRejected(await repo.applyReportChange(id, previous, {
-    reportPatch: { status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId, assignedAt },
-    team: { id: teamId, claim: true }, effects,
+    reportPatch: { status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamIds[0], assignedTeamIds: teamIds, assignedAt },
+    teams: teamIds.map((tid) => ({ id: tid, claim: true })), effects,
   }));
-  report = { ...report, status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId, assignedAt };
+  report = { ...report, status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamIds[0], assignedTeamIds: teamIds, assignedAt };
   await tryMutationEffects({ repo, notifier }, effects);
-  return { id, status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamId };
+  return { id, status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamIds[0], assignedTeamIds: teamIds };
 }
 
 // Any responder on the assigned team may acknowledge, wherever they are. Distance still limits addUpdate.
@@ -142,15 +153,15 @@ export async function close({ repo }, user, id) {
   const report = await load(repo, id);
   // Only Resolved -> Closed is an edge; anything else is 409 from assertTransition.
   assertTransition(report.status, STATUS.CLOSED, user.role);
-  const teamId = report.assignedTeamId;
-  // The status change and the team release commit together, so a team is never left busy after its report closed.
+  const teamIds = teamIdsOf(report);
+  // The status change and the team releases commit together, so no team is left busy after its report closed.
   const effects = mutationEffects([
     { actorUid: user.uid, action: 'status.change', reportId: id, before: { status: report.status }, after: { status: STATUS.CLOSED } },
     { actorUid: user.uid, action: 'report.close', reportId: id, after: { status: STATUS.CLOSED } },
   ]);
   throwIfRejected(await repo.applyReportChange(id, report.status, {
     reportPatch: { status: STATUS.CLOSED },
-    team: teamId ? { id: teamId, release: true } : undefined, effects,
+    teams: teamIds.map((tid) => ({ id: tid, release: true })), effects,
   }));
   await tryMutationEffects({ repo }, effects);
   return { id, status: STATUS.CLOSED };

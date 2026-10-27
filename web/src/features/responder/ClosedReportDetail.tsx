@@ -1,3 +1,4 @@
+import { teamsOf } from '../../types/domain';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
 import type { GeoPoint, Report } from '../../types/domain';
@@ -98,7 +99,7 @@ export default function ClosedReportPage() {
     );
   }
   if (loading) return <Skeleton label="Loading report"><SkeletonRows rows={2} height={220} /></Skeleton>;
-  if (error || notFound || !report || report.assignedTeamId !== team) {
+  if (error || notFound || !report || !team || !teamsOf(report).includes(team)) {
     return (
       <EmptyState
         title="Report not available to your team"

@@ -85,7 +85,10 @@ export function authRouter(deps) {
 
   r.post('/reset-help/:id/close', auth, admin, async (req, res, next) => {
     try {
-      await deps.repo.closePasswordHelp(req.params.id, req.user.uid, new Date());
+      const at = new Date();
+      await deps.repo.closePasswordHelp(req.params.id, req.user.uid, at);
+      // Closing a request is an administrator action, so it is recorded in the audit log as well.
+      await deps.repo.addAudit({ actorUid: req.user.uid, action: 'password-help.close', at, target: { requestId: req.params.id } });
       res.json({ ok: true });
     } catch (e) { next(e); }
   });

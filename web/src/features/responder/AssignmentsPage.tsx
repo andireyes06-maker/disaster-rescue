@@ -1,3 +1,4 @@
+import { teamsOf } from '../../types/domain';
 import ReportWindow from '../../components/ReportWindow';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
 import { useEffect, useRef, useState } from 'react';
@@ -143,7 +144,7 @@ function DraftWatch({ reportId, team }: { reportId: string; team: string }) {
   const { report, loading, error, notFound, removed } = useReport(reportId);
   useEffect(() => {
     if (loading || !getDraft(reportId)) return;
-    if (error || notFound || removed || !report || report.assignedTeamId !== team) {
+    if (error || notFound || removed || !report || !team || !teamsOf(report).includes(team)) {
       clearDraft(reportId);
       return;
     }

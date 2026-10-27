@@ -197,7 +197,7 @@ describe('atomic staff and report writes (transactions)', () => {
     const id = await repo.createReport({ ...base, status: 'Awaiting Assignment' });
     const result = await repo.applyReportChange(id, 'Awaiting Assignment', {
       reportPatch: { status: 'Team Assigned', assignedTeamId: 'tA' },
-      team: { id: 'tA', claim: true },
+      teams: [{ id: 'tA', claim: true }],
     });
     expect(result).toEqual({ ok: false, reason: 'team_busy' });
     expect(await repo.getReport(id)).toMatchObject({ status: 'Awaiting Assignment' });
@@ -210,7 +210,7 @@ describe('atomic staff and report writes (transactions)', () => {
     const id = await repo.createReport({ ...base, status: 'Awaiting Assignment' });
     const result = await repo.applyReportChange(id, 'Awaiting Assignment', {
       reportPatch: { status: 'Team Assigned', assignedTeamId: 'tA' },
-      team: { id: 'tA', claim: true },
+      teams: [{ id: 'tA', claim: true }],
       updateDoc: { kind: 'status', status: 'Team Assigned' },
     });
     expect(result).toEqual({ ok: true });

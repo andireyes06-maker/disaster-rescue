@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, orderBy, limit, onSnapshot, type FirestoreError } from 'firebase/firestore';
+import { collection, query, limit, where, orderBy, type FirestoreError } from 'firebase/firestore';
+import { watchTeamReports } from './watchTeamReports';
 import { getFirebaseDb } from '../../firebase';
 import { TERMINAL_STATUSES, type Report } from '../../types/domain';
 import { convertReport } from '../reports/useReports';
@@ -28,21 +29,20 @@ export function useClosedTeamReports(teamId: string | null | undefined): ClosedT
       return undefined;
     }
     setState({ reports: [], loading: true, error: null, fromCache: false });
-    // Server-bounded: current team, terminal statuses only, newest change first, at most RECENT_CLOSED_LIMIT documents.
-    const q = query(
-      collection(getFirebaseDb(), 'reports'),
-      where('assignedTeamId', '==', teamId),
-      where('status', 'in', [...TERMINAL_STATUSES]),
-      orderBy('updatedAt', 'desc'),
-      limit(RECENT_CLOSED_LIMIT),
-    );
-    return onSnapshot(
-      q,
-      { includeMetadataChanges: true },
-      (snap) => {
-        const reports = snap.docs.map((d) => convertReport(d.id, d.data()));
-        setState({ reports, loading: false, error: null, fromCache: snap.metadata.fromCache });
+    // Server-bounded: the team's terminal reports only, newest change first, at most RECENT_CLOSED_LIMIT documents.
+    // Reports assigned to several teams are joined in.
+    const db = getFirebaseDb();
+    const single = query(collection(db, 'reports'), where('assignedTeamId', '==', teamId), where('status', 'in', [...TERMINAL_STATUSES]), orderBy('updatedAt', 'desc'), limit(RECENT_CLOSED_LIMIT));
+    const many = query(collection(db, 'reports'), where('assignedTeamIds', 'array-contains', teamId), orderBy('updatedAt', 'desc'), limit(RECENT_CLOSED_LIMIT * 2));
+    return watchTeamReports(
+      [single, many],
+      convertReport,
+      {
+        keep: (r) => (TERMINAL_STATUSES as readonly string[]).includes(r.status),
+        order: (a, b) => b.updatedAt.getTime() - a.updatedAt.getTime(),
+        limit: RECENT_CLOSED_LIMIT,
       },
+      (reports, fromCache) => setState({ reports, loading: false, error: null, fromCache }),
       (error) => setState((s) => ({ ...s, loading: false, error })),
     );
   }, [teamId, attempt]);

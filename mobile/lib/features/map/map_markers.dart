@@ -11,7 +11,7 @@ MapPoint? visibleLocation(
   String? viewerTeam,
 }) {
   final isReporter = r.reporterId != null && r.reporterId == viewerUid;
-  final isAssigned = viewerTeam != null && r.assignedTeamId == viewerTeam;
+  final isAssigned = r.isAssignedTo(viewerTeam);
   if (isReporter || isAssigned) {
     final lat = r.lat, lng = r.lng;
     return lat != null && lng != null ? MapPoint(lat, lng) : null;

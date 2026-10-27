@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '../../api/client';
 import { apiFailure } from '../../lib/apiError';
-import { assignTeamSchema, type AssignTeam } from '../../lib/schemas';
+import { assignTeamsSchema, type AssignTeams } from '../../lib/schemas';
 import {
   Dialog,
   DialogContent,
@@ -55,20 +55,20 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
   onAssigned?: () => void;
 }) {
   // The schema is fixed for this form's lifetime. The parent mounts it only once teams have loaded.
-  const [schema] = useState(() => assignTeamSchema(freeTeams.map((t) => t.team.id)));
+  const [schema] = useState(() => assignTeamsSchema(freeTeams.map((t) => t.team.id)));
   const [busy, setBusy] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const { control, handleSubmit, formState: { errors } } = useForm<AssignTeam>({
+  const { control, handleSubmit, formState: { errors } } = useForm<AssignTeams>({
     resolver: zodResolver(schema),
-    defaultValues: { teamId: '' },
+    defaultValues: { teamIds: [] },
   });
 
-  async function onValid({ teamId }: AssignTeam) {
+  async function onValid({ teamIds }: AssignTeams) {
     if (busy) return;
     setBusy(true);
     setApiError(null);
     try {
-      await api(`/reports/${reportId}/assign`, { method: 'POST', body: { teamId } });
+      await api(`/reports/${reportId}/assign`, { method: 'POST', body: { teamIds } });
       if (onAssigned) onAssigned();
       onClose();
     } catch (err) {
@@ -78,21 +78,33 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
     }
   }
 
-  const message = errors.teamId?.message ?? apiError;
+  const message = errors.teamIds?.message ?? apiError;
 
   return (
     <MotionForm onSubmit={handleSubmit(onValid)} noValidate>
-      <RequiredNote /><label htmlFor="assign-team">Rescue team<RequiredMark /></label>
-      <Controller
-        name="teamId"
-        control={control}
-        render={({ field }) => (
-          <select id="assign-team" aria-required="true" aria-invalid={!!errors.teamId} aria-describedby={message ? 'assign-error' : undefined} name="teamId" value={field.value} onChange={(e) => field.onChange(e.target.value)} onBlur={field.onBlur} ref={field.ref}>
-            <option value="" disabled>Choose a team</option>
-            {freeTeams.map(({ team: t, km }) => <option key={t.id} value={t.id}>{km === null ? `${t.name} (no headquarters set)` : `${t.name}, ${km.toFixed(1)} km away`}</option>)}
-          </select>
-        )}
-      />
+      <fieldset className="assign-teams" aria-describedby={message ? 'assign-error' : undefined}>
+        <legend><RequiredNote /><RequiredMark /> Rescue teams</legend>
+        <p className="field-hint">Choose one or more teams. Each chosen team works on this report.</p>
+        <Controller
+          name="teamIds"
+          control={control}
+          render={({ field }) => (
+            <>
+              {freeTeams.map(({ team: t, km }) => (
+                <label key={t.id} className="assign-teams__option">
+                  <input
+                    type="checkbox"
+                    value={t.id}
+                    checked={field.value.includes(t.id)}
+                    onChange={(e) => field.onChange(e.target.checked ? [...field.value, t.id] : field.value.filter((id) => id !== t.id))}
+                  />
+                  <span>{km === null ? `${t.name} (no headquarters set)` : `${t.name}, ${km.toFixed(1)} km away`}</span>
+                </label>
+              ))}
+            </>
+          )}
+        />
+      </fieldset>
       {message && <Banner id="assign-error" tone="error" role="alert">{message}</Banner>}
       <div className="actions__row">
         <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>Assign team</button>

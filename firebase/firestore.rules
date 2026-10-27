@@ -26,7 +26,7 @@ service cloud.firestore {
     function canSeeReport(data) {
       return isStaff()
         || (isActive() && role() == 'resident' && data.reporterId == request.auth.uid)
-        || (isActive() && role() == 'responder' && team() != '' && data.assignedTeamId == team());
+        || (isActive() && role() == 'responder' && team() != '' && (data.get('assignedTeamId', '') == team() || ('assignedTeamIds' in data && data.assignedTeamIds.hasAny([team()]))));
     }
 
     // The Express API (Admin SDK) is the only writer. Clients never write.

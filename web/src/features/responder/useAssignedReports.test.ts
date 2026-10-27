@@ -54,7 +54,12 @@ describe('useAssignedReports filters open statuses on the server', () => {
       { where: 'status', op: 'in', value: OPEN },
       { orderBy: 'createdAt', dir: 'asc' },
     ]));
-    expect(onSnapshot).toHaveBeenCalledTimes(1);
+    expect(onSnapshot).toHaveBeenCalledTimes(2);
+    // The second listener finds reports that name the team among several.
+    expect(h.subs[1].constraints).toEqual(expect.arrayContaining([
+      { where: 'assignedTeamIds', op: 'array-contains', value: 'team-a' },
+      { orderBy: 'createdAt', dir: 'asc' },
+    ]));
   });
 
   it('gives a team change a new query and drops the old listener', () => {
@@ -62,7 +67,8 @@ describe('useAssignedReports filters open statuses on the server', () => {
     rerender({ team: 'team-b' });
     expect(where).toHaveBeenCalledWith('assignedTeamId', '==', 'team-b');
     expect(h.subs[0].unsub).toHaveBeenCalledTimes(1);
-    expect(h.subs[1].constraints).toEqual(expect.arrayContaining([{ where: 'assignedTeamId', op: '==', value: 'team-b' }]));
+    expect(h.subs[1].unsub).toHaveBeenCalledTimes(1);
+    expect(h.subs[2].constraints).toEqual(expect.arrayContaining([{ where: 'assignedTeamId', op: '==', value: 'team-b' }]));
   });
 
   it('issues no query without a team, so a notification alone grants no access', () => {
@@ -76,7 +82,8 @@ describe('useAssignedReports filters open statuses on the server', () => {
   it('passes the open reports from the server through, and flags cached results', () => {
     const { result } = renderHook(() => useAssignedReports('team-a'));
     act(() => h.subs[0].ok(snap([doc('r1', 'Team Assigned', 2000), doc('r2', 'Rescue in Progress', 1000)], true)));
-    expect(result.current.reports.map((r) => r.id)).toEqual(['r1', 'r2']);
+    act(() => h.subs[1].ok(snap([], true)));
+    expect(result.current.reports.map((r) => r.id)).toEqual(['r2', 'r1']);
     expect(result.current.fromCache).toBe(true);
     expect(result.current.loading).toBe(false);
   });
@@ -87,7 +94,14 @@ describe('useAssignedReports filters open statuses on the server', () => {
     expect(result.current.error).toBeTruthy();
     expect(result.current.loading).toBe(false);
     act(() => result.current.retry());
-    expect(h.subs).toHaveLength(2);
+    expect(h.subs).toHaveLength(4);
     expect(h.subs[0].unsub).toHaveBeenCalled();
+  });
+
+  it('shows a report listed under several teams once, oldest first', () => {
+    const { result } = renderHook(() => useAssignedReports('team-a'));
+    act(() => h.subs[0].ok(snap([doc('r1', 'Team Assigned', 2000)])));
+    act(() => h.subs[1].ok(snap([doc('r1', 'Team Assigned', 2000), doc('r2', 'Team Assigned', 1000)])));
+    expect(result.current.reports.map((r) => r.id)).toEqual(['r2', 'r1']);
   });
 });
