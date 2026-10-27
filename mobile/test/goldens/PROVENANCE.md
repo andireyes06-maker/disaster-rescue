@@ -128,3 +128,9 @@ The owner asked for signed-in password change for residents and responders in th
 Reason: the earlier reference was captured at a different scroll position and still showed "How far does the danger reach?", a field severity replaced. The owner asked for the golden to be regenerated.
 Reviewed: the new render was viewed before acceptance. It shows step 3 at the top of the form, with the severity field and no reach field. The "Your name" field is cut off by the Next bar, as expected for a scrolling form at phone height.
 Method: `flutter test test/redesign_visual_test.dart --plain-name "four real report stages at phone width" --update-goldens`. The test passed on two consecutive full runs. No other golden was regenerated.
+
+## Regenerated: report review capture, 28 October 2026
+
+Reason: the earlier reference still showed the replaced "reach" field. The owner approved regenerating it.
+Reviewed: the new render was viewed before acceptance. It is still step 3 of 4, not the review step: the test taps Next without a photo, so validation stops there and shows "Add at least one photo as proof." The render shows the severity field and no reach field.
+Method: same test as report details, with `--update-goldens`. Only this file changed; `report-details.png` was byte-identical on the rerun.
