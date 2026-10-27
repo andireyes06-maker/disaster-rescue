@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../features/welcome/welcome_page.dart';
 import '../features/home/resident_home.dart';
+import '../features/notifications/notification_bell.dart';
 import '../features/notifications/notifications_page.dart';
 import '../features/notifications/push_registration.dart';
 import '../features/responder/assigned_list_page.dart';
@@ -154,15 +155,27 @@ class _ResponderHomeState extends State<ResponderHome> {
           ProfilePage(user: user),
         ],
       ),
-      destinations: const [
-        NavigationDestination(
+      destinations: [
+        const NavigationDestination(
           icon: Icon(Icons.assignment_outlined),
           selectedIcon: Icon(Icons.assignment),
           label: 'Assigned',
         ),
         NavigationDestination(
-          icon: Icon(Icons.notifications_outlined),
-          selectedIcon: Icon(Icons.notifications),
+          icon: NotificationBell(
+            uid: user.uid,
+            builder: (context, unread) => UnreadDot(
+              unread: unread,
+              icon: const Icon(Icons.notifications_outlined),
+            ),
+          ),
+          selectedIcon: NotificationBell(
+            uid: user.uid,
+            builder: (context, unread) => UnreadDot(
+              unread: unread,
+              icon: const Icon(Icons.notifications),
+            ),
+          ),
           label: 'Notifications',
         ),
         NavigationDestination(

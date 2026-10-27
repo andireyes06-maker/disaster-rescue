@@ -60,12 +60,31 @@ class AuthUser {
   });
 }
 
+/// Why a signed-in password change did not happen. Never carries the password itself.
+enum PasswordChangeFailure {
+  wrongCurrent,
+  weakPassword,
+  sessionEnded,
+  network,
+  tooManyAttempts,
+  unknown,
+}
+
+class PasswordChangeException implements Exception {
+  const PasswordChangeException(this.failure);
+  final PasswordChangeFailure failure;
+}
+
 abstract class AuthRepository {
   /// Emits the signed-in user with claims, or null when signed out.
   /// A claims lookup failure arrives as a stream error.
   Stream<AuthUser?> get authChanges;
   Future<String?> idToken();
   Future<void> login(String email, String password);
+
+  /// Changes the signed-in user's password after reauthenticating with the current one.
+  /// Throws [PasswordChangeException] when nothing was changed.
+  Future<void> changePassword({required String currentPassword, required String newPassword});
   Future<void> register({
     required String email,
     required String password,
@@ -568,6 +587,10 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> requestPasswordReset(String email) => _backend.sendPasswordReset(email.trim());
+
+  @override
+  Future<void> changePassword({required String currentPassword, required String newPassword}) =>
+      _backend.changePassword(currentPassword, newPassword);
 
   Future<void> dispose() async {
     _stopProfile();

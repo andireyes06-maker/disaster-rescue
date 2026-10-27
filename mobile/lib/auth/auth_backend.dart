@@ -18,6 +18,8 @@ abstract class AuthBackend {
   Future<BackendUser> createUser(String email, String password);
   Future<void> signOut();
   Future<void> sendPasswordReset(String email);
+  /// Reauthenticates with [currentPassword], then sets [newPassword]. Throws [PasswordChangeException] on failure.
+  Future<void> changePassword(String currentPassword, String newPassword);
 }
 
 class _FirebaseUser implements BackendUser {
@@ -86,6 +88,45 @@ class FirebaseAuthBackend implements AuthBackend {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') return;
       throw AuthException(_map(e));
+    }
+  }
+
+  @override
+  Future<void> changePassword(String currentPassword, String newPassword) async {
+    final user = _auth.currentUser;
+    final email = user?.email;
+    if (user == null || email == null) {
+      throw const PasswordChangeException(PasswordChangeFailure.sessionEnded);
+    }
+    try {
+      await user.reauthenticateWithCredential(
+        EmailAuthProvider.credential(email: email, password: currentPassword),
+      );
+      await user.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      throw PasswordChangeException(_mapChange(e));
+    }
+  }
+
+  PasswordChangeFailure _mapChange(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'wrong-password':
+      case 'invalid-credential':
+        return PasswordChangeFailure.wrongCurrent;
+      case 'weak-password':
+        return PasswordChangeFailure.weakPassword;
+      case 'requires-recent-login':
+      case 'user-token-expired':
+      case 'user-not-found':
+      case 'user-disabled':
+      case 'no-current-user':
+        return PasswordChangeFailure.sessionEnded;
+      case 'network-request-failed':
+        return PasswordChangeFailure.network;
+      case 'too-many-requests':
+        return PasswordChangeFailure.tooManyAttempts;
+      default:
+        return PasswordChangeFailure.unknown;
     }
   }
 

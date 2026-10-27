@@ -49,6 +49,26 @@ const countBy = (rows, key) => rows.reduce((acc, r) => {
   return acc;
 }, {});
 
+// Groups by the stored town or city. Spacing and letter case do not split a place; the first spelling is the label.
+// Reports with no stored place are counted in their own bucket, so the chart total always equals the filtered total.
+export const UNRECORDED_LOCATION = 'Place not recorded';
+const locationCounts = (rows) => {
+  const places = new Map();
+  let unrecorded = 0;
+  for (const r of rows) {
+    const text = typeof r.locality === 'string' ? r.locality.trim().replace(/\s+/g, ' ') : '';
+    if (!text) { unrecorded += 1; continue; }
+    const key = text.toLowerCase();
+    const entry = places.get(key) ?? { label: text, count: 0 };
+    entry.count += 1;
+    places.set(key, entry);
+  }
+  const sorted = [...places.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+  const out = Object.fromEntries(sorted.map((p) => [p.label, p.count]));
+  if (unrecorded > 0) out[UNRECORDED_LOCATION] = unrecorded;
+  return out;
+};
+
 export function buildStats(reports, { from, to } = {}) {
   const rows = reports.filter((r) => (!from || r.createdAt >= from) && (!to || r.createdAt <= to));
 
@@ -97,8 +117,8 @@ export function buildStats(reports, { from, to } = {}) {
     byPriority: countBy(rows, 'priority'),
     // Reports filed before areas existed have none; they are counted together as "Not recorded".
     byArea: countBy(rows.map((r) => ({ ...r, area: r.area || 'Not recorded' })), 'area'),
-    // Town or city of each pin, such as Guiguinto. Reports without one count as Not recorded.
-    byLocation: countBy(rows.map((r) => ({ ...r, locality: r.locality || 'Not recorded' })), 'locality'),
+    // Town or city of each pin, such as Guiguinto, from the stored locality. Reports without one are kept in their own bucket.
+    byLocation: locationCounts(rows),
     perDay,
     perMonth,
     byPlace,

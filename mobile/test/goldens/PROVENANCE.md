@@ -118,3 +118,7 @@ Reviewed: `profile.png` replaced; the only change is the new Change password but
 ## Reverted: Change password on the profile screen, 27 October 2026
 
 The Change password button was removed again at the owner's request. `profile.png` is restored to the reference from before the button was added. No visual change remains.
+
+## Restored: Change password on the profile screen, 28 October 2026
+
+The owner asked for signed-in password change for residents and responders in the profile. The button is back above Log out. `profile.png` is restored byte-for-byte to the version reviewed under "Reviewed change" above (SHA-256 `cbc10be2…987044`). That render was viewed again before the restore and shows the button, nothing else changed. The dialog's own behavior is covered in `change_password_dialog_test.dart`, not in a golden.

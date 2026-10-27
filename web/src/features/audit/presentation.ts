@@ -29,7 +29,20 @@ export interface AuditNames {
   teams: Record<string, string>;
 }
 
-export function namedValue(field: string, value: unknown, names: AuditNames): string {
+// A headquarters point is shown by the place name recorded with the same event. Without one, its coordinates are shown
+// as text, never as a serialized object. The name is never assumed for an older entry that did not record it.
+export function headquartersValue(value: unknown, recordedName?: unknown): string {
+  if (value === undefined || value === null) return 'Not recorded';
+  if (typeof recordedName === 'string' && recordedName.trim()) return recordedName.trim();
+  const point = value as { lat?: unknown; lng?: unknown };
+  if (typeof point.lat === 'number' && typeof point.lng === 'number' && Number.isFinite(point.lat) && Number.isFinite(point.lng)) {
+    return `Coordinates ${point.lat.toFixed(5)}, ${point.lng.toFixed(5)}`;
+  }
+  return 'Location not readable';
+}
+
+export function namedValue(field: string, value: unknown, names: AuditNames, recordedName?: unknown): string {
+  if (field === 'hq') return headquartersValue(value, recordedName);
   if (value === undefined || value === null) return 'Not recorded';
   // Verification stores { uid, name }. Show the name, then the directory name for that uid, never the raw ID first.
   if (field === 'verifiedBy' && typeof value === 'object') {

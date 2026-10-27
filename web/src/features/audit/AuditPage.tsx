@@ -30,7 +30,8 @@ function changedFields(before: unknown, after: unknown): { field: string; before
   }
   const b = isRecord(before) ? before : {};
   const a = isRecord(after) ? after : {};
-  const keys = [...new Set([...Object.keys(b), ...Object.keys(a)])];
+  // hqName is shown with its headquarters point, not as a separate row.
+  const keys = [...new Set([...Object.keys(b), ...Object.keys(a)])].filter((k) => k !== 'hqName');
   return keys
     .filter((k) => JSON.stringify(b[k]) !== JSON.stringify(a[k]))
     .map((k) => ({ field: k, before: b[k], after: a[k] }));
@@ -86,7 +87,7 @@ export default function AuditPage() {
   const needle = query.trim().toLowerCase();
   const rows = (result?.rows ?? []).filter((row) => {
     if (!needle) return true;
-    const changes = changedFields(row.before, row.after).flatMap((c) => [fieldName(c.field), namedValue(c.field, c.before, names), namedValue(c.field, c.after, names)]);
+    const changes = changedFields(row.before, row.after).flatMap((c) => [fieldName(c.field), namedValue(c.field, c.before, names), namedValue(c.field, c.after, names, isRecord(row.after) ? row.after.hqName : undefined)]);
     const text = [
       formatTime(row.at), typeof row.at === 'string' ? row.at.slice(0, 10) : '', actionName(row.action ?? ''), row.action ?? '', row.reportId ?? '',
       names.reports[row.reportId ?? ''] ?? '', row.actorUid ?? '', names.users[row.actorUid ?? ''] ?? '',
@@ -145,7 +146,7 @@ export default function AuditPage() {
                     <ul className="audit__changes">
                       {changedFields(row.before, row.after).map((c) => (
                         <li key={c.field}>
-                          <strong>{fieldName(c.field)}</strong>: <del>{namedValue(c.field, c.before, names)}</del> <span aria-hidden="true">→</span><span className="sr-only"> changed to </span> <ins>{namedValue(c.field, c.after, names)}</ins>
+                          <strong>{fieldName(c.field)}</strong>: <del>{namedValue(c.field, c.before, names)}</del> <span aria-hidden="true">→</span><span className="sr-only"> changed to </span> <ins>{namedValue(c.field, c.after, names, isRecord(row.after) ? row.after.hqName : undefined)}</ins>
                         </li>
                       ))}
                     </ul>

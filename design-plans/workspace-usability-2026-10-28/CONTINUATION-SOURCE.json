@@ -1,0 +1,31 @@
+{
+  "base": "cd087ca3362c62468cbbc2c7430c21285dfbb854",
+  "status": "uncommitted continuation pass, 28 October 2026; not committed, pushed or deployed",
+  "files": {
+    "api/package-lock.json": "d8d2c4d0671751c4c076486e55c12f29e3c0a25a11dd3b1256b196443d595369",
+    "api/src/services/statsService.js": "c3882beffae31d0a7923cc0821f1d1dfe0e004a5ce1eb1abc6b5a0e5ac18226e",
+    "api/test/services/stats.test.js": "eb89d7e9e76344cf8d0bb8ab465d73ad558810487819f97233343773e274cd64",
+    "mobile/lib/auth/auth_backend.dart": "6db6e7f44aeeda11fdeeadac287fdd23b25597bfd067376065a155a68285b53f",
+    "mobile/lib/auth/auth_repository.dart": "bb42c00f0063c17e34ab928435e2f9d18c17b5c42c0b78dc79137850524e5a22",
+    "mobile/lib/auth/role_gate.dart": "029af6d29d89594e038cff5bcd5cacae9d8419c7a935b231e3f854c1bbac1f88",
+    "mobile/lib/data/services.dart": "5ef8da26139577f6be7d07e4ee9ae52f9244bf0ebd056667a4e7a7b67b3db63f",
+    "mobile/lib/features/notifications/notification_action.dart": "fa3fc98604aa22cca9f47ac6b0971e786fbed798d654fec8229e0c672a4ddc77",
+    "mobile/lib/features/notifications/notification_bell.dart": "63fa1c89c209728beb7b5cd3d71d636aae4e939466cdec939b0ea4a0b87f6b1b",
+    "mobile/lib/features/profile/profile_page.dart": "8bc9eef0f1e130add174916f857c3c43d5eb214dbc6fc3eef8bc3167a3e0b680",
+    "mobile/lib/features/profile/change_password_dialog.dart": "56037ca514bc836a49b50b0af572b77b3c420602b967d465afa304afdd35b1e3",
+    "mobile/lib/features/responder/operation_form_page.dart": "6121300824e73a5ec0defa4118e768f392d64d24a772bd92b8d6c71f1a7a8ec8",
+    "mobile/lib/features/responder/operation_transitions.dart": "ff5558b62169eb81b009424a83fb22c83e833b0447213d6a7565788db2ea5bfd",
+    "mobile/test/fake_backend.dart": "10e9cc4e5ac34e3207f431f080effb115302eddeb2e2876e51d5f7c61a076247",
+    "mobile/test/fakes.dart": "3acf8ae0d8f42fb2c28c38c9b659698c3579cc7874f10dd3c5e89caac050f166",
+    "mobile/test/report_fakes.dart": "bf8bc8985ceb0384c8d373c0a512b195c469b1175764a759a88a9a3ddf630238",
+    "mobile/test/change_password_dialog_test.dart": "13b3f822b27febef0853e423b6399795c42bb47fe38893134251c491564fb568",
+    "mobile/test/notification_bell_test.dart": "55efc47ebbbc9134b4240fd5b0da24dc4214ba3cd6f448a5315dee121d6d747b",
+    "mobile/test/goldens/profile.png": "cbc10be2ac266a77768ed2851cdbb06ede1b92dc31ac5191155d382b20987044",
+    "mobile/test/goldens/SHA256SUMS.txt": "1ec33f59b5bedb53ebb40f0cc97dcef79bf62c2749791253645cb40032bb5ed5",
+    "mobile/test/goldens/PROVENANCE.md": "b28442c19ee566ff8887a820c67c14691d781f38e38e4be14786270fdb33bcdf",
+    "web/src/features/audit/AuditPage.tsx": "510a6144367b4931b31c111a883acaffd9f5e881d35143b73ea79e4a951e1c39",
+    "web/src/features/audit/presentation.ts": "6489492d33e9df13b15d8977e5bff382e57674329ea577ca1434dc0fc4246d2d",
+    "web/src/features/audit/presentation.test.ts": "78f4c4dc5a9f3b035ba56e043612e76cfe15814e06abbd5a8becd964bcb695b0",
+    "LOCALITY-BACKFILL-PROPOSAL.md": "c5eb6ae7788f5919052629648f77c076ae37f9778ccb44c3cf835fd1cb50d2c7"
+  }
+}

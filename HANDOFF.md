@@ -3,6 +3,7 @@
 > Session: I-Report product work (rebrand, admin, responder, resident apps). Branch `build/disaster-rescue`, last commit `35e2c81`.
 
 ## Start here
+- **28 October continuation (uncommitted, on `feat/ui-response-workspace-2026-10-28` at `cd087ca`):** PDF items A to D and CI fixes are in the working tree, not committed or deployed. Review record: `design-plans/workspace-usability-2026-10-28/REVIEW.md` (section "Continuation pass"). Open gates: Zod v3 to v4 migration (API audit); `report-details.png` golden decision; four stale hashes in `mobile/test/goldens/SHA256SUMS.txt`; `flutter run -d chrome` and device checks; live audit and analytics browser checks.
 - Repo: `/Users/rien/Documents/FINAL_PROJECT/app`. Push target: `build/disaster-rescue` (auto-deploys Vercel web and Render API).
 - Web and API are live for `35e2c81` (API deploy may still show "in progress"; health check returns 200).
 - Firestore rules and indexes deployed to `flutter-5094e` (rules unchanged since). Index build state not verified.

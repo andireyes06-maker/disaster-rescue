@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:disaster_rescue/auth/auth_backend.dart';
+import 'package:disaster_rescue/auth/auth_repository.dart';
 
 typedef ClaimsFn = Future<Map<String, dynamic>> Function(bool refresh);
 
@@ -42,6 +43,16 @@ class FakeBackend implements AuthBackend {
   final resetEmails = <String>[];
   @override
   Future<void> sendPasswordReset(String email) async { resetEmails.add(email); }
+
+  /// Test seam: the next change fails with this reason. Passwords themselves are never recorded.
+  PasswordChangeFailure? nextPasswordFailure;
+  int passwordChangeCalls = 0;
+  @override
+  Future<void> changePassword(String currentPassword, String newPassword) async {
+    passwordChangeCalls++;
+    final failure = nextPasswordFailure;
+    if (failure != null) throw PasswordChangeException(failure);
+  }
 
   void setUser(FakeUser? u) {
     current = u;

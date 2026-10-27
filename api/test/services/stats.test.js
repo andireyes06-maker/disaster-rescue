@@ -25,6 +25,29 @@ describe('buildStats', () => {
     expect(s.byPlace).toEqual({ 'Riverside District': 2 });
   });
 
+  it('groups by stored locality: distinct towns, one place per spelling, and an explicit unrecorded bucket', () => {
+    const reports = [
+      rep({ locality: 'Guiguinto' }),
+      rep({ locality: '  guiguinto ' }),
+      rep({ locality: 'Malolos' }),
+      rep({ locality: '' }),
+      rep({}),
+      rep({ locality: 42 }),
+    ];
+    const s = buildStats(reports, {});
+    expect(s.byLocation).toEqual({ Guiguinto: 2, Malolos: 1, 'Place not recorded': 3 });
+    const sum = Object.values(s.byLocation).reduce((a, b) => a + b, 0);
+    expect(sum).toBe(s.total);
+  });
+
+  it('keeps filtered totals: location counts only the reports it is given', () => {
+    const reports = [rep({ locality: 'Guiguinto' }), rep({ locality: 'Malolos' }), rep({})];
+    const filtered = reports.filter((r) => r.locality === 'Guiguinto' || !r.locality);
+    const s = buildStats(filtered, {});
+    expect(s.total).toBe(2);
+    expect(s.byLocation).toEqual({ Guiguinto: 1, 'Place not recorded': 1 });
+  });
+
   it('counts open as everything except Resolved, Closed, Cancelled, Rejected, Duplicate', () => {
     const reports = ['Submitted', 'Under Verification', 'Verified', 'Awaiting Assignment',
       'Team Assigned', 'Rescue in Progress', 'Resolved', 'Closed', 'Cancelled', 'Rejected', 'Duplicate']

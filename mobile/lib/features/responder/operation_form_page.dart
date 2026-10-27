@@ -147,6 +147,8 @@ class _OperationFormPageState extends State<OperationFormPage> {
       _blocked = false;
     });
     try {
+      // Read providers before awaiting so no BuildContext is used across the async gap.
+      final repository = context.read<ResponderRepository>();
       // The server checks the position too, so the app sends the device's current fix with the update.
       final fix = await context.read<LocationService>().current();
       if (fix.status != LocationStatus.ok ||
@@ -159,7 +161,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
         });
         return;
       }
-      await context.read<ResponderRepository>().postUpdate(
+      await repository.postUpdate(
         widget.reportId,
         OperationUpdate(status: status, peopleRescued: people, note: note),
         idempotencyKey: key,

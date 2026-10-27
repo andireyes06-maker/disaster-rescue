@@ -236,6 +236,16 @@ class FakeNotificationsRepository implements NotificationsRepository {
   Stream<List<AppNotification>> watch(String uid, {int windowSize = 50}) =>
       controller.stream;
 
+  /// Tests push a list here; the unread dot follows it, as the Firestore query does.
+  final StreamController<bool> unreadController = StreamController.broadcast();
+  final List<String> unreadAccounts = [];
+
+  @override
+  Stream<bool> watchHasUnread(String uid) {
+    unreadAccounts.add(uid);
+    return unreadController.stream;
+  }
+
   @override
   Future<void> markRead(String id) async => marked.add(id);
 }

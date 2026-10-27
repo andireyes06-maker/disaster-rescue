@@ -556,6 +556,9 @@ class ProgressEntry {
 abstract class NotificationsRepository {
   /// Live list of notifications addressed to [uid], newest first.
   Stream<List<AppNotification>> watch(String uid, {int windowSize = 50});
+
+  /// True while [uid] has at least one notification that is not read. Updates live as items are read.
+  Stream<bool> watchHasUnread(String uid);
   Future<void> markRead(String id);
 }
 
@@ -594,6 +597,18 @@ class ApiNotificationsRepository implements NotificationsRepository {
           });
           return list;
         });
+  }
+
+  @override
+  Stream<bool> watchHasUnread(String uid) {
+    // One unread item is enough for the dot, so the query reads at most one document.
+    return _db
+        .collection('notifications')
+        .where('recipientUid', isEqualTo: uid)
+        .where('read', isEqualTo: false)
+        .limit(1)
+        .snapshots()
+        .map((snap) => snap.docs.isNotEmpty);
   }
 
   @override
