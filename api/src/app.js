@@ -1,4 +1,6 @@
 import express from 'express';
+import { placesRouter } from './routes/places.js';
+import { createPlaceLookup } from './services/placeService.js';
 import { randomBytes } from 'node:crypto';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -20,6 +22,7 @@ const DEFAULT_RATE_LIMIT = { windowMs: 15 * 60 * 1000, limit: 300 };
 
 export function buildApp({
   repo, uploader, sender, verifyToken, auth,
+  placeLookup = createPlaceLookup(),
   notifier = createNotifier({ repo, sender }),
   corsOrigins = [],
   rateLimit: rateOptions = DEFAULT_RATE_LIMIT,
@@ -39,7 +42,7 @@ export function buildApp({
       role: user?.role ?? null, active: user?.active === true, team: user?.team ?? null,
     };
   };
-  const deps = { repo, uploader, sender, verifyToken: verifyCanonical, notifier, auth, loginAttemptSecret };
+  const deps = { repo, uploader, sender, verifyToken: verifyCanonical, notifier, auth, loginAttemptSecret, placeLookup };
   const app = express();
   app.disable('x-powered-by');
   // Behind a host's proxy, count clients by their forwarded address, not the proxy's.
@@ -57,6 +60,7 @@ export function buildApp({
   app.use('/api/admin', adminRouter(deps));
   app.use('/api/reports', reportsRouter(deps));
   app.use('/api/teams', teamsRouter(deps));
+  app.use('/api/places', placesRouter(deps));
   app.use('/api/users', usersRouter(deps));
   app.use('/api/stats', statsRouter(deps));
   app.use('/api/export', exportRouter(deps));
