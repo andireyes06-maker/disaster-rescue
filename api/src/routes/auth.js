@@ -100,7 +100,13 @@ export function authRouter(deps) {
       // An administrator's password is never reset from a help request; the administrator must change it themselves.
       const profile = await deps.repo.getUser(account.uid);
       if (profile?.role === 'admin') throw new HttpError(403, 'forbidden', 'Administrator passwords cannot be reset from a help request');
-      await deps.auth.updateUser(account.uid, { password: request.email });
+      try {
+        await deps.auth.updateUser(account.uid, { password: request.email });
+      } catch (e) {
+        // Firebase needs at least six characters; a very short email cannot be the password.
+        if (e?.code === 'auth/invalid-password' || e?.code === 'auth/weak-password') throw new HttpError(400, 'password_too_short', 'This email address is too short to be used as a password. Ask an administrator for help.');
+        throw e;
+      }
       await deps.auth.revokeRefreshTokens(account.uid);
       // The audit row is written before the request is closed. If it fails, the request stays open and a retry is safe:
       // the reset is repeatable (same password, sign-ins ended again), and no reset is recorded without its audit row.
@@ -114,12 +120,13 @@ export function authRouter(deps) {
   r.post('/reset-help/:id/close', auth, admin, async (req, res, next) => {
     try {
       const at = new Date();
+      const open = (await deps.repo.listPasswordHelp()).some((x) => x.id === req.params.id);
+      // The audit row is written before the close, so a failed audit leaves the request open for a safe retry.
+      if (open) await deps.repo.addAudit({ actorUid: req.user.uid, action: 'password-help.close', at, target: { requestId: req.params.id } });
       const outcome = await deps.repo.closePasswordHelp(req.params.id, req.user.uid, at);
       if (outcome === 'missing') return res.status(404).json({ error: 'not_found' });
       // Already closed: nothing changes, so the first close time and the first audit row stand.
       if (outcome === 'already') return res.json({ ok: true, alreadyClosed: true });
-      // Closing a request is an administrator action, so it is recorded in the audit log as well.
-      await deps.repo.addAudit({ actorUid: req.user.uid, action: 'password-help.close', at, target: { requestId: req.params.id } });
       res.json({ ok: true });
     } catch (e) { next(e); }
   });

@@ -22,7 +22,8 @@ export async function listPublicIncidents({ repo }) {
   const hit = cache.get(repo);
   if (hit && Date.now() - hit.at < PUBLIC_CACHE_MS) return hit.value;
   // The most recent incidents only. A fixed bound keeps the public map from failing as reports grow.
-  const rows = await repo.listRecentReports(PUBLIC_MAX_INCIDENTS);
+  // Only public statuses are asked for, so closed or unverified reports cannot use up the bound.
+  const rows = await repo.listRecentReportsByStatus(Object.keys(CATEGORY), PUBLIC_MAX_INCIDENTS);
   const value = rows
     // Coordinates live in the canonical nested location written at creation (see reportService.create).
     .filter((r) => CATEGORY[r.status] && Number.isFinite(r.location?.lat) && Number.isFinite(r.location?.lng))

@@ -9,6 +9,7 @@ describe('pins are only taken inside the Philippines', () => {
     ['Batanes', 20.45, 121.97],
     ['Tawi-Tawi', 5.03, 119.77],
     ['Palawan', 9.8, 118.7],
+    ['Turtle Islands (Taganak)', 6.08, 118.32],
     ['Davao Oriental', 6.9, 126.5],
   ])('accepts %s', (_name, lat, lng) => {
     expect(inPhilippines(lat, lng)).toBe(true);
@@ -18,6 +19,9 @@ describe('pins are only taken inside the Philippines', () => {
     ['Kota Kinabalu, Sabah', 5.98, 116.07],
     ['Sandakan, Sabah', 5.84, 118.12],
     ['Kudat, Sabah', 6.88, 116.84],
+    ['Sandakan, Sabah (east coast)', 5.84, 118.12],
+    ['Lahad Datu, Sabah', 5.03, 118.33],
+    ['Semporna, Sabah', 4.48, 118.6],
     ['Taipei, Taiwan', 25.03, 121.56],
     ['Tokyo', 35.68, 139.69],
     ['Hanoi', 21.03, 105.85],

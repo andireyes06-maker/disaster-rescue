@@ -64,8 +64,8 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
           && inRange(r.createdAt, f.from, f.to))
         .sort(byCreatedDesc).map(out);
     },
-    async listRecentReports(limit) {
-      return [...reports.values()].sort(byCreatedDesc).slice(0, limit).map(out);
+    async listRecentReportsByStatus(statuses, limit) {
+      return [...reports.values()].filter((r) => statuses.includes(r.status)).sort(byCreatedDesc).slice(0, limit).map(out);
     },
     async listOpenReports() {
       return [...reports.values()].filter((r) => isOpen(r.status)).sort(byCreatedDesc).map(out);

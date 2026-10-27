@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js';
 import { HttpError } from '../errors.js';
 import { STATUS, isOpen, assertTransition } from '../domain/workflow.js';
-import { sanitizeText } from '../domain/validation.js';
+import { sanitizeText, isSafeId } from '../domain/validation.js';
 import { load, transition, notFound, conflict } from './reviewService.js';
 import { isAssignedTo, teamIdsOf } from '../domain/assignedTeams.js';
 
@@ -44,6 +44,7 @@ export async function assign({ repo, notifier }, user, id, body) {
   if (teamIds.length > MAX_TEAMS) throw new HttpError(400, 'too_many_teams', `At most ${MAX_TEAMS} teams can be assigned to one report`);
   const teams = [];
   for (const teamId of teamIds) {
+    if (!isSafeId(teamId)) throw new HttpError(400, 'invalid_team', 'Team does not exist');
     const team = await repo.getTeam(teamId);
     if (!team) throw new HttpError(400, 'invalid_team', 'Team does not exist');
     if (!(await hasMembers(repo, teamId))) throw new HttpError(409, 'team_no_members', `You can't assign ${team.name ?? 'this team'}. It has no members yet. Add a responder to the team first.`);

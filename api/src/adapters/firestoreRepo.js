@@ -106,7 +106,11 @@ export function createFirestoreRepo(db) {
     async getReport(id) { return doc(await col('reports').doc(id).get()); },
     listReports,
     // The most recent reports only, for public views that must stay bounded.
-    async listRecentReports(limit) { const snap = await col('reports').orderBy('createdAt', 'desc').limit(limit).get(); return docs(snap); },
+    // The most recent reports with each of these statuses. One equality query per status uses the existing status + createdAt index.
+    async listRecentReportsByStatus(statuses, limit) {
+      const parts = await Promise.all(statuses.map(async (status) => docs(await col('reports').where('status', '==', status).orderBy('createdAt', 'desc').limit(limit).get())));
+      return parts.flat().sort((a, b) => (b.createdAt?.getTime?.() ?? 0) - (a.createdAt?.getTime?.() ?? 0)).slice(0, limit);
+    },
     async listOpenReports() {
       const all = await collectPaged(col('reports').orderBy('createdAt', 'desc'));
       return all.filter((r) => isOpen(r.status));
