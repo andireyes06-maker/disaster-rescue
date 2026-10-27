@@ -74,10 +74,11 @@
 .incident-location > footer strong { font-size: 14px; font-weight: 600; }
 .incident-location > footer span, .incident-location > footer small { font-size: 13px; color: var(--color-muted); }
 .incident-location > footer small { flex-basis: 100%; line-height: 1.5; }
-.incident-progress__steps { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
-.incident-progress__step { grid-template-columns: 28px minmax(0,1fr); align-items: start; gap: 5px 8px; padding: 12px 10px; background: #f4f5fa; border: 1px solid #e2e5ef; border-radius: 9px; }
+.incident-progress { container-type: inline-size; }
+.incident-progress__steps { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+.incident-progress__step { min-width: 0; grid-template-columns: 28px minmax(0,1fr); align-items: start; gap: 5px 8px; padding: 12px 10px; background: #f4f5fa; border: 1px solid #e2e5ef; border-radius: 9px; }
 .incident-progress__dot { grid-row: span 2; margin-top: 1px; }
-.incident-progress__label { font-size: 13px; line-height: 1.4; }
+.incident-progress__label { min-width: 0; overflow-wrap: anywhere; font-size: 13px; line-height: 1.4; }
 .incident-progress__marker { grid-column: 2; font-size: 12px; }
 .incident-progress__step.is-done { background: #edf6f2; color: #155e4d; border-color: #d1e5dc; }
 .incident-progress__step.is-current { background: #eee7ff; color: #5b21b6; border-color: #c7b3ed; }
@@ -165,7 +166,7 @@ body .service-site .sample-phone { border-color: #cbc0e4; box-shadow: 0 18px 38p
 .app-handoff__download { display: grid; gap: 12px; margin-block: 24px; }
 .app-handoff__download .btn { width: fit-content; }
 .app-handoff__download small, .app-handoff__download p { color: var(--color-muted); font-size: 13px; line-height: 1.5; }
-@media (max-width: 1100px) { .incident-progress__steps { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+
 @media (max-width: 639px) {
  .shell[data-workspace] .page-band { padding: 18px; gap: 12px; border-radius: 12px; }
  .shell[data-workspace] .page-band h1 { font-size: 25px; }
@@ -184,7 +185,6 @@ body .service-site .sample-phone { border-color: #cbc0e4; box-shadow: 0 18px 38p
  .incident-location > header { padding: 14px 16px; flex-wrap: wrap; gap: 6px; }
  .incident-location > header a { min-height: 44px; }
  .incident-location > footer { padding: 14px 16px; }
- .incident-progress__steps { grid-template-columns: repeat(2,minmax(0,1fr)); }
  .incident-progress__step { padding: 10px 8px; }
  [data-slot="dialog-content"].assign-dialog { width: calc(100vw - 24px); max-height: calc(100dvh - 24px); }
  .response-dialog__head { padding: 20px; gap: 12px; }
@@ -229,3 +229,7 @@ body .service-site .sample-phone { border-color: #cbc0e4; box-shadow: 0 18px 38p
  .shell .team-summary__stats > div { padding: 12px; }
  .shell .assignment__heading { padding: 13px; }
 }
+
+/* The incident panel can be narrow even on a wide screen (split view/browser zoom). */
+@container (min-width: 740px) { .incident-progress__steps { grid-template-columns: repeat(4,minmax(0,1fr)); } }
+@container (max-width: 280px) { .incident-progress__steps { grid-template-columns: minmax(0,1fr); } }
