@@ -101,4 +101,23 @@ describe('AssignTeamDialog', () => {
     expect(screen.getByRole('status')).toHaveTextContent(/loading teams/i);
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
   });
+
+  it('groups free teams into a tab per identity, and keeps the selection across tabs', async () => {
+    show([
+      { id: 'p1', name: 'Pnp One', busy: false, currentReportId: null, kind: 'PNP' },
+      { id: 'b1', name: 'Bfp One', busy: false, currentReportId: null, kind: 'BFP' },
+      { id: 'r1', name: 'Rescue One', busy: false, currentReportId: null, kind: 'Rescue' },
+    ]);
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs.map((t) => t.textContent)).toEqual(['PNP', 'BFP', 'Rescue']);
+    expect(screen.getByRole('tab', { name: 'PNP' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('checkbox', { name: /Pnp One/ })).toBeInTheDocument();
+    expect(screen.queryByRole('checkbox', { name: /Bfp One/ })).toBeNull();
+    await userEvent.click(screen.getByRole('checkbox', { name: /Pnp One/ }));
+    await userEvent.click(screen.getByRole('tab', { name: 'BFP' }));
+    expect(screen.queryByRole('checkbox', { name: /Pnp One/ })).toBeNull();
+    await userEvent.click(screen.getByRole('checkbox', { name: /Bfp One/ }));
+    await userEvent.click(screen.getByRole('button', { name: /assign team/i }));
+    expect(h.api).toHaveBeenCalledWith('/reports/r1/assign', { method: 'POST', body: { teamIds: ['p1', 'b1'] } });
+  });
 });

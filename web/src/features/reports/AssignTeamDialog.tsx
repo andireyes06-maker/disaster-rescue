@@ -48,6 +48,10 @@ function errorText(err: unknown): string {
   return 'Could not confirm the team assignment. Reload this report to check its current team.';
 }
 
+// Team identities, in the order their tabs appear. Teams with no identity count as Rescue.
+const IDENTITIES = ['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'] as const;
+const identityOf = (team: Team) => (team.kind && (IDENTITIES as readonly string[]).includes(team.kind) ? team.kind : 'Rescue');
+
 function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
   reportId: string;
   freeTeams: { team: Team; km: number | null }[];
@@ -57,6 +61,10 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
   // The schema is fixed for this form's lifetime. The parent mounts it only once teams have loaded.
   const [schema] = useState(() => assignTeamsSchema(freeTeams.map((t) => t.team.id)));
   const [busy, setBusy] = useState(false);
+  // Only identities that have a free team get a tab. The tab shows that identity's teams; selections persist across tabs.
+  const tabs = IDENTITIES.filter((id) => freeTeams.some(({ team }) => identityOf(team) === id));
+  const [tab, setTab] = useState<string>(tabs[0] ?? '');
+  const activeTab = tabs.includes(tab as typeof tabs[number]) ? tab : tabs[0] ?? '';
   const [apiError, setApiError] = useState<string | null>(null);
   const { control, handleSubmit, formState: { errors } } = useForm<AssignTeams>({
     resolver: zodResolver(schema),
@@ -90,17 +98,38 @@ function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {
           control={control}
           render={({ field }) => (
             <>
-              {freeTeams.map(({ team: t, km }) => (
-                <label key={t.id} className="assign-teams__option">
-                  <input
-                    type="checkbox"
-                    value={t.id}
-                    checked={field.value.includes(t.id)}
-                    onChange={(e) => field.onChange(e.target.checked ? [...field.value, t.id] : field.value.filter((id) => id !== t.id))}
-                  />
-                  <span>{km === null ? `${t.name} (no headquarters set)` : `${t.name}, ${km.toFixed(1)} km away`}</span>
-                </label>
-              ))}
+              {tabs.length > 1 && (
+                <div role="tablist" aria-label="Team identity" className="assign-teams__tabs">
+                  {tabs.map((id) => (
+                    <button
+                      key={id}
+                      type="button"
+                      role="tab"
+                      id={`assign-tab-${id}`}
+                      aria-selected={activeTab === id}
+                      aria-controls="assign-teams-panel"
+                      tabIndex={activeTab === id ? 0 : -1}
+                      className={`assign-teams__tab${activeTab === id ? ' is-active' : ''}`}
+                      onClick={() => setTab(id)}
+                    >
+                      {id}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div role="tabpanel" id="assign-teams-panel" aria-labelledby={tabs.length > 1 ? `assign-tab-${activeTab}` : undefined} className="assign-teams__list">
+                {freeTeams.filter(({ team }) => identityOf(team) === activeTab).map(({ team: t, km }) => (
+                  <label key={t.id} className="assign-teams__option">
+                    <input
+                      type="checkbox"
+                      value={t.id}
+                      checked={field.value.includes(t.id)}
+                      onChange={(e) => field.onChange(e.target.checked ? [...field.value, t.id] : field.value.filter((id) => id !== t.id))}
+                    />
+                    <span>{km === null ? `${t.name} (no headquarters set)` : `${t.name}, ${km.toFixed(1)} km away`}</span>
+                  </label>
+                ))}
+              </div>
             </>
           )}
         />
