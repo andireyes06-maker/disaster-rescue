@@ -325,8 +325,8 @@ class TeamSummary {
 /// Joins two live lists of one team's reports: reports naming the team in its single-team field, and reports
 /// listing it among several teams. A report in both is shown once. Keeps the first [limit] rows in the given order.
 Stream<List<AssignedReport>> _joinTeamStreams(
-  Stream<List<AssignedReport>> single,
-  Stream<List<AssignedReport>> many, {
+  Stream<List<AssignedReport>> Function() single,
+  Stream<List<AssignedReport>> Function() many, {
   required int limit,
   required bool newestFirst,
 }) {
@@ -353,9 +353,10 @@ Stream<List<AssignedReport>> _joinTeamStreams(
 
   out = StreamController<List<AssignedReport>>(
     onListen: () {
-      subSingle = single.listen((v) { latestSingle = v; emit(); }, onError: out.addError);
+      // Fresh Firestore streams on every listen: a snapshot stream can only be listened to once.
+      subSingle = single().listen((v) { latestSingle = v; emit(); }, onError: out.addError);
       // The several-teams query can fail before its index is deployed. That must not hide the reports already listed.
-      subMany = many.listen((v) { latestMany = v; emit(); }, onError: (_) { latestMany = const []; emit(); });
+      subMany = many().listen((v) { latestMany = v; emit(); }, onError: (_) { latestMany = const []; emit(); });
     },
     onCancel: () async {
       await subSingle?.cancel();
@@ -414,7 +415,7 @@ class ApiResponderRepository implements ResponderRepository {
   }) {
     // Oldest first, from the database, so the window holds the oldest open assignments (2026-10-23).
     const open = ['Team Assigned', 'Rescue in Progress'];
-    final single = _db
+    Stream<List<AssignedReport>> single() => _db
         .collection('reports')
         .where('assignedTeamId', isEqualTo: teamId)
         .where('status', whereIn: open)
@@ -423,7 +424,7 @@ class ApiResponderRepository implements ResponderRepository {
         .snapshots()
         .map((snap) => snap.docs.map((d) => _assignedFrom(d.id, d.data())).toList());
     // Reports assigned to several teams: filtered by status here, since the team list is one array filter.
-    final many = _db
+    Stream<List<AssignedReport>> many() => _db
         .collection('reports')
         .where('assignedTeamIds', arrayContains: teamId)
         .orderBy('createdAt', descending: false)
@@ -438,7 +439,7 @@ class ApiResponderRepository implements ResponderRepository {
 
   @override
   Stream<List<AssignedReport>> watchRecentlyClosed(String teamId) {
-    final single = _db
+    Stream<List<AssignedReport>> single() => _db
         .collection('reports')
         .where('assignedTeamId', isEqualTo: teamId)
         .where('status', whereIn: historyStatuses)
@@ -446,7 +447,7 @@ class ApiResponderRepository implements ResponderRepository {
         .limit(10)
         .snapshots()
         .map((snap) => snap.docs.map((d) => _assignedFrom(d.id, d.data())).toList());
-    final many = _db
+    Stream<List<AssignedReport>> many() => _db
         .collection('reports')
         .where('assignedTeamIds', arrayContains: teamId)
         .orderBy('updatedAt', descending: true)
