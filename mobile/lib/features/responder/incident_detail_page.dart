@@ -295,9 +295,11 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                     const SizedBox(height: 4),
                   if (hasLocation)
                     Text(
-                      r.placeName != null && r.placeName!.trim().isNotEmpty
+                      (r.placeName ?? '').trim().isNotEmpty
                           ? r.placeName!.trim()
-                          : 'Exact pin is on the map.',
+                          : (r.area ?? '').trim().isNotEmpty
+                          ? r.area!.trim()
+                          : 'Place not named',
                     ),
                   if (!hasLocation) const Text('No exact location was given.'),
                   if (_distance != null) ...[

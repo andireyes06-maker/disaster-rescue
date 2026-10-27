@@ -47,7 +47,8 @@ function buildReport(data, user, reference, now) {
     description: data.description,
     status: STATUS.SUBMITTED,
     verified: false,
-    priority: 'medium',
+    // The resident's severity starts the report's priority; an administrator can change it later.
+    priority: data.severity,
     location: { lat: data.lat, lng: data.lng, source: data.source },
     coarseLocation: coarsen(data.lat, data.lng),
     reporterId: user.uid,

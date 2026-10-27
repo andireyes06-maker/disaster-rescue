@@ -1,6 +1,7 @@
 import './teams.css';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import MotionForm from '../../components/MotionForm';
+import { approximatePlaceName } from '../../lib/placeName';
 import FieldError from '../../components/FieldError';
 import EmptyState from '../../components/calm/EmptyState';
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
@@ -15,8 +16,10 @@ import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
 import type { GeoPoint } from '../../types/domain';
 
-function hqText(hq?: GeoPoint | null): string {
-  return hq ? `HQ ${hq.lat.toFixed(4)}, ${hq.lng.toFixed(4)}` : 'No headquarters set';
+// The headquarters as an approximate place name, never coordinates.
+function hqText(team: Team): string {
+  if (team.hqName) return team.hqName;
+  return team.hq ? 'Headquarters set' : 'No headquarters set';
 }
 
 import type { Team } from '../../types/domain';
@@ -95,7 +98,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
 
   return (
     <li className="management-row team-row">
-      <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team.hq)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
+      <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
       <div className="team-row__actions">
       <button type="button" className="btn btn--ghost team-location-toggle" aria-expanded={editingLocation} onClick={() => setEditingLocation((v) => !v)}>Edit location</button>
@@ -146,7 +149,8 @@ function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (
     if (!draft) return;
     setBusy(true);
     try {
-      await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq: draft } });
+      const hqName = await approximatePlaceName(draft.lat, draft.lng);
+      await api(`/teams/${team.id}`, { method: 'PATCH', body: { hq: draft, hqName } });
       onSaved('Location saved.');
     } catch {
       onError('Could not save the location. Try again.');
@@ -171,7 +175,7 @@ function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (
           {draft && <Marker position={[draft.lat, draft.lng]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
         </MapContainer>
       </div>
-      <p className="field-hint">{draft ? `Selected: ${draft.lat.toFixed(5)}, ${draft.lng.toFixed(5)}` : 'No location selected yet.'}</p>
+      <p className="field-hint">{draft ? 'Location selected. Save to set it.' : 'No location selected yet.'}</p>
       <div className="actions__row">
         <button type="button" className="btn" disabled={busy || !draft} aria-busy={busy} onClick={() => void save()}>Save location</button>
       </div>
@@ -215,7 +219,8 @@ export default function TeamsPage() {
     setBusy(true);
     setMessage(null);
     try {
-      await api('/teams', { method: 'POST', body: { name: values.name, hq: newHq } });
+      const hqName = newHq ? await approximatePlaceName(newHq.lat, newHq.lng) : null;
+      await api('/teams', { method: 'POST', body: { name: values.name, hq: newHq, hqName } });
       reset({ name: '' });
       setNewHq(null);
       setHqNotice('');
@@ -241,7 +246,7 @@ export default function TeamsPage() {
         {errors.name && <FieldError id="new-team-error">{errors.name.message}</FieldError>}
         {hqNotice && <p className="field-hint" role="status">{hqNotice}</p>}
         <div className="hq-map" role="region" aria-label="Map for the new team headquarters">
-          <p className="field-hint">Click the map to place the headquarters{newHq ? `: ${newHq.lat.toFixed(4)}, ${newHq.lng.toFixed(4)}` : ''}.</p>
+          <p className="field-hint">{newHq ? 'Headquarters selected.' : 'Click the map to place the headquarters.'}</p>
           <MapContainer center={newHq ? [newHq.lat, newHq.lng] : [14.5995, 120.9842]} zoom={13} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
             <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
             <HqPicker onPick={(p) => { setNewHq({ lat: p.lat, lng: p.lng }); setHqNotice(''); }} />

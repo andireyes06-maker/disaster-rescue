@@ -62,7 +62,7 @@ describe('ReportQueue', () => {
 
   it('says how the queue is ordered and that priority does not change it', () => {
     show(data());
-    expect(screen.getByText('Oldest first. Priority does not change the order.')).toBeInTheDocument();
+    expect(screen.getByText('Critical first, then high, medium and low. Oldest first within each level.')).toBeInTheDocument();
   });
 
   it('selecting a row updates the preview without navigating', async () => {

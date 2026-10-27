@@ -13,6 +13,16 @@ export function toMillis(value) {
   return Number.isFinite(ms) ? ms : Number.POSITIVE_INFINITY;
 }
 
+// Critical first, then high, medium and low. A report with no known priority counts as medium.
+const PRIORITY_RANK = { critical: 0, high: 1, medium: 2, low: 3 };
+export const priorityRank = (p) => (Object.hasOwn(PRIORITY_RANK, p) ? PRIORITY_RANK[p] : PRIORITY_RANK.medium);
+
+// Priority first; inside one priority level, oldest first.
+export function compareQueue(a, b) {
+  const d = priorityRank(a.priority) - priorityRank(b.priority);
+  return d !== 0 ? d : compareOldestFirst(a, b);
+}
+
 // Oldest submission first. Equal times fall back to id so the order is the same on every load.
 export function compareOldestFirst(a, b) {
   const ta = toMillis(a.createdAt);

@@ -4,7 +4,7 @@ import { projectReportForRole } from '../domain/privacy.js';
 import { sanitizeText } from '../domain/validation.js';
 import { record } from './auditService.js';
 import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js';
-import { AWAITING_ACTION, compareOldestFirst, toMillis } from '../domain/queueOrder.js';
+import { AWAITING_ACTION, compareOldestFirst, compareQueue, toMillis } from '../domain/queueOrder.js';
 
 const PRIORITIES = ['low', 'medium', 'high', 'critical'];
 export const notFound = () => new HttpError(404, 'not_found', 'Report not found');
@@ -70,9 +70,9 @@ const newestFirst = (a, b) => {
   if (y === Number.POSITIVE_INFINITY) return -1;
   return y - x;
 };
-// Open reports oldest first (the queue), then everything else newest first.
+// Open reports by priority (critical first), oldest first within each priority; everything else newest first.
 const queueFirst = (rows) => [
-  ...rows.filter((r) => AWAITING_ACTION.has(r.status)).sort(compareOldestFirst),
+  ...rows.filter((r) => AWAITING_ACTION.has(r.status)).sort(compareQueue),
   ...rows.filter((r) => !AWAITING_ACTION.has(r.status)).sort(newestFirst),
 ];
 

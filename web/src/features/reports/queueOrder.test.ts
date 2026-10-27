@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { compareOldestFirst, orderQueue, sortQueueOldestFirst } from './queueOrder';
+import { compareOldestFirst, orderQueue, sortQueue } from './queueOrder';
 
 const at = (iso: string) => new Date(iso);
 
@@ -27,13 +27,13 @@ describe('compareOldestFirst', () => {
   });
 });
 
-describe('sortQueueOldestFirst', () => {
+describe('sortQueue', () => {
   it('returns a new list and leaves the input unchanged', () => {
     const input = [
       { id: 'b', createdAt: at('2026-10-02T08:00:00Z') },
       { id: 'a', createdAt: at('2026-10-01T08:00:00Z') },
     ];
-    const out = sortQueueOldestFirst(input);
+    const out = sortQueue(input);
     expect(out.map((r) => r.id)).toEqual(['a', 'b']);
     expect(input.map((r) => r.id)).toEqual(['b', 'a']);
   });
@@ -50,5 +50,18 @@ describe('orderQueue', () => {
     ];
     const out = orderQueue(rows, (r) => r.open).map((r) => r.id);
     expect(out).toEqual(['openOld', 'openNew', 'closedNew', 'closedOld', 'closedUndated']);
+  });
+});
+
+describe('compareQueue', () => {
+  it('puts critical first, then high, medium and low, oldest first inside each level', () => {
+    const rows = [
+      { id: 'lowOld', priority: 'low', createdAt: at('2026-10-01T08:00:00Z') },
+      { id: 'critNew', priority: 'critical', createdAt: at('2026-10-03T08:00:00Z') },
+      { id: 'critOld', priority: 'critical', createdAt: at('2026-10-02T08:00:00Z') },
+      { id: 'high', priority: 'high', createdAt: at('2026-10-01T08:00:00Z') },
+      { id: 'medium', priority: 'medium', createdAt: at('2026-10-01T08:00:00Z') },
+    ];
+    expect(sortQueue(rows).map((r) => r.id)).toEqual(['critOld', 'critNew', 'high', 'medium', 'lowOld']);
   });
 });

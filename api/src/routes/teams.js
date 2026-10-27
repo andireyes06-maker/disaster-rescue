@@ -11,6 +11,9 @@ const teamName = (v) => {
   return n;
 };
 
+// The headquarters' approximate place name, for display only. Never coordinates. Cleared when there is none.
+const hqNameOf = (v) => (typeof v === 'string' && v.trim() ? sanitizeText(v, 120) : null);
+
 // A team's headquarters: a fixed point used to rank teams by distance from a report.
 const headquarters = (v) => {
   if (v === undefined || v === null) return null;
@@ -34,8 +37,9 @@ export function teamsRouter(deps) {
       const name = teamName(req.body?.name);
       const hq = headquarters(req.body?.hq);
       const id = randomUUID();
+      const hqName = hq ? hqNameOf(req.body?.hqName) : null;
       const effects = mutationEffects([{ actorUid: req.user.uid, action: 'team.create', after: { teamId: id, name, hq } }]);
-      await deps.repo.saveTeam(id, { name, hq, busy: false, currentReportId: null, createdAt: new Date() }, effects);
+      await deps.repo.saveTeam(id, { name, hq, hqName, busy: false, currentReportId: null, createdAt: new Date() }, effects);
       await tryMutationEffects(deps, effects);
       res.status(201).json({ id });
     } catch (e) { next(e); }
@@ -49,7 +53,7 @@ export function teamsRouter(deps) {
       const hq = hasHq ? headquarters(req.body.hq) : undefined;
       const before = await deps.repo.getTeam(req.params.id);
       if (!before) throw new HttpError(404, 'not_found', 'Team not found');
-      const patch = { ...(hasName ? { name } : {}), ...(hasHq ? { hq } : {}) };
+      const patch = { ...(hasName ? { name } : {}), ...(hasHq ? { hq, hqName: hq ? hqNameOf(req.body.hqName) : null } : {}) };
       const effects = mutationEffects([{ actorUid: req.user.uid, action: 'team.update', before: { name: before.name, hq: before.hq ?? null }, after: { teamId: req.params.id, ...patch } }]);
       await deps.repo.saveTeam(req.params.id, patch, effects);
       await tryMutationEffects(deps, effects);

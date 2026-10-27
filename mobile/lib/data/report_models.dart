@@ -273,6 +273,9 @@ class AssignedReport {
 
   /// Approximate place name for the pin. Null for older reports.
   final String? placeName;
+
+  /// The province or Metro Manila city the report is filed under.
+  final String? area;
   final double? lat;
   final double? lng;
   final DateTime? createdAt;
@@ -291,6 +294,7 @@ class AssignedReport {
     this.reference,
     this.addressText,
     this.placeName,
+    this.area,
     this.lat,
     this.lng,
     this.createdAt,

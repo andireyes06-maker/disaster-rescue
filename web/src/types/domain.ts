@@ -63,6 +63,8 @@ export interface Report {
   addressText: string;
   /** Approximate place name for the pin, such as "Near Commonwealth Ave, Quezon City". */
   placeName?: string;
+  /** The province or Metro Manila city the report is filed under. */
+  area?: string;
   contact?: Contact;
   photos: Photo[];
   possibleDuplicates: string[];
@@ -80,5 +82,7 @@ export interface Team {
   name: string;
   busy: boolean;
   hq?: GeoPoint | null;
+  /** Approximate place name for the headquarters, such as "Near Commonwealth, Quezon City". */
+  hqName?: string | null;
   currentReportId?: string | null;
 }

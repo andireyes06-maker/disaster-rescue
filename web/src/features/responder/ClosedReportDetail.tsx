@@ -41,7 +41,7 @@ export function ClosedReportDetail({ report, updates, historyError, historyLoadi
         <div className="fact"><dt>Location</dt><dd>
           {hasLoc ? (
             <>
-              {loc.lat.toFixed(5)}, {loc.lng.toFixed(5)}{' '}
+              {report.placeName || report.area || 'Place not named'}{' '}
               <a className="touch-link" href={mapsUrl(loc)} target="_blank" rel="noopener noreferrer">Open in maps</a>
             </>
           ) : 'Not available'}

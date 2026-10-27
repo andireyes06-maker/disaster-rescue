@@ -3,7 +3,7 @@ import { collection, query, where, orderBy, limit, onSnapshot, type FirestoreErr
 import { getFirebaseDb } from '../../firebase';
 import type { Report } from '../../types/domain';
 import { convertReport, type ReportsState } from './useReports';
-import { AWAITING_STATUSES, sortQueueOldestFirst } from './queueOrder';
+import { AWAITING_STATUSES, sortQueue } from './queueOrder';
 
 // The administrator's queue: reports awaiting action, oldest submission first (professor clarification, 2026-10-23).
 // The database returns the oldest open reports first, so a bounded window never hides an older open report
@@ -27,7 +27,7 @@ export function useAwaitingReports(): ReportsState {
       q,
       { includeMetadataChanges: true },
       (snap) => {
-        const reports = sortQueueOldestFirst(snap.docs.map((d) => convertReport(d.id, d.data())));
+        const reports = sortQueue(snap.docs.map((d) => convertReport(d.id, d.data())));
         setState({ reports, loading: false, error: null, fromCache: snap.metadata.fromCache });
       },
       (error) => setState((s) => ({ ...s, loading: false, error })),

@@ -206,7 +206,7 @@ export default function ReportQueue() {
           <div>
             <h2 id="queue-heading">Incident inbox</h2>
             <p aria-live="polite">{loading ? 'Loading reports…' : failed ? 'Reports unavailable' : `Showing ${rows.length} of ${reports.length} reports`}</p>
-            <p className="queue-order">Oldest first. Priority does not change the order.</p>
+            <p className="queue-order">Critical first, then high, medium and low. Oldest first within each level.</p>
           </div>
           <div className="queue-toolbar__actions">
             {activeFilters > 0 && <button type="button" className="btn btn--ghost" onClick={clearAll}>Clear filters</button>}

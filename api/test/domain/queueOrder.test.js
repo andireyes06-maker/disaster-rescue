@@ -1,5 +1,26 @@
 import { describe, expect, test } from 'vitest';
-import { AWAITING_ACTION, compareOldestFirst, toMillis } from '../../src/domain/queueOrder.js';
+import { AWAITING_ACTION, compareOldestFirst, compareQueue, toMillis } from '../../src/domain/queueOrder.js';
+
+describe('compareQueue', () => {
+  test('critical, high, medium, low, then oldest first inside each level', () => {
+    const rows = [
+      { id: 'lowOld', priority: 'low', createdAt: new Date('2026-10-01') },
+      { id: 'critNew', priority: 'critical', createdAt: new Date('2026-10-03') },
+      { id: 'medOld', priority: 'medium', createdAt: new Date('2026-10-01') },
+      { id: 'critOld', priority: 'critical', createdAt: new Date('2026-10-02') },
+      { id: 'high', priority: 'high', createdAt: new Date('2026-10-01') },
+    ];
+    expect(rows.sort(compareQueue).map((r) => r.id)).toEqual(['critOld', 'critNew', 'high', 'medOld', 'lowOld']);
+  });
+  test('an unknown or missing priority counts as medium', () => {
+    const rows = [
+      { id: 'none', createdAt: new Date('2026-10-01') },
+      { id: 'low', priority: 'low', createdAt: new Date('2026-10-01') },
+      { id: 'constructor', priority: 'constructor', createdAt: new Date('2026-10-02') },
+    ];
+    expect(rows.sort(compareQueue).map((r) => r.id)).toEqual(['none', 'constructor', 'low']);
+  });
+});
 
 describe('toMillis', () => {
   test('reads Date, number, ISO string and Timestamp-like values', () => {

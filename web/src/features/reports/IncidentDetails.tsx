@@ -250,7 +250,7 @@ function IncidentView({ id }: IncidentViewProps) {
         <dl>
           <Fact label="Classification"><span className="plain">{report.classification || 'Not classified'}</span></Fact>
           <Fact label="Address"><span className="plain">{report.addressText || 'No address given'}</span></Fact>
-          {loc && Number.isFinite(loc.lat) && <Fact label="Location"><span className="plain">{report.placeName || (loc.source === 'gps' ? 'Pinned at the reporter’s location' : 'Pinned on the map')}</span><span className="fact__note"> Exact pin is on the map.</span></Fact>}
+          {loc && Number.isFinite(loc.lat) && <Fact label="Location"><span className="plain">{report.placeName || report.area || 'Place not named'}</span></Fact>}
           <Fact label="Contact"><span className="plain">{report.contact?.name || (!report.contact?.phone ? 'No contact provided' : '')}{' '}{report.contact?.phone && <a href={`tel:${report.contact.phone}`}>{report.contact.phone}</a>}</span></Fact>
           {report.assignedTeamId && <Fact label="Assigned team"><span className="plain">{teamName ?? 'Rescue team assigned'}</span></Fact>}
           {report.rejectionReason && <Fact label="Rejection reason"><span className="plain">{report.rejectionReason}</span></Fact>}

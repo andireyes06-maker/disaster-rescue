@@ -579,6 +579,7 @@ AssignedReport _assignedFrom(String id, Map<String, dynamic> m) {
     reference: m['reference'] as String?,
     addressText: m['addressText'] as String?,
     placeName: m['placeName'] as String?,
+    area: m['area'] as String?,
     lat: lat,
     lng: lng,
     createdAt: created is Timestamp ? created.toDate() : null,

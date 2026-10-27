@@ -89,3 +89,8 @@ Font source: Google Fonts `ofl/geist/Geist[wght].ttf`, upstream Geist by Vercel,
 Reason: the responder incident page showed raw latitude and longitude under Location. It now shows the approximate place name the reporter's pin was given (for example "Near Commonwealth, Quezon City"), or "Exact pin is on the map." when a report has no name. Owner request, 27 October 2026.
 Reviewed: `incident-detail.png` regenerated with `--plain-name "assignment, incident"`. Only the coordinates line changed; the rest of the layout is identical.
 Not covered by this entry: `report-details.png` still differs from its reference by 8.87% (scroll offset in the details step). It is unresolved and has not been regenerated.
+
+## Reviewed change: no coordinates on the responder page, 27 October 2026
+
+Reason: the responder incident page no longer shows coordinates. It shows the approximate place name, falling back to the area, then "Place not named". Owner request, 27 October 2026.
+Reviewed: `incident-detail.png` regenerated; only the coordinates line changed to "Place not named" for this fixture, which has no name or area.

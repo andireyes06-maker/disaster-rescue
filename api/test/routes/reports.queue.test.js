@@ -24,11 +24,11 @@ describe('queue order', () => {
     expect(ids(await list(t, 'admin'))).toEqual([b, a, c]);
   });
 
-  it('priority does not change queue order', async () => {
+  it('critical reports come before older low ones in the queue', async () => {
     const t = makeTestApp();
     const old = await seed(t, '2026-10-01T08:00:00Z', { priority: 'low' });
-    await seed(t, '2026-10-02T08:00:00Z', { priority: 'critical' });
-    expect(ids(await list(t, 'admin'))[0]).toBe(old);
+    const critical = await seed(t, '2026-10-02T08:00:00Z', { priority: 'critical' });
+    expect(ids(await list(t, 'admin'))).toEqual([critical, old]);
   });
 
   it('closed reports follow the open queue, newest first', async () => {
