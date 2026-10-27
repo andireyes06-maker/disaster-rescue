@@ -1,14 +1,15 @@
-import { createHash } from 'node:crypto';
+import { createHmac } from 'node:crypto';
 
 // Failed sign-ins are counted per email. After MAX_FAILED_ATTEMPTS failures the email is locked for LOCKOUT_MS.
 export const MAX_FAILED_ATTEMPTS = 5;
 export const LOCKOUT_MS = 5 * 60 * 1000;
 
 // The count is per email AND client address, so one attacker from one address cannot lock a person out from elsewhere.
-// The stored key is a hash, so the document never holds the email or the address itself.
-export function attemptKey(email, ip) {
-  const pair = `${String(email).trim().toLowerCase()}|${String(ip ?? 'unknown')}`;
-  return createHash('sha256').update(pair).digest('hex');
+// The stored key is an HMAC with the server secret, so the document holds neither the email nor the address,
+// and nobody without the secret can test an email against a stored key.
+export function attemptKey(email, ip, secret) {
+  const pair = `${String(email).trim().toLowerCase()}\0${String(ip ?? 'unknown')}`;
+  return createHmac('sha256', secret).update(pair).digest('hex');
 }
 
 // Whether the email is locked right now, and for how long.

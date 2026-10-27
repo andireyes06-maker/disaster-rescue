@@ -7,6 +7,8 @@ export function loadConfig(env = process.env) {
     trustProxy: Number(env.TRUST_PROXY) || 0,
     corsOrigins: (env.CORS_ORIGINS ?? '').split(',').map((s) => s.trim()).filter(Boolean),
     firebaseProjectId: env.FIREBASE_PROJECT_ID,
+    // Secret key for the sign-in lockout's stored keys. Without it, anyone with the database could test emails against them.
+    loginAttemptSecret: env.LOGIN_ATTEMPT_SECRET,
     // Firebase Admin reads the service account file from this path.
     serviceAccountPath: env.GOOGLE_APPLICATION_CREDENTIALS,
     cloudinary: {
@@ -25,6 +27,7 @@ export function validateConfig(config) {
     ['CLOUDINARY_API_KEY', config.cloudinary.apiKey],
     ['CLOUDINARY_API_SECRET', config.cloudinary.apiSecret],
     ['GOOGLE_APPLICATION_CREDENTIALS', config.serviceAccountPath],
+    ['LOGIN_ATTEMPT_SECRET', config.loginAttemptSecret],
   ];
   const missing = required.filter(([, v]) => !v).map(([k]) => k);
   if (missing.length) throw new Error(`Missing required environment variables: ${missing.join(', ')}`);

@@ -1,4 +1,5 @@
 import express from 'express';
+import { randomBytes } from 'node:crypto';
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
@@ -23,6 +24,8 @@ export function buildApp({
   corsOrigins = [],
   rateLimit: rateOptions = DEFAULT_RATE_LIMIT,
   trustProxy = 0,
+  // Keys the sign-in lockout counts. When not configured, a random per-process key is used (counts reset on restart).
+  loginAttemptSecret = randomBytes(32).toString('hex'),
 }) {
   // The users document is canonical. Token claims can lag a role or deactivation change by up to a
   // second (revocation granularity), so role and active are read from the document on every request.
@@ -36,7 +39,7 @@ export function buildApp({
       role: user?.role ?? null, active: user?.active === true, team: user?.team ?? null,
     };
   };
-  const deps = { repo, uploader, sender, verifyToken: verifyCanonical, notifier, auth };
+  const deps = { repo, uploader, sender, verifyToken: verifyCanonical, notifier, auth, loginAttemptSecret };
   const app = express();
   app.disable('x-powered-by');
   // Behind a host's proxy, count clients by their forwarded address, not the proxy's.

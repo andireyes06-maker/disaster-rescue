@@ -38,6 +38,7 @@ const app = buildApp({
   auth: getAuth(),
   corsOrigins: config.corsOrigins,
   trustProxy: config.trustProxy,
+  loginAttemptSecret: config.loginAttemptSecret,
 });
 
 app.listen(config.port, () => console.log(`API listening on ${config.port}`));

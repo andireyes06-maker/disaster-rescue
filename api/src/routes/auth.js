@@ -4,6 +4,8 @@ import { HttpError } from '../errors.js';
 
 const EMAIL_MAX = 254;
 
+// The lockout key for this email and address, keyed with the server secret.
+
 function emailFrom(body) {
   const email = typeof body?.email === 'string' ? body.email.trim() : '';
   if (!email || email.length > EMAIL_MAX || !email.includes('@')) throw new HttpError(400, 'invalid_email', 'Enter an email address');
@@ -18,7 +20,7 @@ export function authRouter(deps) {
   // Whether this email is locked right now. Answers the same way for any email, registered or not.
   r.post('/sign-in/check', async (req, res, next) => {
     try {
-      const record = await deps.repo.getLoginAttempt(attemptKey(emailFrom(req.body), req.ip));
+      const record = await deps.repo.getLoginAttempt(attemptKey(emailFrom(req.body), req.ip, deps.loginAttemptSecret));
       res.json(lockState(record, Date.now()));
     } catch (e) { next(e); }
   });
@@ -26,7 +28,7 @@ export function authRouter(deps) {
   // Records one failed sign-in and returns the lock state after it.
   r.post('/sign-in/failure', async (req, res, next) => {
     try {
-      const key = attemptKey(emailFrom(req.body), req.ip);
+      const key = attemptKey(emailFrom(req.body), req.ip, deps.loginAttemptSecret);
       const record = await deps.repo.mutateLoginAttempt(key, (current) => nextAfterFailure(current, Date.now()));
       res.json(lockState(record, Date.now()));
     } catch (e) { next(e); }
@@ -40,7 +42,7 @@ export function authRouter(deps) {
       let d;
       try { d = await deps.verifyToken(m[1]); } catch { return res.status(401).json({ error: 'invalid_token' }); }
       if (!d?.uid || !d.email) return res.status(401).json({ error: 'invalid_token' });
-      await deps.repo.mutateLoginAttempt(attemptKey(d.email, req.ip), () => null);
+      await deps.repo.mutateLoginAttempt(attemptKey(d.email, req.ip, deps.loginAttemptSecret), () => null);
       res.json({ ok: true });
     } catch (e) { next(e); }
   });

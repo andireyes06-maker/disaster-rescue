@@ -22,10 +22,14 @@ describe('login attempt rules', () => {
     expect(nextAfterFailure(locked, 5000)).toEqual({ count: 1, lockedUntil: 0 });
   });
 
-  it('keys by email without storing the address, ignoring case and spaces', () => {
-    expect(attemptKey('  Ana@Example.com ', '10.0.0.1')).toBe(attemptKey('ana@example.com', '10.0.0.1'));
-    expect(attemptKey('ana@example.com', '10.0.0.1')).not.toBe(attemptKey('ana@example.com', '10.0.0.2'));
-    expect(attemptKey('ana@example.com', '10.0.0.1')).not.toContain('@');
+  it('keys by email and address with the secret, without storing either', () => {
+    expect(attemptKey('  Ana@Example.com ', '10.0.0.1', 'k')).toBe(attemptKey('ana@example.com', '10.0.0.1', 'k'));
+    expect(attemptKey('ana@example.com', '10.0.0.1', 'k')).not.toBe(attemptKey('ana@example.com', '10.0.0.2', 'k'));
+    expect(attemptKey('ana@example.com', '10.0.0.1', 'k')).not.toContain('@');
+  });
+
+  it('a different secret gives a different key, so stored keys cannot be checked without the secret', () => {
+    expect(attemptKey('ana@example.com', '10.0.0.1', 'secret-a')).not.toBe(attemptKey('ana@example.com', '10.0.0.1', 'secret-b'));
   });
 });
 
