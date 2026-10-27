@@ -408,7 +408,17 @@ export function createFirestoreRepo(db) {
       const snap = await col('passwordHelp').where('status', '==', 'open').get();
       return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     },
-    async closePasswordHelp(key, closedBy, at) { await col('passwordHelp').doc(key).update({ status: 'closed', closedBy, closedAt: at }); },
+    // Returns 'missing', 'already' (closed earlier: nothing is rewritten) or 'closed'.
+    async closePasswordHelp(key, closedBy, at) {
+      const ref = col('passwordHelp').doc(key);
+      return db.runTransaction(async tx => {
+        const snap = await tx.get(ref);
+        if (!snap.exists) return 'missing';
+        if (snap.data().status === 'closed') return 'already';
+        tx.update(ref, { status: 'closed', closedBy, closedAt: at });
+        return 'closed';
+      });
+    },
     async getUser(uid) { return userDoc(await col('users').doc(uid).get()); },
     async createUser(uid, data) {
       const { uid: _u, id: _i, ...rest } = data;

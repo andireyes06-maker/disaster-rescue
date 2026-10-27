@@ -112,7 +112,10 @@ export function authRouter(deps) {
   r.post('/reset-help/:id/close', auth, admin, async (req, res, next) => {
     try {
       const at = new Date();
-      await deps.repo.closePasswordHelp(req.params.id, req.user.uid, at);
+      const outcome = await deps.repo.closePasswordHelp(req.params.id, req.user.uid, at);
+      if (outcome === 'missing') return res.status(404).json({ error: 'not_found' });
+      // Already closed: nothing changes, so the first close time and the first audit row stand.
+      if (outcome === 'already') return res.json({ ok: true, alreadyClosed: true });
       // Closing a request is an administrator action, so it is recorded in the audit log as well.
       await deps.repo.addAudit({ actorUid: req.user.uid, action: 'password-help.close', at, target: { requestId: req.params.id } });
       res.json({ ok: true });
