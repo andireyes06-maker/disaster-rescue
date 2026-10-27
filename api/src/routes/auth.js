@@ -83,6 +83,9 @@ export function authRouter(deps) {
     } catch (e) { next(e); }
   });
 
+  // Accepted risk, by the owner's decision (27 October 2026): the reset password is the account's email address, so
+  // it is guessable until the person changes it. Reviewed as CRITICAL; the owner chose this over a random temporary password.
+  // Anyone who signs in with it should change it at once. Do not extend this pattern to other accounts.
   // An administrator resets the requester's password to their email address. Existing sign-ins end at once.
   // The password is never stored or logged; the audit log records that a reset happened, not what the password is.
   r.post('/reset-help/:id/reset-password', auth, admin, async (req, res, next) => {
