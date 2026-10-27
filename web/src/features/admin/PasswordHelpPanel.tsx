@@ -19,8 +19,8 @@ export default function PasswordHelpPanel() {
       const body = await api('/auth/reset-help');
       setRows(Array.isArray(body) ? (body as HelpRequest[]) : []);
     } catch {
-      setRows([]);
-      setNotice('Could not load the password help requests.');
+      // Keep the rows already shown: a failed refresh must not read as "No open requests".
+      setNotice('Could not load the password help requests. The list shown may be out of date.');
     }
   }, []);
 

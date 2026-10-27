@@ -189,7 +189,11 @@ export default function ReportQueue() {
   // Cancelled reports are not in the open list, so their count reads the full list.
   const quickCount = (q: Quick) => (q === 'cancelled' ? everything.reports : reports).filter((r) => quickMatch(r, q)).length;
   const canAct = canActOnReports(role);
-  const failed = Boolean(error);
+  // Cancelled and search read the full list, so their loading and error state come from that list.
+  const viewUsesFullList = Boolean(query) || quick === 'cancelled';
+  const viewLoading = viewUsesFullList ? everything.loading : loading;
+  const viewError = viewUsesFullList ? everything.error : error;
+  const failed = Boolean(viewError);
 
   return (
     <div className="overview">
@@ -197,19 +201,19 @@ export default function ReportQueue() {
         {cards.map(([label, n]) => (
           <Card key={label} className={`summary__card metric--${String(label).toLowerCase().replaceAll(' ', '-')}`}>
             <span className="summary__label">{label}</span>
-            <strong className="summary__value">{loading || failed ? '—' : n}</strong>
+            <strong className="summary__value">{viewLoading || failed ? '—' : n}</strong>
           </Card>
         ))}
       </div>
 
       <ConnectionNotice fromCache={fromCache} />
-      {!loading && !error && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
+      {!viewLoading && !viewError && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
       <div className="inbox-layout">
       <section className="inbox-panel" aria-labelledby="queue-heading">
         <div className="queue-toolbar">
           <div>
             <h2 id="queue-heading">Incident inbox</h2>
-            <p aria-live="polite">{loading ? 'Loading reports…' : failed ? 'Reports unavailable' : `Showing ${rows.length} of ${reports.length} reports`}</p>
+            <p aria-live="polite">{viewLoading ? 'Loading reports…' : failed ? 'Reports unavailable' : `Showing ${rows.length} of ${reports.length} reports`}</p>
             <p className="queue-order">Critical first, then high, medium and low. Oldest first within each level.</p>
           </div>
           <div className="queue-toolbar__actions">
@@ -246,14 +250,14 @@ export default function ReportQueue() {
           </div>
         )}
 
-        {error && (
+        {viewError && (
           <Banner tone="error" role="alert">
             Could not load reports. Check your connection and try again.{' '}
             <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
           </Banner>
         )}
-        {loading && <Skeleton label="Loading incident inbox"><SkeletonRows rows={5} height={84} /></Skeleton>}
-        {!loading && !error && rows.length === 0 && (
+        {viewLoading && <Skeleton label="Loading incident inbox"><SkeletonRows rows={5} height={84} /></Skeleton>}
+        {!viewLoading && !viewError && rows.length === 0 && (
           <EmptyState
             title={reports.length === 0 ? 'No reports received yet' : 'No reports match this view'}
             body={reports.length === 0 ? 'New reports will appear here when they arrive.' : 'Clear your search and filters to see all received reports.'}
@@ -277,7 +281,7 @@ export default function ReportQueue() {
           <IncidentPreview key={selected.id} report={selected} canAct={canAct}
             outsideFilters={selectedHidden} onClearFilters={clearAll} reporter={selected.reporterId ? people[selected.reporterId] : undefined} />
         ) : (
-          !loading && !failed && (
+          !viewLoading && !failed && (
             <p className="preview__empty"><Search aria-hidden="true" /> {selectedId ? 'This report is no longer available.' : 'Select a report to see its details.'}</p>
           )
         )}
