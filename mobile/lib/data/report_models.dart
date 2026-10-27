@@ -62,9 +62,12 @@ class ReportDraft {
   final String contactName;
   final String contactPhone;
   final String? placeName;
+  /// The town or city of the pin. Kept so a restored draft does not lose it.
+  final String? locality;
   final String? severity;
   const ReportDraft({
     this.severity,
+    this.locality,
     this.type,
     this.description = '',
     this.lat,
@@ -86,11 +89,13 @@ class ReportDraft {
     'contactName': contactName,
     'contactPhone': contactPhone,
     'placeName': placeName,
+    'locality': locality,
     'severity': severity,
   };
 
   factory ReportDraft.fromJson(Map<String, dynamic> j) => ReportDraft(
     placeName: j['placeName'] as String?,
+    locality: j['locality'] as String?,
     severity: j['severity'] as String?,
     type: j['type'] as String?,
     description: (j['description'] as String?) ?? '',

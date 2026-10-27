@@ -129,7 +129,13 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
 
   Future<void> _loadProfile() async {
     final uid = context.read<AuthController>().user?.uid ?? '';
-    final p = await context.read<ProfileRepository>().load(uid);
+    // Prefill is optional: a failed read just leaves the fields empty.
+    final Profile? p;
+    try {
+      p = await context.read<ProfileRepository>().load(uid);
+    } catch (_) {
+      return;
+    }
     if (!mounted || p == null) return;
     if (_name.text.isEmpty && (p.name ?? '').isNotEmpty) _name.text = p.name!;
     if (_phone.text.isEmpty && (p.phone ?? '').isNotEmpty) {
@@ -156,6 +162,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     source: _source,
     addressText: _address.text,
     placeName: _placeName,
+    locality: _locality,
     severity: _severity,
     contactName: _name.text,
     contactPhone: _phone.text,
@@ -181,8 +188,10 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _address.text = d.addressText;
       _placeName = d.placeName;
       _severity = _severityOptions.containsKey(d.severity) ? d.severity! : 'medium';
-      _name.text = d.contactName;
-      _phone.text = d.contactPhone;
+      // A draft saved before the name or phone was typed must not wipe what was prefilled.
+      if (d.contactName.isNotEmpty) _name.text = d.contactName;
+      if (d.contactPhone.isNotEmpty) _phone.text = d.contactPhone;
+      _locality = d.locality;
       _savedDraft = null;
       if (_type == null) {
         _step = 0;
@@ -235,6 +244,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   }
 
   static const _needPhoto = 'Add at least one photo as proof.';
+  static const _uncertainBlockedMessage = 'Your last report may already have been sent. Check My Reports before you send again.';
   static const _needLocation =
       'Choose a location first: use your current location or pick on a map.';
 
@@ -276,7 +286,12 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   }
 
   Future<void> _submit() async {
-    if (_submitting || _blockedByUncertain) return;
+    if (_submitting) return;
+    if (_blockedByUncertain) {
+      // Say why nothing happened: the last send may already have gone through.
+      _notify(_uncertainBlockedMessage);
+      return;
+    }
     if (_photos.isEmpty) {
       _notify(_needPhoto);
       return;

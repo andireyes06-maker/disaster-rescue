@@ -134,3 +134,7 @@ Method: `flutter test test/redesign_visual_test.dart --plain-name "four real rep
 Reason: the earlier reference still showed the replaced "reach" field. The owner approved regenerating it.
 Reviewed: the new render was viewed before acceptance. It is still step 3 of 4, not the review step: the test taps Next without a photo, so validation stops there and shows "Add at least one photo as proof." The render shows the severity field and no reach field.
 Method: same test as report details, with `--update-goldens`. Only this file changed; `report-details.png` was byte-identical on the rerun.
+
+## Hashes recorded: register and map-tile-free, 28 October 2026
+
+Both committed images were viewed on 28 October 2026. Register shows the Create account form with required markers. Map-tile-free shows the incident map with one critical marker and its report card. Their widget tests pass against these images, so the stored hashes were stale. Only `SHA256SUMS.txt` changed; no image was regenerated.

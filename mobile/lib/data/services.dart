@@ -641,17 +641,15 @@ class FirestoreProfileRepository implements ProfileRepository {
 
   @override
   Future<Profile?> load(String uid) async {
-    try {
-      final snap = await _db
-          .doc('users/$uid')
-          .get()
-          .timeout(const Duration(seconds: 6));
-      final m = snap.data();
-      if (m == null) return null;
-      return Profile(name: m['name'] as String?, phone: m['phone'] as String?);
-    } catch (_) {
-      return null;
-    }
+    // Errors propagate: the profile page then shows "Could not load your profile" with Try again.
+    // A missing document is still null (no details saved yet).
+    final snap = await _db
+        .doc('users/$uid')
+        .get()
+        .timeout(const Duration(seconds: 6));
+    final m = snap.data();
+    if (m == null) return null;
+    return Profile(name: m['name'] as String?, phone: m['phone'] as String?);
   }
 }
 
