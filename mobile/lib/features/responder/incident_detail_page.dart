@@ -224,6 +224,9 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     }
     final hasLocation = r.lat != null && r.lng != null;
     final closed = _closedStatuses.contains(r.status);
+    // Once the rescue has started (the first acknowledgement moves the report on), the button stays locked, even after leaving the page.
+    final rescueStarted = r.status != 'Team Assigned' && r.status.isNotEmpty;
+    final acknowledged = _acknowledged || rescueStarted;
     return Scaffold(
       appBar: AppBar(title: Text(r.reference ?? 'Incident')),
       body: ProductViewport(
@@ -295,13 +298,13 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
             ],
             if (!closed)
               FilledButton.icon(
-                onPressed: _acknowledged || _busy || closed
+                onPressed: acknowledged || _busy || closed
                     ? null
                     : _confirmAcknowledge,
                 icon: Icon(
-                  _acknowledged ? Icons.check : Icons.thumb_up_alt_outlined,
+                  acknowledged ? Icons.check : Icons.thumb_up_alt_outlined,
                 ),
-                label: Text(_acknowledged ? 'Acknowledged' : 'Acknowledge'),
+                label: Text(acknowledged ? 'Acknowledged' : 'Acknowledge'),
               ),
             if (!closed) ...[
               const SizedBox(height: 12),

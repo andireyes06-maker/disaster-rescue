@@ -218,8 +218,11 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
       if (rows.some(u => u.kind === 'acknowledge' && u.byUid === uid)) return { ok: true, duplicate: true, status: r.status };
       rows.push({ kind: 'acknowledge', byUid: uid, at: new Date(), id: nextId('u') });
       updates.set(reportId, rows);
-      writeEffects(effects ? { ...effects, audits: effects.audits.map(a => ({ ...a, after: { ...a.after, status: r.status } })) } : null);
-      return { ok: true, duplicate: false, status: r.status };
+      // The first acknowledgement starts the rescue, as in the database transaction.
+      const next = r.status === 'Team Assigned' ? 'Rescue in Progress' : r.status;
+      if (next !== r.status) reports.set(reportId, { ...r, status: next, updatedAt: new Date() });
+      writeEffects(effects ? { ...effects, audits: effects.audits.map(a => ({ ...a, after: { ...a.after, status: next } })) } : null);
+      return { ok: true, duplicate: false, status: next };
     },
     async listUpdates(reportId) { return copy(updates.get(reportId) ?? []); },
     async getReportUpdate(reportId, updateId) {

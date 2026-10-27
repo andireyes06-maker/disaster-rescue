@@ -160,12 +160,14 @@ describe('acknowledge and updates', () => {
     expect(await t.repo.listUpdates(id)).toHaveLength(0);
   });
 
-  it('acknowledge by the assigned team writes an update and an audit row, no status change', async () => {
+  it('the first acknowledgement starts the rescue, and a repeat does not change the status again', async () => {
     const t = makeTestApp();
     const teams = await withTeams(t);
     const id = await seed(t, { status: 'Team Assigned', assignedTeamId: 'tA' });
     expect((await post(t, id, 'acknowledge', teams.a)).status).toBe(200);
-    expect(await t.repo.getReport(id)).toMatchObject({ status: 'Team Assigned' });
+    expect(await t.repo.getReport(id)).toMatchObject({ status: 'Rescue in Progress' });
+    expect(await t.repo.listUpdates(id)).toHaveLength(1);
+    expect((await post(t, id, 'acknowledge', teams.a)).status).toBe(200);
     expect(await t.repo.listUpdates(id)).toHaveLength(1);
     expect(await countAudit(t, id, 'report.acknowledge')).toBe(1);
   });

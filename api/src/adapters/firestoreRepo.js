@@ -353,8 +353,11 @@ export function createFirestoreRepo(db) {
         const legacy = await tx.get(ref.collection('updates').where('kind', '==', 'acknowledge').where('byUid', '==', uid).limit(1));
         if (existing.exists || legacy.docs.some(d => d.data().byUid === uid)) return { ok: true, duplicate: true, status };
         tx.set(ack, { kind: 'acknowledge', byUid: uid, at: new Date() });
-        writeEffects(tx, effects ? { ...effects, audits: effects.audits.map(a => ({ ...a, after: { ...a.after, status } })) } : null);
-        return { ok: true, duplicate: false, status };
+        // The first acknowledgement starts the rescue: Team Assigned becomes Rescue in Progress in the same transaction.
+        const next = status === 'Team Assigned' ? 'Rescue in Progress' : status;
+        if (next !== status) tx.update(ref, { status: next, updatedAt: new Date() });
+        writeEffects(tx, effects ? { ...effects, audits: effects.audits.map(a => ({ ...a, after: { ...a.after, status: next } })) } : null);
+        return { ok: true, duplicate: false, status: next };
       });
     },
     async listUpdates(reportId) {

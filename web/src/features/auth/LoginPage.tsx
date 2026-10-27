@@ -152,12 +152,6 @@ export default function LoginPage() {
           {fieldErrors.password && <FieldError id="password-error" className="field-error">{fieldErrors.password}</FieldError>}
           {message && <Banner tone="error" role="alert">{message}</Banner>}
           <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
-          <section className="login__recovery" aria-labelledby="login-recovery-title">
-            <h2 id="login-recovery-title">Need a password?</h2>
-            <p className="login__recovery-help">Staff accounts are created without a password. Enter your email above, then choose Forgot password to receive a setup link. Residents can use it to reset a forgotten password.</p>
-            <button type="button" className="btn btn--ghost login__recovery-button" onClick={onForgotPassword} aria-disabled={resetBusy || busy} aria-busy={resetBusy}>{resetBusy ? 'Sending…' : 'Forgot password?'}</button>
-            {resetNote && <Banner tone="info" role="status">{resetNote}</Banner>}
-          </section>
         </MotionForm>
         <aside className="auth-split__intro" aria-labelledby="login-aside-title">
           <h2 id="login-aside-title">Who signs in here</h2>

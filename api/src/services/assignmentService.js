@@ -74,7 +74,7 @@ export async function assign({ repo, notifier }, user, id, body) {
   return { id, status: STATUS.TEAM_ASSIGNED, assignedTeamId: teamIds[0], assignedTeamIds: teamIds };
 }
 
-// Any responder on the assigned team may acknowledge, wherever they are. Distance still limits addUpdate.
+// Any responder on the assigned team may acknowledge, wherever they are. The first acknowledgement starts the rescue.
 export async function acknowledge({ repo }, user, id) {
   const report = await load(repo, id);
   await ownTeamOrNotFound(repo, user, report);
