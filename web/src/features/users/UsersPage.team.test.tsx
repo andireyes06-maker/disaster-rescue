@@ -51,6 +51,9 @@ describe('UsersPage team assignment (F03)', () => {
     render(<MemoryRouter><UsersPage /></MemoryRouter>);
     const select = await screen.findByRole('combobox', { name: 'Team for Ana' });
     fireEvent.change(select, { target: { value: 'tA' } });
+    expect(await screen.findByText('Are you sure?')).toBeInTheDocument();
+    expect(h.api).not.toHaveBeenCalledWith('/users/u-resp', expect.anything());
+    fireEvent.click(screen.getByRole('button', { name: 'Move' }));
     await waitFor(() => expect(h.api).toHaveBeenCalledWith('/users/u-resp', { method: 'PATCH', body: { team: 'tA' } }));
     expect(await screen.findByText('Team assigned.')).toBeInTheDocument();
   });

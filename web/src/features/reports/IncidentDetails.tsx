@@ -115,6 +115,31 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }: Duplicate
   );
 }
 
+// The workflow as the reporter sees it on the phone: each step is Done, Current or Pending, and side outcomes get a note.
+const WORKFLOW = ['Submitted', 'Under Verification', 'Verified', 'Awaiting Assignment', 'Team Assigned', 'Rescue in Progress', 'Resolved', 'Closed'] as const;
+const SIDE_OUTCOMES = ['Rejected', 'Duplicate', 'Cancelled'] as const;
+
+function StatusProgress({ status }: { status: string }) {
+  if ((SIDE_OUTCOMES as readonly string[]).includes(status)) {
+    return <p className="incident-progress__note">This report is {status.toLowerCase()}. It will not move forward.</p>;
+  }
+  const current = WORKFLOW.indexOf(status as typeof WORKFLOW[number]);
+  return (
+    <div className="incident-progress__steps">
+      {WORKFLOW.map((step, i) => {
+        const marker = i < current ? 'Done' : i === current ? 'Current' : 'Pending';
+        return (
+          <div key={step} className={`incident-progress__step is-${marker.toLowerCase()}`} aria-current={marker === 'Current' ? 'step' : undefined}>
+            <span className="incident-progress__dot" aria-hidden="true">{marker === 'Done' ? '✓' : marker === 'Current' ? '●' : ''}</span>
+            <span className="incident-progress__label">{step}</span>
+            <span className="incident-progress__marker">{marker}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 // Opened from the URL on its own page, or with reportId when shown inside the map's modal.
 export default function IncidentDetails({ reportId }: { reportId?: string } = {}) {
   const params = useParams();
@@ -286,6 +311,10 @@ function IncidentView({ id }: IncidentViewProps) {
         )}
       </section>
 
+      <section className="card incident-progress" aria-labelledby="progress-title">
+        <h2 id="progress-title">Progress</h2>
+        <StatusProgress status={report.status} />
+      </section>
       <section className="card" aria-labelledby="updates-title">
         <h2 id="updates-title">Rescue updates</h2>
         {updatesState.error && (

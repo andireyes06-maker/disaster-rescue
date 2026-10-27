@@ -225,7 +225,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
                   </button>
                 )}
               </td>
-              {!rolesOnly && <td>{TEAM_ROLES.has(u.role) ? <select aria-label={`Team for ${u.name}`} value={u.team ?? ''} disabled={(u.role === 'responder' && !!u.team) || u.uid === currentUid || busy(u.uid) || teamsUnavailable} onChange={(e) => saveTeam(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select> : <span>Not applicable</span>}</td>}
+              {!rolesOnly && <td>{TEAM_ROLES.has(u.role) ? <select aria-label={`Team for ${u.name}`} value={u.team ?? ''} disabled={u.uid === currentUid || busy(u.uid) || teamsUnavailable} onChange={(e) => saveTeam(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select> : <span>Not applicable</span>}</td>}
               <td>{u.active ? 'Active' : 'Inactive'}{u.authSyncPending && <p className="field-hint">Access update pending. Retry to finish the previous change.</p>}</td>
             </tr>
           ))}

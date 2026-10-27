@@ -91,10 +91,7 @@ export async function updateStaff({ repo, auth }, id, body, caller) {
     throw new HttpError(400, 'invalid_team', 'Team does not exist');
   }
 
-  // Once a rescuer has a team, the team cannot be changed or removed. Moving someone between teams is not allowed.
-  if (hasTeam && user.role === 'responder' && user.team && body.team !== user.team) {
-    throw new HttpError(409, 'team_locked', 'This rescuer is already on a team and cannot be moved. Create a new account for another team.');
-  }
+  // A rescuer can be moved between teams. The change is audited with the team before and after (user.update).
 
   const role = hasRole ? body.role : user.role;
   const active = hasActive ? body.active : user.active === true;

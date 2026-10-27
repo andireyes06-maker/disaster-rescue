@@ -368,3 +368,11 @@ table td { padding: 16px 18px; font-variant-numeric: tabular-nums; }
 .assign-teams__count { margin-left: 6px; font-size: 0.75rem; opacity: 0.8; }
 
 .incident-modal__actions { display: flex; align-items: center; gap: 8px; }
+
+.incident-progress__steps { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
+.incident-progress__step { display: grid; grid-template-columns: 24px 1fr auto; gap: 10px; align-items: center; min-height: 36px; color: var(--color-muted); }
+.incident-progress__step.is-done { color: var(--color-text); }
+.incident-progress__step.is-current { color: var(--color-primary); font-weight: 700; }
+.incident-progress__dot { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--color-mist); font-size: 12px; }
+.incident-progress__step.is-done .incident-progress__dot, .incident-progress__step.is-current .incident-progress__dot { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+.incident-progress__marker { font-size: 0.75rem; }

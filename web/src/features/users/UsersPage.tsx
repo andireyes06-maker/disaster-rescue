@@ -54,6 +54,13 @@ export default function UsersPage() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  // A team change waits for the administrator's confirmation.
+  const [pendingMove, setPendingMove] = useState<{ user: User; team: string } | null>(null);
+  const teamNameOf = (id: string | null | undefined) => (id ? teams.find((t) => t.id === id)?.name ?? 'their team' : 'no team');
+  function askTeamChange(u: User, team: string) {
+    if ((u.team ?? '') === team) return;
+    setPendingMove({ user: u, team });
+  }
   const pendingRef = useRef(false);
   const [message, setMessage] = useState<Message | null>(null);
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm<StaffAccount>({
@@ -123,6 +130,7 @@ export default function UsersPage() {
 
   // Assigns or clears a staff member's team (F03). The API validates the team and records the change.
   async function setTeam(u: User, team: string) {
+    setPendingMove(null);
     setBusy(true);
     setMessage(null);
     try {
@@ -139,6 +147,25 @@ export default function UsersPage() {
   const visibleUsers = users?.filter(u => (!roleFilter || u.role === roleFilter) && [u.name, u.email, u.uid].some(value => value?.toLowerCase().includes(query.trim().toLowerCase())));
   return (
     <div className="users-workspace">
+      {pendingMove && (
+        <div className="incident-modal">
+          <section className="incident-modal__panel" role="dialog" aria-modal="true" aria-labelledby="move-team-title" style={{ width: 'min(440px, 100%)' }}>
+            <header className="incident-modal__header">
+              <h2 id="move-team-title">Are you sure?</h2>
+            </header>
+            <div className="incident-modal__body">
+              <p>
+                Move {pendingMove.user.name || pendingMove.user.email} from {teamNameOf(pendingMove.user.team)} to {teamNameOf(pendingMove.team)}?
+                This is recorded in the audit log.
+              </p>
+              <div className="actions__row">
+                <button type="button" className="btn btn--ghost" onClick={() => setPendingMove(null)}>Cancel</button>
+                <button type="button" className="btn" disabled={busy} onClick={() => void setTeam(pendingMove.user, pendingMove.team)}>Move</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
       <div className="management-toolbar"><div><h2>Accounts{users ? ` (${users.length})` : ''}</h2><p>Review access before changing an account’s status. <Link to="/admin?panel=roles">Manage access roles</Link></p></div></div>
       <details className="management-create"><summary className="btn">Create staff account</summary>
       <MotionForm className="card ops-form" onSubmit={handleSubmit(create)} noValidate aria-label="Create staff account">
@@ -195,7 +222,7 @@ export default function UsersPage() {
               </div>
               <div className="management-actions">
                 <span>{u.active ? 'Active' : 'Deactivated'}</span>
-                {TEAM_ROLES.has(u.role) && u.uid !== user?.uid && <label className="management-team"><span>Team</span><select aria-label={`Team for ${u.name || u.email}`} value={u.team ?? ''} disabled={(u.role === 'responder' && !!u.team) || busy} onChange={e => setTeam(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select></label>}
+                {TEAM_ROLES.has(u.role) && u.uid !== user?.uid && <label className="management-team"><span>Team</span><select aria-label={`Team for ${u.name || u.email}`} value={u.team ?? ''} disabled={busy} onChange={e => askTeamChange(u, e.target.value)}><option value="">No team</option>{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select></label>}
                 {u.uid === user?.uid ? <span className="field-hint">Your account</span> : <button type="button" className="btn btn--ghost" aria-disabled={busy} aria-busy={busy}
                   aria-label={`${u.active ? 'Deactivate' : 'Activate'} ${u.name || u.email}`}
                   onClick={() => setActive(u, !u.active)}>
