@@ -4,6 +4,7 @@ import { HttpError } from '../errors.js';
 import { createHmac } from 'node:crypto';
 import rateLimit from 'express-rate-limit';
 import { requireAuth, requireRole } from '../middleware/auth.js';
+import { isSafeId } from '../domain/validation.js';
 
 const EMAIL_MAX = 254;
 
@@ -19,6 +20,7 @@ function emailFrom(body) {
 // successful sign-in. Counts are per email and are stored by hash.
 export function authRouter(deps) {
   const r = Router();
+  r.param('id', (req, res, next, id) => (isSafeId(id) ? next() : res.status(404).json({ error: 'not_found' })));
 
   // Whether this email is locked right now. Answers the same way for any email, registered or not.
   r.post('/sign-in/check', async (req, res, next) => {

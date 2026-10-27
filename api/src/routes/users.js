@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import { requireAuth, requireIdentity, requireRole } from '../middleware/auth.js';
 import { createStaff, updateStaff, registerSelf } from '../services/userService.js';
+import { isSafeId } from '../domain/validation.js';
 
 export function usersRouter(deps) {
   const r = Router();
+  r.param('id', (req, res, next, id) => (isSafeId(id) ? next() : res.status(404).json({ error: 'not_found' })));
   const auth = requireAuth(deps.verifyToken);
   const identity = requireIdentity(deps.verifyToken);
 

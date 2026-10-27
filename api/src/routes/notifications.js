@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import { requireAuth } from '../middleware/auth.js';
 import { HttpError } from '../errors.js';
+import { isSafeId } from '../domain/validation.js';
 
 const MAX_TOKEN_LENGTH = 1500;
 const validToken = (token) => token.length <= MAX_TOKEN_LENGTH && /^[\x21-\x7e]+$/.test(token) && !token.includes('/') && !['.', '..'].includes(token) && !/^__.*__$/.test(token);
 
 export function notificationsRouter(deps) {
   const r = Router();
+  r.param('id', (req, res, next, id) => (isSafeId(id) ? next() : res.status(404).json({ error: 'not_found' })));
+  r.param('token', (req, res, next, token) => (isSafeId(token) ? next() : res.status(404).json({ error: 'not_found' })));
   const auth = requireAuth(deps.verifyToken);
 
   r.get('/notifications', auth, async (req, res, next) => {

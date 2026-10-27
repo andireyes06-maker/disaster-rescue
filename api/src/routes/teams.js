@@ -4,6 +4,7 @@ import { HttpError } from '../errors.js';
 import { sanitizeText } from '../domain/validation.js';
 import { randomUUID } from 'node:crypto';
 import { mutationEffects, tryMutationEffects } from '../services/mutationEffectsService.js';
+import { isSafeId } from '../domain/validation.js';
 
 // The identity a team responds under, shown beside its name. Existing teams without one count as Rescue.
 export const TEAM_KINDS = ['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'];
@@ -41,6 +42,7 @@ const headquarters = (v) => {
 
 export function teamsRouter(deps) {
   const r = Router();
+  r.param('id', (req, res, next, id) => (isSafeId(id) ? next() : res.status(404).json({ error: 'not_found' })));
   const auth = requireAuth(deps.verifyToken);
 
   // Team status (busy, currentReportId) reveals active rescues, so only staff who coordinate see it.
