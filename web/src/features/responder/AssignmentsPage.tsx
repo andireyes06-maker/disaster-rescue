@@ -14,7 +14,7 @@ import { useAcknowledgedAt, useReport } from '../reports/useReport';
 import EmptyState from '../../components/calm/EmptyState';
 import OperationForm, { allowedOperationStatuses } from './OperationForm';
 import TeamSummary from './TeamSummary';
-import { currentPosition } from '../../lib/position';
+import { currentPosition, isLocationUnavailable, LOCATION_NOT_SENT_MESSAGE } from '../../lib/position';
 import AssignedProgress from './AssignedProgress';
 import StatusBadge from '../reports/StatusBadge';
 import PriorityBadge from '../reports/PriorityBadge';
@@ -71,7 +71,7 @@ function AssignedCard({ report, scope }: AssignedCardProps) {
       setAccepted(true);
       setMessage({ kind: 'ok', text: 'Assignment acknowledged.' });
     } catch (err) {
-      setMessage({ kind: 'error', text: errorText(err) });
+      setMessage({ kind: 'error', text: isLocationUnavailable(err) ? LOCATION_NOT_SENT_MESSAGE : errorText(err) });
     } finally {
       acknowledging.current = false;
       setBusy(false);

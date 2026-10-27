@@ -17,6 +17,7 @@ import { apiFailure } from '../../lib/apiError';
 import { teamNameSchema, type TeamName } from '../../lib/schemas';
 import { currentPosition } from '../../lib/position';
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
+import { inPhilippines, OUTSIDE_PH_MESSAGE } from '../../lib/serviceArea';
 import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
 import type { GeoPoint } from '../../types/domain';
@@ -91,6 +92,10 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
 
   async function save(values: TeamName) {
     if (pendingRef.current) return;
+    if (kind === 'Other' && !kindLabel.trim()) {
+      onError('Type what kind of team this is, such as Barangay rescue. Nothing was saved.');
+      return;
+    }
     pendingRef.current = true;
     setBusy(true);
     try {
@@ -157,7 +162,12 @@ function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (
     setBusy(true);
     setNotice('');
     try {
-      setDraft(await currentPosition());
+      const here = await currentPosition();
+      if (!inPhilippines(here.lat, here.lng)) {
+        setNotice(OUTSIDE_PH_MESSAGE);
+        return;
+      }
+      setDraft(here);
       setMode('idle');
     } catch {
       setNotice('Could not read your location. Allow location and try again, or pick on the map.');
@@ -195,7 +205,13 @@ function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (
         <p className="field-hint">{mode === 'pick' ? 'Tap the map to place the location.' : 'Use your location or pick a place on the map.'}</p>
         <MapContainer key={team.id} center={center} zoom={14} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
           <MapViewport point={draft} /><TileLayer key={tiles.key} eventHandlers={tiles.events} url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
-          <HqPicker onPick={(p) => { if (mode === 'pick') { setDraft({ lat: p.lat, lng: p.lng }); setMode('idle'); } }} />
+          <HqPicker onPick={(p) => {
+            if (mode !== 'pick') return;
+            if (!inPhilippines(p.lat, p.lng)) { setNotice(OUTSIDE_PH_MESSAGE); return; }
+            setNotice('');
+            setDraft({ lat: p.lat, lng: p.lng });
+            setMode('idle');
+          }} />
           {draft && <Marker position={[draft.lat, draft.lng]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
         </MapContainer>
       </div>
@@ -225,6 +241,7 @@ export default function TeamsPage() {
   const newName = watch('name');
   const [newHq, setNewHq] = useState<GeoPoint | null>(null);
   const [newKind, setNewKind] = useState('Rescue');
+  const [newKindLabel, setNewKindLabel] = useState('');
   const [hqNotice, setHqNotice] = useState('');
 
   const [staff, setStaff] = useState<StaffMember[]>([]);
@@ -248,7 +265,7 @@ export default function TeamsPage() {
     setMessage(null);
     try {
       const hqName = newHq ? await approximatePlaceName(newHq.lat, newHq.lng) : null;
-      await api('/teams', { method: 'POST', body: { name: values.name, kind: newKind, hq: newHq, hqName } });
+      await api('/teams', { method: 'POST', body: { name: values.name, kind: newKind, kindLabel: newKind === 'Other' ? newKindLabel.trim() : undefined, hq: newHq, hqName } });
       reset({ name: '' });
       setNewHq(null);
       setHqNotice('');
@@ -278,20 +295,31 @@ export default function TeamsPage() {
         <select id="new-team-kind" disabled={busy} value={newKind} onChange={(e) => setNewKind(e.target.value)}>
           {['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
         </select>
+        {newKind === 'Other' && (
+          <>
+            <label htmlFor="new-team-kind-label">What kind of team is this?<RequiredMark /></label>
+            <input id="new-team-kind-label" aria-required="true" readOnly={busy} maxLength={60} value={newKindLabel} onChange={(e) => setNewKindLabel(e.target.value)} placeholder="For example: Barangay rescue" />
+          </>
+        )}
         {hqNotice && <p className="field-hint" role="status">{hqNotice}</p>}
         {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
       <div className="hq-map" role="region" aria-label="Map for the new team headquarters">
           <p className="field-hint">Click the map to place the headquarters.</p>
           <MapContainer center={newHq ? [newHq.lat, newHq.lng] : [14.5995, 120.9842]} zoom={13} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
             <MapViewport point={newHq} /><TileLayer key={tiles.key} eventHandlers={tiles.events} url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
-            <HqPicker onPick={(p) => { if (busy) return; setNewHq({ lat: p.lat, lng: p.lng }); setHqNotice(''); }} />
+            <HqPicker onPick={(p) => {
+              if (busy) return;
+              if (!inPhilippines(p.lat, p.lng)) { setHqNotice(OUTSIDE_PH_MESSAGE); return; }
+              setNewHq({ lat: p.lat, lng: p.lng });
+              setHqNotice('');
+            }} />
             {newHq && <Marker position={[newHq.lat, newHq.lng]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
           </MapContainer>
         </div>
         <div className="selected-place">{newHq ? <PlaceLabel point={newHq} /> : <p>No headquarters selected yet.</p>}<small>Place names are approximate. The pin sets the exact headquarters.</small></div>
         {message?.kind === 'error' && <Banner tone="error" role="alert">{message.text}</Banner>}
         <div className="actions__row team-create-actions">
-          <button type="button" className="btn btn--ghost" aria-disabled={busy} onClick={async () => { if (busy) return; try { setNewHq(await currentPosition()); setHqNotice('Headquarters captured from your current location.'); } catch { setHqNotice('Could not read your location. Allow location and try again, or create the team without headquarters.'); } }}>Use my current location as headquarters</button>
+          <button type="button" className="btn btn--ghost" aria-disabled={busy} onClick={async () => { if (busy) return; try { const here = await currentPosition(); if (!inPhilippines(here.lat, here.lng)) { setHqNotice(OUTSIDE_PH_MESSAGE); } else { setNewHq(here); setHqNotice('Headquarters captured from your current location.'); } } catch { setHqNotice('Could not read your location. Allow location and try again, or create the team without headquarters.'); } }}>Use my current location as headquarters</button>
           <button type="button" className="btn btn--ghost" aria-disabled={busy} onClick={() => { if (!busy) setCreating(false); }}>Cancel</button>
           <button type="submit" className="btn" aria-disabled={busy || !newName.trim()} aria-busy={busy}>Create team</button>
         </div>

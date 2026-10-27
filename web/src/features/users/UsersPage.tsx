@@ -12,6 +12,7 @@ import EmptyState from '../../components/calm/EmptyState';
 import FieldError from '../../components/FieldError';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import Banner from '../../components/calm/Banner';
+import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
 
 interface User {
   uid: string;
@@ -147,25 +148,23 @@ export default function UsersPage() {
   const visibleUsers = users?.filter(u => (!roleFilter || u.role === roleFilter) && [u.name, u.email, u.uid].some(value => value?.toLowerCase().includes(query.trim().toLowerCase())));
   return (
     <div className="users-workspace">
-      {pendingMove && (
-        <div className="incident-modal">
-          <section className="incident-modal__panel" role="dialog" aria-modal="true" aria-labelledby="move-team-title" style={{ width: 'min(440px, 100%)' }}>
-            <header className="incident-modal__header">
-              <h2 id="move-team-title">Are you sure?</h2>
-            </header>
-            <div className="incident-modal__body">
+      <Dialog open={pendingMove !== null} onOpenChange={(open) => { if (!open && !busy) setPendingMove(null); }}>
+        <DialogContent className="team-dialog" aria-describedby={undefined}>
+          <DialogTitle>Are you sure?</DialogTitle>
+          {pendingMove && (
+            <>
               <p>
                 Move {pendingMove.user.name || pendingMove.user.email} from {teamNameOf(pendingMove.user.team)} to {teamNameOf(pendingMove.team)}?
                 This is recorded in the audit log.
               </p>
               <div className="actions__row">
-                <button type="button" className="btn btn--ghost" onClick={() => setPendingMove(null)}>Cancel</button>
+                <button type="button" className="btn btn--ghost" disabled={busy} onClick={() => setPendingMove(null)}>Cancel</button>
                 <button type="button" className="btn" disabled={busy} onClick={() => void setTeam(pendingMove.user, pendingMove.team)}>Move</button>
               </div>
-            </div>
-          </section>
-        </div>
-      )}
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
       <div className="management-toolbar"><div><h2>Accounts{users ? ` (${users.length})` : ''}</h2><p>Review access before changing an account’s status. <Link to="/admin?panel=roles">Manage access roles</Link></p></div></div>
       <details className="management-create"><summary className="btn">Create staff account</summary>
       <MotionForm className="card ops-form" onSubmit={handleSubmit(create)} noValidate aria-label="Create staff account">

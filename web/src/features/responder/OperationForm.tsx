@@ -15,7 +15,7 @@ import {
 import Banner from '../../components/calm/Banner';
 import { focusProgressHistory, progressSectionId } from './AssignedProgress';
 import { saveDraft, useDraft, getDraft, type DraftAttempt } from './draftStore';
-import { currentPosition } from '../../lib/position';
+import { currentPosition, isLocationUnavailable, LOCATION_NOT_SENT_MESSAGE } from '../../lib/position';
 
 // Whole-number text becomes its integer value. Anything else becomes NaN, which the schema rejects.
 // React Hook Form also passes the numeric default through here, so numbers are returned unchanged.
@@ -153,7 +153,7 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
       });
       if (onSaved) onSaved();
     } catch (err) {
-      setApiError(errorText(err, reportId));
+      setApiError(isLocationUnavailable(err) ? LOCATION_NOT_SENT_MESSAGE : errorText(err, reportId));
       // Only an uncertain outcome keeps a retry pending. A refusal means the update was not saved.
       saveDraft(reportId, { attempt: isUncertain(err) ? sent : null });
     } finally {

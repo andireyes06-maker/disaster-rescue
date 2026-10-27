@@ -3,7 +3,7 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 // jsdom has no geolocation. The API checks reach, so tests supply a fixed position inside the incident's reach.
-vi.mock('../../lib/position', () => ({ currentPosition: () => Promise.resolve({ lat: 14.8512, lng: 120.8123 }) }));
+vi.mock('../../lib/position', async (importOriginal) => ({ ...(await importOriginal<typeof import('../../lib/position')>()), currentPosition: () => Promise.resolve({ lat: 14.8512, lng: 120.8123 }) }));
 
 const h = vi.hoisted(() => ({ api: vi.fn() }));
 vi.mock('../../api/client', async () => {

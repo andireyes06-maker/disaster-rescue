@@ -18,3 +18,10 @@ export function currentPosition(timeoutMs = 15_000): Promise<Position> {
     );
   });
 }
+
+export const LOCATION_NOT_SENT_MESSAGE = 'Nothing was sent. Allow location for this site in your browser, then try again.';
+
+// True when the browser could not give a position. Nothing reached the server in that case.
+export function isLocationUnavailable(err: unknown): boolean {
+  return err instanceof Error && err.message === 'location_unavailable';
+}
