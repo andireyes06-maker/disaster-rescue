@@ -94,3 +94,8 @@ Not covered by this entry: `report-details.png` still differs from its reference
 
 Reason: the responder incident page no longer shows coordinates. It shows the approximate place name, falling back to the area, then "Place not named". Owner request, 27 October 2026.
 Reviewed: `incident-detail.png` regenerated; only the coordinates line changed to "Place not named" for this fixture, which has no name or area.
+
+## Reviewed change: responders have no reach radius, 27 October 2026
+
+Reason: the radius and distance were resident-only. The responder page no longer shows "You are N m from this incident" or the "too far" banner, and updates are no longer limited by distance on the server. Owner request, 27 October 2026.
+Reviewed: `incident-detail.png` regenerated; the distance line and banner are gone, and the rest of the layout is unchanged.

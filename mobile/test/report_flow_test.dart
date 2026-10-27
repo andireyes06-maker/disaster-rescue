@@ -13,6 +13,7 @@ import 'package:disaster_rescue/features/report/report_flow_page.dart';
 import 'package:disaster_rescue/features/report/submission_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'confirm_helper.dart';
 
 import 'fakes.dart';
 import 'report_fakes.dart';
@@ -246,7 +247,7 @@ void main() {
       await toStep4(t);
       // Fail only the cleanup that runs after the send, not the discard above.
       env.drafts.failClear = true;
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(env.reports.created, hasLength(1));
       expect(find.text('DR-AB12CD'), findsOneWidget);
       expect(find.textContaining('not sent'), findsNothing);
@@ -259,7 +260,7 @@ void main() {
     await open(t);
     await tapText(t, 'Discard');
     await toStep4(t);
-    await tapText(t, 'Submit report');
+    await tapConfirmed(t, 'Submit report');
     expect(find.text('DR-AB12CD'), findsOneWidget);
     expect(
       find.text('Your report was submitted. Status: Submitted.'),
@@ -281,7 +282,7 @@ void main() {
         'Slow down',
       );
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.text(uncertainCopy), findsOneWidget);
       expect(find.textContaining('NOT submitted'), findsNothing);
       expect(find.textContaining('too many reports'), findsOneWidget);
@@ -289,7 +290,7 @@ void main() {
       expect(env.drafts.draft, isNotNull);
       env.reports.createError = null;
       await tapText(t, 'Try again');
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(env.reports.keysSeen, hasLength(2));
       expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
       expect(env.reports.keysSeen.first, matches(RegExp(r'^[0-9a-f]{32}$')));
@@ -315,7 +316,7 @@ void main() {
       await open(t);
       env.reports.createError = e.value;
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.text('Your report was NOT submitted.'), findsOneWidget);
       expect(find.text('Try again'), findsOneWidget);
       expect(find.text('Call hotline'), findsWidgets);
@@ -337,7 +338,7 @@ void main() {
     await open(t);
     env.reports.createError = TimeoutException('slow');
     await toStep4(t);
-    await tapText(t, 'Submit report');
+    await tapConfirmed(t, 'Submit report');
     expect(env.drafts.uncertain, isTrue);
     expect(env.drafts.draft, isNotNull);
   });
@@ -346,7 +347,7 @@ void main() {
     await open(t);
     env.reports.createError = http.ClientException('connection reset');
     await toStep4(t);
-    await tapText(t, 'Submit report');
+    await tapConfirmed(t, 'Submit report');
     expect(env.drafts.uncertain, isTrue);
   });
 
@@ -354,12 +355,12 @@ void main() {
     await open(t);
     env.reports.createError = const FileSystemException('photo file is missing');
     await toStep4(t);
-    await tapText(t, 'Submit report');
+    await tapConfirmed(t, 'Submit report');
     expect(env.drafts.uncertain, isFalse);
     expect(find.text(uncertainCopy), findsNothing);
     env.reports.createError = null;
     await tapText(t, 'Try again');
-    await tapText(t, 'Submit report');
+    await tapConfirmed(t, 'Submit report');
     expect(env.reports.created, hasLength(1));
   });
 
@@ -373,7 +374,7 @@ void main() {
         'Cannot reach the server.',
       );
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(
         find.text('We could not confirm that your report reached us.'),
         findsOneWidget,
@@ -398,7 +399,7 @@ void main() {
         'Cannot reach the server.',
       );
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.byType(OfflineHelpPage), findsOneWidget);
       expect(env.drafts.draft?.type, 'flood');
       expect(env.drafts.draft?.description, 'Water up to the roof');

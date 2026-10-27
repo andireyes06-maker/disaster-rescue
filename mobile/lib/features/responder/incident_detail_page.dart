@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../data/api_client.dart';
-import '../../data/geo.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/confirm_dialog.dart';
 import '../auth/auth_widgets.dart';
 import '../my_reports/my_reports_page.dart' show StatusChip, formatWhen;
 import 'operation_form_page.dart';
@@ -50,44 +50,10 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     'Cancelled',
   };
 
-  // Distance from this responder to the incident, in meters. Null until a position is known.
-  double? _distance;
-  String? _locationNotice;
-
-  // The reach the resident reported for this incident, or the default when the report has none.
-  int get _allowedMeters =>
-      (_current ?? widget.report).affectedRadiusM ??
-      kMaxResponderDistanceMeters.round();
-
-  bool get _tooFar => _distance != null && _distance! > _allowedMeters;
-
-  /// Reads the responder's current position and measures it to the incident.
-  Future<void> _measure() async {
-    final r = _current ?? widget.report;
-    if (r.lat == null || r.lng == null) return;
-    final result = await context.read<LocationService>().current();
-    if (!mounted) return;
-    if (result.status != LocationStatus.ok ||
-        result.lat == null ||
-        result.lng == null) {
-      setState(() {
-        _distance = null;
-        _locationNotice =
-            'Turn on location to check your distance from this incident.';
-      });
-      return;
-    }
-    setState(() {
-      _distance = distanceMeters(result.lat!, result.lng!, r.lat!, r.lng!);
-      _locationNotice = null;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
     _current = widget.report;
-    WidgetsBinding.instance.addPostFrameCallback((_) => _measure());
     _liveStatus.value = widget.report.status;
   }
 
@@ -160,7 +126,16 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
     _watchProgress();
   }
 
-  static const _farMessage = 'You are too far from the incident to add an update.';
+  // Acknowledging is once per team member. The person confirms first; the server also treats a repeat as already done.
+  Future<void> _confirmAcknowledge() async {
+    final ok = await confirmAction(
+      context,
+      message: 'Acknowledge this incident for your team? This can only be done once.',
+      confirmLabel: 'Acknowledge',
+    );
+    if (!ok || !mounted) return;
+    await _acknowledge();
+  }
 
   Future<void> _acknowledge() async {
     setState(() {
@@ -186,10 +161,6 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   }
 
   Future<void> _updateStatus() async {
-    if (_tooFar) {
-      setState(() => _error = _farMessage);
-      return;
-    }
     // The live subscription shows the new status once the server confirms it.
     await Navigator.of(context).push<OperationUpdate>(
       MaterialPageRoute(
@@ -302,20 +273,6 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                           : 'Place not named',
                     ),
                   if (!hasLocation) const Text('No exact location was given.'),
-                  if (_distance != null) ...[
-                    const SizedBox(height: 12),
-                    Text(
-                      'You are ${formatMeters(_distance!)} from this incident.',
-                    ),
-                  ],
-                  if (_locationNotice != null) ...[
-                    const SizedBox(height: 6),
-                    Text(_locationNotice!),
-                  ],
-                  if (_tooFar) ...[
-                    const SizedBox(height: 6),
-                    InlineError(_farMessage),
-                  ],
                   const SizedBox(height: 8),
                   if (hasLocation)
                     OutlinedButton.icon(
@@ -340,7 +297,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
               FilledButton.icon(
                 onPressed: _acknowledged || _busy || closed
                     ? null
-                    : _acknowledge,
+                    : _confirmAcknowledge,
                 icon: Icon(
                   _acknowledged ? Icons.check : Icons.thumb_up_alt_outlined,
                 ),

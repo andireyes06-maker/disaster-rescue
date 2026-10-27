@@ -1,3 +1,4 @@
+import '../../theme/confirm_dialog.dart';
 import '../../theme/product_widgets.dart';
 import 'package:flutter/foundation.dart' show ValueListenable;
 import 'package:flutter/material.dart';
@@ -94,6 +95,30 @@ class _OperationFormPageState extends State<OperationFormPage> {
       _blocked = false;
       _error = null;
     });
+  }
+
+  // One confirmation at a time: a second tap while the question is open does nothing.
+  bool _confirming = false;
+
+  Future<void> _confirmSubmit() async {
+    if (_confirming) return;
+    _confirming = true;
+    try {
+      // An invalid form shows its own messages and never asks for confirmation.
+      if (!(_formKey.currentState?.validate() ?? false) || _selected == null) {
+        await _submit();
+        return;
+      }
+      final ok = await confirmAction(
+        context,
+        message: 'Save this update to the incident? It will be visible to the response team.',
+        confirmLabel: 'Save update',
+      );
+      if (!ok || !mounted) return;
+      await _submit();
+    } finally {
+      _confirming = false;
+    }
   }
 
   Future<void> _submit() async {
@@ -258,7 +283,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
                     ],
                     const SizedBox(height: 24),
                     FilledButton(
-                      onPressed: _busy ? null : _submit,
+                      onPressed: _busy ? null : _confirmSubmit,
                       child: Text(_busy ? 'Saving...' : 'Save update'),
                     ),
                   ],

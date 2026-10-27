@@ -7,6 +7,7 @@ import '../../data/areas.dart';
 import '../../data/photo_identity.dart';
 import '../../data/submission_key.dart';
 import '../../data/api_client.dart';
+import '../../theme/confirm_dialog.dart';
 import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
@@ -264,6 +265,17 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     _submitKeySignature = null;
     setState(() => _blockedByUncertain = false);
     await _submit();
+  }
+
+  // Sending is final, so the person confirms on the button before anything is sent.
+  Future<void> _confirmSend(Future<void> Function() send) async {
+    final ok = await confirmAction(
+      context,
+      message: 'Send this report to the response team? Check the details first.',
+      confirmLabel: 'Submit report',
+    );
+    if (!ok || !mounted) return;
+    await send();
   }
 
   Future<void> _submit() async {
@@ -722,14 +734,14 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             Text(uncertainCopy, textAlign: TextAlign.center),
             const SizedBox(height: 8),
             OutlinedButton(
-              onPressed: _submitting ? null : _sendAsNewReport,
+              onPressed: _submitting ? null : () => _confirmSend(_sendAsNewReport),
               child: const Text('I checked, send as a new report'),
             ),
             const SizedBox(height: 8),
           ],
           if (last)
             FilledButton(
-              onPressed: _submitting ? null : _submit,
+              onPressed: _submitting ? null : () => _confirmSend(_submit),
               style: FilledButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,

@@ -6,6 +6,7 @@ import 'package:disaster_rescue/features/profile/profile_page.dart';
 import 'package:disaster_rescue/features/responder/operation_form_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'confirm_helper.dart';
 import 'fakes.dart';
 import 'report_fakes.dart';
 
@@ -86,7 +87,7 @@ void main() {
         scrollable: find.byType(Scrollable).first,
       );
       await t.pumpAndSettle();
-      await t.tap(find.text('Save update'));
+      await tapConfirmed(t, 'Save update');
       await t.pumpAndSettle();
       expect(env.responder.updateKeys, isEmpty);
       expect(find.text(peopleRescuedError), findsOneWidget);

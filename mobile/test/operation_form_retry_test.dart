@@ -3,6 +3,7 @@ import 'package:disaster_rescue/data/responder_attempts.dart';
 import 'package:disaster_rescue/features/responder/operation_form_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'confirm_helper.dart';
 
 import 'report_fakes.dart';
 
@@ -30,7 +31,7 @@ void main() {
       scrollable: find.byType(Scrollable).first,
     );
     await t.pumpAndSettle();
-    await t.tap(find.text('Save update'));
+    await tapConfirmed(t, 'Save update');
     await t.pumpAndSettle();
   }
 
@@ -107,6 +108,10 @@ void main() {
     );
     button.onPressed!();
     button.onPressed!();
+    await t.pumpAndSettle();
+    // The second tap added no second question; confirming the one question sends exactly one request.
+    expect(find.byType(AlertDialog), findsOneWidget);
+    await t.tap(find.descendant(of: find.byType(AlertDialog), matching: find.text('Save update')));
     await t.pumpAndSettle();
     expect(env.responder.updateKeys, hasLength(1));
   });

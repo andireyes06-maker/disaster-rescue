@@ -1,6 +1,7 @@
 import 'package:disaster_rescue/features/responder/operation_form_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'confirm_helper.dart';
 
 import 'report_fakes.dart';
 
@@ -20,7 +21,7 @@ void main() {
     ) async {
       await open(t);
       await t.enterText(find.byKey(const Key('peopleRescued')), bad);
-      await t.tap(find.text('Save update'));
+      await tapConfirmed(t, 'Save update');
       await t.pump();
       expect(
         find.text('Enter a whole number from 0 to 10000.'),
@@ -50,7 +51,7 @@ void main() {
     await t.pumpAndSettle();
     expect(find.text('Resolved'), findsNothing);
     await t.enterText(find.byKey(const Key('peopleRescued')), '3');
-    await t.tap(find.text('Save update'));
+    await tapConfirmed(t, 'Save update');
     await t.pumpAndSettle();
     expect(env.responder.updates.single.$2.status, 'Rescue in Progress');
   });
@@ -72,7 +73,7 @@ void main() {
     await t.tap(find.text('Resolved'));
     await t.enterText(find.byKey(const Key('peopleRescued')), '12');
     await t.enterText(find.byKey(const Key('note')), 'Evacuated to the school');
-    await t.tap(find.text('Save update'));
+    await tapConfirmed(t, 'Save update');
     await t.pumpAndSettle();
     expect(env.responder.updates, hasLength(1));
     final (id, update) = env.responder.updates.single;

@@ -9,6 +9,7 @@ import 'package:disaster_rescue/features/report/report_flow_page.dart';
 import 'package:disaster_rescue/features/report/submission_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'confirm_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'fakes.dart';
@@ -75,11 +76,11 @@ void main() {
         await open(t);
         env.reports.createError = error;
         await toStep4(t);
-        await tapText(t, 'Submit report');
+        await tapConfirmed(t, 'Submit report');
         expect(find.textContaining('NOT submitted'), findsNothing);
         expect(env.drafts.uncertain, isTrue);
         await tapText(t, 'Try again');
-        await tapText(t, 'Submit report');
+        await tapConfirmed(t, 'Submit report');
         expect(env.reports.keysSeen, hasLength(2));
         expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
       });
@@ -89,9 +90,9 @@ void main() {
       await open(t);
       env.reports.createError = const ApiException(500, 'server', 'x');
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       await tapText(t, 'Try again');
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(env.reports.keysSeen, hasLength(2));
       expect(env.reports.keysSeen.last, env.reports.keysSeen.first);
       expect(env.reports.keysSeen.first, matches(RegExp(r'^[0-9a-f]{32}$')));
@@ -101,7 +102,7 @@ void main() {
       await open(t);
       env.reports.createError = const ApiException(500, 'server', 'x');
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.textContaining('could not confirm'), findsOneWidget);
       expect(find.textContaining('NOT submitted'), findsNothing);
       expect(env.drafts.uncertain, isTrue);
@@ -119,7 +120,7 @@ void main() {
       await tapText(t, 'Add photos');
       await t.tap(find.widgetWithText(FilledButton, 'Next'));
       await t.pumpAndSettle();
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       await tapText(t, 'Try again');
       await tapText(t, 'Back');
       await t.tap(find.byTooltip('Remove photo a.jpg'));
@@ -129,7 +130,7 @@ void main() {
       await t.tap(find.widgetWithText(FilledButton, 'Next'));
       await t.pumpAndSettle();
       env.reports.createError = null;
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(env.reports.keysSeen, hasLength(2));
       expect(env.reports.keysSeen.last, isNot(env.reports.keysSeen.first));
     });
@@ -138,11 +139,11 @@ void main() {
       await open(t);
       env.reports.createError = const ApiException(400, 'validation_error', 'Description is too short.');
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.text('Your report was NOT submitted.'), findsOneWidget);
       env.reports.createError = null;
       await tapText(t, 'Try again');
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(env.reports.keysSeen, hasLength(2));
       expect(env.reports.keysSeen.last, isNot(env.reports.keysSeen.first));
     });
@@ -151,10 +152,10 @@ void main() {
       env.drafts.uncertain = true;
       await open(t);
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.textContaining('Check My reports'), findsOneWidget);
       expect(env.reports.keysSeen, isEmpty);
-      await tapText(t, 'I checked, send as a new report');
+      await tapConfirmed(t, 'I checked, send as a new report', 'Submit report');
       expect(env.reports.keysSeen, hasLength(1));
       expect(env.reports.keysSeen.single, matches(RegExp(r'^[0-9a-f]{32}$')));
       expect(env.drafts.uncertain, isFalse);
@@ -165,11 +166,11 @@ void main() {
       await open(t);
       env.reports.createError = const ApiException(500, 'server', 'x');
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(env.drafts.uncertain, isTrue);
       env.reports.createError = null;
       await tapText(t, 'Try again');
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.text('DR-AB12CD'), findsOneWidget);
       expect(env.drafts.uncertain, isFalse);
     });
@@ -212,7 +213,7 @@ void main() {
       env.drafts.failSave = true;
       env.reports.createError = const ApiException(500, 'server', 'x');
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(t.takeException(), isNull);
       expect(find.text(uncertainCopy), findsOneWidget);
       expect(find.text(storageFailureCopy(draftNotSaved: true, warningNotSaved: false)!), findsOneWidget);
@@ -224,7 +225,7 @@ void main() {
       env.drafts.failSetUncertain = true;
       env.reports.createError = const ApiException(500, 'server', 'x');
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.text(uncertainCopy), findsOneWidget);
       expect(find.text(storageFailureCopy(draftNotSaved: false, warningNotSaved: true)!), findsOneWidget);
       expect(find.textContaining('We couldn’t save your report details'), findsNothing);
@@ -236,7 +237,7 @@ void main() {
       env.drafts.failSave = true;
       env.reports.createError = const ApiException(0, 'network', 'Cannot reach the server.');
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(t.takeException(), isNull);
       expect(find.text(storageFailureCopy(draftNotSaved: true, warningNotSaved: false)!), findsOneWidget);
       expect(find.textContaining('We saved it on this phone'), findsNothing);
@@ -248,7 +249,7 @@ void main() {
       env.drafts.failSetUncertain = true;
       env.reports.createError = const ApiException(500, 'server', 'x');
       await toStep4(t);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(find.text(storageFailureCopy(draftNotSaved: true, warningNotSaved: true)!), findsOneWidget);
       expect(find.textContaining('report details or retry warning on this phone'), findsOneWidget);
     });
@@ -258,7 +259,7 @@ void main() {
       await open(t);
       await toStep4(t);
       expect(find.text('I checked, send as a new report'), findsOneWidget);
-      await tapText(t, 'Submit report');
+      await tapConfirmed(t, 'Submit report');
       expect(env.reports.keysSeen, isEmpty);
     });
   });
