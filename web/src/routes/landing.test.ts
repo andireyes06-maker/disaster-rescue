@@ -6,7 +6,7 @@ describe('landingFor', () => {
     expect(landingFor('dispatcher')).toBe('/forbidden');
     expect(landingFor('responder')).toBe('/assignments');
     expect(landingFor('resident')).toBe('/forbidden');
-    expect(landingFor('admin')).toBe('/admin');
+    expect(landingFor('admin')).toBe('/dashboard');
   });
 
   it('sends a signed-out visitor to the forbidden page', () => {

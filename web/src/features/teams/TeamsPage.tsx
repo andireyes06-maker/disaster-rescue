@@ -98,7 +98,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
 
   return (
     <li className="management-row team-row">
-      <div className="management-identity"><strong>{team.name}</strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
+      <div className="management-identity"><strong>{team.name} <span className="team-kind">{team.kind ?? 'Rescue'}</span></strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
       <div className="team-row__actions">
       <button type="button" className="btn btn--ghost team-location-toggle" aria-expanded={editingLocation} onClick={() => setEditingLocation((v) => !v)}>Edit location</button>
@@ -197,6 +197,7 @@ export default function TeamsPage() {
   });
   const newName = watch('name');
   const [newHq, setNewHq] = useState<GeoPoint | null>(null);
+  const [newKind, setNewKind] = useState('Rescue');
   const [hqNotice, setHqNotice] = useState('');
 
   const [staff, setStaff] = useState<StaffMember[]>([]);
@@ -220,7 +221,7 @@ export default function TeamsPage() {
     setMessage(null);
     try {
       const hqName = newHq ? await approximatePlaceName(newHq.lat, newHq.lng) : null;
-      await api('/teams', { method: 'POST', body: { name: values.name, hq: newHq, hqName } });
+      await api('/teams', { method: 'POST', body: { name: values.name, kind: newKind, hq: newHq, hqName } });
       reset({ name: '' });
       setNewHq(null);
       setHqNotice('');
@@ -244,6 +245,10 @@ export default function TeamsPage() {
         <RequiredNote /><label htmlFor="new-team">New team name<RequiredMark /></label>
         <input id="new-team" aria-required="true" maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'new-team-error' : undefined} />
         {errors.name && <FieldError id="new-team-error">{errors.name.message}</FieldError>}
+        <label htmlFor="new-team-kind">Team identity</label>
+        <select id="new-team-kind" value={newKind} onChange={(e) => setNewKind(e.target.value)}>
+          {['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
+        </select>
         {hqNotice && <p className="field-hint" role="status">{hqNotice}</p>}
         <div className="hq-map" role="region" aria-label="Map for the new team headquarters">
           <p className="field-hint">{newHq ? 'Headquarters selected.' : 'Click the map to place the headquarters.'}</p>

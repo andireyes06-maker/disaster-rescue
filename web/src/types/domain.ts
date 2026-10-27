@@ -84,5 +84,7 @@ export interface Team {
   hq?: GeoPoint | null;
   /** Approximate place name for the headquarters, such as "Near Commonwealth, Quezon City". */
   hqName?: string | null;
+  /** The identity the team responds under: PNP, BFP, Rescue, MDDRMO or Other. */
+  kind?: string;
   currentReportId?: string | null;
 }

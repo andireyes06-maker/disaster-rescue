@@ -22,7 +22,7 @@ describe('NotFound page', () => {
     auth.role = 'admin';
     renderPage();
     expect(screen.getByRole('heading', { name: 'Page not found' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Go to my page' })).toHaveAttribute('href', '/admin');
+    expect(screen.getByRole('link', { name: 'Go to my page' })).toHaveAttribute('href', '/dashboard');
   });
 
   it('offers no website page to a resident, who uses the mobile app', () => {

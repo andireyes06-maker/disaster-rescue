@@ -137,7 +137,6 @@ export default function LoginPage() {
       <main className="login auth-split" id="main-content" tabIndex={-1}>
         <MotionForm className="card login__card auth-form" onSubmit={onSubmit} noValidate aria-labelledby="login-title">
           <h1 id="login-title">Sign in</h1>
-          <p className="login__intro">Administrators and rescue teams sign in here. Residents use the I-Report mobile app.</p>
           <RequiredNote />
           <label htmlFor="email">Email<RequiredMark /></label>
           <input id="email" name="email" type="email" aria-required="true" autoComplete="username" spellCheck={false} value={email}
@@ -159,7 +158,6 @@ export default function LoginPage() {
             <button type="button" className="btn btn--ghost login__recovery-button" onClick={onForgotPassword} aria-disabled={resetBusy || busy} aria-busy={resetBusy}>{resetBusy ? 'Sending…' : 'Forgot password?'}</button>
             {resetNote && <Banner tone="info" role="status">{resetNote}</Banner>}
           </section>
-          <p className="login__help">Residents use the I-Report mobile app to send and track reports.</p>
         </MotionForm>
         <aside className="auth-split__intro" aria-labelledby="login-aside-title">
           <h2 id="login-aside-title">Who signs in here</h2>
