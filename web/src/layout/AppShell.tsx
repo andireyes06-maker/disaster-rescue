@@ -69,7 +69,7 @@ export default function AppShell({ title, children }: AppShellProps) {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <aside className={`shell__side${menuOpen ? ' is-open' : ''}`}>
         <div className="shell__sidehead">
-          <div className="shell__brand"><Brand /><small>Response coordination</small></div>
+          <div className="shell__brand"><Brand /></div>
           <button
             type="button"
             className="shell__menu-toggle"
