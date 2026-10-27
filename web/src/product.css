@@ -156,9 +156,6 @@ a { text-underline-offset: 4px; }
 .admin-sections { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
 .admin-sections a { display: inline-flex; align-items: center; min-height: 44px; background: white; border: 1px solid var(--color-mist); padding: 8px 16px; border-radius: 9px; color: var(--color-muted); text-decoration: none; font-size: 0.8125rem; }
 .admin-sections a:hover { color: var(--color-primary); border-color: var(--color-primary); }
-.monitor-context { display: flex; gap: 12px; align-items: center; margin: 0 0 24px; padding: 18px 20px; border-radius: 12px; background: #efebf8; color: var(--color-primary); }
-.monitor-context p { margin: 3px 0 0; font-size: 0.8125rem; color: var(--color-muted); }
-.monitor-context strong { font-size: 13px; }
 .shell__brand .brand-lockup span { display: inline; color: inherit; font-size: inherit; margin: 0; letter-spacing: inherit; }
 .shell__brand .brand-lockup .brand-symbol { display: grid; width: 32px; height: 32px; }
 .shell__brand > small { display: block; font-size: 0.8125rem; font-weight: 400; color: var(--color-on-harbor); margin: 12px 0 0 43px; }
@@ -356,3 +353,9 @@ table td { padding: 16px 18px; font-variant-numeric: tabular-nums; }
 
 .assign-teams { border: 0; padding: 0; margin: 0; display: grid; gap: 6px; }
 .assign-teams__option { display: flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+
+.incident-modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: #1e1b2e66; }
+.incident-modal__panel { width: min(880px, 100%); max-height: calc(100vh - 32px); display: flex; flex-direction: column; background: var(--color-surface); border-radius: 14px; overflow: hidden; }
+.incident-modal__header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--color-mist); }
+.incident-modal__header h2 { margin: 0; font-size: 1.0625rem; }
+.incident-modal__body { overflow-y: auto; padding: 16px; }

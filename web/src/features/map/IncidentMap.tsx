@@ -2,8 +2,8 @@ import ReportWindow from '../../components/ReportWindow';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
 import EmptyState from '../../components/calm/EmptyState';
 import MapTileNotice, { useMapTiles } from '../../components/MapTileNotice';
-import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import IncidentModal from './IncidentModal';
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -69,7 +69,8 @@ function FitReports({ reports }: { reports: Report[] }) {
 export default function IncidentMap() {
   const tiles = useMapTiles();
   const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useReports();
-  const navigate = useNavigate();
+  const [openId, setOpenId] = useState<string | null>(null);
+  const closeModal = useCallback(() => setOpenId(null), []);
   const [filters, setFilters] = useState<Filters>({ type: '', priority: '', status: '' });
   const set = (key: keyof Filters) => (value: string) => setFilters((f) => ({ ...f, [key]: value }));
 
@@ -134,18 +135,19 @@ export default function IncidentMap() {
               icon={iconFor(r)}
               title={`Report ${r.id}, ${cap(r.type)}, ${markerStyle(r).label}, ${r.status}`}
               eventHandlers={{
-                click: () => navigate(`/incidents/${r.id}`),
+                click: () => setOpenId(r.id),
                 keydown: (event) => {
                   const key = (event as L.LeafletKeyboardEvent).originalEvent;
                   if (key.key !== 'Enter' && key.key !== ' ') return;
                   L.DomEvent.stop(key);
-                  navigate(`/incidents/${r.id}`);
+                  setOpenId(r.id);
                 },
               }}
             />
           ))}
         </MapContainer>
       </div>
+      {openId && <IncidentModal reportId={openId} onClose={closeModal} />}
     </div>
   );
 }

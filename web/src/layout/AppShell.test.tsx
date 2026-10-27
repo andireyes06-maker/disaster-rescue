@@ -34,7 +34,7 @@ describe('AppShell', () => {
   it('shows the administrator navigation', () => {
     renderAt('/dashboard');
     const nav = screen.getByRole('navigation', { name: 'Main' });
-    expect(nav.querySelectorAll('a')).toHaveLength(8);
+    expect(nav.querySelectorAll('a')).toHaveLength(7);
   });
 
   it('marks the current route with aria-current', () => {
@@ -71,7 +71,7 @@ describe('AppShell', () => {
     auth.value = { user: { email: 'a@test.dev' }, role: 'admin', logout: vi.fn() };
     renderAt('/dashboard');
     const names = [...screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a')].map((a) => a.textContent);
-    for (const label of ['Dashboard', 'Map', 'Monitor', 'Analytics', 'Audit', 'Teams', 'Users', 'Admin']) {
+    for (const label of ['Dashboard', 'Map', 'Analytics', 'Audit', 'Teams', 'Users', 'Admin']) {
       expect(names).toContain(label);
     }
   });

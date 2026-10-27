@@ -115,8 +115,10 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }: Duplicate
   );
 }
 
-export default function IncidentDetails() {
-  const { id } = useParams();
+// Opened from the URL on its own page, or with reportId when shown inside the map's modal.
+export default function IncidentDetails({ reportId }: { reportId?: string } = {}) {
+  const params = useParams();
+  const id = reportId ?? params.id;
   if (!id) return <p className="card">Report not found.</p>;
   return <IncidentView key={id} id={id} />;
 }

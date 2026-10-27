@@ -18,6 +18,7 @@ vi.mock('react-leaflet', () => ({
     <button type="button" aria-label={title} onClick={() => eventHandlers?.click?.()} onKeyDown={(event) => eventHandlers?.keydown?.({ originalEvent: event.nativeEvent })} />
   ),
 }));
+vi.mock('../reports/IncidentDetails', () => ({ default: ({ reportId }: { reportId?: string }) => <p>Details for {reportId}</p> }));
 import IncidentMap from './IncidentMap';
 
 function renderMap(reports: Report[]) {
@@ -53,11 +54,15 @@ describe('IncidentMap', () => {
     expect(screen.getByRole('button', { name: /Report r2,/ })).toBeInTheDocument();
   });
 
-  it('navigates to the incident route when a marker is clicked', async () => {
+  it('opens the incident in a dialog over the map when a marker is clicked', async () => {
     const user = userEvent.setup();
     renderMap([makeReport({ id: 'r1' })]);
     await user.click(screen.getByRole('button', { name: /Report r1,/ }));
-    expect(screen.getByText('Incident page')).toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: 'Incident details' })).toBeInTheDocument();
+    expect(screen.getByTestId('map')).toBeInTheDocument();
+    expect(screen.getByText('Details for r1')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Close incident details' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
   it('shows a map skeleton while loading and no empty state', () => {
     h.loading = true; renderMap([]);
@@ -83,7 +88,7 @@ describe('IncidentMap', () => {
     const marker = screen.getByRole('button', { name: /Report r1,/ });
     marker.focus();
     fireEvent.keyDown(marker, { key });
-    expect(screen.getByText('Incident page')).toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: 'Incident details' })).toBeInTheDocument();
   });
 
 });

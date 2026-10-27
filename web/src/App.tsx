@@ -20,7 +20,6 @@ const IncidentDetails = lazy(() => import('./features/reports/IncidentDetails'))
 const TeamsPage = lazy(() => import('./features/teams/TeamsPage'));
 const UsersPage = lazy(() => import('./features/users/UsersPage'));
 const IncidentMap = lazy(() => import('./features/map/IncidentMap'));
-const MonitorPage = lazy(() => import('./features/dmo/MonitorPage'));
 const AnalyticsPage = lazy(() => import('./features/analytics/AnalyticsPage'));
 const AuditPage = lazy(() => import('./features/audit/AuditPage'));
 const AdminPage = lazy(() => import('./features/admin/AdminPage'));
@@ -42,7 +41,6 @@ export default function App() {
       <Route path="/dashboard" element={<RoleRoute allow={['admin']}><AppShell title="Dashboard"><ReportQueue /></AppShell></RoleRoute>} />
       <Route path="/analytics" element={<RoleRoute allow={['admin']}><AppShell title="Analytics"><AnalyticsPage /></AppShell></RoleRoute>} />
       <Route path="/audit" element={<RoleRoute allow={['admin']}><AppShell title="Audit log"><AuditPage /></AppShell></RoleRoute>} />
-      <Route path="/monitor" element={<RoleRoute allow={['admin']}><AppShell title="Monitor"><MonitorPage /></AppShell></RoleRoute>} />
       <Route path="/map" element={<RoleRoute allow={['admin']}><AppShell title="Map"><IncidentMap /></AppShell></RoleRoute>} />
       <Route path="/incidents/:id" element={<RoleRoute allow={['admin']}><AppShell title="Incident details"><IncidentDetails /></AppShell></RoleRoute>} />
       <Route path="/teams" element={<RoleRoute allow={['admin']}><AppShell title="Teams"><TeamsPage /></AppShell></RoleRoute>} />

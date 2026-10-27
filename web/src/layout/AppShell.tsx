@@ -18,7 +18,6 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
   admin: [
     { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/map', label: 'Map', icon: Map },
-    { to: '/monitor', label: 'Monitor', icon: Map },
     { to: '/analytics', label: 'Analytics', icon: ChartNoAxesCombined },
     { to: '/audit', label: 'Audit', icon: History },
     { to: '/teams', label: 'Teams', icon: ShieldCheck },
@@ -34,7 +33,6 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
 const DESCRIPTIONS: Record<string, string> = {
   Dashboard: 'Review incoming reports and coordinate the next response.',
   Map: 'Locate reported incidents and open a report for details.',
-  Monitor: 'Follow reported incidents across the area. This is a read-only view.',
   Analytics: 'Review incident patterns for a selected reporting period.',
   'Audit log': 'Review who changed a report, what changed, and when.',
   Teams: 'Manage rescue teams and see their current availability.',
