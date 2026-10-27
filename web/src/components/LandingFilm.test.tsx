@@ -31,7 +31,7 @@ describe('LandingFilm', () => {
   it('plays a muted inline loop and pauses/resumes through the visible control', async () => {
     const user = userEvent.setup(); const view = show();
     const video = view.container.querySelector('video')!;
-    expect(video).toHaveAttribute('src', '/media/rescue-response.mp4');
+    expect(video).toHaveAttribute('src', '/media/ireport-response.mp4');
     expect(video.muted).toBe(true); expect(video.loop).toBe(true);
     expect(video).toHaveAttribute('playsinline');
     expect(video.autoplay).toBe(true);
@@ -50,7 +50,7 @@ describe('LandingFilm', () => {
   it('uses only the poster with reduced motion but allows explicit playback', async () => {
     preference.matches = true; const user = userEvent.setup(); const view = show();
     expect(view.container.querySelector('video')).toBeNull();
-    expect(screen.getByRole('img')).toHaveAttribute('src', '/media/rescue-response-poster.png');
+    expect(screen.getByRole('img')).toHaveAttribute('src', '/media/ireport-response-poster.png');
     expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
     await user.click(screen.getByRole('button', { name: 'Play video' }));
     expect(view.container.querySelector('video')).not.toBeNull();

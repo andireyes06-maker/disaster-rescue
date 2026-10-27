@@ -57,7 +57,7 @@ describe('Landing', () => {
 
   it('describes the report-to-response sequence', () => {
     renderLanding();
-    expect(screen.getByText('From first report to field update')).toBeInTheDocument();
+    expect(screen.getByText('Illustrated workflow · Not live data')).toBeInTheDocument();
   });
 
   it('provides practical privacy guidance', () => {

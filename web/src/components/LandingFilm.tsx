@@ -102,10 +102,10 @@ export default function LandingFilm({ fallback }: { fallback: ReactNode }) {
     <p role="status">The video is unavailable. You can still explore this illustrated response.</p>
     {fallback}
   </section>;
-  return <figure ref={container} className="response-scene response-film" aria-label="Report-to-response video">
-    <figcaption><span><Radio size={15} aria-hidden="true" />A connected response</span><span>From first report to field update</span></figcaption>
+  return <figure ref={container} className="response-scene response-film" aria-label="I-Report: report-to-response video">
+    <figcaption><span><Radio size={15} aria-hidden="true" />A connected response</span><span>Illustrated workflow · Not live data</span></figcaption>
     <div className="response-film__screen">
-      {enabled ? <video ref={video} src="/media/rescue-response.mp4" poster="/media/rescue-response-poster.png" preload="metadata" autoPlay={shouldPlay} muted playsInline loop aria-describedby="response-film-summary"
+      {enabled ? <video ref={video} src="/media/ireport-response.mp4" poster="/media/ireport-response-poster.png" preload="metadata" autoPlay={shouldPlay} muted playsInline loop aria-describedby="response-film-summary"
         onTimeUpdate={syncProgress} onSeeked={syncProgress} onLoadedMetadata={() => {
           if (pendingSeek.current !== null && video.current) {
             video.current.currentTime = pendingSeek.current;
@@ -115,7 +115,7 @@ export default function LandingFilm({ fallback }: { fallback: ReactNode }) {
         }}
         onWaiting={() => setBuffering(shouldPlay)}
         onPlaying={() => { setPlaying(true); setBuffering(false); }} onPause={() => { setPlaying(false); setBuffering(false); }} onError={mediaFailed} />
-        : <img src="/media/rescue-response-poster.png" alt="Incident map, resident report, and team assignment." width={1280} height={720} onError={mediaFailed} />}
+        : <img src="/media/ireport-response-poster.png" alt="Incident map, resident report, and team assignment." width={1280} height={720} onError={mediaFailed} />}
     </div>
     <div className="response-film__chapters" role="group" aria-label="Explore the response workflow">
       {CHAPTERS.map((item, index) => <button key={item.label} type="button" className="response-film__chapter" aria-pressed={chapter === index}
