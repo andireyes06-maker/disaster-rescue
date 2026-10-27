@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { requireAuth } from '../middleware/auth.js';
 import { HttpError } from '../errors.js';
 import { isSafeId } from '../domain/validation.js';
+import { createHash } from 'node:crypto';
 
 const MAX_TOKEN_LENGTH = 1500;
 const validToken = (token) => token.length <= MAX_TOKEN_LENGTH && /^[\x21-\x7e]+$/.test(token) && !token.includes('/') && !['.', '..'].includes(token) && !/^__.*__$/.test(token);
@@ -34,8 +35,23 @@ export function notificationsRouter(deps) {
       }
       // A token held by another account is taken over: the phone is now signed in to this account, and the previous
       // account stops receiving pushes on it. The token exists only on the device, so another user cannot obtain it.
+      const previous = await deps.repo.getDeviceOwner(token);
       if (!(await deps.repo.claimDevice(req.user.uid, token))) {
         throw new HttpError(409, 'device_claimed', 'This device is registered to another account');
+      }
+      if (previous && previous !== req.user.uid) {
+        // A takeover is recorded (the token itself is never stored in the log) and the previous account is told.
+        const at = new Date();
+        const tokenRef = createHash('sha256').update(token).digest('hex').slice(0, 12);
+        await deps.repo.addAudit({ actorUid: req.user.uid, action: 'device.takeover', at, target: { uid: previous, tokenRef } });
+        await deps.repo.addNotification({
+          recipientUid: previous,
+          title: 'Phone signed in to another account',
+          body: 'A phone that received alerts for your account is now signed in to a different account. If this was not you, tell an administrator.',
+          reportId: null,
+          read: false,
+          createdAt: at,
+        });
       }
       res.json({ registered: true });
     } catch (e) { next(e); }
