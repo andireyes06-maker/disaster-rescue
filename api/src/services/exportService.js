@@ -49,7 +49,9 @@ export function toPdf(stats, reports, { sampleLabel = null } = {}) {
 
     const heading = (text) => {
       room(40);
-      doc.moveDown(0.6).font('Helvetica-Bold').fontSize(13).fillColor('#1e1b2e').text(text).font('Helvetica');
+      doc.moveDown(0.6);
+      doc.x = LEFT;
+      doc.font('Helvetica-Bold').fontSize(13).fillColor('#1e1b2e').text(text, LEFT, doc.y).font('Helvetica');
       doc.moveDown(0.2);
     };
     const line = (label, value) => {
@@ -58,6 +60,7 @@ export function toPdf(stats, reports, { sampleLabel = null } = {}) {
       doc.font('Helvetica').fontSize(10).fillColor('#1e1b2e');
       doc.text(label, LEFT, y, { width: 330 });
       doc.text(String(value), LEFT + 330, y, { width: 165, align: 'right' });
+      doc.x = LEFT;
       doc.y = Math.max(doc.y, y + 14);
     };
     const breakdown = (text, obj, { label = cap, order = null } = {}) => {
@@ -92,10 +95,10 @@ export function toPdf(stats, reports, { sampleLabel = null } = {}) {
     const cols = [
       { h: 'Reference', x: LEFT, w: 75 },
       { h: 'Type', x: LEFT + 78, w: 60 },
-      { h: 'Status', x: LEFT + 140, w: 95 },
-      { h: 'Priority', x: LEFT + 238, w: 60 },
-      { h: 'Area', x: LEFT + 302, w: 95 },
-      { h: 'Place', x: LEFT + 400, w: 95 },
+      { h: 'Status', x: LEFT + 140, w: 80 },
+      { h: 'Priority', x: LEFT + 222, w: 60 },
+      { h: 'Area', x: LEFT + 286, w: 100 },
+      { h: 'Place', x: LEFT + 390, w: 150 },
     ];
     const header = () => {
       const y = doc.y;
@@ -111,7 +114,8 @@ export function toPdf(stats, reports, { sampleLabel = null } = {}) {
       if (doc.y < 60) header();
       const y = doc.y;
       const values = [r.reference ?? '', cap(r.type), cap(r.status), cap(r.priority), r.area ?? '', r.placeName || r.addressText || r.area || 'Not named'];
-      cols.forEach((c, i) => doc.text(String(values[i]), c.x, y, { width: c.w - 4, ellipsis: true }));
+      cols.forEach((c, i) => doc.text(String(values[i]), c.x, y, { width: c.w - 4, height: 12, ellipsis: true }));
+      doc.x = LEFT;
       doc.y = y + 14;
     }
     if (!reports.length) line('No incidents in this period', '');
