@@ -9,6 +9,8 @@ import { formatTime } from './format';
 import { nextStep, canActOnReports } from './workflow';
 import type { Report, ReportType } from '../../types/domain';
 
+const SEVERITY_LABELS: Record<NonNullable<Report['severity']>, string> = { low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical' };
+
 // Decorative category icons. The type name is always printed beside them.
 const TYPE_ICONS: Record<ReportType, typeof Waves> = {
   flood: Waves,
@@ -79,7 +81,7 @@ export default function IncidentPreview({ report, canAct, outsideFilters, onClea
         </dl>
         <dl className="preview__contact-facts">
           <div><dt>Reported by</dt><dd>{reporter?.name || 'Name not recorded'}{reporter?.phone && <a href={`tel:${reporter.phone}`}>{reporter.phone}</a>}</dd></div>
-          <div><dt>Reported reach</dt><dd>{report.affectedRadiusM ? (report.affectedRadiusM >= 1000 ? `${report.affectedRadiusM / 1000} km` : `${report.affectedRadiusM} m`) : '500 m (default)'} from the location</dd></div>
+          <div><dt>Severity</dt><dd>{SEVERITY_LABELS[report.severity ?? 'medium']}</dd></div>
         </dl>
       </section>
 

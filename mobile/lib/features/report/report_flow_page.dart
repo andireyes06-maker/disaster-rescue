@@ -86,9 +86,16 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   double? _lng;
   String? _source;
   List<PickedPhoto> _photos = [];
-  // How far the danger reaches from the point. Responders may act only within this distance.
-  int _reachM = 500;
-  static const _reachOptions = [100, 250, 500, 1000, 2000, 5000];
+  // The distance a responder may act within for updates. Fixed; residents no longer choose it.
+  static const _reachM = 500;
+  // How severe the situation is, as the resident sees it. Shown to staff on the report.
+  String _severity = 'medium';
+  static const _severityOptions = {
+    'low': 'Low',
+    'medium': 'Medium',
+    'high': 'High',
+    'critical': 'Critical',
+  };
   bool _submitting = false;
   // One key per submission attempt. Kept across network retries; replaced when the content changes.
   String? _submitKey;
@@ -150,6 +157,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     addressText: _address.text,
     area: _area,
     placeName: _placeName,
+    severity: _severity,
     contactName: _name.text,
     contactPhone: _phone.text,
   );
@@ -174,6 +182,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _address.text = d.addressText;
       _area = kAreas.contains(d.area) ? d.area : null;
       _placeName = d.placeName;
+      _severity = _severityOptions.containsKey(d.severity) ? d.severity! : 'medium';
       _name.text = d.contactName;
       _phone.text = d.contactPhone;
       _savedDraft = null;
@@ -297,6 +306,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           contactPhone: _phone.text.trim(),
           photos: _photos,
           affectedRadiusM: _reachM,
+          severity: _severity,
           idempotencyKey: _submitKey,
         ),
       );
@@ -593,22 +603,19 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             onChanged: (p) => setState(() => _photos = p),
           ),
           const SizedBox(height: 16),
-          DropdownButtonFormField<int>(
-            key: const Key('reach'),
-            initialValue: _reachM,
+          DropdownButtonFormField<String>(
+            key: const Key('severity'),
+            initialValue: _severity,
             decoration: InputDecoration(
-              label: requiredFieldLabel('How far does the danger reach?'),
+              label: requiredFieldLabel('How severe is the situation?'),
               helperText:
-                  'Responders can act only within this distance of the point you marked.',
+                  'Critical means lives are at risk now.',
             ),
             items: [
-              for (final m in _reachOptions)
-                DropdownMenuItem(
-                  value: m,
-                  child: Text(m >= 1000 ? '${m ~/ 1000} km' : '$m m'),
-                ),
+              for (final e in _severityOptions.entries)
+                DropdownMenuItem(value: e.key, child: Text(e.value)),
             ],
-            onChanged: (v) => setState(() => _reachM = v ?? _reachM),
+            onChanged: (v) => setState(() => _severity = v ?? _severity),
           ),
           const SizedBox(height: 24),
           Text(
@@ -676,6 +683,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                 ),
                 row('Location', placeLineFor(_placeName, _source)),
                 if (_area != null) row('Area', _area!),
+                row('Severity', _severityOptions[_severity] ?? _severity),
                 if (_address.text.trim().isNotEmpty)
                   row('Address or landmark', _address.text.trim()),
                 row('Description', _description.text.trim()),

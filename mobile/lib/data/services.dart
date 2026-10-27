@@ -45,6 +45,7 @@ class ApiReportsRepository implements ReportsRepository {
         'area': r.area,
         if (r.placeName != null) 'placeName': r.placeName!,
         'affectedRadiusM': r.affectedRadiusM.toString(),
+        'severity': r.severity,
         'contactName': r.contactName,
         'contactPhone': r.contactPhone,
       },

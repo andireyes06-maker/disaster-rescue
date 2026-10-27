@@ -9,6 +9,7 @@ import '../features/responder/assigned_list_page.dart';
 
 export '../features/home/resident_home.dart';
 import 'auth_controller.dart';
+import 'idle_sign_out.dart';
 import 'profile_sync.dart';
 import '../theme/product_motion.dart';
 import '../theme/product_navigation.dart';
@@ -36,7 +37,8 @@ class RoleGate extends StatelessWidget {
     }
     switch (user.role) {
       case 'resident':
-        return const ResidentHome();
+        // Residents are signed out after a period with no use. Responders and staff are not.
+        return IdleSignOut(onIdle: auth.logout, child: const ResidentHome());
       case 'responder':
         return const ResponderHome();
       default:

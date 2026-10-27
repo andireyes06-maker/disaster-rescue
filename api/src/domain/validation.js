@@ -61,6 +61,8 @@ const schema = z.object({
   area: z.enum(AREAS),
   // Approximate place name for the pin, such as "Near Commonwealth Ave, Quezon City". Optional, shown next to the exact pin.
   placeName: z.preprocess((v) => (typeof v === 'string' && v.trim() ? sanitizeText(v, 120) : undefined), z.string().optional()),
+  // How severe the resident says the situation is. Shown to staff; defaults to medium when a client does not send it.
+  severity: z.preprocess((v) => (v == null || v === '' ? 'medium' : v), z.enum(['low', 'medium', 'high', 'critical'])),
   // How far the danger reaches from the reported point, in meters. Responders may act within this distance.
   affectedRadiusM: z.preprocess((v) => (v == null || v === '' ? undefined : Number(v)), z.number().int().min(50).max(5000).optional()),
   contact: z.object({

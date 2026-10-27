@@ -38,6 +38,13 @@ describe('parseReportInput', () => {
     expect(parseReportInput({ ...ok, placeName: 'Near <b>Malolos</b>, Bulacan' }).placeName).toBe('Near Malolos, Bulacan');
   });
   it('place name stays optional', () => { expect(parseReportInput(ok).placeName).toBeUndefined(); });
+  it('keeps the severity the resident chose and defaults to medium', () => {
+    expect(parseReportInput({ ...ok, severity: 'high' }).severity).toBe('high');
+    expect(parseReportInput(ok).severity).toBe('medium');
+  });
+  it('refuses a severity outside the four levels', () => {
+    expect(() => parseReportInput({ ...ok, severity: 'extreme' })).toThrow(expect.objectContaining({ status: 400 }));
+  });
 });
 
 describe('carried-forward hardening', () => {

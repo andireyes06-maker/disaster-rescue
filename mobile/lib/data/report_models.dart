@@ -63,7 +63,9 @@ class ReportDraft {
   final String contactPhone;
   final String? area;
   final String? placeName;
+  final String? severity;
   const ReportDraft({
+    this.severity,
     this.type,
     this.description = '',
     this.lat,
@@ -87,11 +89,13 @@ class ReportDraft {
     'contactPhone': contactPhone,
     'area': area,
     'placeName': placeName,
+    'severity': severity,
   };
 
   factory ReportDraft.fromJson(Map<String, dynamic> j) => ReportDraft(
     area: j['area'] as String?,
     placeName: j['placeName'] as String?,
+    severity: j['severity'] as String?,
     type: j['type'] as String?,
     description: (j['description'] as String?) ?? '',
     lat: (j['lat'] as num?)?.toDouble(),
@@ -138,8 +142,12 @@ class NewReport {
     this.placeName,
     this.photos = const [],
     this.affectedRadiusM = 500,
+    this.severity = 'medium',
     this.idempotencyKey,
   });
+
+  /// How severe the resident says the situation is: low, medium, high or critical.
+  final String severity;
 }
 
 class SubmitResult {

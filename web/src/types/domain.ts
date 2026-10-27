@@ -48,6 +48,8 @@ export interface Report {
   reference?: string;
   reporterId?: string;
   affectedRadiusM?: number;
+  /** How severe the resident says the situation is. */
+  severity?: 'low' | 'medium' | 'high' | 'critical';
   reporterName?: string | null;
   reporterPhone?: string | null;
   type: ReportType;
