@@ -31,13 +31,13 @@ describe('POST /api/devices', () => {
     expect(await t.repo.listDevices('res-1')).toEqual(['tok-ok']);
   });
 
-  it('refuses a token already registered to another user (409) and leaves the owner unchanged', async () => {
+  it('a token held by another account moves to the account signed in on the phone', async () => {
     const t = makeTestApp();
-    await t.repo.addDevice('res-1', 'tok-victim');
-    const r = await request(t.app).post('/api/devices').set('Authorization', t.as('resident', 'res-2')).send({ token: 'tok-victim' });
-    expect(r.status).toBe(409);
-    expect(await t.repo.listDevices('res-1')).toEqual(['tok-victim']);
-    expect(await t.repo.listDevices('res-2')).toEqual([]);
+    await t.repo.addDevice('res-1', 'tok-phone');
+    const r = await request(t.app).post('/api/devices').set('Authorization', t.as('resident', 'res-2')).send({ token: 'tok-phone' });
+    expect(r.status).toBe(200);
+    expect(await t.repo.listDevices('res-1')).toEqual([]);
+    expect(await t.repo.listDevices('res-2')).toEqual(['tok-phone']);
   });
 });
 

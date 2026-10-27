@@ -316,8 +316,7 @@ export function createMemoryRepo({ hotlines = { numbers: [] }, demo = null } = {
 
     async getDeviceOwner(token) { return devices.get(token) ?? null; },
     async claimDevice(uid, token) {
-      const owner = devices.get(token);
-      if (owner && owner !== uid) return false;
+      // The phone belongs to whoever is signed in on it now: a takeover moves the token to this account.
       devices.set(token, uid); return true;
     },
     async removeDeviceOwned(uid, token) {

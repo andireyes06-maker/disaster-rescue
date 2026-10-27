@@ -32,7 +32,8 @@ export function notificationsRouter(deps) {
       if (!validToken(token)) {
         throw new HttpError(400, 'invalid_token', `token must be 1 to ${MAX_TOKEN_LENGTH} characters`);
       }
-      // A token already held by someone else is refused, so one user cannot redirect another's pushes.
+      // A token held by another account is taken over: the phone is now signed in to this account, and the previous
+      // account stops receiving pushes on it. The token exists only on the device, so another user cannot obtain it.
       if (!(await deps.repo.claimDevice(req.user.uid, token))) {
         throw new HttpError(409, 'device_claimed', 'This device is registered to another account');
       }

@@ -509,8 +509,8 @@ export function createFirestoreRepo(db) {
       const ref = col('devices').doc(token);
       return db.runTransaction(async tx => {
         const snap = await tx.get(ref);
-        if (snap.exists && snap.data().uid !== uid) return false;
-        tx.set(ref, { uid, createdAt: snap.exists ? snap.data().createdAt : new Date() });
+        // The phone belongs to whoever is signed in on it now. A takeover ends the previous account's pushes to it.
+        tx.set(ref, { uid, createdAt: snap.exists ? snap.data().createdAt : new Date(), claimedAt: new Date() });
         return true;
       });
     },
