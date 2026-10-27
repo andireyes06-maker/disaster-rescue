@@ -12,6 +12,13 @@ const teamKind = (v) => {
   if (!TEAM_KINDS.includes(v)) throw new HttpError(400, 'invalid_kind', 'Choose PNP, BFP, Rescue, MDDRMO or Other');
   return v;
 };
+// For identity "Other", the administrator types what kind of team it is. Stored with the team; ignored for other identities.
+const kindLabelOf = (kind, v) => {
+  if (kind !== 'Other') return null;
+  const label = typeof v === 'string' ? sanitizeText(v, 60).trim() : '';
+  if (!label) throw new HttpError(400, 'invalid_kind_label', 'Type what kind of team this is');
+  return label;
+};
 
 const teamName = (v) => {
   const n = typeof v === 'string' ? sanitizeText(v, 10000) : '';
@@ -61,10 +68,11 @@ export function teamsRouter(deps) {
       if (!hasName && !hasHq && !hasKind) throw new HttpError(400, 'nothing_to_update', 'Send name, kind and/or hq');
       const name = hasName ? teamName(req.body.name) : undefined;
       const kind = hasKind ? teamKind(req.body.kind) : undefined;
+      const kindLabel = hasKind ? kindLabelOf(kind, req.body.kindLabel) : undefined;
       const hq = hasHq ? headquarters(req.body.hq) : undefined;
       const before = await deps.repo.getTeam(req.params.id);
       if (!before) throw new HttpError(404, 'not_found', 'Team not found');
-      const patch = { ...(hasName ? { name } : {}), ...(hasKind ? { kind } : {}), ...(hasHq ? { hq, hqName: hq ? hqNameOf(req.body.hqName) : null } : {}) };
+      const patch = { ...(hasName ? { name } : {}), ...(hasKind ? { kind, kindLabel } : {}), ...(hasHq ? { hq, hqName: hq ? hqNameOf(req.body.hqName) : null } : {}) };
       const effects = mutationEffects([{ actorUid: req.user.uid, action: 'team.update', before: { name: before.name, hq: before.hq ?? null }, after: { teamId: req.params.id, ...patch } }]);
       await deps.repo.saveTeam(req.params.id, patch, effects);
       await tryMutationEffects(deps, effects);

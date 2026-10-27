@@ -18,7 +18,9 @@ vi.mock('../../api/client', async () => {
 });
 import AssignTeamDialog from './AssignTeamDialog';
 
-const TEAMS = [
+import type { Team } from '../../types/domain';
+
+const TEAMS: Team[] = [
   { id: 't1', name: 'Alpha', busy: false, currentReportId: null },
   { id: 't2', name: 'Bravo', busy: true, currentReportId: 'r9' },
   { id: 't3', name: 'Charlie', busy: false, currentReportId: null },

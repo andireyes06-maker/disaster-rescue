@@ -88,6 +88,8 @@ export interface Team {
   hqName?: string | null;
   /** The identity the team responds under: PNP, BFP, Rescue, MDDRMO or Other. */
   kind?: string;
+  /** For identity Other: what kind of team it is, as typed by the administrator. */
+  kindLabel?: string | null;
   currentReportId?: string | null;
 }
 

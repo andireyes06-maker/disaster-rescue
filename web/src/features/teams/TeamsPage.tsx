@@ -82,13 +82,14 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
   const name = watch('name');
 
   const [kind, setKind] = useState(team.kind ?? 'Rescue');
+  const [kindLabel, setKindLabel] = useState(team.kindLabel ?? '');
 
   async function save(values: TeamName) {
     if (pendingRef.current) return;
     pendingRef.current = true;
     setBusy(true);
     try {
-      await api(`/teams/${team.id}`, { method: 'PATCH', body: { name: values.name, kind } });
+      await api(`/teams/${team.id}`, { method: 'PATCH', body: { name: values.name, kind, kindLabel: kind === 'Other' ? kindLabel.trim() : undefined } });
       onSaved('Team saved.');
     } catch (err) {
       onError(errorText(err));
@@ -100,7 +101,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
 
   return (
     <li className="management-row team-row">
-      <div className="management-identity"><strong>{team.name} <span className="team-kind">{team.kind ?? 'Rescue'}</span></strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
+      <div className="management-identity"><strong>{team.name} <span className="team-kind">{team.kind === 'Other' && team.kindLabel ? team.kindLabel : team.kind ?? 'Rescue'}</span></strong><small>{team.busy ? 'Assigned to an active rescue' : 'Available for assignment'} · {hqText(team)}</small><span className={`badge badge--${team.busy ? 'high' : 'neutral'}`}>{team.busy ? 'Busy' : 'Available'}</span></div>
       <TeamMembers team={team} members={members} />
       <div className="team-row__actions">
       <button type="button" className="btn btn--ghost team-location-toggle" aria-expanded={editingLocation} onClick={() => setEditingLocation((v) => !v)}>Edit location</button>
@@ -113,6 +114,12 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
         <select id={`team-kind-${team.id}`} value={kind} onChange={(e) => setKind(e.target.value)}>
           {['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
         </select>
+        {kind === 'Other' && (
+          <>
+            <label htmlFor={`team-kind-label-${team.id}`}>What kind of team is it?</label>
+            <input id={`team-kind-label-${team.id}`} maxLength={60} value={kindLabel} onChange={(e) => setKindLabel(e.target.value)} placeholder="For example: Barangay rescue" required />
+          </>
+        )}
         <div className="actions__row">
           <button type="submit" className="btn" aria-disabled={busy || !name.trim()} aria-busy={busy}>Save team</button>
         </div>
