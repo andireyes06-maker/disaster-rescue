@@ -44,7 +44,7 @@ it.each(['account-create', 'role', 'user-create', 'user-status', 'team-create', 
   } else {
     await user.click(screen.getByText('Edit team'));
     await user.type(screen.getByLabelText('Team name'), ' Updated');
-    button = screen.getByRole('button', { name: 'Save name' });
+    button = screen.getByRole('button', { name: 'Save team' });
   }
   let reject!: (reason: Error) => void;
   h.api.mockImplementation(() => new Promise((_, fail) => { reject = fail; }));

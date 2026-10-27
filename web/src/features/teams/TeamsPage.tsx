@@ -81,13 +81,15 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
   });
   const name = watch('name');
 
+  const [kind, setKind] = useState(team.kind ?? 'Rescue');
+
   async function save(values: TeamName) {
     if (pendingRef.current) return;
     pendingRef.current = true;
     setBusy(true);
     try {
-      await api(`/teams/${team.id}`, { method: 'PATCH', body: { name: values.name } });
-      onSaved('Team renamed.');
+      await api(`/teams/${team.id}`, { method: 'PATCH', body: { name: values.name, kind } });
+      onSaved('Team saved.');
     } catch (err) {
       onError(errorText(err));
     } finally {
@@ -107,8 +109,12 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
         <RequiredNote /><label htmlFor={`team-name-${team.id}`}>Team name<RequiredMark /></label>
         <input aria-required="true" id={`team-name-${team.id}`} maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? `team-error-${team.id}` : undefined} />
         {errors.name && <FieldError id={`team-error-${team.id}`}>{errors.name.message}</FieldError>}
+        <label htmlFor={`team-kind-${team.id}`}>Team identity</label>
+        <select id={`team-kind-${team.id}`} value={kind} onChange={(e) => setKind(e.target.value)}>
+          {['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
+        </select>
         <div className="actions__row">
-          <button type="submit" className="btn" aria-disabled={busy || !name.trim()} aria-busy={busy}>Save name</button>
+          <button type="submit" className="btn" aria-disabled={busy || !name.trim()} aria-busy={busy}>Save team</button>
         </div>
       </MotionForm>
       </details>
