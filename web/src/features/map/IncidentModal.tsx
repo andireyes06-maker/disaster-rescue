@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
 import IncidentDetails from '../reports/IncidentDetails';
 
@@ -18,9 +19,12 @@ export default function IncidentModal({ reportId, onClose }: { reportId: string;
       <section className="incident-modal__panel" role="dialog" aria-modal="true" aria-labelledby="incident-modal-title">
         <header className="incident-modal__header">
           <h2 id="incident-modal-title">Incident details</h2>
-          <button ref={closeButton} type="button" className="btn btn--ghost" onClick={onClose} aria-label="Close incident details">
-            <X size={18} aria-hidden="true" />
-          </button>
+          <div className="incident-modal__actions">
+            <Link className="btn btn--ghost" to={`/incidents/${encodeURIComponent(reportId)}`}>Open full report</Link>
+            <button ref={closeButton} type="button" className="btn btn--ghost" onClick={onClose} aria-label="Close incident details">
+              <X size={18} aria-hidden="true" />
+            </button>
+          </div>
         </header>
         <div className="incident-modal__body">
           <IncidentDetails reportId={reportId} />

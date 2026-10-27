@@ -60,6 +60,7 @@ describe('IncidentMap', () => {
     await user.click(screen.getByRole('button', { name: /Report r1,/ }));
     expect(screen.getByRole('dialog', { name: 'Incident details' })).toBeInTheDocument();
     expect(screen.getByTestId('map')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Open full report' })).toHaveAttribute('href', '/incidents/r1');
     expect(screen.getByText('Details for r1')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Close incident details' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
