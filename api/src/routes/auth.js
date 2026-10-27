@@ -83,25 +83,23 @@ export function authRouter(deps) {
     } catch (e) { next(e); }
   });
 
-  // An administrator sets the new password directly for the requester's account. Existing sign-ins end at once.
-  // The password is never stored or logged; the audit log records that a password was set, not what it is.
-  r.post('/reset-help/:id/set-password', auth, admin, async (req, res, next) => {
+  // An administrator resets the requester's password to their email address. Existing sign-ins end at once.
+  // The password is never stored or logged; the audit log records that a reset happened, not what the password is.
+  r.post('/reset-help/:id/reset-password', auth, admin, async (req, res, next) => {
     try {
-      const password = typeof req.body?.password === 'string' ? req.body.password : '';
-      if (password.length < 10 || password.length > 128) throw new HttpError(400, 'invalid_password', 'The new password needs at least 10 characters');
       const request = (await deps.repo.listPasswordHelp()).find((x) => x.id === req.params.id);
       if (!request) throw new HttpError(404, 'not_found', 'This request is no longer open');
       let account;
       try { account = await deps.auth.getUserByEmail(request.email); }
       catch (e) { if (e?.code === 'auth/user-not-found') throw new HttpError(404, 'no_account', 'No account uses this email address'); throw e; }
-      // An administrator's password is never set from a help request; the administrator must change it themselves.
+      // An administrator's password is never reset from a help request; the administrator must change it themselves.
       const profile = await deps.repo.getUser(account.uid);
-      if (profile?.role === 'admin') throw new HttpError(403, 'forbidden', 'Administrator passwords cannot be set from a help request');
-      await deps.auth.updateUser(account.uid, { password });
+      if (profile?.role === 'admin') throw new HttpError(403, 'forbidden', 'Administrator passwords cannot be reset from a help request');
+      await deps.auth.updateUser(account.uid, { password: request.email });
       await deps.auth.revokeRefreshTokens(account.uid);
       const at = new Date();
       await deps.repo.closePasswordHelp(req.params.id, req.user.uid, at);
-      await deps.repo.addAudit({ actorUid: req.user.uid, action: 'password-help.set-password', at, target: { uid: account.uid, requestId: req.params.id } });
+      await deps.repo.addAudit({ actorUid: req.user.uid, action: 'password-help.reset', at, target: { uid: account.uid, requestId: req.params.id } });
       res.json({ ok: true });
     } catch (e) { next(e); }
   });

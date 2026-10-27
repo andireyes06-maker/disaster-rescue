@@ -114,3 +114,7 @@ Reviewed: `report-location.png` replaced with the new render; the only change is
 
 Reason: residents and responders can change their own password from the profile screen. Owner request, 27 October 2026.
 Reviewed: `profile.png` replaced; the only change is the new Change password button above Log out.
+
+## Reverted: Change password on the profile screen, 27 October 2026
+
+The Change password button was removed again at the owner's request. `profile.png` is restored to the reference from before the button was added. No visual change remains.
