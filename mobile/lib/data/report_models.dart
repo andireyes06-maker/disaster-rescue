@@ -61,7 +61,6 @@ class ReportDraft {
   final String addressText;
   final String contactName;
   final String contactPhone;
-  final String? area;
   final String? placeName;
   final String? severity;
   const ReportDraft({
@@ -74,7 +73,6 @@ class ReportDraft {
     this.addressText = '',
     this.contactName = '',
     this.contactPhone = '',
-    this.area,
     this.placeName,
   });
 
@@ -87,13 +85,11 @@ class ReportDraft {
     'addressText': addressText,
     'contactName': contactName,
     'contactPhone': contactPhone,
-    'area': area,
     'placeName': placeName,
     'severity': severity,
   };
 
   factory ReportDraft.fromJson(Map<String, dynamic> j) => ReportDraft(
-    area: j['area'] as String?,
     placeName: j['placeName'] as String?,
     severity: j['severity'] as String?,
     type: j['type'] as String?,
@@ -117,11 +113,11 @@ class NewReport {
   final String contactName;
   final String contactPhone;
 
-  /// The province or Metro Manila city the report is filed under. Chosen from kAreas.
-  final String area;
 
   /// Approximate place name shown to responders next to the exact pin. Optional.
   final String? placeName;
+  /// The town or city of the pin, such as Guiguinto. Optional; used for reports by location.
+  final String? locality;
   final List<PickedPhoto> photos;
 
   /// How far the danger reaches from the point, in meters. Responders may act within this distance.
@@ -138,8 +134,8 @@ class NewReport {
     required this.addressText,
     required this.contactName,
     required this.contactPhone,
-    required this.area,
     this.placeName,
+    this.locality,
     this.photos = const [],
     this.affectedRadiusM = 500,
     this.severity = 'medium',

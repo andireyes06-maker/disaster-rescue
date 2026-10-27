@@ -12,7 +12,7 @@ import type { Report, ReportType } from '../../types/domain';
 const SEVERITY_LABELS: Record<NonNullable<Report['severity']>, string> = { low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical' };
 
 // Decorative category icons. The type name is always printed beside them.
-const TYPE_ICONS: Record<ReportType, typeof Waves> = {
+export const TYPE_ICONS: Record<ReportType, typeof Waves> = {
   flood: Waves,
   fire: Flame,
   earthquake: Building2,
@@ -20,7 +20,7 @@ const TYPE_ICONS: Record<ReportType, typeof Waves> = {
   other: CircleHelp,
 };
 
-const TYPE_CLASS: Record<ReportType, string> = {
+export const TYPE_CLASS: Record<ReportType, string> = {
   flood: 'type-icon--flood',
   fire: 'type-icon--fire',
   earthquake: 'type-icon--earthquake',

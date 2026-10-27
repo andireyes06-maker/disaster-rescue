@@ -1,4 +1,3 @@
-import 'area_helper.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
@@ -58,7 +57,6 @@ Future<void> toStep2(WidgetTester t) async {
 Future<void> toStep3(WidgetTester t) async {
   await toStep2(t);
   await tapText(t, 'Use my current location');
-  await chooseArea(t);
   await t.tap(nextBtn());
   await t.pumpAndSettle();
 }
@@ -148,9 +146,6 @@ void main() {
     await t.pumpAndSettle();
     expect(find.text('Step 2 of 4'), findsOneWidget);
     await tapText(t, 'Use my current location');
-    // A location alone is not enough: the province or city is required too.
-    expect(tester(nextBtn(), t).onPressed, isNull);
-    await chooseArea(t);
     expect(tester(nextBtn(), t).onPressed, isNotNull);
     // No place name in tests, so the card says where the pin came from, never the raw numbers.
     expect(find.text('Pinned at your current location'), findsOneWidget);
@@ -467,7 +462,6 @@ void main() {
         // At 200% text the required line pushes the location choices below the fold; a user scrolls to them.
         await t.ensureVisible(find.text('Use my current location'));
         await tapText(t, 'Use my current location');
-        await chooseArea(t);
         await t.tap(nextBtn());
         await t.pumpAndSettle();
       }

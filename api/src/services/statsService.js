@@ -97,6 +97,8 @@ export function buildStats(reports, { from, to } = {}) {
     byPriority: countBy(rows, 'priority'),
     // Reports filed before areas existed have none; they are counted together as "Not recorded".
     byArea: countBy(rows.map((r) => ({ ...r, area: r.area || 'Not recorded' })), 'area'),
+    // Town or city of each pin, such as Guiguinto. Reports without one count as Not recorded.
+    byLocation: countBy(rows.map((r) => ({ ...r, locality: r.locality || 'Not recorded' })), 'locality'),
     perDay,
     perMonth,
     byPlace,

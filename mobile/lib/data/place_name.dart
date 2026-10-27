@@ -4,7 +4,26 @@ import 'package:http/http.dart' as http;
 
 /// Turns a picked point into a short, approximate place name, the way map apps do
 /// ("Near Commonwealth Ave, Quezon City"). Returns null when no name can be found.
-typedef PlaceNamer = Future<String?> Function(double lat, double lng);
+/// An approximate place for a pin: the name shown to people, and the town or city it is in (for reports by location).
+class PlaceInfo {
+  const PlaceInfo(this.name, this.locality);
+  final String name;
+  final String? locality;
+}
+
+typedef PlaceNamer = Future<PlaceInfo?> Function(double lat, double lng);
+
+/// The town, city or municipality from a reverse-lookup reply, such as "Guiguinto". Null when none is named.
+String? localityFrom(Object? reply) {
+  if (reply is! Map) return null;
+  final address = reply['address'];
+  if (address is! Map) return null;
+  for (final key in ['city', 'town', 'municipality', 'county']) {
+    final value = address[key];
+    if (value is String && value.trim().isNotEmpty) return value.trim();
+  }
+  return null;
+}
 
 const _appId = String.fromEnvironment(
   'RESCUE_APPLICATION_ID',
@@ -35,7 +54,7 @@ String? placeNameFrom(Object? reply) {
 
 /// Looks up an approximate place name. The point is rounded to about 110 m before it is sent,
 /// because a neighbourhood name does not need the exact pin. Any failure returns null.
-Future<String?> approximatePlaceName(
+Future<PlaceInfo?> approximatePlaceName(
   double lat,
   double lng, {
   http.Client? client,
@@ -54,7 +73,9 @@ Future<String?> approximatePlaceName(
         .get(uri, headers: {'User-Agent': _appId})
         .timeout(const Duration(seconds: 6));
     if (res.statusCode != 200) return null;
-    return placeNameFrom(jsonDecode(res.body));
+    final reply = jsonDecode(res.body);
+    final name = placeNameFrom(reply);
+    return name == null ? null : PlaceInfo(name, localityFrom(reply));
   } catch (_) {
     return null;
   } finally {

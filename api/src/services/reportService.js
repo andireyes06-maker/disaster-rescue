@@ -56,8 +56,9 @@ function buildReport(data, user, reference, now) {
     createdAt: now,
   };
   if (data.addressText) report.addressText = data.addressText;
-  report.area = data.area;
+  if (data.area) report.area = data.area;
   if (data.placeName) report.placeName = data.placeName;
+  if (data.locality) report.locality = data.locality;
   report.severity = data.severity;
   report.affectedRadiusM = data.affectedRadiusM ?? 500;
   if (data.contact) report.contact = data.contact;

@@ -58,7 +58,10 @@ const schema = z.object({
   source: z.enum(['gps', 'manual']),
   addressText: z.preprocess((v) => (v == null ? undefined : sanitizeText(v, 300)), z.string().optional()),
   // The province or Metro Manila city the report is filed under. Chosen from the fixed list.
-  area: z.enum(AREAS),
+  // Optional. Current phone builds do not ask for it; older builds may still send one from the list.
+  area: z.preprocess((v) => (v == null || v === '' ? undefined : v), z.enum(AREAS).optional()),
+  // The town or city of the pin, such as Guiguinto. Optional; sent by current phone builds.
+  locality: z.preprocess((v) => (typeof v === 'string' && v.trim() ? sanitizeText(v, 60).trim() : undefined), z.string().optional()),
   // Approximate place name for the pin, such as "Near Commonwealth Ave, Quezon City". Optional, shown next to the exact pin.
   placeName: z.preprocess((v) => (typeof v === 'string' && v.trim() ? sanitizeText(v, 120) : undefined), z.string().optional()),
   // How severe the resident says the situation is. Shown to staff; defaults to medium when a client does not send it.

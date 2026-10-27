@@ -23,9 +23,9 @@ describe('area list', () => {
     expect(quoted(repoFile('web/src/lib/areas.ts'))).toEqual([...AREAS]);
   });
 
-  it('a report must name an area from the list', () => {
+  it('the area is optional, but one that is sent must come from the list', () => {
     const base = { type: 'flood', description: 'Water rising', lat: '14.85', lng: '120.81', source: 'gps' };
-    expect(() => parseReportInput(base)).toThrow(expect.objectContaining({ status: 400 }));
+    expect(parseReportInput(base).area).toBeUndefined();
     expect(() => parseReportInput({ ...base, area: 'Atlantis' })).toThrow(expect.objectContaining({ status: 400 }));
     expect(parseReportInput({ ...base, area: 'Quezon City' }).area).toBe('Quezon City');
   });

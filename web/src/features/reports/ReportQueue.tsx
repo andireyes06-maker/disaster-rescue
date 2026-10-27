@@ -50,11 +50,12 @@ interface Filters {
 
 
 // Quick views are derived from the full dataset; counts never depend on the visible results.
-type Quick = 'all' | 'verify' | 'active';
+type Quick = 'all' | 'verify' | 'active' | 'cancelled';
 const QUICK: ReadonlyArray<readonly [Quick, string]> = [
   ['all', 'All reports'],
   ['verify', 'Needs verification'],
   ['active', 'Active'],
+  ['cancelled', 'Cancelled'],
 ];
 
 const isActive = (r: Report): boolean => isOpen(r) && r.status !== 'Resolved';
@@ -62,6 +63,7 @@ const isActive = (r: Report): boolean => isOpen(r) && r.status !== 'Resolved';
 const quickMatch = (r: Report, quick: Quick): boolean => {
   if (quick === 'verify') return awaitingVerify(r);
   if (quick === 'active') return isActive(r);
+  if (quick === 'cancelled') return r.status === 'Cancelled';
   return true;
 };
 
@@ -130,7 +132,7 @@ export default function ReportQueue() {
     verified: params.get('verified') ?? '',
   };
   const quickParam = params.get('quick');
-  const quick: Quick = quickParam === 'verify' || quickParam === 'active' ? quickParam : 'all';
+  const quick: Quick = quickParam === 'verify' || quickParam === 'active' || quickParam === 'cancelled' ? quickParam : 'all';
   const selectedId = params.get('sel');
   const [filtersOpen, setFiltersOpen] = useState(false);
   // Replace, not push: changing a filter or selection should not add a Back step per click.
@@ -159,7 +161,8 @@ export default function ReportQueue() {
   const matchesQuery = (r: Report) => !query || [r.type, r.description, r.addressText ?? '', r.reference ?? '', r.id ?? '']
     .some((text) => text.toLowerCase().includes(query));
 
-  const source = query ? everything.reports : reports;
+  // Cancelled reports are not in the open list, so that view and a search read the full list.
+  const source = query || quick === 'cancelled' ? everything.reports : reports;
   const rows = orderQueue(source.filter((r) =>
     matchesQuery(r) && quickMatch(r, quick)
     && (!f.status || r.status === f.status)

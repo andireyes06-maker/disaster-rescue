@@ -85,11 +85,10 @@ export function toPdf(stats, reports, { sampleLabel = null } = {}) {
     breakdown('Reports by type', stats.byType);
     breakdown('Reports by priority', stats.byPriority, { order: PRIORITY_ORDER });
     breakdown('Reports by status', stats.byStatus);
-    breakdown('Reports by area', stats.byArea);
+    breakdown('Reports by location', stats.byLocation);
     heading('Reports per month');
     if (!stats.perMonth?.length) line('No reports in this period', '');
     for (const m of stats.perMonth ?? []) line(m.month, m.count);
-    breakdown('Most reported places', stats.byPlace);
 
     heading('Incidents');
     const cols = [

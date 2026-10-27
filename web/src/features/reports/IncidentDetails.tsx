@@ -1,3 +1,6 @@
+import { TYPE_CLASS, TYPE_ICONS } from './IncidentPreview';
+import { CircleHelp } from 'lucide-react';
+import type { ReportType } from '../../types/domain';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
@@ -260,7 +263,12 @@ function IncidentView({ id }: IncidentViewProps) {
 
       <ConnectionNotice fromCache={fromCache} />
       <header className="incident__heading">
-        <h2>{report.type} report</h2>
+        <h2 className="incident__title">
+          <span className={`type-icon ${TYPE_CLASS[report.type as ReportType] || 'type-icon--other'}`} aria-hidden="true">
+            {(() => { const Icon = TYPE_ICONS[report.type as ReportType] || CircleHelp; return <Icon size={20} />; })()}
+          </span>
+          {report.type.charAt(0).toUpperCase() + report.type.slice(1)} report
+        </h2>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /><VerifiedBadge verified={report.verified} /></div>
         <p className="incident__reference">Report {report.reference || report.id} · {formatTime(report.createdAt)}</p>
       </header>

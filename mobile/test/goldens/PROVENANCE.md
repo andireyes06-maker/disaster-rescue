@@ -104,3 +104,8 @@ Reviewed: `incident-detail.png` regenerated; the distance line and banner are go
 
 Reason: a person who cannot reset their password can send a request to the administrators, who send the reset link from the website. The sign-in page shows "Contact an admin to reset it" under "Forgot password?". Owner request, 27 October 2026.
 Reviewed: `login.png` regenerated; the only change is the new text link, and the layout is unchanged.
+
+## Reviewed change: province removed from the report location step, 27 October 2026
+
+Reason: residents no longer choose a province or city. The location step shows no dropdown. Owner request, 27 October 2026.
+Reviewed: `report-location.png` replaced with the new render; the only change is the removed dropdown. `report-details.png` and `report-review.png` are not yet regenerated (the visual test stops at this step, and the details golden already had an open difference).

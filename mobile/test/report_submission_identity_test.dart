@@ -1,4 +1,3 @@
-import 'area_helper.dart';
 import 'dart:typed_data';
 
 import 'package:disaster_rescue/data/api_client.dart';
@@ -40,7 +39,6 @@ Future<void> toStep3(WidgetTester t) async {
   await t.tap(find.widgetWithText(FilledButton, 'Next'));
   await t.pumpAndSettle();
   await tapText(t, 'Use my current location');
-  await chooseArea(t);
   await t.tap(find.widgetWithText(FilledButton, 'Next'));
   await t.pumpAndSettle();
 }

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../data/areas.dart';
 import '../../data/geo.dart';
 import '../../data/place_name.dart';
 import '../../data/services.dart';
@@ -45,8 +44,6 @@ class LocationStep extends StatefulWidget {
     this.radiusM = 500,
     required this.addressController,
     required this.onPicked,
-    this.area,
-    this.onAreaChanged,
   });
   final LocationService service;
   final double? lat;
@@ -62,11 +59,8 @@ class LocationStep extends StatefulWidget {
   /// Reach the danger covers, in meters. Shown as a circle around the marked point.
   final int radiusM;
   final TextEditingController addressController;
-  final void Function(double lat, double lng, String source, String? placeName) onPicked;
+  final void Function(double lat, double lng, String source, PlaceInfo? place) onPicked;
 
-  /// The chosen province or Metro Manila city, from kAreas.
-  final String? area;
-  final ValueChanged<String?>? onAreaChanged;
 
   @override
   State<LocationStep> createState() => _LocationStepState();
@@ -98,10 +92,10 @@ class _LocationStepState extends State<LocationStep> {
   Future<void> _choose(double lat, double lng, String source) async {
     setState(() => _busy = false);
     widget.onPicked(lat, lng, source, null);
-    final name = await widget.placeNamer(lat, lng);
-    if (!mounted || name == null) return;
+    final place = await widget.placeNamer(lat, lng);
+    if (!mounted || place == null) return;
     if (widget.lat != lat || widget.lng != lng) return;
-    widget.onPicked(lat, lng, source, name);
+    widget.onPicked(lat, lng, source, place);
   }
 
   Future<void> _pickOnMap() async {
@@ -209,19 +203,6 @@ class _LocationStepState extends State<LocationStep> {
               ),
             ],
           ),
-        ),
-        const SizedBox(height: 16),
-        DropdownButtonFormField<String>(
-          key: const Key('area'),
-          initialValue: kAreas.contains(widget.area) ? widget.area : null,
-          isExpanded: true,
-          menuMaxHeight: 360,
-          decoration: const InputDecoration(
-            labelText: 'Province or city (required)',
-            hintText: 'Choose the area of the report',
-          ),
-          items: [for (final a in kAreas) DropdownMenuItem(value: a, child: Text(a))],
-          onChanged: widget.onAreaChanged,
         ),
         const SizedBox(height: 16),
         TextField(

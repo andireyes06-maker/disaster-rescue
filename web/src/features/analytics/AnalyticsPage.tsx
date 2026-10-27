@@ -63,8 +63,7 @@ export default function AnalyticsPage() {
   const PRIORITY_ORDER = ['critical', 'high', 'medium', 'low'];
   const byPriority = Object.entries(stats?.byPriority ?? {}).map(toDatum)
     .sort((a, b) => (PRIORITY_ORDER.indexOf(a.label) + 1 || 99) - (PRIORITY_ORDER.indexOf(b.label) + 1 || 99));
-  const byPlace = Object.entries(stats?.byPlace ?? {}).map(toDatum);
-  const byArea = Object.entries(stats?.byArea ?? {}).map(toDatum);
+  const byLocation = Object.entries(stats?.byLocation ?? {}).map(toDatum);
 
   return (
     <div>
@@ -112,8 +111,7 @@ export default function AnalyticsPage() {
           <ChartCard title="Incidents by priority" labelHeader="Priority" data={byPriority} />
           <ChartCard title="Incidents per month" labelHeader="Month" data={perMonth} chronological formatLabel={(m) => m} />
           <ChartCard title="Incidents per day" labelHeader="Day" data={perDay} chronological />
-          <ChartCard title="Reports by area" labelHeader="Area" data={byArea} />
-          <ChartCard title="Top places reported" labelHeader="Place" data={byPlace} />
+          <ChartCard title="Reports by location" labelHeader="Location" data={byLocation} />
         </div>
       )}
     </div>

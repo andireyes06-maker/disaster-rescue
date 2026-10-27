@@ -19,6 +19,7 @@ export interface Stats {
   byPriority: Record<string, number>;
   byPlace: Record<string, number>;
   byArea: Record<string, number>;
+  byLocation: Record<string, number>;
   perDay: DayCount[];
   perMonth: MonthCount[];
 }
@@ -49,6 +50,7 @@ export function toStats(data: unknown): Stats {
     byPriority: counts(r.byPriority),
     byPlace: counts(r.byPlace),
     byArea: counts(r.byArea),
+    byLocation: counts(r.byLocation),
     perDay,
     perMonth,
   };

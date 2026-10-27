@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth/auth_controller.dart';
-import '../../data/areas.dart';
 import '../../data/photo_identity.dart';
 import '../../data/submission_key.dart';
 import '../../data/api_client.dart';
@@ -76,8 +75,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   final _formKey = GlobalKey<FormState>();
   final _description = TextEditingController();
   final _address = TextEditingController();
-  String? _area;
   String? _placeName;
+  String? _locality;
   final _name = TextEditingController();
   final _phone = TextEditingController();
 
@@ -156,7 +155,6 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     lng: _lng,
     source: _source,
     addressText: _address.text,
-    area: _area,
     placeName: _placeName,
     severity: _severity,
     contactName: _name.text,
@@ -181,7 +179,6 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _lng = d.lng;
       _source = d.source;
       _address.text = d.addressText;
-      _area = kAreas.contains(d.area) ? d.area : null;
       _placeName = d.placeName;
       _severity = _severityOptions.containsKey(d.severity) ? d.severity! : 'medium';
       _name.text = d.contactName;
@@ -231,7 +228,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       case 0:
         return _type != null;
       case 1:
-        return _hasLocation && _area != null;
+        return _hasLocation;
       default:
         return true;
     }
@@ -288,10 +285,6 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _notify(_needLocation);
       return;
     }
-    if (_area == null) {
-      _notify('Choose the province or city for this report.');
-      return;
-    }
     setState(() => _submitting = true);
     final nav = Navigator.of(context);
     final reports = context.read<ReportsRepository>();
@@ -312,8 +305,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           lng: _lng!,
           source: _source!,
           addressText: _address.text.trim(),
-          area: _area!,
           placeName: _placeName,
+          locality: _locality,
           contactName: _name.text.trim(),
           contactPhone: _phone.text.trim(),
           photos: _photos,
@@ -541,13 +534,12 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           placeName: _placeName,
           radiusM: _reachM,
           addressController: _address,
-          area: _area,
-          onAreaChanged: (v) => setState(() => _area = v),
-          onPicked: (lat, lng, source, placeName) => setState(() {
+          onPicked: (lat, lng, source, place) => setState(() {
             _lat = lat;
             _lng = lng;
             _source = source;
-            _placeName = placeName;
+            _placeName = place?.name;
+            _locality = place?.locality;
           }),
         );
       case 2:
@@ -694,7 +686,6 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                   ],
                 ),
                 row('Location', placeLineFor(_placeName, _source)),
-                if (_area != null) row('Area', _area!),
                 row('Severity', _severityOptions[_severity] ?? _severity),
                 if (_address.text.trim().isNotEmpty)
                   row('Address or landmark', _address.text.trim()),

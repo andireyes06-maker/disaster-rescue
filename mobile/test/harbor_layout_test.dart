@@ -1,4 +1,3 @@
-import 'area_helper.dart';
 import 'package:disaster_rescue/auth/role_gate.dart';
 import 'package:disaster_rescue/auth/auth_repository.dart';
 import 'package:disaster_rescue/data/report_models.dart';
@@ -37,7 +36,6 @@ void main() {
     await tap(t, 'Flood');
     await tap(t, 'Next');
     await tap(t, 'Use my current location');
-    await chooseArea(t);
     await tap(t, 'Next');
     await t.enterText(
       find.byKey(const Key('description')),

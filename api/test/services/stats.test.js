@@ -10,7 +10,7 @@ describe('buildStats', () => {
   it('returns zeros and null response time for an empty set', () => {
     expect(buildStats([], {})).toEqual({
       total: 0, open: 0, resolved: 0, byType: {}, byStatus: {}, byPriority: {},
-      perDay: [], perMonth: [], byPlace: {}, byArea: {}, avgResponseMinutes: null, peopleRescued: 0,
+      perDay: [], perMonth: [], byPlace: {}, byArea: {}, byLocation: {}, avgResponseMinutes: null, peopleRescued: 0,
     });
   });
 
