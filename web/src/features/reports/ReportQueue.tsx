@@ -186,7 +186,8 @@ export default function ReportQueue() {
     ['Critical', reports.filter((r) => isActive(r) && r.priority === 'critical').length],
     ['Verified', reports.filter((r) => r.verified).length],
   ];
-  const quickCount = (q: Quick) => reports.filter((r) => quickMatch(r, q)).length;
+  // Cancelled reports are not in the open list, so their count reads the full list.
+  const quickCount = (q: Quick) => (q === 'cancelled' ? everything.reports : reports).filter((r) => quickMatch(r, q)).length;
   const canAct = canActOnReports(role);
   const failed = Boolean(error);
 
