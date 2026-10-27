@@ -194,7 +194,14 @@ class ImagePickerPhotoService implements PhotoService {
   @override
   Future<List<PickedPhoto>> pick(int limit) async {
     if (limit <= 0) return const [];
-    final files = await _picker.pickMultiImage(limit: limit < 2 ? null : limit);
+    // Downscale when picking: a full-size phone photo can be well over the 5 MB upload limit.
+    // 2048 px at 85% keeps a typical photo around 1 MB and still readable for responders.
+    final files = await _picker.pickMultiImage(
+      limit: limit < 2 ? null : limit,
+      maxWidth: 2048,
+      maxHeight: 2048,
+      imageQuality: 85,
+    );
     final out = <PickedPhoto>[];
     for (final f in files.take(limit)) {
       out.add(
@@ -324,7 +331,10 @@ class TeamSummary {
 
 /// Joins two live lists of one team's reports: reports naming the team in its single-team field, and reports
 /// listing it among several teams. A report in both is shown once. Keeps the first [limit] rows in the given order.
-Stream<List<AssignedReport>> _joinTeamStreams(
+///
+/// Broadcast, because the tab view can listen again after a tab is disposed and shown again. Each new listen
+/// opens fresh source streams and waits for their first values, so an old value is never shown.
+Stream<List<AssignedReport>> joinTeamStreams(
   Stream<List<AssignedReport>> Function() single,
   Stream<List<AssignedReport>> Function() many, {
   required int limit,
@@ -351,9 +361,11 @@ Stream<List<AssignedReport>> _joinTeamStreams(
     out.add(rows.take(limit).toList());
   }
 
-  out = StreamController<List<AssignedReport>>(
+  out = StreamController<List<AssignedReport>>.broadcast(
     onListen: () {
       // Fresh Firestore streams on every listen: a snapshot stream can only be listened to once.
+      latestSingle = null;
+      latestMany = null;
       subSingle = single().listen((v) { latestSingle = v; emit(); }, onError: out.addError);
       // The several-teams query can fail before its index is deployed. That must not hide the reports already listed.
       subMany = many().listen((v) { latestMany = v; emit(); }, onError: (_) { latestMany = const []; emit(); });
@@ -434,7 +446,7 @@ class ApiResponderRepository implements ResponderRepository {
             .map((d) => _assignedFrom(d.id, d.data()))
             .where((r) => open.contains(r.status))
             .toList());
-    return _joinTeamStreams(single, many, limit: windowSize, newestFirst: false);
+    return joinTeamStreams(single, many, limit: windowSize, newestFirst: false);
   }
 
   @override
@@ -457,7 +469,7 @@ class ApiResponderRepository implements ResponderRepository {
             .map((d) => _assignedFrom(d.id, d.data()))
             .where((r) => historyStatuses.contains(r.status))
             .toList());
-    return _joinTeamStreams(single, many, limit: 10, newestFirst: true);
+    return joinTeamStreams(single, many, limit: 10, newestFirst: true);
   }
 
   @override
