@@ -187,7 +187,11 @@ export default function ReportQueue() {
     ['Verified', reports.filter((r) => r.verified).length],
   ];
   // Cancelled reports are not in the open list, so their count reads the full list.
-  const quickCount = (q: Quick) => (q === 'cancelled' ? everything.reports : reports).filter((r) => quickMatch(r, q)).length;
+  // While the full list is loading or failed, its chip shows a dash rather than a false zero.
+  const quickCount = (q: Quick): string => {
+    if (q === 'cancelled' && (everything.loading || everything.error)) return '—';
+    return String((q === 'cancelled' ? everything.reports : reports).filter((r) => quickMatch(r, q)).length);
+  };
   const canAct = canActOnReports(role);
   // Cancelled and search read the full list, so their loading and error state come from that list.
   const viewUsesFullList = Boolean(query) || quick === 'cancelled';
@@ -207,7 +211,9 @@ export default function ReportQueue() {
       </div>
 
       <ConnectionNotice fromCache={fromCache} />
-      {!viewLoading && !viewError && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
+      {!viewLoading && !viewError && (viewUsesFullList
+        ? <ReportWindow count={everything.reports.length} windowSize={everything.windowSize} loadMore={everything.loadMore} />
+        : <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />)}
       <div className="inbox-layout">
       <section className="inbox-panel" aria-labelledby="queue-heading">
         <div className="queue-toolbar">
@@ -253,7 +259,7 @@ export default function ReportQueue() {
         {viewError && (
           <Banner tone="error" role="alert">
             Could not load reports. Check your connection and try again.{' '}
-            <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
+            <button className="btn btn--ghost" type="button" onClick={viewUsesFullList ? everything.retry : retry}>Try again</button>
           </Banner>
         )}
         {viewLoading && <Skeleton label="Loading incident inbox"><SkeletonRows rows={5} height={84} /></Skeleton>}

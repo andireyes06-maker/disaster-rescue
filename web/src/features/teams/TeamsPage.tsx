@@ -41,6 +41,8 @@ function errorText(err: unknown): string {
   const failure = apiFailure(err);
   if (failure) {
     if (failure.code === 'invalid_name') return 'Team names must be 1 to 100 characters.';
+    if (failure.code === 'invalid_kind_label') return 'Type what kind of team this is, such as Barangay rescue.';
+    if (failure.code === 'outside_philippines') return 'Pins must be inside the Philippines. Pick a place in the Philippines.';
     if (failure.status === 403) return 'You do not have permission to do that.';
     if (failure.status === 404) return 'This team could not be found.';
     if (failure.status === 0) return 'Network error. Check your connection and try again.';
@@ -260,6 +262,10 @@ export default function TeamsPage() {
 
   async function create(values: TeamName) {
     if (pendingRef.current) return;
+    if (newKind === 'Other' && !newKindLabel.trim()) {
+      setMessage({ kind: 'error', text: 'Type what kind of team this is, such as Barangay rescue. Nothing was created.' });
+      return;
+    }
     pendingRef.current = true;
     setBusy(true);
     setMessage(null);
