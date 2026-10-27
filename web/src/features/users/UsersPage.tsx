@@ -94,7 +94,7 @@ export default function UsersPage() {
         },
       });
       reset(EMPTY_ACCOUNT);
-      setMessage({ kind: 'ok', text: 'Staff account created. Share the first password privately. They can use Forgot password on the sign-in page to change it.' });
+      setMessage(null);
       await load();
     } catch (err) {
       setMessage({ kind: 'error', text: errorText(err) });

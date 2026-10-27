@@ -59,7 +59,10 @@ export default function AnalyticsPage() {
   const byStatus = Object.entries(stats?.byStatus ?? {}).map(toDatum);
   const perDay = (stats?.perDay ?? []).map((d) => ({ label: d.date, value: d.count }));
   const perMonth = (stats?.perMonth ?? []).map((m) => ({ label: m.month, value: m.count }));
-  const byPriority = Object.entries(stats?.byPriority ?? {}).map(toDatum);
+  // Priorities run from most urgent to least, not by count.
+  const PRIORITY_ORDER = ['critical', 'high', 'medium', 'low'];
+  const byPriority = Object.entries(stats?.byPriority ?? {}).map(toDatum)
+    .sort((a, b) => (PRIORITY_ORDER.indexOf(a.label) + 1 || 99) - (PRIORITY_ORDER.indexOf(b.label) + 1 || 99));
   const byPlace = Object.entries(stats?.byPlace ?? {}).map(toDatum);
   const byArea = Object.entries(stats?.byArea ?? {}).map(toDatum);
 
@@ -107,7 +110,7 @@ export default function AnalyticsPage() {
           <ChartCard title="Incidents by type" labelHeader="Type" data={byType} />
           <ChartCard title="Incidents by status" labelHeader="Status" data={byStatus} />
           <ChartCard title="Incidents by priority" labelHeader="Priority" data={byPriority} />
-          <ChartCard title="Incidents per month" labelHeader="Month" data={perMonth} />
+          <ChartCard title="Incidents per month" labelHeader="Month" data={perMonth} chronological formatLabel={(m) => m} />
           <ChartCard title="Incidents per day" labelHeader="Day" data={perDay} chronological />
           <ChartCard title="Reports by area" labelHeader="Area" data={byArea} />
           <ChartCard title="Top places reported" labelHeader="Place" data={byPlace} />

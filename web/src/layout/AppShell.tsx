@@ -4,6 +4,7 @@ import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck,
 import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
 import NotificationBell from '../features/resident/NotificationBell';
+import ChangePassword from '../features/account/ChangePassword';
 import Banner from '../components/calm/Banner';
 
 interface NavItem {
@@ -97,6 +98,7 @@ export default function AppShell({ title, children }: AppShellProps) {
           {user && <NotificationBell key={user.uid} uid={user.uid} reportHref={(id) => role === 'responder' ? `/assignments/${encodeURIComponent(id)}` : `/incidents/${encodeURIComponent(id)}`} />}
           <span className="account-avatar" aria-hidden="true">{(user?.displayName || user?.email || 'R').slice(0, 1).toUpperCase()}</span>
           <span>{user?.displayName || user?.email} ({role})</span>
+          <ChangePassword />
           <button type="button" className="btn btn--ghost" onClick={onSignOut}>Sign out</button>
           </div>
         </header>

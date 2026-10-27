@@ -167,7 +167,7 @@ export default function AccountsPanel({ teams, currentUid, teamsUnavailable = fa
       setEmail('');
       setPassword('');
       setTeam('');
-      setSaved('Staff account created.');
+      setSaved('');
       setNotice('They can open Sign in and choose Forgot password to set their password.');
       // A successful creation must never become a "creation failed" error if only the refresh fails.
       try {

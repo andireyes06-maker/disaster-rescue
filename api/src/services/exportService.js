@@ -31,6 +31,11 @@ export function toCsv(reports) {
   return [CSV_COLUMNS, ...rows].map((row) => row.map(cell).join(',')).join('\r\n') + '\r\n';
 }
 
+// A readable summary: headline figures, one table per breakdown, and the incident list.
+// Coordinates are never printed; each incident shows its place name, or its area when no name was given.
+const cap = (s) => (s ? String(s).charAt(0).toUpperCase() + String(s).slice(1) : '');
+const PRIORITY_ORDER = ['critical', 'high', 'medium', 'low'];
+
 export function toPdf(stats, reports, { sampleLabel = null } = {}) {
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({ size: 'A4', margin: 50 });
@@ -38,25 +43,78 @@ export function toPdf(stats, reports, { sampleLabel = null } = {}) {
     doc.on('data', (c) => chunks.push(c));
     doc.on('end', () => resolve(Buffer.concat(chunks)));
     doc.on('error', reject);
+    const LEFT = 50;
+    const BOTTOM = 780;
+    const room = (height = 20) => { if (doc.y + height > BOTTOM) doc.addPage(); };
 
-    const list = (obj) => Object.entries(obj).map(([k, v]) => `${k}: ${v}`).join(', ') || 'none';
-    doc.fontSize(18).text('Incident summary');
-    if (sampleLabel) doc.fontSize(10).text(sampleLabel);
-    doc.moveDown();
-    doc.fontSize(11)
-      .text(`Total: ${stats.total}   Open: ${stats.open}   Resolved: ${stats.resolved}`)
-      .text(`Average response (minutes): ${stats.avgResponseMinutes ?? 'n/a'}`)
-      .text(`People rescued: ${stats.peopleRescued}`)
-      .text(`By type: ${list(stats.byType)}`)
-      .text(`By status: ${list(stats.byStatus)}`)
-      .text(`By priority: ${list(stats.byPriority)}`);
-    doc.moveDown();
-    doc.fontSize(13).text('Incidents');
+    const heading = (text) => {
+      room(40);
+      doc.moveDown(0.6).font('Helvetica-Bold').fontSize(13).fillColor('#1e1b2e').text(text).font('Helvetica');
+      doc.moveDown(0.2);
+    };
+    const line = (label, value) => {
+      room();
+      const y = doc.y;
+      doc.font('Helvetica').fontSize(10).fillColor('#1e1b2e');
+      doc.text(label, LEFT, y, { width: 330 });
+      doc.text(String(value), LEFT + 330, y, { width: 165, align: 'right' });
+      doc.y = Math.max(doc.y, y + 14);
+    };
+    const breakdown = (text, obj, { label = cap, order = null } = {}) => {
+      heading(text);
+      const entries = Object.entries(obj ?? {});
+      if (!entries.length) { line('No reports in this period', ''); return; }
+      if (order) entries.sort(([a], [b]) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99));
+      for (const [k, v] of entries) line(label(k), v);
+    };
+
+    doc.font('Helvetica-Bold').fontSize(18).fillColor('#1e1b2e').text('I-Report incident summary');
+    doc.font('Helvetica').fontSize(10).fillColor('#5b5870').text(`Generated ${new Date().toISOString().slice(0, 10)}`);
+    if (sampleLabel) doc.text(sampleLabel);
+
+    heading('Key figures');
+    line('Total reports', stats.total);
+    line('Open', stats.open);
+    line('Resolved or closed', stats.resolved);
+    line('People rescued', stats.peopleRescued);
+    line('Average response (minutes)', stats.avgResponseMinutes ?? 'not enough data');
+
+    breakdown('Reports by type', stats.byType);
+    breakdown('Reports by priority', stats.byPriority, { order: PRIORITY_ORDER });
+    breakdown('Reports by status', stats.byStatus);
+    breakdown('Reports by area', stats.byArea);
+    heading('Reports per month');
+    if (!stats.perMonth?.length) line('No reports in this period', '');
+    for (const m of stats.perMonth ?? []) line(m.month, m.count);
+    breakdown('Most reported places', stats.byPlace);
+
+    heading('Incidents');
+    const cols = [
+      { h: 'Reference', x: LEFT, w: 75 },
+      { h: 'Type', x: LEFT + 78, w: 60 },
+      { h: 'Status', x: LEFT + 140, w: 95 },
+      { h: 'Priority', x: LEFT + 238, w: 60 },
+      { h: 'Area', x: LEFT + 302, w: 95 },
+      { h: 'Place', x: LEFT + 400, w: 95 },
+    ];
+    const header = () => {
+      const y = doc.y;
+      doc.font('Helvetica-Bold').fontSize(9).fillColor('#5b5870');
+      for (const c of cols) doc.text(c.h, c.x, y, { width: c.w });
+      doc.y = y + 14;
+      doc.font('Helvetica').fillColor('#1e1b2e');
+    };
+    header();
     doc.fontSize(9);
     for (const r of reports) {
-      const at = r.location ? `${r.location.lat}, ${r.location.lng}` : 'no location';
-      doc.text(`${r.reference} | ${r.type} | ${r.status} | ${r.priority} | ${at}`);
+      room(16);
+      if (doc.y < 60) header();
+      const y = doc.y;
+      const values = [r.reference ?? '', cap(r.type), cap(r.status), cap(r.priority), r.area ?? '', r.placeName || r.addressText || r.area || 'Not named'];
+      cols.forEach((c, i) => doc.text(String(values[i]), c.x, y, { width: c.w - 4, ellipsis: true }));
+      doc.y = y + 14;
     }
+    if (!reports.length) line('No incidents in this period', '');
     doc.end();
   });
 }

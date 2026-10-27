@@ -11,6 +11,8 @@ interface ChartCardProps {
   labelHeader: string;
   data: ChartDatum[];
   chronological?: boolean;
+  /** How a time-axis label is printed. Days drop the year; months are shown as they are. */
+  formatLabel?: (label: string) => string;
 }
 
 const LABEL_LIMIT = 30;
@@ -31,7 +33,7 @@ function CategoryTick({ x, y, payload }: { x?: number; y?: number; payload?: { v
 }
 
 // Each chart has a visible text table of the same data, for screen readers and copy-paste.
-export default function ChartCard({ title, labelHeader, data, chronological = false }: ChartCardProps) {
+export default function ChartCard({ title, labelHeader, data, chronological = false, formatLabel }: ChartCardProps) {
   const titleId = useId();
   return (
     <section className="card chart-card" aria-labelledby={titleId}>
@@ -41,7 +43,7 @@ export default function ChartCard({ title, labelHeader, data, chronological = fa
       ) : (
         <>
           <div role="img" aria-label={`${title} chart`} className="chart-card__chart">
-            {chronological ? <ResponsiveContainer width="100%" height={250}><AreaChart data={data} margin={{ top: 16, right: 18, bottom: 8, left: -22 }}><CartesianGrid vertical={false} stroke="var(--color-mist)" /><XAxis dataKey="label" tick={{ fontSize: '0.8125rem' }} tickFormatter={(label: string) => label.slice(5)} /><YAxis allowDecimals={false} tick={{ fontSize: '0.8125rem' }} /><Tooltip /><Area type="monotone" dataKey="value" stroke="#6D28D9" fill="#EFE8FF" strokeWidth={2} isAnimationActive={false} /></AreaChart></ResponsiveContainer> : <ResponsiveContainer width="100%" height={Math.max(240, data.length * 40 + 24)}>
+            {chronological ? <ResponsiveContainer width="100%" height={250}><AreaChart data={data} margin={{ top: 16, right: 18, bottom: 8, left: -22 }}><CartesianGrid vertical={false} stroke="var(--color-mist)" /><XAxis dataKey="label" tick={{ fontSize: '0.8125rem' }} tickFormatter={(label: string) => (formatLabel ? formatLabel(label) : label.slice(5))} /><YAxis allowDecimals={false} tick={{ fontSize: '0.8125rem' }} /><Tooltip /><Area type="monotone" dataKey="value" stroke="#6D28D9" fill="#EFE8FF" strokeWidth={2} isAnimationActive={false} /></AreaChart></ResponsiveContainer> : <ResponsiveContainer width="100%" height={Math.max(240, data.length * 40 + 24)}>
               <BarChart data={data} layout="vertical" margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
                 <CartesianGrid horizontal={false} stroke="var(--color-mist)" />
                 <XAxis type="number" allowDecimals={false} tick={{ fontSize: '0.8125rem' }} />

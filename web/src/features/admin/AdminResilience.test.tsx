@@ -40,7 +40,7 @@ it('keeps account creation success separate from a failed list refresh', async (
   await user.type(screen.getByLabelText('New account email'), 'new@example.test');
   await user.type(screen.getByLabelText('New account first password'), 'Harbor-test-2026');
   await user.click(screen.getByRole('button', { name: 'Create account' }));
-  expect(await screen.findByText('Staff account created.')).toBeInTheDocument();
+  expect(await screen.findByLabelText('New account name')).toHaveValue('');
   expect(screen.getByRole('alert')).toHaveTextContent('account list could not be refreshed');
   expect(screen.queryByText(/Could not create the account/)).not.toBeInTheDocument();
 });

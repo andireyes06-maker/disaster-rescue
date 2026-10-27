@@ -15,10 +15,10 @@ export default function AdminPage() {
       <Link to="/audit"><span><strong>Audit log</strong><small>Review recorded account and incident changes</small></span><ArrowUpRight size={17} aria-hidden="true" /></Link>
       <Link to="/analytics"><span><strong>Analytics and exports</strong><small>Review patterns and download reports</small></span><ArrowUpRight size={17} aria-hidden="true" /></Link>
     </nav>
-    <section className="admin-settings-panel" aria-labelledby="system-heading">
-      <header><h2 id="system-heading">System health and settings</h2><p>Check availability and maintain resident guidance.</p></header>
+    <details className="admin-section admin-settings-panel" open>
+      <summary><div><h2 id="system-heading">System health and settings</h2><p>Check availability and maintain resident guidance.</p></div><ChevronDown size={20} aria-hidden="true" /></summary>
       <div className="admin-system"><section aria-label="Service availability"><HealthPanel /></section><section aria-labelledby="guidance-heading"><h3 id="guidance-heading">Resident guidance</h3><SettingsPanel /></section></div>
-    </section>
+    </details>
     <details className="admin-section" open={params.get('panel') === 'roles' || undefined}>
       <summary><div><h2 id="roles-heading">Access roles</h2><p>Review or change an account’s access level.</p></div><ChevronDown size={20} aria-hidden="true" /></summary>
       <div className="admin-section__body"><AccountsPanel teams={[]} currentUid={user?.uid} rolesOnly /></div>

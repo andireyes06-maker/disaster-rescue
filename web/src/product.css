@@ -349,3 +349,7 @@ table td { padding: 16px 18px; font-variant-numeric: tabular-nums; }
 .team-summary__stats > div { display: flex; flex-direction: row-reverse; justify-content: flex-end; align-items: baseline; gap: 8px; margin: 0; }
 .team-summary__stats dd { margin: 0; font-size: 1.25rem; font-weight: 700; }
 .team-summary__stats dt { margin: 0; font-size: 0.875rem; color: var(--color-muted); }
+
+.change-password { width: min(420px, calc(100% - 32px)); border: 1px solid var(--color-mist); border-radius: 14px; padding: 24px; }
+.change-password__form { display: grid; gap: 8px; }
+.change-password__form h2 { margin: 0 0 4px; font-size: 1.125rem; }
