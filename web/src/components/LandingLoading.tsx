@@ -8,7 +8,7 @@ export default function LandingLoading() {
   return <div className="landing-loading">
     <header className="landing-loading__header"><Brand /></header>
     <main id="main-content" tabIndex={-1}>
-      <h1 className="visually-hidden">Loading Rescue Reports</h1>
+      <h1 className="visually-hidden">Loading I-Report</h1>
       <Skeleton label="Loading your session…">
         <div className="landing-loading__opening">
           <div className="landing-loading__copy">

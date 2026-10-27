@@ -9,7 +9,7 @@ export default class PageBoundary extends Component<{ resetKey: string; children
   private fallback = createRef<HTMLElement>();
   static getDerivedStateFromError() { return { failed: true }; }
   componentDidCatch() {
-    document.title = 'Page unavailable · Rescue Reports';
+    document.title = 'Page unavailable · I-Report';
     this.fallback.current?.focus();
   }
   componentDidUpdate(previous: Readonly<{ resetKey: string; children: ReactNode }>) {

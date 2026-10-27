@@ -31,13 +31,13 @@ describe('access page landmarks', () => {
   it('sign-in has a skip link to the main landmark and its own title', () => {
     render(<MemoryRouter><LoginPage /></MemoryRouter>);
     expectSkipToMain();
-    expect(document.title).toBe('Sign in · Rescue Reports');
+    expect(document.title).toBe('Sign in · I-Report');
   });
 
   it('registration has a skip link to the main landmark and its own title', () => {
     render(<MemoryRouter><ResidentSignUp /></MemoryRouter>);
     expectSkipToMain();
-    expect(document.title).toBe('Create a resident account · Rescue Reports');
+    expect(document.title).toBe('Create a resident account · I-Report');
   });
 
   it('Forbidden has a skip link to the main landmark and its own title', () => {
@@ -45,6 +45,6 @@ describe('access page landmarks', () => {
     h.role = null;
     render(<MemoryRouter><Forbidden /></MemoryRouter>);
     expectSkipToMain();
-    expect(document.title).toBe('Access denied · Rescue Reports');
+    expect(document.title).toBe('Access denied · I-Report');
   });
 });

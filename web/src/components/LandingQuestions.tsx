@@ -15,7 +15,7 @@ const questions = [
   },
   {
     title: 'Do I need an account?',
-    answer: 'Yes. Residents send and track reports in the Rescue Reports mobile app. Administrators use the website to review reports and coordinate the response.',
+    answer: 'Yes. Residents send and track reports in the I-Report mobile app. Administrators use the website to review reports and coordinate the response.',
   },
 ];
 

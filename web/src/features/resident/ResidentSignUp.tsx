@@ -28,7 +28,7 @@ export default function ResidentSignUp() {
   const [busy, setBusy] = useState(false);
   const pendingRef = useRef(false);
 
-  useEffect(() => { document.title = 'Create a resident account · Rescue Reports'; }, []);
+  useEffect(() => { document.title = 'Create a resident account · I-Report'; }, []);
 
   const set =(field: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setValues((v) => ({ ...v, [field]: e.target.value }));

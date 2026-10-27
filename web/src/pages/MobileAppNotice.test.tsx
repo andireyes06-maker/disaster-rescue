@@ -6,7 +6,7 @@ import MobileAppNotice from './MobileAppNotice';
 describe('MobileAppNotice', () => {
   it('tells residents to use the mobile app and points staff to the website', () => {
     render(<MemoryRouter><MobileAppNotice /></MemoryRouter>);
-    expect(screen.getByRole('heading', { name: 'Use the Rescue Reports mobile app' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Use the I-Report mobile app' })).toBeInTheDocument();
     expect(screen.getByText(/Residents use the mobile app/)).toBeInTheDocument();
     expect(screen.getByText(/The website is for administrators and rescue teams/)).toBeInTheDocument();
   });

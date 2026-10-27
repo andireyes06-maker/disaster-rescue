@@ -47,7 +47,7 @@ class WelcomePage extends StatelessWidget {
                               const SizedBox(width: 12),
                               const Expanded(
                                 child: Text(
-                                  'Rescue Reports',
+                                  'I-Report',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -181,7 +181,7 @@ class WelcomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       const Text(
-                        'Rescue Reports',
+                        'I-Report',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 4),

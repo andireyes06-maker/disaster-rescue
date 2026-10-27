@@ -63,7 +63,7 @@ export default function AppShell({ title, children }: AppShellProps) {
       setSignOutError('Could not sign out. Check your connection and try again.');
     }
   }
-  useEffect(() => { document.title = `${title} · Rescue Reports`; }, [title]);
+  useEffect(() => { document.title = `${title} · I-Report`; }, [title]);
   return (
     <div className="shell">
       <a className="skip-link" href="#main-content">Skip to content</a>

@@ -76,7 +76,7 @@ class AccessHold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Rescue Reports')),
+      appBar: AppBar(title: const Text('I-Report')),
       body: ProductViewport(
         child: ListView(
           padding: const EdgeInsets.all(24),
@@ -184,7 +184,7 @@ class WebDashboardNotice extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = context.read<AuthController>();
     return Scaffold(
-      appBar: AppBar(title: const Text('Rescue Reports')),
+      appBar: AppBar(title: const Text('I-Report')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),

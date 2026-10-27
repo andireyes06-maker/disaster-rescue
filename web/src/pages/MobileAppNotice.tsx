@@ -7,7 +7,7 @@ import './public.css';
 // Residents use the Flutter mobile app. Administrators and rescue teams use the website.
 // This page replaces the old resident and responder web pages, so it offers no dashboard or report links.
 export default function MobileAppNotice() {
-  useEffect(() => { document.title = 'Use the mobile app · Rescue Reports'; }, []);
+  useEffect(() => { document.title = 'Use the mobile app · I-Report'; }, []);
   return (
     <div className="login-page">
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -16,7 +16,7 @@ export default function MobileAppNotice() {
         <div className="card login__card forbidden">
           <header className="forbidden__head">
             <Smartphone aria-hidden="true" />
-            <h1>Use the Rescue Reports mobile app</h1>
+            <h1>Use the I-Report mobile app</h1>
           </header>
           <div className="forbidden__body">
             <p>Residents use the mobile app to send reports and follow updates.</p>

@@ -162,12 +162,12 @@ describe('AssignmentsPage title and order', () => {
   beforeEach(() => {
     state.team = 'team-a';
     state.reports = [];
-    document.title = 'Rescue Reports';
+    document.title = 'I-Report';
   });
 
   it('sets the Assignments document title on first render', () => {
     renderPage();
-    expect(document.title).toBe('Assignments · Rescue Reports');
+    expect(document.title).toBe('Assignments · I-Report');
   });
 
   it('labels the assignment list as oldest first, in the order the hook returns it', () => {

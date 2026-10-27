@@ -13,7 +13,7 @@ describe('website routes after the mobile-app clarification', () => {
     '%s shows the mobile-app notice instead of a website page',
     async (path) => {
       render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>);
-      expect(await screen.findByRole('heading', { name: 'Use the Rescue Reports mobile app' })).toBeInTheDocument();
+      expect(await screen.findByRole('heading', { name: 'Use the I-Report mobile app' })).toBeInTheDocument();
     },
   );
 });

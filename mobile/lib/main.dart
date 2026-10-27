@@ -98,7 +98,7 @@ Future<void> main() async {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
-        title: 'Rescue Reports',
+        title: 'I-Report',
         theme: AppTheme.light,
         home: const RoleGate(),
       ),

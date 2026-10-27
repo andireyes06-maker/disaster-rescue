@@ -19,9 +19,9 @@ describe('Landing', () => {
   });
 
   it('restores the landing title and puts safety guidance before the film', () => {
-    document.title = 'Sign in · Rescue Reports';
+    document.title = 'Sign in · I-Report';
     renderLanding();
-    expect(document.title).toBe('Rescue Reports · Report clearly. Respond together.');
+    expect(document.title).toBe('I-Report · Report clearly. Respond together.');
     const safety = document.querySelector('.service-safety')!;
     const film = document.querySelector('.response-film')!;
     expect(safety.compareDocumentPosition(film) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
@@ -45,13 +45,13 @@ describe('Landing', () => {
     renderLanding();
     const path = document.getElementById('residents');
     expect(path).not.toBeNull();
-    expect(within(path!).getByText('Residents send reports and follow updates in the Rescue Reports mobile app.')).toBeInTheDocument();
+    expect(within(path!).getByText('Residents send reports and follow updates in the I-Report mobile app.')).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Create a resident account' })).toBeNull();
   });
 
   it('explains that residents use the mobile app and staff use the website', () => {
     renderLanding();
-    expect(screen.getByText('Use the Rescue Reports mobile app to submit reports, add a location and check updates. The website is for administrators and rescue teams.')).toBeInTheDocument();
+    expect(screen.getByText('Use the I-Report mobile app to submit reports, add a location and check updates. The website is for administrators and rescue teams.')).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /app store|google play/i })).toBeNull();
   });
 

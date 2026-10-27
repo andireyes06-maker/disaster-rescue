@@ -18,7 +18,7 @@ const ROLE_NAME: Record<Role, string> = {
 export default function Forbidden() {
   const { user, role, logout } = useAuth();
   const [signOutError, setSignOutError] = useState('');
-  useEffect(() => { document.title = 'Access denied · Rescue Reports'; }, []);
+  useEffect(() => { document.title = 'Access denied · I-Report'; }, []);
   async function onSignOut() {
     setSignOutError('');
     try {
@@ -35,7 +35,7 @@ export default function Forbidden() {
   if (role === 'resident') {
     body = (
       <>
-        <p>Residents use the Rescue Reports mobile app. The website is for administrators and rescue teams.</p>
+        <p>Residents use the I-Report mobile app. The website is for administrators and rescue teams.</p>
         <div className="forbidden__actions">{signOut}</div>
       </>
     );

@@ -17,7 +17,7 @@ describe('Forbidden', () => {
       authState.user = { uid: 'r1' };
       authState.role = role;
       const { unmount } = render(<MemoryRouter><Forbidden /></MemoryRouter>);
-      expect(screen.getByText('Residents use the Rescue Reports mobile app. The website is for administrators and rescue teams.')).toBeInTheDocument();
+      expect(screen.getByText('Residents use the I-Report mobile app. The website is for administrators and rescue teams.')).toBeInTheDocument();
       expect(screen.queryByRole('link', { name: 'Go to my page' })).not.toBeInTheDocument();
       unmount();
     }

@@ -50,7 +50,7 @@ class _IncidentMapPageState extends State<IncidentMapPage> {
   /// Shares the incidents now listed, with a map link for each that has a point.
   Future<void> _share(List<AssignedReport> shown) async {
     final lines = <String>[
-      'Rescue Reports: ${shown.length} incident${shown.length == 1 ? '' : 's'}',
+      'I-Report: ${shown.length} incident${shown.length == 1 ? '' : 's'}',
     ];
     for (final r in shown.take(10)) {
       final where = r.addressText?.trim().isNotEmpty == true

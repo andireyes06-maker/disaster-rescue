@@ -242,7 +242,7 @@ export default function AssignmentsPage() {
   const drafts = useDrafts();
   const scope = user ? `${user.uid}|${role ?? ''}|${team ?? ''}` : '';
   const closedDrafts = [...drafts.values()].filter((d) => d.closed && hasContent(d));
-  useEffect(() => { document.title = 'Assignments · Rescue Reports'; }, []);
+  useEffect(() => { document.title = 'Assignments · I-Report'; }, []);
 
   if (!team) {
     return (

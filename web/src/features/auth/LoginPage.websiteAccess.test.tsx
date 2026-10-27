@@ -24,7 +24,7 @@ describe('LoginPage website access', () => {
     authState.error = 'resident_mobile_only';
     render(<MemoryRouter><LoginPage /></MemoryRouter>);
     expect(screen.getByRole('alert')).toHaveTextContent(
-      'Residents use the Rescue Reports mobile app. This account cannot sign in to the website.',
+      'Residents use the I-Report mobile app. This account cannot sign in to the website.',
     );
   });
 });
