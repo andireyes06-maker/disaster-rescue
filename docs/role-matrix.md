@@ -12,7 +12,7 @@ Source of truth: `docs/superpowers/specs/2026-10-23-professor-clarification-desi
 
 ## Rules that hold now
 
-- Queue order: awaiting-action reports are oldest first, ties broken by report id. Priority does not change the order. Closed reports follow, newest first.
+- Queue order: awaiting-action reports are listed Critical first, then High, Medium and Low; inside each priority level the oldest report comes first (first come, first served), ties broken by report id. The responder's assigned list is strictly oldest first. Closed reports follow, newest first.
 - Validation: one action, `PATCH /api/reports/:id/verify`, admin only. It records `verifiedBy` (uid and name) and `verifiedAt`. A second validation returns 409 and writes no second validation entry.
 - Validation is a human review. The system does not check whether a photo is authentic. Upload checks (format and size) are separate.
 - No account, report, history or priority field is deleted by this change.

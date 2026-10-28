@@ -39,7 +39,7 @@ Team/role changes hold protected content while profile and claims synchronize. R
 
 ## Staff web instructions
 
-- Administrator only: Dashboard /dashboard lists reports awaiting action, oldest first; priority does not change the order. Incident review /incidents/:id: Validate report (manual review, with the validator and time shown afterwards), reject with a reason, mark duplicate, priority, classification, assign team, and close. Map /map, Monitor /monitor, Analytics /analytics, Audit /audit, Teams /teams, Users /users, and Admin /admin.
+- Administrator only: Dashboard /dashboard lists reports awaiting action, Critical first, then High, Medium and Low, oldest first within each level. Incident review /incidents/:id: Validate report (manual review, with the validator and time shown afterwards), reject with a reason, mark duplicate, priority, classification, assign team, and close. Map /map, Monitor /monitor, Analytics /analytics, Audit /audit, Teams /teams, Users /users, and Admin /admin.
 - Dispatcher and DMO: no website access. Sign-in shows "Website access is for administrators only." Do not present these roles as web workspaces.
 - Responder: Flutter for field work; the website /assignments page shows the team's assignments and closed reports.
 - Resident: Flutter only. Old web paths show the mobile-app notice.

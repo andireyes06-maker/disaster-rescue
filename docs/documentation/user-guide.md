@@ -43,11 +43,11 @@ Sign in at the website. You land on the Admin page. The menu has Dashboard, Map,
 
 ### Review and act on a report
 
-1. **Dashboard.** The incident inbox lists reports awaiting action, oldest first. Priority does not change the order. Quick views show All reports, Needs verification and Active, with a count for each. Search by type, place, description or reference.
+1. **Dashboard.** The incident inbox lists reports awaiting action, Critical first, then High, Medium and Low; inside each priority level the oldest report comes first (first come, first served). Quick views show All reports, Needs verification and Active, with a count for each. Search by type, place, description or reference.
 2. **Open a report** (`/incidents/:id`). Check the description and photos.
 3. **Validate report.** This is a human check. The report then shows "Validated by [name] at [time]". Validating a report twice is refused.
 4. **Reject or mark duplicate** with a reason, if the report is not valid or already reported.
-5. **Set priority and classification.** Priority does not reorder the queue.
+5. **Set priority and classification.** Priority sets where the report sits in the queue: higher priority levels are listed first.
 6. **Assign a team.** Choose a rescue team that is available. The team is busy from assignment until the report is closed.
 7. **Close** the report after the rescuer has resolved it. Closing releases the team and writes an audit entry.
 
@@ -77,4 +77,4 @@ Dispatcher and DMO accounts cannot use the website. Signing in with one signs it
 | "Use the Rescue Reports mobile app" | Expected for residents on the website. Use the phone app. |
 | "Access not confirmed yet" | Wait a moment, then choose "Retry access check". Your role or team may be changing. |
 | Admin dashboard says "Loading incident inbox" for a long time | A database index may still be building after a deploy. Wait a few minutes, then reload. |
-| A newer report is not in the phone list | Use "Load older". The phone list shows the oldest 50 assignments first, and priority does not change that window (see the audit). |
+| A newer report is not in the phone list | Use "Load older". The phone list shows the oldest 50 assignments first, and priority does not change that window, because the responder list is strictly oldest first (see the audit). |

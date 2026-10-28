@@ -76,7 +76,9 @@ Statuses (`api/src/domain/workflow.js`):
 | Rescue in Progress | Resolved | rescuer | the rescuer reports the rescue complete |
 | Resolved | Closed | administrator | closed. The team is released here |
 
-Queue order: reports awaiting action are shown oldest first, ties broken by report id. Priority does not change the order. Closed reports follow, newest first.
+Queue order: Reports awaiting action are listed Critical first, then High, Medium and Low; inside each priority level the oldest report comes first (first come, first served). Ties are broken by report id. Closed reports follow, newest first. The responder's assigned list is strictly oldest first.
+
+Note on the ordering rule: an earlier instructor message described ordering by time and date only. The product keeps priority first because the project brief's FR-06 requires prioritizing reports by urgency and risk. The instructor can be asked to confirm.
 
 Team release: a team stays busy from assignment until the report is closed, not when it is resolved. This is a known process point (see the audit).
 

@@ -54,7 +54,7 @@ export async function list({ repo }, user, query = {}) {
   if (query.verified === 'true' || query.verified === 'false') {
     rows = rows.filter((r) => Boolean(r.verified) === (query.verified === 'true'));
   }
-  // Professor clarification (2026-10-23): the staff queue is oldest first; priority does not reorder it.
+  // Staff queue: priority first (critical, high, medium, low), oldest first within each priority. See domain/queueOrder.js.
   if (user.role === 'admin' || user.role === 'responder') rows = queueFirst(rows);
   else if (user.role === 'resident') rows = [...rows].sort(newestFirst);
   const out = rows.map((r) => projectReportForRole(r, user.role, user.uid, teamId)).filter(Boolean);

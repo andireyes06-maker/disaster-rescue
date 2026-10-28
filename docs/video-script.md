@@ -11,7 +11,7 @@ Architecture presenter: introduce report-to-response coordination. Explain React
 Resident-flow presenter (Flutter app, not the website): welcome, sign in, report type, location, details and photos, review, submit, confirmed reference, My Reports and the bell. Explain required markers and error icons. Say that submission does not guarantee rescue. If the old web address /register or /my is opened, it shows the mobile-app notice instead of a website form.
 ## 2:15–4:15 · Dispatch and response
 
-Administrator presenter (web /dashboard): the queue is oldest first and says so. Open a report, check the photos, press Validate report, show Validated by [name] on [time]. Set priority and classification (priority does not change the order), then assign a team. Responder presenter (Flutter): assignment, acknowledge, operation update, live history. Resolve as responder, then close as administrator and show the audit entry.
+Administrator presenter (web /dashboard): the queue is Critical first, then High, Medium and Low, oldest first within each level, and says so. Open a report, check the photos, press Validate report, show Validated by [name] on [time]. Set priority and classification (the report moves to its priority level in the queue), then assign a team. Responder presenter (Flutter): assignment, acknowledge, operation update, live history. Resolve as responder, then close as administrator and show the audit entry.
 ## 4:15–5:15 · Monitoring, analytics and admin
 
 Administrator presenter (web): /monitor and /analytics with chart tables and export; /admin, and Teams and Users. Show one refusal: a dispatcher or DMO account signs in and sees "Website access is for administrators only." The administrator holds their functions.
