@@ -59,6 +59,21 @@ void main() {
     expect(find.text('Resolved'), findsOneWidget);
   });
 
+  testWidgets('a report is named by its type label, never by the key', (t) async {
+    await open(t);
+    env.reports.controller.add([
+      ReportSummary(id: 'a', type: 'power_line', description: 'wire down', status: 'Submitted', createdAt: DateTime(2026, 10, 3)),
+      ReportSummary(id: 'b', type: 'other', typeDetail: 'gas leak', description: 'smell of gas', status: 'Submitted', createdAt: DateTime(2026, 10, 2)),
+      ReportSummary(id: 'c', type: 'zzz', description: 'new kind', status: 'Submitted', createdAt: DateTime(2026, 10, 1)),
+    ]);
+    await t.pumpAndSettle();
+    expect(find.text('Live Wire'), findsOneWidget);
+    expect(find.text('Other: gas leak'), findsOneWidget);
+    expect(find.text('Other'), findsOneWidget);
+    expect(find.text('power_line'), findsNothing);
+    expect(find.text('zzz'), findsNothing);
+  });
+
   testWidgets('Cancel is visible only for Submitted and calls cancel', (t) async {
     await open(t);
     env.reports.controller.add([rep('a', 'Submitted'), rep('b', 'Verified')]);

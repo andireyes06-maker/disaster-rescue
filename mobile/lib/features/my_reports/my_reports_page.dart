@@ -7,7 +7,7 @@ import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
 import '../auth/auth_widgets.dart';
-import '../report/report_flow_page.dart' show reportTypeInfo;
+import '../report/report_flow_page.dart' show typeInfoFor;
 import 'status_timeline.dart';
 import '../../theme/product_widgets.dart';
 
@@ -306,7 +306,7 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                 .where((x) => x.id == widget.initial.id)
                 .firstOrNull ??
             widget.initial;
-        final info = reportTypeInfo[r.type] ?? reportTypeInfo['other']!;
+        final info = typeInfoFor(r.type);
         return Scaffold(
           appBar: AppBar(title: const Text('Report details')),
           body: ProductViewport(
@@ -323,7 +323,7 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              info.label,
+                              reportTypeLabel(r.type, r.typeDetail),
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
@@ -434,7 +434,7 @@ class _ResidentReportContent extends StatelessWidget {
   final ReportSummary report;
   @override
   Widget build(BuildContext context) {
-    final info = reportTypeInfo[report.type] ?? reportTypeInfo['other']!;
+    final info = typeInfoFor(report.type);
     return Padding(
       padding: const EdgeInsets.all(18),
       child: Column(
@@ -457,7 +457,7 @@ class _ResidentReportContent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      info.label,
+                      reportTypeLabel(report.type, report.typeDetail),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     if (report.reference != null) ...[

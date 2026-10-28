@@ -156,3 +156,9 @@ The owner authorized an aesthetic audit and fixes across web and Flutter, retain
 - map-tile-free: type-filter icons and map-list incident icons use the shared palette. The viewport remains tile-free in this fixture and is not live-map evidence.
 
 All six changed images were inspected at 390x844. SHA256SUMS.txt records the updated set. These are reviewed widget references; they do not verify a physical device, camera, permissions or hosted services.
+
+## Reviewed change: eight emergency types, 28 October 2026
+
+Reason: Lifeline, Roadblock and Live Wire join the five types (spec `docs/superpowers/specs/2026-10-28-emergency-types-design.md`). Candidate renders were produced with `flutter test --update-goldens` for one test at a time and viewed at 390x844 before keeping them.
+
+- map-tile-free: the Type filter is now one horizontally scrolling row of chips (eight chips wrapped onto several lines overflowed short screens by 58 px at 360x640). The last visible chip is cut off to show it scrolls. The map and list are unchanged. Command: `flutter test test/redesign_visual_test.dart --plain-name "assignment, incident, map and recovery layouts" --update-goldens`.

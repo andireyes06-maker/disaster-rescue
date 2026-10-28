@@ -11,7 +11,7 @@ import '../my_reports/my_reports_page.dart' show StatusChip, formatWhen;
 import 'incident_detail_page.dart';
 import 'team_summary_card.dart';
 import '../../theme/product_widgets.dart';
-import '../report/report_flow_page.dart' show reportTypeInfo;
+import '../report/report_flow_page.dart' show typeInfoFor;
 
 class AssignedListPage extends StatefulWidget {
   const AssignedListPage({super.key});
@@ -265,7 +265,7 @@ class _AssignedTile extends StatelessWidget {
   final AssignedReport report;
   @override
   Widget build(BuildContext context) {
-    final info = reportTypeInfo[report.type] ?? reportTypeInfo['other']!;
+    final info = typeInfoFor(report.type);
     final place = report.addressText?.trim();
     return Card(
       child: InkWell(
@@ -296,7 +296,7 @@ class _AssignedTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          info.label,
+                          reportTypeLabel(report.type, report.typeDetail),
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 3),

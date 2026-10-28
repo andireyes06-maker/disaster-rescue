@@ -24,36 +24,57 @@ export '../../data/report_models.dart'
     show validatePhone, validatePhoto, validateDescription;
 
 class ReportTypeInfo {
-  final String label;
+  /// The stored type key. The name people see is [label], looked up from [reportTypeLabels].
+  final String key;
   final IconData icon;
   final String detail;
-  const ReportTypeInfo(this.label, this.icon, [this.detail = '']);
-  Color get color => AppColors.incident(label);
+  const ReportTypeInfo(this.key, this.icon, [this.detail = '']);
+  String get label => reportTypeLabels[key] ?? 'Other';
+  Color get color => AppColors.incident(key);
 }
 
 const reportTypeInfo = <String, ReportTypeInfo>{
-  'flood': ReportTypeInfo('Flood', Icons.water, 'Rising water or flooding'),
+  'flood': ReportTypeInfo('flood', Icons.water, 'Rising water or flooding'),
   'fire': ReportTypeInfo(
-    'Fire',
+    'fire',
     Icons.local_fire_department_outlined,
     'Flames, smoke or a fire',
   ),
   'earthquake': ReportTypeInfo(
-    'Earthquake',
+    'earthquake',
     Icons.vibration,
     'Ground shaking or damage',
   ),
   'landslide': ReportTypeInfo(
-    'Landslide',
+    'landslide',
     Icons.landscape_outlined,
     'Moving soil or blocked slopes',
   ),
+  'medical': ReportTypeInfo(
+    'medical',
+    Icons.medical_services_outlined,
+    'Someone needs urgent medical help',
+  ),
+  'road_hazard': ReportTypeInfo(
+    'road_hazard',
+    Icons.warning_amber_outlined,
+    'Blocked, damaged or unsafe road',
+  ),
+  'power_line': ReportTypeInfo(
+    'power_line',
+    Icons.bolt,
+    'Fallen, sparking or damaged power line',
+  ),
   'other': ReportTypeInfo(
-    'Other',
+    'other',
     Icons.report_problem_outlined,
-    'Another urgent situation',
+    'Something else. You will describe it next',
   ),
 };
+
+/// The entry for a stored type key. A key this build does not know reads as Other.
+ReportTypeInfo typeInfoFor(String type) =>
+    reportTypeInfo[type] ?? reportTypeInfo['other']!;
 
 const _stepTitles = [
   'What is happening?',

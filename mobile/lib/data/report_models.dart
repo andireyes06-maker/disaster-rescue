@@ -1,6 +1,40 @@
 import 'dart:typed_data';
 
-const reportTypes = ['flood', 'fire', 'earthquake', 'landslide', 'other'];
+/// The report types, in display order. The API (api/src/domain/reportTypes.js) and the web app
+/// (web/src/lib/reportTypes.ts) keep the same keys and labels; api/test/domain/reportTypes.parity.test.js checks them.
+const reportTypes = [
+  'flood',
+  'fire',
+  'earthquake',
+  'landslide',
+  'medical',
+  'road_hazard',
+  'power_line',
+  'other',
+];
+
+/// The name people see for each key. One entry per line: the parity test reads this block.
+const reportTypeLabels = <String, String>{
+  'flood': 'Flood',
+  'fire': 'Fire',
+  'earthquake': 'Earthquake',
+  'landslide': 'Landslide',
+  'medical': 'Lifeline',
+  'road_hazard': 'Roadblock',
+  'power_line': 'Live Wire',
+  'other': 'Other',
+};
+
+/// The name shown for a report's type. An Other report with typed text reads "Other: gas leak";
+/// a key this build does not know reads "Other".
+String reportTypeLabel(String type, [String? typeDetail]) {
+  final label = reportTypeLabels[type];
+  if (label == null) return 'Other';
+  if (type == 'other' && typeDetail != null && typeDetail.isNotEmpty) {
+    return 'Other: $typeDetail';
+  }
+  return label;
+}
 
 const workflowStatuses = [
   'Submitted',
@@ -165,6 +199,9 @@ class SubmitResult {
 class ReportSummary {
   final String id;
   final String type;
+
+  /// What an Other report is about, in the resident's words. Null for every other type.
+  final String? typeDetail;
   final String description;
   final String status;
   final String? priority;
@@ -173,6 +210,7 @@ class ReportSummary {
   const ReportSummary({
     required this.id,
     required this.type,
+    this.typeDetail,
     required this.description,
     required this.status,
     this.priority,
@@ -267,6 +305,9 @@ class MapPoint {
 class AssignedReport {
   final String id;
   final String type;
+
+  /// What an Other report is about, in the resident's words. Null for every other type.
+  final String? typeDetail;
   final String description;
   final String status;
   final String? reference;
@@ -298,6 +339,7 @@ class AssignedReport {
   const AssignedReport({
     required this.id,
     required this.type,
+    this.typeDetail,
     required this.description,
     required this.status,
     this.reference,

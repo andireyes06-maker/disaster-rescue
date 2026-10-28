@@ -90,6 +90,7 @@ class ApiReportsRepository implements ReportsRepository {
               return ReportSummary(
                 id: d.id,
                 type: (m['type'] as String?) ?? 'other',
+                typeDetail: m['typeDetail'] as String?,
                 description: (m['description'] as String?) ?? '',
                 status: (m['status'] as String?) ?? 'Submitted',
                 priority: m['priority'] as String?,
@@ -111,6 +112,7 @@ class ApiReportsRepository implements ReportsRepository {
         return ReportSummary(
           id: doc.id,
           type: data['type'] as String? ?? 'other',
+          typeDetail: data['typeDetail'] as String?,
           description: data['description'] as String? ?? '',
           status: data['status'] as String? ?? 'Submitted',
           priority: data['priority'] as String?,
@@ -711,6 +713,7 @@ AssignedReport _assignedFrom(String id, Map<String, dynamic> m) {
   return AssignedReport(
     id: id,
     type: (m['type'] as String?) ?? 'other',
+    typeDetail: m['typeDetail'] as String?,
     description: (m['description'] as String?) ?? '',
     status: (m['status'] as String?) ?? 'Team Assigned',
     reference: m['reference'] as String?,

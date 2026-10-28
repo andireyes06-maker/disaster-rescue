@@ -48,6 +48,23 @@ Future<void> pumpMap(WidgetTester t, List<AssignedReport> reports) async {
 }
 
 void main() {
+  testWidgets('a located report is named by its label, and an unknown type reads Other', (t) async {
+    await pumpMap(t, [
+      rep(id: 'a', type: 'road_hazard'),
+      rep(id: 'b', type: 'zzz'),
+    ]);
+    expect(find.text('Roadblock'), findsWidgets);
+    expect(find.text('zzz'), findsNothing);
+    expect(find.text('road_hazard'), findsNothing);
+  });
+
+  testWidgets('the Type filter lists all 8 labels', (t) async {
+    await pumpMap(t, [rep()]);
+    for (final label in ['Flood', 'Fire', 'Earthquake', 'Landslide', 'Lifeline', 'Roadblock', 'Live Wire', 'Other']) {
+      expect(find.widgetWithText(FilterChip, label), findsOneWidget, reason: label);
+    }
+  });
+
   group('location rule', () {
     final exact = rep(reporterId: 'resident-1', assignedTeamId: 'team-a');
 

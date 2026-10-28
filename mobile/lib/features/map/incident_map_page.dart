@@ -6,7 +6,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../data/report_models.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/product_widgets.dart';
-import '../report/report_flow_page.dart' show reportTypeInfo;
+import '../report/report_flow_page.dart' show reportTypeInfo, typeInfoFor;
 import '../responder/incident_detail_page.dart';
 import 'map_markers.dart';
 
@@ -40,6 +40,7 @@ class _IncidentMapPageState extends State<IncidentMapPage> {
   bool _matchesQuery(AssignedReport r) {
     if (_query.isEmpty) return true;
     return [
+      reportTypeLabel(r.type, r.typeDetail),
       r.type,
       r.description,
       r.addressText ?? '',
@@ -60,7 +61,7 @@ class _IncidentMapPageState extends State<IncidentMapPage> {
           ? ' https://www.google.com/maps/search/?api=1&query=${r.lat},${r.lng}'
           : '';
       lines.add(
-        '- ${r.reference ?? r.id}: ${r.type}, $where, ${r.status}.$link',
+        '- ${r.reference ?? r.id}: ${reportTypeLabel(r.type, r.typeDetail)}, $where, ${r.status}.$link',
       );
     }
     if (shown.length > 10) lines.add('...and ${shown.length - 10} more.');
@@ -234,24 +235,26 @@ class _FilterBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    // One scrolling row: eight chips wrapped onto several lines would push the map and list off a short screen.
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-      child: Wrap(
-        spacing: 8,
-        runSpacing: 8,
+      child: Row(
         children: [
           FilterChip(
             label: const Text('All'),
             selected: selected == null,
             onSelected: (_) => onSelected(null),
           ),
-          for (final e in reportTypeInfo.entries)
+          for (final e in reportTypeInfo.entries) ...[
+            const SizedBox(width: 8),
             FilterChip(
               avatar: Icon(e.value.icon, size: 18, color: e.value.color),
               label: Text(e.value.label),
               selected: selected == e.key,
               onSelected: (_) => onSelected(e.key),
             ),
+          ],
         ],
       ),
     );
@@ -267,7 +270,7 @@ class _MapMarker extends StatelessWidget {
     final m = priorityMarker(report.priority);
     return Semantics(
       label:
-          '${m.label} priority, ${reportTypeInfo[report.type]?.label ?? report.type}',
+          '${m.label} priority, ${reportTypeLabel(report.type, report.typeDetail)}',
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -300,7 +303,7 @@ class _IncidentRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final m = priorityMarker(report.priority);
-    final typeLabel = reportTypeInfo[report.type]?.label ?? report.type;
+    final typeLabel = reportTypeLabel(report.type, report.typeDetail);
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(AppRadius.lg),
@@ -319,8 +322,7 @@ class _IncidentRow extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  reportTypeInfo[report.type]?.icon ??
-                      Icons.report_problem_outlined,
+                  typeInfoFor(report.type).icon,
                   color: AppColors.incident(report.type),
                 ),
               ),

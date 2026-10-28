@@ -14,7 +14,7 @@ import '../../theme/confirm_dialog.dart';
 import '../auth/auth_widgets.dart';
 import '../my_reports/my_reports_page.dart' show StatusChip, formatWhen;
 import 'operation_form_page.dart';
-import '../report/report_flow_page.dart' show reportTypeInfo;
+import '../report/report_flow_page.dart' show typeInfoFor;
 
 class IncidentDetailPage extends StatefulWidget {
   const IncidentDetailPage({super.key, required this.report});
@@ -225,7 +225,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
         ),
       );
     }
-    final info = reportTypeInfo[r.type] ?? reportTypeInfo['other']!;
+    final info = typeInfoFor(r.type);
     final hasLocation = r.lat != null && r.lng != null;
     final closed = _closedStatuses.contains(r.status);
     // Each team acknowledges once. The button stays locked for this team after leaving and reopening the page.
@@ -257,7 +257,7 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                       const SizedBox(width: 14),
                       Expanded(
                         child: Text(
-                          '${info.label} report',
+                          '${reportTypeLabel(r.type, r.typeDetail)} report',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),

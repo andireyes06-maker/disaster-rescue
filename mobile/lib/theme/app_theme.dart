@@ -20,12 +20,16 @@ class AppColors {
   static const success = Color(0xFF176747);
   static const onHarbor = Color(0xFFDAD2EE);
 
-  // Incident type is separate from priority: blue flood, ember fire, earth quake/slide.
+  // Incident type is separate from priority: blue flood, ember fire, earth quake/slide, rose Lifeline,
+  // olive Roadblock, teal Live Wire. Keyed by the stored type key. The values match the web tokens.
   static Color incident(String type) => switch (type.toLowerCase()) {
     'flood' => const Color(0xFF215D98),
     'fire' => const Color(0xFF9C391B),
     'earthquake' => const Color(0xFF79501F),
     'landslide' => const Color(0xFF376749),
+    'medical' => const Color(0xFFA3294F),
+    'road_hazard' => const Color(0xFF6B6400),
+    'power_line' => const Color(0xFF0B6B73),
     _ => primary,
   };
 }
