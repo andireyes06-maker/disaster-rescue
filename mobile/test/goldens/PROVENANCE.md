@@ -142,3 +142,17 @@ Both committed images were viewed on 28 October 2026. Register shows the Create 
 ## Reviewed change: camera and actual review stage, October28,2026
 
 Owner requested Take photo alongside existing attachments. Codex reviewed separate candidate renders before updating references: report-details now shows Take photo and Choose existing photos, with the same required-photo rule and five-photo limit. report-review previously captured the Details screen with a missing-photo error because the visual fixture never attached the required photo. The fixture now supplies a synthetic valid photo and contact, asserts “1 attached”, and captures the actual Review step. That inspection also found scroll offset was retained from Details; the scroll view now resets per stage, with a regression. The reviewed reference shows Check and send at the top and the real report summary. Both images were visually inspected. Report-type and report-location candidate bytes are unchanged. Before/after images: design-plans/responder-web-audit-2026-10-28/implementation-evidence/mobile-goldens/. No device or real-camera verification is claimed by these images.
+
+
+## Reviewed visual refinement: 28 October 2026
+
+The owner authorized an aesthetic audit and fixes across web and Flutter, retaining purple/harbor branding and declining Android emulators. Candidate screenshots were generated outside the reference folder with GOLDEN_REVIEW_DIR=/private/tmp/ireport-visual-native-candidate and viewed before promotion. Exactly six references changed; nine are byte-identical. Reviewed decisions:
+
+- report-type: incident-specific blue, ember, earth and green icon/selection treatments; radio labels and required markers retained.
+- report-review: selected incident icon uses the same type color.
+- my-reports: incident icon follows the shared type palette.
+- assignments: clearer page title, actual active-count heading and ordering guidance, category color and tighter content groups. No fabricated totals.
+- incident-detail: incident type heading/icon added above real status; location falls back to actual coordinates, and external map action has a measured width.
+- map-tile-free: type-filter icons and map-list incident icons use the shared palette. The viewport remains tile-free in this fixture and is not live-map evidence.
+
+All six changed images were inspected at 390x844. SHA256SUMS.txt records the updated set. These are reviewed widget references; they do not verify a physical device, camera, permissions or hosted services.

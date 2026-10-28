@@ -7,8 +7,11 @@ import { useOwnTeam } from './useOwnTeam';
 import TeamIdentity from './TeamIdentity';
 import AssignmentRows from './AssignmentRows';
 import { AssignmentMap, validPoint, directionsUrl } from './AssignmentMap';
+import StatusBadge from '../reports/StatusBadge';
+import PriorityBadge from '../reports/PriorityBadge';
+import { DisasterSymbol } from '../map/disasterSymbols';
 import PlaceLabel from '../../components/PlaceLabel';
-import { MapPin } from 'lucide-react';
+import { MapPin, Navigation, ArrowUpRight } from 'lucide-react';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
 import ReportWindow from '../../components/ReportWindow';
 import EmptyState from '../../components/calm/EmptyState';
@@ -31,9 +34,17 @@ export default function TeamMap() {
     {own.failed && <Banner tone="error" role="alert">Your headquarters could not load. <button className="btn btn--ghost" type="button" onClick={own.retry}>Retry headquarters</button></Banner>}
     {state.loading ? <Skeleton label="Loading team map"><SkeletonRows rows={2} height={180} /></Skeleton> : <section className="response-map-panel">
       <div className="response-section-head"><h2>Your team on the map</h2><span>{state.reports.filter(r => validPoint(r.location)).length} located in the loaded window</span></div>
-      <AssignmentMap reports={state.reports} hq={own.team?.hq} selected={selected} onSelect={r => setParams({ report: r.id }, { replace: true })} />
-      {selected && <div ref={selectedRef} tabIndex={-1} className="response-map-selection" role="region" aria-label="Selected assignment"><MapPin aria-hidden="true" size={20} /><div><strong>{selected.reference || selected.type} · {selected.status}</strong><PlaceLabel point={selected.location!} saved={selected.placeName || selected.area} /><Link className="btn" to={`/assignments/${encodeURIComponent(selected.id)}`}>Open assignment</Link> <a className="touch-link" href={directionsUrl(selected.location!)} target="_blank" rel="noopener noreferrer">Directions</a></div></div>}
+      <div className={`response-map-layout${selected ? ' has-selection' : ''}`}>
+        <AssignmentMap reports={state.reports} hq={own.team?.hq} selected={selected} onSelect={r => setParams({ report: r.id }, { replace: true })} />
+        {selected && <aside ref={selectedRef} tabIndex={-1} className="response-map-selection" role="region" aria-label="Selected assignment">
+          <div className={`response-incident-symbol response-type--${selected.type}`}><DisasterSymbol type={selected.type} /></div>
+          <div className="response-selection-heading"><h3>{selected.reference || `${selected.type} report`}</h3><div className="response-selection-badges"><PriorityBadge priority={selected.priority} /><StatusBadge status={selected.status} /></div></div>
+          <p className="response-selection-description" tabIndex={0} role="region" aria-label="Incident summary">{selected.description}</p>
+          <div className="response-selection-place"><MapPin aria-hidden="true" size={18} /><div><span>Incident location</span><PlaceLabel point={selected.location!} saved={selected.placeName || selected.area} /></div></div>
+          <div className="response-selection-actions"><Link className="btn" to={`/assignments/${encodeURIComponent(selected.id)}`}>Open assignment <ArrowUpRight size={16} aria-hidden="true" /></Link><a className="btn btn--ghost" href={directionsUrl(selected.location!)} target="_blank" rel="noopener noreferrer"><Navigation size={16} aria-hidden="true" />Directions</a></div>
+        </aside>}
+      </div>
     </section>}
-    <section className="response-list-panel"><div className="response-section-head"><h2>Assignments on this view</h2><span>List alternative · includes reports without pins</span></div>{!state.loading && !state.error && !state.partialError && !state.reports.length ? <p>No open assignments right now.</p> : <AssignmentRows reports={state.reports} />}<ReportWindow order="oldest" count={state.reports.length} windowSize={state.windowSize} loadMore={state.loadMore} /></section>
+    <section className="response-list-panel response-map-list"><div className="response-section-head"><h2>Assignments on this view</h2><span>List alternative · includes reports without pins</span></div>{!state.loading && !state.error && !state.partialError && !state.reports.length ? <p>No open assignments right now.</p> : <AssignmentRows reports={state.reports} />}<ReportWindow order="oldest" count={state.reports.length} windowSize={state.windowSize} loadMore={state.loadMore} /></section>
   </div>;
 }

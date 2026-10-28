@@ -15,6 +15,7 @@ vi.mock('firebase/firestore', () => ({
   collection: vi.fn(() => 'col'),
   query: vi.fn((c: unknown) => c),
   orderBy: vi.fn(),
+  where: vi.fn(),
   limit: vi.fn(),
   onSnapshot: vi.fn((q: unknown, _options: unknown, ok: (s: DocSnap) => void, err: (e: unknown) => void) => {
     h.cb = ok;
@@ -23,6 +24,7 @@ vi.mock('firebase/firestore', () => ({
   }),
 }));
 vi.mock('../../firebase', () => ({ getFirebaseDb: () => ({}) }));
+import { where, limit } from 'firebase/firestore';
 import { useReports } from './useReports';
 
 const snap = (docs: { id: string; data: Record<string, unknown> }[]): DocSnap => ({
@@ -69,4 +71,13 @@ describe('useReports', () => {
     unmount();
     expect(h.unsub).toHaveBeenCalledTimes(1);
   });
+});
+
+
+it('filters closed reports in Firestore before applying the bounded result window', () => {
+  vi.mocked(where).mockClear(); vi.mocked(limit).mockClear();
+  renderHook(() => useReports('Closed'));
+  expect(where).toHaveBeenCalledWith('status', '==', 'Closed');
+  expect(limit).toHaveBeenCalledWith(50);
+  expect(vi.mocked(where).mock.invocationCallOrder.at(-1)!).toBeLessThan(vi.mocked(limit).mock.invocationCallOrder.at(-1)!);
 });

@@ -50,11 +50,12 @@ interface Filters {
 
 
 // Quick views are derived from the full dataset; counts never depend on the visible results.
-type Quick = 'all' | 'verify' | 'active' | 'cancelled';
+type Quick = 'all' | 'verify' | 'active' | 'cancelled' | 'closed';
 const QUICK: ReadonlyArray<readonly [Quick, string]> = [
   ['all', 'All reports'],
   ['verify', 'Needs verification'],
   ['active', 'Active'],
+  ['closed', 'Closed'],
   ['cancelled', 'Cancelled'],
 ];
 
@@ -63,6 +64,7 @@ const isActive = (r: Report): boolean => isOpen(r) && r.status !== 'Resolved';
 const quickMatch = (r: Report, quick: Quick): boolean => {
   if (quick === 'verify') return awaitingVerify(r);
   if (quick === 'active') return isActive(r);
+  if (quick === 'closed') return r.status === 'Closed';
   if (quick === 'cancelled') return r.status === 'Cancelled';
   return true;
 };
@@ -108,6 +110,7 @@ export default function ReportQueue() {
   const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useAwaitingReports();
   // A search covers every report, including closed and rejected ones. Without a search, the queue stays as before.
   const everything = useReports();
+  const closedReports = useReports('Closed');
   // Reporter names come from the admin directory, not the report record, so responders never see them.
   const [people, setPeople] = useState<Record<string, Reporter>>({});
   useEffect(() => {
@@ -132,7 +135,7 @@ export default function ReportQueue() {
     verified: params.get('verified') ?? '',
   };
   const quickParam = params.get('quick');
-  const quick: Quick = quickParam === 'verify' || quickParam === 'active' || quickParam === 'cancelled' ? quickParam : 'all';
+  const quick: Quick = quickParam === 'verify' || quickParam === 'active' || quickParam === 'cancelled' || quickParam === 'closed' ? quickParam : 'all';
   const selectedId = params.get('sel');
   const [filtersOpen, setFiltersOpen] = useState(false);
   // Replace, not push: changing a filter or selection should not add a Back step per click.
@@ -162,7 +165,10 @@ export default function ReportQueue() {
     .some((text) => text.toLowerCase().includes(query));
 
   // Cancelled reports are not in the open list, so that view and a search read the full list.
-  const source = query || quick === 'cancelled' ? everything.reports : reports;
+  const viewUsesClosedList = quick === 'closed' || f.status === 'Closed';
+  const viewUsesFullList = Boolean(query) || quick === 'cancelled' || viewUsesClosedList;
+  const archive = viewUsesClosedList ? closedReports : everything;
+  const source = viewUsesFullList ? archive.reports : reports;
   const rows = orderQueue(source.filter((r) =>
     matchesQuery(r) && quickMatch(r, quick)
     && (!f.status || r.status === f.status)
@@ -189,14 +195,14 @@ export default function ReportQueue() {
   // Cancelled reports are not in the open list, so their count reads the full list.
   // While the full list is loading or failed, its chip shows a dash rather than a false zero.
   const quickCount = (q: Quick): string => {
+    if (q === 'closed') return closedReports.loading ? '…' : closedReports.error ? 'n/a' : String(closedReports.reports.length);
     if (q === 'cancelled' && (everything.loading || everything.error)) return everything.error ? 'n/a' : '…';
     return String((q === 'cancelled' ? everything.reports : reports).filter((r) => quickMatch(r, q)).length);
   };
   const canAct = canActOnReports(role);
   // Cancelled and search read the full list, so their loading and error state come from that list.
-  const viewUsesFullList = Boolean(query) || quick === 'cancelled';
-  const viewLoading = viewUsesFullList ? everything.loading : loading;
-  const viewError = viewUsesFullList ? everything.error : error;
+  const viewLoading = viewUsesFullList ? archive.loading : loading;
+  const viewError = viewUsesFullList ? archive.error : error;
   const failed = Boolean(viewError);
 
   return (
@@ -210,16 +216,16 @@ export default function ReportQueue() {
         ))}
       </div>
 
-      <ConnectionNotice fromCache={fromCache} />
+      <ConnectionNotice fromCache={viewUsesFullList ? archive.fromCache : fromCache} />
       {!viewLoading && !viewError && (viewUsesFullList
-        ? <ReportWindow count={everything.reports.length} windowSize={everything.windowSize} loadMore={everything.loadMore} />
+        ? <ReportWindow count={archive.reports.length} windowSize={archive.windowSize} loadMore={archive.loadMore} />
         : <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />)}
       <div className="inbox-layout">
       <section className="inbox-panel" aria-labelledby="queue-heading">
         <div className="queue-toolbar">
           <div>
             <h2 id="queue-heading">Report inbox</h2>
-            <p aria-live="polite">{viewLoading ? 'Loading reports…' : failed ? 'Reports unavailable' : `Showing ${rows.length} of ${reports.length} reports`}</p>
+            <p aria-live="polite">{viewLoading ? 'Loading reports…' : failed ? 'Reports unavailable' : `Showing ${rows.length} of ${source.length} reports`}</p>
             <p className="queue-order">Critical first, then high, medium and low. Oldest first within each level.</p>
           </div>
           <div className="queue-toolbar__actions">
@@ -259,7 +265,7 @@ export default function ReportQueue() {
         {viewError && (
           <Banner tone="error" role="alert">
             Could not load reports. Check your connection and try again.{' '}
-            <button className="btn btn--ghost" type="button" onClick={viewUsesFullList ? everything.retry : retry}>Try again</button>
+            <button className="btn btn--ghost" type="button" onClick={viewUsesFullList ? archive.retry : retry}>Try again</button>
           </Banner>
         )}
         {viewLoading && <Skeleton label="Loading report inbox"><SkeletonRows rows={5} height={84} /></Skeleton>}

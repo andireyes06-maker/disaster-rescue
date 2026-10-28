@@ -14,6 +14,7 @@ import '../../theme/confirm_dialog.dart';
 import '../auth/auth_widgets.dart';
 import '../my_reports/my_reports_page.dart' show StatusChip, formatWhen;
 import 'operation_form_page.dart';
+import '../report/report_flow_page.dart' show reportTypeInfo;
 
 class IncidentDetailPage extends StatefulWidget {
   const IncidentDetailPage({super.key, required this.report});
@@ -131,7 +132,8 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   Future<void> _confirmAcknowledge() async {
     final ok = await confirmAction(
       context,
-      message: 'Acknowledge this incident for your team? This can only be done once.',
+      message:
+          'Acknowledge this incident for your team? This can only be done once.',
       confirmLabel: 'Acknowledge',
     );
     if (!ok || !mounted) return;
@@ -223,11 +225,14 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
         ),
       );
     }
+    final info = reportTypeInfo[r.type] ?? reportTypeInfo['other']!;
     final hasLocation = r.lat != null && r.lng != null;
     final closed = _closedStatuses.contains(r.status);
     // Each team acknowledges once. The button stays locked for this team after leaving and reopening the page.
     final myTeam = context.watch<AuthController>().user?.team;
-    final acknowledged = _acknowledged || (myTeam != null && r.acknowledgedTeamIds.contains(myTeam));
+    final acknowledged =
+        _acknowledged ||
+        (myTeam != null && r.acknowledgedTeamIds.contains(myTeam));
     return Scaffold(
       appBar: AppBar(title: Text(r.reference ?? 'Incident')),
       body: ProductViewport(
@@ -238,6 +243,27 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: info.color.withValues(alpha: .09),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(info.icon, color: info.color, size: 26),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Text(
+                          '${info.label} report',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
@@ -266,7 +292,9 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                   const SizedBox(height: 4),
                   if (r.addressText != null && r.addressText!.trim().isNotEmpty)
                     Text(r.addressText!.trim()),
-                  if (hasLocation && r.addressText != null && r.addressText!.trim().isNotEmpty)
+                  if (hasLocation &&
+                      r.addressText != null &&
+                      r.addressText!.trim().isNotEmpty)
                     const SizedBox(height: 4),
                   if (hasLocation)
                     Text(
@@ -274,15 +302,18 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
                           ? r.placeName!.trim()
                           : (r.area ?? '').trim().isNotEmpty
                           ? r.area!.trim()
-                          : 'Place not named',
+                          : '${r.lat!.toStringAsFixed(5)}, ${r.lng!.toStringAsFixed(5)}',
                     ),
                   if (!hasLocation) const Text('No exact location was given.'),
                   const SizedBox(height: 8),
                   if (hasLocation)
-                    OutlinedButton.icon(
-                      onPressed: _openMap,
-                      icon: const Icon(Icons.map_outlined),
-                      label: const Text('Open in maps'),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: OutlinedButton.icon(
+                        onPressed: _openMap,
+                        icon: const Icon(Icons.near_me_outlined),
+                        label: const Text('Open in maps'),
+                      ),
                     ),
                   const SizedBox(height: 16),
                   Text(

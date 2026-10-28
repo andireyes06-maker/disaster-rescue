@@ -70,3 +70,8 @@ Keep feedback local. Real pending states prevent duplicate mutations; errors pre
 ## Do's and Don'ts
 
 Illustrative maps/queues are visibly labeled and never represent live incidents. No invented hotline, endorsement, response guarantee, privacy promise or app-store release. Review the actual desktop and phone implementation, not only a concept. The handoff ledger records source changes and verified states separately.
+
+
+## Workspace visual refinement, 28 October 2026
+
+Responder maps use a desktop map/incident-inspector composition and a stacked phone composition. Location and navigation actions occupy separate groups. Selected incidents receive a useful local viewport; Fit all locations includes headquarters explicitly. Bounded narrative/list regions remain keyboard reachable. Type-color tokens match Flutter: flood #215D98, fire #9C391B, earthquake #79501F, landslide #376749. Priority meaning remains separate. The Incident inbox has a Closed quick view using a status-scoped bounded query, with the existing status/createdAt index.

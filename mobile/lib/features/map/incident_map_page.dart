@@ -247,6 +247,7 @@ class _FilterBar extends StatelessWidget {
           ),
           for (final e in reportTypeInfo.entries)
             FilterChip(
+              avatar: Icon(e.value.icon, size: 18, color: e.value.color),
               label: Text(e.value.label),
               selected: selected == e.key,
               onSelected: (_) => onSelected(e.key),
@@ -310,7 +311,19 @@ class _IncidentRow extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              MarkerGlyph(marker: m, size: 24),
+              Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: AppColors.incident(report.type).withValues(alpha: .09),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  reportTypeInfo[report.type]?.icon ??
+                      Icons.report_problem_outlined,
+                  color: AppColors.incident(report.type),
+                ),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(

@@ -243,7 +243,9 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _progress ??= context.read<ResponderRepository>().watchUpdates(widget.initial.id);
+    _progress ??= context.read<ResponderRepository>().watchUpdates(
+      widget.initial.id,
+    );
   }
 
   Future<void> _cancel(ReportSummary r) async {
@@ -353,7 +355,10 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text('Rescue updates', style: Theme.of(context).textTheme.titleMedium),
+                          Text(
+                            'Rescue updates',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                           const SizedBox(height: 8),
                           if (entries.isEmpty)
                             const Text('No rescue updates yet.')
@@ -364,10 +369,25 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(e.status, style: const TextStyle(fontWeight: FontWeight.w700)),
-                                    if (e.at != null) Text(formatWhen(e.at), style: const TextStyle(color: AppColors.muted)),
-                                    if (e.peopleRescued > 0) Text('People rescued: ${e.peopleRescued}'),
-                                    if (e.note.trim().isNotEmpty) Text(e.note.trim()),
+                                    Text(
+                                      e.status,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    if (e.at != null)
+                                      Text(
+                                        formatWhen(e.at),
+                                        style: const TextStyle(
+                                          color: AppColors.muted,
+                                        ),
+                                      ),
+                                    if (e.peopleRescued > 0)
+                                      Text(
+                                        'People rescued: ${e.peopleRescued}',
+                                      ),
+                                    if (e.note.trim().isNotEmpty)
+                                      Text(e.note.trim()),
                                   ],
                                 ),
                               ),
@@ -426,10 +446,10 @@ class _ResidentReportContent extends StatelessWidget {
                 width: 44,
                 height: 44,
                 decoration: BoxDecoration(
-                  color: AppColors.primarySoft,
+                  color: info.color.withValues(alpha: .09),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(info.icon, color: AppColors.primary, size: 23),
+                child: Icon(info.icon, color: info.color, size: 23),
               ),
               const SizedBox(width: 12),
               Expanded(

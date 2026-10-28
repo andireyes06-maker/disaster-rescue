@@ -28,6 +28,7 @@ class ReportTypeInfo {
   final IconData icon;
   final String detail;
   const ReportTypeInfo(this.label, this.icon, [this.detail = '']);
+  Color get color => AppColors.incident(label);
 }
 
 const reportTypeInfo = <String, ReportTypeInfo>{
@@ -187,7 +188,9 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       _source = d.source;
       _address.text = d.addressText;
       _placeName = d.placeName;
-      _severity = _severityOptions.containsKey(d.severity) ? d.severity! : 'medium';
+      _severity = _severityOptions.containsKey(d.severity)
+          ? d.severity!
+          : 'medium';
       // A draft saved before the name or phone was typed must not wipe what was prefilled.
       if (d.contactName.isNotEmpty) _name.text = d.contactName;
       if (d.contactPhone.isNotEmpty) _phone.text = d.contactPhone;
@@ -244,7 +247,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   }
 
   static const _needPhoto = 'Add at least one photo as proof.';
-  static const _uncertainBlockedMessage = 'Your last report may already have been sent. Check My Reports before you send again.';
+  static const _uncertainBlockedMessage =
+      'Your last report may already have been sent. Check My Reports before you send again.';
   static const _needLocation =
       'Choose a location first: use your current location or pick on a map.';
 
@@ -278,7 +282,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   Future<void> _confirmSend(Future<void> Function() send) async {
     final ok = await confirmAction(
       context,
-      message: 'Send this report to the response team? Check the details first.',
+      message:
+          'Send this report to the response team? Check the details first.',
       confirmLabel: 'Submit report',
     );
     if (!ok || !mounted) return;
@@ -628,8 +633,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             initialValue: _severity,
             decoration: InputDecoration(
               label: requiredFieldLabel('How severe is the situation?'),
-              helperText:
-                  'Critical means lives are at risk now.',
+              helperText: 'Critical means lives are at risk now.',
             ),
             items: [
               for (final e in _severityOptions.entries)
@@ -691,7 +695,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
               children: [
                 Row(
                   children: [
-                    Icon(info.icon, color: AppColors.primary),
+                    Icon(info.icon, color: info.color),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -741,7 +745,9 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             Text(uncertainCopy, textAlign: TextAlign.center),
             const SizedBox(height: 8),
             OutlinedButton(
-              onPressed: _submitting ? null : () => _confirmSend(_sendAsNewReport),
+              onPressed: _submitting
+                  ? null
+                  : () => _confirmSend(_sendAsNewReport),
               child: const Text('I checked, send as a new report'),
             ),
             const SizedBox(height: 8),
@@ -806,11 +812,11 @@ class _TypeTile extends StatelessWidget {
     onTap: onTap,
     excludeSemantics: true,
     child: Material(
-      color: selected ? AppColors.primarySoft : AppColors.surface,
+      color: selected ? info.color.withValues(alpha: .07) : AppColors.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
         side: BorderSide(
-          color: selected ? AppColors.primary : AppColors.border,
+          color: selected ? info.color : AppColors.border,
           width: selected ? 1.5 : 1,
         ),
       ),
@@ -825,13 +831,15 @@ class _TypeTile extends StatelessWidget {
                 width: 42,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: selected ? AppColors.primary : AppColors.bg,
+                  color: selected
+                      ? info.color
+                      : info.color.withValues(alpha: .09),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   info.icon,
                   size: 24,
-                  color: selected ? Colors.white : AppColors.primary,
+                  color: selected ? Colors.white : info.color,
                 ),
               ),
               const SizedBox(width: 14),
@@ -857,7 +865,7 @@ class _TypeTile extends StatelessWidget {
                     ? Icons.check_circle_rounded
                     : Icons.radio_button_unchecked_rounded,
                 size: 21,
-                color: selected ? AppColors.primary : AppColors.controlOutline,
+                color: selected ? info.color : AppColors.controlOutline,
               ),
             ],
           ),

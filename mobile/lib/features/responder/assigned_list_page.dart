@@ -49,7 +49,7 @@ class _AssignedListPageState extends State<AssignedListPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Assigned'),
+          title: const Text('Assignments'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Active'),
@@ -166,11 +166,37 @@ class _AssignedListPageState extends State<AssignedListPage> {
                                   Expanded(
                                     child: ListView.separated(
                                       padding: const EdgeInsets.all(20),
-                                      itemCount: active.length,
+                                      itemCount: active.length + 1,
                                       separatorBuilder: (_, _) =>
                                           const SizedBox(height: 14),
-                                      itemBuilder: (_, i) =>
-                                          _AssignedTile(report: active[i]),
+                                      itemBuilder: (_, i) => i == 0
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(
+                                                bottom: 4,
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${active.length} active assignment${active.length == 1 ? '' : 's'}',
+                                                    style: Theme.of(
+                                                      context,
+                                                    ).textTheme.titleLarge,
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  Text(
+                                                    'Oldest reports first. Open a report to respond.',
+                                                    style: Theme.of(
+                                                      context,
+                                                    ).textTheme.bodySmall,
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          : _AssignedTile(
+                                              report: active[i - 1],
+                                            ),
                                     ),
                                   ),
                                 ],
@@ -224,7 +250,7 @@ class _AssignedListPageState extends State<AssignedListPage> {
     padding: const EdgeInsets.all(20),
     children: [
       InlineError(message),
-      const SizedBox(height: 16),
+      const SizedBox(height: 12),
       OutlinedButton.icon(
         onPressed: action,
         icon: const Icon(Icons.refresh_rounded),
@@ -259,10 +285,10 @@ class _AssignedTile extends StatelessWidget {
                     width: 44,
                     height: 44,
                     decoration: BoxDecoration(
-                      color: AppColors.primarySoft,
+                      color: info.color.withValues(alpha: .09),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Icon(info.icon, color: AppColors.primary, size: 23),
+                    child: Icon(info.icon, color: info.color, size: 23),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -288,14 +314,14 @@ class _AssignedTile extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               Text(
                 report.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
@@ -305,7 +331,7 @@ class _AssignedTile extends StatelessWidget {
                     ProductPriority(report.priority!),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               const Divider(height: 1),
               const SizedBox(height: 12),
               Row(

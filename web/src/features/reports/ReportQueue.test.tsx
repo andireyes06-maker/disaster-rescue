@@ -12,7 +12,7 @@ const h = vi.hoisted(() => ({
   role: 'admin' as string,
 }));
 vi.mock('./useAwaitingReports', () => ({ useAwaitingReports: () => ({ reports: h.reports, loading: h.loading, error: h.error, retry: () => {} }) }));
-vi.mock('./useReports', () => ({ useReports: () => ({ reports: h.reports, loading: h.loading, error: h.error, retry: () => {} }) }));
+vi.mock('./useReports', () => ({ useReports: (status?: string) => ({ reports: status ? h.reports.filter(r => r.status === status) : h.reports, loading: h.loading, error: h.error, retry: () => {} }) }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ role: h.role }) }));
 vi.mock('./useReport', () => ({ useReportUpdates: () => ({ updates: [], error: null, retry: () => {} }) }));
 import ReportQueue from './ReportQueue';
@@ -203,4 +203,14 @@ describe('ReportQueue', () => {
     expect(within(inbox()).getAllByRole('button')).toHaveLength(2);
   });
 
+});
+
+
+it('Closed quick view shows only closed reports and restores from a deep link', async () => {
+  h.role = 'admin'; h.loading = false; h.error = null;
+  h.reports = [...data(), makeReport({ id: 'closed-a', status: 'Closed', description: 'Closed flood' })];
+  render(<MemoryRouter initialEntries={['/dashboard?quick=closed']}><ReportQueue /></MemoryRouter>);
+  expect(screen.getByRole('button', { name: /Closed \(1\)/ })).toHaveAttribute('aria-pressed', 'true');
+  expect(within(inbox()).getByText('Closed flood')).toBeInTheDocument();
+  expect(within(inbox()).queryByText('Flood A')).not.toBeInTheDocument();
 });

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, limit, orderBy, onSnapshot, type DocumentData, type FirestoreError } from 'firebase/firestore';
+import { collection, query, where, limit, orderBy, onSnapshot, type DocumentData, type FirestoreError } from 'firebase/firestore';
 import { getFirebaseDb } from '../../firebase';
 import type { Report } from '../../types/domain';
 
@@ -30,28 +30,30 @@ export interface ReportsState {
   loadMore?: () => void;
 }
 
-export function useReports(): ReportsState {
-  const [state, setState] = useState<Omit<ReportsState, 'retry'>>({ reports: [], loading: true, error: null, fromCache: false });
+export function useReports(status?: Report['status']): ReportsState {
+  const [state, setState] = useState<Omit<ReportsState, 'retry'> & { scope?: Report['status'] }>({ reports: [], loading: true, error: null, fromCache: false });
   const [attempt, setAttempt] = useState(0);
   const [windowSize, setWindowSize] = useState(50);
 
   useEffect(() => {
-    setState((s) => (s.error ? { ...s, loading: true, error: null } : s));
-    const q = query(collection(getFirebaseDb(), 'reports'), orderBy('createdAt', 'desc'), limit(windowSize));
+    let active = true;
+    setState(s => s.scope !== status ? { reports: [], loading: true, error: null, fromCache: false, scope: status } : s.error ? { ...s, loading: true, error: null } : s);
+    const q = query(collection(getFirebaseDb(), 'reports'), ...(status ? [where('status', '==', status)] : []), orderBy('createdAt', 'desc'), limit(windowSize));
     const unsubscribe = onSnapshot(
       q,
       { includeMetadataChanges: true },
       (snap) => {
+        if (!active) return;
         const reports = snap.docs
           .map((d) => convertReport(d.id, d.data()))
           .sort((a, b) => time(b.createdAt) - time(a.createdAt));
-        setState({ reports, loading: false, error: null, fromCache: snap.metadata.fromCache });
+        setState({ reports, loading: false, error: null, fromCache: snap.metadata.fromCache, scope: status });
       },
-      (error) => setState((s) => ({ ...s, loading: false, error })),
+      (error) => { if (active) setState((s) => ({ ...s, loading: false, error })); },
     );
-    return unsubscribe;
-  }, [attempt, windowSize]);
+    return () => { active = false; unsubscribe(); };
+  }, [attempt, windowSize, status]);
 
   const retry = () => setAttempt((n) => n + 1);
-  return { ...state, retry, windowSize, loadMore: () => setWindowSize(n => n + 50) };
+  return { ...(state.scope === status ? state : { reports: [], loading: true, error: null, fromCache: false }), retry, windowSize, loadMore: () => setWindowSize(n => n + 50) };
 }

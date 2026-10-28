@@ -19,6 +19,15 @@ class AppColors {
   static const controlOutline = Color(0xFF8B849D);
   static const success = Color(0xFF176747);
   static const onHarbor = Color(0xFFDAD2EE);
+
+  // Incident type is separate from priority: blue flood, ember fire, earth quake/slide.
+  static Color incident(String type) => switch (type.toLowerCase()) {
+    'flood' => const Color(0xFF215D98),
+    'fire' => const Color(0xFF9C391B),
+    'earthquake' => const Color(0xFF79501F),
+    'landslide' => const Color(0xFF376749),
+    _ => primary,
+  };
 }
 
 class AppRadius {

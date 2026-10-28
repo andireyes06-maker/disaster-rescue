@@ -228,3 +228,8 @@ Dark app bars carry service/task context, white titles, and white native icons. 
 - **Don't** use the pale decorative border as the sole editable-field or unselected-choice boundary.
 - **Don't** replace real task information with invented incidents, metrics, hotline claims, or response guarantees.
 - **Don't** restart an arrival on every data refresh or add ambient looping decoration.
+
+
+## Incident identity refinement, 28 October 2026
+
+Type color matches the web tokens: flood #215D98 on pale blue, fire #9C391B on pale ember, earthquake #79501F on pale earth, landslide #376749 on pale green, and other uses the violet brand. Type color does not indicate priority. Category symbols and text remain present. Incident cards, the report chooser/review, and map filters use the same mapping. Responder details lead with the incident type; page counts describe the loaded assignments. Purple/harbor navigation and urgency/status colors are unchanged.

@@ -19,14 +19,14 @@
   --color-notice: #8A5100;
   --color-on-harbor: #CFC6EE;
   --color-complete-soft: #E6E4F0;
-  --color-flood: #1D4ED8;
-  --color-flood-soft: #DCE8FF;
-  --color-fire: #C2410C;
-  --color-fire-soft: #FFE8D6;
-  --color-quake: #6D28D9;
-  --color-quake-soft: #EDE3FF;
-  --color-slide: #7C5A12;
-  --color-slide-soft: #F1E6CC;
+  --color-flood: #215D98;
+  --color-flood-soft: #E5F0FA;
+  --color-fire: #9C391B;
+  --color-fire-soft: #FFF0E7;
+  --color-quake: #79501F;
+  --color-quake-soft: #F7EEDF;
+  --color-slide: #376749;
+  --color-slide-soft: #E8F1EA;
 
   --radius-md: 10px;
   --radius-lg: 16px;

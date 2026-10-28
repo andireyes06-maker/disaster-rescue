@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -12,10 +12,13 @@ import { markerStyle } from '../map/markerStyle';
 
 export const validPoint = (p: GeoPoint | null | undefined): p is GeoPoint => !!p && Number.isFinite(p.lat) && Number.isFinite(p.lng) && Math.abs(p.lat) <= 90 && Math.abs(p.lng) <= 180;
 export const directionsUrl = (p: GeoPoint) => `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}`;
-function Bounds({ points }: { points: GeoPoint[] }) {
+function Bounds({ points, focus, revision }: { points: GeoPoint[]; focus?: GeoPoint; revision: number }) {
   const map = useMap();
   const key = points.map(p => `${p.lat},${p.lng}`).join('|');
-  useEffect(() => { if (points.length) map.fitBounds(L.latLngBounds(points.map(p => [p.lat, p.lng])), { padding: [40, 40], maxZoom: 15, animate: false }); }, [map, key]);
+  useEffect(() => {
+    if (focus) map.setView([focus.lat, focus.lng], 15, { animate: false });
+    else if (points.length) map.fitBounds(L.latLngBounds(points.map(p => [p.lat, p.lng])), { padding: [40, 40], maxZoom: 15, animate: false });
+  }, [map, key, focus?.lat, focus?.lng, revision]);
   return null;
 }
 export function assignmentPinLabel(report: Report): string {
@@ -52,17 +55,20 @@ export function AssignmentMap({ reports, hq, selected, onSelect }: { reports: Re
   const headquarters = validPoint(hq) ? hq : null;
   const points = [...located.map(r => r.location!), ...(headquarters ? [headquarters] : [])];
   const tiles = useMapTiles();
+  const [frame, setFrame] = useState({ all: false, revision: 0 });
+  useEffect(() => { setFrame(f => ({ all: false, revision: f.revision + 1 })); }, [selected?.id]);
   if (!points.length) return <EmptyState title="No map locations available" body="Reports without a valid pin remain available in the assignment list." />;
   return <div data-map-tile-surface>
     {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
     <div className="response-map-canvas" role="region" aria-label="Map of your team’s assignments">
       <MapContainer center={[points[0].lat, points[0].lng]} zoom={13} scrollWheelZoom={false}>
-        <Bounds points={points} /><MapViewport point={selected?.location} />
+        <Bounds points={frame.all ? points : located.length ? located.map(r => r.location!) : points} focus={!frame.all && validPoint(selected?.location) ? selected.location : undefined} revision={frame.revision} /><MapViewport />
         <TileLayer key={tiles.key} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' eventHandlers={tiles.events} />
         {headquarters && <Marker position={[headquarters.lat, headquarters.lng]} title="Your team headquarters" interactive={false} keyboard={false} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
         {located.map(r => <AssignmentMarker key={r.id} report={r} onSelect={onSelect} />)}
       </MapContainer>
     </div>
+    <div className="response-map-tools"><span>{frame.all ? 'Assignments and headquarters' : selected ? 'Selected incident' : 'Assigned incident locations'}</span><div>{selected && <button className="btn btn--ghost" type="button" onClick={() => setFrame(f => ({ all: false, revision: f.revision + 1 }))}>Focus incident</button>}<button className="btn btn--ghost" type="button" onClick={() => setFrame(f => ({ all: true, revision: f.revision + 1 }))}>Fit all locations</button></div></div>
     <details className="response-map-legend"><summary>Map symbols and priority</summary><div className="response-legend-types">{REPORT_TYPES.map(type => <span key={type}><DisasterSymbol type={type} />{type}</span>)}<span><strong>HQ</strong> Your headquarters</span></div><div className="response-legend-types">{PRIORITIES.map(priority => { const { color, shape } = markerStyle({ priority } as Report); return <span key={priority}><i className={`map-marker map-marker--${shape}`} style={{ '--marker-color': color } as React.CSSProperties} />{priority}</span>; })}</div><p>The icon identifies the incident type. The colored shape identifies priority. Status is shown in the assignment list.</p></details>
   </div>;
 }
