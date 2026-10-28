@@ -25,4 +25,14 @@ describe('privacy', () => {
   it('other resident gets null for unverified reports', () => {
     expect(projectReportForRole({ ...r, status: 'Submitted' }, 'resident', 'u2')).toBeNull();
   });
+  const withReporter = { id: 'r1', status: 'Team Assigned', reporterId: 'u1', reporterName: 'x', reporterPhone: '1', reporterPhotoUrl: 'https://p', assignedTeamId: 't' };
+  it('responder projection drops reporter name, phone and photo', () => {
+    const p = projectReportForRole(withReporter, 'responder', 'rsp-1', 't');
+    expect(p).not.toBeNull();
+    for (const k of ['reporterName', 'reporterPhone', 'reporterPhotoUrl']) expect(p).not.toHaveProperty(k);
+  });
+  it('admin projection keeps reporter name, phone and photo', () => {
+    const p = projectReportForRole(withReporter, 'admin', 'a1');
+    expect(p).toMatchObject({ reporterName: 'x', reporterPhone: '1', reporterPhotoUrl: 'https://p' });
+  });
 });
