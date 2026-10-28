@@ -15,6 +15,7 @@ import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
 import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
 import AssignTeamDialog from './AssignTeamDialog';
+import SubmitterProfileDialog from './SubmitterProfileDialog';
 import { isOpen, formatTime, distanceMeters } from './format';
 import { awaitingVerify, canAssign, canActOnReports, nextStep } from './workflow';
 import { PRIORITIES, type Report, type Team } from '../../types/domain';
@@ -298,6 +299,7 @@ function IncidentView({ id }: IncidentViewProps) {
           {loc && Number.isFinite(loc.lat) && <Fact label="Pinned location"><PlaceLabel point={loc} saved={report.placeName} /></Fact>}
           <Fact label="Contact person"><span className="plain">{report.contact?.name || report.reporterName || 'Not provided'}</span></Fact>
           <Fact label="Contact number">{(report.contact?.phone || report.reporterPhone) ? <a href={`tel:${report.contact?.phone || report.reporterPhone}`}>{report.contact?.phone || report.reporterPhone}</a> : 'Not provided'}</Fact>
+          {role === 'admin' && report.reporterId && <Fact label="Submitted by"><SubmitterProfileDialog reporterId={report.reporterId} role={role} /></Fact>}
           {teamIds.length > 0 && <Fact label={teamIds.length > 1 ? 'Assigned teams' : 'Assigned team'}><span className="plain">{teamNames?.join(', ') ?? 'Rescue team assigned'}</span></Fact>}
           {report.rejectionReason && <Fact label="Rejection reason"><span className="plain">{report.rejectionReason}</span></Fact>}
         </dl>

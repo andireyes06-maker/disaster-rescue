@@ -288,7 +288,7 @@ export default function ReportQueue() {
       <aside className="inbox-preview" aria-label="Selected report">
         {selected ? (
           <IncidentPreview key={selected.id} report={selected} canAct={canAct}
-            outsideFilters={selectedHidden} onClearFilters={clearAll} reporter={selected.reporterId ? people[selected.reporterId] : undefined} />
+            outsideFilters={selectedHidden} onClearFilters={clearAll} reporter={selected.reporterId ? people[selected.reporterId] : undefined} role={role} />
         ) : (
           !viewLoading && !failed && (
             <p className="preview__empty"><Search aria-hidden="true" /> {selectedId ? 'This report is no longer available.' : 'Select a report to see its details.'}</p>

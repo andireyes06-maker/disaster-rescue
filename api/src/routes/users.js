@@ -40,6 +40,14 @@ export function usersRouter(deps) {
   r.get('/', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
     try { res.json(await deps.repo.listUsers()); } catch (e) { next(e); }
   });
+  // An administrator opens the profile of the account that submitted a report. Same shape as /me, no internals.
+  r.get('/:id', auth, requireRole('admin'), async (req, res, next) => {
+    try {
+      const user = await deps.repo.getUser(req.params.id);
+      if (!user) return res.status(404).json({ error: 'not_found' });
+      res.json(userView({ ...user, uid: req.params.id }));
+    } catch (e) { next(e); }
+  });
   r.patch('/:id', auth, requireRole('dispatcher', 'admin'), async (req, res, next) => {
     try { res.json(await updateStaff(deps, req.params.id, req.body ?? {}, req.user)); } catch (e) { next(e); }
   });

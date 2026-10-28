@@ -8,13 +8,15 @@ import VerifiedBadge from './VerifiedBadge';
 import Banner from '../../components/calm/Banner';
 import { formatTime } from './format';
 import { nextStep, canActOnReports } from './workflow';
-import type { Report } from '../../types/domain';
+import SubmitterProfileDialog from './SubmitterProfileDialog';
+import type { Report, Role } from '../../types/domain';
 
 const SEVERITY_LABELS: Record<NonNullable<Report['severity']>, string> = { low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical' };
 
 interface IncidentPreviewProps {
   report: Report;
   reporter?: { name?: string | null; phone?: string | null };
+  role?: Role | null;
   canAct: boolean;
   outsideFilters: boolean;
   onClearFilters: () => void;
@@ -23,7 +25,7 @@ interface IncidentPreviewProps {
 const ACTION_LABEL = { verify: 'Validate report', assign: 'Assign team', close: 'Close report' } as const;
 
 // Rendered with key={report.id} so the rescue-updates subscription follows the selection.
-export default function IncidentPreview({ report, canAct, outsideFilters, onClearFilters, reporter }: IncidentPreviewProps) {
+export default function IncidentPreview({ report, canAct, outsideFilters, onClearFilters, reporter, role }: IncidentPreviewProps) {
   const updates = useReportUpdates(report.id);
   const step = nextStep(report);
   const { icon: Icon, className: typeClass } = typeMeta(report.type);
@@ -64,7 +66,7 @@ export default function IncidentPreview({ report, canAct, outsideFilters, onClea
           </div>
         </dl>
         <dl className="preview__contact-facts">
-          <div><dt>Reported by</dt><dd>{reporter?.name || 'Name not recorded'}{reporter?.phone && <a href={`tel:${reporter.phone}`}>{reporter.phone}</a>}</dd></div>
+          <div><dt>Reported by</dt><dd>{reporter?.name || 'Name not recorded'}{reporter?.phone && <a href={`tel:${reporter.phone}`}>{reporter.phone}</a>}<SubmitterProfileDialog reporterId={report.reporterId} role={role} /></dd></div>
           <div><dt>Severity</dt><dd>{SEVERITY_LABELS[report.severity ?? 'medium']}</dd></div>
         </dl>
       </section>

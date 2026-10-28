@@ -25,6 +25,9 @@
 .preview__contact-facts dt { color: var(--color-muted); font-size: 13px; margin-bottom: 4px; }
 .preview__contact-facts dd { margin: 0; font-size: 14px; overflow-wrap: anywhere; }
 .preview__contact-facts a { display: block; width: fit-content; padding-block: 4px; text-decoration: underline; text-underline-offset: 3px; }
+.submitter-profile__open { display: inline-flex; align-items: center; gap: 6px; width: fit-content; margin-top: 6px; }
+.preview__contact-facts dd > .submitter-profile__open { display: flex; }
+.submitter-profile__facts { margin-top: 0; }
 .admin-destinations { display: grid; grid-template-columns: 1fr 1fr; border-block: 1px solid var(--color-mist); }
 .admin-destinations > a { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 8px; color: var(--color-text); text-decoration: none; }
 .admin-destinations > a:nth-child(n+3) { border-top: 1px solid var(--color-mist); }
