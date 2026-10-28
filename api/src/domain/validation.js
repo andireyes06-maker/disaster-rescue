@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { HttpError } from '../errors.js';
 import { AREAS } from './areas.js';
+import { REPORT_TYPE_KEYS } from './reportTypes.js';
 import { inPhilippines, OUTSIDE_PH_MESSAGE } from './serviceArea.js';
 
 const MAX_PHOTOS = 5;
@@ -52,7 +53,10 @@ export const PHONE_RE = /^(?=(?:\D*\d){7,15}\D*$)[0-9+()\-\s]{7,25}$/;
 export const HOTLINE_RE = /^(?=(?:\D*\d){3,15}\D*$)[0-9+()\-\s]{3,40}$/;
 
 const schema = z.object({
-  type: z.enum(['flood', 'fire', 'earthquake', 'landslide', 'other']),
+  type: z.enum(REPORT_TYPE_KEYS),
+  // What an Other report is about, in the resident's words. Optional here because older phone builds send none.
+  // Sanitised with room to spare so an over-long entry is refused, not silently cut short.
+  typeDetail: z.preprocess((v) => (typeof v === 'string' ? sanitizeText(v, 200) : v == null ? undefined : v), z.string().optional()),
   description: z.preprocess((v) => (typeof v === 'string' ? sanitizeText(v, 1000) : undefined), z.string().min(3)),
   lat: coord(-90, 90),
   lng: coord(-180, 180),
@@ -74,6 +78,10 @@ const schema = z.object({
     phone: z.string().trim().regex(PHONE_RE),
   }).optional(),
 }).superRefine((d, ctx) => {
+  if (d.typeDetail !== undefined) {
+    if (d.type !== 'other') ctx.addIssue({ code: 'custom', path: ['typeDetail'], message: 'Only an Other report can have this' });
+    else if (d.typeDetail.length < 3 || d.typeDetail.length > 40) ctx.addIssue({ code: 'custom', path: ['typeDetail'], message: 'Use 3 to 40 characters' });
+  }
   if (Number.isFinite(d.lat) && Number.isFinite(d.lng) && !inPhilippines(d.lat, d.lng)) {
     ctx.addIssue({ code: 'custom', path: ['lat'], message: OUTSIDE_PH_MESSAGE });
   }

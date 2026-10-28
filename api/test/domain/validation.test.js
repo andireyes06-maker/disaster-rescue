@@ -47,6 +47,29 @@ describe('parseReportInput', () => {
   });
 });
 
+describe('report types', () => {
+  const ok = { type: 'flood', description: 'Water rising', lat: '14.85', lng: '120.81', source: 'gps', area: 'Quezon City' };
+  it.each(['flood', 'fire', 'earthquake', 'landslide', 'medical', 'road_hazard', 'power_line', 'other'])('accepts type %s', (type) => {
+    expect(parseReportInput({ ...ok, type }).type).toBe(type);
+  });
+  it('rejects a type outside the 8', () => { expect(() => parseReportInput({ ...ok, type: 'tornado' })).toThrow(expect.objectContaining({ status: 400 })); });
+  it('keeps a trimmed typeDetail for Other', () => {
+    expect(parseReportInput({ ...ok, type: 'other', typeDetail: '  gas leak  ' }).typeDetail).toBe('gas leak');
+  });
+  it('Other without a detail is accepted (older phone builds send none)', () => {
+    expect(parseReportInput({ ...ok, type: 'other' }).typeDetail).toBeUndefined();
+  });
+  it.each(['ab', 'a'.repeat(41), '   ', '<b>x</b>'])('rejects typeDetail %j for Other', (typeDetail) => {
+    expect(() => parseReportInput({ ...ok, type: 'other', typeDetail })).toThrow(expect.objectContaining({ status: 400 }));
+  });
+  it('strips control characters from typeDetail', () => {
+    expect(parseReportInput({ ...ok, type: 'other', typeDetail: 'gas\u0000 leak' }).typeDetail).toBe('gas leak');
+  });
+  it('rejects a typeDetail on any other type', () => {
+    expect(() => parseReportInput({ ...ok, type: 'flood', typeDetail: 'gas leak' })).toThrow(expect.objectContaining({ status: 400 }));
+  });
+});
+
 describe('carried-forward hardening', () => {
   const ok = { type: 'flood', description: 'Water rising', lat: '14.85', lng: '120.81', source: 'gps', area: 'Quezon City' };
   it.each(['0x10', '1e1', '+5', ' 1 2'])('rejects non-decimal lat %s', (lat) => {

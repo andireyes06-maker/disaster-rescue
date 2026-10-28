@@ -1,4 +1,5 @@
 import PDFDocument from 'pdfkit';
+import { reportTypeLabel } from '../domain/reportTypes.js';
 
 export const CSV_COLUMNS = ['reference', 'type', 'status', 'priority', 'verified', 'createdAt',
   'assignedTeamId', 'lat', 'lng', 'addressText', 'description'];
@@ -25,7 +26,7 @@ function cell(v) {
 // RFC 4180: CRLF line endings, quoted cells with doubled quotes.
 export function toCsv(reports) {
   const rows = reports.map((r) => [
-    r.reference, r.type, r.status, r.priority, r.verified, r.createdAt, r.assignedTeamId,
+    r.reference, reportTypeLabel(r.type, r.typeDetail), r.status, r.priority, r.verified, r.createdAt, r.assignedTeamId,
     r.location?.lat, r.location?.lng, r.addressText, r.description,
   ]);
   return [CSV_COLUMNS, ...rows].map((row) => row.map(cell).join(',')).join('\r\n') + '\r\n';
@@ -82,7 +83,7 @@ export function toPdf(stats, reports, { sampleLabel = null } = {}) {
     line('People rescued', stats.peopleRescued);
     line('Average response (minutes)', stats.avgResponseMinutes ?? 'not enough data');
 
-    breakdown('Reports by type', stats.byType);
+    breakdown('Reports by type', stats.byType, { label: reportTypeLabel });
     breakdown('Reports by priority', stats.byPriority, { order: PRIORITY_ORDER });
     breakdown('Reports by status', stats.byStatus);
     breakdown('Reports by location', stats.byLocation);
@@ -112,7 +113,7 @@ export function toPdf(stats, reports, { sampleLabel = null } = {}) {
       room(16);
       if (doc.y < 60) header();
       const y = doc.y;
-      const values = [r.reference ?? '', cap(r.type), cap(r.status), cap(r.priority), r.area ?? '', r.placeName || r.addressText || r.area || 'Not named'];
+      const values = [r.reference ?? '', reportTypeLabel(r.type, r.typeDetail), cap(r.status), cap(r.priority), r.area ?? '', r.placeName || r.addressText || r.area || 'Not named'];
       cols.forEach((c, i) => doc.text(String(values[i]), c.x, y, { width: c.w - 4, height: 12, ellipsis: true }));
       doc.x = LEFT;
       doc.y = y + 14;

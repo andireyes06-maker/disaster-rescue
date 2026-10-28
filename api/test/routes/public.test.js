@@ -21,6 +21,13 @@ describe('GET /api/public/incidents', () => {
     });
   });
 
+  it('does not expose the typed text of an Other report', async () => {
+    const t = makeTestApp();
+    await t.repo.createReport({ type: 'other', typeDetail: 'gas leak', status: 'Verified', location: { lat: 14.6123, lng: 121.0456, source: 'gps' }, reporterId: 'r1' });
+    const res = await request(t.app).get('/api/public/incidents');
+    expect(res.body.incidents[0]).toEqual({ type: 'other', statusCategory: 'open', center: coarsen(14.6123, 121.0456), radiusMeters: 500 });
+  });
+
   it('maps statuses to open, responding, and resolved, and leaves out closed and internal statuses', async () => {
     const t = makeTestApp();
     const base = { type: 'fire', location: { lat: 14.6, lng: 121.0, source: 'gps' }, reporterId: 'r1' };

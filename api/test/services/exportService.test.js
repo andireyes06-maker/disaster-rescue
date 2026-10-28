@@ -31,6 +31,16 @@ const base = {
 };
 
 describe('toCsv', () => {
+  it('writes the type label, with the typed text for Other', () => {
+    const rows = parseCsv(toCsv([
+      { ...base, reference: 'DR-1', type: 'road_hazard' },
+      { ...base, reference: 'DR-2', type: 'other', typeDetail: 'gas leak' },
+    ]));
+    const col = rows[0].indexOf('type');
+    expect(rows[1][col]).toBe('Roadblock');
+    expect(rows[2][col]).toBe('Other: gas leak');
+  });
+
   it('round-trips quotes, commas and newlines in one row', () => {
     const description = 'He said "help", now\n=cmd';
     const csv = toCsv([{ ...base, description }]);

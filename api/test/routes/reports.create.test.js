@@ -39,6 +39,35 @@ describe('POST /api/reports', () => {
     expect(r.possibleDuplicates).toEqual([]);
   });
 
+  it('stores a new type, and the typed text only for Other', async () => {
+    const t = makeTestApp();
+    const power = await post(t, t.as('resident'), { type: 'power_line' });
+    expect(power.status).toBe(201);
+    const stored = await t.repo.getReport(power.body.id);
+    expect(stored.type).toBe('power_line');
+    expect('typeDetail' in stored).toBe(false);
+    const other = await post(t, t.as('resident'), { type: 'other', typeDetail: 'gas leak' });
+    expect(other.status).toBe(201);
+    expect((await t.repo.getReport(other.body.id)).typeDetail).toBe('gas leak');
+    const bare = await post(t, t.as('resident'), { type: 'other' });
+    expect(bare.status).toBe(201);
+    expect('typeDetail' in (await t.repo.getReport(bare.body.id))).toBe(false);
+  });
+
+  it('400 for a typed text on a type that is not Other', async () => {
+    const t = makeTestApp();
+    const res = await post(t, t.as('resident'), { type: 'flood', typeDetail: 'gas leak' });
+    expect(res.status).toBe(400);
+    expect(await writes(t)).toBe(0);
+  });
+
+  it('a different typeDetail is a different submission', () => {
+    const base = { ...fields, type: 'other' };
+    const a = submissionFingerprint(parseReportInput({ ...base, typeDetail: 'gas leak' }), []);
+    const b = submissionFingerprint(parseReportInput({ ...base, typeDetail: 'sinkhole' }), []);
+    expect(a).not.toBe(b);
+  });
+
   it('works without photos or contact', async () => {
     const t = makeTestApp();
     const res = await post(t);
