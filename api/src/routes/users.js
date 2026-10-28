@@ -2,12 +2,31 @@ import { Router } from 'express';
 import { requireAuth, requireIdentity, requireRole } from '../middleware/auth.js';
 import { createStaff, updateStaff, registerSelf } from '../services/userService.js';
 import { isSafeId } from '../domain/validation.js';
+import { userView } from '../domain/userView.js';
+import { uploadProfilePhoto } from '../middleware/upload.js';
+import { setPhoto, removePhoto } from '../services/profilePhotoService.js';
 
 export function usersRouter(deps) {
   const r = Router();
   r.param('id', (req, res, next, id) => (isSafeId(id) ? next() : res.status(404).json({ error: 'not_found' })));
   const auth = requireAuth(deps.verifyToken);
   const identity = requireIdentity(deps.verifyToken);
+
+  // Self-service routes take no id: the account is always the caller's, so another account cannot be named.
+  // They are registered before any /:id route so "me" is never read as an id.
+  r.get('/me', auth, async (req, res, next) => {
+    try {
+      const user = await deps.repo.getUser(req.user.uid);
+      if (!user) return res.status(404).json({ error: 'not_found' });
+      res.json(userView({ ...user, uid: req.user.uid }));
+    } catch (e) { next(e); }
+  });
+  r.put('/me/photo', auth, uploadProfilePhoto(), async (req, res, next) => {
+    try { res.json(await setPhoto(deps, req.user.uid, req.file)); } catch (e) { next(e); }
+  });
+  r.delete('/me/photo', auth, async (req, res, next) => {
+    try { res.json(await removePhoto(deps, req.user.uid)); } catch (e) { next(e); }
+  });
 
   r.post('/self', identity, async (req, res, next) => {
     try {
