@@ -32,6 +32,9 @@ Future<void> open(
 }
 
 class CameraPicker extends ImagePicker {
+  LostDataResponse lost = LostDataResponse.empty();
+  @override
+  Future<LostDataResponse> retrieveLostData() async => lost;
   XFile? result;
   ImageSource? receivedSource;
   double? width;
@@ -72,6 +75,51 @@ void main() {
       expect(await service.capture(), isEmpty);
     },
   );
+
+  test('a photo lost when Android closed the app is recovered once', () async {
+    final picker = CameraPicker()
+      ..lost = LostDataResponse(
+        type: RetrieveType.image,
+        files: [
+          XFile.fromData(
+            Uint8List.fromList([255, 216, 255, 0]),
+            name: 'lost.jpg',
+            path: 'lost.jpg',
+            mimeType: 'image/jpeg',
+          ),
+        ],
+      );
+    final service = ImagePickerPhotoService(picker: picker);
+    final recovered = await service.recoverLost();
+    expect(recovered.single.name, 'lost.jpg');
+    expect(recovered.single.bytes, [255, 216, 255, 0]);
+    picker.lost = LostDataResponse.empty();
+    expect(await service.recoverLost(), isEmpty);
+  });
+
+  testWidgets('a recovered photo is checked and added with a notice', (
+    tester,
+  ) async {
+    final service = FakePhotoService()..lost = [photo('lost.jpg')];
+    await open(tester, service);
+    await tester.pumpAndSettle();
+    expect(service.recoverCalls, 1);
+    expect(find.text('lost.jpg'), findsOneWidget);
+    expect(
+      find.text('Your last photo was restored after the app was interrupted.'),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('nothing is added or announced when no photo was lost', (
+    tester,
+  ) async {
+    final service = FakePhotoService();
+    await open(tester, service);
+    await tester.pumpAndSettle();
+    expect(service.recoverCalls, 1);
+    expect(find.textContaining('restored'), findsNothing);
+  });
 
   testWidgets('camera and existing photos add to the same attachment list', (
     tester,

@@ -26,6 +26,43 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
   final List<String> _messages = [];
   bool _busy = false;
 
+  @override
+  void initState() {
+    super.initState();
+    _recover();
+  }
+
+  /// A photo taken just before Android closed the app is added back, checked like any other photo.
+  Future<void> _recover() async {
+    final List<PickedPhoto> lost;
+    try {
+      lost = await widget.service.recoverLost();
+    } catch (_) {
+      return;
+    }
+    if (!mounted || lost.isEmpty) return;
+    final list = [...widget.photos];
+    final msgs = <String>[];
+    for (final p in lost) {
+      if (list.length >= maxPhotos) break;
+      final problem = validatePhoto(p);
+      if (problem != null) {
+        msgs.add('$problem It was not added.');
+      } else {
+        list.add(p);
+      }
+    }
+    if (list.length != widget.photos.length) {
+      msgs.insert(0, 'Your last photo was restored after the app was interrupted.');
+      widget.onChanged(list);
+    }
+    setState(
+      () => _messages
+        ..clear()
+        ..addAll(msgs),
+    );
+  }
+
   Future<void> _add({bool camera = false}) async {
     if (_busy) return;
     if (widget.photos.length >= maxPhotos) {

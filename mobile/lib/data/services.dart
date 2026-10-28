@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart' show TargetPlatform, defaultTargetPlatform;
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -181,6 +182,10 @@ abstract class PhotoService {
 
   /// Takes one photo with the device camera. Cancellation returns an empty list.
   Future<List<PickedPhoto>> capture();
+
+  /// Android can destroy the app while the camera or gallery is open. This returns the photo that was
+  /// taken in that case, once, and an empty list when there is none or on other platforms.
+  Future<List<PickedPhoto>> recoverLost();
 }
 
 class ImagePickerPhotoService implements PhotoService {
@@ -204,6 +209,24 @@ class ImagePickerPhotoService implements PhotoService {
         bytes: await file.readAsBytes(),
         mime: _mimeFor(file.name, file.mimeType),
       ),
+    ];
+  }
+
+  @override
+  Future<List<PickedPhoto>> recoverLost() async {
+    if (defaultTargetPlatform != TargetPlatform.android) return const [];
+    final response = await _picker.retrieveLostData();
+    if (response.isEmpty) return const [];
+    final files = (response.files != null && response.files!.isNotEmpty)
+        ? response.files!
+        : [if (response.file != null) response.file!];
+    return [
+      for (final f in files)
+        PickedPhoto(
+          name: f.name,
+          bytes: await f.readAsBytes(),
+          mime: _mimeFor(f.name, f.mimeType),
+        ),
     ];
   }
 

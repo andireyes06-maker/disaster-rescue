@@ -76,6 +76,16 @@ class FakePhotoService implements PhotoService {
   int cameraCalls = 0;
   Object? cameraError;
   Completer<List<PickedPhoto>>? cameraPending;
+  List<PickedPhoto> lost = [];
+  int recoverCalls = 0;
+  @override
+  Future<List<PickedPhoto>> recoverLost() async {
+    recoverCalls++;
+    final out = lost;
+    lost = [];
+    return out;
+  }
+
   @override
   Future<List<PickedPhoto>> capture() async {
     cameraCalls++;
