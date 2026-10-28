@@ -76,6 +76,7 @@ flutter:
         - asset: assets/fonts/Geist-Variable.ttf
   assets:
     - assets/fonts/OFL-Geist.txt
+    - assets/brand/ireport-logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

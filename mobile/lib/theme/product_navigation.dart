@@ -31,7 +31,7 @@ class ProductNavigation extends StatelessWidget {
                 labelType: NavigationRailLabelType.all,
                 leading: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 24),
-                  child: ProductMark(size: 38),
+                  child: ProductMark(size: 26),
                 ),
                 indicatorColor: AppColors.primary,
                 selectedIconTheme: const IconThemeData(color: Colors.white),
@@ -95,19 +95,19 @@ class ProductNavigation extends StatelessWidget {
   );
 }
 
+/// The approved I-Report logo (icon plus wordmark, light-on-dark variant for
+/// the harbor header). [size] is the height; width keeps the 712:200 ratio.
 class ProductMark extends StatelessWidget {
   const ProductMark({super.key, this.size = 36});
   final double size;
   @override
   Widget build(BuildContext context) => ExcludeSemantics(
-    child: Container(
-      width: size,
+    child: Image.asset(
+      'assets/brand/ireport-logo.png',
       height: size,
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(size * .28),
-      ),
-      child: Icon(Icons.add_rounded, color: Colors.white, size: size * .72),
+      width: size * 712 / 200,
+      fit: BoxFit.contain,
+      filterQuality: FilterQuality.high,
     ),
   );
 }

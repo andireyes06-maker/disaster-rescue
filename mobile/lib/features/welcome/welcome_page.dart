@@ -43,16 +43,10 @@ class WelcomePage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const ProductMark(size: 38),
-                              const SizedBox(width: 12),
                               const Expanded(
-                                child: Text(
-                                  'I-Report',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w800,
-                                  ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: ProductMark(size: 40),
                                 ),
                               ),
                               TextButton(
@@ -182,7 +176,10 @@ class WelcomePage extends StatelessWidget {
                       const SizedBox(height: 24),
                       const Text(
                         'I-Report',
-                        style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       const Text(
