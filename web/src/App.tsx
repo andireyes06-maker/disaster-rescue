@@ -11,6 +11,7 @@ import './pages/page-finish.css';
 import './admin-workspace.css';
 import './response-workspace.css';
 import './workspace-usability.css';
+import './responder-workspace.css';
 
 const LoginPage = lazy(() => import('./features/auth/LoginPage'));
 const MobileAppNotice = lazy(() => import('./pages/MobileAppNotice'));
@@ -25,6 +26,8 @@ const IncidentMap = lazy(() => import('./features/map/IncidentMap'));
 const AnalyticsPage = lazy(() => import('./features/analytics/AnalyticsPage'));
 const AuditPage = lazy(() => import('./features/audit/AuditPage'));
 const AdminPage = lazy(() => import('./features/admin/AdminPage'));
+const ResponderOverview = lazy(() => import('./features/responder/ResponderOverview'));
+const TeamMap = lazy(() => import('./features/responder/TeamMap'));
 const AssignmentsPage = lazy(() => import('./features/responder/AssignmentsPage'));
 const ClosedReportPage = lazy(() => import('./features/responder/ClosedReportDetail'));
 
@@ -47,6 +50,8 @@ export default function App() {
       <Route path="/incidents/:id" element={<RoleRoute allow={['admin']}><AppShell title="Incident details"><IncidentDetails /></AppShell></RoleRoute>} />
       <Route path="/teams" element={<RoleRoute allow={['admin']}><AppShell title="Teams"><TeamsPage /></AppShell></RoleRoute>} />
       <Route path="/users" element={<RoleRoute allow={['admin']}><AppShell title="Users"><UsersPage /></AppShell></RoleRoute>} />
+      <Route path="/responder" element={<RoleRoute allow={['responder']}><AppShell title="Overview"><ResponderOverview /></AppShell></RoleRoute>} />
+      <Route path="/team-map" element={<RoleRoute allow={['responder']}><AppShell title="Team map"><TeamMap /></AppShell></RoleRoute>} />
       <Route path="/assignments" element={<RoleRoute allow={['responder']}><AppShell title="Assignments"><AssignmentsPage /></AppShell></RoleRoute>} />
       <Route path="/assignments/:id" element={<RoleRoute allow={['responder']}><AppShell title="Assignment"><ClosedReportPage /></AppShell></RoleRoute>} />
       <Route path="*" element={<NotFound />} />

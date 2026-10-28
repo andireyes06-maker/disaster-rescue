@@ -1,0 +1,128 @@
+{
+  "rows": [
+    {
+      "name": "overview",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "assignments",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "closed",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "map",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "detail",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "history",
+      "width": 1440,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "overview",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "assignments",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "closed",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "map",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "detail",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "name": "history",
+      "width": 390,
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "focus": {
+    "label": "assignment-status",
+    "outline": "solid",
+    "width": "3px"
+  },
+  "motion": [
+    {
+      "duration": 150,
+      "target": "navlink active"
+    },
+    {
+      "duration": 150,
+      "target": "navlink active"
+    },
+    {
+      "duration": 200,
+      "target": {}
+    },
+    {
+      "duration": 150,
+      "target": "navlink"
+    },
+    {
+      "duration": 150,
+      "target": "navlink"
+    },
+    {
+      "duration": 240,
+      "target": "calm-banner calm-banner--info"
+    },
+    {
+      "duration": 180,
+      "target": ""
+    },
+    {
+      "duration": 180,
+      "target": ""
+    },
+    {
+      "duration": 180,
+      "target": ""
+    },
+    {
+      "duration": 240,
+      "target": ""
+    },
+    {
+      "duration": 320,
+      "target": "shell__main"
+    }
+  ],
+  "errors": []
+}

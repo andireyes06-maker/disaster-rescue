@@ -48,7 +48,7 @@
 @media(max-width:900px) { .shell__side-footer { display: none; padding-top: 18px; } .shell__side.is-open .shell__side-footer { display: grid; } .shell__side-footer .shell__side-note { display: none; } .shell .shell__account { width: auto; } .shell .shell__top { min-height: 64px; padding-block: 8px; } }
 @media(max-width:639px) { .profile-trigger > span:not(.account-avatar) { max-width: 160px; } .shell .shell__account { gap: 8px; } .shell .admin-destinations { grid-template-columns: 1fr; } .shell .account-list .management-row { grid-template-columns: minmax(0,1fr) auto; padding: 18px 16px; } .account-status { font-size: 12px; } .account-list .management-team { width: 100%; } .account-list .management-team select { min-height: 44px; } }
 .place-label { display: inline-flex; flex-direction: column; gap: 5px; line-height: 1.5; }
-.place-label small { font-size: 12px; color: #776b85; font-weight: 400; font-variant-numeric: tabular-nums; }
+.place-label small { font-size: 12px; color: #665b73; font-weight: 400; font-variant-numeric: tabular-nums; }
 .incident-tabs { grid-column: 1/-1; display: flex; gap: 6px; padding: 5px; border: 1px solid #d8ddec; border-radius: 10px; background: #e8eaf3; }
 .incident-tabs > button { min-height: 42px; padding: 10px 18px; border: 0; border-radius: 7px; background: transparent; color: #665b77; font: inherit; font-size: 14px; font-weight: 550; cursor: pointer; }
 .incident-tabs > button[aria-selected="true"] { color: #5b21b6; background: #fff; box-shadow: 0 2px 4px #2417470d; }

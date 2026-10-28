@@ -89,12 +89,12 @@ describe('AppShell', () => {
     expect(screen.queryByRole('link', { name: 'Assignments' })).not.toBeInTheDocument();
   });
 
-  it('gives a responder only the Assignments website navigation', () => {
+  it('gives a responder Overview, Assignments and Team map navigation', () => {
     auth.value = { user: { uid: 'f-1', email: 'f@test.dev' }, role: 'responder', logout: vi.fn() };
     renderAt('/assignments');
     const links = screen.getByRole('navigation', { name: 'Main' }).querySelectorAll('a');
-    expect(links).toHaveLength(1);
-    expect(links[0]).toHaveAttribute('href', '/assignments');
+    expect(links).toHaveLength(3);
+    expect([...links].map(link => link.getAttribute('href'))).toEqual(['/responder', '/assignments', '/team-map']);
   });
 
   it('mounts the notification bell in the staff header', () => {

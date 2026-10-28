@@ -49,7 +49,7 @@ Future<void> toStep4(WidgetTester t) async {
   await t.enterText(find.byKey(const Key('contactName')), 'Ana Reyes');
   await t.enterText(find.byKey(const Key('contactPhone')), '0917 123 4567');
   await t.pump();
-  await tapText(t, 'Add photos');
+  await tapText(t, 'Choose existing photos');
   await t.tap(find.widgetWithText(FilledButton, 'Next'));
   await t.pumpAndSettle();
 }
@@ -115,7 +115,7 @@ void main() {
       await t.enterText(find.byKey(const Key('description')), 'Water up to the roof');
       await t.enterText(find.byKey(const Key('contactName')), 'Ana Reyes');
       await t.enterText(find.byKey(const Key('contactPhone')), '0917 123 4567');
-      await tapText(t, 'Add photos');
+      await tapText(t, 'Choose existing photos');
       await t.tap(find.widgetWithText(FilledButton, 'Next'));
       await t.pumpAndSettle();
       await tapConfirmed(t, 'Submit report');
@@ -124,7 +124,7 @@ void main() {
       await t.tap(find.byTooltip('Remove photo a.jpg'));
       await t.pumpAndSettle();
       env.photos.next = [sameSizeOtherPhoto()];
-      await tapText(t, 'Add photos');
+      await tapText(t, 'Choose existing photos');
       await t.tap(find.widgetWithText(FilledButton, 'Next'));
       await t.pumpAndSettle();
       env.reports.createError = null;

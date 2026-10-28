@@ -100,8 +100,14 @@ void main() {
       find.byKey(const Key('description')),
       'Sample flood report. Water is rising near the access road.',
     );
+    await t.enterText(find.byKey(const Key('contactName')), 'Sample Resident');
+    await t.enterText(find.byKey(const Key('contactPhone')), '09170000001');
+    await t.ensureVisible(find.text('Choose existing photos'));
+    await t.tap(find.text('Choose existing photos'));
+    await t.pumpAndSettle();
     await t.tap(find.text('Next'));
     await t.pumpAndSettle();
+    expect(find.text('1 attached'), findsOneWidget);
     await capture(t, 'report-review');
   });
   testWidgets('report list, notifications and response form', (t) async {

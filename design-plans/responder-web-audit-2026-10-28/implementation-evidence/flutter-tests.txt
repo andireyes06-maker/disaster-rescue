@@ -1,0 +1,335 @@
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.77 (1.3.79 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.10.0 (7.1.0 available)
+  cloud_firestore_platform_interface 8.0.7 (8.1.0 available)
+  cloud_firestore_web 5.7.3 (5.8.0 available)
+  code_assets 1.2.1 (2.1.0 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  crypto 3.0.7 (3.0.8 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  file_selector_macos 0.9.5+1 (0.9.5+2 available)
+  firebase_auth 6.7.0 (7.0.1 available)
+  firebase_auth_platform_interface 9.1.0 (9.1.2 available)
+  firebase_auth_web 6.3.0 (6.3.2 available)
+  firebase_core 4.15.0 (5.1.0 available)
+  firebase_core_web 3.12.0 (4.1.0 available)
+  firebase_messaging 16.7.0 (17.0.1 available)
+  firebase_messaging_platform_interface 4.10.0 (4.11.1 available)
+  firebase_messaging_web 4.2.5 (4.3.1 available)
+  geolocator 14.1.1 (14.1.2 available)
+  geolocator_android 5.1.1+1 (5.2.1 available)
+  geolocator_apple 2.3.15 (2.4.3 available)
+  geolocator_platform_interface 4.4.0 (4.4.1 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  image_picker_ios 0.8.13+10 (0.8.13+13 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.0 (1.19.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  posix 6.5.2 (6.5.3 available)
+  record_use 0.6.0 (1.1.1 available)
+  shared_preferences_android 2.4.28 (2.5.4 available)
+  shared_preferences_foundation 2.5.7 (2.6.1 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test_api 0.7.11 (0.7.15 available)
+  vector_math 2.2.0 (2.4.4 available)
+  vm_service 15.3.0 (15.4.0 available)
+  web 1.1.1 (1.1.2 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies!
+41 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart
+00:00 +0: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:00 +1: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:00 +2: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:00 +3: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:00 +4: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:00 +5: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:00 +6: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:01 +7: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:01 +8: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: empty current password is refused on the phone with an inline error
+00:03 +9: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: blocks people rescued "-1" with a message and no API call
+00:03 +10: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/access_hold_test.dart: while access is being checked, no role home is shown
+00:04 +11: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notifications_page_test.dart: unread rows are styled differently and tapping one marks it read
+00:04 +12: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notifications_page_test.dart: unread rows are styled differently and tapping one marks it read
+00:04 +13: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notifications_page_test.dart: unread rows are styled differently and tapping one marks it read
+00:04 +14: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notifications_page_test.dart: unread rows are styled differently and tapping one marks it read
+00:04 +15: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notifications_page_test.dart: unread rows are styled differently and tapping one marks it read
+00:04 +16: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notifications_page_test.dart: unread rows are styled differently and tapping one marks it read
+00:04 +17: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: mismatched confirmation and reuse of the current password are both refused
+00:04 +18: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: mismatched confirmation and reuse of the current password are both refused
+00:04 +19: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: mismatched confirmation and reuse of the current password are both refused
+00:04 +20: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: mismatched confirmation and reuse of the current password are both refused
+00:04 +21: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notifications_page_test.dart: read notifications still open their report without a second read write
+00:04 +22: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +23: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +24: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +25: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +26: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +27: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +28: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +29: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +30: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: a live change to Team Assigned moves a Resolved selection to a valid status
+00:05 +31: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: a weak new password is shown on the new password field
+00:05 +32: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: a weak new password is shown on the new password field
+00:05 +33: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_test.dart: submits a valid update with status, peopleRescued and note
+00:05 +34: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/change_password_dialog_test.dart: an ended session, offline and rate-limit failures each say what happened
+00:06 +35: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/login_recovery_test.dart: reset needs email only and gives a neutral notice
+00:06 +36: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/login_recovery_test.dart: reset needs email only and gives a neutral notice
+00:06 +37: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/login_recovery_test.dart: reset needs email only and gives a neutral notice
+00:06 +38: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/login_recovery_test.dart: reset needs email only and gives a neutral notice
+00:07 +39: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/responder_queue_order_test.dart: responder assignments list the oldest report first
+00:07 +40: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/responder_queue_order_test.dart: responder assignments list the oldest report first
+00:07 +41: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/responder_queue_order_test.dart: responder assignments list the oldest report first
+00:07 +42: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/responder_detail_live_test.dart: a status change made by dispatch while the detail is open appears live (M05)
+00:07 +43: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/responder_detail_live_test.dart: when the report is removed or reassigned, its details are hidden (M05)
+00:07 +44: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/responder_detail_live_test.dart: a refused read after reassignment also hides the details (M05)
+00:07 +45: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/responder_detail_live_test.dart: the update form follows a live status change from the detail page (F06)
+00:08 +46: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/responder_detail_live_test.dart: a resolved report offers no acknowledge or new operation update (M05)
+00:08 +47: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_transitions_test.dart: Team Assigned allows only Rescue in Progress, never Resolved
+00:08 +48: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_transitions_test.dart: Rescue in Progress allows Rescue in Progress and Resolved
+00:08 +49: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_transitions_test.dart: any other status allows no update
+00:08 +50: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_transitions_test.dart: an unknown status (null) allows all three statuses, as on the web
+00:08 +51: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: loading shows spinner
+00:08 +52: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: loading shows spinner
+00:08 +53: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: loading shows spinner
+00:08 +54: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: loading shows spinner
+00:08 +55: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: loading shows spinner
+00:08 +56: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: loading shows spinner
+00:08 +57: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: loading shows spinner
+00:08 +58: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:08 +59: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:08 +60: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:09 +61: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:09 +62: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/incident_map_page_test.dart: IncidentMapPage type filter chip hides reports of other types in the list
+00:09 +63: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/idle_sign_out_test.dart: signs the person out after the idle period with no touches
+00:09 +64: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/idle_sign_out_test.dart: signs the person out after the idle period with no touches
+00:09 +65: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/idle_sign_out_test.dart: signs the person out after the idle period with no touches
+00:09 +66: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/incident_map_page_test.dart: IncidentMapPage descriptions render as plain text
+00:09 +67: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: dispatcher is told website access is for administrators
+00:09 +68: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: dispatcher is told website access is for administrators
+00:09 +69: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/demo_workspace_strip_test.dart: shows the sample label above the app while the demo is active
+00:09 +70: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/demo_workspace_strip_test.dart: shows the sample label above the app while the demo is active
+00:09 +71: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/demo_workspace_strip_test.dart: shows the sample label above the app while the demo is active
+00:09 +72: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/demo_workspace_strip_test.dart: shows the sample label above the app while the demo is active
+00:09 +73: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: login page shows disclaimer and error message
+00:09 +74: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: login page shows disclaimer and error message
+00:10 +75: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/demo_workspace_strip_test.dart: never invents a label after a failed read
+00:10 +76: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: register marks name, email and password as required, phone as optional (F08)
+00:10 +77: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: password visibility toggle has accessible label
+00:10 +78: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/role_gate_test.dart: register requires consent checkbox before submit
+00:10 +79: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: an uncertain outcome keeps the entries, and the retry reuses the same key
+00:10 +80: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: an uncertain outcome keeps the entries, and the retry reuses the same key
+00:10 +81: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: an uncertain outcome keeps the entries, and the retry reuses the same key
+00:11 +82: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: an uncertain outcome keeps the entries, and the retry reuses the same key
+00:11 +83: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: an uncertain outcome keeps the entries, and the retry reuses the same key
+00:11 +84: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: an uncertain outcome keeps the entries, and the retry reuses the same key
+00:11 +85: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: an uncertain outcome keeps the entries, and the retry reuses the same key
+00:12 +86: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:12 +87: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:12 +88: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:12 +89: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/semantic_actions_test.dart: the hotline control exposes a semantic tap action
+00:12 +90: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +91: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +92: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +93: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +94: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +95: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +96: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +97: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +98: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +99: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +100: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +101: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a changed entry after an uncertain outcome gets a new key
+00:12 +102: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/my_reports_test.dart: Cancel is visible only for Submitted and calls cancel
+00:12 +103: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/my_reports_test.dart: Cancel is visible only for Submitted and calls cancel
+00:12 +104: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a definite refusal shows its message and the next attempt uses a new key
+00:12 +105: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/my_reports_test.dart: keeping the report does not cancel
+00:13 +106: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a second tap before the first save rebuilds sends one request
+00:13 +107: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/my_reports_test.dart: 409 on cancel says it can no longer be cancelled
+00:13 +108: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a form opened again after an uncertain outcome reuses its key
+00:13 +109: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a form opened again after an uncertain outcome reuses its key
+00:13 +110: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a form opened again after an uncertain outcome reuses its key
+00:13 +111: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/my_reports_test.dart: profile shows name, email, phone, privacy notice and logs out
+00:13 +112: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notification_bell_test.dart: the dot follows the unread stream live, and the label says when something is new
+00:13 +113: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notification_bell_test.dart: the dot follows the unread stream live, and the label says when something is new
+00:13 +114: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notification_bell_test.dart: the dot follows the unread stream live, and the label says when something is new
+00:13 +115: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/notification_bell_test.dart: the dot follows the unread stream live, and the label says when something is new
+00:14 +116: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:14 +117: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:14 +118: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:14 +119: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:14 +120: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:14 +121: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:14 +122: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:14 +123: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Submitted as Current
+00:14 +124: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +125: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +126: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +127: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +128: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +129: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +130: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +131: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +132: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +133: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +134: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +135: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: A uncertain, B succeeds, then A again: A still reuses its original key
+00:14 +136: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/status_timeline_test.dart: timeline marks Resolved as Current
+00:14 +137: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a full set of unresolved payloads blocks a new payload instead of evicting a key
+00:14 +138: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a full set of unresolved payloads blocks a new payload instead of evicting a key
+00:14 +139: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a full set of unresolved payloads blocks a new payload instead of evicting a key
+00:14 +140: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a full set of unresolved payloads blocks a new payload instead of evicting a key
+00:14 +141: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a full set of unresolved payloads blocks a new payload instead of evicting a key
+00:14 +142: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: a full set of unresolved payloads blocks a new payload instead of evicting a key
+00:15 +143: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: required fields are marked
+00:15 +144: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: required fields are marked
+00:15 +145: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: required fields are marked
+00:15 +146: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: required fields are marked
+00:15 +147: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: required fields are marked
+00:15 +148: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: required fields are marked
+00:15 +149: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/place_name_test.dart: placeLineFor shows the place name when there is one
+00:15 +150: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: after a full set is blocked, discarding the unconfirmed updates lets a new update go with a new key
+00:15 +151: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: after a full set is blocked, discarding the unconfirmed updates lets a new update go with a new key
+00:15 +152: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: after a full set is blocked, discarding the unconfirmed updates lets a new update go with a new key
+00:15 +153: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: after a full set is blocked, discarding the unconfirmed updates lets a new update go with a new key
+00:15 +154: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: after a full set is blocked, discarding the unconfirmed updates lets a new update go with a new key
+00:15 +155: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/operation_form_retry_test.dart: after a full set is blocked, discarding the unconfirmed updates lets a new update go with a new key
+00:16 +156: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +157: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +158: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +159: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +160: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +161: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +162: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +163: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +164: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +165: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +166: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +167: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +168: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +169: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +170: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +171: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +172: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +173: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +174: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +175: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +176: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +177: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +178: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +179: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +180: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +181: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +182: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +183: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:16 +184: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:17 +185: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:17 +186: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:17 +187: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:17 +188: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:18 +189: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/harbor_layout_test.dart: a resident draft survives dock to rail and back
+00:18 +190: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: cannot advance step 2 without a location
+00:18 +191: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: cannot advance step 2 without a location
+00:18 +192: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: cannot advance step 2 without a location
+00:18 +193: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/api_client_test.dart: adds bearer header, normalizes slashes, sends JSON
+00:18 +194: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +195: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +196: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +197: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +198: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +199: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +200: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +201: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +202: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:18 +203: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: permission denied and GPS off show a message and the map fallback
+00:19 +204: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes ambiguous receipt ApiException(201, bad_response, Invalid reply) keeps the key and never says NOT submitted
+00:19 +205: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes ambiguous receipt ApiException(201, bad_response, Invalid reply) keeps the key and never says NOT submitted
+00:20 +206: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes ambiguous receipt ApiException(201, bad_response, Invalid reply) keeps the key and never says NOT submitted
+00:20 +207: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes ambiguous receipt ApiException(201, bad_response, Invalid reply) keeps the key and never says NOT submitted
+00:21 +208: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes ambiguous receipt ApiException(201, bad_response, Invalid reply) keeps the key and never says NOT submitted
+00:21 +209: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes ambiguous receipt ApiException(201, bad_response, Invalid reply) keeps the key and never says NOT submitted
+00:21 +209: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_picker_no_gps_test.dart: with location off the map still opens and says the reach cannot be checked
+  [1m[flutter_map][0m
+    We want to help keep OpenStreetMap available for everyone. Our examples
+    and demo app use the public tile servers, but they are NOT free to use by
+    everyone! Please review whether the OpenStreetMap tile servers are suitable
+    for your project.
+    See:
+      * https://operations.osmfoundation.org/policies/tiles (OSM Tile Usage Policy)
+      * https://docs.fleaflet.dev/osm-warn for more information about this warning
+00:21 +210: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_picker_no_gps_test.dart: with location off the map still opens and says the reach cannot be checked
+00:21 +211: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:21 +212: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:21 +213: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:21 +214: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:22 +215: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: access and account layouts at phone width
+00:22 +216: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a confirmed report is not shown as unsent when local draft cleanup fails (M03)
+00:22 +217: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes (a) two uncertain 500s reuse the same idempotency key
+00:23 +218: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: four real report stages at phone width
+00:23 +219: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: four real report stages at phone width
+00:23 +220: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: four real report stages at phone width
+00:23 +221: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes (b) after a 500 the page says we could not confirm, never NOT submitted
+00:24 +222: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/photo_picker_test.dart: camera and existing photos add to the same attachment list
+00:24 +223: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/photo_picker_test.dart: camera and existing photos add to the same attachment list
+00:24 +224: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/photo_picker_test.dart: camera and existing photos add to the same attachment list
+00:24 +225: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes (c) a photo swap with the same count gets a new idempotency key
+00:25 +226: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes (c) a photo swap with the same count gets a new idempotency key
+00:25 +227: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: ApiException 400 leads to the NOT submitted page
+00:25 +228: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: assignment, incident, map and recovery layouts
+00:25 +229: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/redesign_visual_test.dart: assignment, incident, map and recovery layouts
+00:25 +230: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes (d) a definite 400 drops the key, so the next attempt uses a new one
+00:25 +231: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes (d) a definite 400 drops the key, so the next attempt uses a new one
+00:25 +232: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes (d) a definite 400 drops the key, so the next attempt uses a new one
+00:26 +233: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: ApiException 0 leads to the NOT submitted page
+00:26 +234: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes (e) a restart with the uncertain flag blocks submit until the explicit new-report action
+00:27 +235: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a timed-out send is uncertain: the draft and the send block are kept
+00:27 +236: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a timed-out send is uncertain: the draft and the send block are kept
+00:27 +237: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a timed-out send is uncertain: the draft and the send block are kept
+00:27 +238: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a timed-out send is uncertain: the draft and the send block are kept
+00:27 +239: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a timed-out send is uncertain: the draft and the send block are kept
+00:27 +240: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes a confirmed send after an uncertain outcome clears the flag
+00:27 +241: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes a confirmed send after an uncertain outcome clears the flag
+00:27 +242: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes a confirmed send after an uncertain outcome clears the flag
+00:27 +243: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: submission identity and uncertain outcomes a confirmed send after an uncertain outcome clears the flag
+00:27 +244: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a local file error before sending does not block a resend
+00:27 +245: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a local file error before sending does not block a resend
+00:27 +246: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a local file error before sending does not block a resend
+00:27 +247: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a local file error before sending does not block a resend
+00:27 +248: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: storage failure under an uncertain outcome a draft write that fails does not hide the uncertain page
+00:27 +249: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a retry after a lost response sends the same submission key (M04)
+00:28 +250: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: storage failure under an uncertain outcome a warning that cannot be saved is said plainly and is not claimed to survive a restart
+00:28 +251: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: a network failure saves a draft and opens the offline page with hotlines
+00:28 +252: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:28 +253: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +254: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +255: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +256: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +257: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +258: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +259: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +260: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +261: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 640x320
+00:29 +262: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_submission_identity_test.dart: storage failure under an uncertain outcome an unreadable warning at startup keeps the form blocked until the explicit new-report action
+00:29 +263: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/report_flow_test.dart: step 4 renders at 200 percent text without overflow
+00:29 +264: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/progress_history_test.dart: a full page offers older entries, which fetches the next page
+00:29 +265: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/progress_history_test.dart: a full page offers older entries, which fetches the next page
+00:29 +266: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/map_layout_test.dart: incident map lays out without overflow at 900x400
+00:29 +267: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/progress_history_test.dart: no entries says so plainly
+00:29 +268: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/progress_history_test.dart: a failed history load offers Try again, which listens once more
+00:30 +269: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/progress_history_test.dart: losing access hides the report and its history; regaining it starts the history again
+00:30 +270: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/welcome_and_motion_test.dart: welcome reflows at 320.0 without overflow
+00:30 +271: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/welcome_and_motion_test.dart: welcome reflows at 390.0 without overflow
+00:30 +272: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/welcome_and_motion_test.dart: welcome reflows at 768.0 without overflow
+00:31 +273: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/welcome_and_motion_test.dart: welcome reflows at 1440.0 without overflow
+00:31 +274: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/welcome_and_motion_test.dart: welcome opens registration and returning-account sign in
+00:31 +275: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/welcome_and_motion_test.dart: welcome supports true 200 percent text scaling
+00:31 +276: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/welcome_and_motion_test.dart: resident can reach notifications without losing the report page
+00:31 +277: /Users/rien/Documents/FINAL_PROJECT/app/mobile/test/welcome_and_motion_test.dart: tab motion preserves mounted editable drafts
+00:31 +278: All tests passed!

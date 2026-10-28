@@ -69,7 +69,7 @@ Future<void> fillDetails(WidgetTester t) async {
   await t.enterText(find.byKey(const Key('contactName')), 'Ana Reyes');
   await t.enterText(find.byKey(const Key('contactPhone')), '0917 123 4567');
   await t.pump();
-  await tapText(t, 'Add photos');
+  await tapText(t, 'Choose existing photos');
 }
 
 Future<void> toStep4(WidgetTester t) async {
@@ -168,14 +168,34 @@ void main() {
     },
   );
 
+  testWidgets(
+    'advancing from scrolled details opens the review at its heading',
+    (t) async {
+      await open(t);
+      await toStep3(t);
+      await fillDetails(t);
+      await t.drag(
+        find.byType(SingleChildScrollView).first,
+        const Offset(0, -350),
+      );
+      await t.pumpAndSettle();
+      await t.tap(nextBtn());
+      await t.pumpAndSettle();
+      final heading = t.getRect(find.text('Check and send'));
+      expect(heading.top, greaterThan(150));
+      expect(heading.top, lessThan(350));
+      expect(find.text('1 attached'), findsOneWidget);
+    },
+  );
+
   testWidgets('the sixth photo is blocked with a message', (t) async {
     await open(t);
     await toStep3(t);
     env.photos.next = [for (var i = 0; i < 5; i++) photo('p$i.jpg')];
-    await tapText(t, 'Add photos');
+    await tapText(t, 'Choose existing photos');
     expect(photoChips(), findsNWidgets(5));
     final calls = env.photos.calls;
-    await tapText(t, 'Add photos');
+    await tapText(t, 'Choose existing photos');
     expect(find.textContaining('up to 5 photos'), findsOneWidget);
     expect(env.photos.calls, calls);
     expect(photoChips(), findsNWidgets(5));
@@ -196,7 +216,7 @@ void main() {
         mime: 'image/jpeg',
       ),
     ];
-    await tapText(t, 'Add photos');
+    await tapText(t, 'Choose existing photos');
     expect(photoChips(), findsNothing);
     expect(find.textContaining('larger than 5 MB'), findsOneWidget);
     expect(find.textContaining('not a JPEG, PNG or WebP'), findsOneWidget);
@@ -329,16 +349,21 @@ void main() {
     });
   }
 
-  testWidgets('a timed-out send is uncertain: the draft and the send block are kept', (t) async {
-    await open(t);
-    env.reports.createError = TimeoutException('slow');
-    await toStep4(t);
-    await tapConfirmed(t, 'Submit report');
-    expect(env.drafts.uncertain, isTrue);
-    expect(env.drafts.draft, isNotNull);
-  });
+  testWidgets(
+    'a timed-out send is uncertain: the draft and the send block are kept',
+    (t) async {
+      await open(t);
+      env.reports.createError = TimeoutException('slow');
+      await toStep4(t);
+      await tapConfirmed(t, 'Submit report');
+      expect(env.drafts.uncertain, isTrue);
+      expect(env.drafts.draft, isNotNull);
+    },
+  );
 
-  testWidgets('a dropped connection is uncertain: the send block is kept', (t) async {
+  testWidgets('a dropped connection is uncertain: the send block is kept', (
+    t,
+  ) async {
     await open(t);
     env.reports.createError = http.ClientException('connection reset');
     await toStep4(t);
@@ -346,9 +371,13 @@ void main() {
     expect(env.drafts.uncertain, isTrue);
   });
 
-  testWidgets('a local file error before sending does not block a resend', (t) async {
+  testWidgets('a local file error before sending does not block a resend', (
+    t,
+  ) async {
     await open(t);
-    env.reports.createError = const FileSystemException('photo file is missing');
+    env.reports.createError = const FileSystemException(
+      'photo file is missing',
+    );
     await toStep4(t);
     await tapConfirmed(t, 'Submit report');
     expect(env.drafts.uncertain, isFalse);

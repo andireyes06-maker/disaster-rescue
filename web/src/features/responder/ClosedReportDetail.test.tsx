@@ -42,6 +42,7 @@ vi.mock('firebase/firestore', () => ({
 vi.mock('../../firebase', () => ({ getFirebaseDb: () => ({}) }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ team: h.team }) }));
 
+vi.mock('./AssignmentMap', () => ({ AssignmentMap: () => <div>Location map</div> }));
 import ClosedReportPage from './ClosedReportDetail';
 
 const ts = (ms: number) => ({ toDate: () => new Date(ms) });
@@ -67,8 +68,8 @@ const latest = (match: (s: Sub) => boolean) => [...h.subs].reverse().find((s) =>
 const reportSub = () => latest((s) => s.path === 'reports/r1');
 const updatesSub = () => latest((s) => s.path === 'reports/r1/updates');
 
-function serveReport(raw: Record<string, unknown> = closedRaw) {
-  act(() => reportSub()!.ok({ id: 'r1', exists: () => true, data: () => raw, metadata: { fromCache: false } }));
+function serveReport(raw: Record<string, unknown> = closedRaw, fromCache = false) {
+  act(() => reportSub()!.ok({ id: 'r1', exists: () => true, data: () => raw, metadata: { fromCache } }));
 }
 
 // Serves the newest `limit` raw rows, as the server does for orderBy(at desc) + limit.
@@ -113,11 +114,13 @@ describe('ClosedReportPage access', () => {
     expect(screen.queryByRole('button', { name: /close|assign|save|note/i })).not.toBeInTheDocument();
   });
 
-  it('redirects an open report to the assignments list', () => {
+  it('keeps an active report at its own detail destination', () => {
     renderAt('/assignments/r1');
     serveReport({ ...closedRaw, status: 'Team Assigned' });
     serveUpdates();
-    expect(screen.getByRole('heading', { name: 'Assignments list' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Assignments list' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'flood report' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Post an update' })).toBeInTheDocument();
   });
 
   it('shows the recovery, not report data, when the report belongs to another team', () => {
@@ -219,4 +222,11 @@ describe('ClosedReportPage progress history (read-only navigation)', () => {
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
   });
+});
+
+it('discloses a cached active report before operational actions while the browser is online', () => {
+  renderAt('/assignments/r1');
+  serveReport({ ...closedRaw, status: 'Team Assigned' }, true);
+  expect(screen.getByText(/Showing saved information/)).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Post an update' })).toBeInTheDocument();
 });

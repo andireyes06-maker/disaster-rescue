@@ -1,6 +1,10 @@
+import { ConnectionNotice } from '../../components/ConnectionStatus';
+import { AssignedCard, DraftShelf } from './AssignmentsPage';
+import { useEffect, useRef, type Ref } from 'react';
+import { AssignmentMap } from './AssignmentMap';
 import PlaceLabel from '../../components/PlaceLabel';
 import { teamsOf } from '../../types/domain';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthProvider';
 import type { GeoPoint, Report } from '../../types/domain';
 import { useReport, useReportUpdates, type RescueUpdate } from '../reports/useReport';
@@ -18,7 +22,7 @@ function mapsUrl(loc: GeoPoint): string {
 
 // Read-only view of a closed report for the responder's own team. It renders no form, segment,
 // note, acknowledge or close control, so it cannot change anything. Keep it separate from IncidentDetails.
-export function ClosedReportDetail({ report, updates, historyError, historyLoading = false, hasMore = false, onLoadOlder, onRetryHistory }: {
+export function ClosedReportDetail({ report, updates, historyError, historyLoading = false, hasMore = false, onLoadOlder, onRetryHistory, headingRef }: {
   report: Report;
   updates: RescueUpdate[];
   historyError?: boolean;
@@ -26,16 +30,17 @@ export function ClosedReportDetail({ report, updates, historyError, historyLoadi
   hasMore?: boolean;
   onLoadOlder?: () => void;
   onRetryHistory?: () => void;
+  headingRef?: Ref<HTMLHeadingElement>;
 }) {
   const loc = report.location;
   const hasLoc = loc && Number.isFinite(loc.lat) && Number.isFinite(loc.lng);
   return (
     <article className="card assignment closed-report">
       <div className="assignment__heading">
-        <h2 className="queue__type">{report.type} report</h2>
+        <h2 ref={headingRef} tabIndex={-1} className="queue__type">{report.type} report</h2>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /></div>
       </div>
-      <p className="plain">Closed. Read only.</p>
+      <p className="plain">Read only · {report.status}</p>
       <p className="plain">{report.description}</p>
       <dl>
         {report.reference && <div className="fact"><dt>Reference</dt><dd>{report.reference}</dd></div>}
@@ -49,8 +54,9 @@ export function ClosedReportDetail({ report, updates, historyError, historyLoadi
           ) : 'Not available'}
         </dd></div>
         <div className="fact"><dt>Reported</dt><dd>{formatTime(report.createdAt)}</dd></div>
-        <div className="fact"><dt>Closed</dt><dd>{formatTime(report.updatedAt)}</dd></div>
+        <div className="fact"><dt>Last updated</dt><dd>{formatTime(report.updatedAt)}</dd></div>
       </dl>
+      <AssignmentMap reports={[report]} />
       <section aria-labelledby="closed-history-heading">
         <h3 id="closed-history-heading" className="queue__type">Progress history</h3>
         {historyError && (
@@ -64,6 +70,7 @@ export function ClosedReportDetail({ report, updates, historyError, historyLoadi
         {updates.length > 0 && (
           // Same disclosure as the resident and incident histories: the newest five, then older entries on request.
           <ActivityHistory
+          scrollable
             updates={updates}
             listClassName="closed-history"
             hasMore={hasMore && !historyLoading && !historyError}
@@ -83,13 +90,14 @@ export function ClosedReportDetail({ report, updates, historyError, historyLoadi
   );
 }
 
-// Route page for /assignments/:id (responders only). Shows a closed report of the current team,
-// redirects an open report to the live list, and gives the same recovery for any report the team cannot see.
+// Stable detail for active and closed reports, scoped to the current team before operational content mounts.
 export default function ClosedReportPage() {
   const { id = '' } = useParams();
   const { team, user, role } = useAuth();
-  const { report, loading, error, notFound } = useReport(id);
-  const history = useReportUpdates(id, `${user?.uid ?? ''}|${role ?? ''}|${team ?? ''}`);
+  const { report, loading, error, notFound, fromCache } = useReport(id);
+  const scope = `${user?.uid ?? ''}|${role ?? ''}|${team ?? ''}`;
+  const title = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { if (!loading && report && teamsOf(report).includes(team || '')) title.current?.focus(); }, [id, loading, team]);
 
   if (!team) {
     return (
@@ -99,7 +107,7 @@ export default function ClosedReportPage() {
       />
     );
   }
-  if (loading) return <Skeleton label="Loading report"><SkeletonRows rows={2} height={220} /></Skeleton>;
+  if (loading || (report && report.id !== id)) return <Skeleton label="Loading report"><SkeletonRows rows={2} height={220} /></Skeleton>;
   if (error || notFound || !report || !team || !teamsOf(report).includes(team)) {
     return (
       <EmptyState
@@ -109,9 +117,14 @@ export default function ClosedReportPage() {
       />
     );
   }
-  if (isOpen(report)) return <Navigate to="/assignments" replace />;
+  return <div className="response-workspace"><ConnectionNotice fromCache={fromCache} /><Link className="touch-link response-back" to="/assignments">Back to assignments</Link>{isOpen(report) ? <AssignedCard key={`${scope}|${id}`} report={report} scope={scope} headingRef={title} /> : <ClosedHistory report={report} scope={scope} headingRef={title} />}<DraftShelf /></div>;
+}
+
+function ClosedHistory({ report, scope, headingRef }: { report: Report; scope: string; headingRef?: Ref<HTMLHeadingElement> }) {
+  const history = useReportUpdates(report.id, scope);
   return (
     <ClosedReportDetail
+      headingRef={headingRef}
       report={report}
       updates={history.updates}
       historyError={!!history.error}

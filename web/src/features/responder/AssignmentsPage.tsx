@@ -1,7 +1,8 @@
 import { teamsOf } from '../../types/domain';
 import ReportWindow from '../../components/ReportWindow';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type Ref } from 'react';
+import { flushSync } from 'react-dom';
 import { Check } from 'lucide-react';
 import { useAuth } from '../../auth/AuthProvider';
 import { api } from '../../api/client';
@@ -13,7 +14,12 @@ import { useClosedTeamReports } from './useClosedTeamReports';
 import { useAcknowledgedAt, useReport } from '../reports/useReport';
 import EmptyState from '../../components/calm/EmptyState';
 import OperationForm, { allowedOperationStatuses } from './OperationForm';
-import TeamSummary from './TeamSummary';
+import TeamIdentity from './TeamIdentity';
+import AssignmentRows from './AssignmentRows';
+import { useSearchParams } from 'react-router-dom';
+import PlaceLabel from '../../components/PlaceLabel';
+import { AssignmentMap } from './AssignmentMap';
+import PhotoImage from '../../components/PhotoImage';
 import { currentPosition, isLocationUnavailable, LOCATION_NOT_SENT_MESSAGE } from '../../lib/position';
 import AssignedProgress from './AssignedProgress';
 import StatusBadge from '../reports/StatusBadge';
@@ -46,10 +52,15 @@ interface AssignedCardProps {
   report: Report;
   // The signed-in identity. A change drops the card's history and unsubscribes it.
   scope: string;
+  headingRef?: Ref<HTMLHeadingElement>;
 }
 
-function AssignedCard({ report, scope }: AssignedCardProps) {
+export function AssignedCard({ report, scope, headingRef }: AssignedCardProps) {
+  const progressPanel = useRef<HTMLDivElement>(null);
+  useEffect(() => { const panel = progressPanel.current; const reveal = () => flushSync(() => setPane('progress')); panel?.addEventListener('reveal-progress', reveal); return () => panel?.removeEventListener('reveal-progress', reveal); }, []);
+  const [pane, setPane] = useState<'brief' | 'progress'>('brief');
   const [openForm, setOpenForm] = useState(false);
+  const canAcknowledge = report.status === 'Team Assigned' || report.status === 'Rescue in Progress';
   const canPostUpdate = allowedOperationStatuses(report.status).length > 0;
   // Once a responder has acknowledged, show that instead of offering the button again (avoids duplicate entries).
   const acknowledgement = useAcknowledgedAt(report.id);
@@ -79,25 +90,14 @@ function AssignedCard({ report, scope }: AssignedCardProps) {
   }
 
   return (
-    <li className="card assignment">
+    <article className="card assignment response-brief">
       <div className="assignment__main">
         <div className="assignment__heading">
-        <h2 className="queue__type">{report.type} report</h2>
+        <div>{report.reference && <span className="response-reference">{report.reference}</span>}<h2 ref={headingRef} tabIndex={-1} className="queue__type">{report.type} report</h2></div>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /></div>
         </div>
-        <span className="plain">{report.description}</span>
-        <dl>
-          <div className="fact"><dt>Address</dt><dd><span className="plain">{report.addressText || 'No address given'}</span></dd></div>
-          <div className="fact"><dt>Location</dt><dd>
-            {hasLoc ? (
-              <>
-                {report.placeName || report.area || 'Pinned location'}{' '}
-                <a className="touch-link" href={mapsUrl(loc)} target="_blank" rel="noopener noreferrer">Open in maps</a>
-              </>
-            ) : 'Not available'}
-          </dd></div>
-          <div className="fact"><dt>Reported</dt><dd>{formatTime(report.createdAt)}</dd></div>
-        </dl>
+        <div className="response-detail-nav" aria-label="Assignment sections"><button type="button" aria-pressed={pane === 'brief'} onClick={() => setPane('brief')}>Incident brief</button><button type="button" aria-pressed={pane === 'progress'} onClick={() => setPane('progress')}>Progress history</button></div>
+        <div className="response-action-panel">
         {message && (
           message.kind === 'ok'
             ? <Banner tone="info" role="status">{message.text}</Banner>
@@ -106,41 +106,46 @@ function AssignedCard({ report, scope }: AssignedCardProps) {
         <div className="actions__row">
           {accepted || acknowledgement.acknowledged
             ? <p className="plain assignment__acknowledged"><Check size={16} aria-hidden="true" /> Acknowledged {acknowledgement.at ? formatTime(acknowledgement.at) : ''}</p>
+            : !canAcknowledge ? <p>This report is resolved. No further field updates are available.</p>
             : acknowledgement.loading ? <p role="status">Checking acknowledgement…</p>
             : acknowledgement.error ? <Banner tone="error" role="alert">Could not check acknowledgement. Reload before acknowledging this assignment. <button type="button" className="btn btn--ghost" onClick={() => window.location.reload()}>Reload assignments</button></Banner>
             : <button type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={acknowledge}>{busy ? 'Acknowledging…' : 'Acknowledge'}</button>}
           {(canPostUpdate || openForm) && (
-            <button type="button" className="btn btn--ghost" aria-expanded={openForm}
+            <button type="button" className={accepted || acknowledgement.acknowledged ? 'btn' : 'btn btn--ghost'} aria-expanded={openForm}
               onClick={() => setOpenForm((v) => !v)}>
               {openForm ? 'Hide operation form' : 'Post an update'}
             </button>
           )}
         </div>
         {openForm && <OperationForm reportId={report.id} reportStatus={report.status} closed={!canPostUpdate} />}
-        <AssignedProgress reportId={report.id} scope={scope} />
+        </div>
+        <div hidden={pane !== 'brief'} className="response-detail-facts">
+        <div className="response-incident-context"><h3>Situation</h3><p className="plain">{report.description}</p>
+        <dl>
+          <div className="fact"><dt>Address</dt><dd><span className="plain">{report.addressText || 'No address given'}</span></dd></div>
+          <div className="fact"><dt>Location</dt><dd>
+            {hasLoc ? (
+              <>
+                <PlaceLabel point={loc} saved={report.placeName || report.area} />{' '}
+                <a className="touch-link" href={mapsUrl(loc)} target="_blank" rel="noopener noreferrer">Open in maps</a>
+              </>
+            ) : 'Not available'}
+          </dd></div>
+          <div className="fact"><dt>Reported</dt><dd>{formatTime(report.createdAt)}</dd></div>
+        </dl>
+        <dl><div className="fact"><dt>Contact person</dt><dd>{report.contact?.name || report.reporterName || 'Not provided'}</dd></div><div className="fact"><dt>Contact number</dt><dd>{report.contact?.phone || report.reporterPhone ? <a href={`tel:${report.contact?.phone || report.reporterPhone}`}>{report.contact?.phone || report.reporterPhone}</a> : 'Not provided'}</dd></div></dl></div>
+        <div className="response-incident-location"><h3>Incident location</h3><AssignmentMap reports={[report]} /></div>
+        {!!report.photos?.length && <details className="response-evidence"><summary>Resident photos ({report.photos.length})</summary><div>{report.photos.map((photo, index) => <a key={photo.url} href={photo.url} target="_blank" rel="noopener noreferrer" aria-label={`Open report photo ${index + 1}`}><PhotoImage src={photo.url} /></a>)}</div></details>}
+        </div>
+        <div data-progress-panel ref={progressPanel} hidden={pane !== 'progress'}><AssignedProgress reportId={report.id} scope={scope} /></div>
       </div>
-    </li>
-  );
-}
-
-// Read-only: a closed report has no status, note, acknowledge or close controls.
-function ClosedRow({ report }: { report: Report }) {
-  return (
-    <li className="card assignment closed-assignment">
-      <div className="assignment__heading">
-        <h3 className="queue__type">{report.type} report</h3>
-        <div className="incident__badges"><StatusBadge status={report.status} /></div>
-      </div>
-      <p className="plain">{report.description}</p>
-      <p className="plain">Closed {formatTime(report.updatedAt)}</p>
-      <Link className="touch-link" to={`/assignments/${encodeURIComponent(report.id)}`}>View {report.type} report</Link>
-    </li>
+    </article>
   );
 }
 
 // Watches the report behind one draft. Access lost (reassigned, unreadable, or no longer this team's) drops the
 // draft. A report that closed while the responder still has access keeps it, shown read-only.
-function DraftWatch({ reportId, team }: { reportId: string; team: string }) {
+export function DraftWatch({ reportId, team }: { reportId: string; team: string }) {
   const { report, loading, error, notFound, removed } = useReport(reportId);
   useEffect(() => {
     if (loading || !getDraft(reportId)) return;
@@ -164,7 +169,7 @@ type ReceiptCheck =
 
 // Read-only. Nothing here can be posted: the report is closed. The actions are the saved-update check (only for an
 // unconfirmed attempt) and discarding the draft. The check is a server lookup under the original key; it never writes.
-function ClosedDraft({ draft }: { draft: Draft }) {
+export function ClosedDraft({ draft }: { draft: Draft }) {
   const c = draft.closed;
   const [check, setCheck] = useState<ReceiptCheck>({ kind: 'idle' });
   // The check button disappears once a result arrives. Focus moves to the result so it is not lost to the page body.
@@ -196,7 +201,7 @@ function ClosedDraft({ draft }: { draft: Draft }) {
   return (
     <li className="card assignment closed-assignment">
       <h3 className="queue__type">{c.type} report</h3>
-      <p className="plain">This report is closed. This draft was not sent.</p>
+      <p className="plain">{check.kind === 'saved' ? 'This report is closed. Your earlier update was saved.' : draft.attempt ? 'This report is closed. Your earlier update has an unconfirmed receipt.' : 'This report is closed. This draft was not sent.'}</p>
       <dl>
         {c.reference && <div className="fact"><dt>Reference</dt><dd>{c.reference}</dd></div>}
         <div className="fact"><dt>Draft status</dt><dd>{draft.status || 'Not chosen'}</dd></div>
@@ -219,7 +224,7 @@ function ClosedDraft({ draft }: { draft: Draft }) {
             <Banner tone="info" role="status">This update was saved: {check.status}, {check.peopleRescued} rescued. It was not sent again.</Banner>
           )}
           {check.kind === 'not-found' && (
-            <Banner tone="info" role="status">No record of this update was found, so submission wasn’t confirmed. Your draft is kept here, read-only. It was not sent.</Banner>
+            <Banner tone="info" role="status">No record of this update was found, so submission wasn’t confirmed. Your draft is kept here, read-only. Nothing was sent by this check.</Banner>
           )}
           {check.kind === 'error' && (
             <Banner tone="error" role="alert">We couldn’t check right now. Try again when you are online.</Banner>
@@ -234,69 +239,55 @@ function ClosedDraft({ draft }: { draft: Draft }) {
   );
 }
 
-const RECENT_CLOSED_LIMIT = 10;
+export function DraftShelf() {
+  const { team } = useAuth();
+  const drafts = useDrafts();
+  const closedDrafts = [...drafts.values()].filter(d => d.closed && hasContent(d));
+  return <>
+    {[...drafts.keys()].map(id => <DraftWatch key={id} reportId={id} team={team ?? ''} />)}
+    {closedDrafts.length > 0 && <section className="closed-assignments" aria-labelledby="closed-drafts-heading">
+      <h2 id="closed-drafts-heading">Drafts and unconfirmed updates</h2>
+      <p>Closed reports cannot receive new updates. Unconfirmed earlier attempts can be checked below. Drafts stay in memory only, while your access continues.</p>
+      <ul className="closed-list">{closedDrafts.map(d => <ClosedDraft key={d.reportId} draft={d} />)}</ul>
+    </section>}
+  </>;
+}
 
 export default function AssignmentsPage() {
-  const { team, user, role } = useAuth();
-  const { reports, loading, error, fromCache, retry, windowSize, loadMore } = useAssignedReports(team);
+  const { team } = useAuth();
+  const open = useAssignedReports(team);
   const closed = useClosedTeamReports(team);
-  const drafts = useDrafts();
-  const scope = user ? `${user.uid}|${role ?? ''}|${team ?? ''}` : '';
-  const closedDrafts = [...drafts.values()].filter((d) => d.closed && hasContent(d));
+  const [params, setParams] = useSearchParams();
+  const tab = params.get('view') === 'closed' ? 'closed' : 'active';
+  const search = params.get('q') || '';
+  const status = params.get('status') || '';
+  const state = tab === 'closed' ? closed : open;
+  const filtered = (tab === 'closed' ? state.reports.slice(0, 10) : state.reports).filter(r => (!status || r.status === status) && `${r.reference || ''} ${r.type} ${r.description} ${r.placeName || ''} ${r.area || ''} ${r.addressText || ''}`.toLowerCase().includes(search.toLowerCase()));
+  const setFilter = (name: string, value: string) => setParams(current => { const next = new URLSearchParams(current); if (value) next.set(name, value); else next.delete(name); return next; }, { replace: true });
   useEffect(() => { document.title = 'Assignments · I-Report'; }, []);
-
-  if (!team) {
-    return (
-      <EmptyState
-        title="Your account is not linked to a rescue team"
-        body="Ask your administrator to assign you to a team. Assignments appear here once you have one."
-      />
-    );
-  }
-  return (
-    <div>
-      {!error && <ConnectionNotice fromCache={fromCache} />}
-      <TeamSummary team={team} />
-      {!loading && !error && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
-      {error && (
-        <Banner tone="error" role="alert">
-          Could not load your assignments. Check your connection and try again.{' '}
-          <button className="btn btn--ghost" type="button" onClick={retry}>Try again</button>
-        </Banner>
-      )}
-      {loading && <Skeleton label="Loading assignments"><SkeletonRows rows={2} height={220} /></Skeleton>}
-      {!loading && !error && reports.length === 0 && (
-        <EmptyState
-          title="No open assignments right now"
-          body="New assignments from your administrator appear here."
-        />
-      )}
-      {reports.length > 0 && (
-        <ul className="queue" aria-label="Assigned incidents, oldest first">
-          {reports.map((r) => <AssignedCard key={r.id} report={r} scope={scope} />)}
-        </ul>
-      )}
-      {[...drafts.keys()].map((id) => <DraftWatch key={id} reportId={id} team={team ?? ''} />)}
-      {closedDrafts.length > 0 && (
-        <section className="closed-assignments" aria-labelledby="closed-drafts-heading">
-          <h2 id="closed-drafts-heading" className="queue__type">Unsent drafts for closed reports</h2>
-          <p className="plain">These entries were not sent. The report closed before they could be posted, so they cannot be submitted. They stay in memory on this page only and are cleared when you sign out or lose access to the report.</p>
-          <ul className="closed-list" aria-label="Unsent drafts for closed reports">
-            {closedDrafts.map((d) => <ClosedDraft key={d.reportId} draft={d} />)}
-          </ul>
-        </section>
-      )}
-      {!closed.error && closed.reports.length > 0 && (
-        <section className="closed-assignments" aria-labelledby="closed-assignments-heading">
-          <h2 id="closed-assignments-heading" className="queue__type">Recently closed</h2>
-          <ul className="closed-list" aria-label="Recently closed reports, most recent first">
-            {closed.reports.slice(0, RECENT_CLOSED_LIMIT).map((r) => <ClosedRow key={r.id} report={r} />)}
-          </ul>
-          {closed.reports.length > RECENT_CLOSED_LIMIT && (
-            <p className="plain">Showing the {RECENT_CLOSED_LIMIT} most recent closed reports.</p>
-          )}
-        </section>
-      )}
+  if (!team) return <EmptyState title="Your account is not linked to a rescue team" body="Your administrator needs to link your account before team assignments and locations can be shown." />;
+  return <div className="response-workspace">
+    <TeamIdentity id={team} />
+    <div className="response-list-panel">
+      <div className="response-list-nav" aria-label="Assignment views">
+        <button className={tab === 'active' ? 'is-selected' : ''} type="button" aria-pressed={tab === 'active'} onClick={() => setParams({ view: 'active' })}>Active assignments</button>
+        <button className={tab === 'closed' ? 'is-selected' : ''} type="button" aria-pressed={tab === 'closed'} onClick={() => setParams({ view: 'closed' })}>Recently closed</button>
+      </div>
+      <div className="response-filters">
+        <div><label htmlFor="assignment-search">Find an assignment</label><input id="assignment-search" type="search" placeholder="Reference, incident or location" value={search} onChange={e => setFilter('q', e.target.value)} /></div>
+        <div><label htmlFor="assignment-status">Status</label><select id="assignment-status" value={status} onChange={e => setFilter('status', e.target.value)}><option value="">All statuses</option>{(tab === 'active' ? ['Team Assigned', 'Rescue in Progress', 'Resolved'] : ['Closed', 'Rejected', 'Duplicate', 'Cancelled']).map(s => <option key={s}>{s}</option>)}</select></div>
+      </div>
+      <section aria-label={tab === 'closed' ? 'Recently closed' : 'Active assignments'}>
+        <div className="response-section-head"><h2>{tab === 'closed' ? 'Recently closed' : 'Active assignments'}</h2><span>{tab === 'closed' ? 'Up to 10 most recently updated reports' : 'Oldest reported first'}</span></div>
+        <ConnectionNotice fromCache={state.fromCache} />
+        {(state.error || state.partialError) && <Banner tone="error" role="alert">{state.partialError ? 'Some assignments could not load. This list may be incomplete.' : 'Could not load your assignments.'} <button type="button" className="btn btn--ghost" onClick={state.retry}>Try again</button></Banner>}
+        {state.loading && <Skeleton label="Loading assignments"><SkeletonRows rows={3} height={90} /></Skeleton>}
+        {!state.loading && !state.error && !state.partialError && !filtered.length && <EmptyState title={search || status ? 'No assignments match these filters' : tab === 'closed' ? 'No recently closed assignments' : 'No open assignments right now'} body={search || status ? 'Change your search or status to see more assignments.' : tab === 'closed' ? 'Completed work appears here after a report is closed.' : 'Your team is ready. New assignments appear here automatically.'} action={search || status ? <button className="btn btn--ghost" type="button" onClick={() => setParams({ view: tab })}>Clear filters</button> : undefined} />}
+        {!!filtered.length && <AssignmentRows reports={filtered} closed={tab === 'closed'} />}
+        {tab === 'active' && !open.loading && <ReportWindow order="oldest" count={open.reports.length} windowSize={open.windowSize} loadMore={open.loadMore} />}
+        {(search || status) && <p className="response-scope">Filters apply to the loaded assignments. Load more to search a larger window.</p>}
+      </section>
     </div>
-  );
+    <DraftShelf />
+  </div>;
 }

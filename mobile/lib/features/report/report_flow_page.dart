@@ -459,6 +459,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             ),
             Expanded(
               child: SingleChildScrollView(
+                key: ValueKey('report-scroll-$_step'),
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
                 child: ProductArrival(
                   key: ValueKey('report-step-$_step'),

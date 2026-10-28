@@ -138,3 +138,7 @@ Method: same test as report details, with `--update-goldens`. Only this file cha
 ## Hashes recorded: register and map-tile-free, 28 October 2026
 
 Both committed images were viewed on 28 October 2026. Register shows the Create account form with required markers. Map-tile-free shows the incident map with one critical marker and its report card. Their widget tests pass against these images, so the stored hashes were stale. Only `SHA256SUMS.txt` changed; no image was regenerated.
+
+## Reviewed change: camera and actual review stage, October28,2026
+
+Owner requested Take photo alongside existing attachments. Codex reviewed separate candidate renders before updating references: report-details now shows Take photo and Choose existing photos, with the same required-photo rule and five-photo limit. report-review previously captured the Details screen with a missing-photo error because the visual fixture never attached the required photo. The fixture now supplies a synthetic valid photo and contact, asserts “1 attached”, and captures the actual Review step. That inspection also found scroll offset was retained from Details; the scroll view now resets per stage, with a regression. The reviewed reference shows Check and send at the top and the real report summary. Both images were visually inspected. Report-type and report-location candidate bytes are unchanged. Before/after images: design-plans/responder-web-audit-2026-10-28/implementation-evidence/mobile-goldens/. No device or real-camera verification is claimed by these images.

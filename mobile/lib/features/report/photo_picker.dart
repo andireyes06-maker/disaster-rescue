@@ -26,7 +26,8 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
   final List<String> _messages = [];
   bool _busy = false;
 
-  Future<void> _add() async {
+  Future<void> _add({bool camera = false}) async {
+    if (_busy) return;
     if (widget.photos.length >= maxPhotos) {
       setState(
         () => _messages
@@ -39,7 +40,9 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
     final msgs = <String>[];
     var list = [...widget.photos];
     try {
-      final picked = await widget.service.pick(maxPhotos - list.length);
+      final picked = camera
+          ? await widget.service.capture()
+          : await widget.service.pick(maxPhotos - list.length);
       for (final p in picked) {
         if (list.length >= maxPhotos) {
           msgs.add('Only 5 photos can be added. The rest were skipped.');
@@ -54,7 +57,9 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
       }
     } catch (_) {
       msgs.add(
-        'Could not open your photos. You can still send the report without them.',
+        camera
+            ? 'Could not open the camera. Check camera permission or choose existing photos.'
+            : 'Could not open your photos. Try again, or take a new photo.',
       );
     }
     if (!mounted) return;
@@ -64,10 +69,11 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
         ..clear()
         ..addAll(msgs);
     });
-    widget.onChanged(list);
+    if (list.length != widget.photos.length) widget.onChanged(list);
   }
 
   void _remove(int i) {
+    if (_busy) return;
     final list = [...widget.photos]..removeAt(i);
     setState(_messages.clear);
     widget.onChanged(list);
@@ -115,7 +121,7 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
                     IconButton(
                       tooltip: 'Remove photo ${widget.photos[i].name}',
                       icon: const Icon(Icons.close),
-                      onPressed: () => _remove(i),
+                      onPressed: _busy ? null : () => _remove(i),
                     ),
                   ],
                 ),
@@ -123,11 +129,29 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
           ],
         ),
         const SizedBox(height: 8),
-        OutlinedButton.icon(
-          onPressed: _busy ? null : _add,
-          icon: const Icon(Icons.add_photo_alternate_outlined),
-          label: const Text('Add photos'),
+        Wrap(
+          spacing: 10,
+          runSpacing: 8,
+          children: [
+            OutlinedButton.icon(
+              onPressed: _busy ? null : () => _add(camera: true),
+              icon: const Icon(Icons.camera_alt_outlined),
+              label: const Text('Take photo'),
+            ),
+            OutlinedButton.icon(
+              onPressed: _busy ? null : () => _add(),
+              icon: const Icon(Icons.add_photo_alternate_outlined),
+              label: const Text('Choose existing photos'),
+            ),
+          ],
         ),
+        if (_busy) ...[
+          const SizedBox(height: 8),
+          Semantics(
+            liveRegion: true,
+            child: const Text('Waiting for your photo…'),
+          ),
+        ],
         for (final m in _messages) ...[
           const SizedBox(height: 8),
           InlineError(m),

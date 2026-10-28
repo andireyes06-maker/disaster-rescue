@@ -27,7 +27,9 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
   ],
   // Rescuers use the website for their team's assignments and closed reports. They record field progress in the mobile app or on this website.
   responder: [
+    { to: '/responder', label: 'Overview', icon: LayoutDashboard },
     { to: '/assignments', label: 'Assignments', icon: ClipboardList },
+    { to: '/team-map', label: 'Team map', icon: Map },
   ],
 };
 
@@ -38,6 +40,9 @@ const DESCRIPTIONS: Record<string, string> = {
   'Audit log': 'Review who changed a report, what changed, and when.',
   Teams: 'Manage rescue teams and see their current availability.',
   Users: 'Manage staff access and team membership.',
+  Overview: 'Your team’s next response and recorded activity.',
+  'Team map': 'Locate your team’s assignments and headquarters.',
+  Assignment: 'Incident brief, location and rescue progress.',
   Assignments: 'Review your team’s incidents and record rescue progress.',
   Admin: 'Manage service settings and account access roles.',
   'Incident details': 'Review the report, its evidence, and the response history.',
@@ -96,7 +101,7 @@ export default function AppShell({ title, children }: AppShellProps) {
         <header className="shell__top">
           <div className="shell__account">
           <Dialog>
-            <DialogTrigger asChild><button type="button" className="profile-trigger" aria-label={`Open profile for ${user?.displayName || user?.email || 'your account'}`}><span className="account-avatar" aria-hidden="true">{(user?.displayName || user?.email || 'R').slice(0, 1).toUpperCase()}</span><span>{user?.displayName || user?.email}</span><ChevronDown size={15} aria-hidden="true" /></button></DialogTrigger>
+            <DialogTrigger asChild><button type="button" className="profile-trigger" aria-label={`Open profile for ${user?.displayName || user?.email || 'your account'}`}><span className="account-avatar" aria-hidden="true"><UserRound size={18} aria-hidden="true" /></span><span>{user?.displayName || user?.email}</span><ChevronDown size={15} aria-hidden="true" /></button></DialogTrigger>
             <DialogContent className="profile-dialog"><DialogTitle>Your profile</DialogTitle><DialogDescription>Review your account and manage your password.</DialogDescription><section className="profile-identity"><UserRound size={25} aria-hidden="true" /><div><strong>{user?.displayName || user?.email}</strong><p>{user?.email}</p><span className="badge badge--neutral">{role === 'admin' ? 'Administrator' : role === 'responder' ? 'Rescuer' : role}</span></div></section><details className="profile-password"><summary>Change password</summary><ChangePassword embedded /></details></DialogContent>
           </Dialog>
           {user && <NotificationBell key={user.uid} uid={user.uid} reportHref={(id) => role === 'responder' ? `/assignments/${encodeURIComponent(id)}` : `/incidents/${encodeURIComponent(id)}`} />}

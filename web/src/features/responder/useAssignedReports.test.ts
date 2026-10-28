@@ -105,3 +105,29 @@ describe('useAssignedReports filters open statuses on the server', () => {
     expect(result.current.reports.map((r) => r.id)).toEqual(['r2', 'r1']);
   });
 });
+
+  it('preserves available rows and explicitly flags a failed multi-team channel', () => {
+    const { result } = renderHook(() => useAssignedReports('team-a'));
+    act(() => h.subs[0].ok(snap([doc('available', 'Team Assigned', 1000)])));
+    act(() => h.subs[1].err(new Error('missing index')));
+    expect(result.current.reports.map(r => r.id)).toEqual(['available']);
+    expect(result.current.partialError).toBeTruthy();
+    expect(result.current.loading).toBe(false);
+    act(() => result.current.retry());
+    expect(h.subs[0].unsub).toHaveBeenCalled();
+    expect(h.subs[1].unsub).toHaveBeenCalled();
+  });
+  it('ignores late snapshots from a team listener after the team changes', () => {
+    const { result, rerender } = renderHook(({ team }) => useAssignedReports(team), { initialProps: { team: 'team-a' } });
+    rerender({ team: 'team-b' });
+    act(() => h.subs[0].ok(snap([doc('old-team-data', 'Team Assigned', 1000)])));
+    act(() => h.subs[1].ok(snap([])));
+    expect(result.current.reports).toEqual([]);
+    expect(result.current.loading).toBe(true);
+  });
+  it('filters statuses before limiting the multi-team query too', () => {
+    renderHook(() => useAssignedReports('team-a'));
+    expect(h.subs[1].constraints.some(c => c.where === 'status' && c.op === 'in')).toBe(true);
+  });
+
+beforeEach(() => { h.subs.length = 0; vi.clearAllMocks(); });

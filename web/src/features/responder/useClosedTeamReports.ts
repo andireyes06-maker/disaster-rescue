@@ -13,27 +13,27 @@ export interface ClosedTeamReportsState {
   reports: Report[];
   loading: boolean;
   error: FirestoreError | null;
+  partialError?: FirestoreError | null;
   fromCache: boolean;
   retry: () => void;
 }
 
-// The same team equality query as useAssignedReports (no extra filter or limit). It keeps the terminal
-// reports that the open list drops. Status changes set updatedAt, so it orders closed reports by when they changed.
+// Both team queries filter terminal statuses before limiting, newest update first.
 export function useClosedTeamReports(teamId: string | null | undefined): ClosedTeamReportsState {
-  const [state, setState] = useState<Omit<ClosedTeamReportsState, 'retry'>>({ reports: [], loading: true, error: null, fromCache: false });
+  const [state, setState] = useState<Omit<ClosedTeamReportsState, 'retry'> & { ownerTeam?: string | null }>({ ownerTeam: teamId, reports: [], loading: true, error: null, fromCache: false });
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     if (!teamId) {
-      setState({ reports: [], loading: false, error: null, fromCache: false });
+      setState({ ownerTeam: teamId, reports: [], loading: false, error: null, fromCache: false });
       return undefined;
     }
-    setState({ reports: [], loading: true, error: null, fromCache: false });
+    setState({ ownerTeam: teamId, reports: [], loading: true, error: null, fromCache: false });
     // Server-bounded: the team's terminal reports only, newest change first, at most RECENT_CLOSED_LIMIT documents.
     // Reports assigned to several teams are joined in.
     const db = getFirebaseDb();
     const single = query(collection(db, 'reports'), where('assignedTeamId', '==', teamId), where('status', 'in', [...TERMINAL_STATUSES]), orderBy('updatedAt', 'desc'), limit(RECENT_CLOSED_LIMIT));
-    const many = query(collection(db, 'reports'), where('assignedTeamIds', 'array-contains', teamId), orderBy('updatedAt', 'desc'), limit(RECENT_CLOSED_LIMIT * 2));
+    const many = query(collection(db, 'reports'), where('assignedTeamIds', 'array-contains', teamId), where('status', 'in', [...TERMINAL_STATUSES]), orderBy('updatedAt', 'desc'), limit(RECENT_CLOSED_LIMIT));
     return watchTeamReports(
       [single, many],
       convertReport,
@@ -42,11 +42,12 @@ export function useClosedTeamReports(teamId: string | null | undefined): ClosedT
         order: (a, b) => b.updatedAt.getTime() - a.updatedAt.getTime(),
         limit: RECENT_CLOSED_LIMIT,
       },
-      (reports, fromCache) => setState({ reports, loading: false, error: null, fromCache }),
+      (reports, fromCache, partialError) => setState({ ownerTeam: teamId, reports, loading: false, error: null, partialError, fromCache }),
       (error) => setState((s) => ({ ...s, loading: false, error })),
     );
   }, [teamId, attempt]);
 
   const retry = () => setAttempt((n) => n + 1);
-  return { ...state, retry };
+  const safe = state.ownerTeam === teamId ? state : { reports: [], loading: !!teamId, error: null, fromCache: false };
+  return { ...safe, retry };
 }

@@ -178,10 +178,34 @@ class GeolocatorLocationService implements LocationService {
 abstract class PhotoService {
   /// Lets the user choose up to [limit] images. Returns nothing if cancelled.
   Future<List<PickedPhoto>> pick(int limit);
+
+  /// Takes one photo with the device camera. Cancellation returns an empty list.
+  Future<List<PickedPhoto>> capture();
 }
 
 class ImagePickerPhotoService implements PhotoService {
-  final ImagePicker _picker = ImagePicker();
+  ImagePickerPhotoService({ImagePicker? picker})
+    : _picker = picker ?? ImagePicker();
+  final ImagePicker _picker;
+
+  @override
+  Future<List<PickedPhoto>> capture() async {
+    final file = await _picker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 2048,
+      maxHeight: 2048,
+      imageQuality: 85,
+      requestFullMetadata: false,
+    );
+    if (file == null) return const [];
+    return [
+      PickedPhoto(
+        name: file.name,
+        bytes: await file.readAsBytes(),
+        mime: _mimeFor(file.name, file.mimeType),
+      ),
+    ];
+  }
 
   static String _mimeFor(String name, String? reported) {
     if (reported != null && reported.startsWith('image/')) return reported;

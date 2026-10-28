@@ -13,6 +13,7 @@ export function progressSectionId(reportId: string): string {
 // so there is no page load, no route change and no new history entry; the router's own state is kept.
 export function focusProgressHistory(reportId: string): void {
   const section = document.getElementById(progressSectionId(reportId));
+  section?.closest('[data-progress-panel]')?.dispatchEvent(new Event('reveal-progress'));
   section?.scrollIntoView({ block: 'start' });
   document.getElementById(`${progressSectionId(reportId)}-heading`)?.focus({ preventScroll: true });
   if (window.location.hash !== `#${progressSectionId(reportId)}`) {
@@ -37,6 +38,7 @@ export default function AssignedProgress({ reportId, scope = '' }: { reportId: s
       {!history.loading && !history.error && history.updates.length === 0 && <p className="plain">No progress entries have been recorded yet.</p>}
       {history.updates.length > 0 && (
         <ActivityHistory
+          scrollable
           updates={history.updates}
           listClassName="closed-history"
           hasMore={history.hasMore && !history.loading && !history.error}

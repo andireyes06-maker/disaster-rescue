@@ -10,6 +10,8 @@ const state = vi.hoisted(() => ({
   team: 'team-a' as string | null,
   reports: [] as unknown[],
   closed: [] as unknown[],
+  closedError: null as Error | null,
+  partialError: null as Error | null,
   ackAt: null as Date | null,
   ackLoading: false,
   ackError: false,
@@ -19,10 +21,10 @@ const state = vi.hoisted(() => ({
 }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ team: state.team }) }));
 vi.mock('./useAssignedReports', () => ({
-  useAssignedReports: () => ({ reports: state.reports, loading: false, error: null }),
+  useAssignedReports: () => ({ reports: state.reports, loading: false, error: null, partialError: state.partialError }),
 }));
 vi.mock('./useClosedTeamReports', () => ({
-  useClosedTeamReports: () => ({ reports: state.closed, loading: false, error: null, fromCache: false, retry: () => {} }),
+  useClosedTeamReports: () => ({ reports: state.closed, loading: false, error: state.closedError, fromCache: false, retry: () => {} }),
 }));
 
 vi.mock('../reports/useReport', () => ({
@@ -33,8 +35,11 @@ vi.mock('../reports/useReport', () => ({
 // The team summary card loads its own counts; keep those out of the call sequence these tests assert.
 vi.mock('../../api/client', async (original) => ({ ...await original<typeof import('../../api/client')>(), api: (...a: unknown[]) => (a[0] === '/stats/team' ? Promise.resolve(null) : state.api(...a)) }));
 
-import AssignmentsPage from './AssignmentsPage';
+import AssignmentsPage, { AssignedCard } from './AssignmentsPage';
+import type { Report } from '../../types/domain';
 
+vi.mock('./TeamIdentity', () => ({ default: () => <p>Team Alpha</p> }));
+vi.mock('./AssignmentMap', () => ({ AssignmentMap: () => <div>Location map</div> }));
 const renderPage = () => render(<MemoryRouter><AssignmentsPage /></MemoryRouter>);
 
 describe('AssignmentsPage empty states', () => {
@@ -70,34 +75,34 @@ describe('AssignmentsPage acknowledgement', () => {
   });
 
   it('offers Acknowledge until a responder has acknowledged', () => {
-    renderPage();
+    render(<MemoryRouter><AssignedCard report={state.reports[0] as Report} scope="test" /></MemoryRouter>);
     expect(screen.getByRole('button', { name: 'Acknowledge' })).toBeInTheDocument();
   });
 
   it('shows the acknowledgement time and no button once acknowledged', () => {
     state.ackAt = new Date('2026-10-17T10:00:00Z');
-    renderPage();
+    render(<MemoryRouter><AssignedCard report={state.reports[0] as Report} scope="test" /></MemoryRouter>);
     expect(screen.queryByRole('button', { name: 'Acknowledge' })).not.toBeInTheDocument();
     expect(screen.getByText(/Acknowledged/)).toBeInTheDocument();
   });
 
   it('does not offer another acknowledgement before its history loads', () => {
     state.ackLoading = true;
-    renderPage();
+    render(<MemoryRouter><AssignedCard report={state.reports[0] as Report} scope="test" /></MemoryRouter>);
     expect(screen.getByRole('status')).toHaveTextContent('Checking acknowledgement');
     expect(screen.queryByRole('button', { name: 'Acknowledge' })).not.toBeInTheDocument();
   });
 
   it('does not treat failed history reads as an unacknowledged assignment', () => {
     state.ackError = true;
-    renderPage();
+    render(<MemoryRouter><AssignedCard report={state.reports[0] as Report} scope="test" /></MemoryRouter>);
     expect(screen.getByRole('alert')).toHaveTextContent('Could not check acknowledgement');
     expect(screen.getByRole('button', { name: 'Reload assignments' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Acknowledge' })).not.toBeInTheDocument();
   });
 
   it('keeps the confirmed acknowledgement when its stream has not caught up', async () => {
-    renderPage();
+    render(<MemoryRouter><AssignedCard report={state.reports[0] as Report} scope="test" /></MemoryRouter>);
     await userEvent.click(screen.getByRole('button', { name: 'Acknowledge' }));
     expect(await screen.findByText('Acknowledged')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Acknowledge' })).not.toBeInTheDocument();
@@ -105,7 +110,7 @@ describe('AssignmentsPage acknowledgement', () => {
   });
 });
 
-describe('AssignmentsPage recently closed (read-only, bounded)', () => {
+describe('AssignmentsPage recently closed (read-only, bounded)', async () => {
   const closedReport = (n: number) => ({
     id: `c${n}`, type: 'fire', status: 'Closed', priority: 'high', description: `Closed case ${n}.`,
     addressText: 'Harbour Road', location: null, verified: true, classification: '', photos: [], possibleDuplicates: [],
@@ -120,30 +125,34 @@ describe('AssignmentsPage recently closed (read-only, bounded)', () => {
     state.ackError = false;
   });
 
-  it('shows no closed section when the team has none', () => {
+  it('shows no closed section when the team has none', async () => {
     renderPage();
-    expect(screen.queryByRole('heading', { name: 'Recently closed' })).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Recently closed' }));
+    expect(screen.getByRole('heading', { name: 'No recently closed assignments' })).toBeInTheDocument();
   });
 
-  it('lists at most the 10 most recent closed reports and says so when truncated', () => {
+  it('lists at most the 10 most recent closed reports and says so when truncated', async () => {
     state.closed = Array.from({ length: 12 }, (_, i) => closedReport(i + 1));
     renderPage();
+    await userEvent.click(screen.getByRole('button', { name: 'Recently closed' }));
     const section = screen.getByRole('region', { name: 'Recently closed' });
     expect(section.querySelectorAll('li')).toHaveLength(10);
-    expect(section).toHaveTextContent('Showing the 10 most recent');
+    expect(section).toHaveTextContent('Up to 10 most recently updated');
   });
 
-  it('does not say the list is truncated when every closed report fits', () => {
+  it('does not say the list is truncated when every closed report fits', async () => {
     state.closed = [closedReport(1), closedReport(2)];
     renderPage();
+    await userEvent.click(screen.getByRole('button', { name: 'Recently closed' }));
     const section = screen.getByRole('region', { name: 'Recently closed' });
     expect(section.querySelectorAll('li')).toHaveLength(2);
-    expect(section).not.toHaveTextContent('Showing the 10 most recent');
+    expect(section).toHaveTextContent('Up to 10 most recently updated');
   });
 
-  it('gives closed reports no operational controls', () => {
+  it('gives closed reports no operational controls', async () => {
     state.closed = [closedReport(1)];
     renderPage();
+    await userEvent.click(screen.getByRole('button', { name: 'Recently closed' }));
     const section = screen.getByRole('region', { name: 'Recently closed' });
     expect(section.querySelectorAll('button')).toHaveLength(0);
     expect(section.querySelectorAll('form, input, textarea, select')).toHaveLength(0);
@@ -151,10 +160,11 @@ describe('AssignmentsPage recently closed (read-only, bounded)', () => {
     expect(screen.queryByRole('button', { name: 'Post an update' })).not.toBeInTheDocument();
   });
 
-  it('links each closed report to its read-only detail route', () => {
+  it('links each closed report to its read-only detail route', async () => {
     state.closed = [closedReport(3)];
     renderPage();
-    expect(screen.getByRole('link', { name: 'View fire report' })).toHaveAttribute('href', '/assignments/c3');
+    await userEvent.click(screen.getByRole('button', { name: 'Recently closed' }));
+    expect(screen.getByText('Closed case 3.').closest('a')).toHaveAttribute('href', '/assignments/c3');
   });
 });
 
@@ -179,7 +189,34 @@ describe('AssignmentsPage title and order', () => {
     renderPage();
     const list = screen.getByRole('list', { name: 'Assigned incidents, oldest first' });
     const items = within(list).getAllByRole('listitem');
-    expect(items[0]).toHaveTextContent('flood report');
-    expect(items[1]).toHaveTextContent('fire report');
+    expect(items[0]).toHaveTextContent('RR-1');
+    expect(items[1]).toHaveTextContent('RR-2');
   });
+});
+
+beforeEach(() => { state.closedError = null; state.partialError = null; });
+it('shows a recoverable closed-list error instead of hiding that view', async () => {
+  state.closed = []; state.reports = []; state.closedError = new Error('offline');
+  renderPage();
+  await userEvent.click(screen.getByRole('button', { name: 'Recently closed' }));
+  expect(screen.getByRole('alert')).toHaveTextContent('Could not load your assignments');
+  expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
+  expect(screen.queryByText('No recently closed assignments')).toBeNull();
+});
+it('never calls a failed multi-team channel an empty team', () => {
+  state.reports = []; state.partialError = new Error('unavailable');
+  renderPage();
+  expect(screen.getByRole('alert')).toHaveTextContent('This list may be incomplete');
+  expect(screen.queryByText('No open assignments right now')).toBeNull();
+});
+it('filters by reference and status, retaining direct report destinations', async () => {
+  state.reports = [{ id: 'r-one', reference: 'RR-ONE', type: 'flood', status: 'Team Assigned', description: 'Water', createdAt: new Date(), updatedAt: new Date() }, { id: 'r-two', reference: 'RR-TWO', type: 'fire', status: 'Resolved', description: 'Smoke', createdAt: new Date(), updatedAt: new Date() }];
+  renderPage();
+  await userEvent.type(screen.getByRole('searchbox'), 'RR-TWO');
+  expect(screen.queryByText('RR-ONE')).toBeNull();
+  expect(screen.getByText('RR-TWO').closest('a')).toHaveAttribute('href', '/assignments/r-two');
+  await userEvent.selectOptions(screen.getByLabelText('Status'), 'Team Assigned');
+  expect(screen.getByText('No assignments match these filters')).toBeInTheDocument();
+  await userEvent.click(screen.getByRole('button', { name: 'Clear filters' }));
+  expect(screen.getByText('RR-ONE')).toBeInTheDocument();
 });

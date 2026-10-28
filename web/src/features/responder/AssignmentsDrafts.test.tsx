@@ -22,6 +22,7 @@ vi.mock('../reports/useReport', () => ({
   useReport: () => ({ ...state.reportState, retry: () => {} }),
 }));
 
+vi.mock('./TeamIdentity', () => ({ default: () => null }));
 import AssignmentsPage from './AssignmentsPage';
 import { saveDraft, getDraft, resetDraftStoreForTests } from './draftStore';
 
@@ -42,7 +43,7 @@ describe('AssignmentsPage drafts', () => {
   it('keeps a draft for a report that closed while the responder still has access, shown read-only', async () => {
     saveDraft('r1', { note: 'Unsent note', peopleRescued: '2', status: 'Rescue in Progress' });
     renderPage();
-    const section = await screen.findByRole('region', { name: 'Unsent drafts for closed reports' });
+    const section = await screen.findByRole('region', { name: 'Drafts and unconfirmed updates' });
     expect(within(section).getByText('Unsent note')).toBeInTheDocument();
     expect(within(section).getByText(/This draft was not sent/)).toBeInTheDocument();
     expect(within(section).queryByRole('textbox')).toBeNull();
@@ -62,7 +63,7 @@ describe('AssignmentsPage drafts', () => {
   it('shows the unconfirmed-save copy and no retry for a closed report with a pending attempt', async () => {
     saveDraft('r1', { note: 'Maybe sent', attempt: { key: 'k-1', fingerprint: 'f', status: 'Rescue in Progress' } });
     renderPage();
-    const section = await screen.findByRole('region', { name: 'Unsent drafts for closed reports' });
+    const section = await screen.findByRole('region', { name: 'Drafts and unconfirmed updates' });
     expect(within(section).getByText(/We couldn’t confirm whether this update was saved before the report closed/)).toBeInTheDocument();
     expect(within(section).queryByRole('button', { name: /retry|submit/i })).toBeNull();
   });
@@ -133,7 +134,7 @@ describe('AssignmentsPage drafts', () => {
     saveDraft('r1', { note: 'Still open note' });
     renderPage();
     await screen.findByText('No open assignments right now').catch(() => null);
-    expect(screen.queryByRole('region', { name: 'Unsent drafts for closed reports' })).toBeNull();
+    expect(screen.queryByRole('region', { name: 'Drafts and unconfirmed updates' })).toBeNull();
     expect(getDraft('r1')?.note).toBe('Still open note');
     expect(getDraft('r1')?.closed).toBeUndefined();
   });

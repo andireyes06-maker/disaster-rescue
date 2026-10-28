@@ -73,6 +73,17 @@ class FakePhotoService implements PhotoService {
   // Reports need at least one photo as proof, so the default pick is one valid photo.
   List<PickedPhoto> next = [photo('proof.jpg')];
   int calls = 0;
+  int cameraCalls = 0;
+  Object? cameraError;
+  Completer<List<PickedPhoto>>? cameraPending;
+  @override
+  Future<List<PickedPhoto>> capture() async {
+    cameraCalls++;
+    if (cameraError != null) throw cameraError!;
+    if (cameraPending != null) return cameraPending!.future;
+    return next.take(1).toList();
+  }
+
   @override
   Future<List<PickedPhoto>> pick(int limit) async {
     calls++;
