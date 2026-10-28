@@ -85,6 +85,15 @@ describe('AnalyticsPage', () => {
     expect(within(perDay).getByText('2026-01-02')).toBeInTheDocument();
     expect(perDay.querySelectorAll('tbody tr')).toHaveLength(2);
   });
+  it('names types by label and leaves out types with no reports', async () => {
+    serveStats({ ...STATS, byType: { road_hazard: 2, flood: 0, other: 1 } });
+    renderPage();
+    const byType = await screen.findByRole('table', { name: /incidents by type/i });
+    expect(within(byType).getByText('Roadblock')).toBeInTheDocument();
+    expect(within(byType).getByText('Other')).toBeInTheDocument();
+    expect(within(byType).queryByText('Flood')).toBeNull();
+    expect(byType.textContent).not.toMatch(/road_hazard/);
+  });
   it('does not present a malformed response as zero incidents', async () => {
     serveStats({}); renderPage();
     expect(await screen.findByRole('alert')).toHaveTextContent('Could not load analytics.');

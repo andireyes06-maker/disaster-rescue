@@ -99,7 +99,7 @@ describe('ClosedReportPage access', () => {
     renderAt('/assignments/r1');
     serveReport();
     serveUpdates();
-    expect(screen.getByRole('heading', { name: 'flood report' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Flood report' })).toBeInTheDocument();
     expect(screen.getByText('Water reached the second floor.')).toBeInTheDocument();
   });
 
@@ -119,7 +119,7 @@ describe('ClosedReportPage access', () => {
     serveReport({ ...closedRaw, status: 'Team Assigned' });
     serveUpdates();
     expect(screen.queryByRole('heading', { name: 'Assignments list' })).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'flood report' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Flood report' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Post an update' })).toBeInTheDocument();
   });
 

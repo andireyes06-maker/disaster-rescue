@@ -8,6 +8,7 @@ import ExportButtons, { buildExportQuery, type ExportFilters } from './ExportBut
 import { fetchStats, type Stats } from './stats';
 import Banner from '../../components/calm/Banner';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
+import { typeLabel } from '../../lib/reportTypes';
 
 const FILTER_KEYS = ['from', 'to', 'type', 'status'] as const;
 
@@ -55,7 +56,8 @@ export default function AnalyticsPage() {
 
   const loading = result?.key !== dateKey;
   const stats = result?.key === dateKey ? result.stats : undefined;
-  const byType = Object.entries(stats?.byType ?? {}).map(toDatum);
+  // Types with no reports are left out. The bar colour follows the type key; the name shown is its label.
+  const byType = Object.entries(stats?.byType ?? {}).filter(([, count]) => count > 0).map(([key, value]): ChartDatum => ({ label: typeLabel(key), colorKey: key, value }));
   const byStatus = Object.entries(stats?.byStatus ?? {}).map(toDatum);
   const perDay = (stats?.perDay ?? []).map((d) => ({ label: d.date, value: d.count }));
   const perMonth = (stats?.perMonth ?? []).map((m) => ({ label: m.month, value: m.count }));
@@ -81,7 +83,7 @@ export default function AnalyticsPage() {
           <label htmlFor="an-type">Type</label>
           <select id="an-type" value={filters.type} onChange={(e) => setFilter('type', e.target.value)}>
             <option value="">All</option>
-            {REPORT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+            {REPORT_TYPES.map((t) => <option key={t} value={t}>{typeLabel(t)}</option>)}
           </select>
         </div>
         <div className="filter">

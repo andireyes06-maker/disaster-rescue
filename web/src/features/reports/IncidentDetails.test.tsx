@@ -67,6 +67,16 @@ describe('IncidentDetails', () => {
     expect(screen.queryByRole('tabpanel', { name: 'Response and updates' })).toBeNull();
   });
 
+  it('names the type by its label in the heading and in the facts, including the typed Other', () => {
+    const { unmount } = show([makeReport({ type: 'power_line' })]);
+    expect(screen.getByRole('heading', { level: 2, name: 'Live Wire report' })).toBeInTheDocument();
+    expect(screen.getByText('Incident type').closest('.fact')).toHaveTextContent('Live Wire');
+    unmount();
+    show([makeReport({ type: 'other', typeDetail: 'gas leak' })]);
+    expect(screen.getByRole('heading', { level: 2, name: 'Other: gas leak report' })).toBeInTheDocument();
+    expect(document.body.textContent).not.toMatch(/power_line/);
+  });
+
   it('displays the public reference instead of its storage ID', () => {
     show([makeReport({ reference: 'RR-260005' })]);
     expect(screen.getByText(/Report RR-260005/)).toBeInTheDocument();

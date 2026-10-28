@@ -13,15 +13,15 @@ describe('assignment map marker accessibility', () => {
     const select = vi.fn();
     const a = report('1'), b = report('2');
     const ui = render(<AssignmentMap reports={[a, b]} onSelect={select} />);
-    const marker = screen.getByRole('button', { name: 'Open RR-1: flood report, critical, Team Assigned' });
-    expect(screen.getByRole('button', { name: 'Open RR-2: flood report, critical, Team Assigned' })).toBeInTheDocument();
+    const marker = screen.getByRole('button', { name: 'Open RR-1: Flood report, critical, Team Assigned' });
+    expect(screen.getByRole('button', { name: 'Open RR-2: Flood report, critical, Team Assigned' })).toBeInTheDocument();
     marker.focus();
     fireEvent.keyDown(marker, { key: 'Enter' });
     expect(select).toHaveBeenCalledExactlyOnceWith(a);
     fireEvent.keyDown(marker, { key: ' ', repeat: true });
     expect(select).toHaveBeenCalledTimes(1);
     ui.rerender(<AssignmentMap reports={[{ ...a, status: 'Rescue in Progress' }, b]} onSelect={select} />);
-    expect(screen.getByRole('button', { name: 'Open RR-1: flood report, critical, Rescue in Progress' })).toBe(marker);
+    expect(screen.getByRole('button', { name: 'Open RR-1: Flood report, critical, Rescue in Progress' })).toBe(marker);
     expect(marker).toHaveFocus();
   });
   it('does not turn an inert detail or headquarters marker into a button', () => {

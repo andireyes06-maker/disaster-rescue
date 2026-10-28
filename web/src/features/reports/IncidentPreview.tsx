@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { MapPin, CircleHelp, Camera, type LucideIcon } from 'lucide-react';
-import { REPORT_TYPE_LIST } from '../../lib/reportTypes';
+import { MapPin, Camera } from 'lucide-react';
+import { typeLabel, typeMeta } from '../../lib/reportTypes';
 import { useReportUpdates } from './useReport';
 import StatusBadge from './StatusBadge';
 import PriorityBadge from './PriorityBadge';
@@ -8,13 +8,9 @@ import VerifiedBadge from './VerifiedBadge';
 import Banner from '../../components/calm/Banner';
 import { formatTime } from './format';
 import { nextStep, canActOnReports } from './workflow';
-import type { Report, ReportType } from '../../types/domain';
+import type { Report } from '../../types/domain';
 
 const SEVERITY_LABELS: Record<NonNullable<Report['severity']>, string> = { low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical' };
-
-// Decorative category icons and tile classes come from the registry. The type name is always printed beside them.
-export const TYPE_ICONS = Object.fromEntries(REPORT_TYPE_LIST.map((t) => [t.key, t.icon])) as Record<ReportType, LucideIcon>;
-export const TYPE_CLASS = Object.fromEntries(REPORT_TYPE_LIST.map((t) => [t.key, t.className])) as Record<ReportType, string>;
 
 interface IncidentPreviewProps {
   report: Report;
@@ -30,7 +26,7 @@ const ACTION_LABEL = { verify: 'Validate report', assign: 'Assign team', close: 
 export default function IncidentPreview({ report, canAct, outsideFilters, onClearFilters, reporter }: IncidentPreviewProps) {
   const updates = useReportUpdates(report.id);
   const step = nextStep(report);
-  const Icon = TYPE_ICONS[report.type] || CircleHelp;
+  const { icon: Icon, className: typeClass } = typeMeta(report.type);
   const photos = report.photos?.length ?? 0;
   const actionTo = `/incidents/${report.id}`;
 
@@ -44,9 +40,9 @@ export default function IncidentPreview({ report, canAct, outsideFilters, onClea
       )}
 
       <header className="preview__head">
-        <span className={`type-icon ${TYPE_CLASS[report.type] || 'type-icon--other'}`} aria-hidden="true"><Icon /></span>
+        <span className={`type-icon ${typeClass}`} aria-hidden="true"><Icon /></span>
         <div className="preview__title">
-          <h2 id="preview-title" tabIndex={-1}>{report.type.charAt(0).toUpperCase() + report.type.slice(1)} report</h2>
+          <h2 id="preview-title" tabIndex={-1}>{typeLabel(report.type, report.typeDetail)} report</h2>
           <p className="preview__place"><MapPin aria-hidden="true" /> {report.addressText || 'No address given'}</p>
           <div className="preview__badges">
             <PriorityBadge priority={report.priority} />

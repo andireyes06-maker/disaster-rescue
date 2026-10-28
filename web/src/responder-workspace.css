@@ -25,7 +25,7 @@
 .response-row__identity { display: grid; gap: 6px; min-width: 0; }
 .response-row__identity strong { font-size: 16px; }
 .response-row__description { color: #645b70; font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
-.response-type { width: fit-content; font-size: 12px; text-transform: capitalize; font-weight: 600; color: #583090; }
+.response-type { width: fit-content; font-size: 12px; font-weight: 600; color: #583090; }
 .response-type--flood { color: #215d98; }
 .response-type--fire { color: #9c391b; }
 .response-type--earthquake, .response-type--landslide { color: #79501f; }

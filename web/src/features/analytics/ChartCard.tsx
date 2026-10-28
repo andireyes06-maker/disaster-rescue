@@ -3,6 +3,8 @@ import { Area, AreaChart, Bar, BarChart, Cell, CartesianGrid, ResponsiveContaine
 
 export interface ChartDatum {
   label: string;
+  /** Picks the bar colour when the visible label is not the key (a type's label). Defaults to the label. */
+  colorKey?: string;
   value: number;
 }
 
@@ -51,7 +53,7 @@ export default function ChartCard({ title, labelHeader, data, chronological = fa
                 <CartesianGrid horizontal={false} stroke="var(--color-mist)" />
                 <XAxis type="number" allowDecimals={false} tick={{ fontSize: '0.8125rem' }} />
                 <YAxis type="category" dataKey="label" width={axisWidth} tick={<CategoryTick />} interval={0} tickLine={false} />
-                <Bar dataKey="value" radius={[0, 5, 5, 0]} maxBarSize={22} isAnimationActive={false}>{data.map(d => <Cell key={d.label} fill={palette ? CHART_COLORS[d.label] || '#6D28D9' : '#6D28D9'} />)}</Bar>
+                <Bar dataKey="value" radius={[0, 5, 5, 0]} maxBarSize={22} isAnimationActive={false}>{data.map(d => <Cell key={d.label} fill={palette ? CHART_COLORS[d.colorKey ?? d.label] || '#6D28D9' : '#6D28D9'} />)}</Bar>
               </BarChart>
             </ResponsiveContainer>}
           </div>

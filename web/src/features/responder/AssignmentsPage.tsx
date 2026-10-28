@@ -29,6 +29,7 @@ import { formatTime, isOpen } from '../reports/format';
 import { clearDraft, getDraft, hasContent, saveDraft, settleAttempt, unresolvedAttempts, useDrafts, type Draft } from './draftStore';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import Banner from '../../components/calm/Banner';
+import { typeLabel } from '../../lib/reportTypes';
 
 interface Message {
   kind: 'ok' | 'error';
@@ -98,7 +99,7 @@ export function AssignedCard({ report, scope, headingRef }: AssignedCardProps) {
     <article className="card assignment response-brief">
       <div className="assignment__main">
         <div className="assignment__heading">
-        <div>{report.reference && <span className="response-reference">{report.reference}</span>}<h2 ref={headingRef} tabIndex={-1} className="queue__type">{report.type} report</h2></div>
+        <div>{report.reference && <span className="response-reference">{report.reference}</span>}<h2 ref={headingRef} tabIndex={-1} className="queue__type">{typeLabel(report.type, report.typeDetail)} report</h2></div>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /></div>
         </div>
         <div className="response-detail-nav" role="group" aria-label="Assignment sections"><button type="button" aria-controls={`brief-${report.id}`} aria-pressed={pane === 'brief'} onClick={() => setPane('brief')}>Report brief</button><button type="button" aria-controls={`progress-${report.id}`} aria-pressed={pane === 'progress'} onClick={() => setPane('progress')}>Progress history</button></div>
@@ -215,7 +216,7 @@ export function ClosedDraft({ draft }: { draft: Draft }) {
 
   return (
     <li className="card assignment closed-assignment">
-      <h3 className="queue__type">{c.type} report</h3>
+      <h3 className="queue__type">{typeLabel(c.type)} report</h3>
       <p className="plain">{draft.attempt ? 'This report is closed. Your earlier update has an unconfirmed receipt.' : check.kind === 'saved' ? 'This report is closed. Your earlier update was saved.' : 'This report is closed. This draft was not sent.'}</p>
       <dl>
         {c.reference && <div className="fact"><dt>Reference</dt><dd>{c.reference}</dd></div>}
@@ -252,7 +253,7 @@ export function ClosedDraft({ draft }: { draft: Draft }) {
         </div>
       )}
       <div className="actions__row">
-        <Link className="touch-link" to={`/assignments/${encodeURIComponent(draft.reportId)}`}>View {c.type} report</Link>
+        <Link className="touch-link" to={`/assignments/${encodeURIComponent(draft.reportId)}`}>View {typeLabel(c.type)} report</Link>
         <button type="button" className="btn btn--ghost" onClick={() => clearDraft(draft.reportId)}>Discard draft</button>
       </div>
     </li>
@@ -282,7 +283,7 @@ export default function AssignmentsPage() {
   const search = params.get('q') || '';
   const status = params.get('status') || '';
   const state = tab === 'closed' ? closed : open;
-  const filtered = (tab === 'closed' ? state.reports.slice(0, 10) : state.reports).filter(r => (!status || r.status === status) && `${r.reference || ''} ${r.type} ${r.description} ${r.placeName || ''} ${r.area || ''} ${r.addressText || ''}`.toLowerCase().includes(search.toLowerCase()));
+  const filtered = (tab === 'closed' ? state.reports.slice(0, 10) : state.reports).filter(r => (!status || r.status === status) && `${r.reference || ''} ${typeLabel(r.type, r.typeDetail)} ${r.type} ${r.description} ${r.placeName || ''} ${r.area || ''} ${r.addressText || ''}`.toLowerCase().includes(search.toLowerCase()));
   const setFilter = (name: string, value: string) => setParams(current => { const next = new URLSearchParams(current); if (value) next.set(name, value); else next.delete(name); return next; }, { replace: true });
   useEffect(() => { document.title = 'Assignments · I-Report'; }, []);
   if (!team) return <EmptyState title="Your account is not linked to a rescue team" body="Your administrator needs to link your account before team assignments and locations can be shown." />;

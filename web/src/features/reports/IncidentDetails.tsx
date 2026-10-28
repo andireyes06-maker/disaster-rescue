@@ -1,7 +1,6 @@
 import { useDialogPresence } from '../../components/useDialogPresence';
-import { TYPE_CLASS, TYPE_ICONS } from './IncidentPreview';
-import { CircleHelp, Camera, Check, CircleDot, Radio } from 'lucide-react';
-import type { ReportType } from '../../types/domain';
+import { typeLabel, typeMeta } from '../../lib/reportTypes';
+import { Camera, Check, CircleDot, Radio } from 'lucide-react';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
 import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
@@ -81,7 +80,7 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }: Duplicate
         <article className="dup__item">
           <h3>This report</h3>
           <dl>
-            <Fact label="Type">{report.type}</Fact>
+            <Fact label="Type">{typeLabel(report.type, report.typeDetail)}</Fact>
             <Fact label="Description"><span className="plain">{report.description}</span></Fact>
             <Fact label="Reported">{formatTime(report.createdAt)}</Fact>
             <Fact label="Status"><StatusBadge status={report.status} /></Fact>
@@ -102,7 +101,7 @@ function DuplicateBanner({ report, candidates, canAct, busy, onMark }: Duplicate
             <article key={id} className="dup__item">
               <h3>Flagged report</h3>
               <dl>
-                <Fact label="Type">{r.type}</Fact>
+                <Fact label="Type">{typeLabel(r.type, r.typeDetail)}</Fact>
                 <Fact label="Description"><span className="plain">{r.description}</span></Fact>
                 <Fact label="Reported">{formatTime(r.createdAt)}</Fact>
                 {dist !== null && <Fact label="Distance">{dist} m away</Fact>}
@@ -271,10 +270,10 @@ function IncidentView({ id }: IncidentViewProps) {
       <ConnectionNotice fromCache={fromCache} />
       <header className="incident__heading">
         <h2 className="incident__title">
-          <span className={`type-icon ${TYPE_CLASS[report.type as ReportType] || 'type-icon--other'}`} aria-hidden="true">
-            {(() => { const Icon = TYPE_ICONS[report.type as ReportType] || CircleHelp; return <Icon size={20} />; })()}
+          <span className={`type-icon ${typeMeta(report.type).className}`} aria-hidden="true">
+            {(() => { const Icon = typeMeta(report.type).icon; return <Icon size={20} />; })()}
           </span>
-          {report.type.charAt(0).toUpperCase() + report.type.slice(1)} report
+          {typeLabel(report.type, report.typeDetail)} report
         </h2>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} />{!(report.status === 'Verified' && report.verified) && <VerifiedBadge verified={report.verified} />}</div>
         <p className="incident__reference">Report {report.reference || report.id} · {formatTime(report.createdAt)}</p>
@@ -293,7 +292,7 @@ function IncidentView({ id }: IncidentViewProps) {
         <h2>Reported incident</h2>
         <p className="plain incident__description">{report.description}</p>
         <dl>
-          <Fact label="Incident type"><span className="plain">{report.type.charAt(0).toUpperCase() + report.type.slice(1)}</span></Fact>
+          <Fact label="Incident type"><span className="plain">{typeLabel(report.type, report.typeDetail)}</span></Fact>
           {report.classification?.trim() && <Fact label="Additional classification"><span className="plain">{report.classification}</span></Fact>}
           <Fact label="Resident landmark"><span className="plain">{report.addressText || 'No address given'}</span></Fact>
           {loc && Number.isFinite(loc.lat) && <Fact label="Pinned location"><PlaceLabel point={loc} saved={report.placeName} /></Fact>}

@@ -15,6 +15,7 @@ import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import StatusBadge from '../reports/StatusBadge';
 import PriorityBadge from '../reports/PriorityBadge';
 import { formatTime, isOpen } from '../reports/format';
+import { typeLabel } from '../../lib/reportTypes';
 
 function mapsUrl(loc: GeoPoint): string {
   return `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}`;
@@ -37,7 +38,7 @@ export function ClosedReportDetail({ report, updates, historyError, historyLoadi
   return (
     <article className="card assignment closed-report">
       <div className="assignment__heading">
-        <h2 ref={headingRef} tabIndex={-1} className="queue__type">{report.type} report</h2>
+        <h2 ref={headingRef} tabIndex={-1} className="queue__type">{typeLabel(report.type, report.typeDetail)} report</h2>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /></div>
       </div>
       <p className="plain">Read only · {report.status}</p>

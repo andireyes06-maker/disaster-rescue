@@ -13,12 +13,13 @@ import { orderQueue } from './queueOrder';
 import { awaitingVerify, canActOnReports } from './workflow';
 import { useAuth } from '../../auth/AuthProvider';
 import { api } from '../../api/client';
-import { REPORT_TYPES, PRIORITIES, REPORT_STATUSES } from '../../types/domain';
+import { PRIORITIES, REPORT_STATUSES } from '../../types/domain';
+import { REPORT_TYPE_LIST, typeLabel, typeMeta } from '../../lib/reportTypes';
 import EmptyState from '../../components/calm/EmptyState';
 import Card from '../../components/calm/Card';
 import Banner from '../../components/calm/Banner';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
-import { MapPin, Waves, Flame, Building2, Mountain, CircleHelp, SlidersHorizontal, Search } from 'lucide-react';
+import { MapPin, SlidersHorizontal, Search } from 'lucide-react';
 
 type Report = ReturnType<typeof useAwaitingReports>['reports'][number];
 
@@ -69,15 +70,11 @@ const quickMatch = (r: Report, quick: Quick): boolean => {
   return true;
 };
 
-const TYPE_ICONS = { flood: Waves, fire: Flame, earthquake: Building2, landslide: Mountain, other: CircleHelp };
-const TYPE_CLASS = { flood: 'type-icon--flood', fire: 'type-icon--fire', earthquake: 'type-icon--earthquake', landslide: 'type-icon--landslide', other: 'type-icon--other' };
-
 interface Reporter { name?: string | null; phone?: string | null }
 
 function InboxRow({ r, selected, onSelect }: { r: Report; selected: boolean; onSelect: () => void }) {
-  const Icon = TYPE_ICONS[r.type as keyof typeof TYPE_ICONS] || CircleHelp;
-  const typeClass = TYPE_CLASS[r.type as keyof typeof TYPE_CLASS] || 'type-icon--other';
-  const label = r.type.charAt(0).toUpperCase() + r.type.slice(1);
+  const { icon: Icon, className: typeClass } = typeMeta(r.type);
+  const label = typeLabel(r.type, r.typeDetail);
   return (
     <li>
       <button
@@ -161,7 +158,7 @@ export default function ReportQueue() {
   const activeFilters = Object.values(f).filter(Boolean).length + (quick !== 'all' ? 1 : 0);
 
   const query = (params.get('q') ?? '').trim().toLowerCase();
-  const matchesQuery = (r: Report) => !query || [r.type, r.description, r.addressText ?? '', r.reference ?? '', r.id ?? '']
+  const matchesQuery = (r: Report) => !query || [typeLabel(r.type, r.typeDetail), r.type, r.description, r.addressText ?? '', r.reference ?? '', r.id ?? '']
     .some((text) => text.toLowerCase().includes(query));
 
   // Cancelled reports are not in the open list, so that view and a search read the full list.
@@ -256,7 +253,7 @@ export default function ReportQueue() {
         {filtersOpen && (
           <div id="report-filters" className="filters" role="group" aria-label="Filters">
             <Select label="Status" value={f.status} onChange={set('status')} options={REPORT_STATUSES.map((s) => [s, s] as const)} />
-            <Select label="Type" value={f.type} onChange={set('type')} options={REPORT_TYPES.map((s) => [s, s] as const)} />
+            <Select label="Type" value={f.type} onChange={set('type')} options={REPORT_TYPE_LIST.map((t) => [t.key, t.label] as const)} />
             <Select label="Priority" value={f.priority} onChange={set('priority')} options={PRIORITIES.map((s) => [s, s] as const)} />
             <Select label="Verification" value={f.verified} onChange={set('verified')} options={[['verified', 'Verified'], ['pending', 'Pending']]} />
           </div>

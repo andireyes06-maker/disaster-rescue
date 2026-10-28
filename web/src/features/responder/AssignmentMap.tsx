@@ -9,6 +9,7 @@ import MapViewport from '../../components/MapViewport';
 import EmptyState from '../../components/calm/EmptyState';
 import { DisasterSymbol, disasterSymbolHtml } from '../map/disasterSymbols';
 import { markerStyle } from '../map/markerStyle';
+import { typeLabel } from '../../lib/reportTypes';
 
 export const validPoint = (p: GeoPoint | null | undefined): p is GeoPoint => !!p && Number.isFinite(p.lat) && Number.isFinite(p.lng) && Math.abs(p.lat) <= 90 && Math.abs(p.lng) <= 180;
 export const directionsUrl = (p: GeoPoint) => `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}`;
@@ -22,7 +23,7 @@ function Bounds({ points, focus, revision }: { points: GeoPoint[]; focus?: GeoPo
   return null;
 }
 export function assignmentPinLabel(report: Report): string {
-  return `Open ${report.reference || report.id}: ${report.type} report, ${report.priority}, ${report.status}`;
+  return `Open ${report.reference || report.id}: ${typeLabel(report.type, report.typeDetail)} report, ${report.priority}, ${report.status}`;
 }
 function icon(report: Report) {
   const { shape, color, label } = markerStyle(report);
@@ -38,7 +39,7 @@ function AssignmentMarker({ report, onSelect }: { report: Report; onSelect?: (re
   }, [label, onSelect]);
   return <Marker ref={marker} position={[report.location!.lat, report.location!.lng]}
     interactive={!!onSelect} keyboard={!!onSelect}
-    title={`${report.reference || report.type} · ${report.priority} · ${report.status}`} icon={icon(report)}
+    title={`${report.reference || typeLabel(report.type, report.typeDetail)} · ${report.priority} · ${report.status}`} icon={icon(report)}
     eventHandlers={{
       add: event => { if (onSelect) (event.target as L.Marker).getElement()?.setAttribute('aria-label', label); },
       click: () => onSelect?.(report),

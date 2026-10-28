@@ -17,6 +17,7 @@ import ReportWindow from '../../components/ReportWindow';
 import EmptyState from '../../components/calm/EmptyState';
 import Banner from '../../components/calm/Banner';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
+import { typeLabel } from '../../lib/reportTypes';
 export default function TeamMap() {
   const { team } = useAuth();
   const state = useAssignedReports(team);
@@ -38,7 +39,7 @@ export default function TeamMap() {
         <AssignmentMap reports={state.reports} hq={own.team?.hq} selected={selected} onSelect={r => setParams({ report: r.id }, { replace: true })} />
         {selected && <aside ref={selectedRef} tabIndex={-1} className="response-map-selection" role="region" aria-label="Selected assignment">
           <div className={`response-incident-symbol response-type--${selected.type}`}><DisasterSymbol type={selected.type} /></div>
-          <div className="response-selection-heading"><h3>{selected.reference || `${selected.type} report`}</h3><div className="response-selection-badges"><PriorityBadge priority={selected.priority} /><StatusBadge status={selected.status} /></div></div>
+          <div className="response-selection-heading"><h3>{selected.reference || `${typeLabel(selected.type, selected.typeDetail)} report`}</h3><div className="response-selection-badges"><PriorityBadge priority={selected.priority} /><StatusBadge status={selected.status} /></div></div>
           <p className="response-selection-description" tabIndex={0} role="region" aria-label="Incident summary">{selected.description}</p>
           <div className="response-selection-place"><MapPin aria-hidden="true" size={18} /><div><span>Incident location</span><PlaceLabel point={selected.location!} saved={selected.placeName || selected.area} /></div></div>
           <div className="response-selection-actions"><Link className="btn" to={`/assignments/${encodeURIComponent(selected.id)}`}>Open assignment <ArrowUpRight size={16} aria-hidden="true" /></Link><a className="btn btn--ghost" href={directionsUrl(selected.location!)} target="_blank" rel="noopener noreferrer"><Navigation size={16} aria-hidden="true" />Directions</a></div>

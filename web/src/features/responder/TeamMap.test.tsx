@@ -15,4 +15,10 @@ describe('TeamMap', () => {
     expect(screen.getByText('RR-NOPIN').closest('a')).toHaveAttribute('href', '/assignments/missing-pin');
     expect(screen.queryByRole('region', { name: 'Selected assignment' })).toBeNull();
   });
+  it('names the selected assignment by its label when it has no reference', () => {
+    state.reports = [{ ...state.reports[0], id: 'wire', reference: undefined as unknown as string, type: 'power_line', location: { lat: 14.8, lng: 120.8 } } as typeof state.reports[number]];
+    render(<MemoryRouter initialEntries={['/team-map?report=wire']}><TeamMap /></MemoryRouter>);
+    expect(screen.getByRole('region', { name: 'Selected assignment' })).toHaveTextContent('Live Wire report');
+    expect(document.body.textContent).not.toMatch(/power_line/);
+  });
 });

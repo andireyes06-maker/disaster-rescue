@@ -14,6 +14,7 @@ import 'leaflet/dist/leaflet.css';
 import { useReports } from '../reports/useReports';
 import { markerStyle } from './markerStyle';
 import { PRIORITIES, REPORT_STATUSES, REPORT_TYPES, type Report, type GeoPoint } from '../../types/domain';
+import { typeLabel } from '../../lib/reportTypes';
 import Banner from '../../components/calm/Banner';
 import { Skeleton } from '../../components/calm/Skeleton';
 
@@ -30,16 +31,18 @@ interface FilterSelectProps {
   value: string;
   onChange: (value: string) => void;
   options: readonly string[];
+  /** Turns an option value into its visible name. Defaults to capitalising the value. */
+  labelOf?: (value: string) => string;
 }
 
-function FilterSelect({ label, value, onChange, options }: FilterSelectProps) {
+function FilterSelect({ label, value, onChange, options, labelOf = cap }: FilterSelectProps) {
   const id = `map-filter-${label.toLowerCase()}`;
   return (
     <div className="filter">
       <label htmlFor={id}>{label}</label>
       <select id={id} value={value} onChange={(e) => onChange(e.target.value)}>
         <option value="">All</option>
-        {options.map((o) => <option key={o} value={o}>{cap(o)}</option>)}
+        {options.map((o) => <option key={o} value={o}>{labelOf(o)}</option>)}
       </select>
     </div>
   );
@@ -111,7 +114,7 @@ export default function IncidentMap() {
       <ConnectionNotice fromCache={fromCache} />
       {!loading && !error && <ReportWindow count={reports.length} windowSize={windowSize} loadMore={loadMore} />}
       <div className="card map-filters" role="group" aria-label="Map filters">
-        <FilterSelect label="Type" value={filters.type} onChange={set('type')} options={REPORT_TYPES} />
+        <FilterSelect label="Type" value={filters.type} onChange={set('type')} options={REPORT_TYPES} labelOf={typeLabel} />
         <FilterSelect label="Priority" value={filters.priority} onChange={set('priority')} options={PRIORITIES} />
         <FilterSelect label="Status" value={filters.status} onChange={set('status')} options={REPORT_STATUSES} />
       </div>
@@ -142,7 +145,7 @@ export default function IncidentMap() {
               key={r.id}
               position={[r.location!.lat, r.location!.lng]}
               icon={iconFor(r)}
-              title={`Report ${r.id}, ${cap(r.type)}, ${markerStyle(r).label}, ${r.status}`}
+              title={`Report ${r.id}, ${typeLabel(r.type, r.typeDetail)}, ${markerStyle(r).label}, ${r.status}`}
               eventHandlers={{
                 click: () => { setSelection({ point: r.location!, name: r.placeName }); setOpenId(r.id); },
                 keydown: (event) => {

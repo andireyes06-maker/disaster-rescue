@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { makeReport } from '../reports/fixtures';
@@ -58,6 +58,14 @@ describe('IncidentMap', () => {
   it('shows an empty state when no located reports exist', () => {
     renderMap([makeReport({ id: 'r1', location: undefined })]);
     expect(screen.getByRole('heading', { name: 'No located reports yet' })).toBeInTheDocument();
+  });
+
+  it('names a marker and the Type filter by label, never by the key', () => {
+    renderMap([makeReport({ id: 'r1', type: 'road_hazard' }), makeReport({ id: 'r2', type: 'other', typeDetail: 'gas leak' })]);
+    expect(screen.getByRole('button', { name: /Report r1, Roadblock,/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Report r2, Other: gas leak,/ })).toBeInTheDocument();
+    const options = within(screen.getByLabelText('Type')).getAllByRole('option').map((o) => o.textContent);
+    expect(options).toEqual(['All', 'Flood', 'Fire', 'Earthquake', 'Landslide', 'Lifeline', 'Roadblock', 'Live Wire', 'Other']);
   });
 
   it('hides markers whose status does not match the filter', async () => {
