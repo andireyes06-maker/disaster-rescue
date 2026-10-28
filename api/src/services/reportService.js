@@ -40,6 +40,20 @@ export function submissionFingerprint(data, files = []) {
 const photosExpired = () => new HttpError(409, 'photos_expired', 'The photos for this report were not attached in time and were discarded. Send the report again.');
 const busy = () => new HttpError(409, 'submission_in_progress', 'This report is already being sent. Wait a moment, then check My reports before sending again.');
 
+// Best effort: wait a short time for the town, and ignore any error or timeout.
+async function townFromPin(deps, lat, lng) {
+  const find = deps.placeLookup?.locality;
+  if (typeof find !== 'function') return null;
+  let timer;
+  try {
+    const town = await Promise.race([
+      Promise.resolve(find(lat, lng)),
+      new Promise(resolve => { timer = setTimeout(() => resolve(null), deps.localityWaitMs ?? 3000); }),
+    ]);
+    return typeof town === 'string' && town.trim() ? town.trim() : null;
+  } catch { return null; } finally { clearTimeout(timer); }
+}
+
 function buildReport(data, user, reference, now) {
   const report = {
     reference,
@@ -101,6 +115,11 @@ async function runClaimed(deps, user, data, files, key, held, observed) {
   let uploaded = [];
   let commitStarted = false;
   let committed;
+  // Fill a missing town from the pin. This runs after the fingerprint was taken, so it never changes idempotency.
+  if (!data.locality) {
+    const town = await townFromPin(deps, data.lat, data.lng);
+    if (town) data = { ...data, locality: town };
+  }
   const report = buildReport(data, user, reference, now);
   // Photo ids are reserved in the server-only ledger before any bytes are sent (PHOTO-CLEANUP-SPEC, item 1).
   const assetIds = files?.length ? files.map(() => newAssetId()) : [];

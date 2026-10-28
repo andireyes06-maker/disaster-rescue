@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import request from 'supertest';
 import { makeTestApp } from '../fakes/testApp.js';
 
@@ -36,5 +36,50 @@ describe('POST /api/reports locality', () => {
     expect(entries).toHaveLength(1);
     expect(entries[0][0].toLowerCase()).toBe('guiguinto');
     expect(entries[0][1]).toBe(2);
+  });
+
+  const fake = (locality) => Object.assign(async () => null, { locality });
+
+  it('fills a missing town from the lookup', async () => {
+    const locality = vi.fn(async () => 'Guiguinto');
+    const t = makeTestApp({ placeLookup: fake(locality) });
+    const res = await post(t);
+    expect(res.status).toBe(201);
+    expect(locality).toHaveBeenCalledWith(14.8512, 120.8123);
+    expect((await t.repo.getReport(res.body.id)).locality).toBe('Guiguinto');
+  });
+
+  it('does not look up when the phone sent a town', async () => {
+    const locality = vi.fn(async () => 'Other');
+    const t = makeTestApp({ placeLookup: fake(locality) });
+    const res = await post(t, { locality: 'Guiguinto' });
+    expect((await t.repo.getReport(res.body.id)).locality).toBe('Guiguinto');
+    expect(locality).not.toHaveBeenCalled();
+  });
+
+  it('a failing lookup still saves the report with no town', async () => {
+    const t = makeTestApp({ placeLookup: fake(async () => { throw new Error('down'); }) });
+    const res = await post(t);
+    expect(res.status).toBe(201);
+    expect((await t.repo.getReport(res.body.id)).locality).toBeUndefined();
+  });
+
+  it('a slow lookup does not hold the report past the wait limit', async () => {
+    const t = makeTestApp({ placeLookup: fake(() => new Promise(() => {})), localityWaitMs: 50 });
+    const started = Date.now();
+    const res = await post(t);
+    expect(res.status).toBe(201);
+    expect(Date.now() - started).toBeLessThan(2000);
+    expect((await t.repo.getReport(res.body.id)).locality).toBeUndefined();
+  });
+
+  it('a replay with the same Idempotency-Key still matches', async () => {
+    const t = makeTestApp({ placeLookup: fake(async () => 'Guiguinto') });
+    const key = 'locality-replay-key-0001';
+    const first = await post(t).set('Idempotency-Key', key);
+    const second = await post(t).set('Idempotency-Key', key);
+    expect(first.status).toBe(201);
+    expect(second.status).toBe(201);
+    expect(second.body.id).toBe(first.body.id);
   });
 });

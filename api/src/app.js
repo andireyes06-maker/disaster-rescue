@@ -23,6 +23,7 @@ const DEFAULT_RATE_LIMIT = { windowMs: 15 * 60 * 1000, limit: 300 };
 export function buildApp({
   repo, uploader, sender, verifyToken, auth,
   placeLookup = createPlaceLookup(),
+  localityWaitMs,
   notifier = createNotifier({ repo, sender }),
   corsOrigins = [],
   rateLimit: rateOptions = DEFAULT_RATE_LIMIT,
@@ -42,7 +43,7 @@ export function buildApp({
       role: user?.role ?? null, active: user?.active === true, team: user?.team ?? null,
     };
   };
-  const deps = { repo, uploader, sender, verifyToken: verifyCanonical, notifier, auth, loginAttemptSecret, placeLookup };
+  const deps = { repo, uploader, sender, verifyToken: verifyCanonical, notifier, auth, loginAttemptSecret, placeLookup, localityWaitMs };
   const app = express();
   app.disable('x-powered-by');
   // Behind a host's proxy, count clients by their forwarded address, not the proxy's.

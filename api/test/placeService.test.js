@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { createPlaceLookup } from '../src/services/placeService.js';
+import { createPlaceLookup, localityOf } from '../src/services/placeService.js';
 describe('selected pin place lookup', () => {
   it('rounds coordinates, coalesces repeated pins and caches their address', async () => {
     const fetcher = vi.fn(async () => ({ ok: true, json: async () => ({ address: { road: 'River Road', suburb: 'Central', city: 'Harbor City' } }) }));
@@ -27,5 +27,19 @@ describe('selected pin place lookup', () => {
     const lookup = createPlaceLookup({ fetcher: async () => { await gate; return { ok: false }; }, wait: async () => {} });
     const queued = Array.from({ length: 8 }, (_, i) => lookup(i, i));
     expect(await lookup(50, 50)).toBeNull(); finish(); await Promise.all(queued);
+  });
+});
+describe('town from the pin', () => {
+  it('localityOf takes the town, not the county', () => {
+    expect(localityOf({ county: 'Bulacan', town: 'Guiguinto' })).toBe('Guiguinto');
+    expect(localityOf({ county: 'Bulacan' })).toBeNull();
+    expect(localityOf({ state: 'Central Luzon', province: 'Bulacan' })).toBeNull();
+  });
+  it('lookup.locality returns the town from a fake fetch reply and shares one fetch', async () => {
+    const fetcher = vi.fn(async () => ({ ok: true, json: async () => ({ address: { road: 'MacArthur Hwy', county: 'Bulacan', town: 'Guiguinto' } }) }));
+    const lookup = createPlaceLookup({ fetcher, wait: async () => {} });
+    expect(await lookup.locality(14.8512, 120.8123)).toBe('Guiguinto');
+    expect(await lookup(14.8512, 120.8123)).toBe('MacArthur Hwy, Guiguinto');
+    expect(fetcher).toHaveBeenCalledTimes(1);
   });
 });
