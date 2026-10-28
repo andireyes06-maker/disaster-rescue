@@ -41,7 +41,7 @@ describe('IncidentMap', () => {
 
   it('explains the same disaster symbols and priority shapes used on the map', () => {
     renderMap([makeReport()]);
-    expect(screen.getByRole('list', { name: 'Disaster type symbols' }).querySelectorAll('svg')).toHaveLength(5);
+    expect(screen.getByRole('list', { name: 'Disaster type symbols' }).querySelectorAll('svg')).toHaveLength(8);
     expect(screen.getByRole('list', { name: 'Priority colors and shapes' }).querySelector('.map-marker--triangle')).toBeInTheDocument();
     expect(screen.getByRole('list', { name: 'Priority colors and shapes' }).querySelector('.map-marker--diamond')).toBeInTheDocument();
   });

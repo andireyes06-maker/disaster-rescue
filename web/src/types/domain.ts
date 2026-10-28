@@ -1,6 +1,7 @@
 // Shared domain types. Firestore and API data are mapped into these at the boundary.
 
-export const REPORT_TYPES = ['flood', 'fire', 'earthquake', 'landslide', 'other'] as const;
+// Display order. The labels, icons and chooser descriptions live in lib/reportTypes.ts; reportTypes.test.ts pins the two together.
+export const REPORT_TYPES = ['flood', 'fire', 'earthquake', 'landslide', 'medical', 'road_hazard', 'power_line', 'other'] as const;
 export type ReportType = (typeof REPORT_TYPES)[number];
 
 export const PRIORITIES = ['low', 'medium', 'high', 'critical'] as const;
@@ -53,6 +54,8 @@ export interface Report {
   reporterName?: string | null;
   reporterPhone?: string | null;
   type: ReportType;
+  /** What an Other report is about, in the resident's words. Set only when type is 'other'. */
+  typeDetail?: string;
   description: string;
   status: ReportStatus;
   verified: boolean;

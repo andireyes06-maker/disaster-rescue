@@ -8,6 +8,7 @@ import {
   MAX_PEOPLE_RESCUED,
   MAX_NOTE_LENGTH,
   ASSIGN_TEAM_ERROR,
+  webReportSchema,
 } from './schemas';
 
 const validOperation = { status: 'Resolved', peopleRescued: 3, note: 'Family moved to the shelter' };
@@ -104,5 +105,31 @@ describe('staffAccountSchema', () => {
   it('rejects an unknown role and a blank email', () => {
     expect(staffAccountSchema.safeParse({ ...valid, role: 'dispatcher' }).success).toBe(false);
     expect(staffAccountSchema.safeParse({ ...valid, email: '  ' }).success).toBe(false);
+  });
+});
+
+describe('webReportSchema type', () => {
+  const ok = { type: 'flood', description: 'Water rising', lat: 14.85, lng: 120.81, source: 'gps' as const, addressText: '' };
+  const messages = (input: unknown) => {
+    const r = webReportSchema.safeParse(input);
+    return r.success ? [] : r.error.issues.map((i) => i.message);
+  };
+  it.each(['flood', 'fire', 'earthquake', 'landslide', 'medical', 'road_hazard', 'power_line'])('accepts %s', (type) => {
+    expect(webReportSchema.safeParse({ ...ok, type }).success).toBe(true);
+  });
+  it('rejects a type outside the 8', () => { expect(webReportSchema.safeParse({ ...ok, type: 'tornado' }).success).toBe(false); });
+  it('Other needs the typed text', () => {
+    expect(messages({ ...ok, type: 'other' })).toContain('Say what kind of emergency this is.');
+    expect(messages({ ...ok, type: 'other', typeDetail: '   ' })).toContain('Say what kind of emergency this is.');
+  });
+  it('Other text must be 3 to 40 characters', () => {
+    expect(messages({ ...ok, type: 'other', typeDetail: 'ab' })).toContain('Describe it in 3 to 40 characters.');
+    expect(messages({ ...ok, type: 'other', typeDetail: 'a'.repeat(41) })).toContain('Describe it in 3 to 40 characters.');
+    const r = webReportSchema.safeParse({ ...ok, type: 'other', typeDetail: '  gas leak ' });
+    expect(r.success && r.data.typeDetail).toBe('gas leak');
+  });
+  it('drops a typed text on any other type', () => {
+    const r = webReportSchema.safeParse({ ...ok, type: 'flood', typeDetail: 'gas leak' });
+    expect(r.success && r.data.typeDetail).toBeUndefined();
   });
 });

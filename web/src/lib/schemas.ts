@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { REPORT_TYPES } from '../types/domain';
 
 // Client-side checks are a convenience only. The API remains the authority.
 
@@ -80,13 +81,20 @@ export const REPORT_PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as c
 
 // Mirrors api/src/domain/validation.js. The API checks the same rules and remains the authority.
 export const webReportSchema = z.object({
-  type: z.enum(['flood', 'fire', 'earthquake', 'landslide', 'other'], { error: 'Choose the type of emergency.' }),
+  type: z.enum(REPORT_TYPES, { error: 'Choose the type of emergency.' }),
+  // Only an Other report carries it; the API refuses it on any other type, so it is dropped below.
+  typeDetail: z.string().trim().optional(),
   description: z.string().trim().min(3, { error: 'Describe the emergency in at least 3 characters.' }).max(1000, { error: 'Description can be at most 1000 characters.' }),
   lat: z.number({ error: 'Pick a location or use GPS before you submit.' }).min(-90).max(90),
   lng: z.number({ error: 'Pick a location or use GPS before you submit.' }).min(-180).max(180),
   source: z.enum(['gps', 'manual']),
   addressText: z.string().trim().max(300, { error: 'Address can be at most 300 characters.' }),
-});
+}).superRefine((d, ctx) => {
+  if (d.type !== 'other') return;
+  const n = d.typeDetail?.length ?? 0;
+  if (n === 0) ctx.addIssue({ code: 'custom', path: ['typeDetail'], message: 'Say what kind of emergency this is.' });
+  else if (n < 3 || n > 40) ctx.addIssue({ code: 'custom', path: ['typeDetail'], message: 'Describe it in 3 to 40 characters.' });
+}).transform(({ typeDetail, ...d }): typeof d & { typeDetail?: string } => (d.type === 'other' ? { ...d, typeDetail } : d));
 
 export function checkReportPhotos(files: File[]): string | null {
   if (files.length > REPORT_PHOTO_MAX) return `At most ${REPORT_PHOTO_MAX} photos allowed.`;

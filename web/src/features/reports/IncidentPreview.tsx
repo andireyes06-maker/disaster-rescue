@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Waves, Flame, Building2, Mountain, CircleHelp, Camera } from 'lucide-react';
+import { MapPin, CircleHelp, Camera, type LucideIcon } from 'lucide-react';
+import { REPORT_TYPE_LIST } from '../../lib/reportTypes';
 import { useReportUpdates } from './useReport';
 import StatusBadge from './StatusBadge';
 import PriorityBadge from './PriorityBadge';
@@ -11,22 +12,9 @@ import type { Report, ReportType } from '../../types/domain';
 
 const SEVERITY_LABELS: Record<NonNullable<Report['severity']>, string> = { low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical' };
 
-// Decorative category icons. The type name is always printed beside them.
-export const TYPE_ICONS: Record<ReportType, typeof Waves> = {
-  flood: Waves,
-  fire: Flame,
-  earthquake: Building2,
-  landslide: Mountain,
-  other: CircleHelp,
-};
-
-export const TYPE_CLASS: Record<ReportType, string> = {
-  flood: 'type-icon--flood',
-  fire: 'type-icon--fire',
-  earthquake: 'type-icon--earthquake',
-  landslide: 'type-icon--landslide',
-  other: 'type-icon--other',
-};
+// Decorative category icons and tile classes come from the registry. The type name is always printed beside them.
+export const TYPE_ICONS = Object.fromEntries(REPORT_TYPE_LIST.map((t) => [t.key, t.icon])) as Record<ReportType, LucideIcon>;
+export const TYPE_CLASS = Object.fromEntries(REPORT_TYPE_LIST.map((t) => [t.key, t.className])) as Record<ReportType, string>;
 
 interface IncidentPreviewProps {
   report: Report;
