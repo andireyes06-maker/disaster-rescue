@@ -12,7 +12,7 @@ export function projectReportForRole(report, role, uid, teamId) {
   if (role === 'responder') {
     if (!isAssignedTo(report, teamId)) return null;
     // Defence in depth: reporter name and phone are never shown to responders, even if a stored record carries them.
-    const { reporterName, reporterPhone, ...forResponder } = report;
+    const { reporterName, reporterPhone, reporterPhotoUrl, ...forResponder } = report;
     return forResponder;
   }
   if (!PUBLIC_STATUSES.has(report.status)) return null;

@@ -84,7 +84,7 @@ async function attachReporters(repo, reports) {
     if (!r.reporterId) return r;
     if (!cache.has(r.reporterId)) cache.set(r.reporterId, repo.getUser(r.reporterId).catch(() => null));
     const profile = (await cache.get(r.reporterId)) ?? {};
-    return { ...r, reporterName: profile.name ?? null, reporterPhone: profile.phone ?? null };
+    return { ...r, reporterName: profile.name ?? null, reporterPhone: profile.phone ?? null, reporterPhotoUrl: profile.photo?.url ?? null };
   }));
 }
 

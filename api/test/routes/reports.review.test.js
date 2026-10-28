@@ -46,6 +46,30 @@ describe('review endpoints', () => {
     expect(r.body[0].contact).toBeDefined();
   });
 
+  it('admin reads carry reporterPhotoUrl (or null); responder reads carry no reporter fields; resident own read is unchanged', async () => {
+    const t = makeTestApp();
+    await t.repo.createUser('res-1', { role: 'resident', name: 'Ana', phone: '0917', active: true, photo: { url: 'https://img.test/a.jpg' } });
+    await t.repo.createUser('res-2', { role: 'resident', name: 'Ben', active: true });
+    await t.repo.createUser('rsp-1', { role: 'responder', team: 'tA', active: true });
+    const withPhoto = await seed(t, { assignedTeamId: 'tA', status: 'Team Assigned' });
+    const noPhoto = await seed(t, { reporterId: 'res-2' });
+    const admin = t.as('admin');
+    expect((await request(t.app).get(`/api/reports/${withPhoto}`).set('Authorization', admin)).body.reporterPhotoUrl).toBe('https://img.test/a.jpg');
+    expect((await request(t.app).get(`/api/reports/${noPhoto}`).set('Authorization', admin)).body.reporterPhotoUrl).toBeNull();
+    const list = await request(t.app).get('/api/reports').set('Authorization', admin);
+    expect(list.body.find((r) => r.id === withPhoto).reporterPhotoUrl).toBe('https://img.test/a.jpg');
+    const rsp = t.as('responder', 'rsp-1');
+    for (const res of [await request(t.app).get(`/api/reports/${withPhoto}`).set('Authorization', rsp), (await request(t.app).get('/api/reports').set('Authorization', rsp))]) {
+      const body = Array.isArray(res.body) ? res.body[0] : res.body;
+      expect(res.status).toBe(200);
+      for (const k of ['reporterPhotoUrl', 'reporterName', 'reporterPhone']) expect(body).not.toHaveProperty(k);
+    }
+    const own = await request(t.app).get(`/api/reports/${withPhoto}`).set('Authorization', t.as('resident', 'res-1'));
+    expect(own.status).toBe(200);
+    for (const k of ['reporterPhotoUrl', 'reporterName', 'reporterPhone']) expect(own.body).not.toHaveProperty(k);
+    expect(own.body.contact).toBeDefined();
+  });
+
   it('responder lists only reports of their own team', async () => {
     const t = makeTestApp();
     await t.repo.createUser('rsp-1', { role: 'responder', team: 'tA', active: true });

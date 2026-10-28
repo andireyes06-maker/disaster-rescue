@@ -70,7 +70,7 @@ const quickMatch = (r: Report, quick: Quick): boolean => {
   return true;
 };
 
-interface Reporter { name?: string | null; phone?: string | null }
+interface Reporter { name?: string | null; phone?: string | null; photoUrl?: string | null }
 
 function InboxRow({ r, selected, onSelect }: { r: Report; selected: boolean; onSelect: () => void }) {
   const { icon: Icon, className: typeClass } = typeMeta(r.type);
@@ -118,7 +118,7 @@ export default function ReportQueue() {
       .then((list: unknown) => {
         if (!active || !Array.isArray(list)) return;
         setPeople(Object.fromEntries(list.filter((u): u is Record<string, unknown> & { uid: string } => !!u && typeof (u as { uid?: unknown }).uid === 'string')
-          .map((u) => [u.uid, { name: typeof u.name === 'string' ? u.name : null, phone: typeof u.phone === 'string' ? u.phone : null }])));
+          .map((u) => [u.uid, { name: typeof u.name === 'string' ? u.name : null, phone: typeof u.phone === 'string' ? u.phone : null, photoUrl: typeof (u.photo as { url?: unknown } | null | undefined)?.url === 'string' ? (u.photo as { url: string }).url : null }])));
       })
       .catch(() => { /* names stay hidden; the row says the name was not recorded */ });
     return () => { active = false; };

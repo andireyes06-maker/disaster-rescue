@@ -19,3 +19,12 @@ it('explains missing caller data and shows medium severity by default without fa
   expect(screen.getByText('Severity').nextElementSibling).toHaveTextContent('Medium');
   expect(document.querySelector('a[href^="tel:"]')).toBeNull();
 });
+
+it('shows the reporter photo when one is present and initials when not', () => {
+  const ui = (photoUrl: string | null) => <MemoryRouter><IncidentPreview report={makeReport()} reporter={{ name: 'Sample Resident', photoUrl }} canAct outsideFilters={false} onClearFilters={() => {}} /></MemoryRouter>;
+  const { container, rerender } = render(ui('https://img.test/a.jpg'));
+  expect(container.querySelector('.avatar img')).toHaveAttribute('src', 'https://img.test/a.jpg');
+  rerender(ui(null));
+  expect(container.querySelector('.avatar img')).toBeNull();
+  expect(container.querySelector('.avatar')).toHaveTextContent('SR');
+});
