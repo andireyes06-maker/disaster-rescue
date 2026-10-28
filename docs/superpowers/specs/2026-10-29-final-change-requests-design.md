@@ -81,7 +81,7 @@ Found in code: the town is an optional field on a report (`api/src/domain/valida
 - Acceptance: welcome, sign-in and signed-in report headers show the logo, sharp and aligned at narrow widths. Golden images change here; view them before regenerating (existing rule).
 
 ### B1. Profile photos
-- Phone already has a profile page (`mobile/lib/features/profile/profile_page.dart`). The website had no profile page in the feature list I checked; the builder confirms and adds a small one, or a dialog from the account menu in `AppShell.tsx`.
+- Phone already has a profile page (`mobile/lib/features/profile/profile_page.dart`). The website already has a "Your profile" dialog in `web/src/layout/AppShell.tsx:102-105`; the photo controls go there (corrected while planning).
 - Add a photo field on the user record, an owner-only upload and removal endpoint, validation and a default avatar fallback. Show the photo wherever an avatar or initials mark is drawn today (for example `identity-mark` in `TeamsPage.tsx`, `AppShell.tsx`, incident views).
 - Acceptance: upload, reload and see it on another client of the same account; cancelled or failed upload keeps the old photo; oversized or unsupported files are refused with a plain message; changing a request id cannot change another account's photo; a missing or broken photo falls back to initials.
 
