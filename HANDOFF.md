@@ -1,29 +1,25 @@
-# Handoff: I-Report, 28 October 2026 (night), for Codex
+# Handoff: I-Report, 29 October 2026, final change requests
 
-> Branch `feat/ui-response-workspace-2026-10-28` (worktree `app/`). Production branch `build/disaster-rescue`: a push deploys live web and API, so push only with Airen's explicit approval each time. Recording day is 29 October. Spec `docs/superpowers/specs/2026-10-28-emergency-types-design.md`, plan `docs/superpowers/plans/2026-10-28-emergency-types.md`, ledger `.superpowers/sdd/2026-10-28-emergency-types/progress.md` (git-ignored, this machine; holds every `Ruling:`).
+> Branch `feat/ui-response-workspace-2026-10-28` (this `app/` tree). Production branch `build/disaster-rescue`: a push deploys live web and API, so push only with Airen's explicit approval each time. Spec `docs/superpowers/specs/2026-10-29-final-change-requests-design.md`, plan `docs/superpowers/plans/2026-10-29-final-change-requests.md`, ledger `.superpowers/sdd/2026-10-29-final-change-requests/progress.md` (git-ignored, this machine; holds every `Ruling:` and deferred minor).
 
 ## Start here
-- **Done and committed locally, not pushed:** Lifeline (`medical`), Roadblock (`road_hazard`), Live Wire (`power_line`) plus a typed Other (`typeDetail`, 3 to 40 chars, only on `other`). Commits `39f3382` API, `c147096` `643eb8c` `4747da9` `b90f8de` web, `5512adb` `0371e65` phone. Earlier local commits `1bc45c3` `0bcbfe2` `4dcaa25` `54080d9` are also unpushed. Live site is still `dc6f7cc`.
-- **Checks (this tree, run separately):** API 618 pass 36 skipped. Web `tsc` clean, 622 pass (`--maxWorkers=2`), `npm run build` ok. Flutter analyze clean, 297 pass. Parity test `api/test/domain/reportTypes.parity.test.js` passes and fails when a label drifts (checked).
-- **Committed:** the parity test, this file, `docs/history.md` and the spec status are in `2713cfa`. Only `docs/documentation/handoff.md` (another session's edits) is modified and uncommitted; do not stage it.
-- **NOT done:** (1) the whole-branch review (a reviewer was started and stopped; rerun it on Opus, never Fable). Review range `54080d9..HEAD`; package from the superpowers `review-package` script. (2) Rendered check of the real signed-in admin and responder maps (legend was checked only in a throwaway page at 390 and 1440 px; screenshots in `design-plans/emergency-types-2026-10-28/`). (3) Any physical-phone test. (4) Push and deploy.
-- **APK built, not installed:** `SUBMISSION-2026-10-20/Android/I-Report-2026-10-28-update15-emergency-types.apk`, SHA-256 `856717e29bfa8a568edcae3881e8b1053cfddb7187b2bd761297198fb3070e77`. Debug build, Firebase project `flutter-5094e`, API `https://disaster-rescue-api.onrender.com/api`. It carries the new type strings (checked in the kernel blob). Until the API is pushed, production returns 400 for the new types. `1-APK-for-phones.apk` still points at update14; repointing is Airen's call.
-- **Next, in order:** run the Opus review of `54080d9..HEAD`, fix Critical and Important findings test-first; ask Airen before any push (web and API ship together); after the push, check live that a Lifeline report submits.
+- **Built and task-reviewed, local only, NOT pushed or deployed (commits `24ac688`..`00f06e4`):** W1 town fix (route dropped `locality`; server now fills a missing town from the pin, city/town/municipality only), W3 Medical team identity, W2+W5 web sign-in with Forgot password and Contact an admin, M1 real logo on the phone, B1 profile photos (API, web dialog, phone profile page), W4 admin "View submitter profile", reporter photo on admin screens, demo seed towns.
+- **Checks (separate runs):** API 653 pass 36 skipped. Web `tsc` clean, 652 pass, `npm run build` ok. Flutter analyze clean, 310 pass.
+- **Not done:** (1) whole-branch Opus review `54080d9..HEAD` never completed (account limit, resets 4:40 AM Manila; the Task 9 reviewer also hit it and was redone on Sonnet). Not passed. (2) APK not rebuilt (needs Airen's yes). (3) Production reports not cleared or reseeded (Airen will clear; needs explicit approval and an exact list). (4) Submission pack, source ZIP and checksums not refreshed. (5) Browser pass of the incident dialog, Teams and Analytics not done; sign-in and web profile photo were browser-checked on local emulators only.
+- **Not verified anywhere:** physical Android/iOS, real push, screen readers, real Cloudinary signed photo URLs, real Firestore `photo: null` clear.
+- **Open questions for Airen:** queue order (priority-first now; the docs `docs/documentation/how-it-works.md:79`, `user-guide.md:46,50`, `docs/video-script.md:14` still say "oldest first, priority does not change the order"; recommendation: keep priority-first and fix those docs); whether a resident should see the assigned responder's photo (no such screen exists and responders never see resident names, so not built); demo pins are all Manila/Quezon City so the demo location chart shows one bar.
+- **Next:** (a) when the limit resets, run the whole-branch Opus review of `54080d9..HEAD` (dispatch with model opus, 200 words max, file:line refs); fix Critical/Important test-first. (b) Final fix wave candidates from the ledger: per-user upload rate limit on `PUT /users/me/photo`, 60 s upload timeout on the phone, AppShell photo reset on uid change, always-present status region on sign-in. (c) With Airen's approval: rebuild APK, refresh pack/checksums, push.
 
 ## Decisions Airen made (do not reopen)
-Names: Lifeline, Roadblock, Live Wire. Typed Other. Zero-count types hidden in the analytics chart and filter counts. New APK. Push after the work, with approval. Colours and legend were delegated; I changed ochre and slate to olive gold `#6B6400` and teal `#0B6B73` (too close to High and Low priority; ratios in `CONTRAST.md`).
-
-## Rulings worth knowing
-PDF summary and CSV use the label. The public incidents feed never carries `typeDetail`. Phone map Type filter is now one scrolling row (8 chips overflowed 360x640). Two goldens regenerated after viewing (`map-tile-free`, `report-type`), logged in `mobile/test/goldens/PROVENANCE.md`. Closed-draft headings on web read "Other report" for a typed Other (draft stores only the key).
+Photos for every role, visible to others (admin screens only for now). Contact an admin reuses `/auth/reset-help`. Old disaster reports will be cleared and recreated, no backfill. Medical is a team identity only; Lifeline stays the incident label. Keep Opus as the top model for subagents, never Fable. Earlier: emergency type names Lifeline, Roadblock, Live Wire, typed Other.
 
 ## Gotchas
-- Use Opus as the highest model for any subagent. Fable ran this session too hot.
-- macOS `sed -i` needs `''`. zsh does not split an unquoted variable of file names. Typecheck and tests run as separate commands.
-- Production writes, Firebase deploys and rules changes need approval. No Android emulators. Do not regenerate goldens without viewing them. Do not revert the Zod 4 migration. Never print or commit keys; the Firebase client values used for the APK were read in memory and deleted.
-- Firestore rules have no type list or field allow-list (checked); no rules change.
+- Never run `dart format` on directories (an implementer reformatted 24 files; restored). Stage only named files. Do not stage `docs/documentation/handoff.md`.
+- macOS `sed -i` needs `''`. Typecheck and tests run as separate commands. No Android emulators. Do not regenerate goldens without viewing them. Never print or commit keys.
+- Production writes, Firebase deploys, rules changes need approval. Firestore rules unchanged by this work.
 
 ## Resume prompt
-"Read HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT/app, then continue from step 1 of Next. Tell me what you need from me."
+"Read HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT/app, then continue from step (a) of Next. Tell me what you need from me."
 
 ## Pointers
-Older handoffs: `docs/history.md`. Earlier audit record: `design-plans/responder-web-audit-2026-10-28/`.
+Older handoffs: `docs/history.md`. Pack: `../SUBMISSION-2026-10-28-I-REPORT/`.

@@ -90,3 +90,26 @@ Earlier handoff, moved here on 27 October 2026.
 ## Pointers
 - History of earlier handoffs: `docs/history.md`.
 - Commit log on the branch is the best timeline (`git log --oneline`).
+
+
+## Archived handoff: Codex emergency-types release (28 Oct 2026 night)
+
+## Start here
+- **Deployed by Codex with Airen’s explicit approval:** Lifeline (`medical`), Roadblock (`road_hazard`), Live Wire (`power_line`) plus a typed Other (`typeDetail`, 3 to 40 chars, only on `other`). Commits `39f3382` API, `c147096` `643eb8c` `4747da9` `b90f8de` web, `5512adb` `0371e65` phone. Earlier commits `1bc45c3` `0bcbfe2` `4dcaa25` `54080d9` are included. Production branch is now `9313c72`; Vercel and Render deployments succeeded, all3 GitHub CI jobs passed. Release: `design-plans/emergency-types-2026-10-28/codex-review/RELEASE-2026-10-28.md`.
+- **Checks (this tree, run separately):** API 618 pass 36 skipped. Web `tsc` clean, 622 pass (`--maxWorkers=2`), `npm run build` ok. Flutter analyze clean, 297 pass. Parity test `api/test/domain/reportTypes.parity.test.js` passes and fails when a label drifts (checked).
+- **Committed:** the parity test, this file, `docs/history.md` and the spec status are in `2713cfa`. Codex continuation records are now uncommitted: this file and `design-plans/emergency-types-2026-10-28/codex-review/`. Preserve `docs/documentation/handoff.md` (another session's edits); do not stage it.
+- **Codex continuation:** Opus review attempted on `54080d9..9313c72`; actual model `claude-opus-5-5`, but it hit the account spend limit before returning a completed review. CLI reset: **11:40 PM Manila**. Not passed, no fallback. Actual signed-in admin/responder maps now checked locally at390/1440 with all8 types, no overflow/page errors. API618+36skipped, web622+clean tsc/build, Flutter297+clean analyze rerun. Full record: `design-plans/emergency-types-2026-10-28/codex-review/RECORD.md`. Physical phone and the completed Opus review remain open; push/deploy succeeded under Airen’s subsequent approval.
+- **Latest APK built, not installed:** `../SUBMISSION-2026-10-20/Android/I-Report-2026-10-28-update16-online.apk` (relative to app/), SHA-256 `3f69fa9d1946d735362393c14bceb1805151267037498dd0857dfdbae7ce2609`. Fresh build from9313c72, versionCode16, debug-signed universal; certificate matches update15. Live Firebase/API, no emulators, debug banner hidden, new type labels verified in APK. Receipt: sibling `ONLINE-BUILD-UPDATE16.json`. `1-APK-for-phones.apk` still points at update14; it was not repointed.
+- **Next:** retry the Opus review of `54080d9..HEAD` after the account limit resets/changes; fix any Critical/Important findings test-first and request fresh approval before another push. Physical-phone and controlled live Lifeline submission checks are still unperformed.
+
+## Decisions Airen made (do not reopen)
+Names: Lifeline, Roadblock, Live Wire. Typed Other. Zero-count types hidden in the analytics chart and filter counts. New APK. Push after the work, with approval. Colours and legend were delegated; I changed ochre and slate to olive gold `#6B6400` and teal `#0B6B73` (too close to High and Low priority; ratios in `CONTRAST.md`).
+
+## Rulings worth knowing
+PDF summary and CSV use the label. The public incidents feed never carries `typeDetail`. Phone map Type filter is now one scrolling row (8 chips overflowed 360x640). Two goldens regenerated after viewing (`map-tile-free`, `report-type`), logged in `mobile/test/goldens/PROVENANCE.md`. Closed-draft headings on web read "Other report" for a typed Other (draft stores only the key).
+
+## Gotchas
+- Use Opus as the highest model for any subagent. Fable ran this session too hot.
+- macOS `sed -i` needs `''`. zsh does not split an unquoted variable of file names. Typecheck and tests run as separate commands.
+- Production writes, Firebase deploys and rules changes need approval. No Android emulators. Do not regenerate goldens without viewing them. Do not revert the Zod 4 migration. Never print or commit keys; the Firebase client values used for the APK were read in memory and deleted.
+- Firestore rules have no type list or field allow-list (checked); no rules change.
