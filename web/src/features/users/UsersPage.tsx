@@ -12,6 +12,7 @@ import EmptyState from '../../components/calm/EmptyState';
 import FieldError from '../../components/FieldError';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import Banner from '../../components/calm/Banner';
+import Avatar from '../../components/Avatar';
 import { Dialog, DialogContent, DialogTitle } from '../../components/ui/dialog';
 
 interface User {
@@ -21,6 +22,8 @@ interface User {
   role: string;
   active: boolean;
   team?: string | null;
+  // The account list carries the stored photo record; only its delivery URL is used here.
+  photo?: { url?: string | null } | null;
 }
 
 // Teams apply to field staff. Residents and admins have no team.
@@ -216,7 +219,7 @@ export default function UsersPage() {
           {visibleUsers.map((u) => (
             <li key={u.uid} className="management-row">
               <div className="management-identity">
-                <span className="identity-mark" data-role={u.role} aria-hidden="true">{(u.name || u.email || '?').trim().split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase()}</span>
+                <span className="identity-mark" data-role={u.role} aria-hidden="true"><Avatar name={u.name || u.email || '?'} photoUrl={u.photo?.url ?? null} /></span>
                 <strong>{u.name || u.email}</strong>
                 <small title={u.email || undefined}>{u.email || 'Email not available'}</small>
                 <span className="badge badge--neutral">{u.role}</span>

@@ -1,11 +1,14 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, ClipboardList, MapPin, LogOut, ChevronDown, UserRound, type LucideIcon } from 'lucide-react';
+import { LayoutDashboard, Map, ChartNoAxesCombined, History, Users, ShieldCheck, Settings, ClipboardList, MapPin, LogOut, ChevronDown, type LucideIcon } from 'lucide-react';
 import { useAuth } from '../auth/AuthProvider';
 import type { Role } from '../types/domain';
 import NotificationBell from '../features/resident/NotificationBell';
 import ChangePassword from '../features/account/ChangePassword';
 import Banner from '../components/calm/Banner';
+import Avatar from '../components/Avatar';
+import ProfilePhotoControls from '../features/account/ProfilePhotoControls';
+import { api } from '../api/client';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 
 interface NavItem {
@@ -60,6 +63,22 @@ export default function AppShell({ title, children }: AppShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [signOutError, setSignOutError] = useState('');
   const { pathname } = useLocation();
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  // Once the person changes their photo, a slower first load must not overwrite it.
+  const photoTouched = useRef(false);
+  const uid = user?.uid;
+  useEffect(() => {
+    if (!uid) return;
+    let live = true;
+    photoTouched.current = false;
+    api('/users/me').then((me) => {
+      const url = (me as { photoUrl?: unknown } | null)?.photoUrl;
+      if (live && !photoTouched.current) setPhotoUrl(typeof url === 'string' && url ? url : null);
+    }).catch(() => { /* No photo yet: the initials stay. */ });
+    return () => { live = false; };
+  }, [uid]);
+  const onPhotoChange = (next: string | null) => { photoTouched.current = true; setPhotoUrl(next); };
+  const accountName = user?.displayName || user?.email || '';
   async function onSignOut() {
     setSignOutError('');
     try {
@@ -101,8 +120,8 @@ export default function AppShell({ title, children }: AppShellProps) {
         <header className="shell__top">
           <div className="shell__account">
           <Dialog>
-            <DialogTrigger asChild><button type="button" className="profile-trigger" aria-label={`Open profile for ${user?.displayName || user?.email || 'your account'}`}><span className="account-avatar" aria-hidden="true"><UserRound size={18} aria-hidden="true" /></span><span>{user?.displayName || user?.email}</span><ChevronDown size={15} aria-hidden="true" /></button></DialogTrigger>
-            <DialogContent className="profile-dialog"><DialogTitle>Your profile</DialogTitle><DialogDescription>Review your account and manage your password.</DialogDescription><section className="profile-identity"><UserRound size={25} aria-hidden="true" /><div><strong>{user?.displayName || user?.email}</strong><p>{user?.email}</p><span className="badge badge--neutral">{role === 'admin' ? 'Administrator' : role === 'responder' ? 'Rescuer' : role}</span></div></section><details className="profile-password"><summary>Change password</summary><ChangePassword embedded /></details></DialogContent>
+            <DialogTrigger asChild><button type="button" className="profile-trigger" aria-label={`Open profile for ${user?.displayName || user?.email || 'your account'}`}><Avatar name={accountName} photoUrl={photoUrl} size={33} className="account-avatar" /><span>{user?.displayName || user?.email}</span><ChevronDown size={15} aria-hidden="true" /></button></DialogTrigger>
+            <DialogContent className="profile-dialog"><DialogTitle>Your profile</DialogTitle><DialogDescription>Review your account and manage your photo and password.</DialogDescription><section className="profile-identity"><Avatar name={accountName} photoUrl={photoUrl} size={64} className="profile-identity__avatar" /><div><strong>{user?.displayName || user?.email}</strong><p>{user?.email}</p><span className="badge badge--neutral">{role === 'admin' ? 'Administrator' : role === 'responder' ? 'Rescuer' : role}</span></div></section><ProfilePhotoControls photoUrl={photoUrl} onPhotoChange={onPhotoChange} /><details className="profile-password"><summary>Change password</summary><ChangePassword embedded /></details></DialogContent>
           </Dialog>
           {user && <NotificationBell key={user.uid} uid={user.uid} reportHref={(id) => role === 'responder' ? `/assignments/${encodeURIComponent(id)}` : `/incidents/${encodeURIComponent(id)}`} />}
           </div>

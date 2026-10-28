@@ -47,6 +47,20 @@ describe('UsersPage team assignment (F03)', () => {
     });
   });
 
+  it('draws a person with a profile photo using the photo, and others with initials', async () => {
+    h.api.mockImplementation(async (path: string) => {
+      if (path === '/users') return [{ ...users[0], photo: { url: 'https://res.cloudinary.com/demo/ana.jpg' } }, users[1]];
+      if (path === '/teams') return teams;
+      return {};
+    });
+    const { container } = render(<MemoryRouter><UsersPage /></MemoryRouter>);
+    await screen.findByRole('combobox', { name: 'Team for Ana' });
+    const marks = container.querySelectorAll('.identity-mark');
+    expect(marks[0].querySelector('img')).toHaveAttribute('src', 'https://res.cloudinary.com/demo/ana.jpg');
+    expect(marks[1].querySelector('img')).toBeNull();
+    expect(marks[1]).toHaveTextContent('R');
+  });
+
   it('a responder without a team can be linked to one, through the API', async () => {
     render(<MemoryRouter><UsersPage /></MemoryRouter>);
     const select = await screen.findByRole('combobox', { name: 'Team for Ana' });
