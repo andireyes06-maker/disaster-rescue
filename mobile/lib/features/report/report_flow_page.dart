@@ -21,7 +21,7 @@ import 'report_draft_store.dart';
 import 'submission_result_page.dart';
 
 export '../../data/report_models.dart'
-    show validatePhone, validatePhoto, validateDescription;
+    show validatePhone, validatePhoto, validateDescription, validateTypeDetail;
 
 class ReportTypeInfo {
   /// The stored type key. The name people see is [label], looked up from [reportTypeLabels].
@@ -101,6 +101,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   String? _locality;
   final _name = TextEditingController();
   final _phone = TextEditingController();
+  // Only used when the type is Other: what the emergency is, in the resident's words.
+  final _typeDetail = TextEditingController();
 
   int _step = 0;
   String? _type;
@@ -171,6 +173,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     _address.dispose();
     _name.dispose();
     _phone.dispose();
+    _typeDetail.dispose();
     super.dispose();
   }
 
@@ -178,6 +181,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
 
   ReportDraft _currentDraft() => ReportDraft(
     type: _type,
+    typeDetail: _type == 'other' ? _typeDetail.text.trim() : '',
     description: _description.text,
     lat: _lat,
     lng: _lng,
@@ -192,6 +196,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
 
   bool _complete(ReportDraft d) =>
       d.type != null &&
+      (d.type != 'other' || validateTypeDetail(d.typeDetail) == null) &&
       d.lat != null &&
       d.lng != null &&
       d.source != null &&
@@ -203,6 +208,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     final d = _savedDraft!;
     setState(() {
       _type = reportTypeInfo.containsKey(d.type) ? d.type : null;
+      _typeDetail.text = _type == 'other' ? d.typeDetail : '';
       _description.text = d.description;
       _lat = d.lat;
       _lng = d.lng;
@@ -248,6 +254,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     setState(() {
       _step = 0;
       _type = null;
+      _typeDetail.clear();
       _lat = _lng = _source = null;
       _placeName = null;
       _photos = [];
@@ -259,7 +266,8 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
   bool get _canNext {
     switch (_step) {
       case 0:
-        return _type != null;
+        return _type != null &&
+            (_type != 'other' || validateTypeDetail(_typeDetail.text) == null);
       case 1:
         return _hasLocation;
       default:
@@ -341,6 +349,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
       created = await reports.create(
         NewReport(
           type: _type!,
+          typeDetail: _type == 'other' ? _typeDetail.text.trim() : null,
           description: _description.text.trim(),
           lat: _lat!,
           lng: _lng!,
@@ -598,16 +607,44 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
           _TypeTile(
             info: e.value,
             selected: _type == e.key,
-            onTap: () => setState(() => _type = e.key),
+            onTap: () => setState(() {
+              _type = e.key;
+              if (e.key != 'other') _typeDetail.clear();
+            }),
           ),
       ];
+      final detailField = _type == 'other'
+          ? Padding(
+              padding: const EdgeInsets.only(top: 14),
+              child: TextFormField(
+                key: const Key('typeDetail'),
+                controller: _typeDetail,
+                errorBuilder: fieldErrorBuilder,
+                maxLength: 40,
+                textCapitalization: TextCapitalization.sentences,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: validateTypeDetail,
+                onChanged: (_) => setState(() {}),
+                decoration: InputDecoration(
+                  label: requiredFieldLabel('What kind of emergency is it?'),
+                  hintText: 'For example: gas leak',
+                ),
+              ),
+            )
+          : const SizedBox.shrink();
       if (box.maxWidth >= 640 && scale < 1.4) {
-        return Wrap(
-          spacing: 12,
-          runSpacing: 12,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            for (final tile in tiles)
-              SizedBox(width: (box.maxWidth - 12) / 2, child: tile),
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                for (final tile in tiles)
+                  SizedBox(width: (box.maxWidth - 12) / 2, child: tile),
+              ],
+            ),
+            detailField,
           ],
         );
       }
@@ -617,6 +654,7 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
             if (i > 0) const SizedBox(height: 10),
             tiles[i],
           ],
+          detailField,
         ],
       );
     },
@@ -720,7 +758,10 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        info.label,
+                        reportTypeLabel(
+                          _type ?? 'other',
+                          _typeDetail.text.trim(),
+                        ),
                         style: const TextStyle(fontWeight: FontWeight.w700),
                       ),
                     ),

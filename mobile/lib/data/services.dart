@@ -39,6 +39,7 @@ class ApiReportsRepository implements ReportsRepository {
       },
       fields: {
         'type': r.type,
+        if (r.typeDetail != null) 'typeDetail': r.typeDetail!,
         'description': r.description,
         'lat': r.lat.toString(),
         'lng': r.lng.toString(),

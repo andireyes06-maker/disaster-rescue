@@ -460,6 +460,121 @@ void main() {
     expect(find.text('Smoke everywhere'), findsOneWidget);
   });
 
+  group('emergency types', () {
+    Future<void> toDetailsWith(WidgetTester t, String label, {String? detail}) async {
+      await tapText(t, label);
+      if (detail != null) await t.enterText(find.byKey(const Key('typeDetail')), detail);
+      await t.pump();
+      await t.tap(nextBtn());
+      await t.pumpAndSettle();
+      await tapText(t, 'Use my current location');
+      await t.tap(nextBtn());
+      await t.pumpAndSettle();
+      await fillDetails(t);
+      await t.tap(nextBtn());
+      await t.pumpAndSettle();
+    }
+
+    test('validateTypeDetail asks for 3 to 40 characters', () {
+      expect(validateTypeDetail(null), 'Say what kind of emergency this is.');
+      expect(validateTypeDetail('   '), 'Say what kind of emergency this is.');
+      expect(validateTypeDetail('ab'), 'Use 3 to 40 characters.');
+      expect(validateTypeDetail('a' * 41), 'Use 3 to 40 characters.');
+      expect(validateTypeDetail('gas leak'), isNull);
+      expect(validateTypeDetail('  gas leak  '), isNull);
+      expect(validateTypeDetail('a' * 40), isNull);
+    });
+
+    testWidgets('the chooser lists the 8 types in order with their description lines', (t) async {
+      await open(t);
+      final labels = ['Flood', 'Fire', 'Earthquake', 'Landslide', 'Lifeline', 'Roadblock', 'Live Wire', 'Other'];
+      final tops = [for (final l in labels) t.getTopLeft(find.text(l)).dy];
+      expect(tops, orderedEquals([...tops]..sort()));
+      expect(find.text('Someone needs urgent medical help'), findsOneWidget);
+      expect(find.text('Blocked, damaged or unsafe road'), findsOneWidget);
+      expect(find.text('Fallen, sparking or damaged power line'), findsOneWidget);
+      expect(find.text('Something else. You will describe it next'), findsOneWidget);
+    });
+
+    testWidgets('Other asks what kind of emergency it is, and Next waits for 3 to 40 characters', (t) async {
+      await open(t);
+      expect(find.byKey(const Key('typeDetail')), findsNothing);
+      await tapText(t, 'Other');
+      expect(find.byKey(const Key('typeDetail')), findsOneWidget);
+      expect(find.textContaining('What kind of emergency is it?', findRichText: true), findsWidgets);
+      FilledButton next() => t.widget<FilledButton>(nextBtn());
+      expect(next().onPressed, isNull);
+      await t.enterText(find.byKey(const Key('typeDetail')), 'ab');
+      await t.pump();
+      expect(next().onPressed, isNull);
+      await t.enterText(find.byKey(const Key('typeDetail')), 'gas leak');
+      await t.pump();
+      expect(next().onPressed, isNotNull);
+    });
+
+    testWidgets('choosing another type hides and clears the typed text', (t) async {
+      await open(t);
+      await tapText(t, 'Other');
+      await t.enterText(find.byKey(const Key('typeDetail')), 'gas leak');
+      await tapText(t, 'Flood');
+      expect(find.byKey(const Key('typeDetail')), findsNothing);
+      await tapText(t, 'Other');
+      expect(t.widget<TextFormField>(find.byKey(const Key('typeDetail'))).controller!.text, isEmpty);
+    });
+
+    testWidgets('an Other report is sent with its trimmed typeDetail and reads Other: gas leak on review', (t) async {
+      await open(t);
+      await toDetailsWith(t, 'Other', detail: '  gas leak  ');
+      expect(find.text('Other: gas leak'), findsOneWidget);
+      await tapConfirmed(t, 'Submit report');
+      expect(env.reports.created.single.type, 'other');
+      expect(env.reports.created.single.typeDetail, 'gas leak');
+    });
+
+    testWidgets('a new type is sent with no typeDetail', (t) async {
+      await open(t);
+      await toDetailsWith(t, 'Roadblock');
+      expect(find.text('Roadblock'), findsOneWidget);
+      await tapConfirmed(t, 'Submit report');
+      expect(env.reports.created.single.type, 'road_hazard');
+      expect(env.reports.created.single.typeDetail, isNull);
+    });
+
+    testWidgets('a saved draft with Other and its text comes back after a restart', (t) async {
+      env.drafts.draft = const ReportDraft(
+        type: 'other',
+        typeDetail: 'gas leak',
+        description: 'Smell of gas',
+        lat: 1,
+        lng: 2,
+        source: 'manual',
+        contactName: 'Ben',
+        contactPhone: '0917 000 1111',
+      );
+      await open(t);
+      await tapText(t, 'Continue your saved report');
+      expect(find.text('Step 4 of 4'), findsOneWidget);
+      expect(find.text('Other: gas leak'), findsOneWidget);
+    });
+
+    test('ReportDraft keeps typeDetail through toJson and fromJson', () {
+      final d = ReportDraft.fromJson(const ReportDraft(type: 'other', typeDetail: 'gas leak').toJson());
+      expect(d.typeDetail, 'gas leak');
+    });
+
+    testWidgets('the chooser does not overflow at 200% text, and Other is still reachable', (t) async {
+      await open(t, scale: 2.0);
+      await t.ensureVisible(find.text('Other'));
+      await t.pumpAndSettle();
+      expect(t.takeException(), isNull);
+      await t.tap(find.text('Other'));
+      await t.pumpAndSettle();
+      await t.ensureVisible(find.byKey(const Key('typeDetail')));
+      expect(find.byKey(const Key('typeDetail')), findsOneWidget);
+      expect(t.takeException(), isNull);
+    });
+  });
+
   testWidgets('discard clears the saved draft', (t) async {
     env.drafts.draft = const ReportDraft(type: 'fire');
     await open(t);

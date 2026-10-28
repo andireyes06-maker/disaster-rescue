@@ -88,6 +88,9 @@ class Profile {
 
 class ReportDraft {
   final String? type;
+
+  /// What an Other report is about, in the resident's words. Empty for every other type.
+  final String typeDetail;
   final String description;
   final double? lat;
   final double? lng;
@@ -103,6 +106,7 @@ class ReportDraft {
     this.severity,
     this.locality,
     this.type,
+    this.typeDetail = '',
     this.description = '',
     this.lat,
     this.lng,
@@ -115,6 +119,7 @@ class ReportDraft {
 
   Map<String, dynamic> toJson() => {
     'type': type,
+    'typeDetail': typeDetail,
     'description': description,
     'lat': lat,
     'lng': lng,
@@ -132,6 +137,7 @@ class ReportDraft {
     locality: j['locality'] as String?,
     severity: j['severity'] as String?,
     type: j['type'] as String?,
+    typeDetail: (j['typeDetail'] as String?) ?? '',
     description: (j['description'] as String?) ?? '',
     lat: (j['lat'] as num?)?.toDouble(),
     lng: (j['lng'] as num?)?.toDouble(),
@@ -144,6 +150,9 @@ class ReportDraft {
 
 class NewReport {
   final String type;
+
+  /// What an Other report is about, in the resident's words. Null for every other type.
+  final String? typeDetail;
   final String description;
   final double lat;
   final double lng;
@@ -166,6 +175,7 @@ class NewReport {
   final String? idempotencyKey;
   const NewReport({
     required this.type,
+    this.typeDetail,
     required this.description,
     required this.lat,
     required this.lng,
@@ -240,6 +250,14 @@ String? validatePhone(String? v) {
   if (!_phonePattern.hasMatch(t)) {
     return 'Use 7 to 15 digits. You may use + ( ) - and spaces.';
   }
+  return null;
+}
+
+/// What an Other report is about: 3 to 40 characters once trimmed.
+String? validateTypeDetail(String? v) {
+  final t = (v ?? '').trim();
+  if (t.isEmpty) return 'Say what kind of emergency this is.';
+  if (t.length < 3 || t.length > 40) return 'Use 3 to 40 characters.';
   return null;
 }
 
