@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 
 // Notes longer than this show a shortened preview. The full text stays in the page behind a disclosure.
 const NOTE_PREVIEW_LENGTH = 280;
@@ -39,6 +39,7 @@ export default function ActivityHistory<T extends { id: string; note?: string }>
   onLoadOlder,
   scrollable = false,
 }: ActivityHistoryProps<T>) {
+  const listId = useId();
   const [showOlder, setShowOlder] = useState(false);
   const splitAt = Math.max(0, updates.length - recentCount);
   const older = updates.slice(0, splitAt);
@@ -49,12 +50,12 @@ export default function ActivityHistory<T extends { id: string; note?: string }>
   return (
     <>
       {older.length > 0 && (
-        <button type="button" className="btn btn--ghost" aria-expanded={showOlder}
+        <button type="button" className="btn btn--ghost" aria-controls={listId} aria-expanded={showOlder}
           onClick={() => setShowOlder((open) => !open)}>
           {showOlder ? 'Hide older updates' : olderLabel}
         </button>
       )}
-      <ol className={listClassName} tabIndex={scrollable ? 0 : undefined} aria-label={scrollable ? 'Rescue update history' : undefined}>
+      <ol id={listId} className={listClassName} tabIndex={scrollable ? 0 : undefined} aria-label={scrollable ? 'Rescue update history' : undefined}>
         {visible.map((u) => <li key={u.id}>{renderItem(u)}</li>)}
       </ol>
       {hasMore && onLoadOlder && (

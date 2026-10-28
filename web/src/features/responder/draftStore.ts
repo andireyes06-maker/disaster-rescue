@@ -18,6 +18,7 @@ export interface Draft {
   peopleRescued: string;
   note: string;
   attempt: DraftAttempt | null;
+  attempts?: DraftAttempt[];
   // Set by the assignment page once the report has left the open list but the responder still has access to it.
   closed?: { type: string; reference: string; status: string };
 }
@@ -29,6 +30,40 @@ let snapshot: ReadonlyMap<string, Draft> = new Map();
 const listeners = new Set<() => void>();
 // undefined until the first identity is seen. A later change to a different identity clears every draft.
 let identity: string | null | undefined;
+let sessionGeneration = 0;
+const reportGenerations = new Map<string, number>();
+
+export function draftGeneration(reportId: string): string {
+  return `${sessionGeneration}:${reportGenerations.get(reportId) ?? 0}`;
+}
+
+export const MAX_UNCONFIRMED_UPDATES = 5;
+export function unresolvedAttempts(draft: Draft | undefined): DraftAttempt[] {
+  const all = [...(draft?.attempts ?? []), ...(draft?.attempt ? [draft.attempt] : [])];
+  return [...new Map(all.map(attempt => [attempt.key, attempt])).values()];
+}
+
+// Reserve before sending; a pending or uncertain attempt must never be silently evicted.
+export function reserveAttempt(reportId: string, fingerprint: string, status: string): DraftAttempt | null {
+  const attempts = unresolvedAttempts(getDraft(reportId));
+  const existing = attempts.find(attempt => attempt.fingerprint === fingerprint);
+  if (existing) { saveDraft(reportId, { attempt: existing }); return existing; }
+  if (attempts.length >= MAX_UNCONFIRMED_UPDATES) return null;
+  const attempt = { key: crypto.randomUUID(), fingerprint, status };
+  saveDraft(reportId, { attempts: [...attempts, attempt], attempt });
+  return attempt;
+}
+
+export function settleAttempt(reportId: string, key: string): void {
+  const draft = getDraft(reportId);
+  if (!draft) return;
+  const attempts = unresolvedAttempts(draft).filter(attempt => attempt.key !== key);
+  saveDraft(reportId, { attempts, attempt: attempts.at(-1) ?? null });
+}
+
+export function forgetAttempts(reportId: string): void {
+  if (getDraft(reportId)) saveDraft(reportId, { attempts: [], attempt: null });
+}
 
 function publish(): void {
   snapshot = new Map(drafts);
@@ -37,7 +72,7 @@ function publish(): void {
 
 // True when a draft has something the responder would lose: typed text, a count, or an uncertain attempt.
 export function hasContent(d: Draft): boolean {
-  return d.note.trim() !== '' || (d.peopleRescued !== '' && d.peopleRescued !== '0') || d.attempt !== null;
+  return d.note.trim() !== '' || (d.peopleRescued !== '' && d.peopleRescued !== '0') || unresolvedAttempts(d).length > 0;
 }
 
 export function getDraft(reportId: string): Draft | undefined {
@@ -52,10 +87,12 @@ export function saveDraft(reportId: string, patch: Patch): void {
 }
 
 export function clearDraft(reportId: string): void {
+  reportGenerations.set(reportId, (reportGenerations.get(reportId) ?? 0) + 1);
   if (drafts.delete(reportId)) publish();
 }
 
 export function clearAllDrafts(): void {
+  sessionGeneration++;
   if (drafts.size === 0) return;
   drafts.clear();
   publish();
@@ -87,5 +124,7 @@ export function resetDraftStoreForTests(): void {
   drafts.clear();
   snapshot = new Map();
   identity = undefined;
+  sessionGeneration++;
+  reportGenerations.clear();
   listeners.clear();
 }

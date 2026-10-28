@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
@@ -24,7 +24,7 @@ vi.mock('../reports/useReport', () => ({
 
 vi.mock('./TeamIdentity', () => ({ default: () => null }));
 import AssignmentsPage from './AssignmentsPage';
-import { saveDraft, getDraft, resetDraftStoreForTests } from './draftStore';
+import { saveDraft, getDraft, resetDraftStoreForTests, reserveAttempt, setIdentity } from './draftStore';
 
 const at = new Date('2026-10-19T09:00:00+08:00');
 const report = (over: Record<string, unknown>) => ({
@@ -100,7 +100,7 @@ describe('AssignmentsPage drafts', () => {
     expect(await screen.findByRole('status')).toHaveTextContent('This update was saved: Rescue in Progress, 2 rescued. It was not sent again.');
     expect(getDraft('r1')?.attempt).toBeNull();
     expect(state.api).toHaveBeenCalledTimes(1);
-    expect(state.api).toHaveBeenCalledWith('/reports/r1/updates/receipt', { headers: { 'Idempotency-Key': 'key-abcdefgh' } });
+    expect(state.api).toHaveBeenCalledWith('/reports/r1/updates/receipt', { headers: { 'Idempotency-Key': 'key-abcdefgh' }, getToken: expect.any(Function) });
   });
 
   it('no receipt keeps the draft read-only and says the submission was not confirmed', async () => {
@@ -138,4 +138,38 @@ describe('AssignmentsPage drafts', () => {
     expect(getDraft('r1')?.note).toBe('Still open note');
     expect(getDraft('r1')?.closed).toBeUndefined();
   });
+});
+
+
+it('can select and check each unresolved closed update, clearing only the saved receipt', async () => {
+  resetDraftStoreForTests();
+  state.reportState = loaded(report({ status: 'Closed' }));
+  const a = reserveAttempt('r1', 'A', 'Rescue in Progress')!;
+  const b = reserveAttempt('r1', 'B', 'Resolved')!;
+  state.api.mockReset().mockResolvedValue({ saved: false });
+  renderPage();
+  const select = await screen.findByRole('combobox', { name: 'Unconfirmed update' });
+  await userEvent.selectOptions(select, a.key);
+  await userEvent.click(screen.getByRole('button', { name: 'Check whether update was saved' }));
+  await screen.findByText(/No record of this update was found/);
+  expect(state.api.mock.calls[0][1].headers['Idempotency-Key']).toBe(a.key);
+  state.api.mockResolvedValue({ saved: true, status: 'Resolved', peopleRescued: 2 });
+  await userEvent.selectOptions(select, b.key);
+  await userEvent.click(screen.getByRole('button', { name: 'Check whether update was saved' }));
+  await screen.findByText(/This update was saved/);
+  expect(getDraft('r1')?.attempt?.key).toBe(a.key);
+  expect(getDraft('r1')?.attempts).toHaveLength(1);
+});
+
+it('does not recreate a closed draft when a receipt completes after sign-out', async () => {
+  resetDraftStoreForTests(); setIdentity('a|responder|team-a');
+  state.reportState = loaded(report({ status: 'Closed' }));
+  reserveAttempt('r1', 'A', 'Resolved');
+  let finish!: (result: unknown) => void;
+  state.api.mockReset().mockImplementation(() => new Promise(resolve => { finish = resolve; }));
+  const ui = renderPage();
+  await userEvent.click(await screen.findByRole('button', { name: 'Check whether update was saved' }));
+  ui.unmount(); setIdentity(null);
+  await act(async () => finish({ saved: true }));
+  expect(getDraft('r1')).toBeUndefined();
 });

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { getDraft, saveDraft, clearDraft, clearAllDrafts, setIdentity, hasContent, resetDraftStoreForTests } from './draftStore';
+import { getDraft, saveDraft, clearDraft, clearAllDrafts, setIdentity, hasContent, resetDraftStoreForTests, reserveAttempt, settleAttempt, forgetAttempts, unresolvedAttempts, draftGeneration } from './draftStore';
 
 describe('draft store', () => {
   beforeEach(() => resetDraftStoreForTests());
@@ -46,5 +46,38 @@ describe('draft store', () => {
     clearAllDrafts();
     expect(getDraft('r1')).toBeUndefined();
     expect(getDraft('r2')).toBeUndefined();
+  });
+});
+
+
+describe('unconfirmed update identities', () => {
+  beforeEach(resetDraftStoreForTests);
+  it('keeps A across B success, and clears only the confirmed payload', () => {
+    const a = reserveAttempt('r', 'A', 'Rescue in Progress')!;
+    const b = reserveAttempt('r', 'B', 'Rescue in Progress')!;
+    settleAttempt('r', b.key);
+    expect(reserveAttempt('r', 'A', 'Rescue in Progress')?.key).toBe(a.key);
+    expect(unresolvedAttempts(getDraft('r'))).toHaveLength(1);
+  });
+  it('blocks a sixth payload without eviction, permits retries at the bound, and requires explicit forgetting', () => {
+    const first = reserveAttempt('r', '0', 'Resolved')!;
+    for (let i = 1; i < 5; i++) reserveAttempt('r', String(i), 'Resolved');
+    expect(reserveAttempt('r', 'sixth', 'Resolved')).toBeNull();
+    expect(reserveAttempt('r', '0', 'Resolved')?.key).toBe(first.key);
+    expect(unresolvedAttempts(getDraft('r'))).toHaveLength(5);
+    forgetAttempts('r');
+    expect(unresolvedAttempts(getDraft('r'))).toHaveLength(0);
+    expect(reserveAttempt('r', 'sixth', 'Resolved')).not.toBeNull();
+  });
+  it('invalidates pending actions on access loss even if the report has no draft', () => {
+    const before = draftGeneration('r');
+    clearDraft('r');
+    expect(draftGeneration('r')).not.toBe(before);
+  });
+  it('invalidates same-account session actions across sign-out and sign-in', () => {
+    setIdentity('a|responder|team');
+    const before = draftGeneration('r');
+    setIdentity(null); setIdentity('a|responder|team');
+    expect(draftGeneration('r')).not.toBe(before);
   });
 });

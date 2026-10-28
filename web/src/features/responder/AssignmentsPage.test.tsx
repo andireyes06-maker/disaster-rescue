@@ -1,13 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 // jsdom has no geolocation. The API checks reach, so tests supply a fixed position inside the incident's reach.
-vi.mock('../../lib/position', async (importOriginal) => ({ ...(await importOriginal<typeof import('../../lib/position')>()), currentPosition: () => Promise.resolve({ lat: 14.8512, lng: 120.8123 }) }));
+vi.mock('../../lib/position', async (importOriginal) => ({ ...(await importOriginal<typeof import('../../lib/position')>()), currentPosition: () => state.position() }));
 import userEvent from '@testing-library/user-event';
 
 const state = vi.hoisted(() => ({
   team: 'team-a' as string | null,
+  position: vi.fn(() => Promise.resolve({ lat: 14.8512, lng: 120.8123 })),
   reports: [] as unknown[],
   closed: [] as unknown[],
   closedError: null as Error | null,
@@ -219,4 +220,46 @@ it('filters by reference and status, retaining direct report destinations', asyn
   expect(screen.getByText('No assignments match these filters')).toBeInTheDocument();
   await userEvent.click(screen.getByRole('button', { name: 'Clear filters' }));
   expect(screen.getByText('RR-ONE')).toBeInTheDocument();
+});
+
+
+describe('assignment action guards and control relationships', () => {
+  const report: Report = { id: 'r-guard', type: 'flood', status: 'Team Assigned', priority: 'critical', description: 'Water at entrance', verified: true, classification: '', addressText: '', photos: [], possibleDuplicates: [], createdAt: new Date(), updatedAt: new Date() };
+  beforeEach(() => {
+    state.ackAt = null; state.ackLoading = false; state.ackError = false;
+    state.api.mockReset().mockResolvedValue({});
+    state.position.mockReset().mockResolvedValue({ lat: 14.8, lng: 120.8 });
+  });
+  it('cancels an acknowledgement when its view leaves during GPS lookup', async () => {
+    let finish!: (p: { lat: number; lng: number }) => void;
+    state.position.mockImplementation(() => new Promise(resolve => { finish = resolve; }));
+    const ui = render(<MemoryRouter><AssignedCard report={report} scope="team-a" /></MemoryRouter>);
+    await userEvent.click(screen.getByRole('button', { name: 'Acknowledge' }));
+    ui.unmount();
+    await act(async () => finish({ lat: 14.8, lng: 120.8 }));
+    expect(state.api).not.toHaveBeenCalled();
+  });
+  it('exposes valid disclosure and pane targets with group names', async () => {
+    render(<MemoryRouter><AssignedCard report={report} scope="team-a" /></MemoryRouter>);
+    expect(screen.getByRole('group', { name: 'Assignment sections' })).toBeInTheDocument();
+    const disclosure = screen.getByRole('button', { name: 'Post an update' });
+    const target = document.getElementById(disclosure.getAttribute('aria-controls')!);
+    expect(target).toHaveAttribute('hidden');
+    await userEvent.click(disclosure);
+    expect(target).not.toHaveAttribute('hidden');
+    expect(screen.getByRole('form', { name: 'Rescue operation update' })).toBeInTheDocument();
+    const history = screen.getByRole('button', { name: 'Progress history' });
+    await userEvent.click(history);
+    expect(document.getElementById(history.getAttribute('aria-controls')!)).not.toHaveAttribute('hidden');
+    const brief = screen.getByRole('button', { name: 'Incident brief' });
+    expect(document.getElementById(brief.getAttribute('aria-controls')!)).toHaveAttribute('hidden');
+  });
+  it('announces changed filter counts within the loaded assignment window', async () => {
+    state.team = 'team-a'; state.reports = [report]; state.partialError = null;
+    const { container } = render(<MemoryRouter><AssignmentsPage /></MemoryRouter>);
+    const count = container.querySelector('[aria-live="polite"][aria-atomic="true"]');
+    expect(count).toHaveTextContent('1 loaded assignment matches');
+    await userEvent.type(screen.getByRole('searchbox', { name: 'Find an assignment' }), 'No matching incident');
+    expect(count).toHaveTextContent('0 loaded assignments match');
+  });
 });

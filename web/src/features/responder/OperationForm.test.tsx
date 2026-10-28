@@ -3,9 +3,9 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 // jsdom has no geolocation. The API checks reach, so tests supply a fixed position inside the incident's reach.
-vi.mock('../../lib/position', async (importOriginal) => ({ ...(await importOriginal<typeof import('../../lib/position')>()), currentPosition: () => Promise.resolve({ lat: 14.8512, lng: 120.8123 }) }));
+vi.mock('../../lib/position', async (importOriginal) => ({ ...(await importOriginal<typeof import('../../lib/position')>()), currentPosition: () => h.position() }));
 
-const h = vi.hoisted(() => ({ api: vi.fn() }));
+const h = vi.hoisted(() => ({ api: vi.fn(), position: vi.fn() }));
 vi.mock('../../api/client', async () => {
   class ApiError extends Error {
     status: number;
@@ -19,10 +19,10 @@ vi.mock('../../api/client', async () => {
   return { api: h.api, ApiError };
 });
 import OperationForm, { allowedOperationStatuses } from './OperationForm';
-import { resetDraftStoreForTests, setIdentity } from './draftStore';
+import { resetDraftStoreForTests, setIdentity, getDraft, clearDraft } from './draftStore';
 
 describe('OperationForm', () => {
-  beforeEach(() => { h.api.mockReset(); h.api.mockResolvedValue({}); resetDraftStoreForTests(); });
+  beforeEach(() => { h.api.mockReset(); h.api.mockResolvedValue({}); h.position.mockReset(); h.position.mockResolvedValue({ lat: 14.8512, lng: 120.8123 }); resetDraftStoreForTests(); });
 
   it.each(['-1', '2.5', 'many', '10001'])('blocks people rescued of %s without calling the API', async (value) => {
     render(<OperationForm reportId="r1" />);
@@ -45,6 +45,7 @@ describe('OperationForm', () => {
     expect(h.api).toHaveBeenCalledWith('/reports/r1/updates', {
       method: 'POST',
       headers: { 'Idempotency-Key': expect.any(String) },
+      getToken: expect.any(Function),
       body: { status: 'Resolved', peopleRescued: 12, note: 'Family moved to the shelter', position: { lat: 14.8512, lng: 120.8123 } },
     });
   });
@@ -78,6 +79,7 @@ describe('OperationForm', () => {
     expect(h.api).toHaveBeenCalledWith('/reports/r1/updates', {
       method: 'POST',
       headers: { 'Idempotency-Key': expect.any(String) },
+      getToken: expect.any(Function),
       body: { status: 'Rescue in Progress', peopleRescued: 0, note: 'Family moved', position: { lat: 14.8512, lng: 120.8123 } },
     });
   });
@@ -261,4 +263,98 @@ describe('allowedOperationStatuses', () => {
   it('offers nothing for a resolved report', () => {
     expect(allowedOperationStatuses('Resolved')).toEqual([]);
   });
+});
+
+
+describe('responder audit regressions', () => {
+  beforeEach(() => {
+    h.api.mockReset(); h.api.mockResolvedValue({});
+    h.position.mockReset(); h.position.mockResolvedValue({ lat: 14.8512, lng: 120.8123 });
+    resetDraftStoreForTests();
+  });
+
+  it.each([false, true])('retains A after editing to B, including B success=%s', async (bSucceeds) => {
+    h.api.mockRejectedValueOnce({ status: 0, code: 'network' });
+    if (bSucceeds) h.api.mockResolvedValueOnce({});
+    else h.api.mockRejectedValueOnce({ status: 0, code: 'network' });
+    render(<OperationForm reportId="r-audit" reportStatus="Rescue in Progress" />);
+    const note = screen.getByLabelText(/notes/i);
+    await userEvent.type(note, 'Payload A');
+    await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+    await screen.findByRole('alert');
+    await userEvent.clear(note); await userEvent.type(note, 'Payload B');
+    await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+    if (bSucceeds) await screen.findByText('Update saved.');
+    else await screen.findByRole('alert');
+    await userEvent.clear(note); await userEvent.type(note, 'Payload A');
+    await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+    await screen.findByText('Update saved.');
+    expect(h.api.mock.calls[2][1].headers['Idempotency-Key']).toBe(h.api.mock.calls[0][1].headers['Idempotency-Key']);
+  });
+
+  it('does not post or recreate a draft when GPS completes after identity change', async () => {
+    let resolve!: (p: { lat: number; lng: number }) => void;
+    h.position.mockImplementation(() => new Promise(r => { resolve = r; }));
+    setIdentity('a|responder|alpha');
+    render(<OperationForm reportId="r-audit" />);
+    await userEvent.type(screen.getByLabelText(/notes/i), 'Old account');
+    await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+    act(() => setIdentity('b|responder|alpha'));
+    await act(async () => resolve({ lat: 14.8, lng: 120.8 }));
+    expect(h.api).not.toHaveBeenCalled();
+  });
+
+  it('does not post after the form unmounts during GPS', async () => {
+    let resolve!: (p: { lat: number; lng: number }) => void;
+    h.position.mockImplementation(() => new Promise(r => { resolve = r; }));
+    const ui = render(<OperationForm reportId="r-audit" />);
+    await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+    ui.unmount();
+    await act(async () => resolve({ lat: 14.8, lng: 120.8 }));
+    expect(h.api).not.toHaveBeenCalled();
+  });
+});
+
+
+it('blocks a sixth uncertain payload, preserves the original key at the bound, and requires confirmation to forget', async () => {
+  resetDraftStoreForTests(); h.api.mockReset(); h.position.mockResolvedValue({ lat: 14.8, lng: 120.8 });
+  h.api.mockRejectedValue({ status: 0, code: 'network' });
+  render(<OperationForm reportId="bounded" />);
+  const note = screen.getByLabelText(/notes/i);
+  for (let i = 0; i < 5; i++) {
+    await userEvent.clear(note); await userEvent.type(note, `Payload ${i}`);
+    await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+    await screen.findByRole('alert');
+  }
+  const original = h.api.mock.calls[0][1].headers['Idempotency-Key'];
+  await userEvent.clear(note); await userEvent.type(note, 'Sixth');
+  await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+  expect(await screen.findByRole('alert')).toHaveTextContent('Five updates have unconfirmed receipts');
+  expect(h.api).toHaveBeenCalledTimes(5);
+  await userEvent.clear(note); await userEvent.type(note, 'Payload 0');
+  await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+  await screen.findByRole('alert');
+  expect(h.api.mock.calls[5][1].headers['Idempotency-Key']).toBe(original);
+  await userEvent.clear(note); await userEvent.type(note, 'Sixth');
+  await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+  const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
+  await userEvent.click(await screen.findByRole('button', { name: 'Forget unconfirmed updates' }));
+  expect(getDraft('bounded')?.attempts).toHaveLength(5);
+  confirm.mockReturnValue(true);
+  await userEvent.click(screen.getByRole('button', { name: 'Forget unconfirmed updates' }));
+  expect(getDraft('bounded')?.attempts).toHaveLength(0);
+  confirm.mockRestore();
+});
+
+it('ignores a late response after access loss without recreating the cleared draft', async () => {
+  resetDraftStoreForTests(); h.api.mockReset(); h.position.mockResolvedValue({ lat: 14.8, lng: 120.8 });
+  let finish!: () => void;
+  h.api.mockImplementation(() => new Promise<void>(resolve => { finish = resolve; }));
+  const ui = render(<OperationForm reportId="removed" />);
+  await userEvent.type(screen.getByLabelText(/notes/i), 'Prior team note');
+  await userEvent.click(screen.getByRole('button', { name: 'Submit update' }));
+  await screen.findByRole('button', { name: 'Posting update…' });
+  ui.unmount(); clearDraft('removed');
+  await act(async () => finish());
+  expect(getDraft('removed')).toBeUndefined();
 });

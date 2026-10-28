@@ -21,11 +21,12 @@ import PlaceLabel from '../../components/PlaceLabel';
 import { AssignmentMap } from './AssignmentMap';
 import PhotoImage from '../../components/PhotoImage';
 import { currentPosition, isLocationUnavailable, LOCATION_NOT_SENT_MESSAGE } from '../../lib/position';
+import { useResponderAction } from './useResponderAction';
 import AssignedProgress from './AssignedProgress';
 import StatusBadge from '../reports/StatusBadge';
 import PriorityBadge from '../reports/PriorityBadge';
 import { formatTime, isOpen } from '../reports/format';
-import { clearDraft, getDraft, hasContent, saveDraft, useDrafts, type Draft } from './draftStore';
+import { clearDraft, getDraft, hasContent, saveDraft, settleAttempt, unresolvedAttempts, useDrafts, type Draft } from './draftStore';
 import { Skeleton, SkeletonRows } from '../../components/calm/Skeleton';
 import Banner from '../../components/calm/Banner';
 
@@ -56,6 +57,7 @@ interface AssignedCardProps {
 }
 
 export function AssignedCard({ report, scope, headingRef }: AssignedCardProps) {
+  const beginAction = useResponderAction(report.id, scope);
   const progressPanel = useRef<HTMLDivElement>(null);
   useEffect(() => { const panel = progressPanel.current; const reveal = () => flushSync(() => setPane('progress')); panel?.addEventListener('reveal-progress', reveal); return () => panel?.removeEventListener('reveal-progress', reveal); }, []);
   const [pane, setPane] = useState<'brief' | 'progress'>('brief');
@@ -73,19 +75,22 @@ export function AssignedCard({ report, scope, headingRef }: AssignedCardProps) {
 
   async function acknowledge() {
     if (acknowledging.current || accepted || acknowledgement.loading || acknowledgement.error || acknowledgement.acknowledged) return;
+    const action = beginAction();
     acknowledging.current = true;
     setBusy(true);
     setMessage(null);
     try {
       const position = await currentPosition();
-      await api(`/reports/${report.id}/acknowledge`, { method: 'POST', body: { position } });
+      if (!action.isCurrent()) return;
+      await api(`/reports/${report.id}/acknowledge`, { method: 'POST', body: { position }, getToken: action.getToken });
+      if (!action.isCurrent()) return;
       setAccepted(true);
       setMessage({ kind: 'ok', text: 'Assignment acknowledged.' });
     } catch (err) {
+      if (!action.isCurrent()) return;
       setMessage({ kind: 'error', text: isLocationUnavailable(err) ? LOCATION_NOT_SENT_MESSAGE : errorText(err) });
     } finally {
-      acknowledging.current = false;
-      setBusy(false);
+      if (action.isCurrent()) { acknowledging.current = false; setBusy(false); }
     }
   }
 
@@ -96,7 +101,7 @@ export function AssignedCard({ report, scope, headingRef }: AssignedCardProps) {
         <div>{report.reference && <span className="response-reference">{report.reference}</span>}<h2 ref={headingRef} tabIndex={-1} className="queue__type">{report.type} report</h2></div>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /></div>
         </div>
-        <div className="response-detail-nav" aria-label="Assignment sections"><button type="button" aria-pressed={pane === 'brief'} onClick={() => setPane('brief')}>Incident brief</button><button type="button" aria-pressed={pane === 'progress'} onClick={() => setPane('progress')}>Progress history</button></div>
+        <div className="response-detail-nav" role="group" aria-label="Assignment sections"><button type="button" aria-controls={`brief-${report.id}`} aria-pressed={pane === 'brief'} onClick={() => setPane('brief')}>Incident brief</button><button type="button" aria-controls={`progress-${report.id}`} aria-pressed={pane === 'progress'} onClick={() => setPane('progress')}>Progress history</button></div>
         <div className="response-action-panel">
         {message && (
           message.kind === 'ok'
@@ -111,15 +116,15 @@ export function AssignedCard({ report, scope, headingRef }: AssignedCardProps) {
             : acknowledgement.error ? <Banner tone="error" role="alert">Could not check acknowledgement. Reload before acknowledging this assignment. <button type="button" className="btn btn--ghost" onClick={() => window.location.reload()}>Reload assignments</button></Banner>
             : <button type="button" className="btn" aria-disabled={busy} aria-busy={busy} onClick={acknowledge}>{busy ? 'Acknowledging…' : 'Acknowledge'}</button>}
           {(canPostUpdate || openForm) && (
-            <button type="button" className={accepted || acknowledgement.acknowledged ? 'btn' : 'btn btn--ghost'} aria-expanded={openForm}
+            <button type="button" className={accepted || acknowledgement.acknowledged ? 'btn' : 'btn btn--ghost'} aria-controls={`operation-${report.id}`} aria-expanded={openForm}
               onClick={() => setOpenForm((v) => !v)}>
               {openForm ? 'Hide operation form' : 'Post an update'}
             </button>
           )}
         </div>
-        {openForm && <OperationForm reportId={report.id} reportStatus={report.status} closed={!canPostUpdate} />}
+        <div id={`operation-${report.id}`} hidden={!openForm}>{openForm && <OperationForm reportId={report.id} reportStatus={report.status} closed={!canPostUpdate} />}</div>
         </div>
-        <div hidden={pane !== 'brief'} className="response-detail-facts">
+        <div id={`brief-${report.id}`} hidden={pane !== 'brief'} className="response-detail-facts">
         <div className="response-incident-context"><h3>Situation</h3><p className="plain">{report.description}</p>
         <dl>
           <div className="fact"><dt>Address</dt><dd><span className="plain">{report.addressText || 'No address given'}</span></dd></div>
@@ -137,7 +142,7 @@ export function AssignedCard({ report, scope, headingRef }: AssignedCardProps) {
         <div className="response-incident-location"><h3>Incident location</h3><AssignmentMap reports={[report]} /></div>
         {!!report.photos?.length && <details className="response-evidence"><summary>Resident photos ({report.photos.length})</summary><div>{report.photos.map((photo, index) => <a key={photo.url} href={photo.url} target="_blank" rel="noopener noreferrer" aria-label={`Open report photo ${index + 1}`}><PhotoImage src={photo.url} /></a>)}</div></details>}
         </div>
-        <div data-progress-panel ref={progressPanel} hidden={pane !== 'progress'}><AssignedProgress reportId={report.id} scope={scope} /></div>
+        <div id={`progress-${report.id}`} data-progress-panel ref={progressPanel} hidden={pane !== 'progress'}><AssignedProgress reportId={report.id} scope={scope} /></div>
       </div>
     </article>
   );
@@ -170,47 +175,62 @@ type ReceiptCheck =
 // Read-only. Nothing here can be posted: the report is closed. The actions are the saved-update check (only for an
 // unconfirmed attempt) and discarding the draft. The check is a server lookup under the original key; it never writes.
 export function ClosedDraft({ draft }: { draft: Draft }) {
+  const beginAction = useResponderAction(draft.reportId);
+  const checking = useRef(false);
   const c = draft.closed;
   const [check, setCheck] = useState<ReceiptCheck>({ kind: 'idle' });
-  // The check button disappears once a result arrives. Focus moves to the result so it is not lost to the page body.
+  const [selectedKey, setSelectedKey] = useState('');
+  // Focus moves to each receipt result. Other unresolved receipts remain available to check.
   const resultRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (check.kind === 'saved' || check.kind === 'not-found' || check.kind === 'error') resultRef.current?.focus();
   }, [check.kind]);
   if (!c) return null;
-  const pending = draft.attempt;
+  const attempts = unresolvedAttempts(draft);
+  const pending = attempts.find(attempt => attempt.key === selectedKey) ?? draft.attempt;
 
   async function checkSaved() {
-    if (!pending || check.kind === 'checking') return;
+    if (!pending || checking.current) return;
+    const action = beginAction();
+    checking.current = true;
     setCheck({ kind: 'checking' });
     try {
       const res = (await api(`/reports/${draft.reportId}/updates/receipt`, {
         headers: { 'Idempotency-Key': pending.key },
+        getToken: action.getToken,
       })) as { saved: boolean; status?: string; peopleRescued?: number };
+      if (!action.isCurrent()) return;
       if (res.saved) {
-        saveDraft(draft.reportId, { attempt: null });
+        settleAttempt(draft.reportId, pending.key);
         setCheck({ kind: 'saved', status: res.status ?? '', peopleRescued: res.peopleRescued ?? 0 });
       } else {
         setCheck({ kind: 'not-found' });
       }
     } catch {
-      setCheck({ kind: 'error' });
+      if (action.isCurrent()) setCheck({ kind: 'error' });
+    } finally {
+      if (action.isCurrent()) checking.current = false;
     }
   }
 
   return (
     <li className="card assignment closed-assignment">
       <h3 className="queue__type">{c.type} report</h3>
-      <p className="plain">{check.kind === 'saved' ? 'This report is closed. Your earlier update was saved.' : draft.attempt ? 'This report is closed. Your earlier update has an unconfirmed receipt.' : 'This report is closed. This draft was not sent.'}</p>
+      <p className="plain">{draft.attempt ? 'This report is closed. Your earlier update has an unconfirmed receipt.' : check.kind === 'saved' ? 'This report is closed. Your earlier update was saved.' : 'This report is closed. This draft was not sent.'}</p>
       <dl>
         {c.reference && <div className="fact"><dt>Reference</dt><dd>{c.reference}</dd></div>}
         <div className="fact"><dt>Draft status</dt><dd>{draft.status || 'Not chosen'}</dd></div>
         <div className="fact"><dt>People rescued</dt><dd>{draft.peopleRescued || '0'}</dd></div>
         <div className="fact"><dt>Notes</dt><dd><span className="plain">{draft.note || 'None'}</span></dd></div>
       </dl>
-      {pending && check.kind !== 'saved' && (
+      {pending && (
         <>
           <p className="plain">We couldn’t confirm whether this update was saved before the report closed.</p>
+          {attempts.length > 1 && <label>Unconfirmed update
+            <select disabled={check.kind === 'checking'} value={pending.key} onChange={event => { setSelectedKey(event.target.value); setCheck({ kind: 'idle' }); }}>
+              {attempts.map((attempt, index) => <option key={attempt.key} value={attempt.key}>Update {index + 1}: {attempt.status}</option>)}
+            </select>
+          </label>}
           <div className="actions__row">
             <button type="button" className="btn" aria-disabled={check.kind === 'checking'} aria-busy={check.kind === 'checking'} onClick={checkSaved}>
               {check.kind === 'checking' ? 'Checking…' : 'Check whether update was saved'}
@@ -269,7 +289,7 @@ export default function AssignmentsPage() {
   return <div className="response-workspace">
     <TeamIdentity id={team} />
     <div className="response-list-panel">
-      <div className="response-list-nav" aria-label="Assignment views">
+      <div className="response-list-nav" role="group" aria-label="Assignment views">
         <button className={tab === 'active' ? 'is-selected' : ''} type="button" aria-pressed={tab === 'active'} onClick={() => setParams({ view: 'active' })}>Active assignments</button>
         <button className={tab === 'closed' ? 'is-selected' : ''} type="button" aria-pressed={tab === 'closed'} onClick={() => setParams({ view: 'closed' })}>Recently closed</button>
       </div>
@@ -277,12 +297,13 @@ export default function AssignmentsPage() {
         <div><label htmlFor="assignment-search">Find an assignment</label><input id="assignment-search" type="search" placeholder="Reference, incident or location" value={search} onChange={e => setFilter('q', e.target.value)} /></div>
         <div><label htmlFor="assignment-status">Status</label><select id="assignment-status" value={status} onChange={e => setFilter('status', e.target.value)}><option value="">All statuses</option>{(tab === 'active' ? ['Team Assigned', 'Rescue in Progress', 'Resolved'] : ['Closed', 'Rejected', 'Duplicate', 'Cancelled']).map(s => <option key={s}>{s}</option>)}</select></div>
       </div>
+      <p aria-live="polite" aria-atomic="true" className="visually-hidden">{state.loading ? 'Loading assignments' : state.error ? 'Assignment count unavailable' : `${filtered.length} loaded assignment${filtered.length === 1 ? ' matches' : 's match'}${state.partialError ? '; list may be incomplete' : ''}`}</p>
       <section aria-label={tab === 'closed' ? 'Recently closed' : 'Active assignments'}>
         <div className="response-section-head"><h2>{tab === 'closed' ? 'Recently closed' : 'Active assignments'}</h2><span>{tab === 'closed' ? 'Up to 10 most recently updated reports' : 'Oldest reported first'}</span></div>
         <ConnectionNotice fromCache={state.fromCache} />
         {(state.error || state.partialError) && <Banner tone="error" role="alert">{state.partialError ? 'Some assignments could not load. This list may be incomplete.' : 'Could not load your assignments.'} <button type="button" className="btn btn--ghost" onClick={state.retry}>Try again</button></Banner>}
         {state.loading && <Skeleton label="Loading assignments"><SkeletonRows rows={3} height={90} /></Skeleton>}
-        {!state.loading && !state.error && !state.partialError && !filtered.length && <EmptyState title={search || status ? 'No assignments match these filters' : tab === 'closed' ? 'No recently closed assignments' : 'No open assignments right now'} body={search || status ? 'Change your search or status to see more assignments.' : tab === 'closed' ? 'Completed work appears here after a report is closed.' : 'Your team is ready. New assignments appear here automatically.'} action={search || status ? <button className="btn btn--ghost" type="button" onClick={() => setParams({ view: tab })}>Clear filters</button> : undefined} />}
+        {!state.loading && !state.error && !state.partialError && !filtered.length && <EmptyState title={search || status ? 'No assignments match these filters' : tab === 'closed' ? 'No recently closed assignments' : 'No open assignments right now'} body={search || status ? 'Change your search or status to see more assignments.' : tab === 'closed' ? 'Completed work appears here after a report is closed.' : 'New assignments from your administrator appear here.'} action={search || status ? <button className="btn btn--ghost" type="button" onClick={() => setParams({ view: tab })}>Clear filters</button> : undefined} />}
         {!!filtered.length && <AssignmentRows reports={filtered} closed={tab === 'closed'} />}
         {tab === 'active' && !open.loading && <ReportWindow order="oldest" count={open.reports.length} windowSize={open.windowSize} loadMore={open.loadMore} />}
         {(search || status) && <p className="response-scope">Filters apply to the loaded assignments. Load more to search a larger window.</p>}

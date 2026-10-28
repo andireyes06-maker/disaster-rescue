@@ -14,7 +14,8 @@ import {
 } from '../../lib/schemas';
 import Banner from '../../components/calm/Banner';
 import { focusProgressHistory, progressSectionId } from './AssignedProgress';
-import { saveDraft, useDraft, getDraft, type DraftAttempt } from './draftStore';
+import { saveDraft, useDraft, reserveAttempt, settleAttempt, forgetAttempts, type DraftAttempt } from './draftStore';
+import { useResponderAction } from './useResponderAction';
 import { currentPosition, isLocationUnavailable, LOCATION_NOT_SENT_MESSAGE } from '../../lib/position';
 
 // Whole-number text becomes its integer value. Anything else becomes NaN, which the schema rejects.
@@ -77,6 +78,8 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
   const [apiError, setApiError] = useState<ReactNode>(null);
   const [saved, setSaved] = useState(false);
   const pending = useRef(false);
+  const beginAction = useResponderAction(reportId);
+  const [attemptLimit, setAttemptLimit] = useState(false);
   // Drafts and uncertain attempts live in the in-memory draft store, so they survive the card unmounting
   // (for example when the report closes) and are dropped when the signed-in identity changes.
   const draft = useDraft(reportId);
@@ -115,7 +118,7 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
   const hadDraft = useRef(!!draft);
   useEffect(() => {
     if (draft) hadDraft.current = true;
-    else if (hadDraft.current) { hadDraft.current = false; reset(defaults); }
+    else if (hadDraft.current) { hadDraft.current = false; pending.current = false; setBusy(false); setApiError(null); setSaved(false); setAttemptLimit(false); reset(defaults); }
   }, [draft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // A report that closed with nothing pending shows its own status, so the Status box matches what is displayed.
@@ -125,6 +128,7 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
 
   async function onValid(values: OperationUpdate) {
     if (pending.current || retryOnly) return;
+    const action = beginAction();
     pending.current = true;
     setApiError(null);
     setBusy(true);
@@ -132,16 +136,19 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
     try {
       // The API checks the responder is within the incident's reach, so the browser's position is sent with the update.
       const position = await currentPosition();
+      if (!action.isCurrent()) return;
       const fingerprint = JSON.stringify([values.status, String(values.peopleRescued), values.note]);
-      const stored = getDraft(reportId)?.attempt ?? null;
-      sent = stored && stored.fingerprint === fingerprint ? stored : { key: crypto.randomUUID(), fingerprint, status: values.status };
-      saveDraft(reportId, { attempt: sent });
+      sent = reserveAttempt(reportId, fingerprint, values.status);
+      if (!sent) { setAttemptLimit(true); return; }
+      setAttemptLimit(false);
       await api(`/reports/${reportId}/updates`, {
         method: 'POST',
+        getToken: action.getToken,
         headers: { 'Idempotency-Key': sent.key },
         body: { status: values.status, peopleRescued: values.peopleRescued, note: values.note, position },
       });
-      saveDraft(reportId, { attempt: null });
+      if (!action.isCurrent()) return;
+      settleAttempt(reportId, sent.key);
       setSaved(true);
       // Clear only what was submitted. A field edited while the post was pending keeps its newer value.
       const current = getValues();
@@ -153,12 +160,12 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
       });
       if (onSaved) onSaved();
     } catch (err) {
+      if (!action.isCurrent()) return;
       setApiError(isLocationUnavailable(err) ? LOCATION_NOT_SENT_MESSAGE : errorText(err, reportId));
       // Only an uncertain outcome keeps a retry pending. A refusal means the update was not saved.
-      saveDraft(reportId, { attempt: isUncertain(err) ? sent : null });
+      if (sent && !isUncertain(err)) settleAttempt(reportId, sent.key);
     } finally {
-      pending.current = false;
-      setBusy(false);
+      if (action.isCurrent()) { pending.current = false; setBusy(false); }
     }
   }
 
@@ -188,6 +195,14 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
       <textarea id={`note-${reportId}`} readOnly={closed} aria-invalid={!!errors.note} aria-describedby={errors.note ? `note-error-${reportId}` : undefined} rows={3} maxLength={MAX_NOTE_LENGTH} {...register('note')} />
 
       {errors.note && <FieldError role="alert" id={`note-error-${reportId}`}>{errors.note.message}</FieldError>}
+      {attemptLimit && <Banner tone="error" role="alert">
+        Five updates have unconfirmed receipts. Retry an unchanged update or check the report history before sending another.
+        <button type="button" className="btn btn--ghost" onClick={() => {
+          if (window.confirm('Forget all unconfirmed update receipts? An earlier update may already be saved. Check the history before sending it again.')) {
+            forgetAttempts(reportId); setAttemptLimit(false);
+          }
+        }}>Forget unconfirmed updates</button>
+      </Banner>}
       {apiError && <Banner tone="error" role="alert">{apiError}</Banner>}
       {saved && <Banner tone="info" role="status">Update saved.</Banner>}
 
