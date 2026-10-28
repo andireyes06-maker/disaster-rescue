@@ -8,10 +8,10 @@ import { mutationEffects, tryMutationEffects } from '../services/mutationEffects
 import { isSafeId } from '../domain/validation.js';
 
 // The identity a team responds under, shown beside its name. Existing teams without one count as Rescue.
-export const TEAM_KINDS = ['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'];
+export const TEAM_KINDS = ['PNP', 'BFP', 'Rescue', 'Medical', 'MDDRMO', 'Other'];
 const teamKind = (v) => {
   if (v === undefined || v === null || v === '') return 'Rescue';
-  if (!TEAM_KINDS.includes(v)) throw new HttpError(400, 'invalid_kind', 'Choose PNP, BFP, Rescue, MDDRMO or Other');
+  if (!TEAM_KINDS.includes(v)) throw new HttpError(400, 'invalid_kind', 'Choose PNP, BFP, Rescue, Medical, MDDRMO or Other');
   return v;
 };
 // For identity "Other", the administrator types what kind of team it is. Stored with the team; ignored for other identities.

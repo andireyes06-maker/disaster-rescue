@@ -53,7 +53,7 @@ function errorText(err: unknown): string {
 }
 
 // Team identities, in the order their tabs appear. Teams with no identity count as Rescue.
-const IDENTITIES = ['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'] as const;
+const IDENTITIES = ['PNP', 'BFP', 'Rescue', 'Medical', 'MDDRMO', 'Other'] as const;
 const identityOf = (team: Team) => (team.kind && (IDENTITIES as readonly string[]).includes(team.kind) ? team.kind : 'Rescue');
 
 function AssignForm({ reportId, freeTeams, onClose, onAssigned }: {

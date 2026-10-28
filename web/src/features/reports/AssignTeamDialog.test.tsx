@@ -104,6 +104,19 @@ describe('AssignTeamDialog', () => {
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
   });
 
+  it('lists a Medical team under the Medical tab, not Rescue', async () => {
+    show([
+      { id: 'r1', name: 'Rescue One', busy: false, currentReportId: null, kind: 'Rescue' },
+      { id: 'm1', name: 'Medic One', busy: false, currentReportId: null, kind: 'Medical' },
+    ]);
+    await screen.findAllByRole('tab');
+    expect(screen.getByRole('tab', { name: /^Medical/ })).toHaveTextContent('Medical1');
+    expect(screen.getByRole('tab', { name: /^Rescue/ })).toHaveTextContent('Rescue1');
+    await userEvent.click(screen.getByRole('tab', { name: /^Medical/ }));
+    expect(screen.getByRole('checkbox', { name: /Medic One/ })).toBeInTheDocument();
+    expect(screen.queryByRole('checkbox', { name: /Rescue One/ })).toBeNull();
+  });
+
   it('groups free teams into a tab per identity, and keeps the selection across tabs', async () => {
     show([
       { id: 'p1', name: 'Pnp One', busy: false, currentReportId: null, kind: 'PNP' },
@@ -111,7 +124,7 @@ describe('AssignTeamDialog', () => {
       { id: 'r1', name: 'Rescue One', busy: false, currentReportId: null, kind: 'Rescue' },
     ]);
     const tabs = await screen.findAllByRole('tab');
-    expect(tabs.map((t) => t.textContent)).toEqual(['PNP1', 'BFP1', 'Rescue1', 'MDDRMO0', 'Other0']);
+    expect(tabs.map((t) => t.textContent)).toEqual(['PNP1', 'BFP1', 'Rescue1', 'Medical0', 'MDDRMO0', 'Other0']);
     expect(screen.getByRole('tab', { name: /^PNP/ })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('checkbox', { name: /Pnp One/ })).toBeInTheDocument();
     expect(screen.queryByRole('checkbox', { name: /Bfp One/ })).toBeNull();

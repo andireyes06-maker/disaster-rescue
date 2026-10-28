@@ -89,7 +89,7 @@ export interface Team {
   hq?: GeoPoint | null;
   /** Approximate place name for the headquarters, such as "Near Commonwealth, Quezon City". */
   hqName?: string | null;
-  /** The identity the team responds under: PNP, BFP, Rescue, MDDRMO or Other. */
+  /** The identity the team responds under: PNP, BFP, Rescue, Medical, MDDRMO or Other. */
   kind?: string;
   /** For identity Other: what kind of team it is, as typed by the administrator. */
   kindLabel?: string | null;

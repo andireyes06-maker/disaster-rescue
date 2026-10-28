@@ -124,7 +124,7 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
         {errors.name && <FieldError id={`team-error-${team.id}`}>{errors.name.message}</FieldError>}
         <label htmlFor={`team-kind-${team.id}`}>Team identity</label>
         <select id={`team-kind-${team.id}`} value={kind} onChange={(e) => setKind(e.target.value)}>
-          {['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
+          {['PNP', 'BFP', 'Rescue', 'Medical', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
         </select>
         {kind === 'Other' && (
           <>
@@ -299,7 +299,7 @@ export default function TeamsPage() {
         {errors.name && <FieldError id="new-team-error">{errors.name.message}</FieldError>}
         <label htmlFor="new-team-kind">Team identity</label>
         <select id="new-team-kind" disabled={busy} value={newKind} onChange={(e) => setNewKind(e.target.value)}>
-          {['PNP', 'BFP', 'Rescue', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
+          {['PNP', 'BFP', 'Rescue', 'Medical', 'MDDRMO', 'Other'].map((k) => <option key={k} value={k}>{k}</option>)}
         </select>
         {newKind === 'Other' && (
           <>

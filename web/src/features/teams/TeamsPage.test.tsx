@@ -20,3 +20,10 @@ it('keeps a failed headquarters save visible inside its dialog', async () => {
   expect(dialog).toBeVisible();
   expect(h.api).toHaveBeenCalledWith('/teams/t1', { method: 'PATCH', body: { hq: { lat: 14.6, lng: 120.9 }, hqName: 'Selected street, Harbor' } });
 });
+it('offers Medical as a team identity when creating a team', async () => {
+  h.api.mockReset().mockImplementation(async () => []);
+  render(<TeamsPage />);
+  await userEvent.click(await screen.findByRole('button', { name: 'Create team' }));
+  const select = await screen.findByLabelText('Team identity');
+  expect(within(select).getAllByRole('option').map((o) => o.textContent)).toEqual(['PNP', 'BFP', 'Rescue', 'Medical', 'MDDRMO', 'Other']);
+});
