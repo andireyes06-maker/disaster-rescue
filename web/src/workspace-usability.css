@@ -79,6 +79,19 @@
 .map-key { margin: 18px 0; border: 1px solid #d8ddec; border-radius: 12px; background: #fff; padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .map-key > header { grid-column: 1/-1; }
 .map-key header p { font-size: 13px; color: #665b77; margin: 6px 0 0; line-height: 1.5; }
+.type-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.type-legend__label { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--color-muted); }
+.type-legend ul.type-legend__chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.type-chip { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; padding: 4px 12px 4px 9px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--color-paper); color: var(--color-muted); }
+.type-chip svg { width: 18px; height: 18px; flex: none; }
+.type-chip--flood { background: var(--color-flood-soft); color: var(--color-flood); }
+.type-chip--fire { background: var(--color-fire-soft); color: var(--color-fire); }
+.type-chip--earthquake { background: var(--color-quake-soft); color: var(--color-quake); }
+.type-chip--landslide { background: var(--color-slide-soft); color: var(--color-slide); }
+.type-chip--medical { background: var(--color-medical-soft); color: var(--color-medical); }
+.type-chip--road_hazard { background: var(--color-road-soft); color: var(--color-road); }
+.type-chip--power_line { background: var(--color-power-soft); color: var(--color-power); }
+.map-key > .type-legend { grid-column: 1/-1; }
 .map-key__group h2 { font-size: 14px; margin-bottom: 12px; }
 .map-key__group ul { display: flex; flex-wrap: wrap; gap: 14px 20px; padding: 0; margin: 0; list-style: none; }
 .map-key__group li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: #4f445e; }

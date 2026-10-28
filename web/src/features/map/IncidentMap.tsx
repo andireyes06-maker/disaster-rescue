@@ -1,6 +1,6 @@
 import PlaceLabel from '../../components/PlaceLabel';
 import MapViewport from '../../components/MapViewport';
-import { DisasterSymbol, disasterSymbolHtml } from './disasterSymbols';
+import { disasterSymbolHtml } from './disasterSymbols';
 import { MapPin, X } from 'lucide-react';
 import ReportWindow from '../../components/ReportWindow';
 import { ConnectionNotice } from '../../components/ConnectionStatus';
@@ -15,6 +15,7 @@ import { useReports } from '../reports/useReports';
 import { markerStyle } from './markerStyle';
 import { PRIORITIES, REPORT_STATUSES, REPORT_TYPES, type Report, type GeoPoint } from '../../types/domain';
 import { typeLabel } from '../../lib/reportTypes';
+import TypeLegend from './TypeLegend';
 import Banner from '../../components/calm/Banner';
 import { Skeleton } from '../../components/calm/Skeleton';
 
@@ -120,7 +121,7 @@ export default function IncidentMap() {
       </div>
       <section className="map-key" aria-label="Map legend">
         <header><strong>{visible.length} located report{visible.length === 1 ? '' : 's'} shown</strong><p>Disaster icons identify the incident. Colored shapes show priority. Open a report to see its response status.</p></header>
-        <div className="map-key__group"><h2>Disaster type</h2><ul aria-label="Disaster type symbols">{REPORT_TYPES.map(type => <li key={type}><span className="incident-pin incident-pin--legend"><DisasterSymbol type={type} /></span>{cap(type)}</li>)}</ul></div>
+        <TypeLegend />
         <div className="map-key__group"><h2>Priority</h2><ul aria-label="Priority colors and shapes">{PRIORITIES.map(priority => { const style = markerStyle({ priority }); return <li key={priority}><span className={`map-marker map-marker--${style.shape}`} style={{ '--marker-color': style.color } as CSSProperties} />{style.label}</li>; })}</ul></div>
       </section>
       {visible.length === 0 && (

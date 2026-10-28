@@ -29,4 +29,10 @@ describe('assignment map marker accessibility', () => {
     expect(container.querySelector('.map-marker-wrap')).not.toHaveAttribute('role', 'button');
     expect(container.querySelector('.hq-pin')).not.toHaveAttribute('role', 'button');
   });
+  it('explains all 8 emergency types in the map symbols legend', () => {
+    render(<AssignmentMap reports={[report('1')]} />);
+    const types = screen.getByRole('list', { name: 'Emergency types' });
+    expect(types.querySelectorAll('li')).toHaveLength(8);
+    expect(types).toHaveTextContent('Live Wire');
+  });
 });

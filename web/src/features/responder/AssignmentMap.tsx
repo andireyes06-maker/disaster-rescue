@@ -3,13 +3,14 @@ import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { GeoPoint, Report } from '../../types/domain';
-import { PRIORITIES, REPORT_TYPES } from '../../types/domain';
+import { PRIORITIES } from '../../types/domain';
 import MapTileNotice, { useMapTiles } from '../../components/MapTileNotice';
 import MapViewport from '../../components/MapViewport';
 import EmptyState from '../../components/calm/EmptyState';
-import { DisasterSymbol, disasterSymbolHtml } from '../map/disasterSymbols';
+import { disasterSymbolHtml } from '../map/disasterSymbols';
 import { markerStyle } from '../map/markerStyle';
 import { typeLabel } from '../../lib/reportTypes';
+import TypeLegend from '../map/TypeLegend';
 
 export const validPoint = (p: GeoPoint | null | undefined): p is GeoPoint => !!p && Number.isFinite(p.lat) && Number.isFinite(p.lng) && Math.abs(p.lat) <= 90 && Math.abs(p.lng) <= 180;
 export const directionsUrl = (p: GeoPoint) => `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}`;
@@ -70,6 +71,6 @@ export function AssignmentMap({ reports, hq, selected, onSelect }: { reports: Re
       </MapContainer>
     </div>
     <div className="response-map-tools"><span>{frame.all ? 'Assignments and headquarters' : selected ? 'Selected incident' : 'Assigned incident locations'}</span><div>{selected && <button className="btn btn--ghost" type="button" onClick={() => setFrame(f => ({ all: false, revision: f.revision + 1 }))}>Focus incident</button>}<button className="btn btn--ghost" type="button" onClick={() => setFrame(f => ({ all: true, revision: f.revision + 1 }))}>Fit all locations</button></div></div>
-    <details className="response-map-legend"><summary>Map symbols and priority</summary><div className="response-legend-types">{REPORT_TYPES.map(type => <span key={type}><DisasterSymbol type={type} />{type}</span>)}<span><strong>HQ</strong> Your headquarters</span></div><div className="response-legend-types">{PRIORITIES.map(priority => { const { color, shape } = markerStyle({ priority } as Report); return <span key={priority}><i className={`map-marker map-marker--${shape}`} style={{ '--marker-color': color } as React.CSSProperties} />{priority}</span>; })}</div><p>The icon identifies the incident type. The colored shape identifies priority. Status is shown in the assignment list.</p></details>
+    <details className="response-map-legend"><summary>Map symbols and priority</summary><TypeLegend /><div className="response-legend-types"><span><strong>HQ</strong> Your headquarters</span></div><div className="response-legend-types">{PRIORITIES.map(priority => { const { color, shape } = markerStyle({ priority } as Report); return <span key={priority}><i className={`map-marker map-marker--${shape}`} style={{ '--marker-color': color } as React.CSSProperties} />{priority}</span>; })}</div><p>The icon identifies the incident type. The colored shape identifies priority. Status is shown in the assignment list.</p></details>
   </div>;
 }
