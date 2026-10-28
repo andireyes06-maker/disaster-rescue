@@ -44,7 +44,6 @@ Failure modes the spec implies that need a test, most likely first. Each has its
 - `api/src/domain/userView.js` (create): the safe public shape of a user.
 - `api/src/middleware/upload.js` (modify): single profile photo upload.
 - `api/src/routes/users.js`, `api/src/services/profilePhotoService.js` (create): photo and profile reads.
-- `api/src/adapters/cloudinaryUploader.js`, `api/test/fakes/fakeUploader.js` (modify): `urlFor`.
 - `web/src/components/Avatar.tsx` (create), `web/src/layout/AppShell.tsx`, `web/src/features/reports/IncidentPreview.tsx` (modify).
 - `mobile/lib/features/profile/profile_page.dart`, `mobile/lib/widgets/user_avatar.dart` (create/modify).
 
