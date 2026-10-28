@@ -4,10 +4,8 @@ import FieldError from '../../components/FieldError';
 import MotionForm from '../../components/MotionForm';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { sendPasswordResetEmail } from 'firebase/auth';
 import { useAuth } from '../../auth/AuthProvider';
 import { landingFor } from '../../routes/landing';
-import { getFirebaseAuth } from '../../firebase-auth';
 import { api } from '../../api/client';
 import PublicHeader from '../../components/PublicHeader';
 import '../../pages/public.css';
@@ -16,8 +14,8 @@ import Banner from '../../components/calm/Banner';
 type LoginField = 'email' | 'password';
 const EMAIL_SHAPE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FIELD_ORDER: LoginField[] = ['email', 'password'];
-const RESET_SENT = 'If an account exists for that email, a link to set or reset its password has been sent. Check your inbox and spam folder.';
-// Sign-in lockout is enforced by the API (per email, 5 failures, 5 minutes). See api/src/routes/auth.js.
+// The API counts failed sign-ins per email (5 failures, 5 minutes) and this page honours the lock. The lock is
+// advisory: Firebase Auth itself is not blocked, so only Firebase's own throttling stops a direct guess. See api/src/routes/auth.js.
 interface LockState { locked: boolean; retryAfterSeconds: number }
 
 const lockedMessage = (seconds: number) => {
@@ -33,9 +31,6 @@ export default function LoginPage() {
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<LoginField, string>>>({});
   const [busy, setBusy] = useState(false);
   const pendingRef = useRef(false);
-  const resetPending = useRef(false);
-  const [resetNote, setResetNote] = useState('');
-  const [resetBusy, setResetBusy] = useState(false);
 
   useEffect(() => { document.title = 'Sign in · I-Report'; }, []);
 
@@ -50,7 +45,6 @@ export default function LoginPage() {
     if (!password) errs.password = 'Enter your password.';
     setFieldErrors(errs);
     setError('');
-    setResetNote('');
     const first = FIELD_ORDER.find((k) => errs[k]);
     if (first) {
       document.getElementById(first)?.focus();
@@ -60,7 +54,7 @@ export default function LoginPage() {
     setBusy(true);
     const emailValue = email.trim();
     try {
-      // If the lock check cannot reach the API, sign-in still goes ahead; the API enforces the limit on failures.
+      // If the lock check cannot reach the API, sign-in still goes ahead; the API still counts the failures.
       const lock = await api('/auth/sign-in/check', { method: 'POST', body: { email: emailValue } }).then((r) => r as LockState).catch(() => null);
       if (lock?.locked) {
         setError(lockedMessage(lock.retryAfterSeconds));
@@ -81,38 +75,6 @@ export default function LoginPage() {
     } finally {
       pendingRef.current = false;
       setBusy(false);
-    }
-  }
-
-  // Staff are created by a dispatcher or admin without a password (F02). This sends the password-setup
-  // email through Firebase Auth, so no credential is shown to anyone and no invitation is created by hand.
-  async function onForgotPassword() {
-    if (resetPending.current || pendingRef.current) return;
-    setError('');
-    setResetNote('');
-    if (!email.trim()) {
-      setError('Enter your email address first, then choose Forgot password.');
-      document.getElementById('email')?.focus();
-      return;
-    }
-    if (!EMAIL_SHAPE.test(email.trim())) { setFieldErrors({ email: 'Enter an email in the form name@example.com.' }); document.getElementById('email')?.focus(); return; }
-    resetPending.current = true;
-    setResetBusy(true);
-    try {
-      await sendPasswordResetEmail(getFirebaseAuth(), email.trim());
-      setResetNote(RESET_SENT);
-    } catch (err) {
-      const code = (err as { code?: string }).code;
-      if (code === 'auth/network-request-failed' || code === 'auth/too-many-requests') {
-        setError(code === 'auth/too-many-requests'
-          ? 'Too many requests. Wait a few minutes, then try again.'
-          : 'Could not send the email. Check your connection and try again.');
-      } else {
-        setResetNote(RESET_SENT);
-      }
-    } finally {
-      resetPending.current = false;
-      setResetBusy(false);
     }
   }
 
@@ -146,11 +108,11 @@ export default function LoginPage() {
           {fieldErrors.email && <FieldError id="email-error" className="field-error">{fieldErrors.email}</FieldError>}
           <label htmlFor="password">Password<RequiredMark /></label>
           <PasswordInput id="password" name="password" autoComplete="current-password" aria-required="true" value={password}
-            aria-invalid={fieldErrors.password ? true : undefined}
-            aria-describedby={fieldErrors.password ? 'password-error' : undefined}
+            aria-invalid={fieldErrors.password || error ? true : undefined}
+            aria-describedby={fieldErrors.password ? 'password-error' : error ? 'login-error' : undefined}
             onChange={(e) => setPassword(e.target.value)} />
           {fieldErrors.password && <FieldError id="password-error" className="field-error">{fieldErrors.password}</FieldError>}
-          {message && <Banner tone="error" role="alert">{message}</Banner>}
+          {message && <Banner id="login-error" tone="error" role="alert">{message}</Banner>}
           <button type="submit" className="btn" aria-disabled={busy} aria-busy={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
         </MotionForm>
         <aside className="auth-split__intro" aria-labelledby="login-aside-title">

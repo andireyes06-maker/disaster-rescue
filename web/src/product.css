@@ -6,7 +6,7 @@ input, textarea { caret-color: var(--color-primary); }
 button, a, summary { touch-action: manipulation; }
 button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .btn { gap: 8px; font-size: 14px; letter-spacing: -0.01em; padding: 11px 18px; }
-input, select, textarea { border-color: #cbc7d8; min-height: 46px; box-shadow: 0 1px 2px #211d3503; }
+input, select, textarea { border-color: #8a849b; min-height: 46px; box-shadow: 0 1px 2px #211d3503; }
 input::placeholder, textarea::placeholder { color: #716b80; opacity: 1; }
 input:focus, select:focus, textarea:focus { border-color: var(--color-primary); }
 textarea { resize: vertical; line-height: 1.6; }

@@ -189,7 +189,7 @@ export default function ReportQueue() {
   // Cancelled reports are not in the open list, so their count reads the full list.
   // While the full list is loading or failed, its chip shows a dash rather than a false zero.
   const quickCount = (q: Quick): string => {
-    if (q === 'cancelled' && (everything.loading || everything.error)) return '—';
+    if (q === 'cancelled' && (everything.loading || everything.error)) return everything.error ? 'n/a' : '…';
     return String((q === 'cancelled' ? everything.reports : reports).filter((r) => quickMatch(r, q)).length);
   };
   const canAct = canActOnReports(role);
@@ -205,7 +205,7 @@ export default function ReportQueue() {
         {cards.map(([label, n]) => (
           <Card key={label} className={`summary__card metric--${String(label).toLowerCase().replaceAll(' ', '-')}`}>
             <span className="summary__label">{label}</span>
-            <strong className="summary__value">{viewLoading || failed ? '—' : n}</strong>
+            <strong className="summary__value">{failed ? 'n/a' : viewLoading ? '…' : n}</strong>
           </Card>
         ))}
       </div>
@@ -218,7 +218,7 @@ export default function ReportQueue() {
       <section className="inbox-panel" aria-labelledby="queue-heading">
         <div className="queue-toolbar">
           <div>
-            <h2 id="queue-heading">Incident inbox</h2>
+            <h2 id="queue-heading">Report inbox</h2>
             <p aria-live="polite">{viewLoading ? 'Loading reports…' : failed ? 'Reports unavailable' : `Showing ${rows.length} of ${reports.length} reports`}</p>
             <p className="queue-order">Critical first, then high, medium and low. Oldest first within each level.</p>
           </div>
@@ -233,7 +233,7 @@ export default function ReportQueue() {
         </div>
 
         <div className="inbox-search">
-          <label htmlFor="inbox-search">Search incidents</label>
+          <label htmlFor="inbox-search">Search reports</label>
           <input id="inbox-search" type="search" value={params.get('q') ?? ''} placeholder="Search reports…" aria-describedby="inbox-search-hint"
             onChange={(e) => update((p) => { if (e.target.value) p.set('q', e.target.value); else p.delete('q'); })} />
         </div>
@@ -262,7 +262,7 @@ export default function ReportQueue() {
             <button className="btn btn--ghost" type="button" onClick={viewUsesFullList ? everything.retry : retry}>Try again</button>
           </Banner>
         )}
-        {viewLoading && <Skeleton label="Loading incident inbox"><SkeletonRows rows={5} height={84} /></Skeleton>}
+        {viewLoading && <Skeleton label="Loading report inbox"><SkeletonRows rows={5} height={84} /></Skeleton>}
         {!viewLoading && !viewError && rows.length === 0 && (
           <EmptyState
             title={reports.length === 0 ? 'No reports received yet' : 'No reports match this view'}
@@ -274,7 +274,7 @@ export default function ReportQueue() {
           />
         )}
         {rows.length > 0 && (
-          <ul className="inbox" aria-label="Incident inbox">
+          <ul className="inbox" aria-label="Report inbox">
             {rows.map((r) => (
               <InboxRow key={r.id} r={r} selected={r.id === effectiveId} onSelect={() => setSelectedId(r.id)} />
             ))}

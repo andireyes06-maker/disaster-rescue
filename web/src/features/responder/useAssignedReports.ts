@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { collection, query, limit, where, orderBy, type FirestoreError } from 'firebase/firestore';
 import { watchTeamReports } from './watchTeamReports';
 import { getFirebaseDb } from '../../firebase';
@@ -25,13 +25,20 @@ export function useAssignedReports(teamId: string | null | undefined): AssignedR
   const [state, setState] = useState<Omit<AssignedReportsState, 'retry'> & { ownerTeam?: string | null }>({ ownerTeam: teamId, reports: [], loading: true, error: null, fromCache: false });
   const [attempt, setAttempt] = useState(0);
   const [windowSize, setWindowSize] = useState(50);
+  // "Load more" only widens the window, so the list on screen stays until the larger result arrives.
+  const loaded = useRef(`${teamId}|0`);
 
   useEffect(() => {
     if (!teamId) {
+      loaded.current = '';
       setState({ ownerTeam: teamId, reports: [], loading: false, error: null, fromCache: false });
       return undefined;
     }
-    setState({ ownerTeam: teamId, reports: [], loading: true, error: null, fromCache: false });
+    const key = `${teamId}|${attempt}`;
+    if (key !== loaded.current) {
+      loaded.current = key;
+      setState({ ownerTeam: teamId, reports: [], loading: true, error: null, fromCache: false });
+    }
     // Server-filtered: the current team's open statuses only, oldest first, so the window holds the oldest open
     // assignments (the same order as the Flutter responder list). Reports assigned to several teams are joined in.
     const db = getFirebaseDb();

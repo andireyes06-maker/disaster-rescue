@@ -27,7 +27,7 @@ export default function TeamMap() {
   return <div className="response-workspace"><TeamIdentity id={team} />
     <ConnectionNotice fromCache={state.fromCache} />
     {(state.error || state.partialError) && <Banner tone="error" role="alert">Some team assignments could not load. The map may be incomplete. <button className="btn btn--ghost" type="button" onClick={state.retry}>Try again</button></Banner>}
-    {requested && !selected && <Banner tone="info" role="status">This assignment has no valid map pin. Open its incident brief from the list below.</Banner>}
+    {requested && !selected && <Banner tone="info" role="status">This assignment has no valid map pin. Open its report brief from the list below.</Banner>}
     {own.failed && <Banner tone="error" role="alert">Your headquarters could not load. <button className="btn btn--ghost" type="button" onClick={own.retry}>Retry headquarters</button></Banner>}
     {state.loading ? <Skeleton label="Loading team map"><SkeletonRows rows={2} height={180} /></Skeleton> : <section className="response-map-panel">
       <div className="response-section-head"><h2>Your team on the map</h2><span>{state.reports.filter(r => validPoint(r.location)).length} located in the loaded window</span></div>

@@ -62,6 +62,18 @@ describe('useAssignedReports filters open statuses on the server', () => {
     ]));
   });
 
+  it('keeps the list on screen while "load more" widens the window', () => {
+    const { result } = renderHook(() => useAssignedReports('team-a'));
+    act(() => h.subs[0].ok(snap([doc('r1', 'Team Assigned', 1000)])));
+    act(() => h.subs[1].ok(snap([])));
+    expect(result.current.reports.map((r) => r.id)).toEqual(['r1']);
+    act(() => result.current.loadMore?.());
+    // The wider query is subscribed, but the earlier result stays until the new one arrives.
+    expect(h.subs).toHaveLength(4);
+    expect(result.current.loading).toBe(false);
+    expect(result.current.reports.map((r) => r.id)).toEqual(['r1']);
+  });
+
   it('gives a team change a new query and drops the old listener', () => {
     const { rerender } = renderHook(({ team }) => useAssignedReports(team), { initialProps: { team: 'team-a' as string | null } });
     rerender({ team: 'team-b' });

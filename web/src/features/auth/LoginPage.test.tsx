@@ -31,6 +31,18 @@ describe('LoginPage', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent(/could not sign in/i);
   });
 
+  it('ties the failed sign-in message to the password field', async () => {
+    login.mockRejectedValueOnce(new Error('bad'));
+    renderPage();
+    await userEvent.type(screen.getByLabelText(/email/i), 'a@b.c');
+    await userEvent.type(screen.getByLabelText('Password', { exact: true }), 'wrong');
+    await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    const alert = await screen.findByRole('alert');
+    const password = screen.getByLabelText('Password', { exact: true });
+    expect(password).toHaveAttribute('aria-invalid', 'true');
+    expect(password).toHaveAttribute('aria-describedby', alert.id);
+  });
+
   it('returns focus to the password field after a failed sign-in', async () => {
     login.mockRejectedValueOnce(new Error('bad'));
     renderPage();

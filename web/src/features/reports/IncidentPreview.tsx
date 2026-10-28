@@ -101,7 +101,7 @@ export default function IncidentPreview({ report, canAct, outsideFilters, onClea
         <h3 id="history-title">Response history</h3>
         {updates.error && (
           <Banner tone="error" role="alert">
-            Could not load rescue updates.{' '}
+            Could not load progress updates.{' '}
             <button className="btn btn--ghost" type="button" onClick={updates.retry}>Try again</button>
           </Banner>
         )}

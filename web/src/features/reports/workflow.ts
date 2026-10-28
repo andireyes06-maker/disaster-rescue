@@ -32,7 +32,7 @@ export function nextStep(r: Pick<Report, 'status'>): NextStep {
     return { title: 'Team assigned', body: 'Check the assigned team’s acknowledgement and field updates.', action: null };
   }
   if (r.status === 'Rescue in Progress') {
-    return { title: 'Rescue in progress', body: 'A team is responding. Follow the rescue updates.', action: null };
+    return { title: 'Rescue in progress', body: 'A team is responding. Follow the progress updates.', action: null };
   }
   return { title: 'No action needed', body: 'This report is closed or has no staff action at this stage.', action: null };
 }

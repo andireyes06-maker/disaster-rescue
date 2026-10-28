@@ -42,8 +42,8 @@ const DESCRIPTIONS: Record<string, string> = {
   Users: 'Manage staff access and team membership.',
   Overview: 'Your team’s next response and recorded activity.',
   'Team map': 'Locate your team’s assignments and headquarters.',
-  Assignment: 'Incident brief, location and rescue progress.',
-  Assignments: 'Review your team’s incidents and record rescue progress.',
+  Assignment: 'Report brief, location and rescue progress.',
+  Assignments: 'Review your team’s reports and record rescue progress.',
   Admin: 'Manage service settings and account access roles.',
   'Incident details': 'Review the report, its evidence, and the response history.',
 };

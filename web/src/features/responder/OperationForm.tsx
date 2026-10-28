@@ -78,6 +78,7 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
   const [apiError, setApiError] = useState<ReactNode>(null);
   const [saved, setSaved] = useState(false);
   const pending = useRef(false);
+  const submissions = useRef(0);
   const beginAction = useResponderAction(reportId);
   const [attemptLimit, setAttemptLimit] = useState(false);
   // Drafts and uncertain attempts live in the in-memory draft store, so they survive the card unmounting
@@ -129,6 +130,7 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
   async function onValid(values: OperationUpdate) {
     if (pending.current || retryOnly) return;
     const action = beginAction();
+    const submission = ++submissions.current;
     pending.current = true;
     setApiError(null);
     setBusy(true);
@@ -165,7 +167,9 @@ export default function OperationForm({ reportId, reportStatus, closed = false, 
       // Only an uncertain outcome keeps a retry pending. A refusal means the update was not saved.
       if (sent && !isUncertain(err)) settleAttempt(reportId, sent.key);
     } finally {
-      if (action.isCurrent()) { pending.current = false; setBusy(false); }
+      // A stale action's result is dropped, but it still gives the form back unless a newer submit has taken over.
+      // A same-uid sign-in leaves the draft in place, so nothing else would clear the busy state.
+      if (action.isCurrent() || submissions.current === submission) { pending.current = false; setBusy(false); }
     }
   }
 

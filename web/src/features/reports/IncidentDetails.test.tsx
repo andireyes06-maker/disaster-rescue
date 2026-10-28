@@ -170,7 +170,7 @@ describe('IncidentDetails', () => {
     expect(h.retry).toHaveBeenCalled();
   });
 
-  it('lists the newest rescue updates first', async () => {
+  it('lists the newest progress updates first', async () => {
     h.updates = [
       { id: 'u1', status: 'Rescue in Progress', note: 'On site', peopleRescued: 2, at: new Date('2026-10-15T08:00:00Z') },
       { id: 'u2', status: 'Resolved', note: 'Done', peopleRescued: 3, at: new Date('2026-10-15T09:00:00Z') },
@@ -185,7 +185,7 @@ describe('IncidentDetails', () => {
     h.updates = [];
   });
 
-  it('shows the 5 newest of 50 rescue updates and reveals the rest without losing text', async () => {
+  it('shows the 5 newest of 50 progress updates and reveals the rest without losing text', async () => {
     const long = (i: number) => `Update ${i} ` + 'z'.repeat(400) + ` end-${i}`;
     h.updates = Array.from({ length: 50 }, (_, i) => ({
       id: `u${i}`, status: 'Rescue in Progress', note: long(i), peopleRescued: 0,
@@ -215,17 +215,17 @@ describe('IncidentDetails', () => {
     h.updates = [];
   });
 
-  it('says so when there are no rescue updates', () => {
+  it('says so when there are no progress updates', () => {
     show([makeReport({ id: 'r1' })]);
-    expect(screen.getByText('No rescue updates yet.')).toBeInTheDocument();
+    expect(screen.getByText('No progress updates yet.')).toBeInTheDocument();
   });
 
-  it('does not claim there are no rescue updates before their read finishes', async () => {
+  it('does not claim there are no progress updates before their read finishes', async () => {
     h.updatesLoading = true;
     show([makeReport({ id: 'r1' })]);
     await userEvent.click(screen.getByRole('tab', { name: 'Response and updates' }));
-    expect(screen.getByRole('status')).toHaveTextContent('Loading rescue updates');
-    expect(screen.queryByText('No rescue updates yet.')).not.toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('Loading progress updates');
+    expect(screen.queryByText('No progress updates yet.')).not.toBeInTheDocument();
   });
 
   it('shows loading state', () => {

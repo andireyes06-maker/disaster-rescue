@@ -6,7 +6,7 @@ export default function PasswordInput(props: Omit<ComponentPropsWithoutRef<'inpu
   const label = props.id === 'confirmPassword' ? 'confirmation password' : 'password';
   return <div className="password-control">
     <input {...props} type={visible ? 'text' : 'password'} />
-    <button type="button" aria-label={`${visible ? 'Hide' : 'Show'} ${label}`} aria-pressed={visible} onClick={() => setVisible(value => !value)}>
+    <button type="button" aria-label={`Show ${label}`} aria-pressed={visible} onClick={() => setVisible(value => !value)}>
       {visible ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
     </button>
   </div>;

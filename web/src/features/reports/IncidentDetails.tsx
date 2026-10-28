@@ -227,7 +227,7 @@ function IncidentView({ id }: IncidentViewProps) {
   }
   if (removed || notFound || !report) return <EmptyState
     title={removed ? 'This report is no longer available.' : 'Report not found'}
-    body="The report may have been removed, or the link may be outdated. Return to the incident queue to choose another report."
+    body="The report may have been removed, or the link may be outdated. Return to the report queue to choose another report."
     action={<Link className="btn btn--ghost" to="/dashboard">Back to the queue</Link>}
   />;
 
@@ -340,15 +340,15 @@ function IncidentView({ id }: IncidentViewProps) {
         <StatusProgress status={report.status} />
       </section>
       <section className="card" aria-labelledby="updates-title">
-        <h2 id="updates-title" className="incident-section-title"><Radio size={19} aria-hidden="true" />Rescue updates</h2>
+        <h2 id="updates-title" className="incident-section-title"><Radio size={19} aria-hidden="true" />Progress updates</h2>
         {updatesState.error && (
           <Banner tone="error" role="alert">
-            Could not load rescue updates.{' '}
+            Could not load progress updates.{' '}
             <button className="btn btn--ghost" type="button" onClick={updatesState.retry}>Try again</button>
           </Banner>
         )}
-        {updatesState.loading && updatesState.updates.length === 0 && <Skeleton label="Loading rescue updates"><SkeletonRows rows={3} height={52} /></Skeleton>}
-        {!updatesState.loading && !updatesState.error && updatesState.updates.length === 0 && <p>No rescue updates yet.</p>}
+        {updatesState.loading && updatesState.updates.length === 0 && <Skeleton label="Loading progress updates"><SkeletonRows rows={3} height={52} /></Skeleton>}
+        {!updatesState.loading && !updatesState.error && updatesState.updates.length === 0 && <p>No progress updates yet.</p>}
         {updatesState.updates.length > 0 && (
           <ActivityHistory scrollable
             updates={updatesState.updates}

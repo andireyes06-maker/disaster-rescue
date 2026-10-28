@@ -251,7 +251,7 @@ describe('assignment action guards and control relationships', () => {
     const history = screen.getByRole('button', { name: 'Progress history' });
     await userEvent.click(history);
     expect(document.getElementById(history.getAttribute('aria-controls')!)).not.toHaveAttribute('hidden');
-    const brief = screen.getByRole('button', { name: 'Incident brief' });
+    const brief = screen.getByRole('button', { name: 'Report brief' });
     expect(document.getElementById(brief.getAttribute('aria-controls')!)).toHaveAttribute('hidden');
   });
   it('announces changed filter counts within the loaded assignment window', async () => {

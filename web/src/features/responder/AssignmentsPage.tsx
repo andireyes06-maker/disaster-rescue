@@ -101,7 +101,7 @@ export function AssignedCard({ report, scope, headingRef }: AssignedCardProps) {
         <div>{report.reference && <span className="response-reference">{report.reference}</span>}<h2 ref={headingRef} tabIndex={-1} className="queue__type">{report.type} report</h2></div>
         <div className="incident__badges"><PriorityBadge priority={report.priority} /><StatusBadge status={report.status} /></div>
         </div>
-        <div className="response-detail-nav" role="group" aria-label="Assignment sections"><button type="button" aria-controls={`brief-${report.id}`} aria-pressed={pane === 'brief'} onClick={() => setPane('brief')}>Incident brief</button><button type="button" aria-controls={`progress-${report.id}`} aria-pressed={pane === 'progress'} onClick={() => setPane('progress')}>Progress history</button></div>
+        <div className="response-detail-nav" role="group" aria-label="Assignment sections"><button type="button" aria-controls={`brief-${report.id}`} aria-pressed={pane === 'brief'} onClick={() => setPane('brief')}>Report brief</button><button type="button" aria-controls={`progress-${report.id}`} aria-pressed={pane === 'progress'} onClick={() => setPane('progress')}>Progress history</button></div>
         <div className="response-action-panel">
         {message && (
           message.kind === 'ok'

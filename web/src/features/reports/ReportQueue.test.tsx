@@ -27,7 +27,7 @@ const data = () => [
   makeReport({ id: 'a', description: 'Flood A', type: 'flood', priority: 'critical', verified: true, status: 'Verified' }),
   makeReport({ id: 'b', description: 'Fire B', type: 'fire', priority: 'low', verified: false, status: 'Submitted' }),
 ];
-const inbox = () => screen.getByRole('list', { name: 'Incident inbox' });
+const inbox = () => screen.getByRole('list', { name: 'Report inbox' });
 const preview = () => screen.getByLabelText('Selected report');
 
 describe('ReportQueue', () => {
@@ -184,17 +184,17 @@ describe('ReportQueue', () => {
       makeReport({ id: 'a', description: 'Flood A', addressText: 'Riverside Road', reference: 'DR-AAAAAA' }),
       makeReport({ id: 'b', description: 'Fire B', addressText: 'Market Street', reference: 'DR-BBBBBB' }),
     ]);
-    await userEvent.type(screen.getByLabelText('Search incidents'), 'market');
+    await userEvent.type(screen.getByLabelText('Search reports'), 'market');
     expect(within(inbox()).queryByText('Flood A')).toBeNull();
     expect(within(inbox()).getByText('Fire B')).toBeInTheDocument();
-    await userEvent.clear(screen.getByLabelText('Search incidents'));
-    await userEvent.type(screen.getByLabelText('Search incidents'), 'dr-aaaaaa');
+    await userEvent.clear(screen.getByLabelText('Search reports'));
+    await userEvent.type(screen.getByLabelText('Search reports'), 'dr-aaaaaa');
     expect(within(inbox()).getByText('Flood A')).toBeInTheDocument();
     expect(within(inbox()).queryByText('Fire B')).toBeNull();
   });
   it('clears a search with no matches and returns focus to search', async () => {
     show(data());
-    const search = screen.getByRole('searchbox', { name: 'Search incidents' });
+    const search = screen.getByRole('searchbox', { name: 'Search reports' });
     await userEvent.type(search, 'nothing-matches-this');
     expect(screen.getByText('No reports match this view')).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Clear search and filters' }));
