@@ -139,16 +139,15 @@ The phone sends `locality` (`mobile/lib/data/services.dart:49`) and the validato
 
 **Files:**
 - Create: `api/src/domain/userView.js`, `api/src/services/profilePhotoService.js`
-- Modify: `api/src/middleware/upload.js`, `api/src/routes/users.js`, `api/src/adapters/cloudinaryUploader.js`, `api/test/fakes/fakeUploader.js`
+- Modify: `api/src/middleware/upload.js`, `api/src/routes/users.js`
 - Test: `api/test/routes/profile-photo.test.js` (create)
 
 **Interfaces:**
-- Produces `userView(user, uploader): { uid, name, email, phone, role, active, photoUrl: string | null }` (no secrets, no `photo` internals).
-- Produces `uploader.urlFor({ publicId, version, format }): string` (same signed, non-expiring URL form `upload` already returns); the fake returns `https://fake.cdn/<publicId>.<format>`.
+- Produces `userView(user): { uid, name, email, phone, role, active, photoUrl: string | null }` (no secrets, no `photo` internals; `photoUrl` is `user.photo?.url ?? null`).
 - Produces `uploadProfilePhoto()` middleware: one file in field `photo`, 5 MB, same error mapping as `uploadPhotos`.
 - Produces `GET /api/users/me` (any active signed-in role) responds `200 userView` of the caller; the web and phone read their own photo from it.
 - Produces routes: `PUT /api/users/me/photo` (any active signed-in role, multipart `photo`) responds `200 { photoUrl }`; `DELETE /api/users/me/photo` responds `200 { photoUrl: null }`. Both are registered before `/:id` routes and take no id.
-- Stores `users/{uid}.photo = { publicId, version, format, updatedAt }`.
+- Stores `users/{uid}.photo = { publicId, url, updatedAt }` from the `uploader.upload` result (`{ publicId, url }`; the signed delivery URL it returns does not expire, same as report photos).
 - Errors: `400 invalid_photo` (bytes are not jpeg, png or webp), `400 photo_too_large`, `400 photo_required`.
 
 - [ ] **Step 1: Failing tests** in `profile-photo.test.js`: `a resident can upload a png and read it back through userView`; `a text file named photo.jpg is refused (400 invalid_photo) and nothing is stored`; `a file over 5 MB is refused (400 photo_too_large)`; `no file gives 400 photo_required`; `replacing removes the old asset only after the new one is saved` (assert `uploader.removed` holds the old id after success, and is empty when `uploader.failNext` made the replacement fail, with the old photo still readable); `DELETE returns to no photo and removes the asset`; `signed-out request is 401`; `a deactivated account is refused`; `there is no way to name another account` (a `PUT /api/users/<other uid>/photo` returns 404).
@@ -161,7 +160,7 @@ The phone sends `locality` (`mobile/lib/data/services.dart:49`) and the validato
 
 **Files:**
 - Create: `web/src/components/Avatar.tsx` (`Avatar({ name, photoUrl, size })`: image with onError fallback to initials)
-- Modify: `web/src/layout/AppShell.tsx:102-105` (header trigger and the "Your profile" dialog), `web/src/features/users/UsersPage.tsx`, `web/src/features/teams/TeamsPage.tsx` where an `identity-mark` shows a person
+- Modify: `web/src/layout/AppShell.tsx:102-105` (header trigger and the "Your profile" dialog), `web/src/features/users/UsersPage.tsx` where a person's mark is drawn
 - Test: `web/src/components/Avatar.test.tsx`, `web/src/layout/AppShell.profilePhoto.test.tsx`
 
 **Interfaces:**
