@@ -1,28 +1,29 @@
-# Handoff: I-Report, 28 October 2026 (evening)
+# Handoff: I-Report, 28 October 2026 (night), for Codex
 
-> Branch `feat/ui-response-workspace-2026-10-28`. Production branch `build/disaster-rescue` (a push deploys the live web and API; push only with explicit approval each time). Recording day is 29 October.
+> Branch `feat/ui-response-workspace-2026-10-28` (worktree `app/`). Production branch `build/disaster-rescue`: a push deploys live web and API, so push only with Airen's explicit approval each time. Recording day is 29 October. Spec `docs/superpowers/specs/2026-10-28-emergency-types-design.md`, plan `docs/superpowers/plans/2026-10-28-emergency-types.md`, ledger `.superpowers/sdd/2026-10-28-emergency-types/progress.md` (git-ignored, this machine; holds every `Ruling:`).
 
 ## Start here
-- **Local only, not pushed:** `1bc45c3` (web audit repairs), `0bcbfe2` (mobile lost-photo recovery), `4dcaa25` (overview greeting). Live site is still `dc6f7cc`. Checks on this tree: `tsc` clean, web 583 tests pass (78 files), `npm run build` ok, Flutter analyze clean, 281 tests pass. `npm run build:release` needs deploy env vars, so it was not run.
-- **Audits run today (read-only subagents, then fixed):** security (no high or medium; lockout is advisory, comments corrected; frame protection and nosniff added in `web/vercel.json`, full CSP not added because it cannot be checked without a browser run), accessibility (input border contrast, failed sign-in message tied to the password field, Show password name, dead forgot-password code removed), code review (OperationForm stuck busy after same-account sign-in, "load more" resetting the list, Android lost photo), copy (em dashes, "report" and "progress updates" wording). Each new test was confirmed to fail without its fix.
-- **Not verified:** nothing run on a phone or in a signed-in browser. Mobile lost-photo recovery (`ImagePickerPhotoService.recoverLost`) is covered by unit and widget tests only. Header changes are untested on Vercel.
-- **Next, in order:**
-  1. Owner asks Codex for a frontend audit of this tree, then fix what it finds.
-  2. Emergency types: spec first (`X-SPEC.md`, no code before approval). Owner wants Medical emergency, Road hazard and Power line added to Flood, Fire, Landslide, Earthquake and Other. Their screenshot is a map legend (TYPE row with icon chips); take inspiration, do not copy.
-  3. Approve a push of the three local commits (deploys production).
-- **Places that hard-code emergency types (from the code review):** `web/src/types/domain.ts:3`, `web/src/lib/schemas.ts:83`, `web/src/features/map/disasterSymbols.tsx:3-9`, `web/src/features/reports/IncidentPreview.tsx:15-29`, `ReportQueue.tsx:70-71`, `web/src/features/analytics/ChartCard.tsx:20`, `web/src/styles.css:186-190` plus `--color-flood/fire/quake/slide`, `web/src/responder-workspace.css:29-31`, `web/src/pages/Landing.tsx:68`, `api/src/domain/validation.js:55`, `mobile/lib/data/report_models.dart:3`, `mobile/lib/features/report/report_flow_page.dart:33-55`. Other mobile screens fall back to `reportTypeInfo['other']`. Rules and indexes hold no type list. Re-check line numbers before use.
-- **Open owner decisions (older):** keep or delete `CLAUDE-SECURITY-20261028-063336/` (empty scan output); fresh release APK for the professor (still `update14`, no camera change); which "Rescue" names outside the package to rename; physical-phone camera test; manual check of the closed-assignments tab on the live site with `sample.rescuer@harbor.example` (password in `~/Documents/i-report-sample-logins.txt`).
+- **Done and committed locally, not pushed:** Lifeline (`medical`), Roadblock (`road_hazard`), Live Wire (`power_line`) plus a typed Other (`typeDetail`, 3 to 40 chars, only on `other`). Commits `39f3382` API, `c147096` `643eb8c` `4747da9` `b90f8de` web, `5512adb` `0371e65` phone. Earlier local commits `1bc45c3` `0bcbfe2` `4dcaa25` `54080d9` are also unpushed. Live site is still `dc6f7cc`.
+- **Checks (this tree, run separately):** API 618 pass 36 skipped. Web `tsc` clean, 622 pass (`--maxWorkers=2`), `npm run build` ok. Flutter analyze clean, 297 pass. Parity test `api/test/domain/reportTypes.parity.test.js` passes and fails when a label drifts (checked).
+- **Uncommitted at handoff:** `api/test/domain/reportTypes.parity.test.js`, this file, `docs/history.md`, spec status line. Commit them first. Do not stage `docs/documentation/handoff.md` (another session's edits).
+- **NOT done:** (1) the whole-branch review (a reviewer was started and stopped; rerun it on Opus, never Fable). Review range `54080d9..HEAD`; package from the superpowers `review-package` script. (2) Rendered check of the real signed-in admin and responder maps (legend was checked only in a throwaway page at 390 and 1440 px; screenshots in `design-plans/emergency-types-2026-10-28/`). (3) Any physical-phone test. (4) Push and deploy.
+- **APK built, not installed:** `SUBMISSION-2026-10-20/Android/I-Report-2026-10-28-update15-emergency-types.apk`, SHA-256 `856717e256…db3070e77` (full: `856717e29bfa8a568edcae3881e8b1053cfddb7187b2bd761297198fb3070e77`). Debug build, Firebase project `flutter-5094e`, API `https://disaster-rescue-api.onrender.com/api`. It carries the new type strings (checked in the kernel blob). Until the API is pushed, production returns 400 for the new types. `1-APK-for-phones.apk` still points at update14; repointing is Airen's call.
+- **Next, in order:** commit the uncommitted files; run the Opus review of `54080d9..HEAD`, fix Critical and Important findings test-first; ask Airen before any push (web and API ship together); after the push, check live that a Lifeline report submits.
+
+## Decisions Airen made (do not reopen)
+Names: Lifeline, Roadblock, Live Wire. Typed Other. Zero-count types hidden in the analytics chart and filter counts. New APK. Push after the work, with approval. Colours and legend were delegated; I changed ochre and slate to olive gold `#6B6400` and teal `#0B6B73` (too close to High and Low priority; ratios in `CONTRAST.md`).
+
+## Rulings worth knowing
+PDF summary and CSV use the label. The public incidents feed never carries `typeDetail`. Phone map Type filter is now one scrolling row (8 chips overflowed 360x640). Two goldens regenerated after viewing (`map-tile-free`, `report-type`), logged in `mobile/test/goldens/PROVENANCE.md`. Closed-draft headings on web read "Other report" for a typed Other (draft stores only the key).
 
 ## Gotchas
-- Production log deletion (updates, notifications, auditLogs) is done and backed up at `~/.config/i-report/prod-logs-backup-2026-10-28/`. Do not repeat.
-- Index deploy is done. Production writes, Firebase deploys and rules changes need approval. No Android emulators.
-- Device takeover allowed, email-as-password reset accepted, empty-team assignment refused on purpose. Do not regenerate goldens without viewing them. Do not revert the Zod 4 migration.
-- `docs/documentation/handoff.md` has uncommitted edits from another session; do not commit it with this work.
-- Never print or commit keys. Use new emails for new sample accounts.
-- zsh does not split an unquoted variable of file names; pass them one per line to `xargs`.
+- Use Opus as the highest model for any subagent. Fable ran this session too hot.
+- macOS `sed -i` needs `''`. zsh does not split an unquoted variable of file names. Typecheck and tests run as separate commands.
+- Production writes, Firebase deploys and rules changes need approval. No Android emulators. Do not regenerate goldens without viewing them. Do not revert the Zod 4 migration. Never print or commit keys; the Firebase client values used for the APK were read in memory and deleted.
+- Firestore rules have no type list or field allow-list (checked); no rules change.
 
 ## Resume prompt
-"Read HANDOFF.md, then continue from step 1 of Next. Tell me what you need from me."
+"Read HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT/app, commit the uncommitted files, then continue from step 2 of Next. Tell me what you need from me."
 
 ## Pointers
-- Older handoffs: `docs/history.md`. Earlier audit record: `design-plans/responder-web-audit-2026-10-28/`.
+Older handoffs: `docs/history.md`. Earlier audit record: `design-plans/responder-web-audit-2026-10-28/`.

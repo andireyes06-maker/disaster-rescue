@@ -1,6 +1,6 @@
 # More emergency types: design
 
-Status: **approved by Airen (28 Oct 2026). Plan: `docs/superpowers/plans/2026-10-28-emergency-types.md`. No code is written yet.** Date: 28 October 2026. Branch `feat/ui-response-workspace-2026-10-28`, base `54080d9`.
+Status: **approved by Airen (28 Oct 2026). Plan: `docs/superpowers/plans/2026-10-28-emergency-types.md`. Built in commits 39f3382..0371e65; final review and push still open.** Date: 28 October 2026. Branch `feat/ui-response-workspace-2026-10-28`, base `54080d9`.
 
 Marked **(my call)** = Airen has not said it; change it if wrong. Everything else comes from Airen's messages or the code.
 
