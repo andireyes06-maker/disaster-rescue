@@ -5,10 +5,10 @@
 ## Start here
 - **Done and committed locally, not pushed:** Lifeline (`medical`), Roadblock (`road_hazard`), Live Wire (`power_line`) plus a typed Other (`typeDetail`, 3 to 40 chars, only on `other`). Commits `39f3382` API, `c147096` `643eb8c` `4747da9` `b90f8de` web, `5512adb` `0371e65` phone. Earlier local commits `1bc45c3` `0bcbfe2` `4dcaa25` `54080d9` are also unpushed. Live site is still `dc6f7cc`.
 - **Checks (this tree, run separately):** API 618 pass 36 skipped. Web `tsc` clean, 622 pass (`--maxWorkers=2`), `npm run build` ok. Flutter analyze clean, 297 pass. Parity test `api/test/domain/reportTypes.parity.test.js` passes and fails when a label drifts (checked).
-- **Uncommitted at handoff:** `api/test/domain/reportTypes.parity.test.js`, this file, `docs/history.md`, spec status line. Commit them first. Do not stage `docs/documentation/handoff.md` (another session's edits).
+- **Committed:** the parity test, this file, `docs/history.md` and the spec status are in `2713cfa`. Only `docs/documentation/handoff.md` (another session's edits) is modified and uncommitted; do not stage it.
 - **NOT done:** (1) the whole-branch review (a reviewer was started and stopped; rerun it on Opus, never Fable). Review range `54080d9..HEAD`; package from the superpowers `review-package` script. (2) Rendered check of the real signed-in admin and responder maps (legend was checked only in a throwaway page at 390 and 1440 px; screenshots in `design-plans/emergency-types-2026-10-28/`). (3) Any physical-phone test. (4) Push and deploy.
-- **APK built, not installed:** `SUBMISSION-2026-10-20/Android/I-Report-2026-10-28-update15-emergency-types.apk`, SHA-256 `856717e256…db3070e77` (full: `856717e29bfa8a568edcae3881e8b1053cfddb7187b2bd761297198fb3070e77`). Debug build, Firebase project `flutter-5094e`, API `https://disaster-rescue-api.onrender.com/api`. It carries the new type strings (checked in the kernel blob). Until the API is pushed, production returns 400 for the new types. `1-APK-for-phones.apk` still points at update14; repointing is Airen's call.
-- **Next, in order:** commit the uncommitted files; run the Opus review of `54080d9..HEAD`, fix Critical and Important findings test-first; ask Airen before any push (web and API ship together); after the push, check live that a Lifeline report submits.
+- **APK built, not installed:** `SUBMISSION-2026-10-20/Android/I-Report-2026-10-28-update15-emergency-types.apk`, SHA-256 `856717e29bfa8a568edcae3881e8b1053cfddb7187b2bd761297198fb3070e77`. Debug build, Firebase project `flutter-5094e`, API `https://disaster-rescue-api.onrender.com/api`. It carries the new type strings (checked in the kernel blob). Until the API is pushed, production returns 400 for the new types. `1-APK-for-phones.apk` still points at update14; repointing is Airen's call.
+- **Next, in order:** run the Opus review of `54080d9..HEAD`, fix Critical and Important findings test-first; ask Airen before any push (web and API ship together); after the push, check live that a Lifeline report submits.
 
 ## Decisions Airen made (do not reopen)
 Names: Lifeline, Roadblock, Live Wire. Typed Other. Zero-count types hidden in the analytics chart and filter counts. New APK. Push after the work, with approval. Colours and legend were delegated; I changed ochre and slate to olive gold `#6B6400` and teal `#0B6B73` (too close to High and Low priority; ratios in `CONTRAST.md`).
@@ -23,7 +23,7 @@ PDF summary and CSV use the label. The public incidents feed never carries `type
 - Firestore rules have no type list or field allow-list (checked); no rules change.
 
 ## Resume prompt
-"Read HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT/app, commit the uncommitted files, then continue from step 2 of Next. Tell me what you need from me."
+"Read HANDOFF.md in /Users/rien/Documents/FINAL_PROJECT/app, then continue from step 1 of Next. Tell me what you need from me."
 
 ## Pointers
 Older handoffs: `docs/history.md`. Earlier audit record: `design-plans/responder-web-audit-2026-10-28/`.
