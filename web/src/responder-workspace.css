@@ -174,10 +174,16 @@
 .response-type--fire { color: var(--color-fire); }
 .response-type--earthquake { color: var(--color-quake); }
 .response-type--landslide { color: var(--color-slide); }
+.response-type--medical { color: var(--color-medical); }
+.response-type--road_hazard { color: var(--color-road); }
+.response-type--power_line { color: var(--color-power); }
 .response-type--flood:is(.response-row__symbol,.response-incident-symbol) { background: var(--color-flood-soft); color: var(--color-flood); }
 .response-type--fire:is(.response-row__symbol,.response-incident-symbol) { background: var(--color-fire-soft); color: var(--color-fire); }
 .response-type--earthquake:is(.response-row__symbol,.response-incident-symbol) { background: var(--color-quake-soft); color: var(--color-quake); }
 .response-type--landslide:is(.response-row__symbol,.response-incident-symbol) { background: var(--color-slide-soft); color: var(--color-slide); }
+.response-type--medical:is(.response-row__symbol,.response-incident-symbol) { background: var(--color-medical-soft); color: var(--color-medical); }
+.response-type--road_hazard:is(.response-row__symbol,.response-incident-symbol) { background: var(--color-road-soft); color: var(--color-road); }
+.response-type--power_line:is(.response-row__symbol,.response-incident-symbol) { background: var(--color-power-soft); color: var(--color-power); }
 /* Route headings receive reading focus; actionable controls retain their focus rings. */
 .response-brief .queue__type[tabindex="-1"]:focus { outline: none; }
 .response-map-selection:focus { outline: 2px solid #6d28d9; outline-offset: -2px; }

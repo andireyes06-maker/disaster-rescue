@@ -187,6 +187,9 @@ select, textarea {
 .type-icon--fire { background: var(--color-fire-soft); color: var(--color-fire); }
 .type-icon--earthquake { background: var(--color-quake-soft); color: var(--color-quake); }
 .type-icon--landslide { background: var(--color-slide-soft); color: var(--color-slide); }
+.type-icon--medical { background: var(--color-medical-soft); color: var(--color-medical); }
+.type-icon--road_hazard { background: var(--color-road-soft); color: var(--color-road); }
+.type-icon--power_line { background: var(--color-power-soft); color: var(--color-power); }
 .type-icon--other { background: var(--color-paper); color: var(--color-muted); }
 .preview { display: grid; gap: 20px; padding: 24px; }
 .preview__head { display: flex; gap: 16px; align-items: flex-start; }

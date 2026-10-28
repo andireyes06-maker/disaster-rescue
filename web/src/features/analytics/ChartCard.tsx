@@ -17,7 +17,7 @@ interface ChartCardProps {
 }
 
 const LABEL_LIMIT = 30;
-const CHART_COLORS: Record<string, string> = { flood: '#1D4ED8', fire: '#C2410C', earthquake: '#7C3AED', landslide: '#946314', other: '#64748B', critical: '#B42318', high: '#A15C00', medium: '#4F46E5', low: '#64748B', Submitted: '#64748B', 'Under Verification': '#A15C00', Verified: '#0F766E', 'Awaiting Assignment': '#95600C', 'Team Assigned': '#4F46E5', 'Rescue in Progress': '#1D4ED8', Resolved: '#0F766E', Closed: '#166534', Rejected: '#B42318', Duplicate: '#6B7280', Cancelled: '#64748B' };
+const CHART_COLORS: Record<string, string> = { flood: '#1D4ED8', fire: '#C2410C', earthquake: '#7C3AED', landslide: '#946314', medical: '#A3294F', road_hazard: '#6B6400', power_line: '#0B6B73', other: '#64748B', critical: '#B42318', high: '#A15C00', medium: '#4F46E5', low: '#64748B', Submitted: '#64748B', 'Under Verification': '#A15C00', Verified: '#0F766E', 'Awaiting Assignment': '#95600C', 'Team Assigned': '#4F46E5', 'Rescue in Progress': '#1D4ED8', Resolved: '#0F766E', Closed: '#166534', Rejected: '#B42318', Duplicate: '#6B7280', Cancelled: '#64748B' };
 
 // One line per bar. Long names are shortened on the axis; the full name is in the hover title and the table below.
 function shortLabel(text: string): string {
