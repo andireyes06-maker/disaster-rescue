@@ -683,11 +683,44 @@ class ApiNotificationsRepository implements NotificationsRepository {
 
 abstract class ProfileRepository {
   Future<Profile?> load(String uid);
+
+  /// Uploads [photo] as the signed-in person's profile photo and returns its new URL.
+  Future<String> setPhoto(PickedPhoto photo);
+
+  /// Removes the signed-in person's profile photo.
+  Future<void> removePhoto();
 }
 
 class FirestoreProfileRepository implements ProfileRepository {
-  FirestoreProfileRepository(this._db);
+  FirestoreProfileRepository(this._db, this._api);
   final FirebaseFirestore _db;
+  final ApiClient _api;
+
+  @override
+  Future<String> setPhoto(PickedPhoto photo) async {
+    final res = await _api.sendMultipart(
+      'PUT',
+      '/users/me/photo',
+      files: [
+        // Same as report photos: the server decides the type from the bytes, not the header.
+        http.MultipartFile.fromBytes('photo', photo.bytes, filename: photo.name),
+      ],
+    );
+    final url = res?['photoUrl'];
+    if (url is! String || url.isEmpty) {
+      throw const ApiException(
+        0,
+        'bad_response',
+        'The server sent an unexpected reply.',
+      );
+    }
+    return url;
+  }
+
+  @override
+  Future<void> removePhoto() async {
+    await _api.send('DELETE', '/users/me/photo');
+  }
 
   @override
   Future<Profile?> load(String uid) async {
@@ -699,7 +732,14 @@ class FirestoreProfileRepository implements ProfileRepository {
         .timeout(const Duration(seconds: 6));
     final m = snap.data();
     if (m == null) return null;
-    return Profile(name: m['name'] as String?, phone: m['phone'] as String?);
+    // The API keeps the photo on the same document as { url, publicId, updatedAt }; only the URL is used.
+    final photo = m['photo'];
+    final photoUrl = photo is Map ? photo['url'] : null;
+    return Profile(
+      name: m['name'] as String?,
+      phone: m['phone'] as String?,
+      photoUrl: photoUrl is String && photoUrl.isNotEmpty ? photoUrl : null,
+    );
   }
 }
 

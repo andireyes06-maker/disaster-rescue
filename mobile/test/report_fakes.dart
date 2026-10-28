@@ -123,6 +123,25 @@ class FakeProfiles implements ProfileRepository {
   Profile? profile = const Profile(name: 'Ana Reyes', phone: '0917 123 4567');
   @override
   Future<Profile?> load(String uid) async => profile;
+
+  // Profile photo: records what was sent and can be set to fail.
+  final uploaded = <PickedPhoto>[];
+  String nextPhotoUrl = 'https://img.example/new.jpg';
+  Object? photoError;
+  int removeCalls = 0;
+  Object? removeError;
+  @override
+  Future<String> setPhoto(PickedPhoto photo) async {
+    if (photoError != null) throw photoError!;
+    uploaded.add(photo);
+    return nextPhotoUrl;
+  }
+
+  @override
+  Future<void> removePhoto() async {
+    removeCalls++;
+    if (removeError != null) throw removeError!;
+  }
 }
 
 class MemoryDraftStore implements DraftStore {

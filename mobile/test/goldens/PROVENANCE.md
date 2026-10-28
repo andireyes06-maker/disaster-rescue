@@ -165,3 +165,11 @@ Reason: Lifeline, Roadblock and Live Wire join the five types (spec `docs/superp
 - report-type: eight choices in the same tile style, with Lifeline (rose, medical kit), Roadblock (olive, warning) and Live Wire (teal, bolt); the list scrolls under the Next button, so the fourth and later tiles are partly or fully below the 844 px fold in this render. Choosing Other adds a required "What kind of emergency is it?" field (covered by widget tests, not by this image). Command: `flutter test test/redesign_visual_test.dart --plain-name "four real report stages at phone width" --update-goldens`.
 
 Only these two references changed; every other reference is byte-identical (checked with git status). Neither render verifies a physical device.
+
+## Reviewed change: profile photo, 29 October 2026
+
+Reason: residents and responders can set a profile photo on the phone (spec `docs/superpowers/specs/2026-10-29-final-change-requests-design.md`, B1). The candidate was rendered outside the reference folder with `GOLDEN_REVIEW_DIR=/private/tmp/ireport-task8 flutter test test/redesign_visual_test.dart --plain-name "access and account layouts at phone width" --update-goldens`, and both the old and the new image were viewed at 390x844 before promoting.
+
+- profile: the person icon tile is replaced by a round avatar showing the initials "AR" (the fixture has no photo), with a Change photo button and the hint "JPEG, PNG or WebP, up to 5 MB." under it. Remove photo is hidden because there is no photo. The rest of the page is unchanged; Log out now sits partly below the 844 px fold of the scrolling list.
+
+login and register candidates were byte-identical and were not touched. Only `profile.png` and its line in `SHA256SUMS.txt` changed. This render does not verify a physical device, the gallery picker or a real upload.

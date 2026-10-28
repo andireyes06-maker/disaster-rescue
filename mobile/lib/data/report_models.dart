@@ -83,7 +83,10 @@ class PickedPhoto {
 class Profile {
   final String? name;
   final String? phone;
-  const Profile({this.name, this.phone});
+
+  /// Delivery URL of the profile photo, or null when there is none.
+  final String? photoUrl;
+  const Profile({this.name, this.phone, this.photoUrl});
 }
 
 class ReportDraft {
