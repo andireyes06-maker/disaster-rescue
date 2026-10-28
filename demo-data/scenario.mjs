@@ -8,16 +8,16 @@ export const SAMPLE_LABEL = 'Harbor Response Network';
 export const DEMO_PHOTO_PREFIX = 'demo-evidence/';
 
 const HOUR = 3600 * 1000;
-const BASE = { lat: 14.6, lng: 121.0 };
+// Each sample zone sits in a real Bulacan town, so the analytics location chart shows a spread. [lat, lng, town].
 const ZONE = {
-  Riverside: [0, 0],
-  Market: [0.009, 0.011],
-  Hillside: [0.018, -0.012],
-  Central: [-0.007, 0.006],
-  Civic: [0.011, -0.008],
-  Riverbend: [0.004, 0.009],
-  Warehouse: [-0.016, 0.014],
-  South: [-0.019, -0.01],
+  Riverside: [14.8333, 120.8833, 'Guiguinto'],
+  Market: [14.8433, 120.8114, 'Malolos'],
+  Hillside: [14.7936, 120.8794, 'Bulakan'],
+  Central: [14.815, 120.9097, 'Balagtas'],
+  Civic: [14.7986, 120.9261, 'Bocaue'],
+  Riverbend: [14.7581, 120.9553, 'Marilao'],
+  Warehouse: [14.737, 120.9608, 'Meycauayan'],
+  South: [14.8858, 120.8556, 'Plaridel'],
 };
 const TEAM_NAMES = ['Alpha', 'Bravo', 'Charlie', 'Delta', 'Echo', 'Foxtrot', 'Golf', 'Hotel', 'India', 'Juliet', 'Kilo', 'Lima'];
 const TEAM_RESPONDER = { alpha: 'demo-responder-a', bravo: 'demo-responder-b', delta: 'demo-responder-d', foxtrot: 'demo-responder-f' };
@@ -123,9 +123,6 @@ const REPORTS = [
 
 const TEAMS = TEAM_NAMES.map((name, i) => ({ key: name.toLowerCase(), name: `Harbor ${name}`, id: `demo-team-${name.toLowerCase()}`, index: i }));
 
-// The sample pins sit in Metro Manila, so the town of each pin is Manila or Quezon City (north of 14.62 or east of 121.02).
-const townFor = ({ lat, lng }) => (lat >= 14.62 || lng >= 121.02 ? 'Quezon City' : 'Manila');
-
 const pad = (n) => String(n).padStart(2, '0');
 const jitter = (n, scale) => ((Number(n) * 37) % 11 - 5) * scale;
 
@@ -134,10 +131,10 @@ function locationFor(r) {
     const base = locationFor(REPORTS.find((x) => x.n === '15'));
     return { lat: base.lat + 0.0001, lng: base.lng + 0.0001, source: 'manual' };
   }
-  const [dLat, dLng] = ZONE[r.zone];
+  const [lat, lng] = ZONE[r.zone];
   return {
-    lat: Number((BASE.lat + dLat + jitter(r.n, 0.0003)).toFixed(6)),
-    lng: Number((BASE.lng + dLng + jitter(r.n, 0.0003)).toFixed(6)),
+    lat: Number((lat + jitter(r.n, 0.0003)).toFixed(6)),
+    lng: Number((lng + jitter(r.n, 0.0003)).toFixed(6)),
     source: 'manual',
   };
 }
@@ -179,7 +176,7 @@ export function buildScenario({ now = DEFAULT_NOW } = {}) {
       reporterId: ownerUid,
       photos: photosFor(r),
       addressText: `${r.zone} District`,
-      locality: townFor(location),
+      locality: ZONE[r.zone][2],
       createdAt: created,
       updatedAt: created,
     };
@@ -284,20 +281,20 @@ export function buildQaScenario({ now = DEFAULT_NOW } = {}) {
   const reports = [
     {
       id: 'demo-qa-report-01', reference: 'DR-DEMOQA1', type: 'flood', priority: 'high', status: 'Submitted', verified: false,
-      description: longText, location: { lat: 14.61, lng: 121.01, source: 'manual' }, coarseLocation: coarsen(14.61, 121.01),
+      description: longText, location: { lat: 14.8333, lng: 120.8833, source: 'manual' }, coarseLocation: coarsen(14.8333, 120.8833),
       reporterId: 'demo-resident-a', photos: [{ url: `${DEMO_PHOTO_PREFIX}sample-01.png`, sizeBytes: 48000, mimeType: 'image/png' }],
-      addressText: 'QA long text sample area', locality: 'Manila', createdAt: created(3), updatedAt: created(3),
+      addressText: 'QA long text sample area', locality: 'Guiguinto', createdAt: created(3), updatedAt: created(3),
     },
     {
       id: 'demo-qa-report-02', reference: 'DR-DEMOQA2', type: 'other', priority: 'low', status: 'Verified', verified: true,
-      description: '=HYPERLINK("https://example.test","formula-like text in a demo description")', location: { lat: 14.611, lng: 121.011, source: 'manual' },
-      coarseLocation: coarsen(14.611, 121.011), reporterId: 'demo-resident-b', photos: [], addressText: 'QA formula sample area', locality: 'Manila',
+      description: '=HYPERLINK("https://example.test","formula-like text in a demo description")', location: { lat: 14.8433, lng: 120.8114, source: 'manual' },
+      coarseLocation: coarsen(14.8433, 120.8114), reporterId: 'demo-resident-b', photos: [], addressText: 'QA formula sample area', locality: 'Malolos',
       createdAt: created(20), updatedAt: created(19),
     },
     {
       id: 'demo-qa-report-03', reference: 'DR-DEMOQA3', type: 'fire', priority: 'medium', status: 'Submitted', verified: false,
-      description: 'No photos and no address text on this sample report.', location: { lat: 14.62, lng: 121.02, source: 'manual' },
-      coarseLocation: coarsen(14.62, 121.02), locality: 'Quezon City', reporterId: 'demo-resident-c', photos: [], createdAt: created(40), updatedAt: created(40),
+      description: 'No photos and no address text on this sample report.', location: { lat: 14.8858, lng: 120.8556, source: 'manual' },
+      coarseLocation: coarsen(14.8858, 120.8556), locality: 'Plaridel', reporterId: 'demo-resident-c', photos: [], createdAt: created(40), updatedAt: created(40),
     },
   ];
   return { now: new Date(nowMs), accounts: ACCOUNTS, teams: [], reports, updates: [], audit: [], notifications: [] };
