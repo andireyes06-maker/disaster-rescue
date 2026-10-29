@@ -1,4 +1,5 @@
 import { getFirestore, connectFirestoreEmulator, type Firestore } from 'firebase/firestore';
+import { attachEmulatorLifecycle } from './firebase-emulator-lifecycle';
 import { getFirebaseApp, shouldUseEmulators } from './firebase-auth';
 export { getFirebaseAuth, shouldUseEmulators } from './firebase-auth';
 
@@ -10,6 +11,8 @@ export function getFirebaseDb(): Firestore {
   db = getFirestore(getFirebaseApp());
   if (shouldUseEmulators(import.meta.env)) {
     connectFirestoreEmulator(db, 'localhost', firestorePort());
+    const detach = attachEmulatorLifecycle(db);
+    import.meta.hot?.dispose(detach);
   }
   return db;
 }

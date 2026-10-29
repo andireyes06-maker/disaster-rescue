@@ -14,6 +14,7 @@ class PhotoPickerSection extends StatefulWidget {
     required this.photos,
     required this.onChanged,
     this.title = 'Photos (required, up to 5)',
+    this.enabled = true,
   });
   final PhotoService service;
   final List<PickedPhoto> photos;
@@ -21,6 +22,9 @@ class PhotoPickerSection extends StatefulWidget {
 
   /// The heading above the chips. Residents must attach a photo; other screens can say it is optional.
   final String title;
+
+  /// Prevent changes while the parent is submitting its frozen payload.
+  final bool enabled;
 
   @override
   State<PhotoPickerSection> createState() => _PhotoPickerSectionState();
@@ -68,7 +72,7 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
   }
 
   Future<void> _add({bool camera = false}) async {
-    if (_busy) return;
+    if (_busy || !widget.enabled) return;
     if (widget.photos.length >= maxPhotos) {
       setState(
         () => _messages
@@ -114,7 +118,7 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
   }
 
   void _remove(int i) {
-    if (_busy) return;
+    if (_busy || !widget.enabled) return;
     final list = [...widget.photos]..removeAt(i);
     setState(_messages.clear);
     widget.onChanged(list);
@@ -162,7 +166,7 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
                     IconButton(
                       tooltip: 'Remove photo ${widget.photos[i].name}',
                       icon: const Icon(Icons.close),
-                      onPressed: _busy ? null : () => _remove(i),
+                      onPressed: _busy || !widget.enabled ? null : () => _remove(i),
                     ),
                   ],
                 ),
@@ -175,12 +179,12 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
           runSpacing: 8,
           children: [
             OutlinedButton.icon(
-              onPressed: _busy ? null : () => _add(camera: true),
+              onPressed: _busy || !widget.enabled ? null : () => _add(camera: true),
               icon: const Icon(Icons.camera_alt_outlined),
               label: const Text('Take photo'),
             ),
             OutlinedButton.icon(
-              onPressed: _busy ? null : () => _add(),
+              onPressed: _busy || !widget.enabled ? null : () => _add(),
               icon: const Icon(Icons.add_photo_alternate_outlined),
               label: const Text('Choose existing photos'),
             ),

@@ -56,6 +56,24 @@ class CameraPicker extends ImagePicker {
 }
 
 void main() {
+  testWidgets('a parent save disables camera, gallery and removal', (tester) async {
+    final service = FakePhotoService();
+    var changes = 0;
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: PhotoPickerSection(
+      enabled: false,
+      service: service,
+      photos: [photo('proof.jpg')],
+      onChanged: (_) => changes++,
+    ))));
+    await tester.pumpAndSettle();
+    expect(tester.widget<OutlinedButton>(find.widgetWithText(OutlinedButton, 'Take photo')).onPressed, isNull);
+    expect(tester.widget<OutlinedButton>(find.widgetWithText(OutlinedButton, 'Choose existing photos')).onPressed, isNull);
+    expect(tester.widget<IconButton>(find.byWidgetPredicate((w) => w is IconButton && w.tooltip == 'Remove photo proof.jpg')).onPressed, isNull);
+    expect(changes, 0);
+    expect(service.calls, 0);
+    expect(service.cameraCalls, 0);
+  });
+
   test(
     'camera service uses the camera source and preserves bytes for report identity',
     () async {

@@ -1,4 +1,6 @@
+import 'dart:typed_data';
 import 'package:disaster_rescue/data/api_client.dart';
+import 'package:disaster_rescue/data/report_models.dart';
 import 'package:disaster_rescue/data/responder_attempts.dart';
 import 'package:disaster_rescue/features/responder/operation_form_page.dart';
 import 'package:flutter/material.dart';
@@ -288,4 +290,33 @@ void main() {
       expect(keys.last, isNot(keys.first));
     },
   );
+  testWidgets('different photo bytes with the same name and size get distinct retry keys', (t) async {
+    await t.binding.setSurfaceSize(const Size(400, 1400));
+    addTearDown(() => t.binding.setSurfaceSize(null));
+    env.responder.updateError = const ApiException(0, 'network', 'offline');
+    await open(t);
+    final a = photo('evidence.jpg');
+    final changed = Uint8List.fromList(a.bytes)..[a.bytes.length - 1] ^= 1;
+    final b = PickedPhoto(name: a.name, bytes: changed, mime: a.mime);
+    Future<void> pick(PickedPhoto p) async {
+      env.photos.next = [p];
+      await t.ensureVisible(find.text('Choose existing photos'));
+      await t.tap(find.text('Choose existing photos'));
+      await t.pumpAndSettle();
+    }
+    Future<void> remove() async {
+      await t.ensureVisible(find.byTooltip('Remove photo evidence.jpg'));
+      await t.tap(find.byTooltip('Remove photo evidence.jpg'));
+      await t.pumpAndSettle();
+    }
+    await pick(a);
+    await save(t, '2');
+    await remove(); await pick(b);
+    await save(t, '2');
+    expect(env.responder.updateKeys[1], isNot(env.responder.updateKeys[0]));
+    await remove(); await pick(a);
+    await save(t, '2');
+    expect(env.responder.updateKeys[2], env.responder.updateKeys[0]);
+  });
+
 }

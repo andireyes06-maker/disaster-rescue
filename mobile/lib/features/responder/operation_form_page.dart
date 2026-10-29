@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+
 import '../../theme/confirm_dialog.dart';
 import '../../theme/product_widgets.dart';
 import 'package:flutter/foundation.dart' show ValueListenable;
@@ -132,7 +135,13 @@ class _OperationFormPageState extends State<OperationFormPage> {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     final people = int.parse(_people.text.trim());
     final note = _note.text.trim();
-    final signature = [status, people, note, for (final p in _photos) '${p.name}:${p.bytes.length}'].join('\u0001');
+    // Freeze the payload before location lookup. A replaced same-size photo must
+    // not replay another image's receipt merely because its filename matches.
+    final photos = List<PickedPhoto>.of(_photos);
+    final signature = jsonEncode([
+      status, people, note,
+      for (final p in photos) [p.name, p.mime, sha256.convert(p.bytes).toString()],
+    ]);
     final attempts = context.read<ResponderAttemptStore>();
     // Same content as an unresolved attempt for this report reuses its key, even after other content was tried.
     final previous = attempts.attemptFor(widget.reportId, signature);
@@ -170,7 +179,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
         idempotencyKey: key,
         lat: fix.lat,
         lng: fix.lng,
-        photos: _photos,
+        photos: photos,
       );
       attempts.forget(widget.reportId, signature);
       if (!mounted) return;
@@ -255,6 +264,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
                           TextFormField(
                             errorBuilder: fieldErrorBuilder,
                             key: const Key('peopleRescued'),
+                            readOnly: _busy,
                             controller: _people,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -266,6 +276,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
                           TextFormField(
                             errorBuilder: fieldErrorBuilder,
                             key: const Key('note'),
+                            readOnly: _busy,
                             controller: _note,
                             maxLines: 4,
                             maxLength: 500,
@@ -275,6 +286,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
                           ),
                           const SizedBox(height: 20),
                           PhotoPickerSection(
+                            enabled: !_busy,
                             title: 'Photos (optional, up to 5)',
                             service: context.read<PhotoService>(),
                             photos: _photos,

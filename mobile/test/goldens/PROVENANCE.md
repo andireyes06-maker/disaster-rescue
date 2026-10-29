@@ -185,3 +185,7 @@ Reviewed all four candidate images visually before promotion: report-type, repor
 ## Reviewed change: optional photos on the responder Operation update form, 29 October 2026
 
 Responders can attach up to five photos to an update, and the photos are optional. The Operation update form gains a "Photos (optional, up to 5)" section with Take photo and Choose existing photos between the note and Save update. I viewed the new render before promoting it. Only `response-update.png` and its line in `SHA256SUMS.txt` changed. No physical-device, gallery-picker or real-upload claim is made.
+
+
+## 29 October 2026: launch privacy wording
+Only profile.png changed. The privacy paragraph now names administrators and assigned responders, matching current authorization, instead of retired dispatcher/disaster-office roles. The rendered candidate and isolated diff were viewed before promotion. Only the privacy paragraph pixels change; the account card, header and controls below remain unchanged. No new permission or policy was invented. This is a local visual review, not owner policy approval or physical-device evidence.

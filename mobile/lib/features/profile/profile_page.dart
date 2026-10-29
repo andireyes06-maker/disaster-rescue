@@ -13,8 +13,8 @@ import '../../theme/app_theme.dart';
 import '../../widgets/user_avatar.dart';
 
 const privacyNotice =
-    '$consentText Your exact location is visible only to the dispatcher, the disaster office, the responder '
-    'assigned to your report, and you. Public views show an approximate area.';
+    '$consentText Your exact location is visible only to you, administrators, and responders '
+    'assigned to your report. Public views show an approximate area.';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.user});

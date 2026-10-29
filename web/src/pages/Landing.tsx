@@ -18,14 +18,14 @@ const storeBadge = 'store-badge';
 const downloadButtons = (
   <div className="service-downloads">
     {ANDROID_APK_URL
-      ? <a className={storeBadge} href={ANDROID_APK_URL} download aria-label="Download for Android (APK)">
-          <span className="store-badge__small">Download the</span><span className="store-badge__large">Android app</span>
+      ? <a className={storeBadge} href={ANDROID_APK_URL} download title="Android APK">
+          <span className="store-badge__small">Download the</span>{' '}<span className="store-badge__large">Android app</span>
         </a>
-      : <button className={`${storeBadge} is-soon`} type="button" disabled aria-disabled="true" aria-label="Android, coming soon">
-          <span className="store-badge__small">Coming soon on</span><span className="store-badge__large">Google Play</span>
+      : <button className={`${storeBadge} is-soon`} type="button" disabled aria-disabled="true" title="Android">
+          <span className="store-badge__small">Coming soon on</span>{' '}<span className="store-badge__large">Google Play</span>
         </button>}
-    <button className={`${storeBadge} is-soon`} type="button" disabled aria-disabled="true" aria-label="iOS, coming soon">
-      <span className="store-badge__small">Coming soon on the</span><span className="store-badge__large">App Store</span>
+    <button className={`${storeBadge} is-soon`} type="button" disabled aria-disabled="true" title="iOS">
+      <span className="store-badge__small">Coming soon on the</span>{' '}<span className="store-badge__large">App Store</span>
     </button>
   </div>
 );
