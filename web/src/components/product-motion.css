@@ -64,7 +64,7 @@
   .resident-layout__nav a.active::after { transform: scaleX(1); }
   /* Shared state changes across public, resident, staff, and admin surfaces. */
   body :is(.field-error, .calm-field__error) { animation: feedback-arrive 220ms cubic-bezier(.16,1,.3,1); }
-  body :is(.calm-banner, .range-error, .notification-panel__message, .error[role="alert"], p[role="alert"], p[role="status"]) { animation: feedback-arrive 240ms cubic-bezier(.16,1,.3,1); }
+  body :is(.calm-banner, .range-error, .notification-panel__message, .login__recovery-notice, .error[role="alert"], p[role="alert"], p[role="status"]) { animation: feedback-arrive 240ms cubic-bezier(.16,1,.3,1); }
   body :is(.calm-empty, .empty, .preview__empty, .location-empty, .notification-panel__empty, .skeleton) { animation: surface-arrive 260ms cubic-bezier(.16,1,.3,1); }
   body details[open] > :not(summary) { animation: feedback-arrive 220ms cubic-bezier(.16,1,.3,1); }
   body details > summary { transition: color 150ms ease, background-color 150ms ease; }

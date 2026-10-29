@@ -217,4 +217,15 @@ describe('LoginPage password recovery', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('Could not send your request. Check your internet and try again.');
     expect(screen.getByRole('button', { name: 'Contact an admin to reset it' })).toBeInTheDocument();
   });
+  it('keeps the recovery status region mounted before and after a reset result', async () => {
+    renderPage();
+    const status = screen.getByRole('status');
+    expect(status).toBeEmptyDOMElement();
+    expect(document.querySelector('.login__recovery-notice')).toBeNull();
+    await userEvent.type(screen.getByLabelText(/email/i), 'person@example.com');
+    await userEvent.click(screen.getByRole('button', { name: 'Forgot password?' }));
+    await waitFor(() => expect(status).toHaveTextContent('If an account uses this email'));
+    expect(screen.getByRole('status')).toBe(status);
+  });
+
 });

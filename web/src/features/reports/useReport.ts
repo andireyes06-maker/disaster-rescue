@@ -71,6 +71,8 @@ export interface RescueUpdate {
   status: string;
   note: string;
   peopleRescued: number;
+  // Optional photos the responder attached. Empty when none were.
+  photos?: { url: string }[];
   at: Date | null;
 }
 
@@ -112,6 +114,7 @@ export function useReportUpdates(id: string, scope = '') {
               status: data.status as string,
               note: typeof data.note === 'string' ? data.note : '',
               peopleRescued: typeof data.peopleRescued === 'number' ? data.peopleRescued : 0,
+              photos: Array.isArray(data.photos) ? data.photos.filter((p: unknown): p is { url: string } => typeof (p as { url?: unknown })?.url === 'string').map((p: { url: string }) => ({ url: p.url })) : [],
               at,
             };
           })

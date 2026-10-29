@@ -250,6 +250,9 @@ class FakeResponderRepository implements ResponderRepository {
   /// Idempotency-Key of each postUpdate call, in order (null when none was sent).
   final List<String?> updateKeys = [];
 
+  /// Number of photos sent with each postUpdate call, in order.
+  final List<int> updatePhotoCounts = [];
+
   @override
   Future<void> postUpdate(
     String id,
@@ -257,8 +260,10 @@ class FakeResponderRepository implements ResponderRepository {
     String? idempotencyKey,
     double? lat,
     double? lng,
+    List<PickedPhoto> photos = const [],
   }) async {
     updateKeys.add(idempotencyKey);
+    updatePhotoCounts.add(photos.length);
     final outcome = updateOutcome != null
         ? updateOutcome!(update)
         : updateError;

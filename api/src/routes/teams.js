@@ -57,6 +57,7 @@ export function teamsRouter(deps) {
       const kind = teamKind(req.body?.kind);
       const kindLabel = kindLabelOf(kind, req.body?.kindLabel);
       const hq = headquarters(req.body?.hq);
+      if (!hq) throw new HttpError(400, 'hq_required', 'Select a headquarters location before creating the team');
       const id = randomUUID();
       const hqName = hq ? hqNameOf(req.body?.hqName) : null;
       const effects = mutationEffects([{ actorUid: req.user.uid, action: 'team.create', after: { teamId: id, name, kind, kindLabel, hq } }]);

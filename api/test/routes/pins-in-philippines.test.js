@@ -31,7 +31,7 @@ describe('a team of type Other needs its label when it is created', () => {
     const refused = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'Harbor', kind: 'Other' });
     expect(refused.status).toBe(400);
     expect(refused.body.error).toBe('invalid_kind_label');
-    const ok = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'Harbor', kind: 'Other', kindLabel: 'Barangay rescue' });
+    const ok = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'Harbor', kind: 'Other', kindLabel: 'Barangay rescue', hq: { lat: 14.6, lng: 120.9 } });
     expect(ok.status).toBe(201);
     const teams = await t.repo.listTeams();
     expect(teams.find((x) => x.id === ok.body.id)?.kindLabel).toBe('Barangay rescue');

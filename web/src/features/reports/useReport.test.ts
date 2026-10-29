@@ -192,4 +192,16 @@ describe('useReportUpdates', () => {
     expect(result.current.updates.map((u) => u.id)).toEqual(['u1']);
     expect(result.current.updates[0]).toMatchObject({ status: 'Rescue in Progress', note: 'On site', peopleRescued: 2 });
   });
+
+  it('keeps the photos a responder attached and treats a missing list as none', () => {
+    const { result } = renderHook(() => useReportUpdates('r1'));
+    act(() => h.subs[0].ok({
+      docs: [
+        { id: 'u2', data: () => ({ kind: 'status', status: 'Resolved', note: '', peopleRescued: 1, at: ts(3000), photos: [{ url: 'https://cdn/a.jpg', sizeBytes: 1 }, { nope: true }] }) },
+        { id: 'u1', data: () => ({ kind: 'status', status: 'Rescue in Progress', note: '', peopleRescued: 0, at: ts(2000) }) },
+      ],
+    } as unknown as never));
+    const byId = Object.fromEntries(result.current.updates.map((u) => [u.id, u.photos]));
+    expect(byId).toEqual({ u1: [], u2: [{ url: 'https://cdn/a.jpg' }] });
+  });
 });

@@ -450,12 +450,14 @@ abstract class ResponderRepository {
   Future<void> acknowledge(String id, {double? lat, double? lng});
 
   /// [idempotencyKey] makes a retried update replay the first result instead of recording it again.
+  /// [photos] are optional (up to five). An update without photos is sent exactly as before.
   Future<void> postUpdate(
     String id,
     OperationUpdate update, {
     String? idempotencyKey,
     double? lat,
     double? lng,
+    List<PickedPhoto> photos = const [],
   });
 }
 
@@ -566,17 +568,38 @@ class ApiResponderRepository implements ResponderRepository {
     String? idempotencyKey,
     double? lat,
     double? lng,
+    List<PickedPhoto> photos = const [],
   }) async {
-    await _api.send(
+    final headers = {'Idempotency-Key': ?idempotencyKey};
+    if (photos.isEmpty) {
+      await _api.send(
+        'POST',
+        '/reports/$id/updates',
+        headers: headers,
+        body: {
+          'status': update.status,
+          'peopleRescued': update.peopleRescued,
+          'note': update.note,
+          if (lat != null && lng != null) 'position': {'lat': lat, 'lng': lng},
+        },
+      );
+      return;
+    }
+    // Photos need a multipart body. The server waits up to 60 s per photo, so the phone waits longer than that.
+    await _api.sendMultipart(
       'POST',
       '/reports/$id/updates',
-      headers: {'Idempotency-Key': ?idempotencyKey},
-      body: {
+      headers: headers,
+      fields: {
         'status': update.status,
-        'peopleRescued': update.peopleRescued,
+        'peopleRescued': update.peopleRescued.toString(),
         'note': update.note,
-        if (lat != null && lng != null) 'position': {'lat': lat, 'lng': lng},
       },
+      files: [
+        for (final p in photos)
+          http.MultipartFile.fromBytes('photos', p.bytes, filename: p.name),
+      ],
+      requestTimeout: const Duration(seconds: 90),
     );
   }
 }
@@ -701,6 +724,7 @@ class FirestoreProfileRepository implements ProfileRepository {
     final res = await _api.sendMultipart(
       'PUT',
       '/users/me/photo',
+      requestTimeout: const Duration(seconds: 60),
       files: [
         // Same as report photos: the server decides the type from the bytes, not the header.
         http.MultipartFile.fromBytes('photo', photo.bytes, filename: photo.name),

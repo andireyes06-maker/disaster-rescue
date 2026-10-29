@@ -69,6 +69,7 @@ class ApiClient {
     Map<String, String> fields = const {},
     List<http.MultipartFile> files = const [],
     Map<String, String> headers = const {},
+    Duration? requestTimeout,
   }) async {
     final token = await _token();
     final req = http.MultipartRequest(method, _uri(path))
@@ -77,15 +78,19 @@ class ApiClient {
       ..headers.addAll(headers)
       ..fields.addAll(fields)
       ..files.addAll(files);
-    return _run(() async => http.Response.fromStream(await _client.send(req)));
+    return _run(
+      () async => http.Response.fromStream(await _client.send(req)),
+      requestTimeout: requestTimeout,
+    );
   }
 
   Future<Map<String, dynamic>?> _run(
-    Future<http.Response> Function() call,
-  ) async {
+    Future<http.Response> Function() call, {
+    Duration? requestTimeout,
+  }) async {
     final http.Response res;
     try {
-      res = await call().timeout(timeout);
+      res = await call().timeout(requestTimeout ?? timeout);
     } on ApiException {
       rethrow;
     } on TimeoutException {

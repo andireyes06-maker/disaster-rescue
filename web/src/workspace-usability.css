@@ -83,7 +83,7 @@
 .team-dialog .hq-map > p { padding: 12px 14px; margin: 0; background: #edf3ff; color: #315b9b; font-size: 13px; }
 .selected-place { display: grid; gap: 8px; padding: 14px 16px; background: #f5f2fc; border: 1px solid #dfd6ef; border-radius: 10px; }
 .selected-place > p { margin: 0; font-size: 14px; }
-.selected-place > small { color: #776b85; font-size: 12px; line-height: 1.5; }
+.selected-place > small { color: #645570; font-size: 12px; line-height: 1.5; }
 .team-dialog .team-create-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; }
 .team-create-actions > :first-child { margin-right: auto; }
 @media(max-width:639px) { .team-create-actions > :first-child { flex-basis: 100%; margin-right: 0; } .team-create-actions > .btn { min-height: 44px; } }

@@ -156,4 +156,15 @@ describe('profile photo (B1)', () => {
       expect((await t.repo.getUser(`${role}-1`)).photo.url).toBe(res.body.photoUrl);
     }
   });
+  it('limits profile uploads per signed-in account before reading another file', async () => {
+    const t = makeTestApp();
+    for (let i = 0; i < 10; i++) expect((await put(t, t.as('resident'), PNG)).status).toBe(200);
+    const blocked = await put(t, t.as('resident'), PNG);
+    expect(blocked.status).toBe(429);
+    expect(blocked.body.error).toBe('rate_limited');
+    expect(t.uploader.calls).toHaveLength(10);
+    expect((await put(t, t.as('resident', 'another-resident'), PNG)).status).toBe(200);
+    expect((await request(t.app).delete('/api/users/me/photo').set('Authorization', t.as('resident'))).status).toBe(200);
+  });
+
 });

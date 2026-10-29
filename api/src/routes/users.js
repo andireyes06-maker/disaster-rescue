@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import { requireAuth, requireIdentity, requireRole } from '../middleware/auth.js';
 import { createStaff, updateStaff, registerSelf } from '../services/userService.js';
 import { isSafeId } from '../domain/validation.js';
@@ -11,6 +12,15 @@ export function usersRouter(deps) {
   r.param('id', (req, res, next, id) => (isSafeId(id) ? next() : res.status(404).json({ error: 'not_found' })));
   const auth = requireAuth(deps.verifyToken);
   const identity = requireIdentity(deps.verifyToken);
+  // Count authenticated attempts by account, before multipart parsing/provider work.
+  const photoLimit = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 10,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    keyGenerator: (req) => req.user.uid,
+    handler: (_req, res) => res.status(429).json({ error: 'rate_limited' }),
+  });
 
   // Self-service routes take no id: the account is always the caller's, so another account cannot be named.
   // They are registered before any /:id route so "me" is never read as an id.
@@ -21,7 +31,7 @@ export function usersRouter(deps) {
       res.json(userView({ ...user, uid: req.user.uid }));
     } catch (e) { next(e); }
   });
-  r.put('/me/photo', auth, uploadProfilePhoto(), async (req, res, next) => {
+  r.put('/me/photo', auth, photoLimit, uploadProfilePhoto(), async (req, res, next) => {
     try { res.json(await setPhoto(deps, req.user.uid, req.file)); } catch (e) { next(e); }
   });
   r.delete('/me/photo', auth, async (req, res, next) => {

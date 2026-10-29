@@ -11,6 +11,7 @@ import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/product_widgets.dart';
+import '../../theme/product_navigation.dart';
 import '../../theme/product_motion.dart';
 import '../auth/auth_widgets.dart';
 import '../offline/offline_help_page.dart';
@@ -455,16 +456,11 @@ class _ReportFlowPageState extends State<ReportFlowPage> {
     return Scaffold(
       appBar: AppBar(
         actions: const [NotificationAction()],
-        title: const Text('Report an emergency'),
-        leading: Padding(
-          padding: const EdgeInsets.all(14),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: AppColors.primarySoft,
-              borderRadius: BorderRadius.circular(9),
-            ),
-            child: const Icon(Icons.add, color: AppColors.primary, size: 19),
-          ),
+        title: const Text('Report an emergency', maxLines: 1, overflow: TextOverflow.ellipsis),
+        leadingWidth: 114,
+        leading: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+          child: ProductMark(size: 24),
         ),
       ),
       body: ProductViewport(

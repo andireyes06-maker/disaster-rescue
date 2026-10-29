@@ -62,6 +62,15 @@ void main() {
   }
 
   Future<void> capture(WidgetTester t, String name) async {
+    if (name.startsWith('report-')) {
+      // The report header now uses a real asset; wait for its first decode before capturing.
+      await t.runAsync(() => precacheImage(
+        const AssetImage('assets/brand/ireport-logo.png'),
+        t.element(find.byKey(key)),
+      ));
+      await t.pump(const Duration(milliseconds: 100));
+      await t.pumpAndSettle();
+    }
     expect(t.takeException(), isNull);
     // Reviewed references tracked in test/goldens (see test/goldens/PROVENANCE.md). They are not regenerated to pass a regression.
     await expectLater(

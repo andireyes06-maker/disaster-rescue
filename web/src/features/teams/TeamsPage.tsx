@@ -40,6 +40,7 @@ interface Message {
 function errorText(err: unknown): string {
   const failure = apiFailure(err);
   if (failure) {
+    if (failure.code === 'hq_required') return 'Select a headquarters location on the map before creating the team.';
     if (failure.code === 'invalid_name') return 'Team names must be 1 to 100 characters.';
     if (failure.code === 'invalid_kind_label') return 'Type what kind of team this is, such as Barangay rescue.';
     if (failure.code === 'outside_philippines') return 'Pins must be inside the Philippines. Pick a place in the Philippines.';
@@ -145,7 +146,17 @@ function TeamRow({ team, members, onSaved, onError }: TeamRowProps) {
 
 // Reports a map click as a coordinate pair.
 function HqPicker({ onPick }: { onPick: (p: { lat: number; lng: number }) => void }) {
-  useMapEvents({ click: (e) => onPick({ lat: e.latlng.lat, lng: e.latlng.lng }) });
+  const map = useMapEvents({
+    click: (e) => onPick({ lat: e.latlng.lat, lng: e.latlng.lng }),
+    keydown: (e) => {
+      // Leaflet already supports arrow-key panning. Enter chooses the visible center,
+      // without activating when a zoom button or another child control has focus.
+      if (e.originalEvent.key !== 'Enter' || e.originalEvent.target !== map.getContainer()) return;
+      e.originalEvent.preventDefault();
+      const center = map.getCenter();
+      onPick({ lat: center.lat, lng: center.lng });
+    },
+  });
   return null;
 }
 
@@ -204,7 +215,7 @@ function TeamLocationEditor({ team, onSaved, onError }: { team: Team; onSaved: (
       {notice && <p className="field-hint" role="status">{notice}</p>}
       {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
       <div className="hq-map" role="region" aria-label={`Map for ${team.name} location`}>
-        <p className="field-hint">{mode === 'pick' ? 'Tap the map to place the location.' : 'Use your location or pick a place on the map.'}</p>
+        <p className="field-hint">{mode === 'pick' ? 'Tap the map, or focus it and use arrow keys, then Enter to select its center.' : 'Use your location or pick a place on the map.'}</p>
         <MapContainer key={team.id} center={center} zoom={14} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
           <MapViewport point={draft} /><TileLayer key={tiles.key} eventHandlers={tiles.events} url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
           <HqPicker onPick={(p) => {
@@ -242,6 +253,7 @@ export default function TeamsPage() {
   });
   const newName = watch('name');
   const [newHq, setNewHq] = useState<GeoPoint | null>(null);
+  const hqRef = useRef<HTMLDivElement>(null);
   const [newKind, setNewKind] = useState('Rescue');
   const [newKindLabel, setNewKindLabel] = useState('');
   const [hqNotice, setHqNotice] = useState('');
@@ -262,6 +274,11 @@ export default function TeamsPage() {
 
   async function create(values: TeamName) {
     if (pendingRef.current) return;
+    if (!newHq) {
+      setMessage({ kind: 'error', text: 'Select a headquarters location on the map or use your current location before creating the team.' });
+      hqRef.current?.focus();
+      return;
+    }
     if (newKind === 'Other' && !newKindLabel.trim()) {
       setMessage({ kind: 'error', text: 'Type what kind of team this is, such as Barangay rescue. Nothing was created.' });
       return;
@@ -292,7 +309,7 @@ export default function TeamsPage() {
       {teams && <dl className="analytics-summary"><div><dt>Rescue teams</dt><dd>{teams.length}</dd></div><div><dt>Available</dt><dd>{teams.filter((team) => !team.busy).length}</dd></div><div><dt>On assignment</dt><dd>{teams.filter((team) => team.busy).length}</dd></div></dl>}
       <div className="management-toolbar"><div><h2>Rescue teams{teams ? ` (${teams.length})` : ''}</h2><p>Availability updates as teams are assigned to rescues.</p></div><button type="button" className="btn" onClick={() => { setMessage(null); tiles.retry(); setCreating(true); }}>Create team</button></div>
       <Dialog open={creating} onOpenChange={open => { if (!busy) setCreating(open); }}><DialogContent className="team-dialog team-dialog--create" showCloseButton={false} onEscapeKeyDown={event => { if (busy) event.preventDefault(); }}>
-      <header className="team-dialog__header"><span className="response-dialog__icon"><ShieldCheck size={24} aria-hidden="true" /></span><div><DialogTitle>Create a rescue team</DialogTitle><DialogDescription>Name the team and pin its headquarters. Headquarters can also be set later.</DialogDescription></div></header>
+      <header className="team-dialog__header"><span className="response-dialog__icon"><ShieldCheck size={24} aria-hidden="true" /></span><div><DialogTitle>Create a rescue team</DialogTitle><DialogDescription>Name the team and select its headquarters to continue.</DialogDescription></div></header>
       <MotionForm data-map-tile-surface className="card ops-form" onSubmit={handleSubmit(create)} noValidate aria-label="Create team">
         <RequiredNote /><label htmlFor="new-team">New team name<RequiredMark /></label>
         <input id="new-team" aria-required="true" readOnly={busy} maxLength={100} {...register('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'new-team-error' : undefined} />
@@ -309,14 +326,16 @@ export default function TeamsPage() {
         )}
         {hqNotice && <p className="field-hint" role="status">{hqNotice}</p>}
         {tiles.failed && <MapTileNotice onRetry={tiles.retry} />}
-      <div className="hq-map" role="region" aria-label="Map for the new team headquarters">
-          <p className="field-hint">Click the map to place the headquarters.</p>
+      <div ref={hqRef} tabIndex={-1} className="hq-map" role="region" aria-label="Map for the new team headquarters" aria-describedby="new-hq-hint">
+          <h3>Headquarters location<RequiredMark /></h3>
+          <p id="new-hq-hint" className="field-hint">Select a pin on the map or use your current location. With a keyboard, focus the map, use arrow keys to move, then press Enter to select its center.</p>
           <MapContainer center={newHq ? [newHq.lat, newHq.lng] : [14.5995, 120.9842]} zoom={13} style={{ height: 240, width: '100%', borderRadius: 12 }} scrollWheelZoom={false}>
             <MapViewport point={newHq} /><TileLayer key={tiles.key} eventHandlers={tiles.events} url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="OpenStreetMap contributors" />
             <HqPicker onPick={(p) => {
               if (busy) return;
               if (!inPhilippines(p.lat, p.lng)) { setHqNotice(OUTSIDE_PH_MESSAGE); return; }
               setNewHq({ lat: p.lat, lng: p.lng });
+              setMessage(null);
               setHqNotice('');
             }} />
             {newHq && <Marker position={[newHq.lat, newHq.lng]} icon={L.divIcon({ className: 'hq-pin', html: '<span>HQ</span>', iconSize: [36, 22], iconAnchor: [18, 22] })} />}
@@ -325,7 +344,7 @@ export default function TeamsPage() {
         <div className="selected-place">{newHq ? <PlaceLabel point={newHq} /> : <p>No headquarters selected yet.</p>}<small>Place names are approximate. The pin sets the exact headquarters.</small></div>
         {message?.kind === 'error' && <Banner tone="error" role="alert">{message.text}</Banner>}
         <div className="actions__row team-create-actions">
-          <button type="button" className="btn btn--ghost" aria-disabled={busy} onClick={async () => { if (busy) return; try { const here = await currentPosition(); if (!inPhilippines(here.lat, here.lng)) { setHqNotice(OUTSIDE_PH_MESSAGE); } else { setNewHq(here); setHqNotice('Headquarters captured from your current location.'); } } catch { setHqNotice('Could not read your location. Allow location and try again, or create the team without headquarters.'); } }}>Use my current location as headquarters</button>
+          <button type="button" className="btn btn--ghost" aria-disabled={busy} onClick={async () => { if (busy) return; try { const here = await currentPosition(); if (!inPhilippines(here.lat, here.lng)) { setHqNotice(OUTSIDE_PH_MESSAGE); } else { setNewHq(here); setMessage(null); setHqNotice('Headquarters captured from your current location.'); } } catch { setHqNotice('Could not read your location. Allow location and try again, or select the headquarters on the map.'); } }}>Use my current location as headquarters</button>
           <button type="button" className="btn btn--ghost" aria-disabled={busy} onClick={() => { if (!busy) setCreating(false); }}>Cancel</button>
           <button type="submit" className="btn" aria-disabled={busy || !newName.trim()} aria-busy={busy}>Create team</button>
         </div>

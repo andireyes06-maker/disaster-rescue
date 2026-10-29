@@ -1,10 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
+const auth = vi.hoisted(() => ({ uid: 'd-1' }));
 vi.mock('../auth/AuthProvider', () => ({
-  useAuth: () => ({ user: { uid: 'd-1', email: 'd@test.dev', displayName: 'Dana Reyes' }, role: 'admin', logout: vi.fn() }),
+  useAuth: () => ({ user: { uid: auth.uid, email: 'd@test.dev', displayName: 'Dana Reyes' }, role: 'admin', logout: vi.fn() }),
 }));
 vi.mock('../features/demo/useDemoIndicator', () => ({ useDemoIndicator: () => null }));
 vi.mock('../features/resident/useMyNotifications', () => ({
@@ -32,7 +33,7 @@ async function openProfile() {
 const identityImg = (dialog: HTMLElement) => dialog.querySelector('.profile-identity img');
 
 describe('AppShell profile photo', () => {
-  beforeEach(() => { client.api.mockReset(); });
+  beforeEach(() => { client.api.mockReset(); auth.uid = 'd-1'; });
 
   it('choosing a file uploads it and shows the new photo', async () => {
     client.api.mockImplementation(async (path: string, opts?: { method?: string; formData?: FormData }) => {
@@ -121,4 +122,17 @@ describe('AppShell profile photo', () => {
     expect(within(dialog).getByRole('button', { name: 'Change photo' })).toBeInTheDocument();
     expect(within(dialog).queryByRole('button', { name: 'Remove photo' })).toBeNull();
   });
+  it('clears the previous account photo while the next account loads or fails', async () => {
+    client.api.mockResolvedValueOnce(me(OLD));
+    const view = render(<MemoryRouter><AppShell title="Dashboard" /></MemoryRouter>);
+    await waitFor(() => expect(document.querySelector('.profile-trigger img')).toHaveAttribute('src', OLD));
+    let fail!: (reason: Error) => void;
+    client.api.mockImplementation(() => new Promise((_, reject) => { fail = reject; }));
+    auth.uid = 'other-account';
+    view.rerender(<MemoryRouter><AppShell title="Dashboard" /></MemoryRouter>);
+    expect(document.querySelector('.profile-trigger img')).toBeNull();
+    await act(async () => { fail(new Error('offline')); });
+    expect(document.querySelector('.profile-trigger img')).toBeNull();
+  });
+
 });

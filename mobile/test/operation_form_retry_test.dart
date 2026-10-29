@@ -103,6 +103,7 @@ void main() {
   ) async {
     await open(t);
     await t.enterText(find.byKey(const Key('peopleRescued')), '2');
+    await t.scrollUntilVisible(find.text('Save update'), 200, scrollable: find.byType(Scrollable).first);
     final button = t.widget<FilledButton>(
       find.widgetWithText(FilledButton, 'Save update'),
     );
@@ -274,6 +275,8 @@ void main() {
       expect(find.text('Discard unconfirmed updates'), findsOneWidget);
 
       env.responder.updateOutcome = null;
+      await t.scrollUntilVisible(find.text('Discard unconfirmed updates'), 200, scrollable: find.byType(Scrollable).first);
+      await t.pumpAndSettle();
       await t.tap(find.text('Discard unconfirmed updates'));
       await t.pumpAndSettle();
       expect(find.text(tooManyUnresolvedCopy), findsNothing);

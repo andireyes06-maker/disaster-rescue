@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:disaster_rescue/data/api_client.dart';
 import 'package:disaster_rescue/data/report_models.dart';
@@ -51,5 +53,29 @@ void main() {
       OperationUpdate(status: 'Resolved', peopleRescued: 0, note: ''),
     );
     expect(requests.single.headers.containsKey('Idempotency-Key'), isFalse);
+  });
+
+  test('postUpdate with photos sends a multipart body with the photos', () async {
+    final requests = <http.BaseRequest>[];
+    final api = ApiClient(
+      baseUrl: 'http://h/api',
+      tokenProvider: () async => 'tok',
+      client: MockClient.streaming((r, body) async {
+        requests.add(r);
+        await body.drain<void>();
+        return http.StreamedResponse(Stream.value(utf8.encode('{"ok":true}')), 200);
+      }),
+    );
+    await ApiResponderRepository(api, _NoFirestore()).postUpdate(
+      'r1',
+      OperationUpdate(status: 'Resolved', peopleRescued: 2, note: 'done'),
+      idempotencyKey: 'key-abcdefgh',
+      photos: [PickedPhoto(name: 'a.jpg', bytes: Uint8List.fromList([1, 2, 3]), mime: 'image/jpeg')],
+    );
+    final r = requests.single as http.MultipartRequest;
+    expect(r.url.path, '/api/reports/r1/updates');
+    expect(r.headers['Idempotency-Key'], 'key-abcdefgh');
+    expect(r.fields, {'status': 'Resolved', 'peopleRescued': '2', 'note': 'done'});
+    expect(r.files.single.field, 'photos');
   });
 }

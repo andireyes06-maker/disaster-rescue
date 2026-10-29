@@ -237,7 +237,7 @@ describe('teams', () => {
   it('resident cannot create a team; dispatcher creates and renames; list is open to staff', async () => {
     const t = makeTestApp();
     expect((await request(t.app).post('/api/teams').set('Authorization', t.as('resident')).send({ name: 'Rogue' })).status).toBe(403);
-    const created = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'Fire Unit 1' });
+    const created = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ hq: { lat: 14.6, lng: 120.9 }, name: 'Fire Unit 1' });
     expect(created.status).toBe(201);
     const renamed = await request(t.app).patch(`/api/teams/${created.body.id}`).set('Authorization', t.as('admin')).send({ name: 'Fire Unit 2' });
     expect(renamed.status).toBe(200);

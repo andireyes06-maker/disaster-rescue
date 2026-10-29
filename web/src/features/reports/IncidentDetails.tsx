@@ -360,6 +360,17 @@ function IncidentView({ id }: IncidentViewProps) {
                 <strong>{u.status}</strong> <span>{formatTime(u.at)}</span>
                 {u.peopleRescued > 0 && <p>People rescued: {u.peopleRescued}</p>}
                 {u.note && <ActivityNote text={u.note} />}
+                {(u.photos?.length ?? 0) > 0 && (
+                  <ul className="photos" aria-label={`Photos attached to this update (${u.photos?.length})`}>
+                    {u.photos?.map((p, i) => (
+                      <li key={p.url}>
+                        <a className="photo-thumb" href={resolvePhotoUrl(p.url)} target="_blank" rel="noopener noreferrer" aria-label={`Open update photo ${i + 1} of ${u.photos?.length}`}>
+                          <PhotoImage src={resolvePhotoUrl(p.url)} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </>
             )}
           />

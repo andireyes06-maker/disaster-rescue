@@ -173,3 +173,15 @@ Reason: residents and responders can set a profile photo on the phone (spec `doc
 - profile: the person icon tile is replaced by a round avatar showing the initials "AR" (the fixture has no photo), with a Change photo button and the hint "JPEG, PNG or WebP, up to 5 MB." under it. Remove photo is hidden because there is no photo. The rest of the page is unchanged; Log out now sits partly below the 844 px fold of the scrolling list.
 
 login and register candidates were byte-identical and were not touched. Only `profile.png` and its line in `SHA256SUMS.txt` changed. This render does not verify a physical device, the gallery picker or a real upload.
+
+
+## Reviewed change: remaining signed-in report logo, 29 October 2026
+
+A fresh current-source Chrome render revealed that ReportFlowPage still drew Icons.add even though ProductMark had been updated. Replaced only that leading placeholder with the existing approved I-Report ProductMark, preserving its ratio and allowing a single-line title to ellipsize at narrow/large-text widths. Three header regression tests failed on the previous implementation and pass at320/390px and200% text.
+
+Reviewed all four candidate images visually before promotion: report-type, report-location, report-details and report-review. Pixel differences are confined to the top header (y14–54); all body pixels remain unchanged. The type candidate initially decoded the asset after its first capture, so the harness now precaches the report logo and pumps one settling frame. Candidates rendered outside the reference directory using GOLDEN_REVIEW_DIR=/private/tmp/ireport-update18-golden-final. No other reference changed. No physical-device, provider or screen-reader claim is made.
+
+
+## Reviewed change: optional photos on the responder Operation update form, 29 October 2026
+
+Responders can attach up to five photos to an update, and the photos are optional. The Operation update form gains a "Photos (optional, up to 5)" section with Take photo and Choose existing photos between the note and Save update. I viewed the new render before promoting it. Only `response-update.png` and its line in `SHA256SUMS.txt` changed. No physical-device, gallery-picker or real-upload claim is made.

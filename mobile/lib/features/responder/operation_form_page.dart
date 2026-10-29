@@ -10,6 +10,7 @@ import '../../data/services.dart';
 import '../../data/responder_attempts.dart';
 import '../../data/submission_key.dart';
 import '../auth/auth_widgets.dart';
+import '../report/photo_picker.dart';
 import '../report/submission_result_page.dart' show isUncertainSubmission;
 import 'operation_transitions.dart';
 
@@ -44,6 +45,8 @@ class _OperationFormPageState extends State<OperationFormPage> {
   final _people = TextEditingController();
   final _note = TextEditingController();
   String _status = 'Rescue in Progress';
+  // Optional. An update is saved the same way with none.
+  List<PickedPhoto> _photos = [];
   bool _busy = false;
   String? _error;
   // True when the form is held back by too many unconfirmed updates. Only then is the discard choice offered.
@@ -129,7 +132,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     final people = int.parse(_people.text.trim());
     final note = _note.text.trim();
-    final signature = [status, people, note].join('\u0001');
+    final signature = [status, people, note, for (final p in _photos) '${p.name}:${p.bytes.length}'].join('\u0001');
     final attempts = context.read<ResponderAttemptStore>();
     // Same content as an unresolved attempt for this report reuses its key, even after other content was tried.
     final previous = attempts.attemptFor(widget.reportId, signature);
@@ -167,6 +170,7 @@ class _OperationFormPageState extends State<OperationFormPage> {
         idempotencyKey: key,
         lat: fix.lat,
         lng: fix.lng,
+        photos: _photos,
       );
       attempts.forget(widget.reportId, signature);
       if (!mounted) return;
@@ -268,6 +272,13 @@ class _OperationFormPageState extends State<OperationFormPage> {
                             decoration: const InputDecoration(
                               labelText: 'Note (optional)',
                             ),
+                          ),
+                          const SizedBox(height: 20),
+                          PhotoPickerSection(
+                            title: 'Photos (optional, up to 5)',
+                            service: context.read<PhotoService>(),
+                            photos: _photos,
+                            onChanged: (p) => setState(() => _photos = p),
                           ),
                         ],
                       ),

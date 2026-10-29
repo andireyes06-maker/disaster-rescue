@@ -1,6 +1,6 @@
 # Final change requests (2026-10-29)
 
-**Status:** draft for Airen's approval. No code written.
+**Status:** implemented and deployed in19435bb with Airen's approval. The 29 October local hardening pass remains uncommitted; see `design-plans/final-change-followup-2026-10-29/RECORD.md`.
 **Size:** big. Airen confirmed: spec, review against code, plan, then build.
 **Branch:** `feat/ui-response-workspace-2026-10-28` at `9313c72` when this was written.
 **Source of requests:** the translated change list from `LAST CHANGE NA(ATA).docx` (ids W1 to W5, M1, B1 below).

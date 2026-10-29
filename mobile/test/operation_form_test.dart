@@ -31,6 +31,30 @@ void main() {
     });
   }
 
+  testWidgets('photos are optional: the form offers them and saves without any', (t) async {
+    await open(t);
+    await t.scrollUntilVisible(find.text('Photos (optional, up to 5)'), 200, scrollable: find.byType(Scrollable).first);
+    expect(find.text('Photos (optional, up to 5)'), findsOneWidget);
+    await t.enterText(find.byKey(const Key('peopleRescued')), '2');
+    await tapConfirmed(t, 'Save update');
+    await t.pumpAndSettle();
+    expect(env.responder.updates, hasLength(1));
+    expect(env.responder.updatePhotoCounts, [0]);
+  });
+
+  testWidgets('an attached photo is sent with the update', (t) async {
+    await open(t);
+    await t.enterText(find.byKey(const Key('peopleRescued')), '2');
+    await t.scrollUntilVisible(find.text('Choose existing photos'), 200, scrollable: find.byType(Scrollable).first);
+    await t.pumpAndSettle();
+    await t.tap(find.text('Choose existing photos'));
+    await t.pumpAndSettle();
+    expect(find.byKey(const ValueKey('photo-chip-0')), findsOneWidget);
+    await tapConfirmed(t, 'Save update');
+    await t.pumpAndSettle();
+    expect(env.responder.updatePhotoCounts, [1]);
+  });
+
   testWidgets('Team Assigned offers no Resolved segment', (t) async {
     await t.pumpWidget(env.host(OperationFormPage(
       reportId: 'r1',

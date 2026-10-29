@@ -191,7 +191,9 @@ export default function LoginPage() {
               <button type="button" className="login__recovery-link" onClick={onContactAdmin}
                 aria-disabled={contacting || busy} aria-busy={contacting}>{contacting ? 'Sending request…' : 'Contact an admin to reset it'}</button>
             </div>
-            {recoveryNotice && <p className="login__recovery-notice" role="status">{recoveryNotice}</p>}
+            <div role="status" aria-atomic="true">
+              {recoveryNotice && <p className="login__recovery-notice">{recoveryNotice}</p>}
+            </div>
             {recoveryError && <Banner id="login-recovery-error" tone="error" role="alert">{recoveryError}</Banner>}
           </section>
         </MotionForm>

@@ -10,7 +10,7 @@ const h = vi.hoisted(() => ({
   reports: [] as Report[],
   api: vi.fn(),
   over: {} as Record<string, unknown>,
-  updates: [] as { id: string; status: string; note: string; peopleRescued: number; at: Date | null }[],
+  updates: [] as { id: string; status: string; note: string; peopleRescued: number; photos?: { url: string }[]; at: Date | null }[],
   updatesLoading: false,
   hasMore: false,
   loadOlder: vi.fn(),
@@ -192,6 +192,19 @@ describe('IncidentDetails', () => {
     expect(items[0]).toHaveTextContent('Resolved');
     expect(items[1]).toHaveTextContent('Rescue in Progress');
     expect(screen.getByText('People rescued: 2')).toBeInTheDocument();
+    h.updates = [];
+  });
+
+  it('shows photos a responder attached to an update, and none when there are none', async () => {
+    h.updates = [
+      { id: 'u1', status: 'Rescue in Progress', note: '', peopleRescued: 0, photos: [], at: new Date('2026-10-15T08:00:00Z') },
+      { id: 'u2', status: 'Resolved', note: 'Done', peopleRescued: 3, photos: [{ url: 'https://cdn.test/a.jpg' }, { url: 'https://cdn.test/b.jpg' }], at: new Date('2026-10-15T09:00:00Z') },
+    ];
+    show([makeReport({ id: 'r1' })]);
+    await userEvent.click(screen.getByRole('tab', { name: 'Response and updates' }));
+    expect(screen.getByRole('list', { name: 'Photos attached to this update (2)' })).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /Open update photo/ })).toHaveLength(2);
+    expect(screen.queryByRole('list', { name: /Photos attached to this update \(0\)/ })).toBeNull();
     h.updates = [];
   });
 

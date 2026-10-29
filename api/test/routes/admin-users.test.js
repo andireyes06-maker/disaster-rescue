@@ -104,7 +104,7 @@ describe('admin account management', () => {
 
   it('admin can create and rename a team; dispatcher still can', async () => {
     const t = makeTestApp();
-    const made = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'Team Bravo' });
+    const made = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ hq: { lat: 14.6, lng: 120.9 }, name: 'Team Bravo' });
     expect(made.status).toBe(201);
     const renamed = await request(t.app).patch(`/api/teams/${made.body.id}`).set('Authorization', t.as('admin')).send({ name: 'Team B' });
     expect(renamed.status).toBe(200);

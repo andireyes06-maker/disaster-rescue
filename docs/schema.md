@@ -25,7 +25,7 @@ Operational database writes go through the API. Firestore rules deny all direct 
 |---|---|---|
 | users/{uid} | name, role, phone, team, active, createdAt; provisioning/claims-sync fields where present | Active owner, dispatcher or admin |
 | reports/{id} | reference, type, description, status, verified, priority, exact location, coarseLocation, reporterId, photos, createdAt/updatedAt; optional addressText/contact, assignedTeamId, classification, duplicateOf, possibleDuplicates and rejectionReason | Staff (dispatcher, DMO, admin), owning resident, current assigned responder team |
-| reports/{id}/updates/{id} | kind, status, note, peopleRescued, byUid, at; acknowledgement/status history | Same authorization as parent report |
+| reports/{id}/updates/{id} | kind, status, note, peopleRescued, byUid, at, photos (optional list of url, sizeBytes, mimeType); acknowledgement/status history | Same authorization as parent report |
 | teams/{id} | name, busy, currentReportId; user.team links members | Dispatcher, DMO, admin; responder's own team |
 | notifications/{id} | recipientUid, title, body, reportId, read, createdAt | Active recipient only |
 | auditLogs/{id} | actorUid, action, reportId where relevant, before/after, at | Dispatcher and admin |

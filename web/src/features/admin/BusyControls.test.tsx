@@ -8,6 +8,8 @@ import TeamsPage from '../teams/TeamsPage';
 const h = vi.hoisted(() => ({ api: vi.fn() }));
 vi.mock('../../auth/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'admin-self' } }) }));
 vi.mock('../../api/client', () => ({ api: h.api, ApiError: class extends Error {} }));
+vi.mock('../../lib/position', () => ({ currentPosition: async () => ({ lat: 14.6, lng: 120.9 }) }));
+vi.mock('../../lib/placeName', () => ({ approximatePlaceName: async () => 'Selected headquarters' }));
 const account = { uid: 'u1', name: 'Sample Staff', email: 'sample@example.test', role: 'responder', active: true };
 const team = { id: 't1', name: 'Sample Team', busy: false };
 beforeEach(() => {
@@ -40,6 +42,7 @@ it.each(['account-create', 'role', 'user-create', 'user-status', 'team-create', 
   else if (kind === 'team-create') {
     await user.click(screen.getByRole('button', { name: 'Create team' }));
     await user.type(screen.getByLabelText('New team name'), 'New Team');
+    await user.click(screen.getByRole('button', { name: 'Use my current location as headquarters' }));
     button = screen.getByRole('button', { name: 'Create team' });
   } else {
     await user.click(screen.getByText('Edit team'));

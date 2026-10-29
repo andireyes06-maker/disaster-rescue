@@ -63,21 +63,28 @@ export default function AppShell({ title, children }: AppShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [signOutError, setSignOutError] = useState('');
   const { pathname } = useLocation();
-  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [photo, setPhoto] = useState<{ uid: string; url: string | null } | null>(null);
   // Once the person changes their photo, a slower first load must not overwrite it.
-  const photoTouched = useRef(false);
+  const photoTouched = useRef<{ uid: string | undefined; touched: boolean }>({ uid: undefined, touched: false });
   const uid = user?.uid;
+  // Hide the old account's avatar in the first render, even before the next load completes.
+  const photoUrl = photo?.uid === uid ? photo?.url ?? null : null;
   useEffect(() => {
+    photoTouched.current = { uid, touched: false };
+    setPhoto(null);
     if (!uid) return;
     let live = true;
-    photoTouched.current = false;
     api('/users/me').then((me) => {
       const url = (me as { photoUrl?: unknown } | null)?.photoUrl;
-      if (live && !photoTouched.current) setPhotoUrl(typeof url === 'string' && url ? url : null);
+      if (live && !photoTouched.current.touched) setPhoto({ uid, url: typeof url === 'string' && url ? url : null });
     }).catch(() => { /* No photo yet: the initials stay. */ });
     return () => { live = false; };
   }, [uid]);
-  const onPhotoChange = (next: string | null) => { photoTouched.current = true; setPhotoUrl(next); };
+  const onPhotoChange = (next: string | null) => {
+    if (!uid || photoTouched.current.uid !== uid) return;
+    photoTouched.current.touched = true;
+    setPhoto({ uid, url: next });
+  };
   const accountName = user?.displayName || user?.email || '';
   async function onSignOut() {
     setSignOutError('');
@@ -120,7 +127,7 @@ export default function AppShell({ title, children }: AppShellProps) {
         <header className="shell__top">
           <div className="shell__account">
           <Dialog>
-            <DialogTrigger asChild><button type="button" className="profile-trigger" aria-label={`Open profile for ${user?.displayName || user?.email || 'your account'}`}><Avatar name={accountName} photoUrl={photoUrl} size={33} className="account-avatar" /><span>{user?.displayName || user?.email}</span><ChevronDown size={15} aria-hidden="true" /></button></DialogTrigger>
+            <DialogTrigger asChild><button type="button" className="profile-trigger"><span className="visually-hidden">Open profile for</span>{' '}<Avatar name={accountName} photoUrl={photoUrl} size={33} className="account-avatar" /><span>{user?.displayName || user?.email || 'your account'}</span><ChevronDown size={15} aria-hidden="true" /></button></DialogTrigger>
             <DialogContent className="profile-dialog"><DialogTitle>Your profile</DialogTitle><DialogDescription>Review your account and manage your photo and password.</DialogDescription><section className="profile-identity"><Avatar name={accountName} photoUrl={photoUrl} size={64} className="profile-identity__avatar" /><div><strong>{user?.displayName || user?.email}</strong><p>{user?.email}</p><span className="badge badge--neutral">{role === 'admin' ? 'Administrator' : role === 'responder' ? 'Rescuer' : role}</span></div></section><ProfilePhotoControls photoUrl={photoUrl} onPhotoChange={onPhotoChange} /><details className="profile-password"><summary>Change password</summary><ChangePassword embedded /></details></DialogContent>
           </Dialog>
           {user && <NotificationBell key={user.uid} uid={user.uid} reportHref={(id) => role === 'responder' ? `/assignments/${encodeURIComponent(id)}` : `/incidents/${encodeURIComponent(id)}`} />}

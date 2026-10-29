@@ -2,7 +2,8 @@ import { createHash } from 'node:crypto';
 import { mutationEffects, tryMutationEffects } from './mutationEffectsService.js';
 import { HttpError } from '../errors.js';
 import { STATUS, isOpen, assertTransition } from '../domain/workflow.js';
-import { sanitizeText, isSafeId } from '../domain/validation.js';
+import { sanitizeText, isSafeId, validatePhotos } from '../domain/validation.js';
+import { newAssetId } from '../domain/photoLedger.js';
 import { load, transition, notFound, conflict } from './reviewService.js';
 import { isAssignedTo, teamIdsOf } from '../domain/assignedTeams.js';
 
@@ -114,7 +115,7 @@ export async function findUpdateReceipt({ repo }, user, id, idempotencyKey) {
   return { saved: true, id, status: prior.status, peopleRescued: prior.peopleRescued };
 }
 
-export async function addUpdate({ repo }, user, id, body, idempotencyKey) {
+export async function addUpdate({ repo, uploader }, user, id, body, idempotencyKey, files = []) {
   if (idempotencyKey !== undefined && !IDEMPOTENCY_KEY.test(idempotencyKey)) {
     throw new HttpError(400, 'invalid_idempotency_key', 'Idempotency-Key must be 8 to 128 letters, digits, - or _');
   }
@@ -136,24 +137,44 @@ export async function addUpdate({ repo }, user, id, body, idempotencyKey) {
     throw new HttpError(400, 'invalid_people_rescued', 'peopleRescued must be an integer from 0 to 10000');
   }
   const note = sanitizeText(body?.note ?? '', 1000);
+  validatePhotos(files);
 
-  const update = { kind: 'status', status, note, peopleRescued, byUid: user.uid, at: new Date() };
+  // Refusals that depend only on the current report are decided before any bytes are sent.
+  if (report.status !== status) assertTransition(report.status, status, user.role);
+  else if (status !== STATUS.IN_PROGRESS) throw new HttpError(409, 'illegal_transition', `Report is already ${status}`);
+
+  const assetIds = files.map(() => newAssetId());
+  let uploaded = [];
+  try {
+    uploaded = files.length ? await uploader.upload(files, { publicIds: assetIds }) : [];
+  } catch (e) {
+    // The ids were chosen here, so a failed or timed-out upload can still be cleaned up by id. Best effort: a late upload may remain.
+    await uploader.remove(assetIds.map((publicId) => ({ publicId }))).catch((re) => console.error('photo cleanup failed', re));
+    throw e;
+  }
+  const update = { kind: 'status', status, note, peopleRescued, byUid: user.uid, at: new Date(), ...(uploaded.length ? { photos: uploaded.map(({ publicId, ...photo }) => photo) } : {}) };
   const effects = mutationEffects([
     ...(report.status !== status ? [{ actorUid: user.uid, action: 'status.change', reportId: id, before: { status: report.status }, after: { status } }] : []),
     { actorUid: user.uid, action: 'report.update', reportId: id, before: { status: report.status }, after: { status, peopleRescued } },
   ]);
-  if (report.status !== status) {
-    // The status change and its update record commit together, so a failure never leaves a Resolved report without its note.
-    assertTransition(report.status, status, user.role);
-    const result = await repo.applyReportChange(id, report.status, { reportPatch: { status }, updateDoc: update, updateId, responderUid: user.uid, effects });
-    throwIfRejected(result);
-    if (result.duplicate) return replayed(result.update, user, id);
-  } else if (status !== STATUS.IN_PROGRESS) {
-    throw new HttpError(409, 'illegal_transition', `Report is already ${status}`);
-  } else {
-    const result = await repo.applyReportChange(id, report.status, { reportPatch: {}, updateDoc: update, updateId, responderUid: user.uid, effects });
-    throwIfRejected(result);
-    if (result.duplicate) return replayed(result.update, user, id);
+  // Anything that stops the update from being recorded (a refused change, a replay that won the race) takes
+  // this attempt's uploads down with it, so no photo is left without an update.
+  const discard = () => uploader.remove(uploaded).catch((e) => console.error('photo cleanup failed', e));
+  try {
+    if (report.status !== status) {
+      // The status change and its update record commit together, so a failure never leaves a Resolved report without its note.
+      const result = await repo.applyReportChange(id, report.status, { reportPatch: { status }, updateDoc: update, updateId, responderUid: user.uid, effects });
+      throwIfRejected(result);
+      if (result.duplicate) { await discard(); return replayed(result.update, user, id); }
+    } else {
+      const result = await repo.applyReportChange(id, report.status, { reportPatch: {}, updateDoc: update, updateId, responderUid: user.uid, effects });
+      throwIfRejected(result);
+      if (result.duplicate) { await discard(); return replayed(result.update, user, id); }
+    }
+  } catch (e) {
+    // An unknown outcome (a failed database call) may still have been recorded, so only a definite refusal removes the photos.
+    if (e instanceof HttpError) await discard();
+    throw e;
   }
   await tryMutationEffects({ repo }, effects);
   return { id, status, peopleRescued };

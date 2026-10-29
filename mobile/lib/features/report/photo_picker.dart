@@ -13,10 +13,14 @@ class PhotoPickerSection extends StatefulWidget {
     required this.service,
     required this.photos,
     required this.onChanged,
+    this.title = 'Photos (required, up to 5)',
   });
   final PhotoService service;
   final List<PickedPhoto> photos;
   final ValueChanged<List<PickedPhoto>> onChanged;
+
+  /// The heading above the chips. Residents must attach a photo; other screens can say it is optional.
+  final String title;
 
   @override
   State<PhotoPickerSection> createState() => _PhotoPickerSectionState();
@@ -122,7 +126,7 @@ class _PhotoPickerSectionState extends State<PhotoPickerSection> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          'Photos (required, up to 5)',
+          widget.title,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),

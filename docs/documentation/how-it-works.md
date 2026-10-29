@@ -82,7 +82,7 @@ Note on the ordering rule: an earlier instructor message described ordering by t
 
 Team release: a team stays busy from assignment until the report is closed, not when it is resolved. This is a known process point (see the audit).
 
-Rescuer progress: field updates are added with `POST /api/reports/:id/updates`. Each update has a status and a count of people rescued, and they form the progress history.
+Rescuer progress: field updates are added with `POST /api/reports/:id/updates`. Each update has a status and a count of people rescued, and they form the progress history. An update can also carry up to five optional photos (JPEG, PNG or WebP, 5 MB each). The request is multipart when photos are attached and JSON otherwise, and an update without photos is valid. Photos are shown in the progress history to the people who can see the report.
 
 ## 5. Data model (Firestore)
 

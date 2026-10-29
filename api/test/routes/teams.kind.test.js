@@ -4,7 +4,7 @@ import { makeTestApp } from '../fakes/testApp.js';
 
 it('creates a Medical team and reads it back', async () => {
   const t = makeTestApp();
-  const made = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'Medic One', kind: 'Medical' });
+  const made = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ hq: { lat: 14.6, lng: 120.9 }, name: 'Medic One', kind: 'Medical' });
   expect(made.status).toBe(201);
   const list = await request(t.app).get('/api/teams').set('Authorization', t.as('admin'));
   expect(list.status).toBe(200);
@@ -17,4 +17,12 @@ it('still rejects an unknown identity (400 invalid_kind)', async () => {
   expect(res.status).toBe(400);
   expect(res.body.error).toBe('invalid_kind');
   expect(res.body.message).toBe('Choose PNP, BFP, Rescue, Medical, MDDRMO or Other');
+});
+
+it.each([undefined, null])('refuses creation without headquarters (%s)', async (hq) => {
+  const t = makeTestApp();
+  const response = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'HQ required', hq });
+  expect(response.status).toBe(400);
+  expect(response.body.error).toBe('hq_required');
+  expect((await t.repo.listTeams()).some(team => team.name === 'HQ required')).toBe(false);
 });

@@ -77,8 +77,14 @@ export function reportsRouter(deps) {
     try { res.json(await assignment.findUpdateReceipt(deps, req.user, req.params.id, req.get('Idempotency-Key'))); } catch (e) { next(e); }
   });
   // The optional Idempotency-Key header lets a retried update after an uncertain reply replay its first result.
-  r.post('/:id/updates', auth, requireRole('responder'), async (req, res, next) => {
-    try { res.json(await assignment.addUpdate(deps, req.user, req.params.id, req.body ?? {}, req.get('Idempotency-Key'))); } catch (e) { next(e); }
+  // Photos are optional. A JSON body (no photos) passes through the upload parser untouched; a multipart body carries
+  // text fields, so the whole number arrives as a string and is converted here.
+  r.post('/:id/updates', auth, requireRole('responder'), uploadPhotos(), async (req, res, next) => {
+    try {
+      const body = { ...(req.body ?? {}) };
+      if (req.is('multipart/form-data') && typeof body.peopleRescued === 'string' && /^\d{1,6}$/.test(body.peopleRescued)) body.peopleRescued = Number(body.peopleRescued);
+      res.json(await assignment.addUpdate(deps, req.user, req.params.id, body, req.get('Idempotency-Key'), req.files ?? []));
+    } catch (e) { next(e); }
   });
 
   return r;

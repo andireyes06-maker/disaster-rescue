@@ -99,7 +99,7 @@ describe('F08: a new resident profile stores the verified email', () => {
 describe('F09: team creation and renaming are audited', () => {
   it('a team create and a rename each write a team audit entry with the change', async () => {
     const t = makeTestApp();
-    const created = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ name: 'Team Lima' });
+    const created = await request(t.app).post('/api/teams').set('Authorization', t.as('admin')).send({ hq: { lat: 14.6, lng: 120.9 }, name: 'Team Lima' });
     expect(created.status).toBe(201);
     const renamed = await request(t.app).patch(`/api/teams/${created.body.id}`).set('Authorization', t.as('admin')).send({ name: 'Team Lima 2' });
     expect(renamed.status).toBe(200);
