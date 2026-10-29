@@ -31,6 +31,18 @@ export function reportsRouter(deps) {
     handler: (req, res) => res.status(429).json({ error: 'rate_limited' }),
   });
 
+  // Photo uploads are counted per account before the body is parsed, so one responder cannot flood memory with large
+  // multipart bodies. Plain JSON updates carry no files and are not counted.
+  const updatePhotoLimit = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 20,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    skip: (req) => !req.is('multipart/form-data'),
+    keyGenerator: (req) => req.user.uid,
+    handler: (req, res) => res.status(429).json({ error: 'rate_limited' }),
+  });
+
   r.post('/', auth, requireRole('resident'), submitIpLimit, submitLimit, uploadPhotos(), async (req, res, next) => {
     try {
       const b = req.body ?? {};
@@ -79,7 +91,7 @@ export function reportsRouter(deps) {
   // The optional Idempotency-Key header lets a retried update after an uncertain reply replay its first result.
   // Photos are optional. A JSON body (no photos) passes through the upload parser untouched; a multipart body carries
   // text fields, so the whole number arrives as a string and is converted here.
-  r.post('/:id/updates', auth, requireRole('responder'), uploadPhotos(), async (req, res, next) => {
+  r.post('/:id/updates', auth, requireRole('responder'), updatePhotoLimit, uploadPhotos(), async (req, res, next) => {
     try {
       const body = { ...(req.body ?? {}) };
       if (req.is('multipart/form-data') && typeof body.peopleRescued === 'string' && /^\d{1,6}$/.test(body.peopleRescued)) body.peopleRescued = Number(body.peopleRescued);

@@ -101,4 +101,15 @@ describe('responder update photos', () => {
     expect(res.status).toBe(409);
     expect(t.uploader.calls).toHaveLength(0);
   });
+
+  it('limits photo uploads per account, and leaves plain updates alone', async () => {
+    const { send } = await setup();
+    const withPhoto = () => form(send()).attach('photos', png(), { filename: 'a.png', contentType: 'image/png' });
+    const codes = [];
+    for (let i = 0; i < 25; i++) codes.push((await withPhoto()).status);
+    expect(codes).toContain(429);
+    expect(codes.slice(0, 5).every((c) => c === 200)).toBe(true);
+    // A plain JSON update is not counted against the photo limit.
+    expect((await send().send({ status: 'Rescue in Progress', peopleRescued: 1 })).status).toBe(200);
+  });
 });
