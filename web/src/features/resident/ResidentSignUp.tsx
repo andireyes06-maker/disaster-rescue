@@ -120,7 +120,7 @@ export default function ResidentSignUp() {
             aria-invalid={fieldErrors.email ? true : undefined} aria-describedby={describedBy('email')} />
           {fieldErrors.email && <FieldError id="email-error" className="field-error">{fieldErrors.email}</FieldError>}
           <label htmlFor="phone">Phone<RequiredMark /></label>
-          <input id="phone" name="phone" type="tel" autoComplete="tel" aria-required="true" value={values.phone} onChange={set('phone')}
+          <input id="phone" name="phone" type="tel" inputMode="tel" maxLength={18} placeholder="09171234567" autoComplete="tel" aria-required="true" value={values.phone} onChange={set('phone')}
             aria-invalid={fieldErrors.phone ? true : undefined} aria-describedby={describedBy('phone')} />
           {fieldErrors.phone && <FieldError id="phone-error" className="field-error">{fieldErrors.phone}</FieldError>}
           <label htmlFor="password">Password<RequiredMark /></label>

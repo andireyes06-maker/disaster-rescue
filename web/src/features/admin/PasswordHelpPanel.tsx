@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api/client';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../../components/ui/dialog';
 
 interface HelpRequest {
   id: string;
@@ -12,7 +13,7 @@ export default function PasswordHelpPanel() {
   const [rows, setRows] = useState<HelpRequest[] | null>(null);
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState<string | null>(null);
-  const [confirming, setConfirming] = useState<string | null>(null);
+  const [confirming, setConfirming] = useState<HelpRequest | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -61,19 +62,21 @@ export default function PasswordHelpPanel() {
                 <strong>{row.email}</strong>
                 <small>{row.createdAt ? `Requested ${new Date(row.createdAt).toLocaleString()}` : 'Requested'}</small>
               </div>
-              {confirming === row.id ? (
-                <div className="password-help__confirm" role="group" aria-label="Confirm password reset">
-                  <p>Reset {row.email}'s password to their email address? Are you sure?</p>
-                  <button type="button" className="btn btn--ghost" onClick={() => setConfirming(null)}>Cancel</button>
-                  <button type="button" className="btn" disabled={busy !== null} aria-busy={busy === row.id} onClick={() => void resetPassword(row)}>Yes, reset it</button>
-                </div>
-              ) : (
-                <button type="button" className="btn" disabled={busy !== null} onClick={() => setConfirming(row.id)}>Reset password</button>
-              )}
+              <button type="button" className="btn" disabled={busy !== null} aria-busy={busy === row.id} onClick={() => setConfirming(row)}>Reset password</button>
             </li>
           ))}
         </ul>
       )}
+      <Dialog open={confirming !== null} onOpenChange={(open) => { if (!open) setConfirming(null); }}>
+        <DialogContent aria-describedby="reset-confirm-text">
+          <DialogTitle>Reset this password?</DialogTitle>
+          <DialogDescription id="reset-confirm-text">Are you sure? {confirming?.email}'s password will be set to their email address. They should change it after signing in.</DialogDescription>
+          <div className="actions__row">
+            <button type="button" className="btn btn--ghost" onClick={() => setConfirming(null)}>Cancel</button>
+            <button type="button" className="btn" disabled={busy !== null} onClick={() => { if (confirming) void resetPassword(confirming); }}>Yes, reset it</button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

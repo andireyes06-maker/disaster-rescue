@@ -8,6 +8,7 @@ import RequiredMark, { RequiredNote } from '../../components/RequiredMark';
 import MotionForm from '../../components/MotionForm';
 import { approximatePlaceName } from '../../lib/placeName';
 import FieldError from '../../components/FieldError';
+import Avatar from '../../components/Avatar';
 import EmptyState from '../../components/calm/EmptyState';
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useForm } from 'react-hook-form';
@@ -58,6 +59,7 @@ interface StaffMember {
   role: string;
   active: boolean;
   team?: string | null;
+  photo?: { url?: string | null } | null;
 }
 
 const ROLE_LABEL: Record<string, string> = { responder: 'Rescuer', admin: 'Administrator' };
@@ -67,7 +69,7 @@ function TeamMembers({ team, members }: { team: Team; members: StaffMember[] }) 
   return (
     <ul className="team-members" aria-label={`Members of ${team.name}`}>
       {members.map((m) => (
-        <li key={m.uid}><strong>{m.name || m.email || 'Unnamed'}</strong> <small>{ROLE_LABEL[m.role] ?? m.role}</small></li>
+        <li key={m.uid}><Avatar name={m.name || m.email} photoUrl={m.photo?.url ?? null} size={24} /><strong>{m.name || m.email || 'Unnamed'}</strong> <small>{ROLE_LABEL[m.role] ?? m.role}</small></li>
       ))}
     </ul>
   );
@@ -242,6 +244,7 @@ export default function TeamsPage() {
   const [query, setQuery] = useState('');
   const [creating, setCreating] = useState(false);
   const [availability, setAvailability] = useState('');
+  const [identity, setIdentity] = useState('');
   const [teams, setTeams] = useState<Team[] | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -303,7 +306,7 @@ export default function TeamsPage() {
     }
   }
 
-  const visibleTeams = teams?.filter(team => team.name.toLowerCase().includes(query.trim().toLowerCase()) && (!availability || (availability === 'busy') === team.busy));
+  const visibleTeams = teams?.filter(team => team.name.toLowerCase().includes(query.trim().toLowerCase()) && (!availability || (availability === 'busy') === team.busy) && (!identity || (team.kind ?? 'Rescue') === identity));
   return (
     <div className="teams-workspace">
       {teams && <dl className="analytics-summary"><div><dt>Rescue teams</dt><dd>{teams.length}</dd></div><div><dt>Available</dt><dd>{teams.filter((team) => !team.busy).length}</dd></div><div><dt>On assignment</dt><dd>{teams.filter((team) => team.busy).length}</dd></div></dl>}
@@ -363,9 +366,10 @@ export default function TeamsPage() {
         <div className="management-search">
           <div><label htmlFor="team-search">Find a team</label><input id="team-search" type="search" placeholder="Search team names" value={query} onChange={event => setQuery(event.target.value)} /></div>
           <div><label htmlFor="team-availability">Availability</label><select id="team-availability" value={availability} onChange={event => setAvailability(event.target.value)}><option value="">All teams</option><option value="available">Available</option><option value="busy">On assignment</option></select></div>
+          <div><label htmlFor="team-identity-filter">Filter by identity</label><select id="team-identity-filter" value={identity} onChange={event => setIdentity(event.target.value)}><option value="">All identities</option>{['PNP', 'BFP', 'Rescue', 'Medical', 'MDDRMO', 'Other'].map(k => <option key={k} value={k}>{k}</option>)}</select></div>
         </div>
         <p className="management-result-count" role="status">Showing {visibleTeams?.length} of {teams.length} teams</p>
-        {visibleTeams?.length === 0 && <EmptyState title="No matching teams" body="Try a different team name or availability." action={<button type="button" className="btn btn--ghost" onClick={() => { setQuery(''); setAvailability(''); document.getElementById('team-search')?.focus(); }}>Clear team filters</button>} />}
+        {visibleTeams?.length === 0 && <EmptyState title="No matching teams" body="Try a different team name, availability or identity." action={<button type="button" className="btn btn--ghost" onClick={() => { setQuery(''); setAvailability(''); setIdentity(''); document.getElementById('team-search')?.focus(); }}>Clear team filters</button>} />}
       </>}
       {visibleTeams && visibleTeams.length > 0 && (
         <ul className="management-list" aria-label="Teams">

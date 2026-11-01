@@ -245,13 +245,13 @@ List<ReportSummary> sortNewestFirst(Iterable<ReportSummary> items) {
   return list;
 }
 
-final _phonePattern = RegExp(r'^(?=(?:\D*\d){7,15}\D*$)[0-9+()\-\s]{7,25}$');
+final _phonePattern = RegExp(r'^(?:\+?63|0)[\s\-()]*9(?:[\s\-()]*\d){9}$');
 
 String? validatePhone(String? v) {
   final t = (v ?? '').trim();
   if (t.isEmpty) return 'Enter a phone number we can call.';
   if (!_phonePattern.hasMatch(t)) {
-    return 'Use 7 to 15 digits. You may use + ( ) - and spaces.';
+    return 'Enter an 11-digit mobile number, like 09171234567.';
   }
   return null;
 }

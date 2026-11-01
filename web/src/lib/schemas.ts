@@ -59,15 +59,15 @@ export const staffAccountSchema = z.object({
 
 export type StaffAccount = z.infer<typeof staffAccountSchema>;
 
-// Same phone rule as the API (PHONE_RE in api/src/domain/validation.js).
-export const PHONE_PATTERN = /^(?=(?:\D*\d){7,15}\D*$)[0-9+()\-\s]{7,25}$/;
+// Philippine mobile number: 11 digits starting with 09 (or +63 then 10 digits); spaces and dashes are allowed. Same rule as the API (PHONE_RE in api/src/domain/validation.js).
+export const PHONE_PATTERN = /^(?:\+?63|0)[\s\-()]*9(?:[\s\-()]*\d){9}$/;
 export const HOTLINE_PATTERN = /^(?=(?:\D*\d){3,15}\D*$)[0-9+()\-\s]{3,40}$/;
 
 export const residentSignUpSchema = z
   .object({
     name: z.string().trim().min(1, { error: 'Enter your name.' }).max(100, { error: 'Name can be at most 100 characters.' }),
     email: z.string().trim().email({ error: 'Enter a valid email.' }),
-    phone: z.string().trim().regex(PHONE_PATTERN, { error: 'Enter a valid phone number.' }),
+    phone: z.string().trim().regex(PHONE_PATTERN, { error: 'Enter an 11-digit mobile number, like 09171234567.' }),
     password: z.string().min(8, { error: 'Password must be at least 8 characters.' }).max(128, { error: 'Password is too long.' }),
     confirmPassword: z.string().min(1, { error: 'Confirm your password.' }),
   })

@@ -131,16 +131,16 @@ describe('PATCH /api/users/:id guards', () => {
 describe('POST /api/users/self', () => {
   it('empty body creates a resident with users doc and claims {role, active:true}', async () => {
     const t = makeTestApp();
-    const res = await self(t, 'Bearer new:u-new-1:ana.cruz@x.test', { phone: '+1 555 010 0111' });
+    const res = await self(t, 'Bearer new:u-new-1:ana.cruz@x.test', { phone: '0917 000 0111' });
     expect(res.status).toBe(201);
-    expect(await t.repo.getUser('u-new-1')).toMatchObject({ role: 'resident', active: true, name: 'ana.cruz', phone: '+1 555 010 0111' });
+    expect(await t.repo.getUser('u-new-1')).toMatchObject({ role: 'resident', active: true, name: 'ana.cruz', phone: '0917 000 0111' });
     expect(await t.repo.getUser('u-new-1')).toHaveProperty('createdAt');
     expect(t.auth.calls.setCustomUserClaims.at(-1)).toEqual({ uid: 'u-new-1', claims: { role: 'resident', active: true } });
   });
 
   it('name defaults to "Resident" when the token has no email; sanitized name and phone are stored', async () => {
     const t = makeTestApp();
-    await self(t, 'Bearer new:u-anon', { phone: '+1 555 010 0112' });
+    await self(t, 'Bearer new:u-anon', { phone: '0917 000 0112' });
     expect((await t.repo.getUser('u-anon')).name).toBe('Resident');
     const res = await self(t, 'Bearer new:u-x:x@x.test', { name: ' <b>Ana</b> ', phone: '0917 123 4567' });
     expect(res.status).toBe(201);
@@ -150,7 +150,7 @@ describe('POST /api/users/self', () => {
   it('second call for the same account is idempotent: 200 and claims re-set', async () => {
     const t = makeTestApp();
     const token = 'Bearer new:u-2:two@x.test';
-    expect((await self(t, token, { phone: '+1 555 010 0113' })).status).toBe(201);
+    expect((await self(t, token, { phone: '0917 000 0113' })).status).toBe(201);
     const again = await self(t, token);
     expect(again.status).toBe(200);
     expect(t.auth.calls.setCustomUserClaims.at(-1).claims).toEqual({ role: 'resident', active: true });
@@ -197,6 +197,9 @@ describe('POST /api/users/self', () => {
     expect((await self(t, 'Bearer new:u-3', { name: '<i></i>' })).status).toBe(400);
     expect((await self(t, 'Bearer new:u-3', { name: 'x'.repeat(101) })).status).toBe(400);
     expect((await self(t, 'Bearer new:u-3', { phone: 'call me' })).status).toBe(400);
+    expect((await self(t, 'Bearer new:u-3', { phone: '123456789012345' })).status).toBe(400);
+    expect((await self(t, 'Bearer new:u-3', { phone: '0917123456' })).status).toBe(400);
+    expect((await self(t, 'Bearer new:u-3', { phone: '+1 555 010 0111' })).status).toBe(400);
     expect(await t.repo.getUser('u-3')).toBeNull();
   });
 

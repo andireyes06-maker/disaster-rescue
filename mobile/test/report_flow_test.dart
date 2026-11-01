@@ -86,7 +86,10 @@ void main() {
   group('validators', () {
     test('phone', () {
       expect(validatePhone('+63 912 345 6789'), isNull);
-      expect(validatePhone('(02) 8123-4567'), isNull);
+      expect(validatePhone('0917-123-4567'), isNull);
+      expect(validatePhone('(02) 8123-4567'), isNotNull, reason: 'landlines are not accepted');
+      expect(validatePhone('123456789012345'), isNotNull, reason: '15 digits is too long');
+      expect(validatePhone('0917123456'), isNotNull, reason: '10 digits is too short');
       expect(validatePhone(''), isNotNull);
       expect(validatePhone('abc12345'), isNotNull);
       expect(validatePhone('123'), isNotNull);
@@ -232,7 +235,7 @@ void main() {
     await t.pumpAndSettle();
     expect(find.text('Step 3 of 4'), findsOneWidget);
     expect(find.textContaining('at least 3'), findsOneWidget);
-    expect(find.textContaining('7 to 15 digits'), findsOneWidget);
+    expect(find.textContaining('11-digit mobile number'), findsOneWidget);
   });
 
   testWidgets('contact is prefilled from the profile', (t) async {

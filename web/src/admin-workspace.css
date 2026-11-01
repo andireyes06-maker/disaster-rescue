@@ -113,7 +113,7 @@
  .shell[data-workspace="admin"] .analytics-summary > div { padding-inline: 20px; }
 }
 .shell[data-workspace="admin"] .management-toolbar p a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
-.team-members li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
+.team-members li { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 @media (max-width: 639px) {
  .shell[data-workspace="admin"] .analytics-summary { gap: 0; }
  .shell[data-workspace="admin"] .analytics-summary > div { padding-inline: 8px; }
