@@ -125,4 +125,13 @@ describe('responder update photos', () => {
     expect(none.body.error ?? none.body.code).toMatch(/location_required/);
     expect((await t.repo.getReport(id)).status).toBe('Rescue in Progress');
   });
+
+  it('records the claimed position and distance in the audit log', async () => {
+    const { send, t } = await setup();
+    expect((await send().send({ position: { lat: 14.8522, lng: 120.8123 }, status: 'Rescue in Progress', peopleRescued: 1 })).status).toBe(200);
+    const rows = (await t.repo.listAudit({})).filter((r) => r.action === 'report.update');
+    expect(rows).toHaveLength(1);
+    expect(rows[0].after).toMatchObject({ claimedDistanceM: expect.any(Number), claimedReachM: 500, claimedPosition: { lat: 14.8522, lng: 120.8123 } });
+    expect(rows[0].after.claimedDistanceM).toBeGreaterThan(100);
+  });
 });

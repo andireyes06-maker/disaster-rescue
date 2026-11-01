@@ -140,7 +140,7 @@ export async function addUpdate({ repo, uploader }, user, id, body, idempotencyK
   const note = sanitizeText(body?.note ?? '', 1000);
   validatePhotos(files);
   // Updates, including Resolved, only count from within the report's danger radius. Checked before any photo bytes are uploaded.
-  assertWithinReach(report, body?.position);
+  const claimed = assertWithinReach(report, body?.position);
 
   // Refusals that depend only on the current report are decided before any bytes are sent.
   if (report.status !== status) assertTransition(report.status, status, user.role);
@@ -158,7 +158,7 @@ export async function addUpdate({ repo, uploader }, user, id, body, idempotencyK
   const update = { kind: 'status', status, note, peopleRescued, byUid: user.uid, at: new Date(), ...(uploaded.length ? { photos: uploaded.map(({ publicId, ...photo }) => photo) } : {}) };
   const effects = mutationEffects([
     ...(report.status !== status ? [{ actorUid: user.uid, action: 'status.change', reportId: id, before: { status: report.status }, after: { status } }] : []),
-    { actorUid: user.uid, action: 'report.update', reportId: id, before: { status: report.status }, after: { status, peopleRescued } },
+    { actorUid: user.uid, action: 'report.update', reportId: id, before: { status: report.status }, after: { status, peopleRescued, claimedDistanceM: claimed.distanceM, claimedReachM: claimed.reachM, claimedPosition: claimed.position } },
   ]);
   // Anything that stops the update from being recorded (a refused change, a replay that won the race) takes
   // this attempt's uploads down with it, so no photo is left without an update.

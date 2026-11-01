@@ -18,14 +18,17 @@ export function parsePosition(raw) {
 }
 
 // A responder may update a report only from within the danger radius the resident gave for it.
+// Returns the position the device claimed and its distance, so the caller can record them: the position comes from the
+// caller's own device, so it is evidence for an audit, not proof of where the responder was.
 export function assertWithinReach(report, rawPosition) {
   const position = parsePosition(rawPosition);
   if (!position) throw new HttpError(400, 'location_required', 'Your location is needed to post an update. Turn on location and try again.');
   const loc = report?.location;
-  if (!loc || !Number.isFinite(loc.lat) || !Number.isFinite(loc.lng)) return;
+  if (!loc || !Number.isFinite(loc.lat) || !Number.isFinite(loc.lng)) return { position, distanceM: null, reachM: null };
   const reach = Number.isFinite(report.affectedRadiusM) && report.affectedRadiusM > 0 ? report.affectedRadiusM : DEFAULT_REACH_M;
   const away = Math.round(haversineMeters(position, loc));
   if (away > reach) {
     throw new HttpError(403, 'too_far', `You are about ${away} m from this incident. Move within ${reach} m of it to post an update.`);
   }
+  return { position, distanceM: away, reachM: reach };
 }
