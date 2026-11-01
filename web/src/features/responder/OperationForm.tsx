@@ -49,6 +49,8 @@ function errorText(err: unknown, reportId: string): ReactNode {
   if (failure) {
     if (failure.status === 404) return 'This report is no longer assigned to your team.';
     if (failure.status === 409) return 'This report can no longer be updated. Reload the page to see its latest status.';
+    if (failure.code === 'too_far') return 'You are too far from this incident. Move within its danger radius, then send the update again.';
+    if (failure.code === 'location_required') return LOCATION_NOT_SENT_MESSAGE;
     if (failure.status === 403) return 'You do not have permission to do that.';
   }
   if (isUncertain(err)) return unconfirmedCopy(reportId);

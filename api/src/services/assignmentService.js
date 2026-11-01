@@ -6,6 +6,7 @@ import { sanitizeText, isSafeId, validatePhotos } from '../domain/validation.js'
 import { newAssetId } from '../domain/photoLedger.js';
 import { load, transition, notFound, conflict } from './reviewService.js';
 import { isAssignedTo, teamIdsOf } from '../domain/assignedTeams.js';
+import { assertWithinReach } from '../domain/reach.js';
 
 const MAX_TEAMS = 10;
 
@@ -138,6 +139,8 @@ export async function addUpdate({ repo, uploader }, user, id, body, idempotencyK
   }
   const note = sanitizeText(body?.note ?? '', 1000);
   validatePhotos(files);
+  // Updates, including Resolved, only count from within the report's danger radius. Checked before any photo bytes are uploaded.
+  assertWithinReach(report, body?.position);
 
   // Refusals that depend only on the current report are decided before any bytes are sent.
   if (report.status !== status) assertTransition(report.status, status, user.role);

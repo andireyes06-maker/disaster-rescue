@@ -633,6 +633,8 @@ class ProgressEntry {
       note: data['note'] is String ? data['note'] as String : '',
       at: at is Timestamp ? at.toDate() : null,
     );
+        if (lat != null && lng != null)
+          'position': jsonEncode({'lat': lat, 'lng': lng}),
   }
 }
 

@@ -9,6 +9,8 @@ const base = {
   contact: { name: 'Ana', phone: '09171234567' }, reporterId: 'res-1', photos: [], reference: 'DR-AAAAAA', assignedTeamId: 'tA', assignedTeamIds: ['tA'],
 };
 
+const POS = { lat: 14.8512, lng: 120.8123 };
+
 async function setup() {
   const t = makeTestApp();
   await t.repo.saveTeam('tA', { name: 'Team A', busy: true });
@@ -17,12 +19,12 @@ async function setup() {
   const send = () => request(t.app).post(`/api/reports/${id}/updates`).set('Authorization', t.as('responder', 'rsp-a'));
   return { t, id, send };
 }
-const form = (r) => r.field('status', 'Rescue in Progress').field('peopleRescued', '3').field('note', 'Boat arrived');
+const form = (r) => r.field('position', JSON.stringify(POS)).field('status', 'Rescue in Progress').field('peopleRescued', '3').field('note', 'Boat arrived');
 
 describe('responder update photos', () => {
   it('an update without a photo still succeeds (JSON)', async () => {
     const { send, t, id } = await setup();
-    const res = await send().send({ status: 'Rescue in Progress', peopleRescued: 2, note: 'x' });
+    const res = await send().send({ position: POS, status: 'Rescue in Progress', peopleRescued: 2, note: 'x' });
     expect(res.status).toBe(200);
     const [u] = (await t.repo.listUpdates(id)).filter((x) => x.kind === 'status');
     expect(u.photos ?? []).toEqual([]);
@@ -64,7 +66,7 @@ describe('responder update photos', () => {
 
   it('a bad status removes nothing and uploads nothing', async () => {
     const { send, t } = await setup();
-    const res = await send().field('status', 'Nope').field('peopleRescued', '1').attach('photos', png(), { filename: 'a.png', contentType: 'image/png' });
+    const res = await send().field('position', JSON.stringify(POS)).field('status', 'Nope').field('peopleRescued', '1').attach('photos', png(), { filename: 'a.png', contentType: 'image/png' });
     expect(res.status).toBe(400);
     expect(t.uploader.calls).toHaveLength(0);
   });
@@ -97,7 +99,7 @@ describe('responder update photos', () => {
     const { t } = await setup();
     const id = await t.repo.createReport({ ...base, status: 'Team Assigned' });
     const res = await request(t.app).post(`/api/reports/${id}/updates`).set('Authorization', t.as('responder', 'rsp-a'))
-      .field('status', 'Resolved').field('peopleRescued', '1').attach('photos', png(), { filename: 'a.png', contentType: 'image/png' });
+      .field('position', JSON.stringify(POS)).field('status', 'Resolved').field('peopleRescued', '1').attach('photos', png(), { filename: 'a.png', contentType: 'image/png' });
     expect(res.status).toBe(409);
     expect(t.uploader.calls).toHaveLength(0);
   });
@@ -110,6 +112,17 @@ describe('responder update photos', () => {
     expect(codes).toContain(429);
     expect(codes.slice(0, 5).every((c) => c === 200)).toBe(true);
     // A plain JSON update is not counted against the photo limit.
-    expect((await send().send({ status: 'Rescue in Progress', peopleRescued: 1 })).status).toBe(200);
+    expect((await send().send({ position: POS, status: 'Rescue in Progress', peopleRescued: 1 })).status).toBe(200);
+  });
+
+  it('refuses an update from outside the danger radius, and one with no location', async () => {
+    const { send, t, id } = await setup();
+    const far = await send().send({ position: { lat: 14.8882, lng: 120.8123 }, status: 'Resolved', peopleRescued: 1 });
+    expect(far.status).toBe(403);
+    expect(far.body.error ?? far.body.code).toMatch(/too_far/);
+    const none = await send().send({ status: 'Resolved', peopleRescued: 1 });
+    expect(none.status).toBe(400);
+    expect(none.body.error ?? none.body.code).toMatch(/location_required/);
+    expect((await t.repo.getReport(id)).status).toBe('Rescue in Progress');
   });
 });
