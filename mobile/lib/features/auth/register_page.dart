@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth/auth_controller.dart';
+import '../../data/report_models.dart' show validatePhone;
 import 'auth_widgets.dart';
 import '../../theme/product_widgets.dart';
 
@@ -97,10 +98,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 keyboardType: TextInputType.phone,
                 autofillHints: const [AutofillHints.telephoneNumber],
                 decoration: const InputDecoration(labelText: 'Phone number'),
-                validator: (v) =>
-                    (v == null || v.replaceAll(RegExp(r'\D'), '').length < 7)
+                // The same rule as the report form and the server: an 11-digit Philippine mobile number.
+                validator: (v) => (v == null || v.trim().isEmpty)
                     ? 'Enter a phone number so responders can reach you.'
-                    : null,
+                    : validatePhone(v),
               ),
               const SizedBox(height: 16),
               PasswordField(

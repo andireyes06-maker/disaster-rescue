@@ -177,4 +177,24 @@ void main() {
     await t.pump();
     expect(button().onPressed, isNotNull);
   });
+
+  testWidgets('register refuses a phone number that is not an 11-digit PH mobile number', (t) async {
+    await t.pumpWidget(host(c, const RegisterPage()));
+    await t.enterText(find.widgetWithText(TextFormField, 'Full name *'), 'Ana');
+    await t.enterText(find.widgetWithText(TextFormField, 'Email *'), 'a@b.c');
+    await t.enterText(find.widgetWithText(TextFormField, 'Phone number'), '123456789012345');
+    await t.enterText(find.widgetWithText(TextFormField, 'Password *'), 'longenough1');
+    await t.ensureVisible(find.byType(Checkbox));
+    await t.tap(find.byType(Checkbox));
+    await t.pump();
+    final submit = find.widgetWithText(FilledButton, 'Create account');
+    await t.ensureVisible(submit);
+    await t.tap(submit);
+    await t.pump();
+    expect(find.textContaining('11-digit mobile number'), findsOneWidget);
+    await t.enterText(find.widgetWithText(TextFormField, 'Phone number'), '0917 123 4567');
+    await t.tap(submit);
+    await t.pump();
+    expect(find.textContaining('11-digit mobile number'), findsNothing);
+  });
 }
