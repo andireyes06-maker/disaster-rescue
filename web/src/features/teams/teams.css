@@ -5,3 +5,6 @@
 .hq-map { margin-block: 8px; }
 
 .team-kind { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; background: var(--color-paper); color: var(--color-muted); font-size: 0.75rem; font-weight: 600; }
+
+/* Name search, availability and identity sit on one row on a wide screen. */
+@media (min-width: 720px) { .management-search--teams { grid-template-columns: minmax(180px,1fr) minmax(140px,200px) minmax(140px,200px); } }

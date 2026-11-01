@@ -363,7 +363,7 @@ export default function TeamsPage() {
         <EmptyState title="No teams yet" body="Choose Create team to add the first rescue team." />
       )}
       {teams && teams.length > 0 && <>
-        <div className="management-search">
+        <div className="management-search management-search--teams">
           <div><label htmlFor="team-search">Find a team</label><input id="team-search" type="search" placeholder="Search team names" value={query} onChange={event => setQuery(event.target.value)} /></div>
           <div><label htmlFor="team-availability">Availability</label><select id="team-availability" value={availability} onChange={event => setAvailability(event.target.value)}><option value="">All teams</option><option value="available">Available</option><option value="busy">On assignment</option></select></div>
           <div><label htmlFor="team-identity-filter">Filter by identity</label><select id="team-identity-filter" value={identity} onChange={event => setIdentity(event.target.value)}><option value="">All identities</option>{['PNP', 'BFP', 'Rescue', 'Medical', 'MDDRMO', 'Other'].map(k => <option key={k} value={k}>{k}</option>)}</select></div>
