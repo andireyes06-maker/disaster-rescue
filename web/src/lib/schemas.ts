@@ -60,7 +60,7 @@ export const staffAccountSchema = z.object({
 export type StaffAccount = z.infer<typeof staffAccountSchema>;
 
 // Philippine mobile number: 11 digits starting with 09 (or +63 then 10 digits); spaces and dashes are allowed. Same rule as the API (PHONE_RE in api/src/domain/validation.js).
-export const PHONE_PATTERN = /^(?:\+?63|0)[\s\-()]*9(?:[\s\-()]*\d){9}$/;
+export const PHONE_PATTERN = /^(?=.{10,25}$)(?:\+?63|0)[\s\-()]*9(?:[\s\-()]*\d){9}$/;
 export const HOTLINE_PATTERN = /^(?=(?:\D*\d){3,15}\D*$)[0-9+()\-\s]{3,40}$/;
 
 export const residentSignUpSchema = z

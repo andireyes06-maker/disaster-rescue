@@ -245,7 +245,7 @@ List<ReportSummary> sortNewestFirst(Iterable<ReportSummary> items) {
   return list;
 }
 
-final _phonePattern = RegExp(r'^(?:\+?63|0)[\s\-()]*9(?:[\s\-()]*\d){9}$');
+final _phonePattern = RegExp(r'^(?=.{10,25}$)(?:\+?63|0)[\s\-()]*9(?:[\s\-()]*\d){9}$');
 
 String? validatePhone(String? v) {
   final t = (v ?? '').trim();

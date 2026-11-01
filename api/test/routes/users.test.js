@@ -200,6 +200,7 @@ describe('POST /api/users/self', () => {
     expect((await self(t, 'Bearer new:u-3', { phone: '123456789012345' })).status).toBe(400);
     expect((await self(t, 'Bearer new:u-3', { phone: '0917123456' })).status).toBe(400);
     expect((await self(t, 'Bearer new:u-3', { phone: '+1 555 010 0111' })).status).toBe(400);
+    expect((await self(t, 'Bearer new:u-3', { phone: '0917' + ' '.repeat(40) + '1234567' })).status).toBe(400);
     expect(await t.repo.getUser('u-3')).toBeNull();
   });
 
