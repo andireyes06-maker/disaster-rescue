@@ -189,3 +189,8 @@ Responders can attach up to five photos to an update, and the photos are optiona
 
 ## 29 October 2026: launch privacy wording
 Only profile.png changed. The privacy paragraph now names administrators and assigned responders, matching current authorization, instead of retired dispatcher/disaster-office roles. The rendered candidate and isolated diff were viewed before promotion. Only the privacy paragraph pixels change; the account card, header and controls below remain unchanged. No new permission or policy was invented. This is a local visual review, not owner policy approval or physical-device evidence.
+
+
+## 30 October 2026: personal profile heading and responder team identity
+
+Owner requested the actual name instead of Your account and the responder’s team name and identity. Viewed the candidate resident profile.png and new responder-profile.png at390x844 before promotion. The name is now the heading, the duplicate Name row is removed, and the responder card includes Team and Team identity. The Privacy heading can wrap at200% text. Login and register candidates remained byte-identical and were not changed. Golden SHA256SUMS now includes16 images. Team Guiguinto/Medical is controlled fake data for visual testing, not an assertion about a hosted account. No physical-device or real provider behavior is certified by these images.

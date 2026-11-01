@@ -121,19 +121,23 @@ class FakeHotlines implements HotlineRepository {
 
 class FakeProfiles implements ProfileRepository {
   Profile? profile = const Profile(name: 'Ana Reyes', phone: '0917 123 4567');
+  Future<Profile?> Function(String uid)? loadOverride;
   @override
-  Future<Profile?> load(String uid) async => profile;
+  Future<Profile?> load(String uid) async =>
+      loadOverride == null ? profile : await loadOverride!(uid);
 
   // Profile photo: records what was sent and can be set to fail.
   final uploaded = <PickedPhoto>[];
   String nextPhotoUrl = 'https://img.example/new.jpg';
   Object? photoError;
+  Completer<String>? photoPending;
   int removeCalls = 0;
   Object? removeError;
   @override
   Future<String> setPhoto(PickedPhoto photo) async {
     if (photoError != null) throw photoError!;
     uploaded.add(photo);
+    if (photoPending != null) return photoPending!.future;
     return nextPhotoUrl;
   }
 
@@ -202,6 +206,17 @@ PickedPhoto photo(String name) =>
     PickedPhoto(name: name, bytes: jpegBytes(), mime: 'image/jpeg');
 
 class FakeResponderRepository implements ResponderRepository {
+  final ownTeams = <String, StreamController<ResponderTeam?>>{};
+  final ownTeamRequests = <String>[];
+  @override
+  Stream<ResponderTeam?> watchOwnTeam(String teamId) {
+    ownTeamRequests.add(teamId);
+    return ownTeams.putIfAbsent(
+      teamId,
+      () => StreamController<ResponderTeam?>.broadcast(),
+    ).stream;
+  }
+
   final closed = StreamController<List<AssignedReport>>.broadcast();
   TeamSummary summary = const TeamSummary(
     total: 3,
@@ -397,6 +412,9 @@ class Env {
     reports.controller.close();
     responder.assigned.close();
     responder.closed.close();
+    for (final controller in responder.ownTeams.values) {
+      controller.close();
+    }
     notifications.controller.close();
   }
 }

@@ -358,6 +358,31 @@ class FirestoreHotlineRepository implements HotlineRepository {
 
 // ---------- Responder ----------
 
+/// The readable identity of the signed-in responder's own team.
+class ResponderTeam {
+  const ResponderTeam({required this.name, required this.identity});
+  final String name;
+  final String identity;
+
+  factory ResponderTeam.fromJson(Map<String, dynamic> json) {
+    final rawName = json['name'];
+    final rawKind = json['kind'];
+    final rawLabel = json['kindLabel'];
+    final name = rawName is String ? rawName.trim() : '';
+    final kind = rawKind is String ? rawKind.trim() : '';
+    final label = rawLabel is String ? rawLabel.trim() : '';
+    return ResponderTeam(
+      name: name.isEmpty ? 'Team name not set' : name,
+      // Older teams without a kind are Rescue, matching the API contract.
+      identity: kind.isEmpty
+          ? 'Rescue'
+          : kind == 'Other' && label.isNotEmpty
+          ? label
+          : kind,
+    );
+  }
+}
+
 /// Counts for the signed-in responder's own team only. No names or contact details.
 class TeamSummary {
   const TeamSummary({
@@ -429,6 +454,10 @@ Stream<List<AssignedReport>> joinTeamStreams(
 }
 
 abstract class ResponderRepository {
+  /// Reads one team document, never the full collection. Rules restrict this
+  /// document to the responder's current team.
+  Stream<ResponderTeam?> watchOwnTeam(String teamId);
+
   /// Team totals from the API (GET /stats/team). Errors when the request fails.
   Future<TeamSummary> teamSummary();
 
@@ -465,6 +494,16 @@ class ApiResponderRepository implements ResponderRepository {
   ApiResponderRepository(this._api, this._db);
   final ApiClient _api;
   final FirebaseFirestore _db;
+
+  @override
+  Stream<ResponderTeam?> watchOwnTeam(String teamId) => _db
+      .collection('teams')
+      .doc(teamId)
+      .snapshots()
+      .map((snapshot) {
+        final data = snapshot.data();
+        return data == null ? null : ResponderTeam.fromJson(data);
+      });
 
   @override
   Future<TeamSummary> teamSummary() async {
@@ -594,6 +633,8 @@ class ApiResponderRepository implements ResponderRepository {
         'status': update.status,
         'peopleRescued': update.peopleRescued.toString(),
         'note': update.note,
+        if (lat != null && lng != null)
+          'position': jsonEncode({'lat': lat, 'lng': lng}),
       },
       files: [
         for (final p in photos)
@@ -633,8 +674,6 @@ class ProgressEntry {
       note: data['note'] is String ? data['note'] as String : '',
       at: at is Timestamp ? at.toDate() : null,
     );
-        if (lat != null && lng != null)
-          'position': jsonEncode({'lat': lat, 'lng': lng}),
   }
 }
 

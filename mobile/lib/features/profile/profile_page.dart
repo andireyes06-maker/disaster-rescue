@@ -8,6 +8,7 @@ import '../../data/report_models.dart';
 import '../../data/services.dart';
 import '../auth/auth_widgets.dart';
 import 'change_password_dialog.dart';
+import 'responder_team_details.dart';
 import '../../theme/product_widgets.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/user_avatar.dart';
@@ -48,6 +49,21 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _photoBusy = false;
   String _photoStatus = '';
   bool _photoFailed = false;
+  int _identityEpoch = 0;
+
+  @override
+  void didUpdateWidget(covariant ProfilePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.user.uid != widget.user.uid) {
+      _identityEpoch++;
+      _profile = context.read<ProfileRepository>().load(widget.user.uid);
+      _photoChanged = false;
+      _photoUrl = null;
+      _photoBusy = false;
+      _photoStatus = '';
+      _photoFailed = false;
+    }
+  }
 
   void _say(String message, {bool failed = false}) {
     _photoStatus = message;
@@ -56,6 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> _changePhoto() async {
     if (_photoBusy) return;
+    final epoch = _identityEpoch;
     final photos = context.read<PhotoService>();
     final profiles = context.read<ProfileRepository>();
     setState(() {
@@ -67,14 +84,14 @@ class _ProfilePageState extends State<ProfilePage> {
       // Gallery only: the profile photo adds no new camera use.
       picked = await photos.pick(1);
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted || epoch != _identityEpoch) return;
       setState(() {
         _photoBusy = false;
         _say('Could not open your photos. Try again.', failed: true);
       });
       return;
     }
-    if (!mounted) return;
+    if (!mounted || epoch != _identityEpoch) return;
     if (picked.isEmpty) {
       setState(() => _photoBusy = false);
       return;
@@ -91,22 +108,25 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() => _say('Saving your photo...'));
     try {
       final url = await profiles.setPhoto(photo);
-      if (!mounted) return;
+      if (!mounted || epoch != _identityEpoch) return;
       setState(() {
         _photoChanged = true;
         _photoUrl = url;
         _say('Your photo is saved.');
       });
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted || epoch != _identityEpoch) return;
       setState(() => _say(_saveFailed, failed: true));
     } finally {
-      if (mounted) setState(() => _photoBusy = false);
+      if (mounted && epoch == _identityEpoch) {
+        setState(() => _photoBusy = false);
+      }
     }
   }
 
   Future<void> _removePhoto() async {
     if (_photoBusy) return;
+    final epoch = _identityEpoch;
     final profiles = context.read<ProfileRepository>();
     setState(() {
       _photoBusy = true;
@@ -114,17 +134,19 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     try {
       await profiles.removePhoto();
-      if (!mounted) return;
+      if (!mounted || epoch != _identityEpoch) return;
       setState(() {
         _photoChanged = true;
         _photoUrl = null;
         _say('Your photo is removed.');
       });
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted || epoch != _identityEpoch) return;
       setState(() => _say(_removeFailed, failed: true));
     } finally {
-      if (mounted) setState(() => _photoBusy = false);
+      if (mounted && epoch == _identityEpoch) {
+        setState(() => _photoBusy = false);
+      }
     }
   }
 
@@ -186,7 +208,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Your account',
+                                  p?.name?.trim().isNotEmpty == true
+                                      ? p!.name!.trim()
+                                      : 'Name not set',
                                   style: Theme.of(
                                     context,
                                   ).textTheme.headlineSmall,
@@ -238,13 +262,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                       const Divider(),
                       ProductDatum(
-                        label: 'Name',
-                        value: p?.name?.isNotEmpty == true
-                            ? p!.name!
-                            : 'Not set',
-                        icon: Icons.person_outline_rounded,
-                      ),
-                      ProductDatum(
                         label: 'Email',
                         value: widget.user.email ?? 'Not set',
                         icon: Icons.alternate_email_rounded,
@@ -256,6 +273,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             : 'Not set',
                         icon: Icons.phone_outlined,
                       ),
+                      if (widget.user.role == 'responder') ...[
+                        const Divider(),
+                        ResponderTeamDetails(
+                          key: ValueKey(
+                            '${widget.user.uid}|${widget.user.team ?? ''}',
+                          ),
+                          teamId: widget.user.team,
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -272,9 +298,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             size: 21,
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            'Privacy',
-                            style: Theme.of(context).textTheme.titleMedium,
+                          Expanded(
+                            child: Text(
+                              'Privacy',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
                           ),
                         ],
                       ),
