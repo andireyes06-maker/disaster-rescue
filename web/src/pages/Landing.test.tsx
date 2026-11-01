@@ -14,7 +14,7 @@ describe('Landing', () => {
   it('keeps store badge names consistent with their visible labels', () => {
     renderLanding();
     for (const link of screen.getAllByRole('link', { name: 'Download the Android app' })) {
-      expect(link).toHaveAttribute('href', expect.stringContaining('android-online-2026-10-29-update20'));
+      expect(link).toHaveAttribute('href', expect.stringContaining('android-online-2026-11-01-update22'));
     }
     for (const badge of screen.getAllByRole('button', { name: 'Coming soon on the App Store' })) expect(badge).toBeDisabled();
   });

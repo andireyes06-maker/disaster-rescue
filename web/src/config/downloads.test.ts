@@ -6,7 +6,7 @@ it('defaults to the version-pinned owned HTTPS APK release', async () => {
   const url = new URL(ANDROID_APK_URL);
   expect(url.protocol).toBe('https:');
   expect(url.hostname).toBe('github.com');
-  expect(url.pathname).toBe('/andireyes06-maker/rescue-reports-downloads/releases/download/android-online-2026-10-29-update20/I-Report-2026-10-29-update20-online.apk');
+  expect(url.pathname).toBe('/andireyes06-maker/rescue-reports-downloads/releases/download/android-online-2026-11-01-update22/I-Report-2026-11-01-update22-online.apk');
 });
 it('retains an explicitly configured hosting download', async () => {
   vi.stubEnv('VITE_ANDROID_APK_URL', '  https://downloads.example.test/approved.apk  ');
