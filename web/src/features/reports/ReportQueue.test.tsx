@@ -192,6 +192,20 @@ describe('ReportQueue', () => {
     expect(within(inbox()).getByText('Flood A')).toBeInTheDocument();
     expect(within(inbox()).queryByText('Fire B')).toBeNull();
   });
+  it('sorts the inbox by the chosen order and keeps it in the address', async () => {
+    show([
+      makeReport({ id: 'a', description: 'Old flood', createdAt: new Date('2026-10-01T08:00:00Z') }),
+      makeReport({ id: 'b', description: 'New fire', createdAt: new Date('2026-10-03T08:00:00Z') }),
+      makeReport({ id: 'c', description: 'Middle slide', createdAt: new Date('2026-10-02T08:00:00Z') }),
+    ]);
+    const order = () => within(inbox()).getAllByRole('listitem').map((li) => li.textContent ?? '');
+    await userEvent.selectOptions(screen.getByLabelText('Sort by'), 'newest');
+    expect(order().findIndex((t) => t.includes('New fire'))).toBeLessThan(order().findIndex((t) => t.includes('Middle slide')));
+    expect(order().findIndex((t) => t.includes('Middle slide'))).toBeLessThan(order().findIndex((t) => t.includes('Old flood')));
+    await userEvent.selectOptions(screen.getByLabelText('Sort by'), 'oldest');
+    expect(order().findIndex((t) => t.includes('Old flood'))).toBeLessThan(order().findIndex((t) => t.includes('Middle slide')));
+    expect(order().findIndex((t) => t.includes('Middle slide'))).toBeLessThan(order().findIndex((t) => t.includes('New fire')));
+  });
   it('clears a search with no matches and returns focus to search', async () => {
     show(data());
     const search = screen.getByRole('searchbox', { name: 'Search reports' });

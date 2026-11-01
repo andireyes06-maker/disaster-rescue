@@ -9,7 +9,7 @@ import PriorityBadge from './PriorityBadge';
 import VerifiedBadge from './VerifiedBadge';
 import IncidentPreview from './IncidentPreview';
 import { isOpen, formatTime } from './format';
-import { orderQueue } from './queueOrder';
+import { orderQueue, sortRows, SORT_OPTIONS, isSortMode } from './queueOrder';
 import { awaitingVerify, canActOnReports } from './workflow';
 import { useAuth } from '../../auth/AuthProvider';
 import { api } from '../../api/client';
@@ -152,7 +152,7 @@ export default function ReportQueue() {
   const set = (k: keyof Filters) => (v: string) => update((p) => { if (v) p.set(k, v); else p.delete(k); });
   const setQuick = (q: Quick) => update((p) => { if (q === 'all') p.delete('quick'); else p.set('quick', q); });
   const clearAll = () => update((p) => {
-    for (const k of ['status', 'type', 'priority', 'verified', 'quick'] as const) p.delete(k);
+    for (const k of ['status', 'type', 'priority', 'verified', 'quick', 'sort'] as const) p.delete(k);
   });
 
   const activeFilters = Object.values(f).filter(Boolean).length + (quick !== 'all' ? 1 : 0);
@@ -166,12 +166,16 @@ export default function ReportQueue() {
   const viewUsesFullList = Boolean(query) || quick === 'cancelled' || viewUsesClosedList;
   const archive = viewUsesClosedList ? closedReports : everything;
   const source = viewUsesFullList ? archive.reports : reports;
-  const rows = orderQueue(source.filter((r) =>
+  const sortParam = params.get('sort');
+  const sortMode = isSortMode(sortParam) ? sortParam : '';
+  const visibleRows = source.filter((r) =>
     matchesQuery(r) && quickMatch(r, quick)
     && (!f.status || r.status === f.status)
     && (!f.type || r.type === f.type)
     && (!f.priority || r.priority === f.priority)
-    && (!f.verified || (f.verified === 'verified') === Boolean(r.verified))), isActive);
+    && (!f.verified || (f.verified === 'verified') === Boolean(r.verified)));
+  // The default keeps open reports first; a chosen sort orders the whole list the same way for every report.
+  const rows = sortMode ? sortRows(visibleRows, sortMode) : orderQueue(visibleRows, isActive);
 
   // First visible report is the default. Once chosen, the selection stays put while the list changes.
   const effectiveId = selectedId ?? rows[0]?.id ?? null;
@@ -241,6 +245,12 @@ export default function ReportQueue() {
             onChange={(e) => update((p) => { if (e.target.value) p.set('q', e.target.value); else p.delete('q'); })} />
         </div>
         <p id="inbox-search-hint" className="inbox-search-hint">Search by type, place, description, reference, or report ID.</p>
+        <div className="inbox-sort">
+          <label htmlFor="inbox-sort">Sort by</label>
+          <select id="inbox-sort" value={sortMode} onChange={(e) => update((p) => { if (e.target.value) p.set('sort', e.target.value); else p.delete('sort'); })}>
+            {SORT_OPTIONS.map(([key, text]) => <option key={key} value={key}>{text}</option>)}
+          </select>
+        </div>
         <div className="quick" role="group" aria-label="Quick views">
           {QUICK.map(([key, text]) => (
             <button key={key} type="button" className="quick__chip" aria-pressed={quick === key}

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { compareOldestFirst, orderQueue, sortQueue } from './queueOrder';
+import { compareOldestFirst, orderQueue, sortQueue, sortRows } from './queueOrder';
 
 const at = (iso: string) => new Date(iso);
 
@@ -63,5 +63,29 @@ describe('compareQueue', () => {
       { id: 'medium', priority: 'medium', createdAt: at('2026-10-01T08:00:00Z') },
     ];
     expect(sortQueue(rows).map((r) => r.id)).toEqual(['critOld', 'critNew', 'high', 'medium', 'lowOld']);
+  });
+});
+
+describe('sortRows', () => {
+  const rows = [
+    { id: 'mid', createdAt: at('2026-10-02T08:00:00Z'), priority: 'low' },
+    { id: 'new', createdAt: at('2026-10-03T08:00:00Z'), priority: 'critical' },
+    { id: 'old', createdAt: at('2026-10-01T08:00:00Z'), priority: 'medium' },
+    { id: 'none', createdAt: undefined, priority: 'high' },
+  ];
+  it('newest to oldest, with an undated report last', () => {
+    expect(sortRows(rows, 'newest').map((r) => r.id)).toEqual(['new', 'mid', 'old', 'none']);
+  });
+  it('oldest to newest, with an undated report last', () => {
+    expect(sortRows(rows, 'oldest').map((r) => r.id)).toEqual(['old', 'mid', 'new', 'none']);
+  });
+  it('priority highest or lowest first, older first inside one level', () => {
+    expect(sortRows(rows, 'priority-high').map((r) => r.id)).toEqual(['new', 'none', 'old', 'mid']);
+    expect(sortRows(rows, 'priority-low').map((r) => r.id)).toEqual(['mid', 'old', 'none', 'new']);
+  });
+  it('does not change the list it was given', () => {
+    const copy = [...rows];
+    sortRows(rows, 'newest');
+    expect(rows).toEqual(copy);
   });
 });

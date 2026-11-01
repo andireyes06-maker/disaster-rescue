@@ -51,3 +51,35 @@ export function orderQueue<T extends Queued>(rows: readonly T[], isOpenRow: (row
   });
   return [...open, ...rest];
 }
+
+// The sort the person picks above the list. The default keeps open reports first, by priority, then oldest.
+export const SORT_OPTIONS = [
+  ['', 'Priority first, then oldest'],
+  ['newest', 'Newest to oldest'],
+  ['oldest', 'Oldest to newest'],
+  ['priority-high', 'Priority: highest first'],
+  ['priority-low', 'Priority: lowest first'],
+] as const;
+export type SortMode = (typeof SORT_OPTIONS)[number][0];
+export const isSortMode = (v: string | null): v is Exclude<SortMode, ''> => SORT_OPTIONS.some(([key]) => key !== '' && key === v);
+
+// A report with no usable time goes last in either direction. Equal times fall back to the id so the order never flickers.
+const byTime = (direction: 1 | -1) => (a: Queued, b: Queued): number => {
+  const ta = timeOf(a.createdAt);
+  const tb = timeOf(b.createdAt);
+  if (ta === tb) return compareOldestFirst(a, b);
+  if (ta === Number.POSITIVE_INFINITY) return 1;
+  if (tb === Number.POSITIVE_INFINITY) return -1;
+  return ta < tb ? direction : -direction;
+};
+
+export function sortRows<T extends Queued>(rows: readonly T[], mode: Exclude<SortMode, ''>): T[] {
+  const copy = [...rows];
+  if (mode === 'newest') return copy.sort(byTime(1));
+  if (mode === 'oldest') return copy.sort(byTime(-1));
+  const sign = mode === 'priority-high' ? 1 : -1;
+  return copy.sort((a, b) => {
+    const d = priorityRank(a.priority) - priorityRank(b.priority);
+    return d !== 0 ? sign * d : byTime(-1)(a, b);
+  });
+}

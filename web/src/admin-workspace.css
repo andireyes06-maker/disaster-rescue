@@ -11,6 +11,10 @@
 .shell[data-workspace="admin"] .queue-toolbar { padding: 16px 18px 10px; }
 .shell[data-workspace="admin"] .inbox-search { padding-inline: 18px; }
 .shell[data-workspace="admin"] .inbox-search-hint { margin: 6px 18px 0; }
+.inbox-sort { display: flex; align-items: center; gap: 10px; padding: 10px 24px 0; }
+.shell[data-workspace="admin"] .inbox-sort { padding-inline: 18px; }
+.inbox-sort label { font-size: 0.8125rem; font-weight: 600; white-space: nowrap; }
+.inbox-sort select { min-height: 36px; max-width: 100%; }
 .shell[data-workspace="admin"] .quick { padding: 12px 18px; }
 .shell[data-workspace="admin"] .inbox__row { padding: 14px 18px; gap: 10px; grid-template-columns: 32px minmax(0,1fr) 156px; }
 .shell[data-workspace="admin"] .inbox__row .type-icon { width: 32px; height: 32px; }
