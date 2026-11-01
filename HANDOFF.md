@@ -1,5 +1,15 @@
 # I-Report launch handoff, 29 October 2026
 
+## Status, 1 November 2026 (newest, read this first)
+- Source `3f487c9` is on `origin/build/disaster-rescue` and deployed (Vercel web; Render API at 045a2fa, API code unchanged since).
+- Done today: team member photos and identity filter, dashboard Sort by, map under dialogs, reset-password dialog, 11-digit PH phone rule (web, API, Flutter incl. sign-up), responder danger-radius rule (`api/src/domain/reach.js`) with claimed distance in the audit log, website Download button serves APK22.
+- APK22 (versionCode 22, SHA-256 5b55453513a98fa7fc5d614f6851030f9fd1ec0b1ddc6c25d74d8e788534054e) is published as the pre-release `android-online-2026-11-01-update22` in `andireyes06-maker/rescue-reports-downloads` and is in `../FINAL-DELIVERABLES FOR I-REPORT/06-Android-App/`. It includes the still-uncommitted update21 Flutter profile files (11 files, `04-Source-Code/Profile-update22-overlay`).
+- User guide deck rebuilt (24 slides, recaptured from the running app). Capture method: Flutter web debug build from a temp copy with the emulator project renamed (the app hard-codes `demo-disaster-rescue` in emulator mode), Playwright, demo stack. Captures are in `10-Output-Portfolio/update22-captures/`.
+- Deliverables, SHA256SUMS and both zips rebuilt. Older files are in `../archive/_superseded-2026-11-01/`.
+- Not checked: a physical phone, the radius rule against the live service, Office opening the Word/PowerPoint files. The technical walkthrough video still quotes old test counts.
+- Open: accounts saved with an old phone format must enter a valid number next time; a full live data reset was requested then cancelled (nothing deleted); resident photos for responders not added (privacy rule in `api/src/domain/privacy.js`).
+- Resume prompt: "Read HANDOFF.md, then continue from the open items."
+
 ## Current source and deployment
 - Local base: `135a3ad` on `feat/ui-response-workspace-2026-10-28`, plus the uncommitted repairs below. Another session committed the earlier Codex HQ/profile/dependency work in `560e16a`, added responder photos and pushed `7e21395`; do not revert it.
 - Production web/API: `7e21395`. GitHub Vercel status and CI jobs pass; Render confirms live. Existing Vercel Git deployment belongs to `lajr-solute/disaster-rescue-web`; this CLI account cannot manage that workspace. Do not relink/create a replacement project.
@@ -24,3 +34,28 @@
 - Profile photos on administrator report screens only. Medical is team identity; Lifeline is incident type. Camera and gallery both offered; required resident evidence remains1–5 photos.
 - Fresh explicit approval for every push/deploy or production-data write. Stage named files only; never stage `docs/documentation/handoff.md`. No Android emulators; no directory-wide dart format; do not regenerate goldens without viewing; never print/commit keys.
 - User cannot use Claude now. No external Opus was run in this audit; primary local source review/testing performed. The previous source-transfer rejection was not bypassed.
+
+## Deliverables pack, 29 October 2026 (final pass)
+- Master folder: `../FINAL-DELIVERABLES FOR I-REPORT/` (b139211, APK20). Read `12-Verification/FINAL-RECONCILIATION-2026-10-29.md` first. Full pre-change copy: `../archive/FINAL-DELIVERABLES-before-restyle-2026-10-29/`.
+- Roles (owner decision): Aclon Frontend Development / Documentation; Cabuguang Backend Development / Database; De Leon Documentation / Frontend Development; Lopez Backend Development / Database Development. Applied to docs, slides, Gantt, video graphics, generators.
+- Participation film: `07-System-Videos/I-Report-Participation.mp4`, 179 s, script unchanged beside it, presentation under `07-System-Videos/Presentation/`. Editable project: `11-Editable/video/participation/` (do not run build-film.py).
+- Docs were restyled after generation (Times New Roman, justified); `npm run documents` would undo it, see `11-Editable/README.md`.
+- Open: Justine's original-script comparison needs the owner's original; audio never listened to.
+- Do not submit the older `../LAJR-Solutions-I-Report-Deliverables/` (28d78bb, update19).
+
+## Participation film v3 (2026-10-30)
+- Film rebuilt: animated dark background (no warm white), 180.1 s (3:00), screens as rounded cards with slow zoom, sliding speaker cards, live waveform, progress bar, white burned-in captions with no box.
+- Opening has a 1.5 s lead-in; closing card is 10.1 s. All speech and captions are unchanged and shifted +1.5 s (verified by silence-gap offsets).
+- Build scripts: FINAL-DELIVERABLES FOR I-REPORT/11-Editable/video/participation/recorded-clips/build3.py and burn3.py. Do not run build-film.py or npm run documents.
+- Previous 2:53 light version archived in archive/.../_superseded-participation/.
+- Open: PPTX speaker notes and PDF still say 2:56; Raymond's two clips differ from the script; nobody has watched the full film end to end.
+- Next session: 5-minute extended version (needs extended script and new clips from Airen).
+- Sync root cause (2026-10-30): ffmpeg adelay left a timestamp gap, so the lead-in silence collapsed and voices played up to 1.9 s early. Fixed with aresample=async=1:first_pts=0 at the end of the audio chain in build3.py. Speaker picture is also delayed 0.15 s (PD) because the raw clips lead by about 0.2 s. Opening now shows the full title from frame 0.
+- Covers (2026-10-30): all 9 Word/PDF documents now have a spaced front page (logo, university, college, title, subtitle, Subject, Submitted by with the four names, date, checkpoint) with no running header or footer on the cover. Built by 11-Editable/post-processing/cover.py. Originals archived in archive/.../_superseded-covers. Android guide, progress Oct 12-19 and contribution report are one page longer because the cover now has its own page. Video documentation shot rebuilt natively (docslide.py), architecture diagram redrawn (archslide.py).
+- Captions (2026-10-30): old caption times were about 0.9 s early. Rebuilt from per-clip transcripts (faster-whisper medium.en, word times) snapped to the real voice onsets in the final audio: recorded-clips/asr_clips.py then caps3.py then burn3.py. Wording is still the approved script. Two spots where both transcription models heard different words than the script, for the speakers to confirm: "one incident record" (heard "report") and "A report could reach the server" (heard "could never reach").
+
+## Final deliverables check, 1 November 2026
+- Script for the full demonstration video written: DEMO-VIDEO-SCRIPT.md (copy in 07-System-Videos/I-Report-Demonstration-Script.md). Resident scenes need the Flutter app (web /my only shows a notice). Not recorded yet.
+- Found and fixed: SUBMISSION-CHECKLIST.md was empty (my 30 Oct role fix); START-HERE APK hash was APK20's, PDF regenerated from md; film trimmed to 179.5 s (limit 3:00); presentation notes, script headings, Gantt note, schema source line, documentation deadline sentence, em/en dashes in md, spacing typos in Profile-Update21.pdf; review notes got a 1 Nov update section.
+- Open for Airen: (1) participation video deadline wording (docs follow 31 Oct 10:00 AM screenshot, which has passed; general submission is 2 Nov); (2) script and notes wording for Raymond and Franz differs from recordings; (3) two caption words to confirm by ear (record/report, could never reach); (4) nobody has watched the film with sound; Office apps not opened.
+- Packages rebuilt: both zips pass integrity, 471-file manifest verifies, zip equals folder.
