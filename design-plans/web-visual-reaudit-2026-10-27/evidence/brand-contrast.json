@@ -1,0 +1,9 @@
+{
+  "surface": "Public landing header Report portion of wordmark",
+  "foreground": "#6D28D9",
+  "background": "#241747",
+  "contrastRatio": 2.2938108662407837,
+  "sourceSelector": ".public-header .brand-lockup__light",
+  "method": "Computed colors read from Chromium DOM; standard sRGB relative-luminance calculation. Parent I- text remains white.",
+  "scope": "Specific header wordmark contrast; not a site-wide WCAG audit."
+}

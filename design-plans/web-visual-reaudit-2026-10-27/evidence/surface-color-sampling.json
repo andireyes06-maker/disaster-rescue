@@ -1,0 +1,53 @@
+{
+  "method": "Viewport workspace crop excluding 232px rail and 72px account bar; fraction with HSV value > .92 and saturation < .09. Includes light lavender, not only pure white. Screenshot-based descriptive sample, not a usability metric.",
+  "results": [
+    {
+      "screen": "admin-_admin-1440.png",
+      "lightLowSaturationPercent": 95.0
+    },
+    {
+      "screen": "admin-_analytics-1440.png",
+      "lightLowSaturationPercent": 92.1
+    },
+    {
+      "screen": "admin-_audit-1440.png",
+      "lightLowSaturationPercent": 93.2
+    },
+    {
+      "screen": "admin-_dashboard-1440.png",
+      "lightLowSaturationPercent": 85.7
+    },
+    {
+      "screen": "admin-_incidents_demo_report_01-1440.png",
+      "lightLowSaturationPercent": 88.1
+    },
+    {
+      "screen": "admin-_incidents_demo_report_17-1440.png",
+      "lightLowSaturationPercent": 93.4
+    },
+    {
+      "screen": "admin-_incidents_not_found-1440.png",
+      "lightLowSaturationPercent": 98.4
+    },
+    {
+      "screen": "admin-_map-1440.png",
+      "lightLowSaturationPercent": 34.5
+    },
+    {
+      "screen": "admin-_monitor-1440.png",
+      "lightLowSaturationPercent": 98.1
+    },
+    {
+      "screen": "admin-_teams-1440.png",
+      "lightLowSaturationPercent": 94.9
+    },
+    {
+      "screen": "admin-_users-1440.png",
+      "lightLowSaturationPercent": 95.8
+    },
+    {
+      "screen": "admin-roles-detail-1440.png",
+      "lightLowSaturationPercent": 95.6
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+before {
+  dialogs: [
+    {
+      name: 'Incident detailsOpen full reportBack to the queueFlood reportCriticalV',
+      hidden: 'true',
+      state: 'open'
+    },
+    {
+      name: 'Assign a rescue teamChoose available teams for this incident. Teams wi',
+      hidden: null,
+      state: 'open'
+    }
+  ],
+  focus: '<button type="button" class="btn btn--ghost">Close</button>'
+}
+forced-exit-after {
+  dialogs: [
+    {
+      name: 'Incident detailsOpen full reportBack to the queueFlood reportCriticalV',
+      hidden: null,
+      state: 'open'
+    }
+  ],
+  focus: '<button type="button" class="btn" aria-disabled="false" aria-busy="false">Assign team</button>',
+  pointer: 'none'
+}

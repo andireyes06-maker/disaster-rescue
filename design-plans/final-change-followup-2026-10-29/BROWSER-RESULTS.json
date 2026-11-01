@@ -1,0 +1,76 @@
+[
+  {
+    "surface": "production signed-out login",
+    "width": 390,
+    "forgotPassword": true,
+    "contactAdmin": true,
+    "overflow": false,
+    "productionWrites": false
+  },
+  {
+    "surface": "production signed-out login",
+    "width": 1440,
+    "forgotPassword": true,
+    "contactAdmin": true,
+    "overflow": false,
+    "productionWrites": false
+  },
+  {
+    "surface": "local/teams",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "surface": "local/analytics",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "surface": "local/incidents/demo-report-01",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "surface": "submitter dialog",
+    "width": 390,
+    "correctOwner": true,
+    "focusReturned": true
+  },
+  {
+    "surface": "local own-profile dialog",
+    "width": 390,
+    "changePhoto": true
+  },
+  {
+    "surface": "local/teams",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "surface": "local/analytics",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "surface": "local/incidents/demo-report-01",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "surface": "submitter dialog",
+    "width": 1440,
+    "correctOwner": true,
+    "focusReturned": true
+  },
+  {
+    "surface": "local own-profile dialog",
+    "width": 1440,
+    "changePhoto": true
+  }
+]

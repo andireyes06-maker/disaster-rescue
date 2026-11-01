@@ -1,0 +1,380 @@
+[
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/dashboard",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/incidents/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/teams",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/users",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/analytics",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/admin",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/audit",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "create-team",
+    "missingHqBlocked": true,
+    "keyboardCanSelect": true
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/dashboard",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/incidents/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/teams",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/users",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/analytics",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/admin",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/audit",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "create-team",
+    "missingHqBlocked": true,
+    "keyboardCanSelect": true
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/dashboard",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/incidents/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/teams",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/users",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/analytics",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/admin",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/audit",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "create-team",
+    "missingHqBlocked": true,
+    "keyboardCanSelect": true
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/dashboard",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/incidents/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/teams",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/users",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/analytics",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/admin",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/audit",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "create-team",
+    "missingHqBlocked": true,
+    "keyboardCanSelect": true
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/dashboard",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/incidents/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/teams",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/users",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/analytics",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/admin",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/audit",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "create-team",
+    "missingHqBlocked": true,
+    "keyboardCanSelect": true
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/dashboard",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/incidents/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/teams",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/users",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/analytics",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/admin",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/audit",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "create-team",
+    "missingHqBlocked": true,
+    "keyboardCanSelect": true
+  }
+]

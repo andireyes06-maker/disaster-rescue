@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-27",
+  "sourceHead": "a0fd159b6fe06f95b06eea8bc93e12185bcc21d0",
+  "worktree": "/Users/rien/Documents/FINAL_PROJECT/app",
+  "screens": 50,
+  "viewports": [
+    1440,
+    390
+  ],
+  "engine": "Chromium",
+  "environment": "Isolated localhost emulator stack, fictional accounts/data",
+  "codeChanged": false,
+  "productionTouched": false,
+  "testsRerun": false,
+  "notes": [
+    "50 page/state captures over 25 role/route/state combinations, including aliases and the removed monitor route. This is not 50 unique pages.",
+    "Owned populated closed-responder detail was source-reviewed, not rendered: seeded Team Alpha has no closed report. Other-team denial was rendered.",
+    "Health failure is a browser-mocked response, not a real service outage.",
+    "Normal-motion samples are not frame-time or device measurements."
+  ],
+  "sourceStart": "d643018",
+  "sourceEnd": "a0fd159",
+  "concurrentEdits": "Web report/analytics changes and login recovery removal by another session occurred during capture. Their commit status advanced while auditing. Latest targeted rechecks confirm no recovery button. Later API working changes were preserved.",
+  "sourceEndObserved": "3bba1d26fb67be66208fc0e9af5b98d1f8c012e2",
+  "supplementalCaptures": 10
+}

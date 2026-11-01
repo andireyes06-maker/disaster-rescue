@@ -1,0 +1,20 @@
+{
+  "productionUrl": "https://disaster-rescue-web.vercel.app",
+  "entryAsset": "/assets/index-CjIjaGQM.js",
+  "checkedChunks": [
+    "AssignmentMap-_5a826P8.js",
+    "IncidentMap-ByKVcN6m.js",
+    "domain-DmAaMk8X.js",
+    "reportTypes-B5V7u5-Q.js",
+    "schemas-B4DL0twV.js"
+  ],
+  "newTypeLabelsAndKeys": {
+    "Lifeline": true,
+    "Roadblock": true,
+    "Live Wire": true,
+    "medical": true,
+    "road_hazard": true,
+    "power_line": true
+  },
+  "liveApiHostPresent": true
+}

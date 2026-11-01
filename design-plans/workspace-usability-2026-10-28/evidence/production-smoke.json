@@ -1,0 +1,61 @@
+{
+  "rows": [
+    {
+      "route": "/",
+      "width": 390,
+      "url": "https://disaster-rescue-web.vercel.app/",
+      "heading": "Report clearly.Respond together.",
+      "overflow": false
+    },
+    {
+      "route": "/login",
+      "width": 390,
+      "url": "https://disaster-rescue-web.vercel.app/login",
+      "heading": "Sign in",
+      "overflow": false
+    },
+    {
+      "route": "/register",
+      "width": 390,
+      "url": "https://disaster-rescue-web.vercel.app/register",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 390,
+      "url": "https://disaster-rescue-web.vercel.app/login",
+      "heading": "Sign in",
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "url": "https://disaster-rescue-web.vercel.app/",
+      "heading": "Report clearly.Respond together.",
+      "overflow": false
+    },
+    {
+      "route": "/login",
+      "width": 1440,
+      "url": "https://disaster-rescue-web.vercel.app/login",
+      "heading": "Sign in",
+      "overflow": false
+    },
+    {
+      "route": "/register",
+      "width": 1440,
+      "url": "https://disaster-rescue-web.vercel.app/register",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false
+    },
+    {
+      "route": "/dashboard",
+      "width": 1440,
+      "url": "https://disaster-rescue-web.vercel.app/login",
+      "heading": "Sign in",
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

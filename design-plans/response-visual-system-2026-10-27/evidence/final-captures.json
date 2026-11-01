@@ -1,0 +1,42 @@
+[
+  {
+    "route": "/analytics",
+    "width": 390,
+    "tableExpanded": "",
+    "tableFocused": true
+  },
+  {
+    "route": "/analytics",
+    "width": 390,
+    "overflow": false,
+    "motionPreference": false,
+    "map": 0
+  },
+  {
+    "route": "/incidents/demo-report-17",
+    "width": 390,
+    "overflow": false,
+    "motionPreference": false,
+    "map": 1
+  },
+  {
+    "route": "/analytics",
+    "width": 1440,
+    "tableExpanded": "",
+    "tableFocused": true
+  },
+  {
+    "route": "/analytics",
+    "width": 1440,
+    "overflow": false,
+    "motionPreference": false,
+    "map": 0
+  },
+  {
+    "route": "/incidents/demo-report-17",
+    "width": 1440,
+    "overflow": false,
+    "motionPreference": false,
+    "map": 1
+  }
+]

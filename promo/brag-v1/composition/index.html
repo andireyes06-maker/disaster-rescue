@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #f5f6fa;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f5f6fa;
+        font-family: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        color: #211d35;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+      }
+      .fill {
+        position: absolute;
+        inset: 0;
+      }
+      .center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .display {
+        font-size: 150px;
+        font-weight: 750;
+        letter-spacing: -0.035em;
+        line-height: 1.02;
+        color: #211d35;
+      }
+      .display--accent {
+        color: #6d28d9;
+      }
+      .split {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        padding: 0 140px;
+        gap: 110px;
+      }
+      .split__copy {
+        flex: 0 0 640px;
+      }
+      .split__title {
+        font-size: 84px;
+        font-weight: 750;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        color: #211d35;
+      }
+      .split__body {
+        margin-top: 36px;
+        font-size: 34px;
+        line-height: 1.4;
+        color: #625e73;
+      }
+      .split__visual {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .wordmark {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        font-size: 96px;
+        font-weight: 750;
+        letter-spacing: -0.03em;
+        color: #f5f6fa;
+      }
+      .wordmark__dot {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #a78bfa;
+      }
+      .descriptor {
+        margin-top: 26px;
+        font-size: 40px;
+        color: #cfc6ee;
+      }
+      .dark {
+        background: #241747;
+      }
+
+      /* Phone */
+      .phone {
+        width: 430px;
+        height: 880px;
+        border-radius: 56px;
+        background: #211d35;
+        padding: 22px;
+        box-shadow: 0 30px 60px rgba(25, 22, 42, 0.25);
+      }
+      .phone__screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 40px;
+        background: #ffffff;
+        padding: 40px 34px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        overflow: hidden;
+      }
+      .phone__top {
+        font-size: 26px;
+        font-weight: 700;
+        color: #6d28d9;
+      }
+      .phone__title {
+        font-size: 44px;
+        font-weight: 750;
+        letter-spacing: -0.02em;
+      }
+      .phone__place {
+        font-size: 28px;
+        color: #625e73;
+      }
+      .field {
+        border: 2px solid #e5e3ed;
+        border-radius: 14px;
+        padding: 20px 22px;
+        font-size: 26px;
+        color: #211d35;
+        background: #f5f6fa;
+      }
+      .field__label {
+        font-size: 22px;
+        color: #625e73;
+        margin-bottom: 6px;
+      }
+      .pin {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 26px;
+        font-weight: 650;
+        color: #6d28d9;
+      }
+      .pin__dot {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #6d28d9;
+        box-shadow: 0 0 0 8px rgba(109, 40, 217, 0.18);
+      }
+      .photos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .photo {
+        height: 110px;
+        border-radius: 14px;
+        background: #efe8ff;
+      }
+      .photo--a {
+        background: linear-gradient(135deg, #bfd4ff, #1d4ed8);
+      }
+      .photo--b {
+        background: linear-gradient(135deg, #ffd7b8, #c2410c);
+      }
+      .photo--c {
+        background: linear-gradient(135deg, #d9d2ea, #55516b);
+      }
+      .button {
+        margin-top: auto;
+        height: 84px;
+        border-radius: 16px;
+        background: #6d28d9;
+        color: #ffffff;
+        font-size: 30px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .label-small {
+        font-size: 22px;
+        font-weight: 600;
+        color: #625e73;
+      }
+
+      /* Inbox */
+      .inbox {
+        width: 960px;
+        border-radius: 24px;
+        background: #ffffff;
+        box-shadow: 0 20px 50px rgba(25, 22, 42, 0.12);
+        padding: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .inbox__title {
+        font-size: 32px;
+        font-weight: 750;
+        display: flex;
+        justify-content: space-between;
+        color: #211d35;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        padding: 24px 26px;
+        border-radius: 16px;
+        border: 2px solid #e5e3ed;
+        background: #ffffff;
+      }
+      .row--selected {
+        border-color: #6d28d9;
+        background: #efe8ff;
+      }
+      .row__icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        flex: 0 0 56px;
+      }
+      .row__text {
+        flex: 1;
+      }
+      .row__title {
+        font-size: 32px;
+        font-weight: 700;
+      }
+      .row__meta {
+        font-size: 24px;
+        color: #625e73;
+        margin-top: 4px;
+      }
+      .badge {
+        font-size: 22px;
+        font-weight: 700;
+        padding: 10px 18px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .badge--critical {
+        background: #fff1f0;
+        color: #b42318;
+      }
+      .badge--high {
+        background: #fff4dc;
+        color: #8a5100;
+      }
+      .badge--medium {
+        background: #e0e7ff;
+        color: #4338ca;
+      }
+      .badge--validated {
+        background: #e6e4f0;
+        color: #241747;
+      }
+      .assign {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        padding: 26px;
+        border-radius: 16px;
+        background: #241747;
+        color: #cfc6ee;
+        font-size: 28px;
+      }
+      .assign__name {
+        display: block;
+        font-size: 34px;
+        font-weight: 750;
+        color: #ffffff;
+      }
+
+      /* Status history */
+      .history {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 4px;
+      }
+      .history__row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 28px;
+        color: #211d35;
+      }
+      .tick {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #6d28d9;
+        color: #ffffff;
+        font-size: 22px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 36px;
+      }
+      .update {
+        margin-top: auto;
+        padding: 22px 24px;
+        border-radius: 16px;
+        background: #efe8ff;
+        font-size: 28px;
+        font-weight: 650;
+        color: #211d35;
+      }
+
+      .hotline {
+        margin-top: 60px;
+        font-size: 40px;
+        font-weight: 600;
+        color: #8a5100;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="21"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Scene 1: hook -->
+      <section id="scene-1-hook" class="clip" data-start="0" data-duration="2.5" data-track-index="0">
+        <div class="scene" id="s1">
+          <div class="center">
+            <h1 class="display" id="s1-a">Report clearly.</h1>
+            <h1 class="display display--accent" id="s1-b">Respond together.</h1>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 2: reveal -->
+      <section id="scene-2-reveal" class="clip" data-start="2.5" data-duration="2.5" data-track-index="0">
+        <div class="scene" id="s2">
+          <div class="fill dark" id="s2-bg"></div>
+          <div class="center">
+            <div class="wordmark" id="s2-mark"><span class="wordmark__dot"></span>Rescue Reports</div>
+            <p class="descriptor" id="s2-desc">Incident reporting &amp; response</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 3: show what happened -->
+      <section id="scene-3-report" class="clip" data-start="5" data-duration="4" data-track-index="0">
+        <div class="scene" id="s3">
+          <div class="split">
+            <div class="split__copy">
+              <h2 class="split__title" id="s3-title">Show what happened</h2>
+              <p class="split__body" id="s3-body">Describe the emergency. Add photos if it is safe, and pinpoint where help is needed.</p>
+            </div>
+            <div class="split__visual">
+              <div class="phone" id="s3-phone">
+                <div class="phone__screen">
+                  <div class="phone__top">New report</div>
+                  <div class="phone__title">Flood report</div>
+                  <div class="field">
+                    <div class="field__label">Location</div>
+                    <div class="phone__place">Riverside District</div>
+                  </div>
+                  <div class="pin" id="s3-pin"><span class="pin__dot"></span>Location pinned</div>
+                  <div class="label-small">Photos (required, up to 5)</div>
+                  <div class="photos">
+                    <div class="photo photo--a" id="s3-p1"></div>
+                    <div class="photo photo--b" id="s3-p2"></div>
+                    <div class="photo photo--c" id="s3-p3"></div>
+                  </div>
+                  <div class="button">Submit report</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 4: connect the response -->
+      <section id="scene-4-response" class="clip" data-start="9" data-duration="5" data-track-index="0">
+        <div class="scene" id="s4">
+          <div class="split">
+            <div class="split__copy">
+              <h2 class="split__title" id="s4-title">Connect the response</h2>
+              <p class="split__body" id="s4-body">An administrator reviews the report, validates it by hand, and assigns a rescue team.</p>
+            </div>
+            <div class="split__visual">
+              <div class="inbox" id="s4-inbox">
+                <div class="inbox__title"><span>Incident inbox</span><span>3</span></div>
+                <div class="row row--selected" id="s4-r1">
+                  <div class="row__icon" style="background: #dce8ff"></div>
+                  <div class="row__text">
+                    <div class="row__title">Flood report</div>
+                    <div class="row__meta">Riverside District</div>
+                  </div>
+                  <span class="badge badge--critical">Critical</span>
+                </div>
+                <div class="row" id="s4-r2">
+                  <div class="row__icon" style="background: #ffe8d6"></div>
+                  <div class="row__text">
+                    <div class="row__title">Fire report</div>
+                    <div class="row__meta">Market Quarter</div>
+                  </div>
+                  <span class="badge badge--high">High</span>
+                </div>
+                <div class="row" id="s4-r3">
+                  <div class="row__icon" style="background: #e5e3ed"></div>
+                  <div class="row__text">
+                    <div class="row__title">Landslide report</div>
+                    <div class="row__meta">Hillside Road</div>
+                  </div>
+                  <span class="badge badge--medium">Medium</span>
+                </div>
+                <div class="assign" id="s4-assign">
+                  <span class="badge badge--validated">Validated</span>
+                  <span>
+                    Assigned to
+                    <span class="assign__name">Harbor Rescue Unit</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 5: stay informed -->
+      <section id="scene-5-informed" class="clip" data-start="14" data-duration="3.5" data-track-index="0">
+        <div class="scene" id="s5">
+          <div class="split">
+            <div class="split__copy">
+              <h2 class="split__title" id="s5-title">Stay informed</h2>
+              <p class="split__body" id="s5-body">Follow status changes and updates from the field through to resolution and closure.</p>
+            </div>
+            <div class="split__visual">
+              <div class="phone" id="s5-phone">
+                <div class="phone__screen">
+                  <div class="phone__top">My reports</div>
+                  <div class="phone__title">Flood report</div>
+                  <div class="phone__place">Riverside District</div>
+                  <div class="history">
+                    <div class="history__row" id="s5-h1"><span class="tick">✓</span>Report submitted</div>
+                    <div class="history__row" id="s5-h2"><span class="tick">✓</span>Validated by administrator</div>
+                    <div class="history__row" id="s5-h3"><span class="tick">✓</span>Team assigned</div>
+                    <div class="history__row" id="s5-h4"><span class="tick">•</span>Response in progress</div>
+                  </div>
+                  <div class="update" id="s5-update">Team reached the access point.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scene 6: outro -->
+      <section id="scene-6-outro" class="clip" data-start="17.5" data-duration="3.5" data-track-index="0">
+        <div class="scene" id="s6">
+          <div class="center">
+            <h1 class="display" id="s6-a" style="font-size: 112px">Report clearly. Respond together.</h1>
+            <p class="hotline" id="s6-line">If you are in danger, call your local emergency hotline.</p>
+          </div>
+        </div>
+      </section>
+
+      <audio
+        id="music"
+        data-start="0"
+        data-duration="21"
+        data-track-index="1"
+        data-volume="0.3"
+        src="assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3"
+      ></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // Scene 1: hook (0 - 2.5)
+      tl.fromTo("#s1-a", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.1);
+      tl.fromTo("#s1-b", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.6);
+      tl.to("#s1", { opacity: 0, duration: 0.3, ease: "power1.in" }, 2.2);
+
+      // Scene 2: reveal (2.5 - 5)
+      tl.fromTo("#s2-bg", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 2.5);
+      tl.fromTo("#s2-mark", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 2.8);
+      tl.fromTo("#s2-desc", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 3.2);
+      tl.to("#s2", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.6);
+
+      // Scene 3: show what happened (5 - 9)
+      tl.fromTo("#s3-title", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 5.2);
+      tl.fromTo("#s3-body", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 5.5);
+      tl.fromTo("#s3-phone", { opacity: 0, yPercent: 12 }, { opacity: 1, yPercent: 0, duration: 0.6, ease: "power3.out" }, 5.3);
+      tl.fromTo("#s3-pin", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 6.0);
+      tl.fromTo("#s3-p1", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 6.5);
+      tl.fromTo("#s3-p2", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 6.8);
+      tl.fromTo("#s3-p3", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 7.1);
+      tl.to("#s3", { opacity: 0, duration: 0.3, ease: "power1.in" }, 8.7);
+
+      // Scene 4: connect the response (9 - 14)
+      tl.fromTo("#s4-title", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 9.2);
+      tl.fromTo("#s4-body", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 9.5);
+      tl.fromTo("#s4-r1", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 9.6);
+      tl.fromTo("#s4-r2", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 10.2);
+      tl.fromTo("#s4-r3", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 10.8);
+      tl.fromTo("#s4-assign", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 11.6);
+      tl.to("#s4", { opacity: 0, duration: 0.3, ease: "power1.in" }, 13.7);
+
+      // Scene 5: stay informed (14 - 17.5)
+      tl.fromTo("#s5-title", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 14.2);
+      tl.fromTo("#s5-body", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 14.5);
+      tl.fromTo("#s5-phone", { opacity: 0, yPercent: 12 }, { opacity: 1, yPercent: 0, duration: 0.6, ease: "power3.out" }, 14.2);
+      tl.fromTo("#s5-h1", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 14.6);
+      tl.fromTo("#s5-h2", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 15.0);
+      tl.fromTo("#s5-h3", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 15.4);
+      tl.fromTo("#s5-h4", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 15.8);
+      tl.fromTo("#s5-update", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 16.3);
+      tl.to("#s5", { opacity: 0, duration: 0.3, ease: "power1.in" }, 17.2);
+
+      // Scene 6: outro (17.5 - 21)
+      tl.fromTo("#s6-a", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 17.7);
+      tl.fromTo("#s6-line", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 18.5);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

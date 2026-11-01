@@ -13,3 +13,7 @@ mobile/ios/Runner/GoogleService-Info.plist
 # Generated submission binaries and assembled delivery folders
 /artifacts/
 /submission-output/
+
+# Build leftovers
+__pycache__/
+*.tsbuildinfo

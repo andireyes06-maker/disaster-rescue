@@ -1,0 +1,75 @@
+[
+  {
+    "mode": "default-same-origin",
+    "errors": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=b4UYLHMTmDAvdyq39m6QmA%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=dkg2ugdxbj0w&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-0",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=b4UYLHMTmDAvdyq39m6QmA%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=amzjy8ps560&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=le_mg8cUMb0R8ft2KgQuzw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=t6a3lmno3gv6&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=le_mg8cUMb0R8ft2KgQuzw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=klcvikelrd6r&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=OznOm-o18DNK6fGkLhXeLw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=4c5nsbyt8e6f&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=OznOm-o18DNK6fGkLhXeLw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=bju2ieq982v8&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=EPRPFERlq8wytUZA0HZCOQ%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=y3ja2tq1vl9q&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=EPRPFERlq8wytUZA0HZCOQ%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=5i7c13wacom6&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=ptaAM3tNLf6v-L5uC0_QeA%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=jxkb7krpsnqv&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=ptaAM3tNLf6v-L5uC0_QeA%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=p79a1ce2ug06&t=2 due to access control checks."
+      }
+    ],
+    "failed": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:5638/google.firestore.v1.Firestore/Listen/channel"
+      }
+    ],
+    "finalServerSnapshots": 1
+  }
+]

@@ -1,0 +1,122 @@
+{
+  "landing": {
+    "animations": [
+      {
+        "element": "service-opening__copy",
+        "frames": [
+          {
+            "transform": "translateY(18px)"
+          },
+          {
+            "transform": "none"
+          }
+        ],
+        "options": {
+          "duration": 550,
+          "delay": 0,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "fill": "backwards"
+        }
+      },
+      {
+        "element": "response-scene response-film",
+        "frames": [
+          {
+            "opacity": 0.2,
+            "clipPath": "inset(0 0 12% 0 round 16px)",
+            "transform": "translateY(20px)"
+          },
+          {
+            "opacity": 1,
+            "clipPath": "inset(0 0 0% 0 round 16px)",
+            "transform": "none"
+          }
+        ],
+        "options": {
+          "duration": 680,
+          "delay": 100,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "fill": "backwards"
+        }
+      },
+      {
+        "element": "service-journey",
+        "frames": [
+          {
+            "opacity": 0.35,
+            "transform": "translateY(24px)"
+          },
+          {
+            "opacity": 1,
+            "transform": "none"
+          }
+        ],
+        "options": {
+          "duration": 520,
+          "delay": 0,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "fill": "backwards"
+        }
+      }
+    ],
+    "video": [
+      {
+        "src": "/media/ireport-response.mp4",
+        "muted": true,
+        "paused": false,
+        "time": 0.6473
+      }
+    ]
+  },
+  "route": [
+    {
+      "element": "shell__main",
+      "frames": [
+        {
+          "opacity": 0.25,
+          "transform": "translateY(10px)"
+        },
+        {
+          "opacity": 1,
+          "transform": "none"
+        }
+      ],
+      "options": {
+        "duration": 320,
+        "delay": 0,
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "fill": "backwards"
+      }
+    },
+    {
+      "element": "shell__main",
+      "frames": [
+        {
+          "opacity": 0.25,
+          "transform": "translateY(10px)"
+        },
+        {
+          "opacity": 1,
+          "transform": "none"
+        }
+      ],
+      "options": {
+        "duration": 320,
+        "delay": 0,
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "fill": "backwards"
+      }
+    }
+  ],
+  "bell": {
+    "waapi": [],
+    "css": [
+      {
+        "name": "notification-open",
+        "state": "finished",
+        "duration": 300
+      }
+    ]
+  },
+  "meaning": "Normal-motion Chromium samples; durations/keyframes recorded, not a frame-time or device benchmark."
+}

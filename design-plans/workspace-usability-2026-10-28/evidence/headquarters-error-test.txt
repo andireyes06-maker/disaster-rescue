@@ -1,0 +1,12 @@
+
+ RUN  v5.0.5 /Users/rien/Documents/FINAL_PROJECT/app/web
+
+
+ Test Files  2 passed (2)
+      Tests  11 passed (11)
+   Start at  01:14:52
+   Duration  5.07s (tests 35%, environment 31%, import 24%, transform 6%, setup 4%)
+
+    Isolate  2 workers spawned · ~856ms startup each (spawn + environment, per file)
+             at least ~856ms faster with isolate: false — reuses workers across files instead of one per file
+

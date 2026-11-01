@@ -1,0 +1,20 @@
+{
+  "sourceBase": "135a3ad",
+  "reportId": "JCxaO8khvpRXQxKzti7O",
+  "steps": [
+    "team and responder provisioned",
+    "resident report with photo saved",
+    "verify, assign, acknowledge",
+    "lost reply retried once, one status row, one progress photo, no repeated upload",
+    "resolve and close, owner can read receipt",
+    "other-team access refused"
+  ],
+  "attemptsWithSameKey": 2,
+  "statusRowsAfterRetry": 1,
+  "providerUploads": 2,
+  "provider": "fake, no Cloudinary request",
+  "auth": "real local emulator",
+  "database": "real local Firestore",
+  "otherTeamStatus": 404,
+  "finalStatus": "Closed"
+}

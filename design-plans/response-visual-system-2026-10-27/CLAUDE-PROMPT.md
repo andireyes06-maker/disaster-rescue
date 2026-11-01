@@ -1,0 +1,7 @@
+Review the uncommitted I-Report web visual work in /Users/rien/Documents/FINAL_PROJECT/app. Start with design-plans/response-visual-system-2026-10-27/HANDOFF.md and its evidence. Do not commit, push, merge or deploy.
+
+The owner asked for substantially more visual identity, especially incident details and Assign team. Preserve the purple/harbor I-Report identity, compact desktop controls, phone targets, current priority-first queue ordering, multi-team assignment request contract, permissions and concurrent work. Do not restore removed resident web/Monitor/password-recovery flows.
+
+Review the incident evidence/map/progress layout, assignment cards/tabs/selection/footer, centered Change password, semantic chart colors and accessible table disclosures, directories and mobile-app handoff. Check actual desktop and phone renders with normal motion. Use appropriate installed frontend/design/testing skills; disclose which were actually used. Inspect source identity before starting servers and never reuse another session's server unknowingly. Use fictional local emulator data only for mutations.
+
+Read test records accurately: the initial full run had one typing timeout; the affected file passed on retry. The final complete run passes all 508 tests across 68 files; see clean-full-tests.txt. Preserve explicit limits: Chromium render checks do not prove Safari/device/screen-reader behavior or backend release readiness. Record real defects, fix and verify them, and keep evidence separate from claims of complete release verification.

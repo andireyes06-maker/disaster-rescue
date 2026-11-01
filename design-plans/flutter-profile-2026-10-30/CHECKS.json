@@ -1,0 +1,59 @@
+{
+  "flutterAnalyze": "No issues found",
+  "flutterFullSuite": {
+    "passed": 332,
+    "failed": 0
+  },
+  "chromeProfileTests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "focusedProfileAndPhotoTests": {
+    "passed": 19,
+    "failed": 0
+  },
+  "goldens": {
+    "count": 16,
+    "reviewed": [
+      "profile.png",
+      "responder-profile.png"
+    ],
+    "unchangedAccessCandidates": [
+      "login.png",
+      "register.png"
+    ]
+  },
+  "regressionsObservedBeforeRepair": [
+    "Your account heading",
+    "Privacy heading overflow at320px/200% text"
+  ],
+  "teamRead": "One teams/{currentTeamId} document stream; no collection enumeration or rule changes",
+  "android": {
+    "apk": "I-Report-2026-10-30-update21-online.apk",
+    "sourceBaseCommit": "b1392118793842b92d600ba3c339e640bb091dca",
+    "sourceState": "base plus named uncommitted profile and team-identity changes; see SOURCE-OVERLAY.json",
+    "api": "https://disaster-rescue-api.onrender.com/api",
+    "firebaseProject": "flutter-5094e",
+    "package": "local.rescuereports.app",
+    "versionCode": 21,
+    "versionName": "1.0.0",
+    "mode": "debug-signed academic sideload; visible debug banner off",
+    "sameSigningCertificateAsUpdate20": true,
+    "emulators": false,
+    "onlineEndpointPresent": true,
+    "teamIdentityStringsPresent": true,
+    "physicalDeviceTested": false,
+    "sha256": "b81ae88907475e75b1f10cd83d6070e2aed384ef8fa0518bd5c62c5af9bb0750",
+    "bytes": 165658272,
+    "builtAt": "2026-10-30 Asia/Manila",
+    "published": false,
+    "sourceOverlayManifest": "../Source/SOURCE-OVERLAY.json",
+    "sourceOverlayManifestSha256": "7121f839b2758679b29b184e127e93975aebe1af454c306fb2dad4ea6cdf5483"
+  },
+  "limits": [
+    "No physical phone or Android emulator used",
+    "Team stream behavior is covered with controlled fakes and existing rule inspection, not a hosted-account sign-in in this pass",
+    "APK is a debug-signed academic sideload with the visible debug ribbon off; not a store-signed release",
+    "No push, deploy, public APK publication or production data changes"
+  ]
+}

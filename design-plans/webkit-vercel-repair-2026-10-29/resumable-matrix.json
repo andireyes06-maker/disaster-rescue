@@ -1,0 +1,96 @@
+[
+  {
+    "mode": "beforeunload-resume",
+    "errors": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=47730&CVER=22&X-HTTP-Session-Id=gsessionid&zx=qj09vmz47l6d&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=60573&CVER=22&X-HTTP-Session-Id=gsessionid&zx=hmdwdkje0udc&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=31277&CVER=22&X-HTTP-Session-Id=gsessionid&zx=efh763ch8lvr&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=69815&CVER=22&X-HTTP-Session-Id=gsessionid&zx=5h9o434ooa5u&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=1195&CVER=22&X-HTTP-Session-Id=gsessionid&zx=z067rik1f66g&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=25689&CVER=22&X-HTTP-Session-Id=gsessionid&zx=i4v7iotickr3&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=72854&CVER=22&X-HTTP-Session-Id=gsessionid&zx=qtjghzv3wf9j&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=26485&CVER=22&X-HTTP-Session-Id=gsessionid&zx=2n42qm8yx4sm&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=69990&CVER=22&X-HTTP-Session-Id=gsessionid&zx=2zl2svykut7h&t=1 due to access control checks."
+      }
+    ],
+    "failed": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      }
+    ],
+    "finalServerSnapshots": 1
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/register",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/forbidden",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/missing-page",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/missing-page",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/missing-page",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  }
+]

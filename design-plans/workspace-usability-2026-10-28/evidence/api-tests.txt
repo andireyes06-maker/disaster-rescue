@@ -1,0 +1,16 @@
+
+> test
+> vitest run --passWithNoTests --maxWorkers=2
+
+
+ RUN  v5.0.5 /Users/rien/Documents/FINAL_PROJECT/app/api
+
+
+ Test Files  63 passed | 9 skipped (72)
+      Tests  548 passed | 36 skipped (584)
+   Start at  00:48:57
+   Duration  34.32s (import 72%, tests 25%, transform 2%, worker 1%)
+
+    Isolate  72 workers spawned · ~285ms startup each (spawn + environment, per file)
+             at least ~9.96s faster with isolate: false — reuses workers across files instead of one per file
+

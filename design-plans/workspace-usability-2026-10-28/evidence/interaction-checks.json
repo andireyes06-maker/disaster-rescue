@@ -1,0 +1,62 @@
+{
+  "results": [
+    {
+      "scenario": "45 history rows",
+      "width": 1440,
+      "height": 868,
+      "viewport": 900,
+      "listHeight": 380,
+      "listScrollHeight": 10147,
+      "closeOnscreen": true,
+      "focusedList": true,
+      "overflow": false
+    },
+    {
+      "scenario": "Modal focus return",
+      "width": 1440,
+      "returned": true
+    },
+    {
+      "scenario": "Nested assignment escape",
+      "width": 1440,
+      "parentRemains": true,
+      "childGone": true,
+      "focusOnAssign": true,
+      "dialogs": [
+        "Incident detailsOpen full reportBack to the queueFlood reportCriticalVerifiedReport RR-260007 · 10/26/2026, 2:54:52 AMReport and locationResponse and updatesReported incidentFour residents are waiting on an upper floor. The location has been confirmed.Incident typeFloodResident landmarkRiverbend DistrictPinned locationParaiso Street, Barangay 584, Manila14.60430, 121.00930Contact personNot providedContact numberNot providedPhoto evidence 2Reported locationOpen in maps+− Leaflet | © OpenStreetMap contributorsParaiso Street, Barangay 584, Manila14.60430, 121.00930Reported reach: 500 mThe shaded area shows the reported reach, not a verified hazard boundary.ProgressSubmittedDoneUnder VerificationDoneVerifiedCurrent4Awaiting AssignmentPending5Team AssignedPending6Rescue in ProgressPending7ResolvedPending8ClosedPendingRescue updatesNo rescue updates yet.Next stepAssign a rescue teamThe report is verified and waiting for a team.Assign teamEdit priority & classification"
+      ]
+    },
+    {
+      "scenario": "45 history rows",
+      "width": 390,
+      "height": 884,
+      "viewport": 900,
+      "listHeight": 380,
+      "listScrollHeight": 10147,
+      "closeOnscreen": true,
+      "focusedList": true,
+      "overflow": false
+    },
+    {
+      "scenario": "Modal focus return",
+      "width": 390,
+      "returned": true
+    },
+    {
+      "scenario": "Nested assignment escape",
+      "width": 390,
+      "parentRemains": true,
+      "childGone": true,
+      "focusOnAssign": true,
+      "dialogs": [
+        "Incident detailsOpen full reportBack to the queueFlood reportCriticalVerifiedReport RR-260007 · 10/26/2026, 2:54:52 AMReport and locationResponse and updatesReported incidentFour residents are waiting on an upper floor. The location has been confirmed.Incident typeFloodResident landmarkRiverbend DistrictPinned locationParaiso Street, Barangay 584, Manila14.60430, 121.00930Contact personNot providedContact numberNot providedPhoto evidence 2Reported locationOpen in maps+− Leaflet | © OpenStreetMap contributorsParaiso Street, Barangay 584, Manila14.60430, 121.00930Reported reach: 500 mThe shaded area shows the reported reach, not a verified hazard boundary.ProgressSubmittedDoneUnder VerificationDoneVerifiedCurrent4Awaiting AssignmentPending5Team AssignedPending6Rescue in ProgressPending7ResolvedPending8ClosedPendingRescue updatesNo rescue updates yet.Next stepAssign a rescue teamThe report is verified and waiting for a team.Assign teamEdit priority & classification"
+      ]
+    },
+    {
+      "scenario": "Mobile sidebar sign-out",
+      "visible": true,
+      "inSidebar": true
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "role": "responder",
+    "route": "/team-map?report=demo-report-12",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/team-map?report=demo-report-12",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/team-map?report=demo-report-12",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments/demo-report-12",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments/demo-report-12",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments/demo-report-12",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  }
+]

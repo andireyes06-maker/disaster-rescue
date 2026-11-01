@@ -1,0 +1,7 @@
+Read design-plans/web-visual-reaudit-2026-10-27/AUDIT.md and its evidence before changing the I-Report website. The user finds the whole web experience too plain and text-heavy. This audit identifies weak visual composition as well as concrete finishing defects.
+
+Start by reconciling current HEAD and uncommitted login/recovery changes with the audit's source notes: another session edited the tree during capture. Preserve unrelated mobile, promo and admin work. Do not assume historical test counts or captures describe the current source. Do not commit, push or deploy without a later instruction.
+
+Keep the exact I-Report logo and purple/harbor identity, current permission rules, FIFO ordering, compact desktop controls, phone targets and the notification bell. Introduce a coherent semantic color/surface/chart system and task-specific visual anchors. Fix the confirmed dialog positioning, wordmark contrast, app-handoff and recovery issues before adding cosmetic effects. The body should remain readable and the interface should settle when idle. Use actual product/evidence assets, with fictional data disclosed, rather than invented incidents or operational claims.
+
+Use Dashboard and one incident detail as the operational reference, then cover every active route family listed in the audit. Resident web aliases are intentional app-handoff pages, and /monitor is removed. Capture the authorized populated closed-responder detail before claiming that surface is verified. Clearly distinguish rendered checks, source review, mocked failures and unrun release gates.

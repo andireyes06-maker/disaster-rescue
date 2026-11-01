@@ -1,0 +1,13 @@
+
+ RUN  v5.0.5 /Users/rien/Documents/FINAL_PROJECT/app/web
+
+
+ Test Files  71 passed (71)
+      Tests  516 passed (516)
+   Start at  01:18:04
+   Duration  58.98s (environment 46%, tests 32%, import 14%, setup 6%, transform 1%, worker 1%)
+
+Environment  jsdom was created 71 times · 49.08s total, 46% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

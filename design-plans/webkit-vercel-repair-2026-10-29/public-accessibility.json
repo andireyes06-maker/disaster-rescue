@@ -1,0 +1,72 @@
+[
+  {
+    "width": 390,
+    "route": "/",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "route": "/login",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "route": "/register",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "route": "/forbidden",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "route": "/missing-launch-route",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "route": "/",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "route": "/login",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "route": "/register",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "route": "/forbidden",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  },
+  {
+    "width": 1440,
+    "route": "/missing-launch-route",
+    "violations": [],
+    "pageExceptions": [],
+    "overflow": false
+  }
+]

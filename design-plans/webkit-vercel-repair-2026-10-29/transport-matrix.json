@@ -1,0 +1,278 @@
+[
+  {
+    "mode": "default-localhost",
+    "errors": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=tp8ZAkjdN77pQ8GnPhHH5g%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=wtjxui8ls5je&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-0",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=tp8ZAkjdN77pQ8GnPhHH5g%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=r3637z6akx3i&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=kJKd3zcK25g65GE7LTcgKw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=h2583gpszi63&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=kJKd3zcK25g65GE7LTcgKw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=oc9uqvw25jv7&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=bgAbs6CfyHiU7SPY6DvY-g%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=ywhwupqwe51k&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=bgAbs6CfyHiU7SPY6DvY-g%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=n471gbujx2a1&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=AHfFLA_CodNcbCnFwvyfJA%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=8z1hmti3qh&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=AHfFLA_CodNcbCnFwvyfJA%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=g5zh2t84z6jx&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=TX379c6nP1mpMn3dwSLDKQ%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=s4yxwi8pp0dm&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=TX379c6nP1mpMn3dwSLDKQ%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=xe7pxlhpxlby&t=2 due to access control checks."
+      }
+    ],
+    "failed": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      }
+    ],
+    "finalServerSnapshots": 1
+  },
+  {
+    "mode": "poll-localhost",
+    "errors": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=rxi8sPX_oGUKUiRw_uuI6g%3D%3D&AID=4&CI=1&TYPE=xmlhttp&zx=esmml6gtmqw8&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=IfAGmMA5s65Lrz_pXR-HXQ%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=otiexf2z4oup&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=IfAGmMA5s65Lrz_pXR-HXQ%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=3kgk66fffdjn&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=-XEVxC6tBxrZHS6y8Nq8Xw%3D%3D&AID=4&CI=1&TYPE=xmlhttp&zx=kz7uggevhugs&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=KI4YaIlMB_Yxd_hW0VRG2Q%3D%3D&AID=4&CI=1&TYPE=xmlhttp&zx=qd6sdgjd1cpv&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=NvwzaNJLzGDaK5pgATL8fQ%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=k85ye5jwdnq7&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=NvwzaNJLzGDaK5pgATL8fQ%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=slz2xqunz9lz&t=2 due to access control checks."
+      }
+    ],
+    "failed": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      }
+    ],
+    "finalServerSnapshots": 1
+  },
+  {
+    "mode": "default-ipv4",
+    "errors": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=UUpx6gXa5Z8dat4Do0Jeyw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=bs8v929snpls&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-0",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=UUpx6gXa5Z8dat4Do0Jeyw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=uu2252lmv7m3&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=Qo5OVaS5PhXLLGeieDJ56A%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=m4zl82h6yuj4&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=Qo5OVaS5PhXLLGeieDJ56A%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=vqw888arjpkf&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=qR6YjPtayKpzRGQZLf_aNA%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=1d7mfxc3exkn&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=qR6YjPtayKpzRGQZLf_aNA%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=8th7k954orha&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=Y1feYblb35N-gpQr408FPw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=b9uhl6i2ko&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=Y1feYblb35N-gpQr408FPw%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=61iiop3mojms&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=GAASKFcco4vxdXEp3Min5A%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=wwdwgqkr5kmb&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=GAASKFcco4vxdXEp3Min5A%3D%3D&AID=5&CI=0&TYPE=xmlhttp&zx=pxksj26h41zu&t=2 due to access control checks."
+      }
+    ],
+    "failed": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      }
+    ],
+    "finalServerSnapshots": 1
+  },
+  {
+    "mode": "poll-ipv4",
+    "errors": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=qOs4JjvOf9opOsMoimXgLw%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=px8hq4c61kmn&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-0",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=qOs4JjvOf9opOsMoimXgLw%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=iw8uc5gtu2n&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=KrlnmRYPiRv738G0tFvrYQ%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=hk627bc7i9io&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=KrlnmRYPiRv738G0tFvrYQ%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=dus73bt7f1bo&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=Tmc1wP1fSkA5h0Gsg6csVg%3D%3D&AID=4&CI=1&TYPE=xmlhttp&zx=lzkdbi1q5vax&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=F7or-BCs15g3_y1zr_oQiw%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=ddmqx0y6mk4d&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=F7or-BCs15g3_y1zr_oQiw%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=ue5vmqt7umzo&t=2 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=oINahaAaXEHhZ1nyLIh5zA%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=u7qsyckyeynn&t=1 due to access control checks."
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "/127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=rpc&SID=oINahaAaXEHhZ1nyLIh5zA%3D%3D&AID=6&CI=1&TYPE=xmlhttp&zx=4bh3aufye8sd&t=2 due to access control checks."
+      }
+    ],
+    "failed": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://127.0.0.1:8637/google.firestore.v1.Firestore/Listen/channel"
+      }
+    ],
+    "finalServerSnapshots": 1
+  }
+]

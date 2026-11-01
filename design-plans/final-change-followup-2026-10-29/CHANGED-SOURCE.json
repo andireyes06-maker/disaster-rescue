@@ -1,0 +1,84 @@
+{
+  "base": "1e79438",
+  "production": "19435bb",
+  "committed": false,
+  "files": [
+    {
+      "path": "api/src/routes/users.js",
+      "sha256": "cc1c06aa67632f994e867ada8fa35d2fb1248653a762b10313d14dd96440e381"
+    },
+    {
+      "path": "api/test/routes/profile-photo.test.js",
+      "sha256": "57c51aecb5aceb8a2345990a431d980dd8de3530dcba48eaae8bb11fa9d0e79e"
+    },
+    {
+      "path": "mobile/lib/data/api_client.dart",
+      "sha256": "0551771f69b36a528e2deba1d98d65aff24753faf062bea6adc52fe43cee6248"
+    },
+    {
+      "path": "mobile/lib/data/services.dart",
+      "sha256": "784e7a3502365db46f6a7dea553f7e8271471761654faf83653e79364903acff"
+    },
+    {
+      "path": "mobile/lib/features/report/report_flow_page.dart",
+      "sha256": "13f7b9cb0b08a9c7dbae3a39cb32fb96adad919118d89dee698bf0d4dedd46f1"
+    },
+    {
+      "path": "mobile/test/goldens/PROVENANCE.md",
+      "sha256": "5e7fd662492382209d585659815f0b7703173d5fd47536f6d92bd26050538262"
+    },
+    {
+      "path": "mobile/test/goldens/SHA256SUMS.txt",
+      "sha256": "64ddd113f17eddd6592ad7a5d215f940323be1a67b7d7117e59153f01732ecff"
+    },
+    {
+      "path": "mobile/test/goldens/report-details.png",
+      "sha256": "de226f512d9d49a19daa3b8f0350f4fe34cb3886b9873ee581ff4129d7a7a624"
+    },
+    {
+      "path": "mobile/test/goldens/report-location.png",
+      "sha256": "e898a53966a5a4b430cc99002270ef67d8e6b7fb7be031b0ff9fd558b38b3166"
+    },
+    {
+      "path": "mobile/test/goldens/report-review.png",
+      "sha256": "07c8dda4d8ea9f6d1a69e09c9642bc6b97f754ac96a8db1131cbff181087d301"
+    },
+    {
+      "path": "mobile/test/goldens/report-type.png",
+      "sha256": "0e8b333463c0c5fa3dde34e907746f49fc216c497dc636f1446fd390a4fb762b"
+    },
+    {
+      "path": "mobile/test/profile_photo_timeout_test.dart",
+      "sha256": "eea19a19028d9859827447f970fcf226689ee229bff60ea18fbb4ac16a300e20"
+    },
+    {
+      "path": "mobile/test/redesign_visual_test.dart",
+      "sha256": "fa49da30decdca123fa650b1cbbc82eb79566bd44ec28f0ce70e7f135b1a3cd6"
+    },
+    {
+      "path": "mobile/test/report_header_brand_test.dart",
+      "sha256": "ebd3db46ccd87a06e4fab96307da6583128d1534678f7ed33c0bbf2d89d7f3a8"
+    },
+    {
+      "path": "web/src/components/product-motion.css",
+      "sha256": "5d300e1d2622031c8986e092bc9870422c77af2c2e969de806fd225f84d9dd41"
+    },
+    {
+      "path": "web/src/features/auth/LoginPage.test.tsx",
+      "sha256": "2dd14c9a3a0bfcf82845c2b04752c9e9e048503c47486c9b51eee6b3ae9a2942"
+    },
+    {
+      "path": "web/src/features/auth/LoginPage.tsx",
+      "sha256": "f02034469b6cea96abbb3ad19a778b37810a5df637d6f5a2d9ab3f46c78e5565"
+    },
+    {
+      "path": "web/src/layout/AppShell.profilePhoto.test.tsx",
+      "sha256": "41a72b7fedc2d86dc47ba5d553eb5f4b9ce4b77a1cdf5efa40e9a5ca982cf94b"
+    },
+    {
+      "path": "web/src/layout/AppShell.tsx",
+      "sha256": "4b3c457d954123ea16b4c5618cd9e2494136d98fd19b520a91f836a5932ee436"
+    }
+  ],
+  "notes": "Includes approved artifact-refresh discovery: remaining signed-in report plus replaced with real ProductMark;3RED\u2192GREENtests and4reviewed header-only references."
+}

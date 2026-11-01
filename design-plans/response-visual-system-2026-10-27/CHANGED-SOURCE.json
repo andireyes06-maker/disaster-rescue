@@ -1,0 +1,23 @@
+{
+  "base": "3eb4a7dab972963210810ce06af8f83e9ef1b7fe",
+  "files": {
+    "web/src/App.tsx": "d3c79528246c8a6b4bdf9e0efc0b53c54f4e219ccfe11b076b65943bd82c2333",
+    "web/src/components/calm/EmptyState.tsx": "f9fe31c5f0fb1af842339e10d106f3c504de519189a100f746e8dcf4c3b41eef",
+    "web/src/features/account/ChangePassword.tsx": "30de220c95856b9e09aac96acde1ca43a204a17c411f01726ebdc4e7e4ed4fad",
+    "web/src/features/analytics/AnalyticsPage.tsx": "bb86dc647a12ac18f4ff373ac12d31dc5e9b79f181bb035e889c627620cb218b",
+    "web/src/features/analytics/ChartCard.tsx": "7e006f9806f96c7139b07ddccc75c8e567843250f39c72271c1e07afc7005481",
+    "web/src/features/reports/AssignTeamDialog.test.tsx": "f6c4448c8b09b693341f8751fe459ae76a2d4a176a9e154d8f5a5fb0325510dc",
+    "web/src/features/reports/AssignTeamDialog.tsx": "33bca5472a07db113fe985655d3b922b092c7f3ccce1e63f9efc1abeeeee2ee2",
+    "web/src/features/reports/IncidentDetails.test.tsx": "f2cf99c3c5a3c41d643cad0f9ce1f1aa57eef39a01f5b1b5451c63610f3655ce",
+    "web/src/features/reports/IncidentDetails.tsx": "84001673c9edb80dedeaf30cd4cc300b47096193d7c41b45e80ee235f3720f45",
+    "web/src/features/reports/ReportQueue.tsx": "a58da04d19e8f7aff9408797de196b48df421e71b74306fa6084a69cc20d31bc",
+    "web/src/features/teams/TeamsPage.tsx": "571f19f727731e64b03b7d2e65a3e5da566624352311ad4ef5b32723aebc635a",
+    "web/src/features/users/UsersPage.tsx": "c7d9f0d79f8904c8375cde55b3f26ac22ca29d53038bb6ef7ff0ed8c05a00e57",
+    "web/src/layout/AppShell.tsx": "7c78372182c80f38c538eed7cb3c290687b707f48c8d7f730dd892a2794a327a",
+    "web/src/pages/MobileAppNotice.tsx": "cc6ed2a6fe6f05ad47626f1ed357c0c776a9a6c6f856552748ed2f94fd4fb9a8",
+    "web/src/response-workspace.css": "89ec66cc206b569720443251d65bdb06019fe0268ccd349613574f757e9e6f7b",
+    "web/src/features/reports/IncidentLocation.tsx": "4e1f0f4eb4e2d72158d7c2fd40a95854e53a325070621d8e1cc4e3facb8ae954"
+  },
+  "status": "uncommitted; no push or deploy",
+  "verification": "508 web tests pass; typecheck/build; Chromium local emulator desktop and phone"
+}

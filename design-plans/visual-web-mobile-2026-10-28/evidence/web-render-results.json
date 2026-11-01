@@ -1,0 +1,302 @@
+[
+  {
+    "role": "public",
+    "route": "/",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "public",
+    "route": "/login",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "scenario": "Closed inbox",
+    "url": "http://localhost:5617/dashboard?quick=closed",
+    "rows": 2
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/dashboard",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/teams",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/users",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/admin",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/map",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/analytics",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/audit",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-01",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-01",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "admin",
+    "route": "/incidents/demo-report-01",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/responder",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/responder",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/responder",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/team-map?report=demo-report-12",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/team-map?report=demo-report-12",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/team-map?report=demo-report-12",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments/demo-report-12",
+    "width": 1440,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments/demo-report-12",
+    "width": 1024,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "role": "responder",
+    "route": "/assignments/demo-report-12",
+    "width": 390,
+    "overflow": false,
+    "pageErrors": []
+  }
+]

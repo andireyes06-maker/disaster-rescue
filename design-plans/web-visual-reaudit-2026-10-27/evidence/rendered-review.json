@@ -1,0 +1,1118 @@
+{
+  "sourceReviewOnly": true,
+  "screens": [
+    {
+      "role": "public",
+      "requestedRoute": "/",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "public-_-1440.png",
+      "url": "/",
+      "title": "I-Report · Report clearly. Respond together.",
+      "heading": "Report clearly.Respond together.",
+      "overflow": false,
+      "headings": [
+        "One report.A connected response.",
+        "Your report doesn'tend at “Submit”.",
+        "Built for the peoplebehind the response.",
+        "Before you senda report.",
+        "Start with what you know.",
+        "Access and privacy"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(243, 240, 249)",
+        "rgb(36, 23, 71)"
+      ],
+      "runningAnimations": 0,
+      "text": "Report clearly.\nRespond together.\n\nReport emergencies, share the location, and follow response updates. I-Report connects residents with the people reviewing and coordinating each incident.\n\nComing soon on\nGoogle Play\nComing soon on the\nApp Store\nPhotos and location\nReport tracking\nTeam updates\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nA connected response\nIllustrated workflow · Not live data\n01\nReport\n02\nCoordinate\n03\nStay informed\n\nPin an incident. Connect a team. Follow the response.\n\nShare the situation. Pin the location.\n\nPause\nOne report.\nA connected response.\n\nResidents, rescue teams, and administrators work from the same incident record. You can see what changed and what happens next.\n\nShow what happened\n\nDescribe the emergency. Add photos if it is safe, and pinpoint where help is needed.\n\nConnect the response\n\nAn administrator reviews the report, validates it by hand, and assigns a rescue team.\n\nStay informed\n\nFollow status changes and updates from the field through to resolution and closure.\n\nMy reports\nFlood report\nRiverside District\nRescue in Progress\nReport submitted\nValidated by administrator\nTeam assigned\nResponse in progress\nYour incident, in one place\nYour report doesn't\nend at “Submit”.\n\nKeep your incident details and response updates together. Return to your reports whenever you need to check the status.\n\nResidents send reports and follow updates in the I-Report mobile app.\n\nBuilt for the people\nbehind the response.\nAdministrators\nValidate reports by hand, set priorities, assign teams, and export summaries.\nResponders\nReview your team's assignments here. Acknowledge and record field progress in the mobile app or on this website.\nBefore you send\na report.\n\nKnow what to include and what to expect after you submit.\n\nWhat information will I need?\nDo I need to add photos?\nWhat happens after I submit?\nDo I need an account?\nStart with what you know.\n\nSend a report from the I-Report mobile app, then follow its status and updates there.\n\nAndroid download, coming soon\niOS download, coming soon\nGet the mobile app\nAccess and privacy\nReport from the mobile app\n\nUse the I-Report mobile app to submit reports, add a location and check updates. The website is for administrators and rescue teams.\n\nPrivacy\n\nShare only the details needed to explain the incident. Avoid sensitive personal information in photos and descriptions.\n\nCoordinated response\n\nKeep the report, assigned team, and field updates connected as the response progresses."
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/login",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "public-_login-1440.png",
+      "url": "/login",
+      "title": "Sign in · I-Report",
+      "heading": "Sign in",
+      "overflow": false,
+      "headings": [
+        "Need a password?",
+        "Who signs in here"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Sign in\n\n Required\n\nEmail\nPassword\nSign in\nNeed a password?\n\nStaff accounts are created without a password. Enter your email above, then choose Forgot password to receive a setup link. Residents can use it to reset a forgotten password.\n\nForgot password?\nWho signs in here\nResidents use the I-Report mobile app.\nAdministrators and rescue teams use the account an administrator created for them, here or in the mobile app.\n\nAdministrator accounts are created by an administrator. Use your registered email address and password to sign in.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/register",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "public-_register-1440.png",
+      "url": "/register",
+      "title": "Use the mobile app · I-Report",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Use the I-Report mobile app\n\nResidents use the mobile app to send reports and follow updates.\n\nThe website is for administrators and rescue teams. If you are one of them, sign in with your account.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/my",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "public-_my-1440.png",
+      "url": "/my",
+      "title": "Use the mobile app · I-Report",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Use the I-Report mobile app\n\nResidents use the mobile app to send reports and follow updates.\n\nThe website is for administrators and rescue teams. If you are one of them, sign in with your account.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/my/report",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "public-_my_report-1440.png",
+      "url": "/my/report",
+      "title": "Use the mobile app · I-Report",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Use the I-Report mobile app\n\nResidents use the mobile app to send reports and follow updates.\n\nThe website is for administrators and rescue teams. If you are one of them, sign in with your account.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/my/reports/unknown",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "public-_my_reports_unknown-1440.png",
+      "url": "/my/reports/unknown",
+      "title": "Use the mobile app · I-Report",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Use the I-Report mobile app\n\nResidents use the mobile app to send reports and follow updates.\n\nThe website is for administrators and rescue teams. If you are one of them, sign in with your account.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/forbidden",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "public-_forbidden-1440.png",
+      "url": "/forbidden",
+      "title": "Access denied · I-Report",
+      "heading": "Access denied",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Access denied\n\nThis page needs a signed-in account. Sign in with the account that has access to it.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/not-a-real-page",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "public-_not_a_real_page-1440.png",
+      "url": "/not-a-real-page",
+      "title": "Page not found · I-Report",
+      "heading": "Page not found",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Page not found\n\nThis address does not lead to a page in I-Report. The link may be outdated or incomplete.\n\nReturn home to continue, or sign in to reach your reports and workspace.\n\nBack to home\nSign in"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "public-_-390.png",
+      "url": "/",
+      "title": "I-Report · Report clearly. Respond together.",
+      "heading": "Report clearly.Respond together.",
+      "overflow": false,
+      "headings": [
+        "One report.A connected response.",
+        "Your report doesn'tend at “Submit”.",
+        "Built for the peoplebehind the response.",
+        "Before you senda report.",
+        "Start with what you know.",
+        "Access and privacy"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(243, 240, 249)",
+        "rgb(36, 23, 71)"
+      ],
+      "runningAnimations": 1,
+      "text": "Report clearly.\nRespond together.\n\nReport emergencies, share the location, and follow response updates. I-Report connects residents with the people reviewing and coordinating each incident.\n\nComing soon on\nGoogle Play\nComing soon on the\nApp Store\nPhotos and location\nReport tracking\nTeam updates\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline.\n\nA connected response\nIllustrated workflow · Not live data\n01\nReport\n02\nCoordinate\n03\nStay informed\n\nShare the situation. Pin the location.\n\nPause\nOne report.\nA connected response.\n\nResidents, rescue teams, and administrators work from the same incident record. You can see what changed and what happens next.\n\nShow what happened\n\nDescribe the emergency. Add photos if it is safe, and pinpoint where help is needed.\n\nConnect the response\n\nAn administrator reviews the report, validates it by hand, and assigns a rescue team.\n\nStay informed\n\nFollow status changes and updates from the field through to resolution and closure.\n\nMy reports\nFlood report\nRiverside District\nRescue in Progress\nReport submitted\nValidated by administrator\nTeam assigned\nResponse in progress\nYour incident, in one place\nYour report doesn't\nend at “Submit”.\n\nKeep your incident details and response updates together. Return to your reports whenever you need to check the status.\n\nResidents send reports and follow updates in the I-Report mobile app.\n\nBuilt for the people\nbehind the response.\nAdministrators\nValidate reports by hand, set priorities, assign teams, and export summaries.\nResponders\nReview your team's assignments here. Acknowledge and record field progress in the mobile app or on this website.\nBefore you send\na report.\n\nKnow what to include and what to expect after you submit.\n\nWhat information will I need?\nDo I need to add photos?\nWhat happens after I submit?\nDo I need an account?\nStart with what you know.\n\nSend a report from the I-Report mobile app, then follow its status and updates there.\n\nAndroid download, coming soon\niOS download, coming soon\nGet the mobile app\nAccess and privacy\nReport from the mobile app\n\nUse the I-Report mobile app to submit reports, add a location and check updates. The website is for administrators and rescue teams.\n\nPrivacy\n\nShare only the details needed to explain the incident. Avoid sensitive personal information in photos and descriptions.\n\nCoordinated response\n\nKeep the report, assigned team, and field updates connected as the response progresses."
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/login",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "public-_login-390.png",
+      "url": "/login",
+      "title": "Sign in · I-Report",
+      "heading": "Sign in",
+      "overflow": false,
+      "headings": [
+        "Need a password?",
+        "Who signs in here"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Sign in\n\n Required\n\nEmail\nPassword\nSign in\nNeed a password?\n\nStaff accounts are created without a password. Enter your email above, then choose Forgot password to receive a setup link. Residents can use it to reset a forgotten password.\n\nForgot password?\nWho signs in here\nResidents use the I-Report mobile app.\nAdministrators and rescue teams use the account an administrator created for them, here or in the mobile app.\n\nAdministrator accounts are created by an administrator. Use your registered email address and password to sign in.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/register",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "public-_register-390.png",
+      "url": "/register",
+      "title": "Use the mobile app · I-Report",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Use the I-Report mobile app\n\nResidents use the mobile app to send reports and follow updates.\n\nThe website is for administrators and rescue teams. If you are one of them, sign in with your account.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/my",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "public-_my-390.png",
+      "url": "/my",
+      "title": "Use the mobile app · I-Report",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Use the I-Report mobile app\n\nResidents use the mobile app to send reports and follow updates.\n\nThe website is for administrators and rescue teams. If you are one of them, sign in with your account.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/my/report",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "public-_my_report-390.png",
+      "url": "/my/report",
+      "title": "Use the mobile app · I-Report",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Use the I-Report mobile app\n\nResidents use the mobile app to send reports and follow updates.\n\nThe website is for administrators and rescue teams. If you are one of them, sign in with your account.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/my/reports/unknown",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "public-_my_reports_unknown-390.png",
+      "url": "/my/reports/unknown",
+      "title": "Use the mobile app · I-Report",
+      "heading": "Use the I-Report mobile app",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Use the I-Report mobile app\n\nResidents use the mobile app to send reports and follow updates.\n\nThe website is for administrators and rescue teams. If you are one of them, sign in with your account.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/forbidden",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "public-_forbidden-390.png",
+      "url": "/forbidden",
+      "title": "Access denied · I-Report",
+      "heading": "Access denied",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Access denied\n\nThis page needs a signed-in account. Sign in with the account that has access to it.\n\nSign in\nBack to home"
+    },
+    {
+      "role": "public",
+      "requestedRoute": "/not-a-real-page",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "public-_not_a_real_page-390.png",
+      "url": "/not-a-real-page",
+      "title": "Page not found · I-Report",
+      "heading": "Page not found",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Page not found\n\nThis address does not lead to a page in I-Report. The link may be outdated or incomplete.\n\nReturn home to continue, or sign in to reach your reports and workspace.\n\nBack to home\nSign in"
+    },
+    {
+      "role": "public",
+      "requestedRoute": null,
+      "width": 390,
+      "suffix": "-validation",
+      "screenshot": "public-_login-390-validation.png",
+      "url": "/login",
+      "title": "Sign in · I-Report",
+      "heading": "Sign in",
+      "overflow": false,
+      "headings": [
+        "Need a password?",
+        "Who signs in here"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Sign in\n\n Required\n\nEmail\n\nEnter your email.\n\nPassword\n\nEnter your password.\n\nSign in\nNeed a password?\n\nStaff accounts are created without a password. Enter your email above, then choose Forgot password to receive a setup link. Residents can use it to reset a forgotten password.\n\nForgot password?\nWho signs in here\nResidents use the I-Report mobile app.\nAdministrators and rescue teams use the account an administrator created for them, here or in the mobile app.\n\nAdministrator accounts are created by an administrator. Use your registered email address and password to sign in.\n\nSubmitting a report through this app does not automatically guarantee immediate rescue. If you are in danger, call your local emergency hotline."
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/dashboard",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_dashboard-1440.png",
+      "url": "/dashboard",
+      "title": "Dashboard · I-Report",
+      "heading": "Dashboard",
+      "overflow": false,
+      "headings": [
+        "Incident inbox",
+        "Flood report"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgb(239, 232, 255)"
+      ],
+      "runningAnimations": 2,
+      "text": "Dashboard\n\nReview incoming reports and coordinate the next response.\n\nAll reports\n19\nActive reports\n17\nCritical\n6\nVerified\n13\nIncident inbox\n\nShowing 19 of 19 reports\n\nCritical first, then high, medium and low. Oldest first within each level.\n\nFilters\nSearch incidents\n\nSearch by type, place, description, reference, or report ID.\n\nAll reports (19)\nNeeds verification (6)\nActive (17)\nFlood\nCritical\nRiverbend District\nResponders have reached the area and are helping residents leave safely.\n10/20/2026, 4:54:52 PM\nRescue in Progress\nVerified\nFlood\nCritical\nRiverside District\nA family is waiting for assistance near the footbridge approach.\n10/23/2026, 4:54:52 AM\nTeam Assigned\nVerified\nFire\nCritical\nWarehouse District\nA fire report has been verified. Nearby residents are waiting in an open area.\n10/25/2026, 6:54:52 AM\nAwaiting Assignment\nVerified\nFlood\nCritical\nRiverbend District\nFour residents are waiting on an upper floor. The location has been confirmed.\n10/26/2026, 2:54:52 AM\nVerified\nVerified\nFlood\nCritical\nRiverside District\nA household reports rapidly rising water and an older resident who needs assistance.\n10/26/2026, 4:54:52 PM\nUnder Verification\nPending\nFlood\nCritical\nRiverside District\nWater has entered the ground floor. Three residents need help reaching higher ground.\n10/27/2026, 4:54:52 PM\nSubmitted\nPending\nLandslide\nHigh\nHillside District\nThe team is assisting residents around the blocked access road.\n10/19/2026, 10:54:52 AM\nRescue in Progress\nVerified\nEarthquake\nHigh\nCivic District\nA team has been assigned to assess reported structural damage.\n10/21/2026, 12:54:52 PM\nTeam Assigned\nVerified\nFire\nHigh\nMarket District\nThe assigned team is preparing to assess the reported smoke.\n10/22/2026, 8:54:52 AM\nTeam Assigned\nVerified\nLandslide\nHigh\nHillside District\nRoad access is blocked. A team is needed to assess a safe approach.\n10/24/2026, 3:54:52 PM\nAwaiting Assignment\nVerified\nEarthquake\nHigh\nCivic District\nCracks and fallen ceiling panels have been reported near a meeting area.\n10/26/2026, 11:54:52 AM\nUnder Verification\nPending\nLandslide\nHigh\nHillside District\nSoil and branches are blocking an access road after heavy rain.\n10/27/2026, 9:54:52 AM\nSubmitted\nPending\nFire\nHigh\nMarket District\nSmoke is coming from a storage area. Residents have moved to an open space.\n10/27/2026, 1:54:52 PM\nSubmitted\nPending\nOther\nMedium\nCentral District\nResponders are assisting a household affected by fallen debris.\n10/18/2026, 4:54:52 AM\nRescue in Progress\nVerified\nFlood\nMedium\nSouth District\nTwo households need assistance moving to the designated meeting point.\n10/24/2026, 12:54:52 AM\nAwaiting Assignment\nVerified\nOther\nMedium\nCentral District\nA fallen tree blocks the entrance to a residential lane.\n10/27/2026, 4:54:52 AM\nSubmitted\nPending\nOther\nLow\nCentral District\nDebris partly blocks a walkway. No trapped residents have been reported.\n10/25/2026, 2:54:52 PM\nVerified\nVerified\nFlood\nMedium\nSouth District\nThe reported residents have reached the meeting point. Staff closure is pending.\n10/16/2026, 10:54:52 PM\nResolved\nVerified\nFire\nHigh\nWarehouse District\nThe assigned team has completed the requested assistance. Staff closure is pending.\n10/15/2026, 4:54:52 PM\nResolved\nVerified\nFlood report\n\nRiverbend District\n\nCritical\nRescue in Progress\nVerified\nREPORTED SITUATION\n\nResponders have reached the area and are helping residents leave safely.\n\nReported\n10/20/2026, 4:54:52 PM\nVerification\nVerified\nEvidence\n3 photos\nReported by\nMaya Torres\n+1 (555) 010-0111\nSeverity\nMedium\nNEXT STEP\n\nRescue in progress\n\nA team is responding. Follow the rescue updates.\n\nOpen full report\nRESPONSE HISTORY\nReport submitted\n10/20/2026, 4:54:52 PM\nRescue in Progress\n10/20/2026, 8:54:52 PM\n\nPeople rescued: 2\n\nTeam reached the access point\n\nRescue in Progress\n10/20/2026, 10:54:52 PM\n\nPeople rescued: 3\n\nTwo residents assisted to the meeting point"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/map",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_map-1440.png",
+      "url": "/map",
+      "title": "Map · I-Report",
+      "heading": "Map",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 24,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Map\n\nLocate reported incidents and open a report for details.\n\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n24 located reports shown\nLow\nMedium\nHigh\nCritical\n+\n−\n Leaflet | © OpenStreetMap contributors"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/analytics",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_analytics-1440.png",
+      "url": "/analytics",
+      "title": "Analytics · I-Report",
+      "heading": "Analytics",
+      "overflow": false,
+      "headings": [
+        "Incidents by type",
+        "Incidents by status",
+        "Incidents by priority",
+        "Incidents per month",
+        "Incidents per day",
+        "Reports by area",
+        "Top places reported"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Analytics\n\nReview incident patterns for a selected reporting period.\n\nReports in this period\n24\nOpen incidents\n17\nResolved\n4\nFrom\nTo\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nDownload CSV\nDownload PDF\nIncidents by type\n0\n3\n6\n9\n12\nflood\nfire\nlandslide\nother\nearthquake\nType\tCount\nflood\t9\nfire\t4\nlandslide\t3\nother\t5\nearthquake\t3\nIncidents by status\n0\n1\n2\n3\n4\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nCancelled\nDuplicate\nRescue in Progress\nRejected\nResolved\nClosed\nStatus\tCount\nSubmitted\t4\nUnder Verification\t2\nVerified\t2\nAwaiting Assignment\t3\nTeam Assigned\t3\nCancelled\t1\nDuplicate\t1\nRescue in Progress\t3\nRejected\t1\nResolved\t2\nClosed\t2\nIncidents by priority\n0\n2\n4\n6\n8\ncritical\nhigh\nmedium\nlow\nPriority\tCount\ncritical\t6\nhigh\t8\nmedium\t6\nlow\t4\nIncidents per month\n2026-10\n0\n6\n12\n18\n24\nMonth\tCount\n2026-10\t24\nIncidents per day\n10-14\n10-16\n10-19\n10-21\n10-23\n10-25\n10-27\n0\n1\n2\n3\n4\nDay\tCount\n2026-10-13\t1\n2026-10-14\t1\n2026-10-15\t1\n2026-10-16\t1\n2026-10-17\t1\n2026-10-19\t2\n2026-10-20\t2\n2026-10-21\t1\n2026-10-22\t3\n2026-10-23\t1\n2026-10-24\t2\n2026-10-25\t2\n2026-10-26\t3\n2026-10-27\t3\nReports by area\n0\n6\n12\n18\n24\nNot recorded\nArea\tCount\nNot recorded\t24\nTop places reported\n0\n1\n2\n3\n4\nCentral District\nRiverside District\nCivic District\nHillside District\nRiverbend District\nSouth District\nMarket District\nWarehouse District\nPlace\tCount\nCentral District\t4\nRiverside District\t4\nCivic District\t3\nHillside District\t3\nRiverbend District\t3\nSouth District\t3\nMarket District\t2\nWarehouse District\t2"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/audit",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_audit-1440.png",
+      "url": "/audit",
+      "title": "Audit log · I-Report",
+      "heading": "Audit log",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Audit log\n\nReview who changed a report, what changed, and when.\n\nSearch the audit log\n\nType a report ID or reference, a person, an action, a team, a field, or a date such as 2026-10-25.\n\nWhen\tAction\tActor\tReport\tChanges (before, after)\n10/27/2026, 4:57:52 PM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260001\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260001\n\n10/27/2026, 1:57:52 PM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260002\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n fire\nReference: Not recorded →\nchanged to\n RR-260002\n\n10/27/2026, 9:57:52 AM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260003\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n landslide\nReference: Not recorded →\nchanged to\n RR-260003\n\n10/27/2026, 4:57:52 AM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260004\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260004\n\n10/26/2026, 5:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260005\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/26/2026, 4:57:52 PM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260005\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260005\n\n10/26/2026, 12:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260006\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/26/2026, 11:57:52 AM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260006\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n earthquake\nReference: Not recorded →\nchanged to\n RR-260006\n\n10/26/2026, 4:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260007\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/26/2026, 4:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260007\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/26/2026, 3:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260007\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/26/2026, 2:57:52 AM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260007\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260007\n\n10/25/2026, 4:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260008\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/25/2026, 4:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260008\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/25/2026, 3:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260008\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/25/2026, 2:57:52 PM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260008\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260008\n\n10/25/2026, 9:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260009\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/25/2026, 8:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260009\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/25/2026, 8:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260009\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/25/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260009\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/25/2026, 6:57:52 AM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260009\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n fire\nReference: Not recorded →\nchanged to\n RR-260009\n\n10/24/2026, 6:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260010\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/24/2026, 5:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260010\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/24/2026, 5:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260010\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/24/2026, 4:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260010\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/24/2026, 3:57:52 PM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260010\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n landslide\nReference: Not recorded →\nchanged to\n RR-260010\n\n10/24/2026, 3:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260011\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/24/2026, 2:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260011\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/24/2026, 2:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260011\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/24/2026, 1:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260011\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/24/2026, 12:57:52 AM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260011\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260011\n\n10/23/2026, 8:24:52 AM\tAssignment acknowledged\nIdentifiers\n\tDaniel Flores\tRR-260012\t\nStatus: Not recorded →\nchanged to\n Team Assigned\n\n10/23/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/23/2026, 7:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Alpha\n\n10/23/2026, 7:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/23/2026, 6:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/23/2026, 6:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/23/2026, 5:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/23/2026, 4:57:52 AM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260012\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260012\n\n10/22/2026, 7:06:52 PM\tStatus changed\nIdentifiers\n\tLeo Mendoza\tRR-260024\t\nStatus: Submitted →\nchanged to\n Cancelled\n\n10/22/2026, 6:57:52 PM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260024\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260024\n\n10/22/2026, 12:24:52 PM\tAssignment acknowledged\nIdentifiers\n\tClara Navarro\tRR-260013\t\nStatus: Not recorded →\nchanged to\n Team Assigned\n\n10/22/2026, 11:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/22/2026, 11:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Bravo\n\n10/22/2026, 11:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/22/2026, 10:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/22/2026, 10:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/22/2026, 9:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/22/2026, 8:57:52 AM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260013\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n fire\nReference: Not recorded →\nchanged to\n RR-260013\n\n10/21/2026, 3:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/21/2026, 3:54:52 PM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Charlie\n\n10/21/2026, 3:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/21/2026, 2:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/21/2026, 2:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/21/2026, 1:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/21/2026, 12:57:52 PM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260014\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n earthquake\nReference: Not recorded →\nchanged to\n RR-260014\n\n10/20/2026, 9:24:52 PM\tDuplicate marked\nIdentifiers\n\tMarco Reyes\tRR-260023\t\nStatus: Not recorded →\nchanged to\n Duplicate\nRelated report: Not recorded →\nchanged to\n RR-260015\n\n10/20/2026, 8:57:52 PM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260023\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260023\n\n10/20/2026, 8:54:52 PM\tStatus changed\nIdentifiers\n\tRafael Castillo\tRR-260015\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/20/2026, 8:24:52 PM\tAssignment acknowledged\nIdentifiers\n\tRafael Castillo\tRR-260015\t\nStatus: Not recorded →\nchanged to\n Team Assigned\n\n10/20/2026, 7:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/20/2026, 7:54:52 PM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Delta\n\n10/20/2026, 7:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/20/2026, 6:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/20/2026, 6:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/20/2026, 5:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/20/2026, 4:57:52 PM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260015\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260015\n\n10/20/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260022\t\nStatus: Submitted →\nchanged to\n Rejected\n\n10/20/2026, 6:57:52 AM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260022\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260022\n\n10/19/2026, 2:54:52 PM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260016\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/19/2026, 1:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/19/2026, 1:54:52 PM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Echo\n\n10/19/2026, 1:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/19/2026, 12:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/19/2026, 12:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/19/2026, 11:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/19/2026, 10:57:52 AM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260016\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n landslide\nReference: Not recorded →\nchanged to\n RR-260016\n\n10/18/2026, 8:54:52 AM\tStatus changed\nIdentifiers\n\tNina Bautista\tRR-260017\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/18/2026, 8:24:52 AM\tAssignment acknowledged\nIdentifiers\n\tNina Bautista\tRR-260017\t\nStatus: Not recorded →\nchanged to\n Team Assigned\n\n10/18/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/18/2026, 7:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Foxtrot\n\n10/18/2026, 7:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/18/2026, 6:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/18/2026, 6:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/18/2026, 5:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/18/2026, 4:57:52 AM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260017\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260017\n\n10/17/2026, 6:54:52 AM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260018\t\nStatus: Rescue in Progress →\nchanged to\n Resolved\n\n10/17/2026, 2:54:52 AM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260018\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/17/2026, 1:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/17/2026, 1:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Golf\n\n10/17/2026, 1:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/17/2026, 12:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/17/2026, 12:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/16/2026, 11:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/16/2026, 10:57:52 PM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260018\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260018\n\n10/16/2026, 12:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Resolved →\nchanged to\n Closed\n\n10/16/2026, 12:54:52 PM\tReport closed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Not recorded →\nchanged to\n Closed\n\n10/16/2026, 1:54:52 AM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260019\t\nStatus: Rescue in Progress →\nchanged to\n Resolved\n\n10/15/2026, 8:54:52 PM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260019\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/15/2026, 7:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/15/2026, 7:54:52 PM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Hotel\n\n10/15/2026, 7:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/15/2026, 6:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/15/2026, 6:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/15/2026, 5:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/15/2026, 4:57:52 PM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260019\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n fire\nReference: Not recorded →\nchanged to\n RR-260019\n\n10/15/2026, 4:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260021\t\nStatus: Resolved →\nchanged to\n Closed\n\n10/15/2026, 4:54:52 PM\tReport closed\nIdentifiers\n\tMarco Reyes\tRR-260021\t\nStatus: Not recorded →\nchanged to\n Closed\n\n10/15/2026, 1:54:52 PM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260020\t\nStatus: Rescue in Progress →\nchanged to\n Resolved\n\n10/15/2026, 10:54:52 AM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260020\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/15/2026, 9:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/15/2026, 9:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor India\n\n10/15/2026, 9:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/15/2026, 8:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/15/2026, 8:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/15/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/15/2026, 6:57:52 AM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260020\t\nStatus: Not recorded →\nchanged to\n Submitted\nType"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/teams",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_teams-1440.png",
+      "url": "/teams",
+      "title": "Teams · I-Report",
+      "heading": "Teams",
+      "overflow": false,
+      "headings": [
+        "Rescue teams (12)"
+      ],
+      "imageCount": 4,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Teams\n\nManage rescue teams and see their current availability.\n\nRescue teams\n12\nAvailable\n4\nOn assignment\n8\nRescue teams (12)\n\nAvailability updates as teams are assigned to rescues.\n\nCreate team\nFind a team\nAvailability\nAll teams\nAvailable\nOn assignment\n\nShowing 12 of 12 teams\n\nHarbor Alpha Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nDaniel Flores\nRescuer\nEdit location\nEdit team\nHarbor Bravo Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nClara Navarro\nRescuer\nEdit location\nEdit team\nHarbor Charlie Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNo members yet\nEdit location\nEdit team\nHarbor Delta Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nRafael Castillo\nRescuer\nEdit location\nEdit team\nHarbor Echo Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNo members yet\nEdit location\nEdit team\nHarbor Foxtrot Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNina Bautista\nRescuer\nEdit location\nEdit team\nHarbor Golf Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNo members yet\nEdit location\nEdit team\nHarbor Hotel Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNo members yet\nEdit location\nEdit team\nHarbor India Rescue\nAvailable for assignment · No headquarters set\nAvailable\nNo members yet\nEdit location\nEdit team\nHarbor Juliet Rescue\nAvailable for assignment · No headquarters set\nAvailable\nNo members yet\nEdit location\nEdit team\nHarbor Kilo Rescue\nAvailable for assignment · No headquarters set\nAvailable\nNo members yet\nEdit location\nEdit team\nHarbor Lima Rescue\nAvailable for assignment · No headquarters set\nAvailable\nNo members yet\nEdit location\nEdit team"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/users",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_users-1440.png",
+      "url": "/users",
+      "title": "Users · I-Report",
+      "heading": "Users",
+      "overflow": false,
+      "headings": [
+        "Accounts (12)"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Users\n\nManage staff access and team membership.\n\nAccounts (12)\n\nReview access before changing an account’s status. Manage access roles\n\nCreate staff account\nFind an account\nAccount role\nAll roles\nresident\nresponder\nadmin\ndispatcher\ndmo\n\nShowing 12 of 12 accounts\n\nElena Cruz\nelena.cruz@harbor.example\nadmin\nActive\nYour account\nMarco Reyes\nmarco.reyes@harbor.example\ndispatcher\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nSofia Lim\nsofia.lim@harbor.example\ndispatcher\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nAdrian Santos\nadrian.santos@harbor.example\ndmo\nActive\nDeactivate\nMaya Torres\nmaya.torres@harbor.example\nresident\nActive\nDeactivate\nNoah Garcia\nnoah.garcia@harbor.example\nresident\nActive\nDeactivate\nIsabel Ramos\nisabel.ramos@harbor.example\nresident\nActive\nDeactivate\nLeo Mendoza\nleo.mendoza@harbor.example\nresident\nActive\nDeactivate\nDaniel Flores\ndaniel.flores@harbor.example\nresponder\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nClara Navarro\nclara.navarro@harbor.example\nresponder\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nRafael Castillo\nrafael.castillo@harbor.example\nresponder\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nNina Bautista\nnina.bautista@harbor.example\nresponder\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/admin",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_admin-1440.png",
+      "url": "/admin",
+      "title": "Admin · I-Report",
+      "heading": "Admin",
+      "overflow": false,
+      "headings": [
+        "System health and settings",
+        "Password help requests",
+        "Access roles"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)"
+      ],
+      "runningAnimations": 0,
+      "text": "Admin\n\nManage service settings and account access roles.\n\nUsers\nCreate accounts and manage membership\nTeams\nManage team names and headquarters\nAudit log\nReview recorded account and incident changes\nAnalytics and exports\nReview patterns and download reports\nSystem health and settings\n\nCheck availability and maintain resident guidance.\n\nService availability\nAPI: Available\nDatabase: Available\n\nLast checked 10/27/2026, 10:14:35 PM\n\nResident guidance\n\n Required\n\nHotline number\n\nUse a verified emergency contact number for your service area.\n\nResident notice\nSave settings\nPassword help requests\n\nResidents and staff who asked an administrator to reset their password.\n\nCould not load the password help requests.\n\nNo open password help requests.\n\nAccess roles\n\nReview or change an account’s access level."
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/incidents/demo-report-01",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_incidents_demo_report_01-1440.png",
+      "url": "/incidents/demo-report-01",
+      "title": "Incident details · I-Report",
+      "heading": "Incident details",
+      "overflow": false,
+      "headings": [
+        "flood report",
+        "Reported incident",
+        "Progress",
+        "Rescue updates"
+      ],
+      "imageCount": 3,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Incident details\n\nReview the report, its evidence, and the response history.\n\nBack to the queue\n\nFlood Report\nCritical\nSubmitted\nPending\n\nReport RR-260001 · 10/27/2026, 4:54:52 PM\n\nReported incident\n\nWater has entered the ground floor. Three residents need help reaching higher ground.\n\nClassification\nNot classified\nAddress\nRiverside District\nLocation\nPlace not named\nContact\nNo contact provided \nProgress\n●\nSubmitted\nCurrent\nUnder Verification\nPending\nVerified\nPending\nAwaiting Assignment\nPending\nTeam Assigned\nPending\nRescue in Progress\nPending\nResolved\nPending\nClosed\nPending\nRescue updates\n\nNo rescue updates yet.\n\nNEXT STEP\n\nValidate the report\n\nCheck the report and its photos before assigning a rescue team.\n\nValidate report\nReject\n\nValidation is a manual review. The system does not check whether a photo is authentic.\n\nEdit priority & classification"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/incidents/demo-report-17",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_incidents_demo_report_17-1440.png",
+      "url": "/incidents/demo-report-17",
+      "title": "Incident details · I-Report",
+      "heading": "Incident details",
+      "overflow": false,
+      "headings": [
+        "other report",
+        "Reported incident",
+        "Progress",
+        "Rescue updates"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Incident details\n\nReview the report, its evidence, and the response history.\n\nBack to the queue\n\nOther Report\nMedium\nRescue in Progress\nVerified\n\nReport RR-260017 · 10/18/2026, 4:54:52 AM\n\nReported incident\n\nResponders are assisting a household affected by fallen debris.\n\nClassification\nNot classified\nAddress\nCentral District\nLocation\nPlace not named\nContact\nNo contact provided \nAssigned team\nHarbor Foxtrot\nProgress\n✓\nSubmitted\nDone\n✓\nUnder Verification\nDone\n✓\nVerified\nDone\n✓\nAwaiting Assignment\nDone\n✓\nTeam Assigned\nDone\n●\nRescue in Progress\nCurrent\nResolved\nPending\nClosed\nPending\nRescue updates\nRescue in Progress\n10/18/2026, 8:54:52 AM\n\nPeople rescued: 1\n\nDebris cleared from the household entrance\n\nNEXT STEP\n\nRescue in progress\n\nA team is responding. Follow the rescue updates.\n\nEdit priority & classification"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/incidents/not-found",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_incidents_not_found-1440.png",
+      "url": "/incidents/not-found",
+      "title": "Incident details · I-Report",
+      "heading": "Incident details",
+      "overflow": false,
+      "headings": [
+        "Report not found"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(250, 250, 253)"
+      ],
+      "runningAnimations": 0,
+      "text": "Incident details\n\nReview the report, its evidence, and the response history.\n\nReport not found\n\nThe report may have been removed, or the link may be outdated. Return to the incident queue to choose another report.\n\nBack to the queue"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/monitor",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "admin-_monitor-1440.png",
+      "url": "/monitor",
+      "title": "Page not found · I-Report",
+      "heading": "Page not found",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Page not found\n\nThis address does not lead to a page in I-Report. The link may be outdated or incomplete.\n\nReturn home to continue, or sign in to reach your reports and workspace.\n\nBack to home\nGo to my page"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/dashboard",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_dashboard-390.png",
+      "url": "/dashboard",
+      "title": "Dashboard · I-Report",
+      "heading": "Dashboard",
+      "overflow": false,
+      "headings": [
+        "Incident inbox",
+        "Flood report"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgb(239, 232, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Dashboard\n\nReview incoming reports and coordinate the next response.\n\nAll reports\n19\nActive reports\n17\nCritical\n6\nVerified\n13\nIncident inbox\n\nShowing 19 of 19 reports\n\nCritical first, then high, medium and low. Oldest first within each level.\n\nFilters\nSearch incidents\n\nSearch by type, place, description, reference, or report ID.\n\nAll reports (19)\nNeeds verification (6)\nActive (17)\nFlood\nCritical\nRiverbend District\nResponders have reached the area and are helping residents leave safely.\n10/20/2026, 4:54:52 PM\nRescue in Progress\nVerified\nFlood\nCritical\nRiverside District\nA family is waiting for assistance near the footbridge approach.\n10/23/2026, 4:54:52 AM\nTeam Assigned\nVerified\nFire\nCritical\nWarehouse District\nA fire report has been verified. Nearby residents are waiting in an open area.\n10/25/2026, 6:54:52 AM\nAwaiting Assignment\nVerified\nFlood\nCritical\nRiverbend District\nFour residents are waiting on an upper floor. The location has been confirmed.\n10/26/2026, 2:54:52 AM\nVerified\nVerified\nFlood\nCritical\nRiverside District\nA household reports rapidly rising water and an older resident who needs assistance.\n10/26/2026, 4:54:52 PM\nUnder Verification\nPending\nFlood\nCritical\nRiverside District\nWater has entered the ground floor. Three residents need help reaching higher ground.\n10/27/2026, 4:54:52 PM\nSubmitted\nPending\nLandslide\nHigh\nHillside District\nThe team is assisting residents around the blocked access road.\n10/19/2026, 10:54:52 AM\nRescue in Progress\nVerified\nEarthquake\nHigh\nCivic District\nA team has been assigned to assess reported structural damage.\n10/21/2026, 12:54:52 PM\nTeam Assigned\nVerified\nFire\nHigh\nMarket District\nThe assigned team is preparing to assess the reported smoke.\n10/22/2026, 8:54:52 AM\nTeam Assigned\nVerified\nLandslide\nHigh\nHillside District\nRoad access is blocked. A team is needed to assess a safe approach.\n10/24/2026, 3:54:52 PM\nAwaiting Assignment\nVerified\nEarthquake\nHigh\nCivic District\nCracks and fallen ceiling panels have been reported near a meeting area.\n10/26/2026, 11:54:52 AM\nUnder Verification\nPending\nLandslide\nHigh\nHillside District\nSoil and branches are blocking an access road after heavy rain.\n10/27/2026, 9:54:52 AM\nSubmitted\nPending\nFire\nHigh\nMarket District\nSmoke is coming from a storage area. Residents have moved to an open space.\n10/27/2026, 1:54:52 PM\nSubmitted\nPending\nOther\nMedium\nCentral District\nResponders are assisting a household affected by fallen debris.\n10/18/2026, 4:54:52 AM\nRescue in Progress\nVerified\nFlood\nMedium\nSouth District\nTwo households need assistance moving to the designated meeting point.\n10/24/2026, 12:54:52 AM\nAwaiting Assignment\nVerified\nOther\nMedium\nCentral District\nA fallen tree blocks the entrance to a residential lane.\n10/27/2026, 4:54:52 AM\nSubmitted\nPending\nOther\nLow\nCentral District\nDebris partly blocks a walkway. No trapped residents have been reported.\n10/25/2026, 2:54:52 PM\nVerified\nVerified\nFlood\nMedium\nSouth District\nThe reported residents have reached the meeting point. Staff closure is pending.\n10/16/2026, 10:54:52 PM\nResolved\nVerified\nFire\nHigh\nWarehouse District\nThe assigned team has completed the requested assistance. Staff closure is pending.\n10/15/2026, 4:54:52 PM\nResolved\nVerified\nFlood report\n\nRiverbend District\n\nCritical\nRescue in Progress\nVerified\nREPORTED SITUATION\n\nResponders have reached the area and are helping residents leave safely.\n\nReported\n10/20/2026, 4:54:52 PM\nVerification\nVerified\nEvidence\n3 photos\nReported by\nMaya Torres\n+1 (555) 010-0111\nSeverity\nMedium\nNEXT STEP\n\nRescue in progress\n\nA team is responding. Follow the rescue updates.\n\nOpen full report\nRESPONSE HISTORY\nReport submitted\n10/20/2026, 4:54:52 PM\nRescue in Progress\n10/20/2026, 8:54:52 PM\n\nPeople rescued: 2\n\nTeam reached the access point\n\nRescue in Progress\n10/20/2026, 10:54:52 PM\n\nPeople rescued: 3\n\nTwo residents assisted to the meeting point"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/map",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_map-390.png",
+      "url": "/map",
+      "title": "Map · I-Report",
+      "heading": "Map",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 12,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Map\n\nLocate reported incidents and open a report for details.\n\nType\nAll\nFlood\nFire\nEarthquake\nLandslide\nOther\nPriority\nAll\nLow\nMedium\nHigh\nCritical\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\n24 located reports shown\nLow\nMedium\nHigh\nCritical\n+\n−\n Leaflet | © OpenStreetMap contributors"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/analytics",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_analytics-390.png",
+      "url": "/analytics",
+      "title": "Analytics · I-Report",
+      "heading": "Analytics",
+      "overflow": false,
+      "headings": [
+        "Incidents by type",
+        "Incidents by status",
+        "Incidents by priority",
+        "Incidents per month",
+        "Incidents per day",
+        "Reports by area",
+        "Top places reported"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Analytics\n\nReview incident patterns for a selected reporting period.\n\nReports in this period\n24\nOpen incidents\n17\nResolved\n4\nFrom\nTo\nType\nAll\nflood\nfire\nearthquake\nlandslide\nother\nStatus\nAll\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nRescue in Progress\nResolved\nClosed\nRejected\nDuplicate\nCancelled\nDownload CSV\nDownload PDF\nIncidents by type\n0\n3\n6\n9\n12\nflood\nfire\nlandslide\nother\nearthquake\nType\tCount\nflood\t9\nfire\t4\nlandslide\t3\nother\t5\nearthquake\t3\nIncidents by status\n0\n1\n2\n3\n4\nSubmitted\nUnder Verification\nVerified\nAwaiting Assignment\nTeam Assigned\nCancelled\nDuplicate\nRescue in Progress\nRejected\nResolved\nClosed\nStatus\tCount\nSubmitted\t4\nUnder Verification\t2\nVerified\t2\nAwaiting Assignment\t3\nTeam Assigned\t3\nCancelled\t1\nDuplicate\t1\nRescue in Progress\t3\nRejected\t1\nResolved\t2\nClosed\t2\nIncidents by priority\n0\n2\n4\n6\n8\ncritical\nhigh\nmedium\nlow\nPriority\tCount\ncritical\t6\nhigh\t8\nmedium\t6\nlow\t4\nIncidents per month\n2026-10\n0\n6\n12\n18\n24\nMonth\tCount\n2026-10\t24\nIncidents per day\n10-14\n10-16\n10-19\n10-21\n10-24\n10-27\n0\n1\n2\n3\n4\nDay\tCount\n2026-10-13\t1\n2026-10-14\t1\n2026-10-15\t1\n2026-10-16\t1\n2026-10-17\t1\n2026-10-19\t2\n2026-10-20\t2\n2026-10-21\t1\n2026-10-22\t3\n2026-10-23\t1\n2026-10-24\t2\n2026-10-25\t2\n2026-10-26\t3\n2026-10-27\t3\nReports by area\n0\n6\n12\n24\nNot recorded\nArea\tCount\nNot recorded\t24\nTop places reported\n0\n1\n2\n3\n4\nCentral District\nRiverside District\nCivic District\nHillside District\nRiverbend District\nSouth District\nMarket District\nWarehouse District\nPlace\tCount\nCentral District\t4\nRiverside District\t4\nCivic District\t3\nHillside District\t3\nRiverbend District\t3\nSouth District\t3\nMarket District\t2\nWarehouse District\t2"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/audit",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_audit-390.png",
+      "url": "/audit",
+      "title": "Audit log · I-Report",
+      "heading": "Audit log",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Audit log\n\nReview who changed a report, what changed, and when.\n\nSearch the audit log\n\nType a report ID or reference, a person, an action, a team, a field, or a date such as 2026-10-25.\n\nSwipe sideways to see every column.\n\nWhen\tAction\tActor\tReport\tChanges (before, after)\n10/27/2026, 4:57:52 PM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260001\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260001\n\n10/27/2026, 1:57:52 PM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260002\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n fire\nReference: Not recorded →\nchanged to\n RR-260002\n\n10/27/2026, 9:57:52 AM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260003\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n landslide\nReference: Not recorded →\nchanged to\n RR-260003\n\n10/27/2026, 4:57:52 AM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260004\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260004\n\n10/26/2026, 5:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260005\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/26/2026, 4:57:52 PM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260005\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260005\n\n10/26/2026, 12:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260006\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/26/2026, 11:57:52 AM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260006\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n earthquake\nReference: Not recorded →\nchanged to\n RR-260006\n\n10/26/2026, 4:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260007\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/26/2026, 4:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260007\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/26/2026, 3:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260007\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/26/2026, 2:57:52 AM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260007\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260007\n\n10/25/2026, 4:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260008\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/25/2026, 4:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260008\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/25/2026, 3:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260008\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/25/2026, 2:57:52 PM\tReport submitted\nIdentifiers\n\tNoah Garcia\tRR-260008\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260008\n\n10/25/2026, 9:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260009\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/25/2026, 8:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260009\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/25/2026, 8:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260009\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/25/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260009\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/25/2026, 6:57:52 AM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260009\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n fire\nReference: Not recorded →\nchanged to\n RR-260009\n\n10/24/2026, 6:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260010\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/24/2026, 5:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260010\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/24/2026, 5:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260010\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/24/2026, 4:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260010\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/24/2026, 3:57:52 PM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260010\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n landslide\nReference: Not recorded →\nchanged to\n RR-260010\n\n10/24/2026, 3:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260011\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/24/2026, 2:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260011\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/24/2026, 2:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260011\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/24/2026, 1:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260011\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/24/2026, 12:57:52 AM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260011\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260011\n\n10/23/2026, 8:24:52 AM\tAssignment acknowledged\nIdentifiers\n\tDaniel Flores\tRR-260012\t\nStatus: Not recorded →\nchanged to\n Team Assigned\n\n10/23/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/23/2026, 7:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Alpha\n\n10/23/2026, 7:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/23/2026, 6:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/23/2026, 6:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/23/2026, 5:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260012\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/23/2026, 4:57:52 AM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260012\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260012\n\n10/22/2026, 7:06:52 PM\tStatus changed\nIdentifiers\n\tLeo Mendoza\tRR-260024\t\nStatus: Submitted →\nchanged to\n Cancelled\n\n10/22/2026, 6:57:52 PM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260024\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260024\n\n10/22/2026, 12:24:52 PM\tAssignment acknowledged\nIdentifiers\n\tClara Navarro\tRR-260013\t\nStatus: Not recorded →\nchanged to\n Team Assigned\n\n10/22/2026, 11:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/22/2026, 11:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Bravo\n\n10/22/2026, 11:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/22/2026, 10:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/22/2026, 10:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/22/2026, 9:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260013\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/22/2026, 8:57:52 AM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260013\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n fire\nReference: Not recorded →\nchanged to\n RR-260013\n\n10/21/2026, 3:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/21/2026, 3:54:52 PM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Charlie\n\n10/21/2026, 3:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/21/2026, 2:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/21/2026, 2:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/21/2026, 1:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260014\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/21/2026, 12:57:52 PM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260014\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n earthquake\nReference: Not recorded →\nchanged to\n RR-260014\n\n10/20/2026, 9:24:52 PM\tDuplicate marked\nIdentifiers\n\tMarco Reyes\tRR-260023\t\nStatus: Not recorded →\nchanged to\n Duplicate\nRelated report: Not recorded →\nchanged to\n RR-260015\n\n10/20/2026, 8:57:52 PM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260023\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260023\n\n10/20/2026, 8:54:52 PM\tStatus changed\nIdentifiers\n\tRafael Castillo\tRR-260015\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/20/2026, 8:24:52 PM\tAssignment acknowledged\nIdentifiers\n\tRafael Castillo\tRR-260015\t\nStatus: Not recorded →\nchanged to\n Team Assigned\n\n10/20/2026, 7:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/20/2026, 7:54:52 PM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Delta\n\n10/20/2026, 7:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/20/2026, 6:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/20/2026, 6:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/20/2026, 5:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260015\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/20/2026, 4:57:52 PM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260015\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260015\n\n10/20/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260022\t\nStatus: Submitted →\nchanged to\n Rejected\n\n10/20/2026, 6:57:52 AM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260022\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260022\n\n10/19/2026, 2:54:52 PM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260016\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/19/2026, 1:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/19/2026, 1:54:52 PM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Echo\n\n10/19/2026, 1:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/19/2026, 12:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/19/2026, 12:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/19/2026, 11:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260016\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/19/2026, 10:57:52 AM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260016\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n landslide\nReference: Not recorded →\nchanged to\n RR-260016\n\n10/18/2026, 8:54:52 AM\tStatus changed\nIdentifiers\n\tNina Bautista\tRR-260017\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/18/2026, 8:24:52 AM\tAssignment acknowledged\nIdentifiers\n\tNina Bautista\tRR-260017\t\nStatus: Not recorded →\nchanged to\n Team Assigned\n\n10/18/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/18/2026, 7:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Foxtrot\n\n10/18/2026, 7:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/18/2026, 6:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/18/2026, 6:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/18/2026, 5:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260017\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/18/2026, 4:57:52 AM\tReport submitted\nIdentifiers\n\tIsabel Ramos\tRR-260017\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n other\nReference: Not recorded →\nchanged to\n RR-260017\n\n10/17/2026, 6:54:52 AM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260018\t\nStatus: Rescue in Progress →\nchanged to\n Resolved\n\n10/17/2026, 2:54:52 AM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260018\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/17/2026, 1:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/17/2026, 1:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Golf\n\n10/17/2026, 1:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/17/2026, 12:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/17/2026, 12:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/16/2026, 11:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260018\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/16/2026, 10:57:52 PM\tReport submitted\nIdentifiers\n\tMaya Torres\tRR-260018\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n flood\nReference: Not recorded →\nchanged to\n RR-260018\n\n10/16/2026, 12:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Resolved →\nchanged to\n Closed\n\n10/16/2026, 12:54:52 PM\tReport closed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Not recorded →\nchanged to\n Closed\n\n10/16/2026, 1:54:52 AM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260019\t\nStatus: Rescue in Progress →\nchanged to\n Resolved\n\n10/15/2026, 8:54:52 PM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260019\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/15/2026, 7:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/15/2026, 7:54:52 PM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor Hotel\n\n10/15/2026, 7:24:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/15/2026, 6:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/15/2026, 6:54:52 PM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/15/2026, 5:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260019\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/15/2026, 4:57:52 PM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260019\t\nStatus: Not recorded →\nchanged to\n Submitted\nType: Not recorded →\nchanged to\n fire\nReference: Not recorded →\nchanged to\n RR-260019\n\n10/15/2026, 4:54:52 PM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260021\t\nStatus: Resolved →\nchanged to\n Closed\n\n10/15/2026, 4:54:52 PM\tReport closed\nIdentifiers\n\tMarco Reyes\tRR-260021\t\nStatus: Not recorded →\nchanged to\n Closed\n\n10/15/2026, 1:54:52 PM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260020\t\nStatus: Rescue in Progress →\nchanged to\n Resolved\n\n10/15/2026, 10:54:52 AM\tStatus changed\nIdentifiers\n\tSofia Lim\tRR-260020\t\nStatus: Team Assigned →\nchanged to\n Rescue in Progress\n\n10/15/2026, 9:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Awaiting Assignment →\nchanged to\n Team Assigned\n\n10/15/2026, 9:54:52 AM\tTeam assigned\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Not recorded →\nchanged to\n Team Assigned\nAssigned team: Not recorded →\nchanged to\n Harbor India\n\n10/15/2026, 9:24:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Verified →\nchanged to\n Awaiting Assignment\n\n10/15/2026, 8:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Under Verification →\nchanged to\n Verified\n\n10/15/2026, 8:54:52 AM\tReport verified\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Not recorded →\nchanged to\n Verified\nVerification: Not recorded →\nchanged to\n Verified\n\n10/15/2026, 7:54:52 AM\tStatus changed\nIdentifiers\n\tMarco Reyes\tRR-260020\t\nStatus: Submitted →\nchanged to\n Under Verification\n\n10/15/2026, 6:57:52 AM\tReport submitted\nIdentifiers\n\tLeo Mendoza\tRR-260020\t\nStatus: Not "
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/teams",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_teams-390.png",
+      "url": "/teams",
+      "title": "Teams · I-Report",
+      "heading": "Teams",
+      "overflow": false,
+      "headings": [
+        "Rescue teams (12)"
+      ],
+      "imageCount": 4,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Teams\n\nManage rescue teams and see their current availability.\n\nRescue teams\n12\nAvailable\n4\nOn assignment\n8\nRescue teams (12)\n\nAvailability updates as teams are assigned to rescues.\n\nCreate team\nFind a team\nAvailability\nAll teams\nAvailable\nOn assignment\n\nShowing 12 of 12 teams\n\nHarbor Alpha Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nDaniel Flores\nRescuer\nEdit location\nEdit team\nHarbor Bravo Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nClara Navarro\nRescuer\nEdit location\nEdit team\nHarbor Charlie Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNo members yet\nEdit location\nEdit team\nHarbor Delta Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nRafael Castillo\nRescuer\nEdit location\nEdit team\nHarbor Echo Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNo members yet\nEdit location\nEdit team\nHarbor Foxtrot Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNina Bautista\nRescuer\nEdit location\nEdit team\nHarbor Golf Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNo members yet\nEdit location\nEdit team\nHarbor Hotel Rescue\nAssigned to an active rescue · No headquarters set\nBusy\nNo members yet\nEdit location\nEdit team\nHarbor India Rescue\nAvailable for assignment · No headquarters set\nAvailable\nNo members yet\nEdit location\nEdit team\nHarbor Juliet Rescue\nAvailable for assignment · No headquarters set\nAvailable\nNo members yet\nEdit location\nEdit team\nHarbor Kilo Rescue\nAvailable for assignment · No headquarters set\nAvailable\nNo members yet\nEdit location\nEdit team\nHarbor Lima Rescue\nAvailable for assignment · No headquarters set\nAvailable\nNo members yet\nEdit location\nEdit team"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/users",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_users-390.png",
+      "url": "/users",
+      "title": "Users · I-Report",
+      "heading": "Users",
+      "overflow": false,
+      "headings": [
+        "Accounts (12)"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Users\n\nManage staff access and team membership.\n\nAccounts (12)\n\nReview access before changing an account’s status. Manage access roles\n\nCreate staff account\nFind an account\nAccount role\nAll roles\nresident\nresponder\nadmin\ndispatcher\ndmo\n\nShowing 12 of 12 accounts\n\nElena Cruz\nelena.cruz@harbor.example\nadmin\nActive\nYour account\nMarco Reyes\nmarco.reyes@harbor.example\ndispatcher\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nSofia Lim\nsofia.lim@harbor.example\ndispatcher\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nAdrian Santos\nadrian.santos@harbor.example\ndmo\nActive\nDeactivate\nMaya Torres\nmaya.torres@harbor.example\nresident\nActive\nDeactivate\nNoah Garcia\nnoah.garcia@harbor.example\nresident\nActive\nDeactivate\nIsabel Ramos\nisabel.ramos@harbor.example\nresident\nActive\nDeactivate\nLeo Mendoza\nleo.mendoza@harbor.example\nresident\nActive\nDeactivate\nDaniel Flores\ndaniel.flores@harbor.example\nresponder\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nClara Navarro\nclara.navarro@harbor.example\nresponder\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nRafael Castillo\nrafael.castillo@harbor.example\nresponder\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate\nNina Bautista\nnina.bautista@harbor.example\nresponder\nActive\nTeam\nNo team\nHarbor Alpha\nHarbor Bravo\nHarbor Charlie\nHarbor Delta\nHarbor Echo\nHarbor Foxtrot\nHarbor Golf\nHarbor Hotel\nHarbor India\nHarbor Juliet\nHarbor Kilo\nHarbor Lima\nDeactivate"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/admin",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_admin-390.png",
+      "url": "/admin",
+      "title": "Admin · I-Report",
+      "heading": "Admin",
+      "overflow": false,
+      "headings": [
+        "System health and settings",
+        "Password help requests",
+        "Access roles"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)"
+      ],
+      "runningAnimations": 0,
+      "text": "Admin\n\nManage service settings and account access roles.\n\nUsers\nCreate accounts and manage membership\nTeams\nManage team names and headquarters\nAudit log\nReview recorded account and incident changes\nAnalytics and exports\nReview patterns and download reports\nSystem health and settings\n\nCheck availability and maintain resident guidance.\n\nService availability\nAPI: Available\nDatabase: Available\n\nLast checked 10/27/2026, 10:14:58 PM\n\nResident guidance\n\n Required\n\nHotline number\n\nUse a verified emergency contact number for your service area.\n\nResident notice\nSave settings\nPassword help requests\n\nResidents and staff who asked an administrator to reset their password.\n\nCould not load the password help requests.\n\nNo open password help requests.\n\nAccess roles\n\nReview or change an account’s access level."
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/incidents/demo-report-01",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_incidents_demo_report_01-390.png",
+      "url": "/incidents/demo-report-01",
+      "title": "Incident details · I-Report",
+      "heading": "Incident details",
+      "overflow": false,
+      "headings": [
+        "flood report",
+        "Reported incident",
+        "Progress",
+        "Rescue updates"
+      ],
+      "imageCount": 3,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Incident details\n\nReview the report, its evidence, and the response history.\n\nBack to the queue\n\nFlood Report\nCritical\nSubmitted\nPending\n\nReport RR-260001 · 10/27/2026, 4:54:52 PM\n\nReported incident\n\nWater has entered the ground floor. Three residents need help reaching higher ground.\n\nClassification\nNot classified\nAddress\nRiverside District\nLocation\nPlace not named\nContact\nNo contact provided \nProgress\n●\nSubmitted\nCurrent\nUnder Verification\nPending\nVerified\nPending\nAwaiting Assignment\nPending\nTeam Assigned\nPending\nRescue in Progress\nPending\nResolved\nPending\nClosed\nPending\nRescue updates\n\nNo rescue updates yet.\n\nNEXT STEP\n\nValidate the report\n\nCheck the report and its photos before assigning a rescue team.\n\nValidate report\nReject\n\nValidation is a manual review. The system does not check whether a photo is authentic.\n\nEdit priority & classification"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/incidents/demo-report-17",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_incidents_demo_report_17-390.png",
+      "url": "/incidents/demo-report-17",
+      "title": "Incident details · I-Report",
+      "heading": "Incident details",
+      "overflow": false,
+      "headings": [
+        "other report",
+        "Reported incident",
+        "Progress",
+        "Rescue updates"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Incident details\n\nReview the report, its evidence, and the response history.\n\nBack to the queue\n\nOther Report\nMedium\nRescue in Progress\nVerified\n\nReport RR-260017 · 10/18/2026, 4:54:52 AM\n\nReported incident\n\nResponders are assisting a household affected by fallen debris.\n\nClassification\nNot classified\nAddress\nCentral District\nLocation\nPlace not named\nContact\nNo contact provided \nAssigned team\nHarbor Foxtrot\nProgress\n✓\nSubmitted\nDone\n✓\nUnder Verification\nDone\n✓\nVerified\nDone\n✓\nAwaiting Assignment\nDone\n✓\nTeam Assigned\nDone\n●\nRescue in Progress\nCurrent\nResolved\nPending\nClosed\nPending\nRescue updates\nRescue in Progress\n10/18/2026, 8:54:52 AM\n\nPeople rescued: 1\n\nDebris cleared from the household entrance\n\nNEXT STEP\n\nRescue in progress\n\nA team is responding. Follow the rescue updates.\n\nEdit priority & classification"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/incidents/not-found",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_incidents_not_found-390.png",
+      "url": "/incidents/not-found",
+      "title": "Incident details · I-Report",
+      "heading": "Incident details",
+      "overflow": false,
+      "headings": [
+        "Report not found"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(250, 250, 253)"
+      ],
+      "runningAnimations": 0,
+      "text": "Incident details\n\nReview the report, its evidence, and the response history.\n\nReport not found\n\nThe report may have been removed, or the link may be outdated. Return to the incident queue to choose another report.\n\nBack to the queue"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/monitor",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "admin-_monitor-390.png",
+      "url": "/monitor",
+      "title": "Page not found · I-Report",
+      "heading": "Page not found",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Page not found\n\nThis address does not lead to a page in I-Report. The link may be outdated or incomplete.\n\nReturn home to continue, or sign in to reach your reports and workspace.\n\nBack to home\nGo to my page"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": null,
+      "width": 1440,
+      "suffix": "-empty",
+      "screenshot": "admin-_users-1440-empty.png",
+      "url": "/users",
+      "title": "Users · I-Report",
+      "heading": "Users",
+      "overflow": false,
+      "headings": [
+        "Accounts (12)",
+        "No matching accounts"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgb(250, 250, 253)"
+      ],
+      "runningAnimations": 0,
+      "text": "Users\n\nManage staff access and team membership.\n\nAccounts (12)\n\nReview access before changing an account’s status. Manage access roles\n\nCreate staff account\nFind an account\nAccount role\nAll roles\nresident\nresponder\nadmin\ndispatcher\ndmo\n\nShowing 0 of 12 accounts\n\nNo matching accounts\n\nTry a different name or role.\n\nClear account filters"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": null,
+      "width": 1440,
+      "suffix": "-roles",
+      "screenshot": "admin-_admin_panel_roles-1440-roles.png",
+      "url": "/admin?panel=roles",
+      "title": "Admin · I-Report",
+      "heading": "Admin",
+      "overflow": false,
+      "headings": [
+        "System health and settings",
+        "Password help requests",
+        "Access roles"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)"
+      ],
+      "runningAnimations": 0,
+      "text": "Admin\n\nManage service settings and account access roles.\n\nUsers\nCreate accounts and manage membership\nTeams\nManage team names and headquarters\nAudit log\nReview recorded account and incident changes\nAnalytics and exports\nReview patterns and download reports\nSystem health and settings\n\nCheck availability and maintain resident guidance.\n\nService availability\nAPI: Available\nDatabase: Available\n\nLast checked 10/27/2026, 10:15:09 PM\n\nResident guidance\n\n Required\n\nHotline number\n\nUse a verified emergency contact number for your service area.\n\nResident notice\nSave settings\nPassword help requests\n\nResidents and staff who asked an administrator to reset their password.\n\nCould not load the password help requests.\n\nNo open password help requests.\n\nAccess roles\n\nReview or change an account’s access level.\n\nFind an account\nFilter by role\nAll roles\nresident\nadmin\nresponder\ndispatcher\ndmo\n\nShowing 12 of 12 accounts.\n\nName\tEmail / account ID\tRole\tStatus\nElena Cruz\telena.cruz@harbor.example\t\nadmin\nresponder\nresident\n\nYour account. Another administrator must change your role.\n\n\tActive\nMarco Reyes\tmarco.reyes@harbor.example\t\ndispatcher\nadmin\nresponder\nresident\n\tActive\nSofia Lim\tsofia.lim@harbor.example\t\ndispatcher\nadmin\nresponder\nresident\n\tActive\nAdrian Santos\tadrian.santos@harbor.example\t\ndmo\nadmin\nresponder\nresident\n\tActive\nMaya Torres\tmaya.torres@harbor.example\t\nadmin\nresponder\nresident\n\tActive\nNoah Garcia\tnoah.garcia@harbor.example\t\nadmin\nresponder\nresident\n\tActive\nIsabel Ramos\tisabel.ramos@harbor.example\t\nadmin\nresponder\nresident\n\tActive\nLeo Mendoza\tleo.mendoza@harbor.example\t\nadmin\nresponder\nresident\n\tActive\nDaniel Flores\tdaniel.flores@harbor.example\t\nadmin\nresponder\nresident\n\tActive\nClara Navarro\tclara.navarro@harbor.example\t\nadmin\nresponder\nresident\n\tActive\nRafael Castillo\trafael.castillo@harbor.example\t\nadmin\nresponder\nresident\n\tActive\nNina Bautista\tnina.bautista@harbor.example\t\nadmin\nresponder\nresident\n\tActive"
+    },
+    {
+      "role": "admin",
+      "requestedRoute": "/admin",
+      "width": 1440,
+      "suffix": "-mocked-health-error",
+      "screenshot": "admin-_admin-1440-mocked-health-error.png",
+      "url": "/admin",
+      "title": "Admin · I-Report",
+      "heading": "Admin",
+      "overflow": false,
+      "headings": [
+        "System health and settings",
+        "Password help requests",
+        "Access roles"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)"
+      ],
+      "runningAnimations": 0,
+      "text": "Admin\n\nManage service settings and account access roles.\n\nUsers\nCreate accounts and manage membership\nTeams\nManage team names and headquarters\nAudit log\nReview recorded account and incident changes\nAnalytics and exports\nReview patterns and download reports\nSystem health and settings\n\nCheck availability and maintain resident guidance.\n\nCould not check system health. Retry health check\nResident guidance\n\n Required\n\nHotline number\n\nUse a verified emergency contact number for your service area.\n\nResident notice\nSave settings\nPassword help requests\n\nResidents and staff who asked an administrator to reset their password.\n\nCould not load the password help requests.\n\nNo open password help requests.\n\nAccess roles\n\nReview or change an account’s access level."
+    },
+    {
+      "role": "responder",
+      "requestedRoute": "/assignments",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "responder-_assignments-1440.png",
+      "url": "/assignments",
+      "title": "Assignments · I-Report",
+      "heading": "Assignments",
+      "overflow": false,
+      "headings": [
+        "Your team",
+        "flood report"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 4,
+      "text": "Assignments\n\nReview your team’s incidents and record rescue progress.\n\nYour team\nAssigned reports\n1\nOpen\n1\nResolved or closed\n0\nPeople rescued\n0\n\nTotals for your team only, from reports and updates logged in the app or on this website.\n\nFlood Report\nCritical\nTeam Assigned\nA family is waiting for assistance near the footbridge approach.\nAddress\nRiverside District\nLocation\nPlace not named Open in maps\nReported\n10/23/2026, 4:54:52 AM\n\nChecking acknowledgement…\n\nPost an update\nProgress History\n\nLoading progress history"
+    },
+    {
+      "role": "responder",
+      "requestedRoute": "/assignments/demo-report-12",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "responder-_assignments_demo_report_12-1440.png",
+      "url": "/assignments",
+      "title": "Assignments · I-Report",
+      "heading": "Assignments",
+      "overflow": false,
+      "headings": [
+        "Your team",
+        "flood report"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Assignments\n\nReview your team’s incidents and record rescue progress.\n\nYour team\nAssigned reports\n1\nOpen\n1\nResolved or closed\n0\nPeople rescued\n0\n\nTotals for your team only, from reports and updates logged in the app or on this website.\n\nFlood Report\nCritical\nTeam Assigned\nA family is waiting for assistance near the footbridge approach.\nAddress\nRiverside District\nLocation\nPlace not named Open in maps\nReported\n10/23/2026, 4:54:52 AM\n\n Acknowledged 10/23/2026, 8:24:52 AM\n\nPost an update\nProgress History\n\nNo progress entries have been recorded yet."
+    },
+    {
+      "role": "responder",
+      "requestedRoute": "/assignments/demo-report-20",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "responder-_assignments_demo_report_20-1440.png",
+      "url": "/assignments/demo-report-20",
+      "title": "Assignment · I-Report",
+      "heading": "Assignment",
+      "overflow": false,
+      "headings": [
+        "Report not available to your team"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(250, 250, 253)"
+      ],
+      "runningAnimations": 0,
+      "text": "Assignment\n\nReport not available to your team\n\nThis report is not on your team's assignments. The link may be outdated, or the report may belong to another team.\n\nBack to assignments"
+    },
+    {
+      "role": "responder",
+      "requestedRoute": "/dashboard",
+      "width": 1440,
+      "suffix": "",
+      "screenshot": "responder-_dashboard-1440.png",
+      "url": "/forbidden",
+      "title": "Access denied · I-Report",
+      "heading": "Access denied",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Access denied\n\nSigned in as a responder. This page is outside the work that role can do.\n\nYour page is the next step. If you signed in with the wrong account, sign out and use the right one.\n\nGo to my page\nSign out\nBack to home"
+    },
+    {
+      "role": "responder",
+      "requestedRoute": "/assignments",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "responder-_assignments-390.png",
+      "url": "/assignments",
+      "title": "Assignments · I-Report",
+      "heading": "Assignments",
+      "overflow": false,
+      "headings": [
+        "Your team",
+        "flood report"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Assignments\n\nReview your team’s incidents and record rescue progress.\n\nYour team\nAssigned reports\n1\nOpen\n1\nResolved or closed\n0\nPeople rescued\n0\n\nTotals for your team only, from reports and updates logged in the app or on this website.\n\nFlood Report\nCritical\nTeam Assigned\nA family is waiting for assistance near the footbridge approach.\nAddress\nRiverside District\nLocation\nPlace not named Open in maps\nReported\n10/23/2026, 4:54:52 AM\n\n Acknowledged 10/23/2026, 8:24:52 AM\n\nPost an update\nProgress History\n\nNo progress entries have been recorded yet."
+    },
+    {
+      "role": "responder",
+      "requestedRoute": "/assignments/demo-report-12",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "responder-_assignments_demo_report_12-390.png",
+      "url": "/assignments",
+      "title": "Assignments · I-Report",
+      "heading": "Assignments",
+      "overflow": false,
+      "headings": [
+        "Your team",
+        "flood report"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Assignments\n\nReview your team’s incidents and record rescue progress.\n\nYour team\nAssigned reports\n1\nOpen\n1\nResolved or closed\n0\nPeople rescued\n0\n\nTotals for your team only, from reports and updates logged in the app or on this website.\n\nFlood Report\nCritical\nTeam Assigned\nA family is waiting for assistance near the footbridge approach.\nAddress\nRiverside District\nLocation\nPlace not named Open in maps\nReported\n10/23/2026, 4:54:52 AM\n\n Acknowledged 10/23/2026, 8:24:52 AM\n\nPost an update\nProgress History\n\nNo progress entries have been recorded yet."
+    },
+    {
+      "role": "responder",
+      "requestedRoute": "/assignments/demo-report-20",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "responder-_assignments_demo_report_20-390.png",
+      "url": "/assignments/demo-report-20",
+      "title": "Assignment · I-Report",
+      "heading": "Assignment",
+      "overflow": false,
+      "headings": [
+        "Report not available to your team"
+      ],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(250, 250, 253)"
+      ],
+      "runningAnimations": 0,
+      "text": "Assignment\n\nReport not available to your team\n\nThis report is not on your team's assignments. The link may be outdated, or the report may belong to another team.\n\nBack to assignments"
+    },
+    {
+      "role": "responder",
+      "requestedRoute": "/dashboard",
+      "width": 390,
+      "suffix": "",
+      "screenshot": "responder-_dashboard-390.png",
+      "url": "/forbidden",
+      "title": "Access denied · I-Report",
+      "heading": "Access denied",
+      "overflow": false,
+      "headings": [],
+      "imageCount": 0,
+      "canvasCount": 0,
+      "backgrounds": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)"
+      ],
+      "runningAnimations": 0,
+      "text": "Access denied\n\nSigned in as a responder. This page is outside the work that role can do.\n\nYour page is the next step. If you signed in with the wrong account, sign out and use the right one.\n\nGo to my page\nSign out\nBack to home"
+    }
+  ]
+}

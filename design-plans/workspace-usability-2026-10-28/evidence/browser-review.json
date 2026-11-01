@@ -1,0 +1,183 @@
+{
+  "rows": [
+    {
+      "route": "/users",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/teams",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "Team create",
+      "width": 1440,
+      "mapSize": {
+        "x": 386,
+        "y": 467.140625,
+        "width": 668,
+        "height": 240
+      },
+      "label": "MICT South Access Road, Tondo, Manila14.60122, 120.94746Place names are approximate. The pin sets the exact headquarters."
+    },
+    {
+      "route": "/admin",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/incidents/demo-report-07",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/map",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "Incident modal",
+      "width": 1440,
+      "bounds": {
+        "x": 160,
+        "y": 73.171875,
+        "width": 1120,
+        "height": 853.65625
+      },
+      "closeVisible": true
+    },
+    {
+      "route": "Profile",
+      "width": 1440,
+      "topActions": [
+        "EElena Cruz",
+        ""
+      ],
+      "password": true
+    },
+    {
+      "route": "/users",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/teams",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "Team create",
+      "width": 390,
+      "mapSize": {
+        "x": 36,
+        "y": 419.515625,
+        "width": 318,
+        "height": 240
+      },
+      "label": "Pinned location14.60120, 120.97750Address unavailable. The pin is still set.Place names are approximate. The pin sets the exact headquarters."
+    },
+    {
+      "route": "/admin",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/incidents/demo-report-07",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/map",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "Incident modal",
+      "width": 390,
+      "bounds": {
+        "x": 8,
+        "y": 8,
+        "width": 374,
+        "height": 984
+      },
+      "closeVisible": true
+    },
+    {
+      "route": "Profile",
+      "width": 390,
+      "topActions": [
+        "EElena Cruz",
+        ""
+      ],
+      "password": true
+    }
+  ],
+  "errors": [],
+  "lookups": [
+    {
+      "status": 200,
+      "body": {
+        "placeName": "MICT South Access Road, Tondo, Manila",
+        "approximate": true,
+        "attribution": "© OpenStreetMap contributors"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "placeName": "Paraiso Street, Barangay 584, Manila",
+        "approximate": true,
+        "attribution": "© OpenStreetMap contributors"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "placeName": "C. P. Garcia Street, Barangay 111, Manila",
+        "approximate": true,
+        "attribution": "© OpenStreetMap contributors"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "placeName": "Mabini Flyover, Santa Mesa, Manila",
+        "approximate": true,
+        "attribution": "© OpenStreetMap contributors"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "placeName": null,
+        "approximate": true,
+        "attribution": "© OpenStreetMap contributors"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "placeName": "Paraiso Street, Barangay 584, Manila",
+        "approximate": true,
+        "attribution": "© OpenStreetMap contributors"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "placeName": "Avenue B, Santa Cruz, Manila",
+        "approximate": true,
+        "attribution": "© OpenStreetMap contributors"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "placeName": "Mabini Flyover, Santa Mesa, Manila",
+        "approximate": true,
+        "attribution": "© OpenStreetMap contributors"
+      }
+    }
+  ]
+}

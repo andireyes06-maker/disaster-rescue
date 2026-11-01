@@ -1,0 +1,32 @@
+
+ RUN  v5.0.5 /Users/rien/Documents/FINAL_PROJECT/app/web
+
+ ❯ src/features/resident/ResidentSignUp.test.tsx (9 tests | 1 failed) 57307ms
+   ❯ ResidentSignUp (9)
+     × keeps the password hint linked and clears an error once the field is valid 21793ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/resident/ResidentSignUp.test.tsx > ResidentSignUp > keeps the password hint linked and clears an error once the field is valid
+Error: Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/features/resident/ResidentSignUp.test.tsx:103:3
+    101|   });
+    102|
+    103|   it('keeps the password hint linked and clears an error once the fiel…
+       |   ^
+    104|     const user = userEvent.setup();
+    105|     renderPage();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 67 passed (68)
+      Tests  1 failed | 507 passed (508)
+   Start at  23:54:23
+   Duration  547.02s (environment 41%, tests 39%, import 11%, setup 6%, transform 2%)
+
+Environment  jsdom was created 68 times · 205.42s total, 41% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

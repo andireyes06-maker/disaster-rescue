@@ -1,0 +1,50 @@
+[
+  {
+    "width": 390,
+    "name": "profile-password",
+    "violations": [],
+    "dialogFitsWidth": true
+  },
+  {
+    "width": 390,
+    "name": "team-hq",
+    "violations": [],
+    "dialogFitsWidth": true
+  },
+  {
+    "width": 390,
+    "name": "submitter-profile",
+    "violations": [],
+    "dialogFitsWidth": true
+  },
+  {
+    "width": 390,
+    "name": "assign-team",
+    "violations": [],
+    "dialogFitsWidth": true
+  },
+  {
+    "width": 1440,
+    "name": "profile-password",
+    "violations": [],
+    "dialogFitsWidth": true
+  },
+  {
+    "width": 1440,
+    "name": "team-hq",
+    "violations": [],
+    "dialogFitsWidth": true
+  },
+  {
+    "width": 1440,
+    "name": "submitter-profile",
+    "violations": [],
+    "dialogFitsWidth": true
+  },
+  {
+    "width": 1440,
+    "name": "assign-team",
+    "violations": [],
+    "dialogFitsWidth": true
+  }
+]

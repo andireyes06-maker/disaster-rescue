@@ -1,0 +1,480 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "route": "/dashboard",
+      "overflow": false,
+      "rows": [
+        120,
+        120,
+        120
+      ],
+      "buttons": [
+        {
+          "text": "Filters",
+          "width": 99,
+          "height": 40
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "route": "/teams",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Create team",
+          "width": 107,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "route": "/users",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Create staff account",
+          "width": 162,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "route": "/admin",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Save settings",
+          "width": 116,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "route": "/analytics",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Download CSV",
+          "width": 123,
+          "height": 36
+        },
+        {
+          "text": "Download PDF",
+          "width": 122,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "route": "/incidents/demo-report-17",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Edit priority & classification",
+          "width": 250,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "route": "/dashboard",
+      "overflow": false,
+      "rows": [
+        105,
+        105,
+        105
+      ],
+      "buttons": [
+        {
+          "text": "Filters",
+          "width": 99,
+          "height": 40
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "route": "/teams",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Create team",
+          "width": 107,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        },
+        {
+          "text": "Edit location",
+          "width": 108,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "route": "/users",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Create staff account",
+          "width": 162,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        },
+        {
+          "text": "Deactivate",
+          "width": 92,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "route": "/admin",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Save settings",
+          "width": 116,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "route": "/analytics",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Download CSV",
+          "width": 123,
+          "height": 36
+        },
+        {
+          "text": "Download PDF",
+          "width": 122,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "route": "/incidents/demo-report-17",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Edit priority & classification",
+          "width": 210,
+          "height": 36
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "/dashboard",
+      "overflow": false,
+      "rows": [
+        178,
+        178,
+        178
+      ],
+      "buttons": [
+        {
+          "text": "Filters",
+          "width": 111,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "/teams",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Create team",
+          "width": 119,
+          "height": 46
+        },
+        {
+          "text": "Edit location",
+          "width": 120,
+          "height": 46
+        },
+        {
+          "text": "Edit location",
+          "width": 120,
+          "height": 46
+        },
+        {
+          "text": "Edit location",
+          "width": 120,
+          "height": 46
+        },
+        {
+          "text": "Edit location",
+          "width": 120,
+          "height": 46
+        },
+        {
+          "text": "Edit location",
+          "width": 120,
+          "height": 46
+        },
+        {
+          "text": "Edit location",
+          "width": 120,
+          "height": 46
+        },
+        {
+          "text": "Edit location",
+          "width": 120,
+          "height": 46
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "/users",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Create staff account",
+          "width": 174,
+          "height": 46
+        },
+        {
+          "text": "Deactivate",
+          "width": 104,
+          "height": 44
+        },
+        {
+          "text": "Deactivate",
+          "width": 104,
+          "height": 44
+        },
+        {
+          "text": "Deactivate",
+          "width": 104,
+          "height": 44
+        },
+        {
+          "text": "Deactivate",
+          "width": 104,
+          "height": 44
+        },
+        {
+          "text": "Deactivate",
+          "width": 104,
+          "height": 44
+        },
+        {
+          "text": "Deactivate",
+          "width": 104,
+          "height": 44
+        },
+        {
+          "text": "Deactivate",
+          "width": 104,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "/admin",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Save settings",
+          "width": 128,
+          "height": 46
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "/analytics",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Download CSV",
+          "width": 135,
+          "height": 46
+        },
+        {
+          "text": "Download PDF",
+          "width": 134,
+          "height": 46
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "/incidents/demo-report-17",
+      "overflow": false,
+      "rows": [],
+      "buttons": [
+        {
+          "text": "Edit priority & classification",
+          "width": 308,
+          "height": 46
+        }
+      ]
+    }
+  ],
+  "teamEditorsOpened": true,
+  "accountSearch": true,
+  "rolesDeepLink": true,
+  "noDuplicatedManagement": true,
+  "pageExceptions": []
+}

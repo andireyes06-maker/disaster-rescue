@@ -1,0 +1,35 @@
+[
+  {
+    "width": 320,
+    "panelWidth": 278,
+    "columns": "238px",
+    "overflow": false,
+    "pageOverflow": false
+  },
+  {
+    "width": 390,
+    "panelWidth": 348,
+    "columns": "150px 150px",
+    "overflow": false,
+    "pageOverflow": false
+  },
+  {
+    "width": 1024,
+    "panelWidth": 486,
+    "columns": "215px 215px",
+    "overflow": false,
+    "pageOverflow": false
+  },
+  {
+    "width": 1440,
+    "panelWidth": 814,
+    "columns": "185.5px 185.5px 185.5px 185.5px",
+    "overflow": false,
+    "pageOverflow": false
+  },
+  {
+    "panelWidth": 498,
+    "columns": "221px 221px",
+    "overflow": false
+  }
+]

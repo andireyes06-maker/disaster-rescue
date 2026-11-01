@@ -1,0 +1,34 @@
+[
+  {
+    "width": 390,
+    "missingHqBlocked": true,
+    "hqFocused": true,
+    "mapPinPersisted": {
+      "lng": 120.98419189453126,
+      "lat": 14.600515154366615
+    },
+    "currentLocationSubmitted": true,
+    "reloadRetainedTeam": true,
+    "keyboardSelectionSaved": true,
+    "axeViolations": [],
+    "dialogAxeViolations": [],
+    "overflow": false,
+    "exceptions": []
+  },
+  {
+    "width": 1440,
+    "missingHqBlocked": true,
+    "hqFocused": true,
+    "mapPinPersisted": {
+      "lng": 120.95432281494142,
+      "lat": 14.6003905659066
+    },
+    "currentLocationSubmitted": true,
+    "reloadRetainedTeam": true,
+    "keyboardSelectionSaved": true,
+    "axeViolations": [],
+    "dialogAxeViolations": [],
+    "overflow": false,
+    "exceptions": []
+  }
+]

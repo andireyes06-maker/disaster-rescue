@@ -1,0 +1,847 @@
+{
+  "baseCommit": "135a3ad6ac5050d06d463f8c6a3af270c8fd54e8",
+  "nativeLocalChanges": [
+    "mobile/lib/features/profile/profile_page.dart",
+    "mobile/lib/features/report/photo_picker.dart",
+    "mobile/lib/features/responder/operation_form_page.dart",
+    "mobile/test/goldens/PROVENANCE.md",
+    "mobile/test/goldens/SHA256SUMS.txt",
+    "mobile/test/goldens/profile.png",
+    "mobile/test/operation_form_retry_test.dart",
+    "mobile/test/photo_picker_test.dart"
+  ],
+  "files": [
+    {
+      "path": "mobile/.gitignore",
+      "sha256": "4a8d984279954e0461e0ffef9b9e7455340a0a762f227c01065a53482a83a4f1"
+    },
+    {
+      "path": "mobile/.impeccable/design.json",
+      "sha256": "0fe3dfdd8b12b7437e203c8f53bf2d61294e63cff4749b9994b83b08466539f4"
+    },
+    {
+      "path": "mobile/.metadata",
+      "sha256": "3d9ad80463efcba0b84e772c6f2cd6be270019fffc45463305c203e093a3bc36"
+    },
+    {
+      "path": "mobile/DESIGN.md",
+      "sha256": "7c177ad8cd45ad610ddac7052a0907d0fbda8e3422a00d63847873e49437564c"
+    },
+    {
+      "path": "mobile/README.md",
+      "sha256": "055a09b863f07d4e75b91f4de0e210c98157d3dd22811dfad81f82c58d27c06f"
+    },
+    {
+      "path": "mobile/RELEASE.md",
+      "sha256": "53ac1579b56a89ee2e6f024535ff61dbe6dbcedd868e2fb8ff245f818d363208"
+    },
+    {
+      "path": "mobile/analysis_options.yaml",
+      "sha256": "95a4479cb2c826f4d1a827e8b9a16e2b54c1fc5bc9a6723d017e9b59c4b8a650"
+    },
+    {
+      "path": "mobile/android/.gitignore",
+      "sha256": "b027c9de1011765c015e5819bf857c0d75bfcd0886fb01721c091159012e50f1"
+    },
+    {
+      "path": "mobile/android/app/build.gradle.kts",
+      "sha256": "3fa5373f772eddb1efd878296c6f249fbd3f4df8906ec0198f3c009a400a0806"
+    },
+    {
+      "path": "mobile/android/app/src/debug/AndroidManifest.xml",
+      "sha256": "ae25f3c842d025529ae9a736f6bd10b2790986374d6d5e6edcc2a6994eed3abb"
+    },
+    {
+      "path": "mobile/android/app/src/main/AndroidManifest.xml",
+      "sha256": "a8928337c4957486ee4700ba75c8910efdec2f6f5b06d08c369b86c505e749e8"
+    },
+    {
+      "path": "mobile/android/app/src/main/kotlin/local/rescuereports/app/MainActivity.kt",
+      "sha256": "48ff0cb5b772eeccc7be7fc1370feaa4fd174cebb3967e86021ac5d9b754441f"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-v21/launch_background.xml",
+      "sha256": "7043a379bf807d7471eeb761fb4082c544a7222989d9a9f83615fb5c39854331"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable/launch_background.xml",
+      "sha256": "7043a379bf807d7471eeb761fb4082c544a7222989d9a9f83615fb5c39854331"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-anydpi/ic_launcher.xml",
+      "sha256": "452202244744afbdecc764052c6aed375e6d7f564fba779e836ff0bfce9a0f95"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-hdpi/ic_launcher.png",
+      "sha256": "a4f05b13880849d27e98df09be9d1226cd9c44f543206f996a6286b978db629f"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-mdpi/ic_launcher.png",
+      "sha256": "c1002813e41ccf0f2d02d360483d6ca671350ebf769f19c68f25444b5dd4b9c9"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+      "sha256": "eb3e61e4db06c3a8d5330dfd9056d09791b4ba8660a0a25af587057c7f8fc603"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+      "sha256": "d364793467ce2d8bc3e8a2a15405686b09010ea35df72bcb1aa9dac011e7a371"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "sha256": "bf229bb90112c06e9a61539cf8f8ec6f0a5ac7f28129bd84248b71bc8a70c97c"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/values-night/styles.xml",
+      "sha256": "8c5bad5152f217e837519f9c15211d19f39bd45f5f67faf6dd81cb4b299e518f"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/values/styles.xml",
+      "sha256": "937d7c82f539c72eb94fd3a3773f29b3d3fef1997213c92cb632298cedf4bda9"
+    },
+    {
+      "path": "mobile/android/app/src/profile/AndroidManifest.xml",
+      "sha256": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b"
+    },
+    {
+      "path": "mobile/android/build.gradle.kts",
+      "sha256": "6a26dba2cb8dfba1e74f540b0d17a89d96c1301d3c3bfda14348bed257fddcba"
+    },
+    {
+      "path": "mobile/android/build/reports/problems/problems-report.html",
+      "sha256": "8ac9123d72a1ba407333137697337b21486bd2330cc31557f714f61817d3279e"
+    },
+    {
+      "path": "mobile/android/gradle.properties",
+      "sha256": "0f82b18017fba6bb5ce3aa4b2d1a00c9382fc8aae7b1d9326e44b18abd66d80b"
+    },
+    {
+      "path": "mobile/android/gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "3221993eac1057198d652b7437105e2953ca4850d415eb0eb2b9625874fd059e"
+    },
+    {
+      "path": "mobile/android/settings.gradle.kts",
+      "sha256": "b76d554153a63772dddbe2ee91abdf582f5f871af40698b80a2ef7b70903d96f"
+    },
+    {
+      "path": "mobile/assets/brand/app-icon.svg",
+      "sha256": "d86dd6ffb8b73833cab79174f3998d1b3aab9d4c8c31f878e8e9d6c5478a9ab9"
+    },
+    {
+      "path": "mobile/assets/brand/ireport-logo.png",
+      "sha256": "446594d76f2010d78e17075d3d4debcd74b0ba4c4de6329e4381039c788c0818"
+    },
+    {
+      "path": "mobile/assets/fonts/Geist-Variable.ttf",
+      "sha256": "73894e0448cae90a92b6c2f8732b7bb9acb7b94c418bff559dad4a18e1de9659"
+    },
+    {
+      "path": "mobile/assets/fonts/OFL-Geist.txt",
+      "sha256": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f"
+    },
+    {
+      "path": "mobile/ios/.gitignore",
+      "sha256": "37380775aeb2499662b7aca80f4ac4c95ae827c3ba2bfa179aa3e9af4812c623"
+    },
+    {
+      "path": "mobile/ios/Flutter/AppFrameworkInfo.plist",
+      "sha256": "da12038f9b2688a8a26160fea2609fa8fcb11421448c109f09c0f573efe7698d"
+    },
+    {
+      "path": "mobile/ios/Flutter/Debug.xcconfig",
+      "sha256": "2c2459796a7854bf3c834e70759c44ee27d9a08ec2ff0235abf904e2ab8982ed"
+    },
+    {
+      "path": "mobile/ios/Flutter/Identity.xcconfig",
+      "sha256": "b9bfea50e5d8a4d1b94242854e51587b0ac4feee12b56415959c03fc4f4ebc83"
+    },
+    {
+      "path": "mobile/ios/Flutter/Release.xcconfig",
+      "sha256": "2c2459796a7854bf3c834e70759c44ee27d9a08ec2ff0235abf904e2ab8982ed"
+    },
+    {
+      "path": "mobile/ios/Flutter/verify-release.sh",
+      "sha256": "e09e0f55c5dbb34036ecd34ad30ac1c1fbf877fe2cef899f15d89fcffbe91669"
+    },
+    {
+      "path": "mobile/ios/Runner.xcodeproj/project.pbxproj",
+      "sha256": "0216d79c25e23aa3d7117d29d2093c495a29a81361358f3581a0522db63f1b5f"
+    },
+    {
+      "path": "mobile/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+      "sha256": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f"
+    },
+    {
+      "path": "mobile/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist",
+      "sha256": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542"
+    },
+    {
+      "path": "mobile/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings",
+      "sha256": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f"
+    },
+    {
+      "path": "mobile/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme",
+      "sha256": "9fbce429f56243561dd437a527136c9f9ed77165e3b271b923faf236cfcd0484"
+    },
+    {
+      "path": "mobile/ios/Runner.xcworkspace/contents.xcworkspacedata",
+      "sha256": "46c3c9702ff7c5584e11c954d943cfb6e07fb26e3fbd072ddbc0f388aa352de1"
+    },
+    {
+      "path": "mobile/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist",
+      "sha256": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542"
+    },
+    {
+      "path": "mobile/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings",
+      "sha256": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f"
+    },
+    {
+      "path": "mobile/ios/Runner/AppDelegate.swift",
+      "sha256": "451c6d9ba0a2b3ff43092ea349c60fa79a91f1158b915eb29dbdd357cb95d7b8"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json",
+      "sha256": "3b1e214f466ffedff74baa5598ad5c4421130eea6bc8d57b8fe23435e8280ae4"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "sha256": "b00ee96fd4157fe83a4d0dee7806f1efd1467ba8672f91ea8a92bbbf03f3791d"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png",
+      "sha256": "54ecbc032ac9c24e3b20e340ea4707eb2951f2347675935d25643b2ee5ec35a8"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png",
+      "sha256": "ad6bdce86f8d73df5d2465ee130b61b60d2527ec4a9c4a3bdc0daf9cfbdc30cb"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png",
+      "sha256": "c7d6f45c68cbe4d4e503e10261dcd9391d156ef4b33371f68e2c9db4b76259f2"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png",
+      "sha256": "9d12cfd3ab47f3869d11245e8bd1f120a8f308d81425b992de1ec09f755715b1"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png",
+      "sha256": "f1eabd3ea4674f45a44888a60a137fe9d9f56b26c63a307052cc1ab0635a5d52"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png",
+      "sha256": "77e2291b2599b55c8e4f45d2ac7406312ad991d37ac743512ad13fa43ea0a2cf"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png",
+      "sha256": "ad6bdce86f8d73df5d2465ee130b61b60d2527ec4a9c4a3bdc0daf9cfbdc30cb"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png",
+      "sha256": "3a5ed52266a3c315aafecd6db04c7f82bdf560d9a420ff4bbbf36b1e4b0429a8"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png",
+      "sha256": "53d417255a7ba159ae99cbcb298454c7bcbe98f6c8a22ce9575dd1e85d33f758"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png",
+      "sha256": "53d417255a7ba159ae99cbcb298454c7bcbe98f6c8a22ce9575dd1e85d33f758"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png",
+      "sha256": "a92378defe2b8780edf3d94a4e5814ea0dac65034fb27d45803c4ecf5f1ad4cc"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png",
+      "sha256": "5e80478bd2551b28103001539acd8fca968b0c48da64aa0a3038e02c5ba48e5f"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png",
+      "sha256": "bb177f01193691f4bcf96e0d39bf6e4d73bfcaae06c0ff31b1040ff064405c70"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png",
+      "sha256": "f16df84246dac565b22e3da9f6e380bd15a12f1212689936d55f899138e7a081"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json",
+      "sha256": "e67ea61c2d26e9b869205cbee3290ebd3956eafeb6abd9d2669b3c93644b8870"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png",
+      "sha256": "8d6eb7832ed9f3ef8b8d3e214aad371933c1ee1f22847c4fe42e47dcc0c6e350"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png",
+      "sha256": "258dab02726f683201bbb586beabe14ec1de8bf7971a6a4599ab6aa4dba23a46"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png",
+      "sha256": "aae896caf1e5c72b8f11e4e74388269e64d19d72d2294a6cda10ccf4c7a3b1e4"
+    },
+    {
+      "path": "mobile/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md",
+      "sha256": "a985b626c4f7546a8ba392d135e9226c3547c8e2b46895f5f2bdf40d7b14ef9f"
+    },
+    {
+      "path": "mobile/ios/Runner/Base.lproj/LaunchScreen.storyboard",
+      "sha256": "857e61203b3deafb05766d8fcda898b86a7cb6f3d5e385ecc9926c4d698215e9"
+    },
+    {
+      "path": "mobile/ios/Runner/Base.lproj/Main.storyboard",
+      "sha256": "fd367b6c43006d61b730f674970dd48b9f662c8f2264e52ffc1558102a2c9f2d"
+    },
+    {
+      "path": "mobile/ios/Runner/Info.plist",
+      "sha256": "e2a8383e48b548ba58aa4bcf976b09a5c26cde384ae10e69752d894ef6a948ea"
+    },
+    {
+      "path": "mobile/ios/Runner/Runner-Bridging-Header.h",
+      "sha256": "1a8d11d01d1cc92c650c9c9ed35299240052d4683a15a719a2315ef44185e074"
+    },
+    {
+      "path": "mobile/ios/Runner/SceneDelegate.swift",
+      "sha256": "add68b905971dedfcc0d0b5b7118030de5925ba8c081ad9815463699e3a444ad"
+    },
+    {
+      "path": "mobile/ios/RunnerTests/RunnerTests.swift",
+      "sha256": "5e8f4908dacea6f29b2a790e4d38bf5fded69096063f9a27a2f21584d62b30c0"
+    },
+    {
+      "path": "mobile/lib/auth/auth_backend.dart",
+      "sha256": "4de559deaf5a506a376d276c08ec2dfe41a94bc0f2d6c0acb36e31661950b78f"
+    },
+    {
+      "path": "mobile/lib/auth/auth_controller.dart",
+      "sha256": "b709f27f3be34b1704275f860d58c427df365bde7bd62d15a1dbf852896a4e75"
+    },
+    {
+      "path": "mobile/lib/auth/auth_repository.dart",
+      "sha256": "bb42c00f0063c17e34ab928435e2f9d18c17b5c42c0b78dc79137850524e5a22"
+    },
+    {
+      "path": "mobile/lib/auth/idle_sign_out.dart",
+      "sha256": "712d8d002c99f2027735dd654ff1abfa34db093053f1540d92b5d6970546b7f5"
+    },
+    {
+      "path": "mobile/lib/auth/password_help.dart",
+      "sha256": "3ef64144d4109716f67f9f2c3fbd8f6f3aadf46c5ce8dd7bf3a0aea9017ddbc8"
+    },
+    {
+      "path": "mobile/lib/auth/profile_source.dart",
+      "sha256": "d8b2fbc484aa9bb55abe3754d619da32511dec4118544dcd8725f968fb528b84"
+    },
+    {
+      "path": "mobile/lib/auth/profile_sync.dart",
+      "sha256": "362d19d82d1a9ec8e053c185bb4476c6c95b557b2b2c355b3db7ba6de9e25834"
+    },
+    {
+      "path": "mobile/lib/auth/role_gate.dart",
+      "sha256": "029af6d29d89594e038cff5bcd5cacae9d8419c7a935b231e3f854c1bbac1f88"
+    },
+    {
+      "path": "mobile/lib/auth/session_navigation.dart",
+      "sha256": "9f7d56428850d0fcc16586430f82100033c5dc8b6cc2bae353db7cb63579f89c"
+    },
+    {
+      "path": "mobile/lib/auth/sign_in_lockout.dart",
+      "sha256": "f5a55045f9506422db1e9b23101c827398a0ce8ecc21ea0fc38ad9b4cf8e06fb"
+    },
+    {
+      "path": "mobile/lib/config/release_config.dart",
+      "sha256": "90ecb3979368bb9963b8b5ecb798f206455cf5785342a202bb587024c632135c"
+    },
+    {
+      "path": "mobile/lib/data/api_client.dart",
+      "sha256": "0551771f69b36a528e2deba1d98d65aff24753faf062bea6adc52fe43cee6248"
+    },
+    {
+      "path": "mobile/lib/data/areas.dart",
+      "sha256": "e93546950ee3cdb92a7d0678f5da4792016262499df33e2d19c3ebeed501bc6f"
+    },
+    {
+      "path": "mobile/lib/data/geo.dart",
+      "sha256": "94e06de6ffe8218dcd91288313c9f376dab175f78cb8cf07e5c48d15a0ba38eb"
+    },
+    {
+      "path": "mobile/lib/data/photo_identity.dart",
+      "sha256": "d92f01b3cdc306856ad0e9c233a44b8b8ef80b4633ce88d1d519eee2333d5f60"
+    },
+    {
+      "path": "mobile/lib/data/place_name.dart",
+      "sha256": "4a13ef89607808c62b5cdcf145b19ae630d52422eeda6a2bd80ead01ccc4f003"
+    },
+    {
+      "path": "mobile/lib/data/report_models.dart",
+      "sha256": "bfe2d4fe2c686e9a4a4e29004ccee758c308ab5bf63f4f306131c2113c96af03"
+    },
+    {
+      "path": "mobile/lib/data/responder_attempts.dart",
+      "sha256": "8e4d2f516eb8518acd3d3975a47922480f2444425c2c6f12d38661d2a5767b5e"
+    },
+    {
+      "path": "mobile/lib/data/services.dart",
+      "sha256": "775d3871168f9af52b265f91f4655c85fe3aba6cb6add32e7d4d098d41a84056"
+    },
+    {
+      "path": "mobile/lib/data/submission_key.dart",
+      "sha256": "3c5a8a8eead13d82232af873e72858b72bab33cef2babde0ed5fd59e52d9ab78"
+    },
+    {
+      "path": "mobile/lib/features/auth/auth_widgets.dart",
+      "sha256": "bbc9f3ade2bb64559dea6ac8b6d6247729f7ff2292a2e1681ec32bbbfb9a5359"
+    },
+    {
+      "path": "mobile/lib/features/auth/login_page.dart",
+      "sha256": "96e28025e890cf0a953b183e86cba62229a1af0449ff60a8dcbdef1c3a4a3d4c"
+    },
+    {
+      "path": "mobile/lib/features/auth/register_page.dart",
+      "sha256": "5c4ff169735023578e211f74b7821c43b6b42cd74fc4ed1f4f8322ddcde6baaf"
+    },
+    {
+      "path": "mobile/lib/features/demo/demo_workspace_strip.dart",
+      "sha256": "cd77437522fe2bf0a438d48775f340c5c5f7dc8d4eb582fa0d76606f83a9aa62"
+    },
+    {
+      "path": "mobile/lib/features/home/resident_home.dart",
+      "sha256": "5078bc08860918a51bca6a6f557a40b16062f16770f9990dab13a05d91cbb33f"
+    },
+    {
+      "path": "mobile/lib/features/map/incident_map_page.dart",
+      "sha256": "89d2b6c700aca80200f127ba0059e96830032b59f6d31ab750910483fc6b8d88"
+    },
+    {
+      "path": "mobile/lib/features/map/map_markers.dart",
+      "sha256": "5d2701689938669e84397c061f3008f0003011887b7e4b6021d2fdf651667854"
+    },
+    {
+      "path": "mobile/lib/features/my_reports/my_reports_page.dart",
+      "sha256": "0d107a9db2f0f08346de13ed400cf89b0585f685615843f5525b69df0ddf3b2d"
+    },
+    {
+      "path": "mobile/lib/features/my_reports/status_timeline.dart",
+      "sha256": "f04a364f13eede489d608071ab7bc99475ba989cefb53d3b2913a317871458dc"
+    },
+    {
+      "path": "mobile/lib/features/notifications/notification_action.dart",
+      "sha256": "fa3fc98604aa22cca9f47ac6b0971e786fbed798d654fec8229e0c672a4ddc77"
+    },
+    {
+      "path": "mobile/lib/features/notifications/notification_bell.dart",
+      "sha256": "63fa1c89c209728beb7b5cd3d71d636aae4e939466cdec939b0ea4a0b87f6b1b"
+    },
+    {
+      "path": "mobile/lib/features/notifications/notification_report_page.dart",
+      "sha256": "39154b53ba141d295fafafd6fa5e1bbfc9c281620b446856b556293051a7a095"
+    },
+    {
+      "path": "mobile/lib/features/notifications/notifications_page.dart",
+      "sha256": "7c261d88288813d93ee1ac7fa9c231b906559414bc21e961d6fce836281c0d1d"
+    },
+    {
+      "path": "mobile/lib/features/notifications/push_registration.dart",
+      "sha256": "5f1333e5a3b7def94b2dcb239624437f650a629176e84e2ddd21a07229de8cc5"
+    },
+    {
+      "path": "mobile/lib/features/offline/offline_help_page.dart",
+      "sha256": "4f031b8c9f65409aa286bd839f4aaf9e2f83be26655c30498af4c695da1b261d"
+    },
+    {
+      "path": "mobile/lib/features/profile/change_password_dialog.dart",
+      "sha256": "56037ca514bc836a49b50b0af572b77b3c420602b967d465afa304afdd35b1e3"
+    },
+    {
+      "path": "mobile/lib/features/profile/profile_page.dart",
+      "sha256": "63986bfa293a88cc7471f86209855a152d20b159026560b88714197b72d7e77a"
+    },
+    {
+      "path": "mobile/lib/features/report/hotline_button.dart",
+      "sha256": "d9cfde88fec93403630f5854f0f6611930719d1f1db3735dc93c5aaacf1c4253"
+    },
+    {
+      "path": "mobile/lib/features/report/location_picker.dart",
+      "sha256": "4eb9605528aa8584155110f9ac158386039519e1394b501d021cb84f493689de"
+    },
+    {
+      "path": "mobile/lib/features/report/photo_picker.dart",
+      "sha256": "e09e2ca139c1074d66a7554e16e650a085ebbc662bc227c92459155f604d0aca"
+    },
+    {
+      "path": "mobile/lib/features/report/report_draft_store.dart",
+      "sha256": "97935c2d925c59063888e0d03c1cdba46c68f9bdb952e2d0010acff37a51451f"
+    },
+    {
+      "path": "mobile/lib/features/report/report_flow_page.dart",
+      "sha256": "13f7b9cb0b08a9c7dbae3a39cb32fb96adad919118d89dee698bf0d4dedd46f1"
+    },
+    {
+      "path": "mobile/lib/features/report/submission_result_page.dart",
+      "sha256": "bd5de64d7ac4462bff0a80b67a857419ff9165a53c1f9c08400b70f1a9a2530c"
+    },
+    {
+      "path": "mobile/lib/features/responder/assigned_list_page.dart",
+      "sha256": "f801d7bfc2f79bf732370d3fb39d65cf057c644dab99ddc5f30f94e3b934107e"
+    },
+    {
+      "path": "mobile/lib/features/responder/incident_detail_page.dart",
+      "sha256": "6d41d8cecaddd0490e04e099c37d607acadd23afd71264e0f84a340722e5232c"
+    },
+    {
+      "path": "mobile/lib/features/responder/operation_form_page.dart",
+      "sha256": "3a41dab977ce43d87ed352bcc213b40999b93d7a96801d3da982fb938bffea44"
+    },
+    {
+      "path": "mobile/lib/features/responder/operation_transitions.dart",
+      "sha256": "ff5558b62169eb81b009424a83fb22c83e833b0447213d6a7565788db2ea5bfd"
+    },
+    {
+      "path": "mobile/lib/features/responder/team_summary_card.dart",
+      "sha256": "91aa6b0f15a15633e68af00e9422cfba4c1e25205bbacc2a884f31d06954a91d"
+    },
+    {
+      "path": "mobile/lib/features/welcome/welcome_page.dart",
+      "sha256": "9c7a21f5f1aebdbe81286610281f089e71351796f312073e2f5f63bbc71f731a"
+    },
+    {
+      "path": "mobile/lib/firebase_bootstrap.dart",
+      "sha256": "b069e14babf20bf75a9868f08b77f7229ec27b0785f364f7180ff47346da2dba"
+    },
+    {
+      "path": "mobile/lib/main.dart",
+      "sha256": "3b542e83783fb0ff67be927cb21812324ffbba8f12751ea995c3e2ad0e1d213a"
+    },
+    {
+      "path": "mobile/lib/theme/app_theme.dart",
+      "sha256": "c79cc6836c644e712f46fbd0df7649c13a06b5efef533fb05d02026c1dcc8a41"
+    },
+    {
+      "path": "mobile/lib/theme/confirm_dialog.dart",
+      "sha256": "d9263fc2dc2bffc23228130b42b5e3649410fc5543b12045c574d28bbc6dc665"
+    },
+    {
+      "path": "mobile/lib/theme/product_motion.dart",
+      "sha256": "1314c459dea3a5711bf2ee54d618aa3f41a3853dad7866e927c9a2ebc38cd916"
+    },
+    {
+      "path": "mobile/lib/theme/product_navigation.dart",
+      "sha256": "4e0bdd78fb575d42c4a23ea6503a1c72f53643ea96d99197f8b75f06f5d171a2"
+    },
+    {
+      "path": "mobile/lib/theme/product_widgets.dart",
+      "sha256": "4ae265f65e354558865b781baafdf4f3196552363d40f412d2febb679c505d87"
+    },
+    {
+      "path": "mobile/lib/widgets/user_avatar.dart",
+      "sha256": "5dd72e62a3d2cf242c06f8af8dd492e58f26cd6e4142506d27f1ff4b032c1628"
+    },
+    {
+      "path": "mobile/pubspec.lock",
+      "sha256": "47d46ad830b009f12bac8c1dedc5ffc83d7c60106a8a4b5e9148fe7b689d32cf"
+    },
+    {
+      "path": "mobile/pubspec.yaml",
+      "sha256": "11c649085a6fbaff8da8cad590da80d550d350754e29117ca30e289d87762f1e"
+    },
+    {
+      "path": "mobile/test/access_hold_test.dart",
+      "sha256": "54801b9e43dec98bc390c17d0f0ceb4e56a17710e3c333f8275715a16aa8d127"
+    },
+    {
+      "path": "mobile/test/api_client_test.dart",
+      "sha256": "5646d761899e59b7ac2e3963b4b8c500f6d9bcc484e527d60af9ed869a7661af"
+    },
+    {
+      "path": "mobile/test/auth_controller_test.dart",
+      "sha256": "7d60f138b9bdb5cfbada959a926af2b0237f9f63b2db6ebc59e5f3fd347a2d41"
+    },
+    {
+      "path": "mobile/test/auth_profile_sync_test.dart",
+      "sha256": "2bb0ace856c2d8b212fcbde8b2442a28d682ff43ce68524f44d6007de1cfccac"
+    },
+    {
+      "path": "mobile/test/auth_repository_test.dart",
+      "sha256": "3b434b9b9f487923785c9d53db958782814b419f48824fdb3917ba71bb014b05"
+    },
+    {
+      "path": "mobile/test/change_password_dialog_test.dart",
+      "sha256": "13b3f822b27febef0853e423b6399795c42bb47fe38893134251c491564fb568"
+    },
+    {
+      "path": "mobile/test/confirm_helper.dart",
+      "sha256": "cadc69f33feb95089d9b9d80ae2531d48f40fceaa4b9aaf366364c8693402a0d"
+    },
+    {
+      "path": "mobile/test/demo_workspace_strip_test.dart",
+      "sha256": "508276d6a4b01f8e256f1fe18e72504edca692f18aa8dff20ec5ca49816e70a7"
+    },
+    {
+      "path": "mobile/test/draft_locality_test.dart",
+      "sha256": "960a83255d7fa97b7abe26b06271e9d909a00cdfd43d5558bc9b3d679ea9e162"
+    },
+    {
+      "path": "mobile/test/draft_store_test.dart",
+      "sha256": "7140a98b6ba5f9f882f229a15e094de0571a04d1d69c66c3c0f38a7d885688ea"
+    },
+    {
+      "path": "mobile/test/fake_backend.dart",
+      "sha256": "10e9cc4e5ac34e3207f431f080effb115302eddeb2e2876e51d5f7c61a076247"
+    },
+    {
+      "path": "mobile/test/fakes.dart",
+      "sha256": "3acf8ae0d8f42fb2c28c38c9b659698c3579cc7874f10dd3c5e89caac050f166"
+    },
+    {
+      "path": "mobile/test/geo_test.dart",
+      "sha256": "84d34b4209976c30375b96701f01552bcb6e56682bbe3560c29e948abf69b7e6"
+    },
+    {
+      "path": "mobile/test/goldens/PROVENANCE.md",
+      "sha256": "bc9c304f37f5e262cf2fce3bf8db70dbbb8a04faa86ec7249311f4a0db052548"
+    },
+    {
+      "path": "mobile/test/goldens/SHA256SUMS.txt",
+      "sha256": "c9a34ce7ff9b1f67014302097fbfe5cfa9b2491e0874ee8eafa4cceea160b767"
+    },
+    {
+      "path": "mobile/test/goldens/assignments.png",
+      "sha256": "3b881d429eaa7ce6dff6b953ecb530cb86dcc88f4130da422cdd591fe3c3c311"
+    },
+    {
+      "path": "mobile/test/goldens/incident-detail.png",
+      "sha256": "e3e854e0d92c523e8d0b9eefd492c1dc64331a96f90a934ed0c674cc27871677"
+    },
+    {
+      "path": "mobile/test/goldens/login.png",
+      "sha256": "c87a309990f607dde0c307d90a42be0ec6e3d0169f7e1f35e980c4eb157d6f67"
+    },
+    {
+      "path": "mobile/test/goldens/map-tile-free.png",
+      "sha256": "f7857b0b0e8a507ce1bc9bb6507902d8337b6a74cede9a2a08d77b1045037883"
+    },
+    {
+      "path": "mobile/test/goldens/my-reports.png",
+      "sha256": "4fed62ba1a12d408f39db05a26e09b8b582b1dd86a32f517894f41c2a406a5fc"
+    },
+    {
+      "path": "mobile/test/goldens/notifications.png",
+      "sha256": "a607f1388c18e5bb75f804494b275e8a50ea854e5b5d3e07bd6e8ff84ad95f29"
+    },
+    {
+      "path": "mobile/test/goldens/offline-recovery.png",
+      "sha256": "14cddda32133a198ab17e4256f8944f7fdca62626f3b358f9c3c3199a4a238e2"
+    },
+    {
+      "path": "mobile/test/goldens/profile.png",
+      "sha256": "0c75bf23c1fdffd834ecbcd00c4f4fe65bff8d014b28cc77f8d59c539582b7bf"
+    },
+    {
+      "path": "mobile/test/goldens/register.png",
+      "sha256": "a152ea3134fbe588b0b230d4685a1a96e7c335a346ffe9082d2e2c11843568cb"
+    },
+    {
+      "path": "mobile/test/goldens/report-details.png",
+      "sha256": "de226f512d9d49a19daa3b8f0350f4fe34cb3886b9873ee581ff4129d7a7a624"
+    },
+    {
+      "path": "mobile/test/goldens/report-location.png",
+      "sha256": "e898a53966a5a4b430cc99002270ef67d8e6b7fb7be031b0ff9fd558b38b3166"
+    },
+    {
+      "path": "mobile/test/goldens/report-review.png",
+      "sha256": "07c8dda4d8ea9f6d1a69e09c9642bc6b97f754ac96a8db1131cbff181087d301"
+    },
+    {
+      "path": "mobile/test/goldens/report-type.png",
+      "sha256": "0e8b333463c0c5fa3dde34e907746f49fc216c497dc636f1446fd390a4fb762b"
+    },
+    {
+      "path": "mobile/test/goldens/response-update.png",
+      "sha256": "cd7365c00763aa7f7e8c4c72c11963b5339adad23252d53285265bccf2b690b2"
+    },
+    {
+      "path": "mobile/test/goldens/submission-result.png",
+      "sha256": "5359f32276b121e5412ceaa6b186009fe93dcfb013a2cd0af5939da66fcd76fe"
+    },
+    {
+      "path": "mobile/test/harbor_layout_test.dart",
+      "sha256": "005be973d3ef568f2b4c726958a7ceed080a7ef71f8e2caff61dbd27fefcc966"
+    },
+    {
+      "path": "mobile/test/idle_sign_out_test.dart",
+      "sha256": "392baf94bf9989e775c1a414445f7157f25e3fc908e09cacc9ceedfffd29c724"
+    },
+    {
+      "path": "mobile/test/incident_map_page_test.dart",
+      "sha256": "f3a4dc5b05aa3b7ca4312cb6a31b2f2d42cdcf710666f03193789bd28eedc619"
+    },
+    {
+      "path": "mobile/test/joined_streams_test.dart",
+      "sha256": "6a8987a69967502e61a93b451f2d36aa951fb8832a72b8b5c821532c103fff18"
+    },
+    {
+      "path": "mobile/test/login_recovery_test.dart",
+      "sha256": "a4a34ca1ab53d76c4220a7539e19a917e089226991e2f4e9539783064cf1d922"
+    },
+    {
+      "path": "mobile/test/map_layout_test.dart",
+      "sha256": "f587cfba21d91fa490d21acb1ca85cc6492ef587a9cc2cb5dde045c0ce2a62af"
+    },
+    {
+      "path": "mobile/test/map_picker_no_gps_test.dart",
+      "sha256": "b59700e051019e45dd81973796ad72bc373a559ced34284320d51090b60b462d"
+    },
+    {
+      "path": "mobile/test/my_reports_test.dart",
+      "sha256": "cce18f023c3892123e4a74892a58166d38214115affcd6be1f082f8df5bbb4de"
+    },
+    {
+      "path": "mobile/test/notification_bell_test.dart",
+      "sha256": "55efc47ebbbc9134b4240fd5b0da24dc4214ba3cd6f448a5315dee121d6d747b"
+    },
+    {
+      "path": "mobile/test/notifications_page_test.dart",
+      "sha256": "2699794aec8eb87e243d974d43bb639fae4e849bcb7505e9ff64f7ab00686e2f"
+    },
+    {
+      "path": "mobile/test/operation_form_retry_test.dart",
+      "sha256": "0d4028260e49dc7b2a2114d2c8def730d44947944c16eb2778044b46f082a634"
+    },
+    {
+      "path": "mobile/test/operation_form_test.dart",
+      "sha256": "6d452bb826fa9e06a9a58ed3742ef46f849d7cf91fe997b9880948fd95aec87c"
+    },
+    {
+      "path": "mobile/test/operation_transitions_test.dart",
+      "sha256": "456d8ccf0271c96df5edbc10bfcb684d424dc8dc13700abcec6912942410fa96"
+    },
+    {
+      "path": "mobile/test/philippines_area_test.dart",
+      "sha256": "d83237afec99f9b2dd5510a30be66893e392b122ad13de28ce08d6d443908918"
+    },
+    {
+      "path": "mobile/test/photo_picker_test.dart",
+      "sha256": "8acf84f7613f535ceba6b4f24a9aaf7ab0527cce7cb237df7ee05047513b7c0b"
+    },
+    {
+      "path": "mobile/test/place_name_test.dart",
+      "sha256": "39812348c2faedb37be24d8491a081c96538d30a262e31ae066bb1959a512c0a"
+    },
+    {
+      "path": "mobile/test/product_mark_test.dart",
+      "sha256": "16aa568e3eadc3de6b6577b13fa61abae487c569006c912a1cbb4718b5235807"
+    },
+    {
+      "path": "mobile/test/profile_photo_test.dart",
+      "sha256": "2a9b1cd5d1163428b4fee84b77f800012de95314ca53ade235f4f6ef03ee3ee4"
+    },
+    {
+      "path": "mobile/test/profile_photo_timeout_test.dart",
+      "sha256": "eea19a19028d9859827447f970fcf226689ee229bff60ea18fbb4ac16a300e20"
+    },
+    {
+      "path": "mobile/test/profile_sync_test.dart",
+      "sha256": "b26fb2676b1dc9c0aa5566ca2945a1e7c59647031c7bdb52f02f965db11213c7"
+    },
+    {
+      "path": "mobile/test/progress_history_test.dart",
+      "sha256": "8dccf78ab21c01bf679694cd2303f3abe8f148229c916d4ea10b0a8c5d8b6500"
+    },
+    {
+      "path": "mobile/test/redesign_visual_test.dart",
+      "sha256": "fa49da30decdca123fa650b1cbbc82eb79566bd44ec28f0ce70e7f135b1a3cd6"
+    },
+    {
+      "path": "mobile/test/release_config_test.dart",
+      "sha256": "8c703cba06c0fc764d15c2734eb91066cbd2a40327e5d9be9be8ba4f4903fb75"
+    },
+    {
+      "path": "mobile/test/report_fakes.dart",
+      "sha256": "66d274e4f855cbeffcd1c7c91512076f175412e51d3d418b1c2c1a4930ff1030"
+    },
+    {
+      "path": "mobile/test/report_flow_test.dart",
+      "sha256": "a36fffcb3a0153f962c55e269cdfeeee9ddf55ff8c81eb78c073c1a8dd457767"
+    },
+    {
+      "path": "mobile/test/report_header_brand_test.dart",
+      "sha256": "ebd3db46ccd87a06e4fab96307da6583128d1534678f7ed33c0bbf2d89d7f3a8"
+    },
+    {
+      "path": "mobile/test/report_submission_identity_test.dart",
+      "sha256": "873e1570a30e4451542e474e7fd86ebfe52dd7c89d3f577ae579ef94672a1c38"
+    },
+    {
+      "path": "mobile/test/report_type_test.dart",
+      "sha256": "8975bd6037a4fb5c6b53885e8dcd1aae078dfe7c698fbdaa2101661fd2ff87d0"
+    },
+    {
+      "path": "mobile/test/responder_detail_live_test.dart",
+      "sha256": "aa56b38bfef5727d514ba507e6af1be8d58a5bb645c5a92926772ec38a60255a"
+    },
+    {
+      "path": "mobile/test/responder_queue_order_test.dart",
+      "sha256": "b97ae0d3ee07a1c6400b89363e383d986535936c57d6a7d63a49d11eec6e8faf"
+    },
+    {
+      "path": "mobile/test/responder_update_request_test.dart",
+      "sha256": "d0ff3898a86d05442ce5f13238291df242b1a9c4bd1fbd469c54bed472921c75"
+    },
+    {
+      "path": "mobile/test/role_gate_test.dart",
+      "sha256": "2372aab30bae0834c4793ec65e0058ee63c34e49f88f07d95f182a7fa2e7d5f2"
+    },
+    {
+      "path": "mobile/test/semantic_actions_test.dart",
+      "sha256": "352db3104971ae7eb6360dd2389ed75fa11ae5884403f3cc44350af726343e1e"
+    },
+    {
+      "path": "mobile/test/sign_in_lockout_test.dart",
+      "sha256": "8b0cee3b2215fb4bec93606fc68ece010197d1fc1a27bd0bdb3a9645201e6e74"
+    },
+    {
+      "path": "mobile/test/status_timeline_test.dart",
+      "sha256": "5d427cf4f0e457dd68e3ab2efe56122d8d9dfeee6437978acd3612184e798ba5"
+    },
+    {
+      "path": "mobile/test/theme_test.dart",
+      "sha256": "90ff59f4263c04ab56af46b03f7b457b0aadf4d9473fbabb23d99e20d5c3ec7d"
+    },
+    {
+      "path": "mobile/test/user_avatar_test.dart",
+      "sha256": "2413cbb8f3100adcb48bdd53016e2e1bc04e53faad6c58638956e110794a0031"
+    },
+    {
+      "path": "mobile/test/welcome_and_motion_test.dart",
+      "sha256": "8845b9bacbd508e7f3be6d22d3a069301588cc93b427ab2c5cad1fc04cf79399"
+    },
+    {
+      "path": "mobile/web/favicon.png",
+      "sha256": "f99836d8bea3cf48127939c5276e1ab42bcd7b6ccd7a5168ba97683238043667"
+    },
+    {
+      "path": "mobile/web/icons/Icon-192.png",
+      "sha256": "aae896caf1e5c72b8f11e4e74388269e64d19d72d2294a6cda10ccf4c7a3b1e4"
+    },
+    {
+      "path": "mobile/web/icons/Icon-512.png",
+      "sha256": "90ca6d34b8b62b1ffa595faf86f068717404f69c4fe8584e0f3f9ce084a761af"
+    },
+    {
+      "path": "mobile/web/icons/Icon-maskable-192.png",
+      "sha256": "aae896caf1e5c72b8f11e4e74388269e64d19d72d2294a6cda10ccf4c7a3b1e4"
+    },
+    {
+      "path": "mobile/web/icons/Icon-maskable-512.png",
+      "sha256": "90ca6d34b8b62b1ffa595faf86f068717404f69c4fe8584e0f3f9ce084a761af"
+    },
+    {
+      "path": "mobile/web/index.html",
+      "sha256": "6665a8988775ef4bd422eae45ea7a40dcd770a25cba38c48cc559d486f76c646"
+    },
+    {
+      "path": "mobile/web/manifest.json",
+      "sha256": "bbf39ce9cb27ca088fe3068fa24a45cd98c5ae6377633f3f0845b0b148d1bb45"
+    }
+  ]
+}

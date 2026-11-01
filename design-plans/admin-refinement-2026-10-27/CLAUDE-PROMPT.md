@@ -1,0 +1,5 @@
+Continue from the uncommitted admin UX refinement in `/Users/rien/Documents/FINAL_PROJECT/app`.
+
+Read `design-plans/admin-refinement-2026-10-27/HANDOFF.md`, `CHANGED-FILES.txt`, the verification JSON and the current git diff before editing. Review the actual screens and preserve the new compact desktop controls, generous phone targets, dense FIFO queue, caller/reach details in the preview, grouped team actions, dedicated management destinations and existing permission/save guards.
+
+The owner explicitly said **do not commit anything**. Do not push or deploy either. Preserve unrelated work, including the I-Report video and existing untracked folders. The new `web/src/admin-workspace.css` and preview regression test are untracked files required by this pass. Verify the reported checks on this exact source, inspect the screenshots, and address any concrete regressions. Keep remaining release gates separate from this UI refinement; do not restart the whole redesign or invent completed checks.

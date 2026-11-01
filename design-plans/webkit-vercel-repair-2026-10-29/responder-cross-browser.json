@@ -1,0 +1,170 @@
+[
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/responder",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/assignments",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/team-map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "route": "/assignments/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/responder",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/assignments",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/team-map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "route": "/assignments/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/responder",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/assignments",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/team-map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "route": "/assignments/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/responder",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/assignments",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/team-map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "route": "/assignments/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/responder",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/assignments",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/team-map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "route": "/assignments/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/responder",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/assignments",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/team-map",
+    "overflow": false,
+    "pageExceptions": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "route": "/assignments/demo-report-01",
+    "overflow": false,
+    "pageExceptions": []
+  }
+]

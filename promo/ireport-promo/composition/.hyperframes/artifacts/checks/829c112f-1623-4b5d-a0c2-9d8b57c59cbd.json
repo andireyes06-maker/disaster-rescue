@@ -1,0 +1,559 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 11,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#s4-validate\" for opacity between 24.80s and 25.00s.",
+        "selector": "#s4-validate",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 453 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split coherent scenes or layers into separate .html files under compositions/, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 0 has 8 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"scene-1-hook\"> is a timeline element that contains nested <div id=\"s1\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-1-hook",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"scene-1-hook\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"scene-2-brand\"> is a timeline element that contains nested <div id=\"s2\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-2-brand",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"scene-2-brand\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"scene-3-report\"> is a timeline element that contains nested <div id=\"s3\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-3-report",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"scene-3-report\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"scene-4-response\"> is a timeline element that contains nested <div id=\"s4\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-4-response",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"scene-4-response\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"scene-5-team\"> is a timeline element that contains nested <div id=\"s5\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-5-team",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"scene-5-team\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"scene-6-analytics\"> is a timeline element that contains nested <div id=\"s6\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-6-analytics",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"scene-6-analytics\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"scene-7-track\"> is a timeline element that contains nested <div id=\"s7\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-7-track",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"scene-7-track\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"scene-8-outro\"> is a timeline element that contains nested <div id=\"s8\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-8-outro",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rien/Documents/FINAL_PROJECT/app/promo/ireport-promo/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"scene-8-outro\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 4,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "console_warning",
+        "severity": "warning",
+        "message": "Invalid property text set to Quezon City Missing plugin? gsap.registerPlugin()",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "66",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 18.333,
+        "url": "https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js",
+        "line": 9
+      },
+      {
+        "code": "console_warning",
+        "severity": "warning",
+        "message": "Invalid property text set to Harbor Rescue Unit Missing plugin? gsap.registerPlugin()",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "66",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 33,
+        "url": "https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js",
+        "line": 9
+      },
+      {
+        "code": "console_warning",
+        "severity": "warning",
+        "message": "Invalid property text set to Within reach · 240 m away Missing plugin? gsap.registerPlugin()",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "66",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 40.333,
+        "url": "https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js",
+        "line": 9
+      },
+      {
+        "code": "console_warning",
+        "severity": "warning",
+        "message": "Invalid property text set to 2 Missing plugin? gsap.registerPlugin()",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "66",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 55,
+        "url": "https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js",
+        "line": 9
+      }
+    ]
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 1,
+    "infoCount": 3,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 55,
+        "selector": "div.bell",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1553,
+          "top": 144,
+          "right": 1579,
+          "bottom": 174,
+          "width": 26,
+          "height": 30
+        },
+        "containerSelector": "#s7-toast",
+        "text": "🔔 1",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1553,
+          "y": 144,
+          "width": 26,
+          "height": 30
+        },
+        "firstSeen": 54.25,
+        "lastSeen": 57.75,
+        "occurrences": 29,
+        "heldMs": 3500,
+        "times": [
+          54.25,
+          54.375,
+          54.5,
+          54.625,
+          54.75,
+          54.875,
+          55,
+          55.125,
+          55.25,
+          55.375,
+          55.5,
+          55.625,
+          55.75,
+          55.875,
+          56,
+          56.125,
+          56.25,
+          56.375,
+          56.5,
+          56.625,
+          56.75,
+          56.875,
+          57,
+          57.125,
+          57.25,
+          57.375,
+          57.5,
+          57.625,
+          57.75
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "warning",
+        "time": 54.25,
+        "selector": "#s7-count",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 1581.01,
+          "top": 138.4,
+          "right": 1584.99,
+          "bottom": 147.6,
+          "width": 3.98,
+          "height": 9.2
+        },
+        "containerSelector": "#s7-toast > b:nth-of-type(1)",
+        "text": "1",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1581.01,
+          "y": 138.4,
+          "width": 3.98,
+          "height": 9.2
+        },
+        "firstSeen": 54.25,
+        "lastSeen": 54.5,
+        "occurrences": 3,
+        "heldMs": 250,
+        "times": [
+          54.25,
+          54.375,
+          54.5
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 33,
+        "selector": "#s5-team",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 1281,
+          "top": 618,
+          "right": 1315,
+          "bottom": 652,
+          "width": 34,
+          "height": 34
+        },
+        "containerSelector": "#s5-phone > div:nth-of-type(1) > div:nth-of-type(3)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1238,
+          "top": 405,
+          "right": 1592,
+          "bottom": 574.59,
+          "width": 354,
+          "height": 169.59
+        },
+        "overflow": {
+          "bottom": 77.41
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1281,
+          "y": 618,
+          "width": 34,
+          "height": 34
+        },
+        "firstSeen": 33,
+        "lastSeen": 40.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          33,
+          40.333
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 55,
+        "selector": "div.bell",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1553,
+          "top": 144,
+          "right": 1579,
+          "bottom": 174,
+          "width": 26,
+          "height": 30
+        },
+        "containerSelector": "#s7-toast",
+        "text": "🔔",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1553,
+          "y": 144,
+          "width": 26,
+          "height": 30
+        },
+        "firstSeen": 55,
+        "lastSeen": 55,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          55
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 55,
+        "selector": "#s7-count",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1578.03,
+          "top": 131.5,
+          "right": 1587.97,
+          "bottom": 154.5,
+          "width": 9.94,
+          "height": 23
+        },
+        "containerSelector": "#s7-toast",
+        "text": "1",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1578.03,
+          "y": 131.5,
+          "width": 9.94,
+          "height": 23
+        },
+        "firstSeen": 55,
+        "lastSeen": 55,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          55
+        ]
+      }
+    ],
+    "duration": 66,
+    "samples": [
+      3.667,
+      11,
+      18.333,
+      25.667,
+      33,
+      40.333,
+      47.667,
+      55,
+      62.333
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 5,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      3.667,
+      18.333,
+      33,
+      47.667,
+      62.333
+    ],
+    "checked": 54,
+    "passed": 54
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

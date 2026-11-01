@@ -1,0 +1,18 @@
+[
+  {
+    "width": 390,
+    "emptyHeight": 0,
+    "mounted": true,
+    "noticeVisible": true,
+    "motion": "feedback-arrive",
+    "request": "mocked locally; no email sent"
+  },
+  {
+    "width": 1440,
+    "emptyHeight": 0,
+    "mounted": true,
+    "noticeVisible": true,
+    "motion": "feedback-arrive",
+    "request": "mocked locally; no email sent"
+  }
+]

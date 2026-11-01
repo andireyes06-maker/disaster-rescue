@@ -1,0 +1,59 @@
+[
+  {
+    "mode": "beforeunload-resume",
+    "errors": [],
+    "failed": [
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-0",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-1",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-2",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-3",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      },
+      {
+        "phase": "immediate-reload-4",
+        "message": "cancelled",
+        "url": "http://localhost:8637/google.firestore.v1.Firestore/Listen/channel"
+      }
+    ],
+    "finalServerSnapshots": 1
+  }
+]

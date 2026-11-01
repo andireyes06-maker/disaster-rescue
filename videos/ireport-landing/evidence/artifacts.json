@@ -1,0 +1,31 @@
+{
+  "brand": "I-Report",
+  "palette": [
+    "#6d28d9",
+    "#241747"
+  ],
+  "durationSeconds": 16,
+  "chapterStarts": [
+    0,
+    5,
+    10.5
+  ],
+  "audio": false,
+  "artifacts": [
+    {
+      "path": "renders/ireport-master.mp4",
+      "bytes": 1443580,
+      "sha256": "9895a1a5cd6d92858ffec0e30abc62e33b50a56aed4d2cf319e95339f22f8ab1"
+    },
+    {
+      "path": "../../web/public/media/ireport-response.mp4",
+      "bytes": 367195,
+      "sha256": "65206d0fa772b114b9e85e4fd79c85543d8f6e8ef39c935f96ed2a581a98840b"
+    },
+    {
+      "path": "../../web/public/media/ireport-response-poster.png",
+      "bytes": 195317,
+      "sha256": "6413743cdf5d90e357f551a7a231f6acd6345e7e856c04d4fdf5b765ca191da1"
+    }
+  ]
+}

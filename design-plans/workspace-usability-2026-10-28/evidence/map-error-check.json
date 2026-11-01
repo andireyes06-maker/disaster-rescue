@@ -1,0 +1,28 @@
+{
+  "errorNotice": true,
+  "pinRetained": true,
+  "coordinateBefore": "14.60289, 120.97406",
+  "coordinateAfter": "14.60289, 120.97406",
+  "loadedTiles": 4,
+  "statuses": [
+    503,
+    503,
+    503,
+    503,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "editorPin": true,
+  "editorDialog": {
+    "x": 16,
+    "y": 57.6640625,
+    "width": 358,
+    "height": 784.671875
+  }
+}

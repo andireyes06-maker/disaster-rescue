@@ -1,0 +1,60 @@
+
+ RUN  v5.0.5 /Users/rien/Documents/FINAL_PROJECT/app/web
+
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > displays the public reference instead of its storage ID 1035ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows busy feedback and prevents repeat activation for Set priority 1714ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows busy feedback and prevents repeat activation for Classify 999ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows Validate report for Submitted 63ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows Validate report for Under Verification 136ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > opens photo thumbnails in a viewer and steps between them 598ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > does not show Validate report for Verified 222ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows no operational controls for a role without staff actions 257ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows the duplicate comparison when expanded, only when flagged 917ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > marks a candidate as duplicate via PATCH 717ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > explains the duplicate direction in the banner 94ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows a Closed candidate without the mark button 400ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows a Rejected candidate without the mark button 363ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows a Duplicate candidate without the mark button 360ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows a Cancelled candidate without the mark button 334ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows Report unavailable for a candidate that cannot be loaded 153ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows a load error with retry, distinct from not found 128ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > lists the newest rescue updates first 196ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows the 5 newest of 50 rescue updates and reveals the rest without losing text 2351ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > offers Load older updates when the listener has more history, and calls loadOlder 266ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > says so when there are no rescue updates 100ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > does not claim there are no rescue updates before their read finishes 81ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows loading state 14ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows a message when the report disappears mid-view 17ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > keeps Reject confirm disabled until a reason is typed, then PATCHes 873ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > closes the dialog with Escape 290ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > names the reject dialog and marks it modal 117ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > returns focus to the Reject button after Escape 128ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows the conflict message on 409 103ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > hides the validate action from dispatchers 28ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > says validation is a manual review, not a photo check 45ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows who validated the report and when 46ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows success after verify 102ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > sets priority and classification 453ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > hides priority control for closed reports 66ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > renders description as literal text 43ms
+ ✓ src/features/reports/IncidentDetails.test.tsx > IncidentDetails > shows not found for an unknown id 4ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > does not fetch teams while closed and loads them when opened 344ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > lists only non-busy teams 109ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > lists the nearest team first, with its distance in km 137ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > shows a plain-text reason when no team is free 65ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > refuses to assign when no team is chosen, and sends nothing 170ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > assigns every chosen free team in one request 247ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > a failed team load still offers Close and Try again (W04) 133ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > a team list that never answers still offers Close 33ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > groups free teams into a tab per identity, and keeps the selection across tabs 185ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > moves between identity tabs with the keyboard and announces the selection 212ms
+ ✓ src/features/reports/AssignTeamDialog.test.tsx > AssignTeamDialog > says you can't assign a team with no members 180ms
+
+ Test Files  2 passed (2)
+      Tests  48 passed (48)
+   Start at  23:52:07
+   Duration  25.44s (tests 64%, import 17%, environment 13%, setup 3%, transform 3%)
+
+    Isolate  2 workers spawned · ~1.99s startup each (spawn + environment, per file)
+             at least ~1.99s faster with isolate: false — reuses workers across files instead of one per file
+

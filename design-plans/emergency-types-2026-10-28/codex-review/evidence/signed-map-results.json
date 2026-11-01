@@ -1,0 +1,70 @@
+[
+  {
+    "role": "admin",
+    "width": 1440,
+    "legend": [
+      "Flood",
+      "Fire",
+      "Earthquake",
+      "Landslide",
+      "Lifeline",
+      "Roadblock",
+      "Live Wire",
+      "Other"
+    ],
+    "overflow": false,
+    "pageErrors": [],
+    "signedIn": true
+  },
+  {
+    "role": "admin",
+    "width": 390,
+    "legend": [
+      "Flood",
+      "Fire",
+      "Earthquake",
+      "Landslide",
+      "Lifeline",
+      "Roadblock",
+      "Live Wire",
+      "Other"
+    ],
+    "overflow": false,
+    "pageErrors": [],
+    "signedIn": true
+  },
+  {
+    "role": "responder",
+    "width": 1440,
+    "legend": [
+      "Flood",
+      "Fire",
+      "Earthquake",
+      "Landslide",
+      "Lifeline",
+      "Roadblock",
+      "Live Wire",
+      "Other"
+    ],
+    "overflow": false,
+    "pageErrors": [],
+    "signedIn": true
+  },
+  {
+    "role": "responder",
+    "width": 390,
+    "legend": [
+      "Flood",
+      "Fire",
+      "Earthquake",
+      "Landslide",
+      "Lifeline",
+      "Roadblock",
+      "Live Wire",
+      "Other"
+    ],
+    "overflow": false,
+    "pageErrors": [],
+    "signedIn": true
+  }
+]

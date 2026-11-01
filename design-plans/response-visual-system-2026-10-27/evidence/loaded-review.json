@@ -1,0 +1,157 @@
+{
+  "rows": [
+    {
+      "route": "/dashboard",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/analytics",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/teams",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/users",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/admin",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "Assign dialog",
+      "width": 390,
+      "overflow": false,
+      "dialog": {
+        "x": 12,
+        "y": 93.7109375,
+        "width": 366,
+        "height": 812.578125
+      }
+    },
+    {
+      "route": "Assign focus return",
+      "width": 390,
+      "focused": "Assign team"
+    },
+    {
+      "route": "Password dialog",
+      "width": 390,
+      "bounds": {
+        "x": 16,
+        "y": 203.75,
+        "width": 358,
+        "height": 592.5
+      }
+    },
+    {
+      "route": "/dashboard",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/analytics",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/teams",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/users",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/admin",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "Assign dialog",
+      "width": 1440,
+      "overflow": false,
+      "dialog": {
+        "x": 360,
+        "y": 130.8828125,
+        "width": 720,
+        "height": 738.234375
+      }
+    },
+    {
+      "route": "Assign focus return",
+      "width": 1440,
+      "focused": "Assign team"
+    },
+    {
+      "route": "Password dialog",
+      "width": 1440,
+      "bounds": {
+        "x": 480,
+        "y": 223.34375,
+        "width": 480,
+        "height": 553.3125
+      }
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/login",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/register",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/forbidden",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/missing",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/login",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/register",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/forbidden",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/missing",
+      "width": 1440,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

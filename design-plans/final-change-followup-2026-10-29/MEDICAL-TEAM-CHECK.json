@@ -1,0 +1,9 @@
+{
+  "result": "pass",
+  "environment": "local emulator only",
+  "created": "Local Medical verification",
+  "identity": "Medical",
+  "reloadVisible": true,
+  "productionTouched": false,
+  "firstHarnessIssue": "First exact-text locator omitted the nested Medical label; next form locator targeted a collapsed disclosure. Corrected by opening Edit team, then reading the identity select. Firestore independently confirmed persistence."
+}

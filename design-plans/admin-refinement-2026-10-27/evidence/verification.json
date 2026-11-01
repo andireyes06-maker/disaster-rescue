@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-27",
+  "sourceHead": "f97d74fddb104fa56ec530ff0ad3b11aa97a84ab",
+  "state": "Uncommitted overlay; no commit, push or deployment performed",
+  "webTests": {
+    "passed": 509,
+    "files": 70,
+    "command": "npm run test",
+    "includesTypecheck": true
+  },
+  "productionBuild": "passed, existing chunk-size advisory retained",
+  "gitDiffCheck": "passed",
+  "browserEvidence": "browser-checks.json",
+  "browserEngine": "Chromium",
+  "renderedCases": 18,
+  "widths": [
+    1440,
+    1024,
+    390
+  ],
+  "overflowCases": 0,
+  "pageExceptions": 0,
+  "files": {
+    "web/src/App.tsx": "92a55c747da60f49f50af25b009fd0f07406a154917fdc1edb8cf4ee0ec23a9b",
+    "web/src/features/admin/AccountsPanel.tsx": "4be0313f2b20e4fd3f043a5a738c689f38e2304bda5752de67304bc256d53209",
+    "web/src/features/admin/AdminPage.test.tsx": "16fbdb9386e3d79144d21527b3f3c827c1b0627d7353b58eea1f9c0db4a9aa0e",
+    "web/src/features/admin/AdminPage.tsx": "030edff029e8423160efbbfaa6886a5b5ff3cbd2799f753622d7f0901d7837ff",
+    "web/src/features/admin/AdminResilience.test.tsx": "a64cf938c4432288c9b6f6de0bbff57e225dceaa935d087730736e4a9841109e",
+    "web/src/features/admin/BusyControls.test.tsx": "b0771b1e42107937be1f7e74a9836681a1dce9d2afc7ce0e76bf12b48ff65c6c",
+    "web/src/features/analytics/ExportButtons.tsx": "f5593a5f3ab9ec41b84e19f26ba201e53329f7972066de9cd614b73a7297a289",
+    "web/src/features/reports/IncidentPreview.tsx": "e856f3292c72de455d073230034edf8e702ef6873532936992c8f9600e3f52b1",
+    "web/src/features/reports/ReportQueue.tsx": "2083f624d5d39cac033aaa02db6ca7187924d72c9905c03ffe21e2e8ead70354",
+    "web/src/features/reports/StatusBadge.tsx": "68efced8ec42bb1dc7609b2a6a6b6beb980d74f9150f1f2869e2cb9107998fac",
+    "web/src/features/teams/TeamsPage.tsx": "9bcc1634bb345ab609fd73f9e48300c7d7d388c6faaabaa2055c596d1ed499d4",
+    "web/src/features/users/UsersPage.team.test.tsx": "731a8dfc9776bb477779a3e8090da1c379ac46fe7a35fcb29506e9a91e6f43e2",
+    "web/src/features/users/UsersPage.tsx": "2e3e1f323699727406b2a7a45be0472a1436e062399372db7338a12c5948902a",
+    "web/src/layout/AppShell.tsx": "979c54debd45d8d2c9f2b17458b4c08ad13707acf47c76b174a063555424f621",
+    "web/src/admin-workspace.css": "7e987761903197da0d754d44c6eeb062fb277b6a577449f7d7f44725446b1f83",
+    "web/src/features/reports/IncidentPreview.contact.test.tsx": "1ed6ba9d5d5a95c0f9b788dfdf1b1deb1286484ac1023164df3cceffe9df1e64"
+  },
+  "phoneRolesDetail": {
+    "pageOverflow": false,
+    "regionClientWidth": 302,
+    "regionScrollWidth": 302,
+    "roleSelectWidth": 278,
+    "roleSelectHeight": 47,
+    "method": "Native Playwright rendered inspection after CSS fix"
+  },
+  "postVerificationFix": {
+    "date": "2026-10-27",
+    "change": "admin-workspace.css: critical queue rows keep a transparent 4px left edge so their content aligns with other rows (product.css had removed it, shifting them 4px)",
+    "rechecked": {
+      "webTests": "509 passed across 70 files (typecheck included)",
+      "build": "passed, existing chunk advisory",
+      "browserChecks": "18 cases, 0 overflow, 0 page exceptions; queue icon and title align at x=289/331"
+    }
+  }
+}

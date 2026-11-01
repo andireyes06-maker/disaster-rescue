@@ -1,0 +1,11 @@
+{
+  "result": "pass",
+  "firestore": "real local emulator on8637",
+  "provider": "fake removal; noCloudinaryrequest",
+  "storedPhoto": null,
+  "response": {
+    "photoUrl": null
+  },
+  "removedAssetCount": 1,
+  "productionTouched": false
+}

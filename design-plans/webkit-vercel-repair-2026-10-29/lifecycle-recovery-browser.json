@@ -1,0 +1,16 @@
+{
+  "checks": [
+    {
+      "cancelledNavigation": true,
+      "liveUpdateAfterCancel": true
+    },
+    {
+      "delayedNavigationAndBack": true,
+      "liveUpdateAfterBack": true
+    }
+  ],
+  "pageExceptions": [
+    "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=97495&CVER=22&X-HTTP-Session-Id=gsessionid&zx=3okby1xzh69m&t=1 due to access control checks.",
+    "/localhost:8637/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fdemo-disaster-rescue%2Fdatabases%2F(default)&RID=36211&CVER=22&X-HTTP-Session-Id=gsessionid&zx=a3e79zc1kxl1&t=1 due to access control checks."
+  ]
+}

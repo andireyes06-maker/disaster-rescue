@@ -1,0 +1,36 @@
+[
+  {
+    "width": 1440,
+    "initial": {
+      "src": "http://127.0.0.1:5718/media/ireport-response.mp4",
+      "duration": 16,
+      "muted": true,
+      "loop": true,
+      "currentTime": 0.0342,
+      "paused": false
+    },
+    "pause": true,
+    "chapters": true,
+    "poster": "/media/ireport-response-poster.png",
+    "explicitPlay": true,
+    "overflow": false,
+    "pageErrors": []
+  },
+  {
+    "width": 390,
+    "initial": {
+      "src": "http://127.0.0.1:5718/media/ireport-response.mp4",
+      "duration": 16,
+      "muted": true,
+      "loop": true,
+      "currentTime": 0.043,
+      "paused": false
+    },
+    "pause": true,
+    "chapters": true,
+    "poster": "/media/ireport-response-poster.png",
+    "explicitPlay": true,
+    "overflow": false,
+    "pageErrors": []
+  }
+]

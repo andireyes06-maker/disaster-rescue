@@ -1,0 +1,52 @@
+[
+  {
+    "route": "/login",
+    "width": 1440,
+    "recoveryButton": 0
+  },
+  {
+    "route": "/login",
+    "width": 390,
+    "recoveryButton": 0
+  },
+  {
+    "route": "/dashboard",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "route": "/analytics",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "route": "/incidents/demo-report-01",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "route": "/incidents/demo-report-17",
+    "width": 1440,
+    "overflow": false
+  },
+  {
+    "route": "/dashboard",
+    "width": 390,
+    "overflow": false
+  },
+  {
+    "route": "/analytics",
+    "width": 390,
+    "overflow": false
+  },
+  {
+    "route": "/incidents/demo-report-01",
+    "width": 390,
+    "overflow": false
+  },
+  {
+    "route": "/incidents/demo-report-17",
+    "width": 390,
+    "overflow": false
+  }
+]

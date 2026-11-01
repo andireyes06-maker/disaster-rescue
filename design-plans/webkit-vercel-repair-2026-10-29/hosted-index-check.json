@@ -1,0 +1,8 @@
+{
+  "localCount": 18,
+  "hostedCount": 18,
+  "allLocalDefinitionsPresent": true,
+  "missingCount": 0,
+  "normalization": "Firestore implicit __name__ tie-breaker omitted for comparison",
+  "buildState": "not returned by CLI"
+}

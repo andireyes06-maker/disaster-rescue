@@ -1,0 +1,234 @@
+diff --git a/api/src/routes/users.js b/api/src/routes/users.js
+index a407a5c..f41eb4d 100644
+--- a/api/src/routes/users.js
++++ b/api/src/routes/users.js
+@@ -1,4 +1,5 @@
+ import { Router } from 'express';
++import rateLimit from 'express-rate-limit';
+ import { requireAuth, requireIdentity, requireRole } from '../middleware/auth.js';
+ import { createStaff, updateStaff, registerSelf } from '../services/userService.js';
+ import { isSafeId } from '../domain/validation.js';
+@@ -11,6 +12,15 @@ export function usersRouter(deps) {
+   r.param('id', (req, res, next, id) => (isSafeId(id) ? next() : res.status(404).json({ error: 'not_found' })));
+   const auth = requireAuth(deps.verifyToken);
+   const identity = requireIdentity(deps.verifyToken);
++  // Count authenticated attempts by account, before multipart parsing/provider work.
++  const photoLimit = rateLimit({
++    windowMs: 15 * 60 * 1000,
++    limit: 10,
++    standardHeaders: 'draft-7',
++    legacyHeaders: false,
++    keyGenerator: (req) => req.user.uid,
++    handler: (_req, res) => res.status(429).json({ error: 'rate_limited' }),
++  });
+ 
+   // Self-service routes take no id: the account is always the caller's, so another account cannot be named.
+   // They are registered before any /:id route so "me" is never read as an id.
+@@ -21,7 +31,7 @@ export function usersRouter(deps) {
+       res.json(userView({ ...user, uid: req.user.uid }));
+     } catch (e) { next(e); }
+   });
+-  r.put('/me/photo', auth, uploadProfilePhoto(), async (req, res, next) => {
++  r.put('/me/photo', auth, photoLimit, uploadProfilePhoto(), async (req, res, next) => {
+     try { res.json(await setPhoto(deps, req.user.uid, req.file)); } catch (e) { next(e); }
+   });
+   r.delete('/me/photo', auth, async (req, res, next) => {
+diff --git a/api/test/routes/profile-photo.test.js b/api/test/routes/profile-photo.test.js
+index bbc2350..2035182 100644
+--- a/api/test/routes/profile-photo.test.js
++++ b/api/test/routes/profile-photo.test.js
+@@ -156,4 +156,15 @@ describe('profile photo (B1)', () => {
+       expect((await t.repo.getUser(`${role}-1`)).photo.url).toBe(res.body.photoUrl);
+     }
+   });
++  it('limits profile uploads per signed-in account before reading another file', async () => {
++    const t = makeTestApp();
++    for (let i = 0; i < 10; i++) expect((await put(t, t.as('resident'), PNG)).status).toBe(200);
++    const blocked = await put(t, t.as('resident'), PNG);
++    expect(blocked.status).toBe(429);
++    expect(blocked.body.error).toBe('rate_limited');
++    expect(t.uploader.calls).toHaveLength(10);
++    expect((await put(t, t.as('resident', 'another-resident'), PNG)).status).toBe(200);
++    expect((await request(t.app).delete('/api/users/me/photo').set('Authorization', t.as('resident'))).status).toBe(200);
++  });
++
+ });
+diff --git a/mobile/lib/data/api_client.dart b/mobile/lib/data/api_client.dart
+index abc3ce8..2c33e58 100644
+--- a/mobile/lib/data/api_client.dart
++++ b/mobile/lib/data/api_client.dart
+@@ -69,6 +69,7 @@ class ApiClient {
+     Map<String, String> fields = const {},
+     List<http.MultipartFile> files = const [],
+     Map<String, String> headers = const {},
++    Duration? requestTimeout,
+   }) async {
+     final token = await _token();
+     final req = http.MultipartRequest(method, _uri(path))
+@@ -77,15 +78,19 @@ class ApiClient {
+       ..headers.addAll(headers)
+       ..fields.addAll(fields)
+       ..files.addAll(files);
+-    return _run(() async => http.Response.fromStream(await _client.send(req)));
++    return _run(
++      () async => http.Response.fromStream(await _client.send(req)),
++      requestTimeout: requestTimeout,
++    );
+   }
+ 
+   Future<Map<String, dynamic>?> _run(
+-    Future<http.Response> Function() call,
+-  ) async {
++    Future<http.Response> Function() call, {
++    Duration? requestTimeout,
++  }) async {
+     final http.Response res;
+     try {
+-      res = await call().timeout(timeout);
++      res = await call().timeout(requestTimeout ?? timeout);
+     } on ApiException {
+       rethrow;
+     } on TimeoutException {
+diff --git a/mobile/lib/data/services.dart b/mobile/lib/data/services.dart
+index 6e896ee..a7162c7 100644
+--- a/mobile/lib/data/services.dart
++++ b/mobile/lib/data/services.dart
+@@ -701,6 +701,7 @@ class FirestoreProfileRepository implements ProfileRepository {
+     final res = await _api.sendMultipart(
+       'PUT',
+       '/users/me/photo',
++      requestTimeout: const Duration(seconds: 60),
+       files: [
+         // Same as report photos: the server decides the type from the bytes, not the header.
+         http.MultipartFile.fromBytes('photo', photo.bytes, filename: photo.name),
+diff --git a/web/src/components/product-motion.css b/web/src/components/product-motion.css
+index d2e8d98..78d0ccd 100644
+--- a/web/src/components/product-motion.css
++++ b/web/src/components/product-motion.css
+@@ -64,7 +64,7 @@
+   .resident-layout__nav a.active::after { transform: scaleX(1); }
+   /* Shared state changes across public, resident, staff, and admin surfaces. */
+   body :is(.field-error, .calm-field__error) { animation: feedback-arrive 220ms cubic-bezier(.16,1,.3,1); }
+-  body :is(.calm-banner, .range-error, .notification-panel__message, .error[role="alert"], p[role="alert"], p[role="status"]) { animation: feedback-arrive 240ms cubic-bezier(.16,1,.3,1); }
++  body :is(.calm-banner, .range-error, .notification-panel__message, .login__recovery-notice, .error[role="alert"], p[role="alert"], p[role="status"]) { animation: feedback-arrive 240ms cubic-bezier(.16,1,.3,1); }
+   body :is(.calm-empty, .empty, .preview__empty, .location-empty, .notification-panel__empty, .skeleton) { animation: surface-arrive 260ms cubic-bezier(.16,1,.3,1); }
+   body details[open] > :not(summary) { animation: feedback-arrive 220ms cubic-bezier(.16,1,.3,1); }
+   body details > summary { transition: color 150ms ease, background-color 150ms ease; }
+diff --git a/web/src/features/auth/LoginPage.test.tsx b/web/src/features/auth/LoginPage.test.tsx
+index 6d1e930..071424e 100644
+--- a/web/src/features/auth/LoginPage.test.tsx
++++ b/web/src/features/auth/LoginPage.test.tsx
+@@ -217,4 +217,15 @@ describe('LoginPage password recovery', () => {
+     expect(await screen.findByRole('alert')).toHaveTextContent('Could not send your request. Check your internet and try again.');
+     expect(screen.getByRole('button', { name: 'Contact an admin to reset it' })).toBeInTheDocument();
+   });
++  it('keeps the recovery status region mounted before and after a reset result', async () => {
++    renderPage();
++    const status = screen.getByRole('status');
++    expect(status).toBeEmptyDOMElement();
++    expect(document.querySelector('.login__recovery-notice')).toBeNull();
++    await userEvent.type(screen.getByLabelText(/email/i), 'person@example.com');
++    await userEvent.click(screen.getByRole('button', { name: 'Forgot password?' }));
++    await waitFor(() => expect(status).toHaveTextContent('If an account uses this email'));
++    expect(screen.getByRole('status')).toBe(status);
++  });
++
+ });
+diff --git a/web/src/features/auth/LoginPage.tsx b/web/src/features/auth/LoginPage.tsx
+index 69de5cf..16092ee 100644
+--- a/web/src/features/auth/LoginPage.tsx
++++ b/web/src/features/auth/LoginPage.tsx
+@@ -191,7 +191,9 @@ export default function LoginPage() {
+               <button type="button" className="login__recovery-link" onClick={onContactAdmin}
+                 aria-disabled={contacting || busy} aria-busy={contacting}>{contacting ? 'Sending request…' : 'Contact an admin to reset it'}</button>
+             </div>
+-            {recoveryNotice && <p className="login__recovery-notice" role="status">{recoveryNotice}</p>}
++            <div role="status" aria-atomic="true">
++              {recoveryNotice && <p className="login__recovery-notice">{recoveryNotice}</p>}
++            </div>
+             {recoveryError && <Banner id="login-recovery-error" tone="error" role="alert">{recoveryError}</Banner>}
+           </section>
+         </MotionForm>
+diff --git a/web/src/layout/AppShell.profilePhoto.test.tsx b/web/src/layout/AppShell.profilePhoto.test.tsx
+index 8001669..34dd342 100644
+--- a/web/src/layout/AppShell.profilePhoto.test.tsx
++++ b/web/src/layout/AppShell.profilePhoto.test.tsx
+@@ -1,10 +1,11 @@
+ import { describe, it, expect, vi, beforeEach } from 'vitest';
+-import { render, screen, waitFor, within } from '@testing-library/react';
++import { act, render, screen, waitFor, within } from '@testing-library/react';
+ import userEvent from '@testing-library/user-event';
+ import { MemoryRouter } from 'react-router-dom';
+ 
++const auth = vi.hoisted(() => ({ uid: 'd-1' }));
+ vi.mock('../auth/AuthProvider', () => ({
+-  useAuth: () => ({ user: { uid: 'd-1', email: 'd@test.dev', displayName: 'Dana Reyes' }, role: 'admin', logout: vi.fn() }),
++  useAuth: () => ({ user: { uid: auth.uid, email: 'd@test.dev', displayName: 'Dana Reyes' }, role: 'admin', logout: vi.fn() }),
+ }));
+ vi.mock('../features/demo/useDemoIndicator', () => ({ useDemoIndicator: () => null }));
+ vi.mock('../features/resident/useMyNotifications', () => ({
+@@ -32,7 +33,7 @@ async function openProfile() {
+ const identityImg = (dialog: HTMLElement) => dialog.querySelector('.profile-identity img');
+ 
+ describe('AppShell profile photo', () => {
+-  beforeEach(() => { client.api.mockReset(); });
++  beforeEach(() => { client.api.mockReset(); auth.uid = 'd-1'; });
+ 
+   it('choosing a file uploads it and shows the new photo', async () => {
+     client.api.mockImplementation(async (path: string, opts?: { method?: string; formData?: FormData }) => {
+@@ -121,4 +122,17 @@ describe('AppShell profile photo', () => {
+     expect(within(dialog).getByRole('button', { name: 'Change photo' })).toBeInTheDocument();
+     expect(within(dialog).queryByRole('button', { name: 'Remove photo' })).toBeNull();
+   });
++  it('clears the previous account photo while the next account loads or fails', async () => {
++    client.api.mockResolvedValueOnce(me(OLD));
++    const view = render(<MemoryRouter><AppShell title="Dashboard" /></MemoryRouter>);
++    await waitFor(() => expect(document.querySelector('.profile-trigger img')).toHaveAttribute('src', OLD));
++    let fail!: (reason: Error) => void;
++    client.api.mockImplementation(() => new Promise((_, reject) => { fail = reject; }));
++    auth.uid = 'other-account';
++    view.rerender(<MemoryRouter><AppShell title="Dashboard" /></MemoryRouter>);
++    expect(document.querySelector('.profile-trigger img')).toBeNull();
++    await act(async () => { fail(new Error('offline')); });
++    expect(document.querySelector('.profile-trigger img')).toBeNull();
++  });
++
+ });
+diff --git a/web/src/layout/AppShell.tsx b/web/src/layout/AppShell.tsx
+index e526bed..f7992ce 100644
+--- a/web/src/layout/AppShell.tsx
++++ b/web/src/layout/AppShell.tsx
+@@ -63,21 +63,28 @@ export default function AppShell({ title, children }: AppShellProps) {
+   const [menuOpen, setMenuOpen] = useState(false);
+   const [signOutError, setSignOutError] = useState('');
+   const { pathname } = useLocation();
+-  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
++  const [photo, setPhoto] = useState<{ uid: string; url: string | null } | null>(null);
+   // Once the person changes their photo, a slower first load must not overwrite it.
+-  const photoTouched = useRef(false);
++  const photoTouched = useRef<{ uid: string | undefined; touched: boolean }>({ uid: undefined, touched: false });
+   const uid = user?.uid;
++  // Hide the old account's avatar in the first render, even before the next load completes.
++  const photoUrl = photo?.uid === uid ? photo?.url ?? null : null;
+   useEffect(() => {
++    photoTouched.current = { uid, touched: false };
++    setPhoto(null);
+     if (!uid) return;
+     let live = true;
+-    photoTouched.current = false;
+     api('/users/me').then((me) => {
+       const url = (me as { photoUrl?: unknown } | null)?.photoUrl;
+-      if (live && !photoTouched.current) setPhotoUrl(typeof url === 'string' && url ? url : null);
++      if (live && !photoTouched.current.touched) setPhoto({ uid, url: typeof url === 'string' && url ? url : null });
+     }).catch(() => { /* No photo yet: the initials stay. */ });
+     return () => { live = false; };
+   }, [uid]);
+-  const onPhotoChange = (next: string | null) => { photoTouched.current = true; setPhotoUrl(next); };
++  const onPhotoChange = (next: string | null) => {
++    if (!uid || photoTouched.current.uid !== uid) return;
++    photoTouched.current.touched = true;
++    setPhoto({ uid, url: next });
++  };
+   const accountName = user?.displayName || user?.email || '';
+   async function onSignOut() {
+     setSignOutError('');

@@ -1,0 +1,10 @@
+{
+  "brandSvg": {
+    "source": "web/src/components/Brand.tsx",
+    "method": "Exact embedded SVG extracted; xmlns added for standalone use",
+    "sha256": "2ea9643fda7b4fb86b6b85415c890186e851aaedf9d1532cb74e4c356c40b66e"
+  },
+  "fonts": "Existing local Geist WOFF2 from videos/rescue-response/assets",
+  "graphics": "Authored schematic illustration; no live incident data",
+  "audio": "Silent, matching existing landing film"
+}

@@ -1,0 +1,11 @@
+{
+  "requestedModel": "opus",
+  "actualModels": [
+    "claude-opus-5-5"
+  ],
+  "range": "54080d9..9313c72",
+  "isError": true,
+  "result": "You've hit your individual spend limit \u00b7 run /usage-credits to ask your admin for a higher limit \u00b7 your 5-hour limit resets 11:40pm (Asia/Manila)",
+  "reviewCompleted": false,
+  "sourceChangedByReviewer": false
+}

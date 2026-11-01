@@ -1,0 +1,16 @@
+web/src/App.tsx
+web/src/features/admin/AccountsPanel.tsx
+web/src/features/admin/AdminPage.test.tsx
+web/src/features/admin/AdminPage.tsx
+web/src/features/admin/AdminResilience.test.tsx
+web/src/features/admin/BusyControls.test.tsx
+web/src/features/analytics/ExportButtons.tsx
+web/src/features/reports/IncidentPreview.tsx
+web/src/features/reports/ReportQueue.tsx
+web/src/features/reports/StatusBadge.tsx
+web/src/features/teams/TeamsPage.tsx
+web/src/features/users/UsersPage.team.test.tsx
+web/src/features/users/UsersPage.tsx
+web/src/layout/AppShell.tsx
+web/src/admin-workspace.css
+web/src/features/reports/IncidentPreview.contact.test.tsx

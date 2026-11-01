@@ -1,0 +1,4 @@
+npm run test: typecheck passed; 509 tests passed across 70 files.
+npm run build: passed, pre-existing large-chunk advisory.
+git diff --check: passed.
+Chromium: 18 route/viewport cases; 0 overflow; 0 page exceptions; team editor opening, user search and roles deep link passed.
